@@ -10,7 +10,7 @@ import com.erp.distribution.sfa.data.source.local.AppDatabase
 import com.erp.distribution.sfa.data.source.remote.RetrofitService
 import com.erp.distribution.sfa.domain.repository.AlbumRepository
 import com.erp.distribution.sfa.domain.repository.PhotoRepository
-import com.erp.distribution.sfa.util.Constants.BASE_URL
+import com.erp.distribution.sfa.utils.Constants.BASE_URL
 import com.google.gson.Gson
 import dagger.Module
 import dagger.Provides

@@ -1,168 +1,141 @@
-package com.erp.distribution.sfa.model_template;
+package com.erp.distribution.sfa.model_template
 
 /**
  * Julho, 03 2019
  *
  * @author suporte@moonjava.com.br (Tiago Aguiar).
  */
-public class Email {
-
-  private String user;
-  private String subject;
-  private String preview;
-  private String date;
-  private boolean stared;
-  private boolean unread;
-  private boolean selected;
-
-
-  public String getUser() {
-    return user;
-  }
-
-  public void setUser(String user) {
-    this.user = user;
-  }
-
-  public String getSubject() {
-    return subject;
-  }
-
-  public void setSubject(String subject) {
-    this.subject = subject;
-  }
-
-  public String getPreview() {
-    return preview;
-  }
-
-  public void setPreview(String preview) {
-    this.preview = preview;
-  }
-
-  public String getDate() {
-    return date;
-  }
-
-  public void setDate(String date) {
-    this.date = date;
-  }
-
-  public boolean isStared() {
-    return stared;
-  }
-
-  public void setStared(boolean stared) {
-    this.stared = stared;
-  }
-
-  public boolean isUnread() {
-    return unread;
-  }
-
-  public void setUnread(boolean unread) {
-    this.unread = unread;
-  }
-
-  public boolean isSelected() {
-    return selected;
-  }
-
-  public void setSelected(boolean selected) {
-    this.selected = selected;
-  }
-
-  public static class EmailBuilder {
-
-    private String user;
-    private String subject;
-    private String preview;
-    private String date;
-    private boolean stared;
-    private boolean unread;
-    private boolean selected;
-
-    public EmailBuilder setUser(String user) {
-      this.user = user;
-      return this;
+class Email {
+    private var user: String? = null
+    private var subject: String? = null
+    private var preview: String? = null
+    private var date: String? = null
+    private var stared = false
+    private var unread = false
+    private var selected = false
+    fun getUser(): String? {
+        return user
     }
 
-    public EmailBuilder setSubject(String subject) {
-      this.subject = subject;
-      return this;
+    fun setUser(user: String?) {
+        this.user = user
     }
 
-    public EmailBuilder setPreview(String preview) {
-      this.preview = preview;
-      return this;
+    fun getSubject(): String? {
+        return subject
     }
 
-    public EmailBuilder setDate(String date) {
-      this.date = date;
-      return this;
+    fun setSubject(subject: String?) {
+        this.subject = subject
     }
 
-    public EmailBuilder setStared(boolean stared) {
-      this.stared = stared;
-      return this;
+    fun getPreview(): String? {
+        return preview
     }
 
-    public EmailBuilder setUnread(boolean unread) {
-      this.unread = unread;
-      return this;
+    fun setPreview(preview: String?) {
+        this.preview = preview
     }
 
-    public String getUser() {
-      return user;
+    fun getDate(): String? {
+        return date
     }
 
-    public String getSubject() {
-      return subject;
+    fun setDate(date: String?) {
+        this.date = date
     }
 
-    public String getPreview() {
-      return preview;
+    fun isStared(): Boolean {
+        return stared
     }
 
-    public String getDate() {
-      return date;
+    fun setStared(stared: Boolean) {
+        this.stared = stared
     }
 
-    public boolean isStared() {
-      return stared;
+    fun isUnread(): Boolean {
+        return unread
     }
 
-    public boolean isUnread() {
-      return unread;
+    fun setUnread(unread: Boolean) {
+        this.unread = unread
     }
 
-    public boolean isSelected() {
-      return selected;
+    fun isSelected(): Boolean {
+        return selected
     }
 
-    public EmailBuilder setSelected(boolean selected) {
-      this.selected = selected;
-      return this;
+    fun setSelected(selected: Boolean) {
+        this.selected = selected
     }
 
-    private EmailBuilder() {}
+    class EmailBuilder private constructor() {
+        var user: String? = null
+            private set
+        var subject: String? = null
+            private set
+        var preview: String? = null
+            private set
+        var date: String? = null
+            private set
+        var isStared = false
+            private set
+        var isUnread = false
+            private set
+        var isSelected = false
+            private set
 
-    public static EmailBuilder builder() {
-      return new EmailBuilder();
+        fun setUser(user: String?): EmailBuilder {
+            this.user = user
+            return this
+        }
+
+        fun setSubject(subject: String?): EmailBuilder {
+            this.subject = subject
+            return this
+        }
+
+        fun setPreview(preview: String?): EmailBuilder {
+            this.preview = preview
+            return this
+        }
+
+        fun setDate(date: String?): EmailBuilder {
+            this.date = date
+            return this
+        }
+
+        fun setStared(stared: Boolean): EmailBuilder {
+            isStared = stared
+            return this
+        }
+
+        fun setUnread(unread: Boolean): EmailBuilder {
+            isUnread = unread
+            return this
+        }
+
+        fun setSelected(selected: Boolean): EmailBuilder {
+            isSelected = selected
+            return this
+        }
+
+        fun build(): Email {
+            val email = Email()
+            email.user = user
+            email.subject = subject
+            email.preview = preview
+            email.date = date
+            email.stared = isStared
+            email.unread = isUnread
+            email.selected = isSelected
+            return email
+        }
+
+        companion object {
+            fun builder(): EmailBuilder {
+                return EmailBuilder()
+            }
+        }
     }
-
-    public Email build() {
-      Email email = new Email();
-      email.user = user;
-      email.subject = subject;
-      email.preview = preview;
-      email.date = date;
-      email.stared = stared;
-      email.unread = unread;
-      email.selected = selected;
-      return email;
-    }
-
-  }
-
 }

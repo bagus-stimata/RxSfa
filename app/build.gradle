@@ -123,4 +123,8 @@ dependencies {
     implementation 'org.codehaus.jackson:jackson-mapper-asl:1.9.11'
     implementation 'com.fasterxml.jackson.core:jackson-databind:2.3.2'
 
+    //Circular Image
+    implementation 'com.mikhaellopez:circularimageview:3.2.0'
+
+
 }

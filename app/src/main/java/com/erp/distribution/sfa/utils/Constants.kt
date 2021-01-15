@@ -1,4 +1,4 @@
-package com.erp.distribution.sfa.util
+package com.erp.distribution.sfa.utils
 
 
 /**

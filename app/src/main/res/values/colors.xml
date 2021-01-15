@@ -21,4 +21,39 @@
     <color name="golden">#ffc800</color>
     <color name="lightGray">#eaeaea</color>
     <color name="transparent">#5a000000</color>
+
+
+
+    <color name="colorError1">#F44336</color>
+    <color name="colorError2">#fc9e97</color>
+
+    <color name="colorWarning1">#fcf403</color>
+    <color name="colorWarning2">#f7f6ad</color>
+
+    <color name="colorNeutral1">#434343</color>
+    <color name="colorNeutral2">#858585</color>
+
+    <color name="colorError">#CC0000</color>
+    <color name="colorSuccess">#4BB543</color>
+
+    <!--    Like Email Gmail-->
+    <color name="darkerGray">#FF444444</color>
+
+
+    <!--    My Swipeable Recycler View-->
+    <color name="red">#F44336</color>
+<!--    <color name="blue">#2196F3</color>-->
+    <color name="green">#03fc6b</color>
+    <color name="yellow">#fcf403</color>
+    <color name="brown">#fc8403</color>
+<!--    <color name="white">#FFFFFF</color>-->
+
+
+    <!-- LOGIN ACTIVITY -->
+    <!--    <color name="white">#FFFFFF</color>-->
+<!--    <color name="transparent">#00000000</color>-->
+    <color name="gradStart">#19AA8B</color>
+    <color name="gradStop">#23A7D8</color>
+
+
 </resources>
