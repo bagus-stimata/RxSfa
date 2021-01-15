@@ -14,7 +14,7 @@ interface FAreaDao {
      * Harus Menggunakan
      * .allowMainThreadQueries() pada Configurasi database utama agar tidak perlu menggunakan AsynT
      */
-    @Insert
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun insert(fArea: FArea?)
 
     @Update

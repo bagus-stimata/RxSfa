@@ -4,7 +4,7 @@ import androidx.room.TypeConverter
 import com.erp.distribution.sfa.model.modelenum.*
 import java.util.*
 
-object RoomDateConverters {
+open class RoomDateConverters {
     @TypeConverter
     fun fromTimestamp(value: Long?): Date? {
         return if (value == null) null else Date(value)

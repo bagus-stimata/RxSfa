@@ -1,6 +1,6 @@
 package com.erp.distribution.sfa.data.repository
 
-import com.erp.distribution.sfa.data.source.local.AppDatabase
+import com.erp.distribution.sfa.database.AppDatabase
 import com.erp.distribution.sfa.data.source.remote.RetrofitService
 import com.erp.distribution.sfa.domain.model.Photo
 import com.erp.distribution.sfa.domain.repository.PhotoRepository

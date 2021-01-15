@@ -6,7 +6,7 @@ import android.net.ConnectivityManager
 import android.net.NetworkInfo
 import com.erp.distribution.sfa.data.repository.AlbumRepositoryImp
 import com.erp.distribution.sfa.data.repository.PhotoRepositoryImp
-import com.erp.distribution.sfa.data.source.local.AppDatabase
+import com.erp.distribution.sfa.database.AppDatabase
 import com.erp.distribution.sfa.data.source.remote.RetrofitService
 import com.erp.distribution.sfa.domain.repository.AlbumRepository
 import com.erp.distribution.sfa.domain.repository.PhotoRepository
