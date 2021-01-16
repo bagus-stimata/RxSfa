@@ -14,7 +14,7 @@ interface FUserDao {
      * Harus Menggunakan
      * .allowMainThreadQueries() pada Configurasi database utama agar tidak perlu menggunakan AsynT
      */
-    @Insert
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun insert(fUser: FUser)
 
     @Update
@@ -38,10 +38,10 @@ interface FUserDao {
     @Query("SELECT * FROM fUser WHERE id = :id ")
     fun getAllByIdLive(id: Int): LiveData<FUser>
 
-    @Query("SELECT * FROM fUser WHERE fdivisionBean = :id ")
-    fun getAllByDivision(id: Int): List<FUser>
-
-    @Query("SELECT * FROM fUser WHERE fdivisionBean = :id ")
-    fun getAllByDivisionLive(id: Int): LiveData<List<FUser>>
+//    @Query("SELECT * FROM fUser WHERE fdivisionBean = :id ")
+//    fun getAllByDivision(id: Int): List<FUser>
+//
+//    @Query("SELECT * FROM fUser WHERE fdivisionBean = :id ")
+//    fun getAllByDivisionLive(id: Int): LiveData<List<FUser>>
 
 }

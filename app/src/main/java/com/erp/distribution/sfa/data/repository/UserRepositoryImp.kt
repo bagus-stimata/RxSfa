@@ -1,53 +1,43 @@
 package com.erp.distribution.sfa.data.repository
 
 import androidx.lifecycle.LiveData
-import com.erp.distribution.sfa.database.AppDatabase
+import com.erp.distribution.sfa.domain.model.Album
 import com.erp.distribution.sfa.data.source.remote.RetrofitService
+import com.erp.distribution.sfa.data.source.remote.RetrofitServiceDummy
+import com.erp.distribution.sfa.database.AppDatabase
+import com.erp.distribution.sfa.domain.model.DummyUser
 import com.erp.distribution.sfa.domain.model.Photo
-import com.erp.distribution.sfa.domain.repository.PhotoRepository
+import com.erp.distribution.sfa.domain.repository.AlbumRepository
 import com.erp.distribution.sfa.domain.repository.UserRepository
 import com.erp.distribution.sfa.security_model.FUser
 import io.reactivex.Single
 
+
 /**
  * This repository is responsible for
- * fetching data [photo] from server or db
+ * fetching data[Album] from server or db
  * */
 class UserRepositoryImp(
-    private val database: AppDatabase,
-    private val retrofitService: RetrofitService
-) : UserRepository {
+    private val appDatabase: AppDatabase,
+    private val retrofitService: RetrofitServiceDummy
+) :
+    UserRepository {
 
-    override fun getCacheAll(): LiveData<List<FUser>> {
-        return database.userDao.allFUserLive
+
+    override fun getAllData(): Single<List<DummyUser>> {
+        return retrofitService.getAlbums()
     }
 
-    override fun getCacheById(entityId: Long): LiveData<FUser> {
-        return database.userDao.getAllByIdLive(entityId.toInt())
+    override fun getCacheData(): LiveData<List<FUser>> {
+       return appDatabase.userDao.allFUserLive
     }
 
-    override fun deleteCache(entity: FUser) {
-        return database.userDao.delete(entity)
+    override fun addCacheData(fUser: FUser) {
+      appDatabase.userDao.insert(fUser)
     }
 
-    override fun addCache(entity: FUser) {
-        return database.userDao.insert(entity)
+    override fun deleteAllCacheData() {
+        appDatabase.userDao.deleteAllFUser()
     }
-
-
-//    override fun getRemoteAll(): Single<List<FUser>> {
-//    }
-//
-//    override fun getRemoteById(entityId: Long): Single<FUser> {
-//        TODO("Not yet implemented")
-//    }
-//
-//    override fun deleteRemote(entity: FUser) {
-//        TODO("Not yet implemented")
-//    }
-//
-//    override fun addRemote(entity: FUser) {
-//        TODO("Not yet implemented")
-//    }
 
 }

@@ -14,7 +14,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.RxSfa">
-        <activity android:name="com.erp.distribution.sfa.presentation.gallery.GalleryActivity">
+<!--        <activity android:name="com.erp.distribution.sfa.presentation.gallery.GalleryActivity">-->
+        <activity android:name="com.erp.distribution.sfa.presentation.TestActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

@@ -15,10 +15,8 @@ class AlbumRepositoryImp(
 ) :
     AlbumRepository {
 
-
     override fun getAlbums(): Single<List<Album>> {
         return retrofitService.getAlbums()
     }
-
 
 }

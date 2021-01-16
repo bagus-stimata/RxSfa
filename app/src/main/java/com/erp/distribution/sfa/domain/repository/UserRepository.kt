@@ -1,32 +1,18 @@
 package com.erp.distribution.sfa.domain.repository
 
 import androidx.lifecycle.LiveData
-import com.erp.distribution.sfa.domain.model.Photo
+import com.erp.distribution.sfa.domain.model.Album
+import com.erp.distribution.sfa.domain.model.DummyUser
 import com.erp.distribution.sfa.security_model.FUser
 import io.reactivex.Single
 
-
 /**
- * To make an interaction between [PhotoRepositoryImp] & [GetPhotosUseCase]
+ * To make an interaction between [AlbumRepositoryImp] & [GetAlbumsUseCase]
  * */
 interface UserRepository {
+    fun getAllData(): Single<List<DummyUser>>
+    fun getCacheData(): LiveData<List<FUser>>
 
-    fun getCacheAll(): LiveData<List<FUser>>
-
-    fun getCacheById(entityId: Long): LiveData<FUser>
-
-    fun deleteCache(entity: FUser)
-
-    fun addCache(entity: FUser)
-
-
-//    fun getRemoteAll(): Single<List<FUser>>
-//
-//    fun getRemoteById(entityId: Long): Single<FUser>
-//
-//    fun deleteRemote(entity: FUser)
-//
-//    fun addRemote(entity: FUser)
-
-
+    fun addCacheData(fUser: FUser)
+    fun deleteAllCacheData()
 }

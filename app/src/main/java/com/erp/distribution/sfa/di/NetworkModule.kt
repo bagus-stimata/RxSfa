@@ -6,10 +6,13 @@ import android.net.ConnectivityManager
 import android.net.NetworkInfo
 import com.erp.distribution.sfa.data.repository.AlbumRepositoryImp
 import com.erp.distribution.sfa.data.repository.PhotoRepositoryImp
+import com.erp.distribution.sfa.data.repository.UserRepositoryImp
+import com.erp.distribution.sfa.data.source.remote.RetrofitServiceDummy
 import com.erp.distribution.sfa.database.AppDatabase
 import com.erp.distribution.sfa.data.source.remote.RetrofitService
 import com.erp.distribution.sfa.domain.repository.AlbumRepository
 import com.erp.distribution.sfa.domain.repository.PhotoRepository
+import com.erp.distribution.sfa.domain.repository.UserRepository
 import com.erp.distribution.sfa.utils.Constants.BASE_URL
 import com.google.gson.Gson
 import dagger.Module
@@ -117,6 +120,16 @@ class NetworkModule {
     fun provideService(retrofit: Retrofit): RetrofitService {
         return retrofit.create(RetrofitService::class.java)
     }
+    @Singleton
+    @Provides
+    fun provideServiceDummy(retrofit: Retrofit): RetrofitServiceDummy {
+        return retrofit.create(RetrofitServiceDummy::class.java)
+    }
+
+
+
+
+
 
     @Singleton
     @Provides
@@ -134,4 +147,15 @@ class NetworkModule {
     ): PhotoRepository {
         return PhotoRepositoryImp(appDatabase, retrofitService)
     }
+
+    @Singleton
+    @Provides
+    fun provideDummyUserRepository(
+        appDatabase: AppDatabase,
+        retrofitService: RetrofitServiceDummy
+    ): UserRepository {
+        return UserRepositoryImp(appDatabase, retrofitService)
+    }
+
+
 }
