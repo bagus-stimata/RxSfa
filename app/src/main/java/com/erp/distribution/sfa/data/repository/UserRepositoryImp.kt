@@ -13,7 +13,7 @@ import io.reactivex.Single
  * This repository is responsible for
  * fetching data [photo] from server or db
  * */
-class userRepositoryImp(
+class UserRepositoryImp(
     private val database: AppDatabase,
     private val retrofitService: RetrofitService
 ) : UserRepository {
@@ -34,20 +34,20 @@ class userRepositoryImp(
         return database.userDao.insert(entity)
     }
 
-    override fun getRemoteAll(): Single<List<FUser>> {
-        TODO("Not yet implemented")
-    }
 
-    override fun getRemoteById(entityId: Long): Single<FUser> {
-        TODO("Not yet implemented")
-    }
-
-    override fun deleteRemote(entity: FUser) {
-        TODO("Not yet implemented")
-    }
-
-    override fun addRemote(entity: FUser) {
-        TODO("Not yet implemented")
-    }
+//    override fun getRemoteAll(): Single<List<FUser>> {
+//    }
+//
+//    override fun getRemoteById(entityId: Long): Single<FUser> {
+//        TODO("Not yet implemented")
+//    }
+//
+//    override fun deleteRemote(entity: FUser) {
+//        TODO("Not yet implemented")
+//    }
+//
+//    override fun addRemote(entity: FUser) {
+//        TODO("Not yet implemented")
+//    }
 
 }

@@ -20,13 +20,13 @@ interface UserRepository {
     fun addCache(entity: FUser)
 
 
-    fun getRemoteAll(): Single<List<FUser>>
-
-    fun getRemoteById(entityId: Long): Single<FUser>
-
-    fun deleteRemote(entity: FUser)
-
-    fun addRemote(entity: FUser)
+//    fun getRemoteAll(): Single<List<FUser>>
+//
+//    fun getRemoteById(entityId: Long): Single<FUser>
+//
+//    fun deleteRemote(entity: FUser)
+//
+//    fun addRemote(entity: FUser)
 
 
 }

@@ -7,7 +7,7 @@ import com.erp.distribution.sfa.domain.usecase.GetMainUseCase
 import com.erp.distribution.sfa.domain.usecase.GetPhotoDetailUseCase
 import java.util.*
 
-class MainViewModel @ViewModelInject constructor(private val getMainUseCase: GetMainUseCase) : ViewModel()  {
+class MainViewModel @ViewModelInject constructor() : ViewModel()  {
 
 //    init {
 //        repository = FUserRepository(application)
