@@ -24,7 +24,7 @@ class UserRepositoryImp(
     UserRepository {
 
 
-    override fun getAllData(): Single<List<DummyUser>> {
+    override fun getRemoteData(): Single<List<DummyUser>> {
         return retrofitService.getAlbums()
     }
 

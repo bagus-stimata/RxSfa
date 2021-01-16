@@ -86,7 +86,9 @@ class TestViewModel @ViewModelInject constructor(private val getMainUseCase: Get
     fun addCacheData() {
 //        getMainUseCase.addCacheData(FUser(1, "bagus.stimata@gmail.com", "bagus", "hacker", "hacker", "hacker", "Bagus Winarno", "0812333", "catatan baik", null, null, false, 1, 1, 1 , false, false, Date(), Date(), "userbagus" ))
         getMainUseCase.addCacheData(FUser(1, "bagus.stimata@gmail.com","bagus",
-            "hacker", "hacker", "hacker", "Bagus Winarno", "0821222", "Ini catatan oke"))
+            "hacker", "hacker", "hacker", "Bagus Winarno",
+            "0821222", "Ini catatan oke", 1, 1, Date(), Date(),
+            "userBagus"))
     }
 
     fun deleteAllCacheData() {

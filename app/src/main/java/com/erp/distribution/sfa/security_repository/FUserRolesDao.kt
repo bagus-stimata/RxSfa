@@ -14,27 +14,30 @@ interface FUserRolesDao {
      * Harus Menggunakan
      * .allowMainThreadQueries() pada Configurasi database utama agar tidak perlu menggunakan AsynT
      */
-    @Insert
-    fun insert(fUserRoles: FUserRoles?)
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    fun insert(fUserRoles: FUserRoles)
 
     @Update
-    fun update(fUserRoles: FUserRoles?)
+    fun update(fUserRoles: FUserRoles)
 
     @Delete
-    fun delete(fUserRoles: FUserRoles?)
+    fun delete(fUserRoles: FUserRoles)
 
     @Query("DELETE FROM fUserRoles")
     fun deleteAllFUserRoles()
 
     @get:Query("SELECT * FROM fUserRoles ")
-    val allFUserRolesLive: LiveData<List<FUserRoles?>?>?
+    val allFUserRolesLive: LiveData<List<FUserRoles>>
 
     @get:Query("SELECT * FROM fUserRoles ")
-    val allFUserRoles: List<FUserRoles?>?
+    val allFUserRoles: List<FUserRoles>
 
     @Query("SELECT * FROM fUserRoles WHERE id = :id ")
-    fun getAllById(id: Int): List<FUserRoles?>?
+    fun getAllById(id: Int): List<FUserRoles>
 
     @Query("SELECT * FROM fUserRoles WHERE fuserBeanInt = :id ")
-    fun getAllByParentId(id: Int): List<FUserRoles?>?
+    fun getAllByParentId(id: Int): List<FUserRoles>
+
+    @Query("SELECT * FROM fUserRoles WHERE fuserBeanInt = :id ")
+    fun getAllByParentIdLive(id: Int): LiveData<List<FUserRoles>>
 }

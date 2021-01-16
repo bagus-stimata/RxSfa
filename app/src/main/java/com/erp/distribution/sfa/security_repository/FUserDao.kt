@@ -32,16 +32,25 @@ interface FUserDao {
     @get:Query("SELECT * FROM fUser ")
     val allFUser: List<FUser>
 
+
     @Query("SELECT * FROM fUser WHERE id = :id ")
-    fun getAllById(id: Int): List<FUser>
+    fun getAllById(id: Int): FUser
 
     @Query("SELECT * FROM fUser WHERE id = :id ")
     fun getAllByIdLive(id: Int): LiveData<FUser>
 
-//    @Query("SELECT * FROM fUser WHERE fdivisionBean = :id ")
-//    fun getAllByDivision(id: Int): List<FUser>
-//
-//    @Query("SELECT * FROM fUser WHERE fdivisionBean = :id ")
-//    fun getAllByDivisionLive(id: Int): LiveData<List<FUser>>
+    @Query("SELECT * FROM fUser WHERE username = :username ")
+    fun getAllByUsername(username: String): FUser
+
+    @Query("SELECT * FROM fUser WHERE username = :username ")
+    fun getAllByUsernameLive(username: String): LiveData<FUser>
+
+
+
+    @Query("SELECT * FROM fUser WHERE fdivisionBean = :id ")
+    fun getAllByDivision(id: Int): List<FUser>
+
+    @Query("SELECT * FROM fUser WHERE fdivisionBean = :id ")
+    fun getAllByDivisionLive(id: Int): LiveData<List<FUser>>
 
 }

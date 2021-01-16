@@ -1,9 +1,7 @@
 package com.erp.distribution.sfa.domain.usecase
 
 import androidx.lifecycle.LiveData
-import com.erp.distribution.sfa.domain.model.Album
 import com.erp.distribution.sfa.domain.model.DummyUser
-import com.erp.distribution.sfa.domain.repository.AlbumRepository
 import com.erp.distribution.sfa.domain.repository.UserRepository
 import com.erp.distribution.sfa.domain.usecase.base.SingleUseCase
 import com.erp.distribution.sfa.security_model.FUser
@@ -19,7 +17,7 @@ import javax.inject.Inject
 class GetMainUseCase @Inject constructor(private val repository: UserRepository) : SingleUseCase<List<DummyUser>>() {
 
     override fun buildUseCaseSingle(): Single<List<DummyUser>> {
-        return repository.getAllData()
+        return repository.getRemoteData()
     }
     fun getCacheData(): LiveData<List<FUser>>{
         return repository.getCacheData()

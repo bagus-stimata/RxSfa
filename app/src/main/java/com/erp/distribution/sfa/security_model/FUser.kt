@@ -37,11 +37,11 @@ data class FUser(
     /**
      * Tambahan for DES Setting
      */
-//    var fdivisionBean: Int,
-//    var fwarehouseBean: Int = 0,
+    var fdivisionBean: Int,
+    var fwarehouseBean: Int,
 
 //    @Ignore
-//    var tempInt1: Int = 0,
+//    var tempInt1: Int?,
 
 //    @Ignore
 //    var isTempBol1: Boolean = false,
@@ -49,10 +49,8 @@ data class FUser(
 //    @Ignore
 //    var isTempBol2: Boolean = false,
 
-//    var created: Date = Date(),
-//    var lastModified: Date = Date(),
-//    var modifiedBy: String
+    var created: Date = Date(),
+    var lastModified: Date = Date(),
+    var modifiedBy: String
 
-) {
-
-}
+)
