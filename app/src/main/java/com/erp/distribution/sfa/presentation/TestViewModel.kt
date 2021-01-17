@@ -9,6 +9,7 @@ import com.erp.distribution.sfa.domain.usecase.GetAlbumsUseCase
 import com.erp.distribution.sfa.domain.usecase.GetMainUseCase
 import com.erp.distribution.sfa.security_model.FUser
 import dagger.hilt.android.AndroidEntryPoint
+import io.reactivex.Single
 import java.util.*
 
 class TestViewModel @ViewModelInject constructor(private val getMainUseCase: GetMainUseCase) : ViewModel()  {
@@ -77,8 +78,25 @@ class TestViewModel @ViewModelInject constructor(private val getMainUseCase: Get
 
 
 
-    val playlistData = MutableLiveData<List<FUser>>()
+    val domainData = MutableLiveData<List<FUser>>()
 
+
+    fun getRetrieveRemoteData() {
+
+        Log.d("result", "Cek 1")
+        getMainUseCase.execute(
+            onSuccess = {
+//                isLoad.value = true
+                domainData.value = it
+                Log.d("result", "Yes ada bos $it")
+            },
+            onError = {
+                it.printStackTrace()
+            }
+        )
+        Log.d("result", "Cek 2")
+
+    }
 
     fun getCacheData(): LiveData<List<FUser>> {
         return getMainUseCase.getCacheData()

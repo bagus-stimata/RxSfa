@@ -28,24 +28,26 @@ class TestActivity : AppCompatActivity() {
         }
 
 
-        viewModel.addCacheData()
+        viewModel.getRetrieveRemoteData()
+
+//        viewModel.addCacheData()
 //        viewModel.deleteAllCacheData()
 
-        viewModel.getCacheData() .observe(this, {
-            mainBinding.apply {
-
-                it?.let {
-                    if (it.isNotEmpty()) {
-                        textTest.text = it[0].username
-                    }
-                    Log.d("result", "Hello Tidak Null, tapi kemungkinan kosong")
-                    it.reversed()
-                }.also {
-                    Log.d("result", "ditulis juka karena tidak null")
-                }
-
-            }
-        })
+//        viewModel.domainData .observe(this, {
+//            mainBinding.apply {
+//
+//                it?.let {
+//                    if (it.isNotEmpty()) {
+//                        textTest.text = "yes Bos ${it[0].username}"
+//                    }
+//                    Log.d("result", "Hello Tidak Null, tapi kemungkinan kosong")
+//                    it.reversed()
+//                }.also {
+//                    Log.d("result", "ditulis juka karena tidak null")
+//                }
+//
+//            }
+//        })
 
 
     }

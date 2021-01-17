@@ -14,11 +14,15 @@ import javax.inject.Inject
  * it handles the response that returns data &
  * contains a list of actions, event steps
  */
-class GetMainUseCase @Inject constructor(private val repository: UserRepository) : SingleUseCase<List<DummyUser>>() {
+class GetMainUseCase @Inject constructor(private val repository: UserRepository) : SingleUseCase<List<FUser>>() {
 
-    override fun buildUseCaseSingle(): Single<List<DummyUser>> {
+    override fun buildUseCaseSingle(): Single<List<FUser>> {
         return repository.getRemoteData()
     }
+    fun getRemoteData(): Single<List<FUser>>{
+        return repository.getRemoteData()
+    }
+
     fun getCacheData(): LiveData<List<FUser>>{
         return repository.getCacheData()
     }

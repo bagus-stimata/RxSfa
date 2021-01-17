@@ -2,14 +2,11 @@ package com.erp.distribution.sfa.data.repository
 
 import androidx.lifecycle.LiveData
 import com.erp.distribution.sfa.domain.model.Album
-import com.erp.distribution.sfa.data.source.remote.RetrofitService
 import com.erp.distribution.sfa.data.source.remote.RetrofitServiceDummy
 import com.erp.distribution.sfa.database.AppDatabase
-import com.erp.distribution.sfa.domain.model.DummyUser
-import com.erp.distribution.sfa.domain.model.Photo
-import com.erp.distribution.sfa.domain.repository.AlbumRepository
 import com.erp.distribution.sfa.domain.repository.UserRepository
 import com.erp.distribution.sfa.security_model.FUser
+import com.erp.distribution.sfa.utils.Constants
 import io.reactivex.Single
 
 
@@ -24,8 +21,8 @@ class UserRepositoryImp(
     UserRepository {
 
 
-    override fun getRemoteData(): Single<List<DummyUser>> {
-        return retrofitService.getAlbums()
+    override fun getRemoteData(): Single<List<FUser>> {
+        return retrofitService.getAllData(Constants.authHeader)
     }
 
     override fun getCacheData(): LiveData<List<FUser>> {
