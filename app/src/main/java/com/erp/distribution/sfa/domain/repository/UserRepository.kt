@@ -10,12 +10,19 @@ import io.reactivex.Single
  * To make an interaction between [AlbumRepositoryImp] & [GetAlbumsUseCase]
  * */
 interface UserRepository {
-    fun getRemoteData(): Single<List<FUser>>
-//    fun getRemoteDataById(id: Int): Single<DummyUser>
-//    fun getRemoteDataByUsername(username: String): Single<List<DummyUser>>
-//    fun getRemoteDataByParentId(parenId: Int): Single<List<DummyUser>>
+    fun getRemoteAllData(): Single<List<FUser>>
+    fun getRemoteDataById(id: Int): Single<FUser>
+    fun getRemoteDataByUsername(username: String): Single<FUser>
+    fun getRemoteDataByEmail(email: String): Single<FUser>
+//    fun getRemoteDataByParentId(parenId: Int): Single<List<FUser>>
 
     fun getCacheData(): LiveData<List<FUser>>
+    fun getCacheDataById(id: Int): LiveData<FUser>
+    fun getCacheDataByUsername(username: String): LiveData<FUser>
+    fun getCacheDataByEmail(email: String): LiveData<FUser>
+
     fun addCacheData(fUser: FUser)
     fun deleteAllCacheData()
+
+
 }

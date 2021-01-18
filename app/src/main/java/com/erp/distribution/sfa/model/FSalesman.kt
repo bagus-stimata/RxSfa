@@ -7,10 +7,10 @@ import com.erp.distribution.sfa.model.modelenum.EnumSalesType
 import java.util.*
 
 //@Entity(tableName = "fsalesman")
-@Entity(tableName = "FSalesman")
-class FSalesman {
-    @PrimaryKey(autoGenerate = true)
-    var id = 0
+@Entity(tableName = "fSalesman")
+class FSalesman (
+    @PrimaryKey
+    var id : Int,
 
     /*
     * JIKA COPY DARI TEMPAT LAIN: MAKA SEBAGAI LOG TRACK MENINGGALKAN SOURCE_ID = ID sumber asal dia dicopy
@@ -18,9 +18,9 @@ class FSalesman {
     * 1. Clone Database. karena tidak mungkin menggunakan Kode External yang bisa jadi kemungkinan kembar, tapi harus pakai kode internal
     * 2. 
     */
-    var sourceID = 0
-    var spcode = ""
-    var spname = ""
+    var sourceID : Int,
+    var spcode : String,
+    var spname : String,
 
     /*
     * TIPE JUAL SALESMAN
@@ -31,43 +31,43 @@ class FSalesman {
     */
     //	@Column(name="SALES_TYPE", length=5)
     //	private String salesType="";
-    var salesType: EnumSalesType? = null
+    var salesType: EnumSalesType = EnumSalesType.TO,
 
     //	@ManyToOne
     //	@JoinColumn(name="fdivisionBean", referencedColumnName="ID")
     //	private FDivision fdivisionBean;
-    var fdivisionBean = 0
-    var address1 = ""
-    var city1 = ""
-    var state1 = ""
-    var phone = ""
-    var mobile = ""
-    var whatsApp = ""
-    var email = ""
-    var joinDate = Date()
-    var lastTrans = Date()
-    var bornPlace = ""
-    var bornDate = Date()
-    var religion: EnumReligion? = null
-    var isStatusActive = false
-    var isWebServiceActive = false
+    var fdivisionBean : Int,
+    var address1 : String,
+    var city1 : String,
+    var state1 : String,
+    var phone : String,
+    var mobile : String,
+    var whatsApp : String,
+    var email : String,
+    var joinDate : Date = Date(),
+    var lastTrans : Date = Date(),
+    var bornPlace : String,
+    var bornDate : Date = Date(),
+    var religion: EnumReligion = EnumReligion.OTH1,
+    var isStatusActive : Boolean,
+    var isWebServiceActive : Boolean,
 
     //FOR KASSA
-    var isKassaStatusOpen = false
-    var kassaIp = ""
+    var isKassaStatusOpen : Boolean,
+    var kassaIp : String,
 
     //	@OneToMany(mappedBy="fsalesmanBean", fetch=FetchType.LAZY, cascade=CascadeType.ALL)
     //	@ManyToOne
     //	@JoinColumn(name="ftPriceAlthBean", referencedColumnName="ID", nullable=true)
     //	private FtPriceAlth ftPriceAlthBean;
-    var ftPriceAlthBean = 0
+    var ftPriceAlthBean : Int,
 
     /*
     * ignore/reject promotion rules setting
     */
-    var isNoPromotionRules = false
-    var isVendorcovered = false
-    var created = Date()
-    var modified = Date()
-    var modifiedBy = "" //User ID
-}
+    var isNoPromotionRules : Boolean,
+    var isVendorcovered : Boolean,
+    var created : Date = Date(),
+    var modified : Date = Date(),
+    var modifiedBy : String //User ID
+)

@@ -5,11 +5,8 @@ import androidx.hilt.lifecycle.ViewModelInject
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.erp.distribution.sfa.domain.usecase.GetAlbumsUseCase
 import com.erp.distribution.sfa.domain.usecase.GetMainUseCase
 import com.erp.distribution.sfa.security_model.FUser
-import dagger.hilt.android.AndroidEntryPoint
-import io.reactivex.Single
 import java.util.*
 
 class TestViewModel @ViewModelInject constructor(private val getMainUseCase: GetMainUseCase) : ViewModel()  {
@@ -80,7 +77,6 @@ class TestViewModel @ViewModelInject constructor(private val getMainUseCase: Get
 
     val domainData = MutableLiveData<List<FUser>>()
 
-
     fun getRetrieveRemoteData() {
 
         Log.d("result", "Cek 1")
@@ -99,7 +95,7 @@ class TestViewModel @ViewModelInject constructor(private val getMainUseCase: Get
     }
 
     fun getCacheData(): LiveData<List<FUser>> {
-        return getMainUseCase.getCacheData()
+        return getMainUseCase.getCacheAllData()
     }
     fun addCacheData() {
 //        getMainUseCase.addCacheData(FUser(1, "bagus.stimata@gmail.com", "bagus", "hacker", "hacker", "hacker", "Bagus Winarno", "0812333", "catatan baik", null, null, false, 1, 1, 1 , false, false, Date(), Date(), "userbagus" ))

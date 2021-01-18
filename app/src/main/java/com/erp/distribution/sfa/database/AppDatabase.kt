@@ -22,23 +22,59 @@ import com.erp.distribution.sfa.security_repository.FUserRolesDao
  * @Created by ZARA
  */
 @Database(entities = [
+    FUser::class, FUserRoles::class,
+    FArea::class,
+    FCompany::class,
+    FCustomer::class,
+    FCustomerGroup::class,
+//    FCustomerPic::class,
+//    FCustomerSalesman::class,
+//    FDistributionChannel::class,
+    FDivision::class,
+//    FGiro::class,
+    FMaterial::class,
+//    FMaterialGroup1::class,
+//    FMaterialGroup2::class,
+//    FMaterialGroup3::class,
+//    FMaterialPic::class,
+//    FMaterialSalesBrand::class,
+//    FParamDiskonItem::class,
+//    FParamDiskonItemVendor::class,
+//    FParamDiskonNota::class,
+//    FPromotionRulesdPayments::class,
+//    FPromotionRulesdValidCusts::class,
+//    FPromotionRulesdValidProducts::class,
+//    FPromotionRulesh::class,
+//    FRegion::class,
+    FSalesman::class,
+//    FStock::class,
+    FSubArea::class,
+//    FtApPaymentd::class,
+//    FtApPaymenth::class,
+//    FtArPaymentd::class,
+//    FtArPaymenth::class,
+//    FTax::class,
+//    FtOpnamedItems::class,
+//    FtOpnameh::class,
+//    FtPriceAltdItems::class,
+//    FtPriceAlth::class,
+//    FtPricedItems::class,
+//    FtPriceh::class,
+//    FtPurchasedItems::class,
+//    FtPurchaseh::class,
+//    FtSalesdItems::class,
+//    FtSalesh::class,
+//    FtStockTransferdItems::class,
+//    FtStockTransferh::class,
+//    FUangMuka::class,
+//    FVendor::class,
+//    FWarehouse::class,
+//    Sysvar::class
+
     Photo::class
-    ,
-    FUser::class, FUserRoles::class
-//    ,
-//    FArea::class, FCompany::class, FCustomer::class, FCustomerGroup::class, FCustomerPic::class, FCustomerSalesman::class,
-//    FDistributionChannel::class, FDivision::class, FGiro::class, FMaterial::class, FMaterialGroup1::class,
-//    FMaterialGroup2::class, FMaterialGroup3::class, FMaterialPic::class, FMaterialSalesBrand::class,
-//    FParamDiskonItem::class, FParamDiskonItemVendor::class, FParamDiskonNota::class, FPromotionRulesdPayments::class,
-//    FPromotionRulesdValidCusts::class, FPromotionRulesdValidProducts::class, FPromotionRulesh::class,
-//    FRegion::class, FSalesman::class, FStock::class, FSubArea::class, FtApPaymentd::class, FtApPaymenth::class,
-//    FtArPaymentd::class, FtArPaymenth::class, FTax::class, FtOpnamedItems::class, FtOpnameh::class,
-//    FtPriceAltdItems::class, FtPriceAlth::class, FtPricedItems::class, FtPriceh::class, FtPurchasedItems::class, FtPurchaseh::class,
-//    FtSalesdItems::class, FtSalesh::class, FtStockTransferdItems::class, FtStockTransferh::class, FUangMuka::class,
-//    FVendor::class, FWarehouse::class, Sysvar::class, FExpedisi::class
 
 
-                     ], version = 13, exportSchema = false)
+                     ], version = 17, exportSchema = false)
 @TypeConverters(RoomDateConverters::class) //Karena ada Native Date
 abstract class AppDatabase : RoomDatabase() {
 
@@ -47,17 +83,17 @@ abstract class AppDatabase : RoomDatabase() {
     abstract val userDao: FUserDao
     abstract val userRolesDao: FUserRolesDao
 
-//    abstract val areaDao: FAreaDao
-//    abstract val companyDao: FCompanyDao
-//    abstract val customerDao: FCustomerDao
-//    abstract val customerGroupDao: FCustomerGroupDao
+    abstract val areaDao: FAreaDao
+    abstract val companyDao: FCompanyDao
+    abstract val customerDao: FCustomerDao
+    abstract val customerGroupDao: FCustomerGroupDao
 //    abstract val customerPicDao: FCustomerPicDao
 //    abstract val customerSalesmanDao: FCustomerSalesmanDao
 //    abstract val distributionChannelDao: FDistributionChannelDao
-//    abstract val divisionDao: FDivisionDao
+    abstract val divisionDao: FDivisionDao
 //    abstract val expedisiDao: FExpedisiDao
 //    abstract val giroDao: FGiroDao
-//    abstract val materialDao: FMaterialDao
+    abstract val materialDao: FMaterialDao
 //    abstract val materialGroup1Dao: FMaterialGroup1Dao
 //    abstract val materialGroup2Dao: FMaterialGroup2Dao
 //    abstract val materialGroup3Dao: FMaterialGroup3Dao
@@ -71,9 +107,9 @@ abstract class AppDatabase : RoomDatabase() {
 //    abstract val promotionRulesdValidProductsDao: FPromotionRulesdValidProductsDao
 //    abstract val promotionRuleshDao: FPromotionRuleshDao
 //    abstract val regionDao: FRegionDao
-//    abstract val salesmanDao: FSalesmanDao
+    abstract val salesmanDao: FSalesmanDao
 //    abstract val stockDao: FStockDao
-//    abstract val subAreaDao: FSubAreaDao
+    abstract val subAreaDao: FSubAreaDao
 //    abstract val apPaymentdDao: FtApPaymentdDao
 //    abstract val apPaymenthDao: FtApPaymenthDao
 //    abstract val arPaymentdDao: FtArPaymentdDao

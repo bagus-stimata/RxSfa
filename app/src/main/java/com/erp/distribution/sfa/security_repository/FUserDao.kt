@@ -27,10 +27,10 @@ interface FUserDao {
     fun deleteAllFUser()
 
     @get:Query("SELECT * FROM fUser ")
-    val allFUserLive: LiveData<List<FUser>>
+    val getAllFUserLive: LiveData<List<FUser>>
 
     @get:Query("SELECT * FROM fUser ")
-    val allFUser: List<FUser>
+    val getAllFUser: List<FUser>
 
 
     @Query("SELECT * FROM fUser WHERE id = :id ")
@@ -45,6 +45,8 @@ interface FUserDao {
     @Query("SELECT * FROM fUser WHERE username = :username ")
     fun getAllByUsernameLive(username: String): LiveData<FUser>
 
+    @Query("SELECT * FROM fUser WHERE email = :email ")
+    fun getAllByEmailLive(email: String): LiveData<FUser>
 
 
     @Query("SELECT * FROM fUser WHERE fdivisionBean = :id ")
@@ -52,5 +54,6 @@ interface FUserDao {
 
     @Query("SELECT * FROM fUser WHERE fdivisionBean = :id ")
     fun getAllByDivisionLive(id: Int): LiveData<List<FUser>>
+
 
 }

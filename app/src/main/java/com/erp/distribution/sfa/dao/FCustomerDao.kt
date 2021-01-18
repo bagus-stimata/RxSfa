@@ -14,27 +14,39 @@ interface FCustomerDao {
      * Harus Menggunakan
      * .allowMainThreadQueries() pada Configurasi database utama agar tidak perlu menggunakan AsynT
      */
-    @Insert
-    fun insert(fCustomer: FCustomer?)
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    fun insert(fCustomer: FCustomer)
 
     @Update
-    fun update(fCustomer: FCustomer?)
+    fun update(fCustomer: FCustomer)
 
     @Delete
-    fun delete(fCustomer: FCustomer?)
+    fun delete(fCustomer: FCustomer)
 
-    @Query("DELETE FROM fCustomer")
+    @Query("DELETE FROM FCustomer")
     fun deleteAllFCustomer()
 
-    @get:Query("SELECT * FROM fCustomer ")
-    val allFCustomerLive: LiveData<List<FCustomer?>?>?
-
-    @get:Query("SELECT * FROM fCustomer ")
-    val allFCustomer: List<FCustomer?>?
-
     @Query("SELECT * FROM fCustomer WHERE id = :id ")
-    fun getAllById(id: Int): List<FCustomer?>?
+    fun getAllById(id: Int): FCustomer
+    @Query("SELECT * FROM fCustomer WHERE id = :id ")
+    fun getAllByIdLive(id: Int): LiveData<FCustomer>
+
+
+    @get:Query("SELECT * FROM fCustomer ")
+    val getAllFCustomer: List<FCustomer>
+    @get:Query("SELECT * FROM fCustomer ")
+    val getAllFCustomerLive: LiveData<List<FCustomer>>
+
+    @Query("SELECT * FROM fCustomer WHERE custname LIKE :custname ")
+    fun getAllFCustomerByKode(custname: String): List<FCustomer>
+    @Query("SELECT * FROM fCustomer WHERE custname LIKE :custname ")
+    fun getAllFCustomerByKodeLive(custname: String): LiveData<List<FCustomer>>
+
 
     @Query("SELECT * FROM fCustomer WHERE fdivisionBean = :id ")
-    fun getAllByDivision(id: Int): List<FCustomer?>?
+    fun getAllByDivision(id: Int): List<FCustomer>
+
+    @Query("SELECT * FROM fCustomer WHERE fdivisionBean = :id ")
+    fun getAllByDivisionLive(id: Int): LiveData<List<FCustomer>>
+
 }

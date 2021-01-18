@@ -5,17 +5,17 @@ import androidx.room.PrimaryKey
 import java.util.*
 
 //@Entity(tableName = "fcompany")
-@Entity(tableName = "fcompany")
-class FCompany {
-    @PrimaryKey(autoGenerate = true)
-    var id = 0
-    var kode1 = ""
-    var kode2 = ""
-    var description = ""
-    var isShareDataToBeClone = false
-    var shareDataToBeCloneSecurityCode = ""
-    var isStatusActive = true
-    var isWebServiceActive = false
+@Entity(tableName = "fCompany")
+data class FCompany (
+    @PrimaryKey
+    var id: Int,
+    var kode1 : String,
+    var kode2 : String,
+    var description : String,
+    var isShareDataToBeClone: Boolean,
+    var shareDataToBeCloneSecurityCode : String,
+    var isStatusActive: Boolean,
+    var isWebServiceActive: Boolean,
 
     /*
     * SETTING YANG BERLAKU UNTUK SEMUA DIVISI
@@ -28,24 +28,25 @@ class FCompany {
 	 * 
 	 */
     //	@Column(name="NOMOR_URUT_DOC_FOLLOW_APP") //SELALU MENGIKUTI NOMOR URUT COMPANY
-    //	private boolean nomorUrutDocTransFollowApp = true;
+    //	private boolean nomorUrutDocTransFollowApp: Boolean,;
     /*
 	 * FORMAT FAKTUR DAN ALAMAT
 	 */
     //	@Column(name="INVOICE_COMP_NAME_1", length=75)
-    //	private String invoiceCompanyName1 = "";
+    //	private String invoiceCompanyName1 : String,;
     //	@Column(name="INVOICE_COMP_ADDRESS_1", length=120)
-    //	private String invoiceCompanyAddress1 = "";
+    //	private String invoiceCompanyAddress1 : String,;
     //	@Column(name="INVOICE_COMP_CITY_1", length=30)
-    //	private String invoiceCompanyCity1 = "";
+    //	private String invoiceCompanyCity1 : String,;
     //	@Column(name="INVOICE_COMP_PHONE_1", length=25)
-    //	private String invoiceCompanyPhone1 = "";
+    //	private String invoiceCompanyPhone1 : String,;
     /*
  * Pajak, Nomor Urut Transaksi, Nomor Urut Customer, Mengikuti Corporation	
  */
     //	@Column(name="INVOICE_COMPANY_NPWP_1", length=45)
-    //	private String invoiceCompanyNpwpPhone1 = "";
-    var created = Date()
-    var modified = Date()
-    var modifiedBy = "" //User ID
-}
+    //	private String invoiceCompanyNpwpPhone1 : String,;
+    var created : Date = Date(),
+    var modified : Date = Date(),
+    var modifiedBy : String //User ID
+
+)

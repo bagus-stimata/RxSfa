@@ -14,27 +14,38 @@ interface FSalesmanDao {
      * Harus Menggunakan
      * .allowMainThreadQueries() pada Configurasi database utama agar tidak perlu menggunakan AsynT
      */
-    @Insert
-    fun insert(fSalesman: FSalesman?)
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    fun insert(fSalesman: FSalesman)
 
     @Update
-    fun update(fSalesman: FSalesman?)
+    fun update(fSalesman: FSalesman)
 
     @Delete
-    fun delete(fSalesman: FSalesman?)
+    fun delete(fSalesman: FSalesman)
 
-    @Query("DELETE FROM fSalesman")
+    @Query("DELETE FROM FSalesman")
     fun deleteAllFSalesman()
 
-    @get:Query("SELECT * FROM fSalesman ")
-    val allFSalesmanLive: LiveData<List<FSalesman?>?>?
-
-    @get:Query("SELECT * FROM fSalesman ")
-    val allFSalesman: List<FSalesman?>?
-
     @Query("SELECT * FROM fSalesman WHERE id = :id ")
-    fun getAllById(id: Int): List<FSalesman?>?
+    fun getAllById(id: Int): FSalesman
+    @Query("SELECT * FROM fSalesman WHERE id = :id ")
+    fun getAllByIdLive(id: Int): LiveData<FSalesman>
+
+
+    @get:Query("SELECT * FROM fSalesman ")
+    val getAllFSalesman: List<FSalesman>
+    @get:Query("SELECT * FROM fSalesman ")
+    val getAllFSalesmanLive: LiveData<List<FSalesman>>
+
+    @Query("SELECT * FROM fSalesman WHERE spcode LIKE :spcode ")
+    fun getAllFSalesmanByKode(spcode: String): List<FSalesman>
+    @Query("SELECT * FROM fSalesman WHERE spcode LIKE :spcode ")
+    fun getAllFSalesmanByKodeLive(spcode: String): LiveData<List<FSalesman>>
+
 
     @Query("SELECT * FROM fSalesman WHERE fdivisionBean = :id ")
-    fun getAllByDivision(id: Int): List<FSalesman?>?
+    fun getAllByDivision(id: Int): List<FSalesman>
+
+    @Query("SELECT * FROM fSalesman WHERE fdivisionBean = :id ")
+    fun getAllByDivisionLive(id: Int): LiveData<List<FSalesman>>
 }

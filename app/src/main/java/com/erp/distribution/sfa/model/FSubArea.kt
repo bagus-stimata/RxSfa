@@ -5,10 +5,10 @@ import androidx.room.PrimaryKey
 import java.util.*
 
 //@Entity(tableName = "fsub_area")
-@Entity(tableName = "FSubArea")
-class FSubArea {
-    @PrimaryKey(autoGenerate = true)
-    var id = 0
+@Entity(tableName = "fSubArea")
+class FSubArea (
+    @PrimaryKey
+    var id : Int, 
 
     /*
     * JIKA COPY DARI TEMPAT LAIN: MAKA SEBAGAI LOG TRACK MENINGGALKAN SOURCE_ID = ID sumber asal dia dicopy
@@ -16,19 +16,19 @@ class FSubArea {
     * 1. Clone Database. karena tidak mungkin menggunakan Kode External yang bisa jadi kemungkinan kembar, tapi harus pakai kode internal
     * 2. 
     */
-    var sourceID = 0
-    var kode1 = ""
-    var kode2 = ""
-    var description: String? = null
+    var sourceID : Int, 
+    var kode1 : String, 
+    var kode2 : String, 
+    var description: String,
 
     //	@ManyToOne
     //	@JoinColumn(name="fareaBean", referencedColumnName="ID")
     //	private FArea fareaBean;
-    var fareaBean = 0
+    var fareaBean : Int, 
 
     //	@OneToMany(mappedBy="fsubareaBean", fetch=FetchType.LAZY, cascade=CascadeType.ALL)
-    var isStatusActive = true
-    var created = Date()
-    var modified = Date()
-    var modifiedBy = "" //User ID
-}
+    var isStatusActive: Boolean, 
+    var created : Date = Date(), 
+    var modified : Date = Date(), 
+    var modifiedBy : String,  //User ID
+)

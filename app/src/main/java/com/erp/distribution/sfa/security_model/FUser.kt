@@ -8,7 +8,7 @@ import java.util.*
 
 @Entity(tableName = "fUser")
 data class FUser(
-    @PrimaryKey(autoGenerate = true)
+    @PrimaryKey
     var id: Int = 0,
     var email: String,
     var username: String,

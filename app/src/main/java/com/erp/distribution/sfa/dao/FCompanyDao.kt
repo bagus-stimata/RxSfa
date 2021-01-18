@@ -9,24 +9,36 @@ import com.erp.distribution.sfa.model.FCompany
  */
 @Dao
 interface FCompanyDao {
-    @Insert
-    fun insert(fCompany: FCompany?)
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    fun insert(fCompany: FCompany)
 
     @Update
-    fun update(fCompany: FCompany?)
+    fun update(fCompany: FCompany)
 
     @Delete
-    fun delete(fCompany: FCompany?)
+    fun delete(fCompany: FCompany)
 
-    @Query("DELETE FROM fCompany")
+    @Query("DELETE FROM FCompany")
     fun deleteAllFCompany()
 
-    @get:Query("SELECT * FROM fCompany ")
-    val allFCompanyLive: LiveData<List<FCompany?>?>?
-
-    @get:Query("SELECT * FROM fCompany ")
-    val allFCompany: List<FCompany?>?
+    @Query("SELECT * FROM fCompany WHERE id = :id ")
+    fun getAllById(id: Int): FCompany
 
     @Query("SELECT * FROM fCompany WHERE id = :id ")
-    fun getAllById(id: Int): List<FCompany?>?
+    fun getAllByIdLive(id: Int): LiveData<FCompany>
+
+    @get:Query("SELECT * FROM fCompany ")
+    val getAllFCompanyLive: LiveData<List<FCompany>>
+
+    @get:Query("SELECT * FROM fCompany ")
+    val getAllFCompanyByKodeLive: LiveData<List<FCompany>>
+
+    @get:Query("SELECT * FROM fCompany ")
+    val getAllFCompany: List<FCompany>
+
+
+//    @Query("SELECT * FROM fCompany WHERE fdivisionBean = :id ")
+//    fun getAllByDivision(id: Int): List<FCompany>
+
+
 }

@@ -14,27 +14,38 @@ interface FSubAreaDao {
      * Harus Menggunakan
      * .allowMainThreadQueries() pada Configurasi database utama agar tidak perlu menggunakan AsynT
      */
-    @Insert
-    fun insert(fSubArea: FSubArea?)
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    fun insert(fSubArea: FSubArea)
 
     @Update
-    fun update(fSubArea: FSubArea?)
+    fun update(fSubArea: FSubArea)
 
     @Delete
-    fun delete(fSubArea: FSubArea?)
+    fun delete(fSubArea: FSubArea)
 
-    @Query("DELETE FROM fSubArea")
+    @Query("DELETE FROM FSubArea")
     fun deleteAllFSubArea()
 
-    @get:Query("SELECT * FROM fSubArea ")
-    val allFSubAreaLive: LiveData<List<FSubArea?>?>?
-
-    @get:Query("SELECT * FROM fSubArea ")
-    val allFSubArea: List<FSubArea?>?
-
     @Query("SELECT * FROM fSubArea WHERE id = :id ")
-    fun getAllById(id: Int): List<FSubArea?>?
+    fun getAllById(id: Int): FSubArea
+    @Query("SELECT * FROM fSubArea WHERE id = :id ")
+    fun getAllByIdLive(id: Int): LiveData<FSubArea>
+
+
+    @get:Query("SELECT * FROM fSubArea ")
+    val getAllFSubArea: List<FSubArea>
+    @get:Query("SELECT * FROM fSubArea ")
+    val getAllFSubAreaLive: LiveData<List<FSubArea>>
+
+    @Query("SELECT * FROM fSubArea WHERE kode1 LIKE :kode1 ")
+    fun getAllFSubAreaByKode(kode1: String): List<FSubArea>
+    @Query("SELECT * FROM fSubArea WHERE kode1 LIKE :kode1 ")
+    fun getAllFSubAreaByKodeLive(kode1: String): LiveData<List<FSubArea>>
+
 
     @Query("SELECT * FROM fSubArea WHERE fareaBean = :id ")
-    fun getAllByParentId(id: Int): List<FSubArea?>?
+    fun getAllByParent(id: Int): List<FSubArea>
+
+    @Query("SELECT * FROM fSubArea WHERE fareaBean = :id ")
+    fun getAllByParentLive(id: Int): LiveData<List<FSubArea>>
 }

@@ -2,14 +2,13 @@ package com.erp.distribution.sfa.model
 
 import androidx.room.Entity
 import androidx.room.PrimaryKey
-import java.io.Serializable
 import java.util.*
 
 //@Entity(tableName = "fcustomer_group")
-@Entity(tableName = "FCustomerGroup")
-class FCustomerGroup : Serializable {
-    @PrimaryKey(autoGenerate = true)
-    var id = 0
+@Entity(tableName = "fCustomerGroup")
+class FCustomerGroup (
+    @PrimaryKey
+    var id : Int,
 
     /*
     * JIKA COPY DARI TEMPAT LAIN: MAKA SEBAGAI LOG TRACK MENINGGALKAN SOURCE_ID = ID sumber asal dia dicopy
@@ -17,22 +16,22 @@ class FCustomerGroup : Serializable {
     * 1. Clone Database. karena tidak mungkin menggunakan Kode External yang bisa jadi kemungkinan kembar, tapi harus pakai kode internal
     * 2. 
     */
-    var sourceID = 0
-    var kode1 = ""
-    var kode2 = ""
-    var description: String? = null
-    var isStatusActive = true
+    var sourceID : Int,
+    var kode1 : String,
+    var kode2 : String,
+    var description: String,
+    var isStatusActive : Boolean,
 
     //	@ManyToOne
     //	@JoinColumn(name="fdivisionBean", referencedColumnName="ID")
     //	private FDivision fdivisionBean;
-    var fdivisionBean = 0
+    var fdivisionBean : Int,
 
     //	@ManyToOne
     //	@JoinColumn(name="ftPriceAlthBean", referencedColumnName="ID", nullable=true)
     //	private FtPriceAlth ftPriceAlthBean;
-    var ftPriceAlthBean = 0
-    var created = Date()
-    var modified = Date()
-    var modifiedBy = "" //User ID
-}
+    var ftPriceAlthBean : Int,
+    var created : Date = Date(),
+    var modified : Date = Date(),
+    var modifiedBy : String //User ID
+)

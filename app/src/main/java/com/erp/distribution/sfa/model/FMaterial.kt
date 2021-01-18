@@ -8,10 +8,10 @@ import com.erp.distribution.sfa.model.modelenum.EnumUom
 import java.util.*
 
 //@Entity(tableName = "fmaterial")
-@Entity(tableName = "FMaterial")
-class FMaterial  {
-    @PrimaryKey(autoGenerate = true)
-    var id = 0
+@Entity(tableName = "fMaterial")
+class FMaterial  (
+    @PrimaryKey
+    var id : Int,
 
     /*
     * JIKA COPY DARI TEMPAT LAIN: MAKA SEBAGAI LOG TRACK MENINGGALKAN SOURCE_ID = ID sumber asal dia dicopy
@@ -19,29 +19,28 @@ class FMaterial  {
     * 1. Clone Database. karena tidak mungkin menggunakan Kode External yang bisa jadi kemungkinan kembar, tapi harus pakai kode internal
     * 2. 
     */
-    @Ignore
-    var sourceID = 0
+//    @Ignore
+//    var sourceID : Int,
 
-    @Ignore
-    var noUrut = 0
-    var pcode = ""
-    var barcode = ""
-    var pname = ""
+//    @Ignore
+//    var noUrut : Int,
 
-    @Ignore
-    var oldKode1 = ""
+    var pcode : String,
+    var barcode : String,
+    var pname : String,
 
-    @Ignore
-     
-    var varianName = ""
+//    @Ignore
+//    var oldKode1 : String,
 
-    @Ignore
-     
-    var isFreeGood = false
+//    @Ignore
+//    var varianName : String,
 
-    @Ignore
-    var shortname = ""
-    var isStatusActive = true
+//    @Ignore
+//    var isFreeGood : Boolean,
+
+//    @Ignore
+//    var shortname : String,
+    var isStatusActive : Boolean,
 
     /*
     * KLASIFIKASI: BASIC
@@ -55,18 +54,16 @@ class FMaterial  {
 	 * 
 	 * 	 Dalam satu Divisi biasanya terdapat beberapa Vendor
 	 */
-    @Ignore
-     
-    var isExclusiveDivisionTransaction = false
+//    @Ignore
+//    var isExclusiveDivisionTransaction : Boolean,
 
-    @Ignore
-     
-    var isExclusiveDivisionView = false
+//    @Ignore
+//    var isExclusiveDivisionView : Boolean,
 
     //	@ManyToOne
     //	@JoinColumn(name="fdivisionBean", referencedColumnName="ID")
     //	private FDivision fdivisionBean;
-    var fdivisionBean = 0
+    var fdivisionBean : Int,
 
     /*
     * TAX
@@ -74,11 +71,10 @@ class FMaterial  {
     //	@ManyToOne
     //	@JoinColumn(name="ftaxBean", referencedColumnName="ID")
     //	private FTax ftaxBean;
-    var ftaxBean = 0
+    var ftaxBean : Int,
 
-    @Ignore
-     
-    var isTaxable = true
+//    @Ignore
+//    var isTaxable : Boolean,
 
     /*
     * Adalah Vendor Utama Produk Tersebut
@@ -87,37 +83,33 @@ class FMaterial  {
     * exclusiveVendorTransaction: Input Penjualan, Pembelian akan menolak jika berlaikan Vendor
     * Transaksi Mutasi & Stock opname tidak termasuk(sementara)
     */
-    @Ignore
-     
-    var isExclusiveVendorTransaction = false
+//    @Ignore
+//    var isExclusiveVendorTransaction : Boolean,
 
     //	@ManyToOne
     //	@JoinColumn(name="fvendorBean", referencedColumnName="ID")
     //	private FVendor fvendorBean;
-    var fvendorBean = 0
+    var fvendorBean : Int,
 
     //	@ManyToOne
     //	@JoinColumn(name="fwarehouseBean_Utm", referencedColumnName="ID")
     //	private FWarehouse fwarehouseBean_Utm;
-    @Ignore
-     
-    var fwarehouseBean_Utm = 0
+//    @Ignore
+//    var fwarehouseBean_Utm : Int,
 
-    @Ignore
-     
-    var materialType: EnumMaterialType? = null
+//    @Ignore
+//    var materialType: EnumMaterialType,
 
     //	@ManyToOne
     //	@JoinColumn(name="fdistributionChannelBean", referencedColumnName="ID")
     //	private FDistributionChannel fdistributionChannelBean;
-    @Ignore
-     
-    var fdistributionChannelBean = 0
+//    @Ignore
+//    var fdistributionChannelBean : Int,
 
     //	@ManyToOne
     //	@JoinColumn(name="fmaterialGroup3Bean", referencedColumnName="ID")
     //	private FMaterialGroup3 fmaterialGroup3Bean;
-    var fmaterialGroup3Bean = 0
+    var fmaterialGroup3Bean : Int,
 
     /*
     * KLASIFIKASI: SALES
@@ -125,34 +117,30 @@ class FMaterial  {
     //	@ManyToOne
     //	@JoinColumn(name="fmaterialSalesBrandBean", referencedColumnName="ID")
     //	private FMaterialSalesBrand fmaterialSalesBrandBean;
-    var fmaterialSalesBrandBean = 0
+    var fmaterialSalesBrandBean : Int,
 
     //BATCH CODE --> Berhubungan dengan Stockist atau Gudang
     //PRODUCTION CODE --> Berhubungan dengan TANGGAL DIPRODUKSI DAN EXP.DATE
-    @Ignore
-     
-    var principalCode = ""
+//    @Ignore
+//    var principalCode : String,
 
-    @Ignore
-     
-    var batchCode = ""
+//    @Ignore
+//    var batchCode : String,
 
-    @Ignore
-     
-    var productionCode = ""
-    var productionDate = Date()
-    var expiredDate = Date()
+//    @Ignore
+//    var productionCode : String,
+    var productionDate : Date = Date(),
+    var expiredDate : Date = Date(),
 
-    @Ignore
-     
-    var prodclass = 0
-    var uom1 = ""
-    var uom2 = ""
-    var uom3 = ""
-    var uom4 = ""
-    var convfact1 = 1 //uom1 to uom4
-    var convfact2 = 1 //uom2 to uom4
-    var convfact3 = 1 //uom3 to uom4
+//    @Ignore
+//    var prodclass : Int,
+    var uom1 : String,
+    var uom2 : String,
+    var uom3 : String,
+    var uom4 : String,
+    var convfact1 : Int, //uom1 to uom4
+    var convfact2 : Int, //uom2 to uom4
+    var convfact3  : Int, //uom3 to uom4
 
     /*
     * PRICE yang muncul pada faktur dengan menggunakan UOM
@@ -162,61 +150,53 @@ class FMaterial  {
     * 4.uom 4
     * 
     */
-    var priceUom: EnumUom = EnumUom.UOM1
+    var priceUom: EnumUom = EnumUom.UOM1,
 
     //	@Transient
-    //	private Integer temp_QtySaldo = 0; //Penolong untuk keperluan lain: seperti untuk saldo retur atas faktur
-    @Ignore
-    var temp_QtySaldo = 0.0 //Penolong untuk keperluan lain: seperti untuk saldo retur atas faktur
+    //	private Integer temp_QtySaldo : Int,; //Penolong untuk keperluan lain: seperti untuk saldo retur atas faktur
+//    @Ignore
+//    var temp_QtySaldo : Int, //Penolong untuk keperluan lain: seperti untuk saldo retur atas faktur
 
     /*
     * Harga Beli berbeda dengan HPP
     */
-    @Ignore
-     
-    var hargaBeliUOM4NetAfterPpn = 0.0
+//    @Ignore
+//    var hargaBeliUOM4NetAfterPpn : Int,
 
     /*
     * HPP disimpan Perdivisi pada Tabel AccBalanceHpp
     * HPP adalah Harga Net Per Barang SEBELUM PPN
     */
-    @Ignore
-     
-    var hppAwalPprice2 = 0.0 //Jika tidak ada HPP Awal maka menggunakan Harga Barang Net Sebelum PPN
+//    @Ignore
+//    var hppAwalPprice2 : Int, //Jika tidak ada HPP Awal maka menggunakan Harga Barang Net Sebelum PPN
 
-    @Ignore
-     
-    var hppLifo = 0.0
+//    @Ignore
+//    var hppLifo : Int,
 
-    @Ignore
-     
-    var hppLifoTotalAmount = 0.0
+//    @Ignore
+//    var hppLifoTotalAmount : Int,
 
-    @Ignore
-     
-    var hppAverage = 0.0
+//    @Ignore
+//    var hppAverage : Int,
 
-    @Ignore
-     
-    var hppAverageTotalAmount = 0.0
+//    @Ignore
+//    var hppAverageTotalAmount : Int,
 
-    @Ignore
-     
-    var hppFifo = 0.0
+//    @Ignore
+//    var hppFifo : Int,
 
-    @Ignore
-     
-    var hppFifoTotalAmount = 0.0
+//    @Ignore
+//    var hppFifoTotalAmount : Int,
 
     //PPRICE:: Disimpan dalam satuan Terbesar dan Terkecil. Setelah dan sebelum PPN
-    var pprice = 0.0
-    var ppriceAfterPpn = 0.0
-    var pprice2 = 0.0
-    var pprice2AfterPpn = 0.0
-    var sprice = 0.0
-    var spriceAfterPpn: Double? = null
-    var sprice2 = 0.0
-    var sprice2AfterPpn = 0.0
+    var pprice : Int,
+    var ppriceAfterPpn : Int,
+    var pprice2 : Int,
+    var pprice2AfterPpn : Int,
+    var sprice : Int,
+    var spriceAfterPpn: Double,
+    var sprice2 : Int,
+    var sprice2AfterPpn : Int,
 
     /*
     * Min Stok: sama dengan Buffer Stock
@@ -224,159 +204,111 @@ class FMaterial  {
     * cara yang paling realistis untuk mengukur stok over adalah
     * Melihat History Penjualan Vs Jumalh Stok hasilnya adalah = Jumlah hari stok akan habis
     */
-    var minQtyStok = 0
+    var minQtyStok : Int,
 
     //TIDAK BOLEH DIGANTI-GANTI
-    @Ignore
-      //dalam Mili Liter
-    var volumeSmalest = 0
+//    @Ignore
+//    var volumeSmalest : Int,
 
     //Dalam Grams
-    var weightSmalest = 0
+    var weightSmalest : Int,
 
     //Dalam Grams
-    var caseWeight = 0
+    var caseWeight : Int,
 
     //IN Cm.. Cm3
-    @Ignore
-     
-    var caseWidth = 0 //Panjang
+//    @Ignore
+//    var caseWidth : Int, //Panjang
 
-    @Ignore
-     
-    var caseHeight = 0 //Tinggi
+//    @Ignore
+//    var caseHeight : Int, //Tinggi
 
-    @Ignore
-     
-    var caseDepth = 0 //Lebar (dibalik kan kalau english.. hehehe)
+//    @Ignore
+//    var caseDepth : Int, //Lebar (dibalik kan kalau english.. hehehe)
 
-    @Ignore
-     
-    var isFlagNewItem = false
+//    @Ignore
+//    var isFlagNewItem : Boolean,
 
-    @Ignore
-     
-    var isFlagNewPrice = false
+//    @Ignore
+//    var isFlagNewPrice : Boolean,
 
-    @Ignore
-     
-    var isUseSpriceAlt = false
+//    @Ignore
+//    var isUseSpriceAlt : Boolean,
 
     //#PRICEALT1 -- Retail -->ALL AFTER PPN
     //Retail-Besar
-    @Ignore
-     
-    var spriceAltRetailBes = 0.0
+//    @Ignore
+//    var spriceAltRetailBes : Int,
 
     //Retail-Sedang
-    @Ignore
-     
-    var spriceAltRetailSed = 0.0
+//    @Ignore
+//    var spriceAltRetailSed : Int,
 
     //Retail-Kecil
-    @Ignore
-     
-    var spriceAltRetailKec = 0.0
+//    @Ignore
+//    var spriceAltRetailKec : Int,
 
     //#PRICEALT2 --> Grosir 1
     //Grosir-Besar
-    @Ignore
-     
-    var spriceAltGrosir1Bes = 0.0
+//    @Ignore
+//    var spriceAltGrosir1Bes : Int,
 
     //Grosir-Sed
-    @Ignore
-     
-    var spriceAltGrosir1Sed = 0.0
+//    @Ignore
+//    var spriceAltGrosir1Sed : Int,
 
     //Grosir-Kec
-    @Ignore
-     
-    var spriceAltGrosir1Kec = 0.0
+//    @Ignore
+//    var spriceAltGrosir1Kec : Int,
 
     //#PRICEALT3 --> Grosir 2
     //Grosir2-Bes
     //Grosir-Besar
-    @Ignore
-     
-    var spriceAltGrosir2Bes = 0.0
+//    @Ignore
+//    var spriceAltGrosir2Bes : Int,
 
     //Grosir-Sed
-    @Ignore
-     
-    var spriceAltGrosir2Sed = 0.0
+//    @Ignore
+//    var spriceAltGrosir2Sed : Int,
 
     //Grosir-Kec
-    @Ignore
-     
-    var spriceAltGrosir2Kec = 0.0
+//    @Ignore
+//    var spriceAltGrosir2Kec : Int,
 
     //Grosir Quantity
-    @Ignore
-     
-    var spriceAltGrosirQtyMoreEqual1 = 0.0
+//    @Ignore
+//    var spriceAltGrosirQtyMoreEqual1 : Int,
 
-    @Ignore
-     
-    var spriceAltGrosirQtyMoreEqual2 = 0.0
+//    @Ignore
+//    var spriceAltGrosirQtyMoreEqual2 : Int,
 
-    @Ignore
-     
-    var spriceAltGrosirQtyMoreEqual3 = 0.0
+//    @Ignore
+//    var spriceAltGrosirQtyMoreEqual3 : Int,
 
-    @Ignore
-     
-    var spriceAltGrosirQtyMoreEqual4 = 0.0
+//    @Ignore
+//    var spriceAltGrosirQtyMoreEqual4 : Int,
 
-    @Ignore
-     
-    var spriceAltGrosirQtyValue1 = 0.0
+//    @Ignore
+//    var spriceAltGrosirQtyValue1 : Int,
 
-     
-    var spriceAltGrosirQtyValue2 = 0.0
 
-    @Ignore
-     
-    var spriceAltGrosirQtyValue3 = 0.0
-
-    @Ignore
-     
-    var spriceAltGrosirQtyValue4 = 0.0
+//    @Ignore
+//    var spriceAltGrosirQtyValue2 : Int,
+//    @Ignore
+//    var spriceAltGrosirQtyValue3 : Int,
+//    @Ignore
+//    var spriceAltGrosirQtyValue4 : Int,
 
      
-    var created = Date()
-
+    var created : Date = Date(),
      
-    var modified = Date()
+    var modified : Date = Date(),
 
-     
-    var modifiedBy = "" //User ID
+    var modifiedBy : String //User ID
 
-    @Ignore
-     
-    var isStared = false
+//    @Ignore
+//    var isStared : Boolean,
+//    @Ignore
+//    var isUnread : Boolean,
 
-    @Ignore
-     
-    var isUnread = false
-
-    @Ignore
-     
-    var isSelected = false
-    override fun equals(o: Any?): Boolean {
-        if (this === o) return true
-        if (o == null || javaClass != o.javaClass) return false
-        val fMaterial = o as FMaterial
-        return id == fMaterial.id
-    }
-
-    override fun hashCode(): Int {
-        return id.hashCode()
-    }
-
-    override fun toString(): String {
-        return "FMaterial{" +
-                "id=" + id +
-                '}'
-    }
-}
+)

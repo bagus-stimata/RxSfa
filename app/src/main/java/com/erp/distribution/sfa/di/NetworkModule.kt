@@ -7,7 +7,7 @@ import android.net.NetworkInfo
 import com.erp.distribution.sfa.data.repository.AlbumRepositoryImp
 import com.erp.distribution.sfa.data.repository.PhotoRepositoryImp
 import com.erp.distribution.sfa.data.repository.UserRepositoryImp
-import com.erp.distribution.sfa.data.source.remote.RetrofitServiceDummy
+import com.erp.distribution.sfa.data.source.remote.RetrofitServiceSecurity
 import com.erp.distribution.sfa.database.AppDatabase
 import com.erp.distribution.sfa.data.source.remote.RetrofitService
 import com.erp.distribution.sfa.domain.repository.AlbumRepository
@@ -122,8 +122,8 @@ class NetworkModule {
     }
     @Singleton
     @Provides
-    fun provideServiceDummy(retrofit: Retrofit): RetrofitServiceDummy {
-        return retrofit.create(RetrofitServiceDummy::class.java)
+    fun provideServiceDummy(retrofit: Retrofit): RetrofitServiceSecurity {
+        return retrofit.create(RetrofitServiceSecurity::class.java)
     }
 
 
@@ -152,7 +152,7 @@ class NetworkModule {
     @Provides
     fun provideDummyUserRepository(
         appDatabase: AppDatabase,
-        retrofitService: RetrofitServiceDummy
+        retrofitService: RetrofitServiceSecurity
     ): UserRepository {
         return UserRepositoryImp(appDatabase, retrofitService)
     }

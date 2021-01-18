@@ -49,6 +49,20 @@ class TestActivity : AppCompatActivity() {
 //            }
 //        })
 
+        viewModel.domainData.observe(this, {
+            mainBinding.apply {
+
+                it?.let {
+                    if (it.isNotEmpty()) {
+//                        textTest.text = "yes Bos ${it[0].username}"
+                        textTest.text = it.toString()
+                        it
+                    }
+                }.also {
+                }
+
+            }
+        })
 
     }
 

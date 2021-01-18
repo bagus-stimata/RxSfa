@@ -36,38 +36,34 @@ class DatabaseModule {
     internal fun providePhotoDao(appDatabase: AppDatabase): PhotoDao {
         return appDatabase.photoDao
     }
-//    @Provides
-//    internal fun provideAreaDao(appDatabase: AppDatabase): FAreaDao {
-//        return appDatabase.areaDao
-//    }
 
     @Provides
     internal fun provideUserDao(appDatabase: AppDatabase): FUserDao = appDatabase.userDao
     @Provides
     internal fun provideUserRolesDao(appDatabase: AppDatabase): FUserRolesDao = appDatabase.userRolesDao
 
-//    @Provides
-//    internal fun provideAreaDao(appDatabase: AppDatabase): FAreaDao = appDatabase.areaDao
-//    @Provides
-//    internal fun provideFCompanyDao(appDatabase: AppDatabase): FCompanyDao = appDatabase.companyDao
-//    @Provides
-//    internal fun provideFCustomerDao(appDatabase: AppDatabase): FCustomerDao = appDatabase.customerDao
-//    @Provides
-//    internal fun provideFCustomerGroupDao(appDatabase: AppDatabase): FCustomerGroupDao = appDatabase.customerGroupDao
+    @Provides
+    internal fun provideAreaDao(appDatabase: AppDatabase): FAreaDao = appDatabase.areaDao
+    @Provides
+    internal fun provideFCompanyDao(appDatabase: AppDatabase): FCompanyDao = appDatabase.companyDao
+    @Provides
+    internal fun provideFCustomerDao(appDatabase: AppDatabase): FCustomerDao = appDatabase.customerDao
+    @Provides
+    internal fun provideFCustomerGroupDao(appDatabase: AppDatabase): FCustomerGroupDao = appDatabase.customerGroupDao
 //    @Provides
 //    internal fun provideFCustomerPicDao(appDatabase: AppDatabase): FCustomerPicDao = appDatabase.customerPicDao
 //    @Provides
 //    internal fun provideFCustomerSalesmanDao(appDatabase: AppDatabase): FCustomerSalesmanDao = appDatabase.customerSalesmanDao
 //    @Provides
 //    internal fun provideFDistributionChannelDao(appDatabase: AppDatabase): FDistributionChannelDao = appDatabase.distributionChannelDao
-//    @Provides
-//    internal fun provideFDivisionDao(appDatabase: AppDatabase): FDivisionDao = appDatabase.divisionDao
+    @Provides
+    internal fun provideFDivisionDao(appDatabase: AppDatabase): FDivisionDao = appDatabase.divisionDao
 //    @Provides
 //    internal fun provideFExpedisiDao(appDatabase: AppDatabase): FExpedisiDao = appDatabase.expedisiDao
 //    @Provides
 //    internal fun provideFGiroDao(appDatabase: AppDatabase): FGiroDao = appDatabase.giroDao
-//    @Provides
-//    internal fun provideFMaterialDao(appDatabase: AppDatabase): FMaterialDao = appDatabase.materialDao
+    @Provides
+    internal fun provideFMaterialDao(appDatabase: AppDatabase): FMaterialDao = appDatabase.materialDao
 //
 //    @Provides
 //    internal fun provideFMaterialGroup1Dao(appDatabase: AppDatabase): FMaterialGroup1Dao = appDatabase.materialGroup1Dao
@@ -95,12 +91,12 @@ class DatabaseModule {
 //    internal fun provideFPromotionRuleshDao(appDatabase: AppDatabase): FPromotionRuleshDao = appDatabase.promotionRuleshDao
 //    @Provides
 //    internal fun provideFRegionDao(appDatabase: AppDatabase): FRegionDao = appDatabase.regionDao
-//    @Provides
-//    internal fun provideFSalesmanDao(appDatabase: AppDatabase): FSalesmanDao = appDatabase.salesmanDao
+    @Provides
+    internal fun provideFSalesmanDao(appDatabase: AppDatabase): FSalesmanDao = appDatabase.salesmanDao
 //    @Provides
 //    internal fun provideFStockDao(appDatabase: AppDatabase): FStockDao = appDatabase.stockDao
-//    @Provides
-//    internal fun provideFSubAreaDao(appDatabase: AppDatabase): FSubAreaDao = appDatabase.subAreaDao
+    @Provides
+    internal fun provideFSubAreaDao(appDatabase: AppDatabase): FSubAreaDao = appDatabase.subAreaDao
 //    @Provides
 //    internal fun provideFtApPaymentdDao(appDatabase: AppDatabase): FtApPaymentdDao = appDatabase.apPaymentdDao
 //    @Provides

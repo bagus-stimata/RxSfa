@@ -14,27 +14,28 @@ interface FDivisionDao {
      * Harus Menggunakan
      * .allowMainThreadQueries() pada Configurasi database utama agar tidak perlu menggunakan AsynT
      */
-    @Insert
-    fun insert(fDivision: FDivision?)
-
-    @Update
-    fun update(fDivision: FDivision?)
-
-    @Delete
-    fun delete(fDivision: FDivision?)
-
-    @Query("DELETE FROM fDivision")
-    fun deleteAllFDivision()
-
-    @get:Query("SELECT * FROM fDivision ")
-    val allFDivisionLive: LiveData<List<FDivision?>?>?
-
-    @get:Query("SELECT * FROM fDivision ")
-    val allFDivision: List<FDivision?>?
-
-    @Query("SELECT * FROM fDivision WHERE id = :id ")
-    fun getAllById(id: Int): List<FDivision?>?
-
-    @Query("SELECT * FROM fDivision WHERE fcompanyBean = :id ")
-    fun getAllByParentId(id: Int): List<FDivision?>?
+//    @Insert
+//    fun insert(fDivision: FDivision?)
+//
+//    @Update
+//    fun update(fDivision: FDivision?)
+//
+//    @Delete
+//    fun delete(fDivision: FDivision?)
+//
+//    @Query("DELETE FROM fDivision")
+//    fun deleteAllFDivision()
+//
+//    @get:Query("SELECT * FROM fDivision ")
+//    val allFDivisionLive: LiveData<List<FDivision?>?>?
+//
+//    @get:Query("SELECT * FROM fDivision ")
+//    val allFDivision: List<FDivision?>?
+//
+//    @Query("SELECT * FROM fDivision WHERE id = :id ")
+//    fun getAllById(id: Int): List<FDivision?>?
+//
+//    @Query("SELECT * FROM fDivision WHERE fcompanyBean = :id ")
+//    fun getAllByParentId(id: Int): List<FDivision?>?
+    
 }

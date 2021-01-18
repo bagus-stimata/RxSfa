@@ -15,26 +15,39 @@ interface FAreaDao {
      * .allowMainThreadQueries() pada Configurasi database utama agar tidak perlu menggunakan AsynT
      */
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    fun insert(fArea: FArea?)
+    fun insert(fArea: FArea)
 
     @Update
-    fun update(fArea: FArea?)
+    fun update(fArea: FArea)
 
     @Delete
-    fun delete(fArea: FArea?)
+    fun delete(fArea: FArea)
 
-    @Query("DELETE FROM fArea")
+    @Query("DELETE FROM FArea")
     fun deleteAllFArea()
 
-    @get:Query("SELECT * FROM fArea ")
-    val allFAreaLive: LiveData<List<FArea?>?>?
-
-    @get:Query("SELECT * FROM fArea ")
-    val allFArea: List<FArea?>?
-
     @Query("SELECT * FROM fArea WHERE id = :id ")
-    fun getAllById(id: Int): List<FArea?>?
+    fun getAllById(id: Int): FArea
+    @Query("SELECT * FROM fArea WHERE id = :id ")
+    fun getAllByIdLive(id: Int): LiveData<FArea>
+
+
+    @get:Query("SELECT * FROM fArea ")
+    val getAllFArea: List<FArea>
+    @get:Query("SELECT * FROM fArea ")
+    val getAllFAreaLive: LiveData<List<FArea>>
+
+    @Query("SELECT * FROM fArea WHERE kode1 LIKE :kode1 ")
+    fun getAllFAreaByKode(kode1: String): List<FArea>
+    @Query("SELECT * FROM fArea WHERE kode1 LIKE :kode1 ")
+    fun getAllFAreaByKodeLive(kode1: String): LiveData<List<FArea>>
+
 
     @Query("SELECT * FROM fArea WHERE fdivisionBean = :id ")
-    fun getAllByDivision(id: Int): List<FArea?>?
+    fun getAllByDivision(id: Int): List<FArea>
+
+    @Query("SELECT * FROM fArea WHERE fdivisionBean = :id ")
+    fun getAllByDivisionLive(id: Int): LiveData<List<FArea>>
+
+
 }

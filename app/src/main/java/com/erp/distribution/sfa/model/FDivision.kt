@@ -5,10 +5,10 @@ import androidx.room.PrimaryKey
 import java.util.*
 
 //@Entity(tableName = "fdivision")
-@Entity(tableName = "FDivision")
-class FDivision {
-    @PrimaryKey(autoGenerate = true)
-    var id = 0
+@Entity(tableName = "fDivision")
+class FDivision (
+    @PrimaryKey
+    var id : Int, 
 
     /*
     * JIKA COPY DARI TEMPAT LAIN: MAKA SEBAGAI LOG TRACK MENINGGALKAN SOURCE_ID = ID sumber asal dia dicopy
@@ -16,16 +16,16 @@ class FDivision {
     * 1. Clone Database. karena tidak mungkin menggunakan Kode External yang bisa jadi kemungkinan kembar, tapi harus pakai kode internal
     * 2. 
     */
-    var sourceID = 0
-    var kode1 = ""
-    var kode2 = ""
-    var description = ""
-    var isDiffCompanyAccount = false
+    var sourceID : Int, 
+    var kode1 : String, 
+    var kode2 : String, 
+    var description : String, 
+    var isDiffCompanyAccount : Boolean, 
 
     //	@ManyToOne
     //	@JoinColumn(name="accCostCenterBean", referencedColumnName="ID", nullable=true)
     //    private AccCostCenter accCostCenterBean;
-    var accCostCenterBean = 0
+    var accCostCenterBean : Int, 
 
     /*
     * Common Division Parameter
@@ -34,57 +34,57 @@ class FDivision {
     //	private boolean useOwnNomorUrutMaster=false;
     //	@Column(name="USE_OWN_NOMOR_URUT_TRANSAKSI")
     //	private boolean useOwnNomorUrutTransaksi=false;
-    var isUseNomorUrutMaterialToCompany = false
-    var isUseNomorUrutCustomerToCompany = false
-    var isUseNomorUrutVendorToCompany = false
-    var isUseNomorUrutTransaksiToCompany = true
-    var isUseNomorUrutJurnalToCompany = true
+    var isUseNomorUrutMaterialToCompany : Boolean, 
+    var isUseNomorUrutCustomerToCompany : Boolean, 
+    var isUseNomorUrutVendorToCompany : Boolean, 
+    var isUseNomorUrutTransaksiToCompany : Boolean, 
+    var isUseNomorUrutJurnalToCompany : Boolean, 
 
     /*
     * Untuk Warehouse, Salesman Wajib Jadi satu dalam company
     */
-    var isShareMaterialToCompany = false
-    var isShareMaterialOrgToCompany = false
-    var isShareCustomerToCompany = false
-    var isShareCustomerOrgToCompany = false
-    var isShareSalesmanToCompany = false
-    var isShareWarehouseToCompany = false
-    var isShareVendorToCompany = false
+    var isShareMaterialToCompany : Boolean, 
+    var isShareMaterialOrgToCompany : Boolean, 
+    var isShareCustomerToCompany : Boolean, 
+    var isShareCustomerOrgToCompany : Boolean, 
+    var isShareSalesmanToCompany : Boolean, 
+    var isShareWarehouseToCompany : Boolean, 
+    var isShareVendorToCompany : Boolean, 
 
     /*
     * General Ledger Accounting: Default True
     */
-    var isShareCoaToCompany = true
-    var isShareCoaOrgToCompany = true
+    var isShareCoaToCompany : Boolean, 
+    var isShareCoaOrgToCompany : Boolean, 
 
     /*
     * TRANSAKSI: Default false
     */
-    var isShareTransaksiToCompany = false
+    var isShareTransaksiToCompany : Boolean, 
 
     /*
     * DISKON PROMO DAN DISKON NOTA: Menggunakan Aturan Divisi
     * 
     */
-    var isSharePromotionRulesToCompany = false
-    var isShareDiskonNotaToCompany = false
+    var isSharePromotionRulesToCompany : Boolean, 
+    var isShareDiskonNotaToCompany : Boolean, 
 
     /*
     * ACCOUNTING
     */
-    var isUserOnlyRead_HisDivision_Coa_WhenInput = false
-    var isNoTax_Trans = false
+    var isUserOnlyRead_HisDivision_Coa_WhenInput : Boolean, 
+    var isNoTax_Trans : Boolean, 
 
     //	@ManyToOne
     //	@JoinColumn(name="fcompanyBean", referencedColumnName="ID")
     //	private FCompany fcompanyBean;
-    var fcompanyBean = 0
+    var fcompanyBean : Int, 
 
     /*
     * ****************************
     */
-    var isStatusActive = true
-    var isWebServiceActive = false
+    var isStatusActive : Boolean, 
+    var isWebServiceActive : Boolean, 
 
     /*
     * SETTING YANG BERLAKU UNTUK SEMUA DIVISI
@@ -98,30 +98,30 @@ class FDivision {
 	 * Tidak digunakan. Karena urutan Dokumen Transaksi  mengikuti Company
 	 */
     //	@Column(name="NOMOR_URUT_DOC_FOLLOW_CORP") //Tidak boleh diubah-ubah
-    //	private boolean nomorUrutDocTransFollowCorp = true;
+    //	private boolean nomorUrutDocTransFollowCorp : Boolean, ;
     /*
 	 * Urutan master product, material, salesman, mengikuti parameter level 2. Level Perusahaan
 	 */
-    var isSysvarNomorUrutMasterFollowCorp = false
-    var isSysvarFormatFakturFollowCorp = false
+    var isSysvarNomorUrutMasterFollowCorp : Boolean, 
+    var isSysvarFormatFakturFollowCorp : Boolean, 
 
     //	/*
     //	 * FORMAT FAKTUR DAN ALAMAT
     //	 */
     //	@Column(name="INVOICE_COMP_NAME_1", length=75)
-    //	private String invoiceCompanyName1 = "";
+    //	private String invoiceCompanyName1 : String, ;
     //	@Column(name="INVOICE_COMP_ADDRESS_1", length=120)
-    //	private String invoiceCompanyAddress1 = "";
+    //	private String invoiceCompanyAddress1 : String, ;
     //	@Column(name="INVOICE_COMP_CITY_1", length=30)
-    //	private String invoiceCompanyCity1 = "";
+    //	private String invoiceCompanyCity1 : String, ;
     //	@Column(name="INVOICE_COMP_PHONE_1", length=25)
-    //	private String invoiceCompanyPhone1 = "";
+    //	private String invoiceCompanyPhone1 : String, ;
     /*
  * Pajak, Nomor Urut Transaksi, Nomor Urut Mengikuti Mengikuti Corporation	
  */
     //	@Column(name="INVOICE_COMPANY_NPWP_1", length=45)
-    //	private String invoiceCompanyNpwpPhone1 = "";
-    var created = Date()
-    var modified = Date()
-    var modifiedBy = "" //User ID
-}
+    //	private String invoiceCompanyNpwpPhone1 : String, ;
+    var created: Date = Date(), 
+    var modified: Date = Date(), 
+    var modifiedBy : String  //User ID
+)

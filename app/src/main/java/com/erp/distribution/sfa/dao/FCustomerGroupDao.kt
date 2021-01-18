@@ -14,27 +14,38 @@ interface FCustomerGroupDao {
      * Harus Menggunakan
      * .allowMainThreadQueries() pada Configurasi database utama agar tidak perlu menggunakan AsynT
      */
-    @Insert
-    fun insert(fCustomerGroup: FCustomerGroup?)
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    fun insert(fCustomerGroup: FCustomerGroup)
 
     @Update
-    fun update(fCustomerGroup: FCustomerGroup?)
+    fun update(fCustomerGroup: FCustomerGroup)
 
     @Delete
-    fun delete(fCustomerGroup: FCustomerGroup?)
+    fun delete(fCustomerGroup: FCustomerGroup)
 
-    @Query("DELETE FROM fCustomerGroup")
+    @Query("DELETE FROM FCustomerGroup")
     fun deleteAllFCustomerGroup()
 
-    @get:Query("SELECT * FROM fCustomerGroup ")
-    val allFCustomerGroupLive: LiveData<List<FCustomerGroup?>?>?
-
-    @get:Query("SELECT * FROM fCustomerGroup ")
-    val allFCustomerGroup: List<FCustomerGroup?>?
-
     @Query("SELECT * FROM fCustomerGroup WHERE id = :id ")
-    fun getAllById(id: Int): List<FCustomerGroup?>?
+    fun getAllById(id: Int): FCustomerGroup
+    @Query("SELECT * FROM fCustomerGroup WHERE id = :id ")
+    fun getAllByIdLive(id: Int): LiveData<FCustomerGroup>
+
+
+    @get:Query("SELECT * FROM fCustomerGroup ")
+    val getAllFCustomerGroup: List<FCustomerGroup>
+    @get:Query("SELECT * FROM fCustomerGroup ")
+    val getAllFCustomerGroupLive: LiveData<List<FCustomerGroup>>
+
+    @Query("SELECT * FROM fCustomerGroup WHERE kode1 LIKE :kode1 ")
+    fun getAllFCustomerGroupByKode(kode1: String): List<FCustomerGroup>
+    @Query("SELECT * FROM fCustomerGroup WHERE kode1 LIKE :kode1 ")
+    fun getAllFCustomerGroupByKodeLive(kode1: String): LiveData<List<FCustomerGroup>>
+
 
     @Query("SELECT * FROM fCustomerGroup WHERE fdivisionBean = :id ")
-    fun getAllByDivision(id: Int): List<FCustomerGroup?>?
+    fun getAllByDivision(id: Int): List<FCustomerGroup>
+
+    @Query("SELECT * FROM fCustomerGroup WHERE fdivisionBean = :id ")
+    fun getAllByDivisionLive(id: Int): LiveData<List<FCustomerGroup>>
 }

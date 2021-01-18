@@ -14,27 +14,39 @@ interface FMaterialDao {
      * Harus Menggunakan
      * .allowMainThreadQueries() pada Configurasi database utama agar tidak perlu menggunakan AsynT
      */
-    @Insert
-    fun insert(fMaterial: FMaterial?)
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    fun insert(fMaterial: FMaterial)
 
     @Update
-    fun update(fMaterial: FMaterial?)
+    fun update(fMaterial: FMaterial)
 
     @Delete
-    fun delete(fMaterial: FMaterial?)
+    fun delete(fMaterial: FMaterial)
 
-    @Query("DELETE FROM fMaterial")
+    @Query("DELETE FROM FMaterial")
     fun deleteAllFMaterial()
 
-    @get:Query("SELECT * FROM fMaterial ")
-    val allFMaterialLive: LiveData<List<FMaterial?>?>?
-
-    @get:Query("SELECT * FROM fMaterial ")
-    val allFMaterial: List<FMaterial?>?
-
     @Query("SELECT * FROM fMaterial WHERE id = :id ")
-    fun getAllById(id: Int): List<FMaterial?>?
+    fun getAllById(id: Int): FMaterial
+    @Query("SELECT * FROM fMaterial WHERE id = :id ")
+    fun getAllByIdLive(id: Int): LiveData<FMaterial>
+
+
+    @get:Query("SELECT * FROM fMaterial ")
+    val getAllFMaterial: List<FMaterial>
+    @get:Query("SELECT * FROM fMaterial ")
+    val getAllFMaterialLive: LiveData<List<FMaterial>>
+
+    @Query("SELECT * FROM fMaterial WHERE pcode LIKE :pcode ")
+    fun getAllFMaterialByKode(pcode: String): List<FMaterial>
+    @Query("SELECT * FROM fMaterial WHERE pcode LIKE :pcode ")
+    fun getAllFMaterialByKodeLive(pcode: String): LiveData<List<FMaterial>>
+
 
     @Query("SELECT * FROM fMaterial WHERE fdivisionBean = :id ")
-    fun getAllByDivision(id: Int): List<FMaterial?>?
+    fun getAllByDivision(id: Int): List<FMaterial>
+
+    @Query("SELECT * FROM fMaterial WHERE fdivisionBean = :id ")
+    fun getAllByDivisionLive(id: Int): LiveData<List<FMaterial>>
+    
 }
