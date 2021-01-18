@@ -14,27 +14,34 @@ interface FCustomerPicDao {
      * Harus Menggunakan
      * .allowMainThreadQueries() pada Configurasi database utama agar tidak perlu menggunakan AsynT
      */
-    @Insert
-    fun insert(fCustomerPic: FCustomerPic?)
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    fun insert(fCustomerPic: FCustomerPic)
 
     @Update
-    fun update(fCustomerPic: FCustomerPic?)
+    fun update(fCustomerPic: FCustomerPic)
 
     @Delete
-    fun delete(fCustomerPic: FCustomerPic?)
+    fun delete(fCustomerPic: FCustomerPic)
 
     @Query("DELETE FROM fCustomerPic")
     fun deleteAllFCustomerPic()
 
-    @get:Query("SELECT * FROM fCustomerPic ")
-    val allFCustomerPicLive: LiveData<List<FCustomerPic?>?>?
-
-    @get:Query("SELECT * FROM fCustomerPic ")
-    val allFCustomerPic: List<FCustomerPic?>?
-
     @Query("SELECT * FROM fCustomerPic WHERE id = :id ")
-    fun getAllById(id: Int): List<FCustomerPic?>?
+    fun getAllById(id: Int): FCustomerPic
+    @Query("SELECT * FROM fCustomerPic WHERE id = :id ")
+    fun getAllByIdLive(id: Int): LiveData<FCustomerPic>
 
-    @Query("SELECT * FROM fCustomerPic WHERE fcustomerBean = :id ")
-    fun getAllByParentId(id: Int): List<FCustomerPic?>?
+
+    @get:Query("SELECT * FROM fCustomerPic ")
+    val getAllFCustomerPic: List<FCustomerPic>
+    @get:Query("SELECT * FROM fCustomerPic ")
+    val getAllFCustomerPicLive: LiveData<List<FCustomerPic>>
+
+    @Query("SELECT * FROM fCustomerPic WHERE fcustomerBean = :parentId ")
+    fun getAllByParent(parentId: Int): List<FCustomerPic>
+
+    @Query("SELECT * FROM fCustomerPic WHERE fcustomerBean = :parentId ")
+    fun getAllByParentLive(parentId: Int): LiveData<List<FCustomerPic>>
+
+
 }

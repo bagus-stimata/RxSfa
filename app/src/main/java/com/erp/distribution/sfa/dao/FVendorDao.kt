@@ -14,27 +14,39 @@ interface FVendorDao {
      * Harus Menggunakan
      * .allowMainThreadQueries() pada Configurasi database utama agar tidak perlu menggunakan AsynT
      */
-    @Insert
-    fun insert(fVendor: FVendor?)
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    fun insert(fVendor: FVendor)
 
     @Update
-    fun update(fVendor: FVendor?)
+    fun update(fVendor: FVendor)
 
     @Delete
-    fun delete(fVendor: FVendor?)
+    fun delete(fVendor: FVendor)
 
     @Query("DELETE FROM fVendor")
     fun deleteAllFVendor()
 
-    @get:Query("SELECT * FROM fVendor ")
-    val allFVendorLive: LiveData<List<FVendor?>?>?
-
-    @get:Query("SELECT * FROM fVendor ")
-    val allFVendor: List<FVendor?>?
-
     @Query("SELECT * FROM fVendor WHERE id = :id ")
-    fun getAllById(id: Int): List<FVendor?>?
+    fun getAllById(id: Int): FVendor
+    @Query("SELECT * FROM fVendor WHERE id = :id ")
+    fun getAllByIdLive(id: Int): LiveData<FVendor>
+
+
+    @get:Query("SELECT * FROM fVendor ")
+    val getAllFVendor: List<FVendor>
+    @get:Query("SELECT * FROM fVendor ")
+    val getAllFVendorLive: LiveData<List<FVendor>>
+
+    @Query("SELECT * FROM fVendor WHERE vcode LIKE :vcode ")
+    fun getAllFVendorByKode(vcode: String): List<FVendor>
+    @Query("SELECT * FROM fVendor WHERE vcode LIKE :vcode ")
+    fun getAllFVendorByKodeLive(vcode: String): LiveData<List<FVendor>>
+
 
     @Query("SELECT * FROM fVendor WHERE fdivisionBean = :id ")
-    fun getAllByDivision(id: Int): List<FVendor?>?
+    fun getAllByDivision(id: Int): List<FVendor>
+
+    @Query("SELECT * FROM fVendor WHERE fdivisionBean = :id ")
+    fun getAllByDivisionLive(id: Int): LiveData<List<FVendor>>
+
 }

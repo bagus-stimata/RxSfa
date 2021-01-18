@@ -7,7 +7,7 @@ import com.erp.distribution.sfa.model.modelenum.EnumUom
 import java.io.Serializable
 
 //@Entity(tableName = "ftsalesd_items")
-@Entity(tableName = "FtSalesdItems")
+@Entity(tableName = "ftSalesdItems")
 class FtSalesdItems : Serializable {
     @PrimaryKey(autoGenerate = true)
     var id: Long = 0

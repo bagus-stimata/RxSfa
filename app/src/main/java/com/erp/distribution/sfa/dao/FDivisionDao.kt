@@ -24,7 +24,7 @@ interface FDivisionDao {
     @Delete
     fun delete(fDivision: FDivision)
 
-    @Query("DELETE FROM FDivision")
+    @Query("DELETE FROM fDivision")
     fun deleteAllFDivision()
 
     @Query("SELECT * FROM fDivision WHERE id = :id ")

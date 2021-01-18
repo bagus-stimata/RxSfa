@@ -23,7 +23,7 @@ interface FSalesmanDao {
     @Delete
     fun delete(fSalesman: FSalesman)
 
-    @Query("DELETE FROM FSalesman")
+    @Query("DELETE FROM fSalesman")
     fun deleteAllFSalesman()
 
     @Query("SELECT * FROM fSalesman WHERE id = :id ")

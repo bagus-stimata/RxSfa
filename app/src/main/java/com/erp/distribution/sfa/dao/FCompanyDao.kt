@@ -18,7 +18,7 @@ interface FCompanyDao {
     @Delete
     fun delete(fCompany: FCompany)
 
-    @Query("DELETE FROM FCompany")
+    @Query("DELETE FROM fCompany")
     fun deleteAllFCompany()
 
     @Query("SELECT * FROM fCompany WHERE id = :id ")

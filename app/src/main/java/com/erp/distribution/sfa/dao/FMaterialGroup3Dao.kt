@@ -23,7 +23,7 @@ interface FMaterialGroup3Dao {
     @Delete
     fun delete(fMaterialGroup3: FMaterialGroup3)
 
-    @Query("DELETE FROM FMaterialGroup3")
+    @Query("DELETE FROM fMaterialGroup3")
     fun deleteAllFMaterialGroup3()
 
     @Query("SELECT * FROM fMaterialGroup3 WHERE id = :id ")

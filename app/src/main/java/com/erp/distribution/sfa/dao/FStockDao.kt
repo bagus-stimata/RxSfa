@@ -24,7 +24,7 @@ interface FStockDao {
     @Delete
     fun delete(fStock: FStock)
 
-    @Query("DELETE FROM FStock")
+    @Query("DELETE FROM fStock")
     fun deleteAllFStock()
 
     @Query("SELECT * FROM fStock WHERE refno = :id ")

@@ -6,7 +6,7 @@ import java.io.Serializable
 import java.util.*
 
 //@Entity(tableName = "ftax")
-@Entity(tableName = "FTax")
+@Entity(tableName = "fTax")
 class FTax : Serializable {
     @PrimaryKey(autoGenerate = true)
     var id = 0

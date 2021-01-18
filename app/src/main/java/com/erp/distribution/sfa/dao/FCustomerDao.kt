@@ -23,7 +23,7 @@ interface FCustomerDao {
     @Delete
     fun delete(fCustomer: FCustomer)
 
-    @Query("DELETE FROM FCustomer")
+    @Query("DELETE FROM fCustomer")
     fun deleteAllFCustomer()
 
     @Query("SELECT * FROM fCustomer WHERE id = :id ")

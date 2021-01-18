@@ -14,27 +14,43 @@ interface FtSalesdItemsDao {
      * Harus Menggunakan
      * .allowMainThreadQueries() pada Configurasi database utama agar tidak perlu menggunakan AsynT
      */
-    @Insert
-    fun insert(ftSalesdItems: FtSalesdItems?)
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    fun insert(ftSalesdItems: FtSalesdItems)
 
     @Update
-    fun update(ftSalesdItems: FtSalesdItems?)
+    fun update(ftSalesdItems: FtSalesdItems)
 
     @Delete
-    fun delete(ftSalesdItems: FtSalesdItems?)
+    fun delete(ftSalesdItems: FtSalesdItems)
 
     @Query("DELETE FROM ftSalesdItems")
     fun deleteAllFtSalesdItems()
 
-    @get:Query("SELECT * FROM ftSalesdItems ")
-    val allFtSalesdItemsLive: LiveData<List<FtSalesdItems?>?>?
-
-    @get:Query("SELECT * FROM ftSalesdItems ")
-    val allFtSalesdItems: List<FtSalesdItems?>?
-
     @Query("SELECT * FROM ftSalesdItems WHERE id = :id ")
-    fun getAllById(id: Long?): List<FtSalesdItems?>?
+    fun getAllById(id: Long): FtSalesdItems
+    @Query("SELECT * FROM ftSalesdItems WHERE id = :id ")
+    fun getAllByIdLive(id: Long): LiveData<FtSalesdItems>
 
-    @Query("SELECT * FROM ftSalesdItems WHERE ftSaleshBean = :id ")
-    fun getAllByParentId(id: Long?): List<FtSalesdItems?>?
+
+    @get:Query("SELECT * FROM ftSalesdItems ")
+    val getAllFtSalesdItems: List<FtSalesdItems>
+    @get:Query("SELECT * FROM ftSalesdItems ")
+    val getAllFtSalesdItemsLive: LiveData<List<FtSalesdItems>>
+
+    @Query("SELECT * FROM ftSalesdItems WHERE fmaterialBean = :materialId ")
+    fun getAllFtSalesdItemsByMaterial(materialId: Int): List<FtSalesdItems>
+    @Query("SELECT * FROM ftSalesdItems WHERE fmaterialBean = :materialId ")
+    fun getAllFtSalesdItemsByMaterialLive(materialId: Int): LiveData<List<FtSalesdItems>>
+
+
+    @Query("SELECT * FROM ftSalesdItems WHERE ftSaleshBean = :ftSaleshId ")
+    fun getAllByFtSalesh(ftSaleshId: Long): List<FtSalesdItems>
+    @Query("SELECT * FROM ftSalesdItems WHERE ftSaleshBean = :ftSaleshId ")
+    fun getAllByFtSaleshLive(ftSaleshId: Long): LiveData<List<FtSalesdItems>>
+
+    @Query("SELECT * FROM ftSalesdItems WHERE ftSaleshBean = :ftSaleshId AND  fmaterialBean = :materialId ")
+    fun getAllByFtSaleshAndMaterial(ftSaleshId: Long, materialId: Int): List<FtSalesdItems>
+    @Query("SELECT * FROM ftSalesdItems WHERE ftSaleshBean = :ftSaleshId AND  fmaterialBean = :materialId ")
+    fun getAllByFtSaleshAndMaterialLive(ftSaleshId: Long, materialId: Int): LiveData<List<FtSalesdItems>>
+
 }

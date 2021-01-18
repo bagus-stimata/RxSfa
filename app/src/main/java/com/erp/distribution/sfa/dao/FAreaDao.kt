@@ -23,7 +23,7 @@ interface FAreaDao {
     @Delete
     fun delete(fArea: FArea)
 
-    @Query("DELETE FROM FArea")
+    @Query("DELETE FROM fArea")
     fun deleteAllFArea()
 
     @Query("SELECT * FROM fArea WHERE id = :id ")

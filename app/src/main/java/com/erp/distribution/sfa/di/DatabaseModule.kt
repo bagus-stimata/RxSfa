@@ -105,8 +105,8 @@ class DatabaseModule {
 //    internal fun provideFtArPaymentdDao(appDatabase: AppDatabase): FtArPaymentdDao = appDatabase.arPaymentdDao
 //    @Provides
 //    internal fun provideFtArPaymenthDao(appDatabase: AppDatabase): FtArPaymenthDao = appDatabase.arPaymenthDao
-//    @Provides
-//    internal fun provideFTaxDao(appDatabase: AppDatabase): FTaxDao = appDatabase.taxDao
+    @Provides
+    internal fun provideFTaxDao(appDatabase: AppDatabase): FTaxDao = appDatabase.taxDao
 //    @Provides
 //    internal fun provideFtOpnamedItemsDao(appDatabase: AppDatabase): FtOpnamedItemsDao = appDatabase.opnamedItemsDao
 //    @Provides
@@ -123,18 +123,18 @@ class DatabaseModule {
 //    internal fun provideFtPurchasedItemsDao(appDatabase: AppDatabase): FtPurchasedItemsDao = appDatabase.purchasedItemsDao
 //    @Provides
 //    internal fun provideFtPurchasehDao(appDatabase: AppDatabase): FtPurchasehDao = appDatabase.purchasehDao
-//    @Provides
-//    internal fun provideFtSalesdItemsDao(appDatabase: AppDatabase): FtSalesdItemsDao = appDatabase.salesdItemsDao
-//    @Provides
-//    internal fun provideFtSaleshDao(appDatabase: AppDatabase): FtSaleshDao = appDatabase.saleshDao
+    @Provides
+    internal fun provideFtSalesdItemsDao(appDatabase: AppDatabase): FtSalesdItemsDao = appDatabase.salesdItemsDao
+    @Provides
+    internal fun provideFtSaleshDao(appDatabase: AppDatabase): FtSaleshDao = appDatabase.saleshDao
 //    @Provides
 //    internal fun provideFtStockTransferdItemsDao(appDatabase: AppDatabase): FtStockTransferdItemsDao = appDatabase.stockTransferdItemsDao
 //    @Provides
 //    internal fun provideFtStockTransferhDao(appDatabase: AppDatabase): FtStockTransferhDao = appDatabase.stockTransferhDao
 //    @Provides
 //    internal fun provideFUangMukaDao(appDatabase: AppDatabase): FUangMukaDao = appDatabase.uangMukaDao
-//    @Provides
-//    internal fun provideFVendorDao(appDatabase: AppDatabase): FVendorDao = appDatabase.vendorDao
+    @Provides
+    internal fun provideFVendorDao(appDatabase: AppDatabase): FVendorDao = appDatabase.vendorDao
     @Provides
     internal fun provideFWarehouseDao(appDatabase: AppDatabase): FWarehouseDao = appDatabase.warehouseDao
     @Provides

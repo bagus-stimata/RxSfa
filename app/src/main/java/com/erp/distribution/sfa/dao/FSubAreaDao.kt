@@ -23,7 +23,7 @@ interface FSubAreaDao {
     @Delete
     fun delete(fSubArea: FSubArea)
 
-    @Query("DELETE FROM FSubArea")
+    @Query("DELETE FROM fSubArea")
     fun deleteAllFSubArea()
 
     @Query("SELECT * FROM fSubArea WHERE id = :id ")
@@ -48,4 +48,5 @@ interface FSubAreaDao {
 
     @Query("SELECT * FROM fSubArea WHERE fareaBean = :parentId ")
     fun getAllByParentLive(parentId: Int): LiveData<List<FSubArea>>
+
 }

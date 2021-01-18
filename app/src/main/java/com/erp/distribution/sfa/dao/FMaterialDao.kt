@@ -23,7 +23,7 @@ interface FMaterialDao {
     @Delete
     fun delete(fMaterial: FMaterial)
 
-    @Query("DELETE FROM FMaterial")
+    @Query("DELETE FROM fMaterial")
     fun deleteAllFMaterial()
 
     @Query("SELECT * FROM fMaterial WHERE id = :id ")

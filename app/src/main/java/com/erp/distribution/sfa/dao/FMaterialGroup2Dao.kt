@@ -24,7 +24,7 @@ interface FMaterialGroup2Dao {
     @Delete
     fun delete(fMaterialGroup2: FMaterialGroup2)
 
-    @Query("DELETE FROM FMaterialGroup2")
+    @Query("DELETE FROM fMaterialGroup2")
     fun deleteAllFMaterialGroup2()
 
     @Query("SELECT * FROM fMaterialGroup2 WHERE id = :id ")

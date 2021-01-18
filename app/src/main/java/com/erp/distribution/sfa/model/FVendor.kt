@@ -7,7 +7,7 @@ import com.erp.distribution.sfa.model.modelenum.EnumCurrency
 import java.util.*
 
 //@Entity(tableName = "fvendor")
-@Entity(tableName = "FVendor")
+@Entity(tableName = "fVendor")
 class FVendor {
     @PrimaryKey(autoGenerate = true)
     var id = 0

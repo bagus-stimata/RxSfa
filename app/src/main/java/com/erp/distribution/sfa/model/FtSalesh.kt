@@ -8,7 +8,7 @@ import java.io.Serializable
 import java.util.*
 
 //@Entity(tableName = "ftsalesh")
-@Entity(tableName = "FtSalesh")
+@Entity(tableName = "ftSalesh")
 class FtSalesh : Serializable {
     @PrimaryKey(autoGenerate = true)
     var refno: Long = 0

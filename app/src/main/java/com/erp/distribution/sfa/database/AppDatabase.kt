@@ -27,17 +27,17 @@ import com.erp.distribution.sfa.security_repository.FUserRolesDao
     FCompany::class,
     FCustomer::class,
     FCustomerGroup::class,
-//    FCustomerPic::class,
+    FCustomerPic::class,
 //    FCustomerSalesman::class,
-//    FDistributionChannel::class,
+    FDistributionChannel::class,
     FDivision::class,
 //    FGiro::class,
     FMaterial::class,
     FMaterialGroup1::class,
     FMaterialGroup2::class,
     FMaterialGroup3::class,
-//    FMaterialPic::class,
-//    FMaterialSalesBrand::class,
+    FMaterialPic::class,
+    FMaterialSalesBrand::class,
 //    FParamDiskonItem::class,
 //    FParamDiskonItemVendor::class,
 //    FParamDiskonNota::class,
@@ -53,7 +53,7 @@ import com.erp.distribution.sfa.security_repository.FUserRolesDao
 //    FtApPaymenth::class,
 //    FtArPaymentd::class,
 //    FtArPaymenth::class,
-//    FTax::class,
+    FTax::class,
 //    FtOpnamedItems::class,
 //    FtOpnameh::class,
 //    FtPriceAltdItems::class,
@@ -62,14 +62,14 @@ import com.erp.distribution.sfa.security_repository.FUserRolesDao
 //    FtPriceh::class,
 //    FtPurchasedItems::class,
 //    FtPurchaseh::class,
-//    FtSalesdItems::class,
-//    FtSalesh::class,
+    FtSalesdItems::class,
+    FtSalesh::class,
 //    FtStockTransferdItems::class,
 //    FtStockTransferh::class,
 //    FUangMuka::class,
-//    FVendor::class,
-//    FWarehouse::class,
-//    Sysvar::class
+    FVendor::class,
+    FWarehouse::class,
+    Sysvar::class,
 
     Photo::class
 
@@ -87,9 +87,9 @@ abstract class AppDatabase : RoomDatabase() {
     abstract val companyDao: FCompanyDao
     abstract val customerDao: FCustomerDao
     abstract val customerGroupDao: FCustomerGroupDao
-//    abstract val customerPicDao: FCustomerPicDao
+    abstract val customerPicDao: FCustomerPicDao
 //    abstract val customerSalesmanDao: FCustomerSalesmanDao
-//    abstract val distributionChannelDao: FDistributionChannelDao
+    abstract val distributionChannelDao: FDistributionChannelDao
     abstract val divisionDao: FDivisionDao
 //    abstract val expedisiDao: FExpedisiDao
 //    abstract val giroDao: FGiroDao
@@ -97,8 +97,8 @@ abstract class AppDatabase : RoomDatabase() {
     abstract val materialGroup1Dao: FMaterialGroup1Dao
     abstract val materialGroup2Dao: FMaterialGroup2Dao
     abstract val materialGroup3Dao: FMaterialGroup3Dao
-//    abstract val materialPicDao: FMaterialPicDao
-//    abstract val materialSalesBrandDao: FMaterialSalesBrandDao
+    abstract val materialPicDao: FMaterialPicDao
+    abstract val materialSalesBrandDao: FMaterialSalesBrandDao
 //    abstract val paramDiskonItemDao: FParamDiskonItemDao
 //    abstract val paramDiskonItemVendorDao: FParamDiskonItemVendorDao
 //    abstract val paramDiskonNotaDao: FParamDiskonNotaDao
@@ -114,7 +114,7 @@ abstract class AppDatabase : RoomDatabase() {
 //    abstract val apPaymenthDao: FtApPaymenthDao
 //    abstract val arPaymentdDao: FtArPaymentdDao
 //    abstract val arPaymenthDao: FtArPaymenthDao
-//    abstract val taxDao: FTaxDao
+    abstract val taxDao: FTaxDao
 //    abstract val opnamedItemsDao: FtOpnamedItemsDao
 //    abstract val opnamehDao: FtOpnamehDao
 //    abstract val priceAltdItemsDao: FtPriceAltdItemsDao
@@ -123,12 +123,12 @@ abstract class AppDatabase : RoomDatabase() {
 //    abstract val pricehDao: FtPricehDao
 //    abstract val purchasedItemsDao: FtPurchasedItemsDao
 //    abstract val purchasehDao: FtPurchasehDao
-//    abstract val salesdItemsDao: FtSalesdItemsDao
-//    abstract val saleshDao: FtSaleshDao
+    abstract val salesdItemsDao: FtSalesdItemsDao
+    abstract val saleshDao: FtSaleshDao
 //    abstract val stockTransferdItemsDao: FtStockTransferdItemsDao
 //    abstract val stockTransferhDao: FtStockTransferhDao
 //    abstract val uangMukaDao: FUangMukaDao
-//    abstract val vendorDao: FVendorDao
+    abstract val vendorDao: FVendorDao
     abstract val warehouseDao: FWarehouseDao
     abstract val sysvarDao: SysvarDao
 

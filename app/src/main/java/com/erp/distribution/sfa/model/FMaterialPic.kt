@@ -6,7 +6,7 @@ import java.io.Serializable
 import java.util.*
 
 //@Entity(tableName = "fmaterial_pic")
-@Entity(tableName = "FMaterialPic")
+@Entity(tableName = "fMaterialPic")
 class FMaterialPic : Serializable {
     @PrimaryKey(autoGenerate = true)
     var id: Long = 0
