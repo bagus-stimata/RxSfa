@@ -64,13 +64,13 @@ class DatabaseModule {
 //    internal fun provideFGiroDao(appDatabase: AppDatabase): FGiroDao = appDatabase.giroDao
     @Provides
     internal fun provideFMaterialDao(appDatabase: AppDatabase): FMaterialDao = appDatabase.materialDao
-//
-//    @Provides
-//    internal fun provideFMaterialGroup1Dao(appDatabase: AppDatabase): FMaterialGroup1Dao = appDatabase.materialGroup1Dao
-//    @Provides
-//    internal fun provideFMaterialGroup2Dao(appDatabase: AppDatabase): FMaterialGroup2Dao = appDatabase.materialGroup2Dao
-//    @Provides
-//    internal fun provideFMaterialGroup3Dao(appDatabase: AppDatabase): FMaterialGroup3Dao = appDatabase.materialGroup3Dao
+
+    @Provides
+    internal fun provideFMaterialGroup1Dao(appDatabase: AppDatabase): FMaterialGroup1Dao = appDatabase.materialGroup1Dao
+    @Provides
+    internal fun provideFMaterialGroup2Dao(appDatabase: AppDatabase): FMaterialGroup2Dao = appDatabase.materialGroup2Dao
+    @Provides
+    internal fun provideFMaterialGroup3Dao(appDatabase: AppDatabase): FMaterialGroup3Dao = appDatabase.materialGroup3Dao
 //    @Provides
 //    internal fun provideFMaterialPicDao(appDatabase: AppDatabase): FMaterialPicDao = appDatabase.materialPicDao
 //    @Provides
@@ -93,8 +93,8 @@ class DatabaseModule {
 //    internal fun provideFRegionDao(appDatabase: AppDatabase): FRegionDao = appDatabase.regionDao
     @Provides
     internal fun provideFSalesmanDao(appDatabase: AppDatabase): FSalesmanDao = appDatabase.salesmanDao
-//    @Provides
-//    internal fun provideFStockDao(appDatabase: AppDatabase): FStockDao = appDatabase.stockDao
+    @Provides
+    internal fun provideFStockDao(appDatabase: AppDatabase): FStockDao = appDatabase.stockDao
     @Provides
     internal fun provideFSubAreaDao(appDatabase: AppDatabase): FSubAreaDao = appDatabase.subAreaDao
 //    @Provides
@@ -135,9 +135,9 @@ class DatabaseModule {
 //    internal fun provideFUangMukaDao(appDatabase: AppDatabase): FUangMukaDao = appDatabase.uangMukaDao
 //    @Provides
 //    internal fun provideFVendorDao(appDatabase: AppDatabase): FVendorDao = appDatabase.vendorDao
-//    @Provides
-//    internal fun provideFWarehouseDao(appDatabase: AppDatabase): FWarehouseDao = appDatabase.warehouseDao
-//    @Provides
-//    internal fun provideSysvarDao(appDatabase: AppDatabase): SysvarDao = appDatabase.sysvarDao
+    @Provides
+    internal fun provideFWarehouseDao(appDatabase: AppDatabase): FWarehouseDao = appDatabase.warehouseDao
+    @Provides
+    internal fun provideSysvarDao(appDatabase: AppDatabase): SysvarDao = appDatabase.sysvarDao
 
 }

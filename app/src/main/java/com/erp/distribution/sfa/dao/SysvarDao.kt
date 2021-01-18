@@ -14,27 +14,41 @@ interface SysvarDao {
      * Harus Menggunakan
      * .allowMainThreadQueries() pada Configurasi database utama agar tidak perlu menggunakan AsynT
      */
-    @Insert
-    fun insert(sysvar: Sysvar?)
 
-    @Update
-    fun update(sysvar: Sysvar?)
+//    @Insert(onConflict = OnConflictStrategy.REPLACE)
+//    fun insert(sysvar: Sysvar)
 
-    @Delete
-    fun delete(sysvar: Sysvar?)
+//    @Update
+//    fun update(sysvar: Sysvar)
+//
+//    @Delete
+//    fun delete(sysvar: Sysvar)
+//
+//    @Query("DELETE FROM Sysvar")
+//    fun deleteAllSysvar()
+//
+//    @Query("SELECT * FROM sysvar WHERE id = :id ")
+//    fun getAllById(id: Int): Sysvar
+//    @Query("SELECT * FROM sysvar WHERE id = :id ")
+//    fun getAllByIdLive(id: Int): LiveData<Sysvar>
+//
+//
+//    @get:Query("SELECT * FROM sysvar ")
+//    val getAllSysvar: List<Sysvar>
+//    @get:Query("SELECT * FROM sysvar ")
+//    val getAllSysvarLive: LiveData<List<Sysvar>>
+//
+//    @Query("SELECT * FROM sysvar WHERE deskripsi LIKE :deskripsi ")
+//    fun getAllSysvarByDeskripsi(deskripsi: String): List<Sysvar>
+//    @Query("SELECT * FROM sysvar WHERE deskripsi LIKE :deskripsi ")
+//    fun getAllSysvarByDeskripsiLive(deskripsi: String): LiveData<List<Sysvar>>
+//
+//
+//    @Query("SELECT * FROM sysvar WHERE fdivisionBean = :id ")
+//    fun getAllByDivision(id: Int): List<Sysvar>
+//
+//    @Query("SELECT * FROM sysvar WHERE fdivisionBean = :id ")
+//    fun getAllByDivisionLive(id: Int): LiveData<List<Sysvar>>
+//
 
-    @Query("DELETE FROM sysvar")
-    fun deleteAllSysvar()
-
-    @get:Query("SELECT * FROM sysvar ")
-    val allSysvarLive: LiveData<List<Sysvar?>?>?
-
-    @get:Query("SELECT * FROM sysvar ")
-    val allSysvar: List<Sysvar?>?
-
-    @Query("SELECT * FROM sysvar WHERE id = :id ")
-    fun getAllById(id: Int): List<Sysvar?>?
-
-    @Query("SELECT * FROM sysvar WHERE fdivisionBean = :id ")
-    fun getAllByDivision(id: Int): List<Sysvar?>?
 }

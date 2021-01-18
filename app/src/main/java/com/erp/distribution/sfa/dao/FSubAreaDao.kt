@@ -43,9 +43,9 @@ interface FSubAreaDao {
     fun getAllFSubAreaByKodeLive(kode1: String): LiveData<List<FSubArea>>
 
 
-    @Query("SELECT * FROM fSubArea WHERE fareaBean = :id ")
-    fun getAllByParent(id: Int): List<FSubArea>
+    @Query("SELECT * FROM fSubArea WHERE fareaBean = :parentId ")
+    fun getAllByParent(parentId: Int): List<FSubArea>
 
-    @Query("SELECT * FROM fSubArea WHERE fareaBean = :id ")
-    fun getAllByParentLive(id: Int): LiveData<List<FSubArea>>
+    @Query("SELECT * FROM fSubArea WHERE fareaBean = :parentId ")
+    fun getAllByParentLive(parentId: Int): LiveData<List<FSubArea>>
 }

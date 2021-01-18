@@ -33,9 +33,9 @@ import com.erp.distribution.sfa.security_repository.FUserRolesDao
     FDivision::class,
 //    FGiro::class,
     FMaterial::class,
-//    FMaterialGroup1::class,
-//    FMaterialGroup2::class,
-//    FMaterialGroup3::class,
+    FMaterialGroup1::class,
+    FMaterialGroup2::class,
+    FMaterialGroup3::class,
 //    FMaterialPic::class,
 //    FMaterialSalesBrand::class,
 //    FParamDiskonItem::class,
@@ -47,7 +47,7 @@ import com.erp.distribution.sfa.security_repository.FUserRolesDao
 //    FPromotionRulesh::class,
 //    FRegion::class,
     FSalesman::class,
-//    FStock::class,
+    FStock::class,
     FSubArea::class,
 //    FtApPaymentd::class,
 //    FtApPaymenth::class,
@@ -94,9 +94,9 @@ abstract class AppDatabase : RoomDatabase() {
 //    abstract val expedisiDao: FExpedisiDao
 //    abstract val giroDao: FGiroDao
     abstract val materialDao: FMaterialDao
-//    abstract val materialGroup1Dao: FMaterialGroup1Dao
-//    abstract val materialGroup2Dao: FMaterialGroup2Dao
-//    abstract val materialGroup3Dao: FMaterialGroup3Dao
+    abstract val materialGroup1Dao: FMaterialGroup1Dao
+    abstract val materialGroup2Dao: FMaterialGroup2Dao
+    abstract val materialGroup3Dao: FMaterialGroup3Dao
 //    abstract val materialPicDao: FMaterialPicDao
 //    abstract val materialSalesBrandDao: FMaterialSalesBrandDao
 //    abstract val paramDiskonItemDao: FParamDiskonItemDao
@@ -108,7 +108,7 @@ abstract class AppDatabase : RoomDatabase() {
 //    abstract val promotionRuleshDao: FPromotionRuleshDao
 //    abstract val regionDao: FRegionDao
     abstract val salesmanDao: FSalesmanDao
-//    abstract val stockDao: FStockDao
+    abstract val stockDao: FStockDao
     abstract val subAreaDao: FSubAreaDao
 //    abstract val apPaymentdDao: FtApPaymentdDao
 //    abstract val apPaymenthDao: FtApPaymenthDao
@@ -129,8 +129,8 @@ abstract class AppDatabase : RoomDatabase() {
 //    abstract val stockTransferhDao: FtStockTransferhDao
 //    abstract val uangMukaDao: FUangMukaDao
 //    abstract val vendorDao: FVendorDao
-//    abstract val warehouseDao: FWarehouseDao
-//    abstract val sysvarDao: SysvarDao
+    abstract val warehouseDao: FWarehouseDao
+    abstract val sysvarDao: SysvarDao
 
     companion object {
         const val DB_NAME = "ArtGalleryDatabase.db"
