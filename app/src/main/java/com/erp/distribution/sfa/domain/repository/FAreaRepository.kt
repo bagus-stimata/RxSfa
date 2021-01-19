@@ -1,8 +1,6 @@
 package com.erp.distribution.sfa.domain.repository
 
 import androidx.lifecycle.LiveData
-import com.erp.distribution.sfa.domain.model.Album
-import com.erp.distribution.sfa.domain.model.DummyUser
 import com.erp.distribution.sfa.model.FArea
 import io.reactivex.Single
 
