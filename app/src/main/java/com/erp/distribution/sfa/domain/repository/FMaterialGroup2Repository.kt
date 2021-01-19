@@ -10,14 +10,14 @@ import io.reactivex.Single
 interface FMaterialGroup2Repository {
     fun getRemoteAllFMaterialGroup2(): Single<List<FMaterialGroup2>>
     fun getRemoteFMaterialGroup2ById(id: Int): Single<FMaterialGroup2>
-    fun getRemoteAllFMaterialGroup2ByParentId(parentId: Int): Single<List<FMaterialGroup2>>
+    fun getRemoteAllFMaterialGroup2ByParent(parentId: Int): Single<List<FMaterialGroup2>>
     fun createRemoteFMaterialGroup2(fMaterialGroup2: FMaterialGroup2): Single<FMaterialGroup2>
     fun putRemoteFMaterialGroup2(id: Int, fMaterialGroup2: FMaterialGroup2): Single<FMaterialGroup2>
     fun deleteRemoteFMaterialGroup2(id: Int): Single<FMaterialGroup2>
 
     fun getCacheAllFMaterialGroup2(): LiveData<List<FMaterialGroup2>>
     fun getCacheFMaterialGroup2ById(id: Int): LiveData<FMaterialGroup2>
-    fun getCacheAllFMaterialGroup2ByDivision(divisionId: Int): LiveData<List<FMaterialGroup2>>
+    fun getCacheAllFMaterialGroup2ByParent(divisionId: Int): LiveData<List<FMaterialGroup2>>
     fun addCacheFMaterialGroup2(fMaterialGroup2: FMaterialGroup2)
     fun putCacheFMaterialGroup2(fMaterialGroup2: FMaterialGroup2)
     fun deleteCacheFMaterialGroup2(fMaterialGroup2: FMaterialGroup2)

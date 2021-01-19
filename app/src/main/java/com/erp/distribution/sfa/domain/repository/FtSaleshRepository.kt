@@ -9,14 +9,14 @@ import io.reactivex.Single
  * */
 interface FtSaleshRepository {
     fun getRemoteAllFtSalesh(): Single<List<FtSalesh>>
-    fun getRemoteFtSaleshById(id: Int): Single<FtSalesh>
+    fun getRemoteFtSaleshById(id: Long): Single<FtSalesh>
     fun getRemoteAllFtSaleshByDivision(divisionId: Int): Single<List<FtSalesh>>
     fun createRemoteFtSalesh(ftSalesh: FtSalesh): Single<FtSalesh>
-    fun putRemoteFtSalesh(id: Int, ftSalesh: FtSalesh): Single<FtSalesh>
-    fun deleteRemoteFtSalesh(id: Int): Single<FtSalesh>
+    fun putRemoteFtSalesh(id: Long, ftSalesh: FtSalesh): Single<FtSalesh>
+    fun deleteRemoteFtSalesh(id: Long): Single<FtSalesh>
 
     fun getCacheAllFtSalesh(): LiveData<List<FtSalesh>>
-    fun getCacheFtSaleshById(id: Int): LiveData<FtSalesh>
+    fun getCacheFtSaleshById(id: Long): LiveData<FtSalesh>
     fun getCacheAllFtSaleshByDivision(divisionId: Int): LiveData<List<FtSalesh>>
     fun addCacheFtSalesh(ftSalesh: FtSalesh)
     fun putCacheFtSalesh(ftSalesh: FtSalesh)

@@ -10,7 +10,7 @@ interface RetrofitServiceFtSalesh {
     fun getRemoteAllFtSalesh(@Header("Authorization") authHeader: String?): Single<List<FtSalesh>>
 
     @GET("getFtSaleshById/{id}")
-    fun getRemoteFtSaleshById(@Header("Authorization") authHeader: String?, @Path("id") id: Int): Single<FtSalesh>
+    fun getRemoteFtSaleshById(@Header("Authorization") authHeader: String?, @Path("id") id: Long): Single<FtSalesh>
 
     @GET("getAllFtSaleshByDivision/{fdivisionBean}")
     fun getRemoteAllFtSaleshByDivision(@Header("Authorization") authHeader: String?, @Path("fdivisionBean") fdivisionBean: Int): Single<List<FtSalesh>>
@@ -19,10 +19,10 @@ interface RetrofitServiceFtSalesh {
     @POST("createFtSalesh")
     fun createRemoteFtSalesh(@Header("Authorization") authHeader: String?, @Body ftSaleshBean: FtSalesh): Single<FtSalesh>
 
-    @PUT("updateFSubArea/{id}")
-    fun putRemoteFtSalesh(@Header("Authorization") authHeader: String?, @Path("id") id: Int, @Body ftSaleshBean: FtSalesh): Single<FtSalesh>
+    @PUT("updateFtSalesh/{id}")
+    fun putRemoteFtSalesh(@Header("Authorization") authHeader: String?, @Path("id") id: Long, @Body ftSaleshBean: FtSalesh): Single<FtSalesh>
 
     @HTTP(method = "DELETE", path = "deleteFtSalesh/{id}", hasBody = true)
-    fun  deleteRemoteFtSalesh(@Header("Authorization") authHeader: String?, @Path("id") id: Int): Single<FtSalesh>
+    fun  deleteRemoteFtSalesh(@Header("Authorization") authHeader: String?, @Path("id") id: Long): Single<FtSalesh>
 
 }

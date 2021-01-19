@@ -9,15 +9,15 @@ import io.reactivex.Single
  * */
 interface FtSalesdItemsRepository {
     fun getRemoteAllFtSalesdItems(): Single<List<FtSalesdItems>>
-    fun getRemoteFtSalesdItemsById(id: Int): Single<FtSalesdItems>
-    fun getRemoteAllFtSalesdItemsByParentId(parentId: Int): Single<List<FtSalesdItems>>
+    fun getRemoteFtSalesdItemsById(id: Long): Single<FtSalesdItems>
+    fun getRemoteAllFtSalesdItemsByParent(parentId: Long): Single<List<FtSalesdItems>>
     fun createRemoteFtSalesdItems(ftSalesdItems: FtSalesdItems): Single<FtSalesdItems>
-    fun putRemoteFtSalesdItems(id: Int, ftSalesdItems: FtSalesdItems): Single<FtSalesdItems>
-    fun deleteRemoteFtSalesdItems(id: Int): Single<FtSalesdItems>
+    fun putRemoteFtSalesdItems(id: Long, ftSalesdItems: FtSalesdItems): Single<FtSalesdItems>
+    fun deleteRemoteFtSalesdItems(id: Long): Single<FtSalesdItems>
 
     fun getCacheAllFtSalesdItems(): LiveData<List<FtSalesdItems>>
-    fun getCacheFtSalesdItemsById(id: Int): LiveData<FtSalesdItems>
-    fun getCacheAllFtSalesdItemsByDivision(divisionId: Int): LiveData<List<FtSalesdItems>>
+    fun getCacheFtSalesdItemsById(id: Long): LiveData<FtSalesdItems>
+    fun getCacheAllFtSalesdItemsByParent(parentId: Long): LiveData<List<FtSalesdItems>>
     fun addCacheFtSalesdItems(ftSalesdItems: FtSalesdItems)
     fun putCacheFtSalesdItems(ftSalesdItems: FtSalesdItems)
     fun deleteCacheFtSalesdItems(ftSalesdItems: FtSalesdItems)

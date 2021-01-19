@@ -10,14 +10,14 @@ import io.reactivex.Single
 interface FCustomerPicRepository {
     fun getRemoteAllFCustomerPic(): Single<List<FCustomerPic>>
     fun getRemoteFCustomerPicById(id: Int): Single<FCustomerPic>
-    fun getRemoteAllFCustomerPicByParentId(parentId: Int): Single<List<FCustomerPic>>
+    fun getRemoteAllFCustomerPicByParent(parentId: Int): Single<List<FCustomerPic>>
     fun createRemoteFCustomerPic(fCustomerPic: FCustomerPic): Single<FCustomerPic>
     fun putRemoteFCustomerPic(id: Int, fCustomerPic: FCustomerPic): Single<FCustomerPic>
     fun deleteRemoteFCustomerPic(id: Int): Single<FCustomerPic>
 
     fun getCacheAllFCustomerPic(): LiveData<List<FCustomerPic>>
     fun getCacheFCustomerPicById(id: Int): LiveData<FCustomerPic>
-    fun getCacheAllFCustomerPicByDivision(divisionId: Int): LiveData<List<FCustomerPic>>
+    fun getCacheAllFCustomerPicByParent(parentId: Int): LiveData<List<FCustomerPic>>
     fun addCacheFCustomerPic(fCustomerPic: FCustomerPic)
     fun putCacheFCustomerPic(fCustomerPic: FCustomerPic)
     fun deleteCacheFCustomerPic(fCustomerPic: FCustomerPic)

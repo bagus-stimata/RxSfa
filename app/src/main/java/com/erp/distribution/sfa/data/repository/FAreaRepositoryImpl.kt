@@ -2,11 +2,8 @@ package com.erp.distribution.sfa.data.repository
 
 import androidx.lifecycle.LiveData
 import com.erp.distribution.sfa.data.source.remote.RetrofitServiceFArea
-import com.erp.distribution.sfa.domain.model.Album
-import com.erp.distribution.sfa.data.source.remote.RetrofitServiceSecurity
 import com.erp.distribution.sfa.database.AppDatabase
 import com.erp.distribution.sfa.domain.repository.FAreaRepository
-import com.erp.distribution.sfa.domain.repository.UserRepository
 import com.erp.distribution.sfa.model.FArea
 import com.erp.distribution.sfa.utils.Constants
 import io.reactivex.Single

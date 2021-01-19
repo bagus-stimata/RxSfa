@@ -7,10 +7,8 @@ import android.net.NetworkInfo
 import com.erp.distribution.sfa.data.repository.AlbumRepositoryImp
 import com.erp.distribution.sfa.data.repository.PhotoRepositoryImp
 import com.erp.distribution.sfa.data.repository.UserRepositoryImp
-import com.erp.distribution.sfa.data.source.remote.RetrofitServiceSecurity
+import com.erp.distribution.sfa.data.source.remote.*
 import com.erp.distribution.sfa.database.AppDatabase
-import com.erp.distribution.sfa.data.source.remote.RetrofitService
-import com.erp.distribution.sfa.data.source.remote.RetrofitServiceFArea
 import com.erp.distribution.sfa.domain.repository.AlbumRepository
 import com.erp.distribution.sfa.domain.repository.PhotoRepository
 import com.erp.distribution.sfa.domain.repository.UserRepository
@@ -133,7 +131,62 @@ class NetworkModule {
     @Singleton
     @Provides
     fun provideServiceFArea(retrofit: Retrofit): RetrofitServiceFArea = retrofit.create(RetrofitServiceFArea::class.java)
+    @Singleton
+    @Provides
+    fun provideServiceFCompany(retrofit: Retrofit): RetrofitServiceFCompany = retrofit.create(RetrofitServiceFCompany::class.java)
+    @Singleton
+    @Provides
+    fun provideServiceFCustomer(retrofit: Retrofit): RetrofitServiceFCustomer = retrofit.create(RetrofitServiceFCustomer::class.java)
+    @Singleton
+    @Provides
+    fun provideServiceFCustomerGroup(retrofit: Retrofit): RetrofitServiceFCustomerGroup = retrofit.create(RetrofitServiceFCustomerGroup::class.java)
+    @Singleton
+    @Provides
+    fun provideServiceFCustomerPic(retrofit: Retrofit): RetrofitServiceFCustomerPic = retrofit.create(RetrofitServiceFCustomerPic::class.java)
+    @Singleton
+    @Provides
+    fun provideServiceFMaterial(retrofit: Retrofit): RetrofitServiceFMaterial = retrofit.create(RetrofitServiceFMaterial::class.java)
+    @Singleton
+    @Provides
+    fun provideServiceFMaterialGroup1(retrofit: Retrofit): RetrofitServiceFMaterialGroup1 = retrofit.create(RetrofitServiceFMaterialGroup1::class.java)
+    @Singleton
+    @Provides
+    fun provideServiceFMaterialGroup2(retrofit: Retrofit): RetrofitServiceFMaterialGroup2 = retrofit.create(RetrofitServiceFMaterialGroup2::class.java)
+    @Singleton
+    @Provides
+    fun provideServiceFMaterialGroup3(retrofit: Retrofit): RetrofitServiceFMaterialGroup3 = retrofit.create(RetrofitServiceFMaterialGroup3::class.java)
+    @Singleton
+    @Provides
+    fun provideServiceFMaterialPic(retrofit: Retrofit): RetrofitServiceFMaterialPic = retrofit.create(RetrofitServiceFMaterialPic::class.java)
+    @Singleton
+    @Provides
+    fun provideServiceFMaterialSalesBrand(retrofit: Retrofit): RetrofitServiceFMaterialSalesBrand = retrofit.create(RetrofitServiceFMaterialSalesBrand::class.java)
 
+    @Singleton
+    @Provides
+    fun provideServiceFSalesman(retrofit: Retrofit): RetrofitServiceFSalesman = retrofit.create(RetrofitServiceFSalesman::class.java)
+    @Singleton
+    @Provides
+    fun provideServiceFStock(retrofit: Retrofit): RetrofitServiceFStock = retrofit.create(RetrofitServiceFStock::class.java)
+    @Singleton
+    @Provides
+    fun provideServiceFTax(retrofit: Retrofit): RetrofitServiceFTax = retrofit.create(RetrofitServiceFTax::class.java)
 
+    @Singleton
+    @Provides
+    fun provideServiceFtSalesdItems(retrofit: Retrofit): RetrofitServiceFtSalesdItems = retrofit.create(RetrofitServiceFtSalesdItems::class.java)
+    @Singleton
+    @Provides
+    fun provideServiceFtSalesh(retrofit: Retrofit): RetrofitServiceFtSalesh = retrofit.create(RetrofitServiceFtSalesh::class.java)
+
+    @Singleton
+    @Provides
+    fun provideServiceFVendor(retrofit: Retrofit): RetrofitServiceFVendor = retrofit.create(RetrofitServiceFVendor::class.java)
+    @Singleton
+    @Provides
+    fun provideServiceFWarehouse(retrofit: Retrofit): RetrofitServiceFWarehouse = retrofit.create(RetrofitServiceFWarehouse::class.java)
+    @Singleton
+    @Provides
+    fun provideServiceSysvar(retrofit: Retrofit): RetrofitServiceSysvar = retrofit.create(RetrofitServiceSysvar::class.java)
 
 }

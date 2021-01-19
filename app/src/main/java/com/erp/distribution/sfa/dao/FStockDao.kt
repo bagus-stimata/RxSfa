@@ -58,8 +58,8 @@ interface FStockDao {
 
 
     @Query("SELECT * FROM fStock WHERE stockDate = :stockDate AND fmaterialBean = :fmaterialId ")
-    fun getAllFStockByTrDateAndMaterial(stockDate: Date, fmaterialId: Int): List<FStock>
-    @Query("SELECT * FROM fStock WHERE stockDate = :stockDate AND fmaterialBean = :fmaterialId ")
-    fun getAllFStockByTrDateAndMaterialLive(stockDate: Date, fmaterialId: Int): LiveData<List<FStock>>
+    fun getAllByMaterialLive(fmaterialId: Int, stockDate: Date): LiveData<List<FStock>>
+    @Query("SELECT * FROM fStock WHERE stockDate = :stockDate AND fwarehouseBean = :warehouseId ")
+    fun getAllByWarehouseLive(warehouseId: Int, stockDate: Date): LiveData<List<FStock>>
 
 }

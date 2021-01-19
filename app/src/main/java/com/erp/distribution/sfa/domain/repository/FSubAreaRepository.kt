@@ -10,14 +10,14 @@ import io.reactivex.Single
 interface FSubAreaRepository {
     fun getRemoteAllFSubArea(): Single<List<FSubArea>>
     fun getRemoteFSubAreaById(id: Int): Single<FSubArea>
-    fun getRemoteAllFSubAreaByParentId(parentId: Int): Single<List<FSubArea>>
+    fun getRemoteAllFSubAreaByParent(parentId: Int): Single<List<FSubArea>>
     fun createRemoteFSubArea(fSubArea: FSubArea): Single<FSubArea>
     fun putRemoteFSubArea(id: Int, fSubArea: FSubArea): Single<FSubArea>
     fun deleteRemoteFSubArea(id: Int): Single<FSubArea>
 
     fun getCacheAllFSubArea(): LiveData<List<FSubArea>>
     fun getCacheFSubAreaById(id: Int): LiveData<FSubArea>
-    fun getCacheAllFSubAreaByDivision(divisionId: Int): LiveData<List<FSubArea>>
+    fun getCacheAllFSubAreaByParent(divisionId: Int): LiveData<List<FSubArea>>
     fun addCacheFSubArea(fSubArea: FSubArea)
     fun putCacheFSubArea(fSubArea: FSubArea)
     fun deleteCacheFSubArea(fSubArea: FSubArea)

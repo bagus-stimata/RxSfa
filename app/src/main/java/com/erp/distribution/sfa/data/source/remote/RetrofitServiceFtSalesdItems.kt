@@ -10,19 +10,19 @@ interface RetrofitServiceFtSalesdItems {
     fun getRemoteAllFtSalesdItems(@Header("Authorization") authHeader: String?): Single<List<FtSalesdItems>>
 
     @GET("getFtSalesdItemsById/{id}")
-    fun getRemoteFtSalesdItemsById(@Header("Authorization") authHeader: String?, @Path("id") id: Int): Single<FtSalesdItems>
+    fun getRemoteFtSalesdItemsById(@Header("Authorization") authHeader: String?, @Path("id") id: Long): Single<FtSalesdItems>
 
     @GET("getAllFtSalesdItemsByParent/{parentId}")
-    fun getRemoteAllFtSalesdItemsByParent(@Header("Authorization") authHeader: String?, @Path("parentId") parentId: Int): Single<List<FtSalesdItems>>
+    fun getRemoteAllFtSalesdItemsByParent(@Header("Authorization") authHeader: String?, @Path("parentId") parentId: Long): Single<List<FtSalesdItems>>
 
 
     @POST("createFtSalesdItems")
     fun createRemoteFtSalesdItems(@Header("Authorization") authHeader: String?, @Body ftSalesdItemsBean: FtSalesdItems): Single<FtSalesdItems>
 
     @PUT("updateFtSalesdItems/{id}")
-    fun putRemoteFtSalesdItems(@Header("Authorization") authHeader: String?, @Path("id") id: Int, @Body ftSalesdItemsBean: FtSalesdItems): Single<FtSalesdItems>
+    fun putRemoteFtSalesdItems(@Header("Authorization") authHeader: String?, @Path("id") id: Long, @Body ftSalesdItemsBean: FtSalesdItems): Single<FtSalesdItems>
 
     @HTTP(method = "DELETE", path = "deleteFtSalesdItems/{id}", hasBody = true)
-    fun  deleteRemoteFtSalesdItems(@Header("Authorization") authHeader: String?, @Path("id") id: Int): Single<FtSalesdItems>
+    fun  deleteRemoteFtSalesdItems(@Header("Authorization") authHeader: String?, @Path("id") id: Long): Single<FtSalesdItems>
 
 }
