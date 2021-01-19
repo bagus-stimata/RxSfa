@@ -12,7 +12,7 @@ interface RetrofitServiceSecurity {
     @GET("getAllFUser")
     fun getAllData(@Header("Authorization")  authHeader: String): Single<List<FUser>>
 
-    @GET("getFUserById2/{username}")
+    @GET("getFUserById2/{id}")
     fun getFUserById(@Header("Authorization")  authHeader: String, @Path("id") id: Int): Single<FUser>
 
 

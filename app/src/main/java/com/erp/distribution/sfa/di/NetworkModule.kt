@@ -10,11 +10,13 @@ import com.erp.distribution.sfa.data.repository.UserRepositoryImp
 import com.erp.distribution.sfa.data.source.remote.RetrofitServiceSecurity
 import com.erp.distribution.sfa.database.AppDatabase
 import com.erp.distribution.sfa.data.source.remote.RetrofitService
+import com.erp.distribution.sfa.data.source.remote.RetrofitServiceFArea
 import com.erp.distribution.sfa.domain.repository.AlbumRepository
 import com.erp.distribution.sfa.domain.repository.PhotoRepository
 import com.erp.distribution.sfa.domain.repository.UserRepository
 import com.erp.distribution.sfa.utils.Constants.BASE_URL
 import com.google.gson.Gson
+import com.google.gson.GsonBuilder
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -97,7 +99,9 @@ class NetworkModule {
     @Provides
     @Singleton
     fun providesGsonConverterFactory(): GsonConverterFactory {
-        return GsonConverterFactory.create()
+        val gsonBuilder = GsonBuilder().setDateFormat("yyyy-MM-dd'T'HH:mm:ss").create()
+        return GsonConverterFactory
+                .create(gsonBuilder)
     }
 
     @Provides
@@ -122,40 +126,16 @@ class NetworkModule {
     }
     @Singleton
     @Provides
-    fun provideServiceDummy(retrofit: Retrofit): RetrofitServiceSecurity {
+    fun provideServiceSecurity(retrofit: Retrofit): RetrofitServiceSecurity {
         return retrofit.create(RetrofitServiceSecurity::class.java)
     }
 
-
-
-
-
-
     @Singleton
     @Provides
-    fun provideAlbumRepository(
-        retrofitService: RetrofitService
-    ): AlbumRepository {
-        return AlbumRepositoryImp(retrofitService)
-    }
+    fun provideServiceFArea(retrofit: Retrofit): RetrofitServiceFArea = retrofit.create(RetrofitServiceFArea::class.java)
 
-    @Singleton
-    @Provides
-    fun providePhotoRepository(
-        appDatabase: AppDatabase,
-        retrofitService: RetrofitService
-    ): PhotoRepository {
-        return PhotoRepositoryImp(appDatabase, retrofitService)
-    }
 
-    @Singleton
-    @Provides
-    fun provideDummyUserRepository(
-        appDatabase: AppDatabase,
-        retrofitService: RetrofitServiceSecurity
-    ): UserRepository {
-        return UserRepositoryImp(appDatabase, retrofitService)
-    }
+
 
 
 }

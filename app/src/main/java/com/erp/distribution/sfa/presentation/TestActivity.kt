@@ -27,8 +27,9 @@ class TestActivity : AppCompatActivity() {
             Log.d("result",  "Test Let ${str}")
         }
 
-
-        viewModel.getRetrieveRemoteData()
+//        viewModel.test()
+//        viewModel.getRetrieveRemoteData()
+        viewModel.createFArea()
 
 //        viewModel.addCacheData()
 //        viewModel.deleteAllCacheData()
@@ -49,7 +50,7 @@ class TestActivity : AppCompatActivity() {
 //            }
 //        })
 
-        viewModel.domainData.observe(this, {
+        viewModel.dataFArea.observe(this, {
             mainBinding.apply {
 
                 it?.let {
@@ -63,6 +64,8 @@ class TestActivity : AppCompatActivity() {
 
             }
         })
+
+
 
     }
 
