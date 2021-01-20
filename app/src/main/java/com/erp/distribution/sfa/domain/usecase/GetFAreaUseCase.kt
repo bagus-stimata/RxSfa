@@ -2,7 +2,6 @@ package com.erp.distribution.sfa.domain.usecase
 
 import androidx.lifecycle.LiveData
 import com.erp.distribution.sfa.domain.repository.FAreaRepository
-import com.erp.distribution.sfa.domain.repository.UserRepository
 import com.erp.distribution.sfa.domain.usecase.base.SingleUseCase
 import com.erp.distribution.sfa.model.FArea
 import io.reactivex.Single

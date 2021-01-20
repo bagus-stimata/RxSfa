@@ -16,7 +16,7 @@
         android:usesCleartextTraffic="true"
         android:theme="@style/Theme.RxSfa">
 <!--        <activity android:name="com.erp.distribution.sfa.presentation.gallery.GalleryActivity">-->
-        <activity android:name="com.erp.distribution.sfa.presentation.TestActivity">
+        <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -26,6 +26,7 @@
 
         <activity android:name="com.erp.distribution.sfa.presentation.detailphoto.PhotoDetailActivity"
             android:theme="@style/AppTheme.NoActionBar"/>
+        <activity android:name=".LoginActivity"/>
 
     </application>
 

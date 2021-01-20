@@ -74,7 +74,7 @@ import com.erp.distribution.sfa.security_repository.FUserRolesDao
     Photo::class
 
 
-                     ], version = 17, exportSchema = false)
+                     ], version = 18, exportSchema = false)
 @TypeConverters(RoomDateConverters::class) //Karena ada Native Date
 abstract class AppDatabase : RoomDatabase() {
 
@@ -133,6 +133,6 @@ abstract class AppDatabase : RoomDatabase() {
     abstract val sysvarDao: SysvarDao
 
     companion object {
-        const val DB_NAME = "ArtGalleryDatabase.db"
+        const val DB_NAME = "des_sfa.db"
     }
 }

@@ -11,7 +11,7 @@ import com.erp.distribution.sfa.database.AppDatabase
 import com.erp.distribution.sfa.domain.repository.AlbumRepository
 import com.erp.distribution.sfa.domain.repository.FAreaRepository
 import com.erp.distribution.sfa.domain.repository.PhotoRepository
-import com.erp.distribution.sfa.domain.repository.UserRepository
+import com.erp.distribution.sfa.domain.repository.FUserRepository
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -46,7 +46,7 @@ class RepositoryModule {
     fun provideDummyUserRepository(
             appDatabase: AppDatabase,
             retrofitService: RetrofitServiceSecurity
-    ): UserRepository {
+    ): FUserRepository {
         return UserRepositoryImp(appDatabase, retrofitService)
     }
 

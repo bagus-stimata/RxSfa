@@ -4,14 +4,7 @@ package com.erp.distribution.sfa.di
 import android.content.Context
 import android.net.ConnectivityManager
 import android.net.NetworkInfo
-import com.erp.distribution.sfa.data.repository.AlbumRepositoryImp
-import com.erp.distribution.sfa.data.repository.PhotoRepositoryImp
-import com.erp.distribution.sfa.data.repository.UserRepositoryImp
 import com.erp.distribution.sfa.data.source.remote.*
-import com.erp.distribution.sfa.database.AppDatabase
-import com.erp.distribution.sfa.domain.repository.AlbumRepository
-import com.erp.distribution.sfa.domain.repository.PhotoRepository
-import com.erp.distribution.sfa.domain.repository.UserRepository
 import com.erp.distribution.sfa.utils.Constants.BASE_URL
 import com.google.gson.Gson
 import com.google.gson.GsonBuilder

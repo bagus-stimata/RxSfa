@@ -3,9 +3,7 @@ package com.erp.distribution.sfa.data.source.remote
 import com.erp.distribution.sfa.security_model.FUser
 import io.reactivex.Single
 import retrofit2.Call
-import retrofit2.http.GET
-import retrofit2.http.Header
-import retrofit2.http.Path
+import retrofit2.http.*
 
 interface RetrofitServiceSecurity {
 
@@ -24,6 +22,15 @@ interface RetrofitServiceSecurity {
     fun getFUserByEmail(@Header("Authorization")  authHeader: String, @Path("email") email: String): Single<FUser>
 
 
+    @POST("createFUser")
+    fun createRemoteFUser(@Header("Authorization") authHeader: String?, @Body fUserBean: FUser): Single<FUser>
+
+    @PUT("updateFSubArea/{id}")
+    fun putRemoteFUser(@Header("Authorization") authHeader: String?, @Path("id") id: Int, @Body fUserBean: FUser): Single<FUser>
+
+    @HTTP(method = "DELETE", path = "deleteFUser/{id}", hasBody = true)
+    fun  deleteRemoteFUser(@Header("Authorization") authHeader: String?, @Path("id") id: Int): Single<FUser>
+    
 
 //    @GET("albums/{id}/photos")
 //    fun getPhotos(@Header("Authorization")  authHeader: String, @Path("id") id: Long): Single<List<FUser>>

@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:animateLayoutChanges="true"
     android:background="@drawable/login_grad_bg"
-    tools:context="com.erp.distribution.LoginActivity">
+    tools:context=".LoginActivity">
 
     <RelativeLayout
         android:layout_width="wrap_content"
@@ -143,6 +143,7 @@
             android:fontFamily="sans-serif"
             android:text="Signup Now"
             android:textAllCaps="true"
+            android:visibility="gone"
             android:textColor="@color/white" />
 
         <Button
@@ -153,6 +154,7 @@
             android:fontFamily="sans-serif"
             android:text="Forgot Password?"
             android:textAllCaps="true"
+            android:visibility="gone"
             android:textColor="@color/white" />
 
     </RelativeLayout>

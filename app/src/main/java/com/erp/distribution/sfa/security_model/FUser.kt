@@ -10,18 +10,18 @@ import java.util.*
 data class FUser(
     @PrimaryKey
     var id: Int = 0,
-    var email: String,
-    var username: String,
+    var email: String = "",
+    var username: String = "",
 
     //Encripted Password
-    var password: String,
+    var password: String = "",
 
     //	@JsonIgnore
-    var plainPassword: String,
-    var passwordConfirm: String,
-    var fullName: String,
-    var phone: String,
-    var notes: String,
+    var plainPassword: String = "",
+    var passwordConfirm: String = "",
+    var fullName: String = "",
+    var phone: String = "",
+    var notes: String = "",
 
 //    @Ignore
 //    var fuserRoles: List<FUserRoles>? = null,
@@ -37,8 +37,8 @@ data class FUser(
     /**
      * Tambahan for DES Setting
      */
-    var fdivisionBean: Int,
-    var fwarehouseBean: Int,
+    var fdivisionBean: Int =0,
+    var fwarehouseBean: Int =0,
 
 //    @Ignore
 //    var tempInt1: Int?,
@@ -51,6 +51,8 @@ data class FUser(
 
     var created: Date = Date(),
     var lastModified: Date = Date(),
-    var modifiedBy: String
+    var modifiedBy: String = ""
 
-)
+): Serializable {
+    
+}

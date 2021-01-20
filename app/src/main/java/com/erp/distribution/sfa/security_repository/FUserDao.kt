@@ -26,8 +26,8 @@ interface FUserDao {
     @Query("DELETE FROM fUser")
     fun deleteAllFUser()
 
-    @get:Query("SELECT * FROM fUser ")
-    val getAllFUserLive: LiveData<List<FUser>>
+    @Query("SELECT * FROM fUser ")
+    fun getAllFUserLive(): LiveData<List<FUser>>
 
     @get:Query("SELECT * FROM fUser ")
     val getAllFUser: List<FUser>

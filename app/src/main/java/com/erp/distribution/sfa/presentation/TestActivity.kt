@@ -29,7 +29,7 @@ class TestActivity : AppCompatActivity() {
 
 //        viewModel.test()
 //        viewModel.getRetrieveRemoteData()
-        viewModel.createFArea()
+//        viewModel.createFArea()
 
 //        viewModel.addCacheData()
 //        viewModel.deleteAllCacheData()

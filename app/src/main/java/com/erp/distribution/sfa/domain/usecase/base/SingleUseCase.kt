@@ -28,4 +28,22 @@ abstract class SingleUseCase<T> : UseCase() {
             compositeDisposable.add(it)
         }
     }
+
+    fun create(
+            onSuccess: ((t: T) -> Unit),
+            onError: ((t: Throwable) -> Unit),
+            onFinished: () -> Unit = {}
+    ) {
+        disposeLast()
+        lastDisposable = buildUseCaseSingle()
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .doAfterTerminate(onFinished)
+                .subscribe(onSuccess, onError)
+
+        lastDisposable?.let {
+            compositeDisposable.add(it)
+        }
+    }
+
 }
