@@ -1,6 +1,7 @@
 package com.erp.distribution.sfa.data.repository
 
 import androidx.lifecycle.LiveData
+import com.erp.distribution.sfa.MainApplication
 import com.erp.distribution.sfa.data.source.remote.RetrofitServiceFCustomer
 import com.erp.distribution.sfa.database.AppDatabase
 import com.erp.distribution.sfa.domain.repository.FCustomerRepository
@@ -19,27 +20,27 @@ class FCustomerRepositoryImpl(
 ) : FCustomerRepository {
 
     override fun getRemoteAllFCustomer(): Single<List<FCustomer>> {
-        return retrofitService.getRemoteAllFCustomer(Constants.authHeader)
+        return retrofitService.getRemoteAllFCustomer(MainApplication.authHeader)
     }
 
     override fun getRemoteFCustomerById(id: Int): Single<FCustomer> {
-        return retrofitService.getRemoteFCustomerById(Constants.authHeader, id)
+        return retrofitService.getRemoteFCustomerById(MainApplication.authHeader, id)
     }
 
     override fun getRemoteAllFCustomerByDivision(divisionId: Int): Single<List<FCustomer>> {
-        return retrofitService.getRemoteAllFCustomerByDivision(Constants.authHeader, divisionId)
+        return retrofitService.getRemoteAllFCustomerByDivision(MainApplication.authHeader, divisionId)
     }
 
     override fun createRemoteFCustomer(fCustomer: FCustomer): Single<FCustomer> {
-        return retrofitService.createRemoteFCustomer(Constants.authHeader, fCustomer)
+        return retrofitService.createRemoteFCustomer(MainApplication.authHeader, fCustomer)
     }
 
     override fun putRemoteFCustomer(id: Int, fCustomer: FCustomer): Single<FCustomer> {
-        return retrofitService.putRemoteFCustomer(Constants.authHeader, id, fCustomer)
+        return retrofitService.putRemoteFCustomer(MainApplication.authHeader, id, fCustomer)
     }
 
     override fun deleteRemoteFCustomer(id: Int): Single<FCustomer> {
-        return retrofitService.deleteRemoteFCustomer(Constants.authHeader, id)
+        return retrofitService.deleteRemoteFCustomer(MainApplication.authHeader, id)
     }
 
 
@@ -74,7 +75,7 @@ class FCustomerRepositoryImpl(
 
 
 //    override fun getRemoteAllData(): Single<List<FCustomer>> {
-//        return retrofitService.getRemoteAllFCustomer(Constants.authHeader)
+//        return retrofitService.getRemoteAllFCustomer(MainApplication.authHeader)
 //    }
 
 

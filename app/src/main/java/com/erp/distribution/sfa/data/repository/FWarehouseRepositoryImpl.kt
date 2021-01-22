@@ -1,6 +1,7 @@
 package com.erp.distribution.sfa.data.repository
 
 import androidx.lifecycle.LiveData
+import com.erp.distribution.sfa.MainApplication
 import com.erp.distribution.sfa.data.source.remote.RetrofitServiceFWarehouse
 import com.erp.distribution.sfa.database.AppDatabase
 import com.erp.distribution.sfa.domain.repository.FWarehouseRepository
@@ -19,27 +20,27 @@ class FWarehouseRepositoryImpl(
 ) : FWarehouseRepository {
 
     override fun getRemoteAllFWarehouse(): Single<List<FWarehouse>> {
-        return retrofitService.getRemoteAllFWarehouse(Constants.authHeader)
+        return retrofitService.getRemoteAllFWarehouse(MainApplication.authHeader)
     }
 
     override fun getRemoteFWarehouseById(id: Int): Single<FWarehouse> {
-        return retrofitService.getRemoteFWarehouseById(Constants.authHeader, id)
+        return retrofitService.getRemoteFWarehouseById(MainApplication.authHeader, id)
     }
 
     override fun getRemoteAllFWarehouseByDivision(divisionId: Int): Single<List<FWarehouse>> {
-        return retrofitService.getRemoteAllFWarehouseByDivision(Constants.authHeader, divisionId)
+        return retrofitService.getRemoteAllFWarehouseByDivision(MainApplication.authHeader, divisionId)
     }
 
     override fun createRemoteFWarehouse(fWarehouse: FWarehouse): Single<FWarehouse> {
-        return retrofitService.createRemoteFWarehouse(Constants.authHeader, fWarehouse)
+        return retrofitService.createRemoteFWarehouse(MainApplication.authHeader, fWarehouse)
     }
 
     override fun putRemoteFWarehouse(id: Int, fWarehouse: FWarehouse): Single<FWarehouse> {
-        return retrofitService.putRemoteFWarehouse(Constants.authHeader, id, fWarehouse)
+        return retrofitService.putRemoteFWarehouse(MainApplication.authHeader, id, fWarehouse)
     }
 
     override fun deleteRemoteFWarehouse(id: Int): Single<FWarehouse> {
-        return retrofitService.deleteRemoteFWarehouse(Constants.authHeader, id)
+        return retrofitService.deleteRemoteFWarehouse(MainApplication.authHeader, id)
     }
 
 
@@ -74,7 +75,7 @@ class FWarehouseRepositoryImpl(
 
 
 //    override fun getRemoteAllData(): Single<List<FWarehouse>> {
-//        return retrofitService.getRemoteAllFWarehouse(Constants.authHeader)
+//        return retrofitService.getRemoteAllFWarehouse(MainApplication.authHeader)
 //    }
 
 

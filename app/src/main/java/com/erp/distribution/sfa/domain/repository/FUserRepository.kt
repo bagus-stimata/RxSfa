@@ -11,6 +11,7 @@ interface FUserRepository {
     fun getRemoteAllFUser(): Single<List<FUser>>
     fun getRemoteFUserById(id: Int): Single<FUser>
     fun getRemoteFUserByUsername(username: String): Single<FUser>
+    fun getRemoteFUserByUsernamePassword(username: String, password: String): Single<FUser>
     fun getRemoteFUserByEmail(email: String): Single<FUser>
 //    fun getRemoteDataByParentId(parenId: Int): Single<List<FUser>>
     fun createRemoteFUser(fUser: FUser): Single<FUser>

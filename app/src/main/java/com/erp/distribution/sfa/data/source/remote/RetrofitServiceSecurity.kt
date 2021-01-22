@@ -16,6 +16,8 @@ interface RetrofitServiceSecurity {
 
     @GET("getFUserByUsername/{username}")
     fun getFUserByUsername(@Header("Authorization")  authHeader: String, @Path("username") username: String): Single<FUser>
+    @GET("getFUserByUsernamePassword/{username}/{password}")
+    fun getFUserByUsernamePassword(@Header("Authorization")  authHeader: String, @Path("username") username: String, @Path("password") password: String): Single<FUser>
 
 
     @GET("getFUserByUsername/{email}")

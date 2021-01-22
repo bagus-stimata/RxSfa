@@ -53,6 +53,6 @@ data class FUser(
     var lastModified: Date = Date(),
     var modifiedBy: String = ""
 
-): Serializable {
+) : Serializable{
     
 }

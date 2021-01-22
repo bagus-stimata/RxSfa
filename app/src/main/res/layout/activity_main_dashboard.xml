@@ -1,7 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    tools:context=".MainActivity">
+
+    <data>
+
+        <variable
+            name="userActive"
+            type="com.erp.distribution.sfa.security_model.FUser" />
+        <variable
+            name="activity"
+            type="com.erp.distribution.sfa.MainActivity" />
+        <import type="android.view.View"/>
+    </data>
+
+<LinearLayout
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#fff"
@@ -41,7 +55,7 @@
                 android:layout_below="@id/greeting_text1"
                 android:fontFamily="monospace"
                 android:gravity="center"
-                android:text="Bagus"
+                android:text="@{userActive.fullName}"
                 android:textColor="@color/design_default_color_primary_variant"
                 android:textSize="18sp" />
 
@@ -70,6 +84,7 @@
                     android:gravity="center">
 
                     <TextView
+                        android:id="@+id/topInfo_Omset"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="15dp"
@@ -108,7 +123,7 @@
                         android:layout_marginRight="15dp"
                         android:background="@drawable/ic_saldo_bg"
                         android:src="@drawable/ic_sign_right"
-                        android:tint="#6f6e6e" />
+                        app:tint="#6f6e6e" />
 
                     <LinearLayout
                         android:id="@+id/garis"
@@ -140,7 +155,9 @@
                                 android:layout_height="40dp"
                                 android:layout_centerHorizontal="true"
                                 android:src="@drawable/ic_phone_broadcast"
-                                android:tint="@color/blue" />
+                                android:visibility="@{userActive.username.isEmpty? View.GONE : View.VISIBLE}"
+                                android:onClick="@{() -> activity.menuSyncronize()}"
+                                app:tint="@color/blue" />
 
                             <TextView
                                 android:layout_width="match_parent"
@@ -168,7 +185,8 @@
                                 android:layout_height="40dp"
                                 android:layout_centerHorizontal="true"
                                 android:src="@drawable/ic_pulsa"
-                                android:tint="#673AB7" />
+                                android:visibility="@{userActive.username.isEmpty? View.GONE : View.VISIBLE}"
+                                app:tint="#673AB7" />
 
                             <TextView
 
@@ -197,7 +215,8 @@
                                 android:layout_height="40dp"
                                 android:layout_centerHorizontal="true"
                                 android:src="@drawable/ic_reward_prize"
-                                android:tint="#E91E63" />
+                                android:visibility="@{userActive.username.isEmpty? View.GONE : View.VISIBLE}"
+                                app:tint="#E91E63" />
 
                             <TextView
                                 android:layout_width="match_parent"
@@ -279,6 +298,7 @@
                     android:layout_weight="0.33"
                     android:clickable="true"
                     app:cardCornerRadius="10dp"
+                    android:visibility="@{userActive.username.isEmpty? View.GONE : View.VISIBLE}"
                     app:cardElevation="5dp">
 
                     <RelativeLayout
@@ -295,7 +315,7 @@
                             android:padding="10dp"
                             android:scaleType="fitCenter"
                             android:src="@drawable/ic_calender_check"
-                            android:tint="@color/design_default_color_primary" />
+                            app:tint="@color/design_default_color_primary" />
 
                         <TextView
                             android:id="@+id/textView3"
@@ -323,6 +343,8 @@
                     android:layout_weight="0.33"
                     android:clickable="true"
                     app:cardCornerRadius="10dp"
+                    android:visibility="@{userActive.username.isEmpty? View.GONE : View.VISIBLE}"
+                    android:onClick="@{() -> activity.menuSalesOrder()}"
                     app:cardElevation="5dp">
 
                     <RelativeLayout
@@ -339,7 +361,7 @@
                             android:padding="10dp"
                             android:scaleType="fitCenter"
                             android:src="@drawable/ic_motor_cycle"
-                            android:tint="@android:color/holo_orange_dark" />
+                            app:tint="@android:color/holo_orange_dark" />
 
                         <TextView
                             android:id="@+id/textView2"
@@ -367,6 +389,7 @@
                     android:layout_weight="0.33"
                     android:clickable="true"
                     app:cardCornerRadius="10dp"
+                    android:visibility="@{userActive.username.isEmpty? View.GONE : View.VISIBLE}"
                     app:cardElevation="5dp">
 
                     <RelativeLayout
@@ -383,7 +406,7 @@
                             android:padding="10dp"
                             android:scaleType="fitCenter"
                             android:src="@drawable/ic_baseline_trending_up_24"
-                            android:tint="@android:color/holo_blue_light" />
+                            app:tint="@android:color/holo_blue_light" />
 
                         <TextView
                             android:id="@+id/textView6"
@@ -421,6 +444,8 @@
                     android:layout_weight="0.33"
                     android:clickable="true"
                     app:cardCornerRadius="10dp"
+                    android:visibility="@{userActive.username.isEmpty? View.GONE : View.VISIBLE}"
+                    android:onClick="@{() -> activity.menuProduct()}"
                     app:cardElevation="5dp">
 
                     <RelativeLayout
@@ -437,7 +462,7 @@
                             android:padding="10dp"
                             android:scaleType="fitCenter"
                             android:src="@drawable/ic_hemat"
-                            android:tint="@color/colorPrimaryDark" />
+                            app:tint="@color/colorPrimaryDark" />
 
                         <TextView
                             android:id="@+id/textView12"
@@ -465,6 +490,8 @@
                     android:background="?attr/selectableItemBackground"
                     android:clickable="true"
                     app:cardCornerRadius="10dp"
+                    android:visibility="@{userActive.username.isEmpty? View.GONE : View.VISIBLE}"
+                    android:onClick="@{() -> activity.menuCustomer()}"
                     app:cardElevation="5dp">
 
                     <RelativeLayout
@@ -481,7 +508,7 @@
                             android:padding="10dp"
                             android:scaleType="fitCenter"
                             android:src="@drawable/ic_baseline_people_alt_24"
-                            android:tint="?attr/colorPrimaryDark" />
+                            app:tint="?attr/colorPrimaryDark" />
 
                         <TextView
                             android:id="@+id/textView18"
@@ -510,6 +537,7 @@
                     android:background="?attr/selectableItemBackground"
                     android:clickable="true"
                     app:cardCornerRadius="10dp"
+                    android:visibility="@{userActive.username.isEmpty? View.GONE : View.VISIBLE}"
                     app:cardElevation="5dp">
 
                     <RelativeLayout
@@ -563,6 +591,7 @@
                     android:layout_weight="0.33"
                     android:clickable="true"
                     app:cardCornerRadius="10dp"
+                    android:visibility="@{userActive.username.isEmpty? View.GONE : View.VISIBLE}"
                     app:cardElevation="5dp">
 
                     <RelativeLayout
@@ -605,6 +634,7 @@
                     android:background="?attr/selectableItemBackground"
                     android:clickable="true"
                     app:cardCornerRadius="10dp"
+                    android:visibility="@{userActive.username.isEmpty? View.GONE : View.VISIBLE}"
                     app:cardElevation="5dp">
 
                     <RelativeLayout
@@ -648,6 +678,7 @@
                     android:background="?attr/selectableItemBackground"
                     android:clickable="true"
                     app:cardCornerRadius="10dp"
+                    android:visibility="@{userActive.username.isEmpty? View.GONE : View.VISIBLE}"
                     app:cardElevation="5dp">
 
                     <RelativeLayout
@@ -687,4 +718,8 @@
 
     </ScrollView>
 
+
 </LinearLayout>
+
+
+</layout>

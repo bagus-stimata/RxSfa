@@ -1,6 +1,7 @@
 package com.erp.distribution.sfa.data.repository
 
 import androidx.lifecycle.LiveData
+import com.erp.distribution.sfa.MainApplication
 import com.erp.distribution.sfa.data.source.remote.RetrofitServiceFtSalesdItems
 import com.erp.distribution.sfa.database.AppDatabase
 import com.erp.distribution.sfa.domain.repository.FtSalesdItemsRepository
@@ -19,27 +20,27 @@ class FtSalesdItemsRepositoryImpl(
 ) : FtSalesdItemsRepository {
 
     override fun getRemoteAllFtSalesdItems(): Single<List<FtSalesdItems>> {
-        return retrofitService.getRemoteAllFtSalesdItems(Constants.authHeader)
+        return retrofitService.getRemoteAllFtSalesdItems(MainApplication.authHeader)
     }
 
     override fun getRemoteFtSalesdItemsById(id: Long): Single<FtSalesdItems> {
-        return retrofitService.getRemoteFtSalesdItemsById(Constants.authHeader, id)
+        return retrofitService.getRemoteFtSalesdItemsById(MainApplication.authHeader, id)
     }
 
     override fun getRemoteAllFtSalesdItemsByParent(parentId: Long): Single<List<FtSalesdItems>> {
-        return retrofitService.getRemoteAllFtSalesdItemsByParent(Constants.authHeader, parentId)
+        return retrofitService.getRemoteAllFtSalesdItemsByParent(MainApplication.authHeader, parentId)
     }
 
     override fun createRemoteFtSalesdItems(ftSalesdItems: FtSalesdItems): Single<FtSalesdItems> {
-        return retrofitService.createRemoteFtSalesdItems(Constants.authHeader, ftSalesdItems)
+        return retrofitService.createRemoteFtSalesdItems(MainApplication.authHeader, ftSalesdItems)
     }
 
     override fun putRemoteFtSalesdItems(id: Long, ftSalesdItems: FtSalesdItems): Single<FtSalesdItems> {
-        return retrofitService.putRemoteFtSalesdItems(Constants.authHeader, id, ftSalesdItems)
+        return retrofitService.putRemoteFtSalesdItems(MainApplication.authHeader, id, ftSalesdItems)
     }
 
     override fun deleteRemoteFtSalesdItems(id: Long): Single<FtSalesdItems> {
-        return retrofitService.deleteRemoteFtSalesdItems(Constants.authHeader, id)
+        return retrofitService.deleteRemoteFtSalesdItems(MainApplication.authHeader, id)
     }
 
 
@@ -74,7 +75,7 @@ class FtSalesdItemsRepositoryImpl(
 
 
 //    override fun getRemoteAllData(): Single<List<FtSalesdItems>> {
-//        return retrofitService.getRemoteAllFtSalesdItems(Constants.authHeader)
+//        return retrofitService.getRemoteAllFtSalesdItems(MainApplication.authHeader)
 //    }
 
 

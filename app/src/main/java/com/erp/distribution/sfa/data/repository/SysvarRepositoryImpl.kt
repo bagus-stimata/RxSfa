@@ -1,6 +1,7 @@
 package com.erp.distribution.sfa.data.repository
 
 import androidx.lifecycle.LiveData
+import com.erp.distribution.sfa.MainApplication
 import com.erp.distribution.sfa.data.source.remote.RetrofitServiceSysvar
 import com.erp.distribution.sfa.database.AppDatabase
 import com.erp.distribution.sfa.domain.repository.SysvarRepository
@@ -19,27 +20,27 @@ class SysvarRepositoryImpl(
 ) : SysvarRepository {
 
     override fun getRemoteAllSysvar(): Single<List<Sysvar>> {
-        return retrofitService.getRemoteAllSysvar(Constants.authHeader)
+        return retrofitService.getRemoteAllSysvar(MainApplication.authHeader)
     }
 
     override fun getRemoteSysvarById(id: Int): Single<Sysvar> {
-        return retrofitService.getRemoteSysvarById(Constants.authHeader, id)
+        return retrofitService.getRemoteSysvarById(MainApplication.authHeader, id)
     }
 
     override fun getRemoteAllSysvarByDivision(divisionId: Int): Single<List<Sysvar>> {
-        return retrofitService.getRemoteAllSysvarByDivision(Constants.authHeader, divisionId)
+        return retrofitService.getRemoteAllSysvarByDivision(MainApplication.authHeader, divisionId)
     }
 
     override fun createRemoteSysvar(sysvar: Sysvar): Single<Sysvar> {
-        return retrofitService.createRemoteSysvar(Constants.authHeader, sysvar)
+        return retrofitService.createRemoteSysvar(MainApplication.authHeader, sysvar)
     }
 
     override fun putRemoteSysvar(id: Int, sysvar: Sysvar): Single<Sysvar> {
-        return retrofitService.putRemoteSysvar(Constants.authHeader, id, sysvar)
+        return retrofitService.putRemoteSysvar(MainApplication.authHeader, id, sysvar)
     }
 
     override fun deleteRemoteSysvar(id: Int): Single<Sysvar> {
-        return retrofitService.deleteRemoteSysvar(Constants.authHeader, id)
+        return retrofitService.deleteRemoteSysvar(MainApplication.authHeader, id)
     }
 
 
@@ -74,7 +75,7 @@ class SysvarRepositoryImpl(
 
 
 //    override fun getRemoteAllData(): Single<List<Sysvar>> {
-//        return retrofitService.getRemoteAllSysvar(Constants.authHeader)
+//        return retrofitService.getRemoteAllSysvar(MainApplication.authHeader)
 //    }
 
 

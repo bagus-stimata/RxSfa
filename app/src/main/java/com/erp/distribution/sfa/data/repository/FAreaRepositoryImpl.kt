@@ -1,6 +1,7 @@
 package com.erp.distribution.sfa.data.repository
 
 import androidx.lifecycle.LiveData
+import com.erp.distribution.sfa.MainApplication
 import com.erp.distribution.sfa.data.source.remote.RetrofitServiceFArea
 import com.erp.distribution.sfa.database.AppDatabase
 import com.erp.distribution.sfa.domain.repository.FAreaRepository
@@ -19,27 +20,27 @@ class FAreaRepositoryImpl(
 ) : FAreaRepository {
 
     override fun getRemoteAllFArea(): Single<List<FArea>> {
-        return retrofitService.getRemoteAllFArea(Constants.authHeader)
+        return retrofitService.getRemoteAllFArea(MainApplication.authHeader)
     }
 
     override fun getRemoteFAreaById(id: Int): Single<FArea> {
-        return retrofitService.getRemoteFAreaById(Constants.authHeader, id)
+        return retrofitService.getRemoteFAreaById(MainApplication.authHeader, id)
     }
 
     override fun getRemoteAllFAreaByDivision(divisionId: Int): Single<List<FArea>> {
-        return retrofitService.getRemoteAllFAreaByDivision(Constants.authHeader, divisionId)
+        return retrofitService.getRemoteAllFAreaByDivision(MainApplication.authHeader, divisionId)
     }
 
     override fun createRemoteFArea(fArea: FArea): Single<FArea> {
-        return retrofitService.createRemoteFArea(Constants.authHeader, fArea)
+        return retrofitService.createRemoteFArea(MainApplication.authHeader, fArea)
     }
 
     override fun putRemoteFArea(id: Int, fArea: FArea): Single<FArea> {
-        return retrofitService.putRemoteFArea(Constants.authHeader, id, fArea)
+        return retrofitService.putRemoteFArea(MainApplication.authHeader, id, fArea)
     }
 
     override fun deleteRemoteFArea(id: Int): Single<FArea> {
-        return retrofitService.deleteRemoteFArea(Constants.authHeader, id)
+        return retrofitService.deleteRemoteFArea(MainApplication.authHeader, id)
     }
 
 
@@ -74,7 +75,7 @@ class FAreaRepositoryImpl(
 
 
 //    override fun getRemoteAllData(): Single<List<FArea>> {
-//        return retrofitService.getRemoteAllFArea(Constants.authHeader)
+//        return retrofitService.getRemoteAllFArea(MainApplication.authHeader)
 //    }
 
 

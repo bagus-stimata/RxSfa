@@ -26,7 +26,9 @@
 
         <activity android:name="com.erp.distribution.sfa.presentation.detailphoto.PhotoDetailActivity"
             android:theme="@style/AppTheme.NoActionBar"/>
+
         <activity android:name=".LoginActivity"/>
+        <activity android:name=".master.syncronize_fromserver.SyncronizeActivity"/>
 
     </application>
 
@@ -36,4 +38,14 @@
 <!--        android:required="false" />-->
     <uses-feature android:name="android.hardware.touchscreen"
         android:required="false" />
+
+<!--    <activity android:name=".sfa.master.syncronize_fromserver.SyncronizeActivity"/>-->
+<!--    <activity android:name=".LoginActivity" />-->
+<!--    <activity android:name=".sfa.transaksi.sales_order.SalesOrderActivity" />-->
+<!--    <activity android:name=".sfa.transaksi.sales_order.SalesOrderFormActivity" />-->
+<!--    <activity android:name=".sfa.master.customer_ref.CustomerRefActivity" />-->
+<!--    <activity android:name=".sfa.master.Customer.CustomerActivity" />-->
+<!--    <activity android:name=".sfa.master.material_note.NoteActivity" />-->
+<!--    <activity android:name=".sfa.master.material.MaterialActivity" />-->
+
 </manifest>

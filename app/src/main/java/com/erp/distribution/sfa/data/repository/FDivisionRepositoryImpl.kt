@@ -1,6 +1,7 @@
 package com.erp.distribution.sfa.data.repository
 
 import androidx.lifecycle.LiveData
+import com.erp.distribution.sfa.MainApplication
 import com.erp.distribution.sfa.data.source.remote.RetrofitServiceFDivision
 import com.erp.distribution.sfa.database.AppDatabase
 import com.erp.distribution.sfa.domain.repository.FDivisionRepository
@@ -19,27 +20,27 @@ class FDivisionRepositoryImpl(
 ) : FDivisionRepository {
 
     override fun getRemoteAllFDivision(): Single<List<FDivision>> {
-        return retrofitService.getRemoteAllFDivision(Constants.authHeader)
+        return retrofitService.getRemoteAllFDivision(MainApplication.authHeader)
     }
 
     override fun getRemoteFDivisionById(id: Int): Single<FDivision> {
-        return retrofitService.getRemoteFDivisionById(Constants.authHeader, id)
+        return retrofitService.getRemoteFDivisionById(MainApplication.authHeader, id)
     }
 
     override fun getRemoteAllFDivisionByParent(parentId: Int): Single<List<FDivision>> {
-        return retrofitService.getRemoteAllFDivisionByParent(Constants.authHeader, parentId)
+        return retrofitService.getRemoteAllFDivisionByParent(MainApplication.authHeader, parentId)
     }
 
     override fun createRemoteFDivision(fDivision: FDivision): Single<FDivision> {
-        return retrofitService.createRemoteFDivision(Constants.authHeader, fDivision)
+        return retrofitService.createRemoteFDivision(MainApplication.authHeader, fDivision)
     }
 
     override fun putRemoteFDivision(id: Int, fDivision: FDivision): Single<FDivision> {
-        return retrofitService.putRemoteFDivision(Constants.authHeader, id, fDivision)
+        return retrofitService.putRemoteFDivision(MainApplication.authHeader, id, fDivision)
     }
 
     override fun deleteRemoteFDivision(id: Int): Single<FDivision> {
-        return retrofitService.deleteRemoteFDivision(Constants.authHeader, id)
+        return retrofitService.deleteRemoteFDivision(MainApplication.authHeader, id)
     }
 
 
@@ -74,7 +75,7 @@ class FDivisionRepositoryImpl(
 
 
 //    override fun getRemoteAllData(): Single<List<FDivision>> {
-//        return retrofitService.getRemoteAllFDivision(Constants.authHeader)
+//        return retrofitService.getRemoteAllFDivision(MainApplication.authHeader)
 //    }
 
 

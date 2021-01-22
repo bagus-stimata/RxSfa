@@ -2,21 +2,29 @@ package com.erp.distribution.sfa.presentation
 
 import android.util.Log
 import androidx.hilt.lifecycle.ViewModelInject
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import com.erp.distribution.sfa.domain.repository.FUserRepository
 import com.erp.distribution.sfa.domain.usecase.GetFAreaUseCase
 import com.erp.distribution.sfa.domain.usecase.GetFUserUseCase
 import com.erp.distribution.sfa.model.FArea
+import com.erp.distribution.sfa.presentation.extention.map
 import com.erp.distribution.sfa.security_model.FUser
+import io.reactivex.Observable
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.observers.DisposableSingleObserver
 import io.reactivex.schedulers.Schedulers
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 import java.util.*
 
 class TestViewModel @ViewModelInject constructor(
     private val getFUserUseCase: GetFUserUseCase,
-    private val getFAreaUseCase: GetFAreaUseCase
+    private val getFAreaUseCase: GetFAreaUseCase,
+    private val repository: FUserRepository
     ) : ViewModel()  {
 //class TestViewModel @ViewModelInject constructor(private val repository: FAreaRepository) : ViewModel()  {
 
@@ -28,70 +36,30 @@ class TestViewModel @ViewModelInject constructor(
 //        Log.d("result", "Oke kirim Sart")
 //        repository.createRemoteFArea(FArea(877798, 0, "TEST", "", "Test Aja", 105, 11298240, true, Date(), Date(), "bagus"))
 //        Log.d("result", "Oke Kirim Selesai")
-
+        subscribeNoteResult()
         refreshCacheFUser()
     }
 
     fun refreshCacheFUser() {
         Log.d(TAG, "#result Refresh FUser")
-        println("#result Refresh FUser")
-        getFUserUseCase.execute(
-            onSuccess = {
-//                listFUser = it
-                        Log.d(TAG, "#result $it")
-            },
-            onError = {
-                it.printStackTrace()
-            }
-        )
+//        println("#result Refresh FUser")
+//        getFUserUseCase.execute(
+//            onSuccess = {
+////                listFUser = it
+//                        Log.d(TAG, "#result $it")
+//            },
+//            onError = {
+//                it.printStackTrace()
+//            }
+//        )
+
+//        Log.d(TAG, "#result dari Cache ${getFUserUseCase.getCacheAllFUser().value}")
     }
-
-
-//    fun insert(fUser: FUser): FUser {
-//        repository.insert(fUser)
-//        return fUser
-//    }
-//
-//    fun update(fUser: FUser): FUser {
-//        repository.update(fUser)
-//        return fUser
-//    }
-//
-//    fun delete(fUser: FUser): FUser {
-//        repository.delete(fUser)
-//        return fUser
-//    }
-//
-//    fun deleteAllFUser() {
-//        repository.deleteAllFUser()
-//    }
-//
-//    val allFUserLive: LiveData<List<FUser>>
-//        get() = listFUserLive
-//    val allFUser: List<Any>
-//        get() = repository.getAllFUser()
-//
-//    fun getItemHeader(): LiveData<FUser>? {
-//        return itemHeader
-//    }
 
 
     private val TAG = TestViewModel::class.java.simpleName
     val datas = MutableLiveData<FUser>()
 
-
-//    fun getDetail() {
-//        return
-////        getMainUseCase.savePhotoId(id)
-//        getMainUseCase.execute(
-//            onSuccess = {
-////                isLoad.value = true
-//                datas.value = it
-//            },
-//            onError = {
-//                it.printStackTrace()
-//            }
-//    }
 
 
 
@@ -100,6 +68,10 @@ class TestViewModel @ViewModelInject constructor(
     val dataFArea = MutableLiveData<List<FArea>>()
     val fareaBean = MutableLiveData<FArea>()
 
+    private lateinit var notesResult: LiveData<List<FUser>>
+    fun listenNotesResult(): LiveData<List<FUser>> {
+        return notesResult
+    }
 
 
     fun getRetrieveRemoteData() {
@@ -131,14 +103,20 @@ class TestViewModel @ViewModelInject constructor(
 
 
     fun test(): String {
-        Log.d("result", "Hello this is test")
+//        Log.d("result", "Hello this is test")
 
-//        Log.d("result", "Hasilny: ${repository.getRemoteAllFArea().blockingGet().size}")
+//        Log.d(TAG, "#result : ${getFUserUseCase.getCacheAllFUserBiasa()}")
+        Log.d(TAG, "#result : ${repository.getCacheFUserByUsername("bagus").value}")
 
         return "Jos Bos"
     }
 
 
+    private fun subscribeNoteResult() {
+//        notesResult = getFUserUseCase.getCacheAllFUser()
+        notesResult = getMappedFUser()
+
+    }
 //    private val apiService: ApiService? = null
     private val disposable = CompositeDisposable()
 
@@ -161,5 +139,16 @@ class TestViewModel @ViewModelInject constructor(
 
     }
 
+
+    private fun getMappedFUser(): LiveData<List<FUser>>{
+        return getFUserUseCase.getCacheAllFUser().map { it.map {
+//            contributorEntityMapper.mapToDomain(it)
+            //rubah rubah disini
+            it.id = 9999
+//            it.username = "Ganteng Banget"
+
+            it //ini hasil ahirnya
+        } }
+    }
 
 }

@@ -1,6 +1,7 @@
 package com.erp.distribution.sfa.data.repository
 
 import androidx.lifecycle.LiveData
+import com.erp.distribution.sfa.MainApplication
 import com.erp.distribution.sfa.data.source.remote.RetrofitServiceFtSalesh
 import com.erp.distribution.sfa.database.AppDatabase
 import com.erp.distribution.sfa.domain.repository.FtSaleshRepository
@@ -19,27 +20,27 @@ class FtSaleshRepositoryImpl(
 ) : FtSaleshRepository {
 
     override fun getRemoteAllFtSalesh(): Single<List<FtSalesh>> {
-        return retrofitService.getRemoteAllFtSalesh(Constants.authHeader)
+        return retrofitService.getRemoteAllFtSalesh(MainApplication.authHeader)
     }
 
     override fun getRemoteFtSaleshById(id: Long): Single<FtSalesh> {
-        return retrofitService.getRemoteFtSaleshById(Constants.authHeader, id)
+        return retrofitService.getRemoteFtSaleshById(MainApplication.authHeader, id)
     }
 
     override fun getRemoteAllFtSaleshByDivision(divisionId: Int): Single<List<FtSalesh>> {
-        return retrofitService.getRemoteAllFtSaleshByDivision(Constants.authHeader, divisionId)
+        return retrofitService.getRemoteAllFtSaleshByDivision(MainApplication.authHeader, divisionId)
     }
 
     override fun createRemoteFtSalesh(ftSalesh: FtSalesh): Single<FtSalesh> {
-        return retrofitService.createRemoteFtSalesh(Constants.authHeader, ftSalesh)
+        return retrofitService.createRemoteFtSalesh(MainApplication.authHeader, ftSalesh)
     }
 
     override fun putRemoteFtSalesh(id: Long, ftSalesh: FtSalesh): Single<FtSalesh> {
-        return retrofitService.putRemoteFtSalesh(Constants.authHeader, id, ftSalesh)
+        return retrofitService.putRemoteFtSalesh(MainApplication.authHeader, id, ftSalesh)
     }
 
     override fun deleteRemoteFtSalesh(id: Long): Single<FtSalesh> {
-        return retrofitService.deleteRemoteFtSalesh(Constants.authHeader, id)
+        return retrofitService.deleteRemoteFtSalesh(MainApplication.authHeader, id)
     }
 
 
@@ -74,7 +75,7 @@ class FtSaleshRepositoryImpl(
 
 
 //    override fun getRemoteAllData(): Single<List<FtSalesh>> {
-//        return retrofitService.getRemoteAllFtSalesh(Constants.authHeader)
+//        return retrofitService.getRemoteAllFtSalesh(MainApplication.authHeader)
 //    }
 
 

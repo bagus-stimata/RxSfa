@@ -28,6 +28,9 @@ class GetFUserUseCase @Inject constructor(private val repository: FUserRepositor
     fun getRemoteAllFUserByUsername(username: String): Single<FUser>{
         return repository.getRemoteFUserByUsername(username)
     }
+    fun getRemoteAllFUserByUsernamePassword(username: String, password: String): Single<FUser>{
+        return repository.getRemoteFUserByUsernamePassword(username, password)
+    }
     fun getRemoteAllFUserByEmail(email: String): Single<FUser>{
         return repository.getRemoteFUserByEmail(email)
     }

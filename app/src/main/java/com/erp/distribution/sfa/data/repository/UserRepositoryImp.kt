@@ -1,6 +1,9 @@
 package com.erp.distribution.sfa.data.repository
 
+import android.app.Application
+import android.util.Log
 import androidx.lifecycle.LiveData
+import com.erp.distribution.sfa.MainApplication
 import com.erp.distribution.sfa.domain.model.Album
 import com.erp.distribution.sfa.data.source.remote.RetrofitServiceSecurity
 import com.erp.distribution.sfa.database.AppDatabase
@@ -22,29 +25,33 @@ class UserRepositoryImp(
 
 
     override fun getRemoteAllFUser(): Single<List<FUser>> {
-        return retrofitService.getAllData(Constants.authHeader)
+        return retrofitService.getAllData(MainApplication.authHeader)
     }
 
     override fun getRemoteFUserById(id: Int): Single<FUser> {
-        return retrofitService.getFUserById(Constants.authHeader, id)
+        return retrofitService.getFUserById( MainApplication.authHeader, id)
     }
 
     override fun getRemoteFUserByUsername(username: String): Single<FUser> {
-        return retrofitService.getFUserByUsername(Constants.authHeader, username)
+//        Log.d("UserRepository", "#result ${MainApplication.authHeader}")
+        return retrofitService.getFUserByUsername(MainApplication.authHeader, username)
+    }
+    override fun getRemoteFUserByUsernamePassword(username: String, password: String): Single<FUser> {
+        return retrofitService.getFUserByUsernamePassword(MainApplication.authHeader, username, password)
     }
     override fun getRemoteFUserByEmail(email: String): Single<FUser> {
-        return retrofitService.getFUserByEmail(Constants.authHeader, email)
+        return retrofitService.getFUserByEmail(MainApplication.authHeader, email)
     }
     override fun createRemoteFUser(fUser: FUser): Single<FUser> {
-        return retrofitService.createRemoteFUser(Constants.authHeader, fUser)
+        return retrofitService.createRemoteFUser(MainApplication.authHeader, fUser)
     }
 
     override fun putRemoteFUser(id: Int, fUser: FUser): Single<FUser> {
-        return retrofitService.putRemoteFUser(Constants.authHeader, id, fUser)
+        return retrofitService.putRemoteFUser(MainApplication.authHeader, id, fUser)
     }
 
     override fun deleteRemoteFUser(id: Int): Single<FUser> {
-        return retrofitService.deleteRemoteFUser(Constants.authHeader, id)
+        return retrofitService.deleteRemoteFUser(MainApplication.authHeader, id)
     }
     
 //    override fun getRemoteDataByParentId(parenId: Int): Single<List<FUser>> {

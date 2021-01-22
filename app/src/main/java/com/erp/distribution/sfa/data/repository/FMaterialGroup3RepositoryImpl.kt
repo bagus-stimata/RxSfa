@@ -1,6 +1,7 @@
 package com.erp.distribution.sfa.data.repository
 
 import androidx.lifecycle.LiveData
+import com.erp.distribution.sfa.MainApplication
 import com.erp.distribution.sfa.data.source.remote.RetrofitServiceFMaterialGroup3
 import com.erp.distribution.sfa.database.AppDatabase
 import com.erp.distribution.sfa.domain.repository.FMaterialGroup3Repository
@@ -19,27 +20,27 @@ class FMaterialGroup3RepositoryImpl(
 ) : FMaterialGroup3Repository {
 
     override fun getRemoteAllFMaterialGroup3(): Single<List<FMaterialGroup3>> {
-        return retrofitService.getRemoteAllFMaterialGroup3(Constants.authHeader)
+        return retrofitService.getRemoteAllFMaterialGroup3(MainApplication.authHeader)
     }
 
     override fun getRemoteFMaterialGroup3ById(id: Int): Single<FMaterialGroup3> {
-        return retrofitService.getRemoteFMaterialGroup3ById(Constants.authHeader, id)
+        return retrofitService.getRemoteFMaterialGroup3ById(MainApplication.authHeader, id)
     }
 
     override fun getRemoteAllFMaterialGroup3ByParent(parentId: Int): Single<List<FMaterialGroup3>> {
-        return retrofitService.getRemoteAllFMaterialGroup3ByParent(Constants.authHeader, parentId)
+        return retrofitService.getRemoteAllFMaterialGroup3ByParent(MainApplication.authHeader, parentId)
     }
 
     override fun createRemoteFMaterialGroup3(fMaterialGroup3: FMaterialGroup3): Single<FMaterialGroup3> {
-        return retrofitService.createRemoteFMaterialGroup3(Constants.authHeader, fMaterialGroup3)
+        return retrofitService.createRemoteFMaterialGroup3(MainApplication.authHeader, fMaterialGroup3)
     }
 
     override fun putRemoteFMaterialGroup3(id: Int, fMaterialGroup3: FMaterialGroup3): Single<FMaterialGroup3> {
-        return retrofitService.putRemoteFMaterialGroup3(Constants.authHeader, id, fMaterialGroup3)
+        return retrofitService.putRemoteFMaterialGroup3(MainApplication.authHeader, id, fMaterialGroup3)
     }
 
     override fun deleteRemoteFMaterialGroup3(id: Int): Single<FMaterialGroup3> {
-        return retrofitService.deleteRemoteFMaterialGroup3(Constants.authHeader, id)
+        return retrofitService.deleteRemoteFMaterialGroup3(MainApplication.authHeader, id)
     }
 
 
@@ -74,7 +75,7 @@ class FMaterialGroup3RepositoryImpl(
 
 
 //    override fun getRemoteAllData(): Single<List<FMaterialGroup3>> {
-//        return retrofitService.getRemoteAllFMaterialGroup3(Constants.authHeader)
+//        return retrofitService.getRemoteAllFMaterialGroup3(MainApplication.authHeader)
 //    }
 
 

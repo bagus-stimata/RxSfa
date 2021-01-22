@@ -47,28 +47,5 @@ class ZLapAktifitasPromoList {
         return result
     }
 
-    override fun equals(obj: Any?): Boolean {
-        if (this === obj) {
-            return true
-        }
-        if (obj == null) {
-            return false
-        }
-        if (obj !is ZLapAktifitasPromoList) {
-            return false
-        }
-        val other = obj
-        if (id == null) {
-            if (other.id != null) {
-                return false
-            }
-        } else if (id != other.id) {
-            return false
-        }
-        return true
-    }
 
-    override fun toString(): String {
-        return "" + id + ""
-    }
 }

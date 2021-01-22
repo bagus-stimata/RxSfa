@@ -12,7 +12,6 @@ android {
     buildToolsVersion "30.0.2"
 
     defaultConfig {
-//        applicationId "com.erp.distribution.sfa"
         applicationId 'com.erp.distribution.sfa'
         minSdkVersion 27
         targetSdkVersion 30
@@ -97,6 +96,8 @@ dependencies {
     implementation "com.squareup.retrofit2:adapter-rxjava2:2.5.0"
     //anko
     implementation "org.jetbrains.anko:anko:$anko_version"
+
+
     //room
     implementation 'androidx.room:room-runtime:2.2.5'
     implementation 'androidx.room:room-rxjava2:2.2.5'
@@ -108,10 +109,17 @@ dependencies {
     //hilt-view-model
     implementation 'androidx.hilt:hilt-lifecycle-viewmodel:1.0.0-alpha02'
     kapt 'androidx.hilt:hilt-compiler:1.0.0-alpha02'
+
+    // Android View Model & Live Data
+// --   implementation 'android.arch.lifecycle:extensions:1.1.1'
+    implementation 'android.arch.lifecycle:reactivestreams:1.1.1'
+
+
     //picasso
     implementation 'com.squareup.picasso:picasso:2.71828'
     //multidex
     implementation 'androidx.multidex:multidex:2.0.1'
+
     //test
     testImplementation 'junit:junit:4.13.1'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.3.0'
@@ -126,10 +134,6 @@ dependencies {
 
     //Circular Image
     implementation 'com.mikhaellopez:circularimageview:3.2.0'
-
-    implementation 'android.arch.lifecycle:extensions:1.1.1'
-    implementation 'android.arch.lifecycle:reactivestreams:1.1.1'
-
 
 
 }

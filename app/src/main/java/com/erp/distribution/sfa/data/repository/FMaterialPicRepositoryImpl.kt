@@ -1,6 +1,7 @@
 package com.erp.distribution.sfa.data.repository
 
 import androidx.lifecycle.LiveData
+import com.erp.distribution.sfa.MainApplication
 import com.erp.distribution.sfa.data.source.remote.RetrofitServiceFMaterialPic
 import com.erp.distribution.sfa.database.AppDatabase
 import com.erp.distribution.sfa.domain.repository.FMaterialPicRepository
@@ -19,27 +20,27 @@ class FMaterialPicRepositoryImpl(
 ) : FMaterialPicRepository {
 
     override fun getRemoteAllFMaterialPic(): Single<List<FMaterialPic>> {
-        return retrofitService.getRemoteAllFMaterialPic(Constants.authHeader)
+        return retrofitService.getRemoteAllFMaterialPic(MainApplication.authHeader)
     }
 
     override fun getRemoteFMaterialPicById(id: Int): Single<FMaterialPic> {
-        return retrofitService.getRemoteFMaterialPicById(Constants.authHeader, id)
+        return retrofitService.getRemoteFMaterialPicById(MainApplication.authHeader, id)
     }
 
     override fun getRemoteAllFMaterialPicByParent(parentId: Int): Single<List<FMaterialPic>> {
-        return retrofitService.getRemoteAllFMaterialPicByParent(Constants.authHeader, parentId)
+        return retrofitService.getRemoteAllFMaterialPicByParent(MainApplication.authHeader, parentId)
     }
 
     override fun createRemoteFMaterialPic(fMaterialPic: FMaterialPic): Single<FMaterialPic> {
-        return retrofitService.createRemoteFMaterialPic(Constants.authHeader, fMaterialPic)
+        return retrofitService.createRemoteFMaterialPic(MainApplication.authHeader, fMaterialPic)
     }
 
     override fun putRemoteFMaterialPic(id: Int, fMaterialPic: FMaterialPic): Single<FMaterialPic> {
-        return retrofitService.putRemoteFMaterialPic(Constants.authHeader, id, fMaterialPic)
+        return retrofitService.putRemoteFMaterialPic(MainApplication.authHeader, id, fMaterialPic)
     }
 
     override fun deleteRemoteFMaterialPic(id: Int): Single<FMaterialPic> {
-        return retrofitService.deleteRemoteFMaterialPic(Constants.authHeader, id)
+        return retrofitService.deleteRemoteFMaterialPic(MainApplication.authHeader, id)
     }
 
 
@@ -74,7 +75,7 @@ class FMaterialPicRepositoryImpl(
 
 
 //    override fun getRemoteAllData(): Single<List<FMaterialPic>> {
-//        return retrofitService.getRemoteAllFMaterialPic(Constants.authHeader)
+//        return retrofitService.getRemoteAllFMaterialPic(MainApplication.authHeader)
 //    }
 
 

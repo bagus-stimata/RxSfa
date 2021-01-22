@@ -19,12 +19,16 @@ import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
 import retrofit2.converter.gson.GsonConverterFactory
+import java.lang.annotation.RetentionPolicy
 import java.util.concurrent.TimeUnit
+import javax.inject.Qualifier
 import javax.inject.Singleton
 
 @InstallIn(ApplicationComponent::class)
 @Module
 class NetworkModule {
+
+
 
     @Provides
     @Singleton
@@ -123,63 +127,103 @@ class NetworkModule {
 
     @Singleton
     @Provides
-    fun provideServiceFArea(retrofit: Retrofit): RetrofitServiceFArea = retrofit.create(RetrofitServiceFArea::class.java)
+    fun provideServiceFArea(retrofit: Retrofit): RetrofitServiceFArea = retrofit.create(
+        RetrofitServiceFArea::class.java
+    )
     @Singleton
     @Provides
-    fun provideServiceFCompany(retrofit: Retrofit): RetrofitServiceFCompany = retrofit.create(RetrofitServiceFCompany::class.java)
+    fun provideServiceFCompany(retrofit: Retrofit): RetrofitServiceFCompany = retrofit.create(
+        RetrofitServiceFCompany::class.java
+    )
     @Singleton
     @Provides
-    fun provideServiceFCustomer(retrofit: Retrofit): RetrofitServiceFCustomer = retrofit.create(RetrofitServiceFCustomer::class.java)
+    fun provideServiceFCustomer(retrofit: Retrofit): RetrofitServiceFCustomer = retrofit.create(
+        RetrofitServiceFCustomer::class.java
+    )
     @Singleton
     @Provides
-    fun provideServiceFCustomerGroup(retrofit: Retrofit): RetrofitServiceFCustomerGroup = retrofit.create(RetrofitServiceFCustomerGroup::class.java)
+    fun provideServiceFCustomerGroup(retrofit: Retrofit): RetrofitServiceFCustomerGroup = retrofit.create(
+        RetrofitServiceFCustomerGroup::class.java
+    )
     @Singleton
     @Provides
-    fun provideServiceFCustomerPic(retrofit: Retrofit): RetrofitServiceFCustomerPic = retrofit.create(RetrofitServiceFCustomerPic::class.java)
+    fun provideServiceFCustomerPic(retrofit: Retrofit): RetrofitServiceFCustomerPic = retrofit.create(
+        RetrofitServiceFCustomerPic::class.java
+    )
     @Singleton
     @Provides
-    fun provideServiceFMaterial(retrofit: Retrofit): RetrofitServiceFMaterial = retrofit.create(RetrofitServiceFMaterial::class.java)
+    fun provideServiceFMaterial(retrofit: Retrofit): RetrofitServiceFMaterial = retrofit.create(
+        RetrofitServiceFMaterial::class.java
+    )
     @Singleton
     @Provides
-    fun provideServiceFMaterialGroup1(retrofit: Retrofit): RetrofitServiceFMaterialGroup1 = retrofit.create(RetrofitServiceFMaterialGroup1::class.java)
+    fun provideServiceFMaterialGroup1(retrofit: Retrofit): RetrofitServiceFMaterialGroup1 = retrofit.create(
+        RetrofitServiceFMaterialGroup1::class.java
+    )
     @Singleton
     @Provides
-    fun provideServiceFMaterialGroup2(retrofit: Retrofit): RetrofitServiceFMaterialGroup2 = retrofit.create(RetrofitServiceFMaterialGroup2::class.java)
+    fun provideServiceFMaterialGroup2(retrofit: Retrofit): RetrofitServiceFMaterialGroup2 = retrofit.create(
+        RetrofitServiceFMaterialGroup2::class.java
+    )
     @Singleton
     @Provides
-    fun provideServiceFMaterialGroup3(retrofit: Retrofit): RetrofitServiceFMaterialGroup3 = retrofit.create(RetrofitServiceFMaterialGroup3::class.java)
+    fun provideServiceFMaterialGroup3(retrofit: Retrofit): RetrofitServiceFMaterialGroup3 = retrofit.create(
+        RetrofitServiceFMaterialGroup3::class.java
+    )
     @Singleton
     @Provides
-    fun provideServiceFMaterialPic(retrofit: Retrofit): RetrofitServiceFMaterialPic = retrofit.create(RetrofitServiceFMaterialPic::class.java)
+    fun provideServiceFMaterialPic(retrofit: Retrofit): RetrofitServiceFMaterialPic = retrofit.create(
+        RetrofitServiceFMaterialPic::class.java
+    )
     @Singleton
     @Provides
-    fun provideServiceFMaterialSalesBrand(retrofit: Retrofit): RetrofitServiceFMaterialSalesBrand = retrofit.create(RetrofitServiceFMaterialSalesBrand::class.java)
+    fun provideServiceFMaterialSalesBrand(retrofit: Retrofit): RetrofitServiceFMaterialSalesBrand = retrofit.create(
+        RetrofitServiceFMaterialSalesBrand::class.java
+    )
 
     @Singleton
     @Provides
-    fun provideServiceFSalesman(retrofit: Retrofit): RetrofitServiceFSalesman = retrofit.create(RetrofitServiceFSalesman::class.java)
+    fun provideServiceFSalesman(retrofit: Retrofit): RetrofitServiceFSalesman = retrofit.create(
+        RetrofitServiceFSalesman::class.java
+    )
     @Singleton
     @Provides
-    fun provideServiceFStock(retrofit: Retrofit): RetrofitServiceFStock = retrofit.create(RetrofitServiceFStock::class.java)
+    fun provideServiceFStock(retrofit: Retrofit): RetrofitServiceFStock = retrofit.create(
+        RetrofitServiceFStock::class.java
+    )
     @Singleton
     @Provides
-    fun provideServiceFTax(retrofit: Retrofit): RetrofitServiceFTax = retrofit.create(RetrofitServiceFTax::class.java)
+    fun provideServiceFTax(retrofit: Retrofit): RetrofitServiceFTax = retrofit.create(
+        RetrofitServiceFTax::class.java
+    )
 
     @Singleton
     @Provides
-    fun provideServiceFtSalesdItems(retrofit: Retrofit): RetrofitServiceFtSalesdItems = retrofit.create(RetrofitServiceFtSalesdItems::class.java)
+    fun provideServiceFtSalesdItems(retrofit: Retrofit): RetrofitServiceFtSalesdItems = retrofit.create(
+        RetrofitServiceFtSalesdItems::class.java
+    )
     @Singleton
     @Provides
-    fun provideServiceFtSalesh(retrofit: Retrofit): RetrofitServiceFtSalesh = retrofit.create(RetrofitServiceFtSalesh::class.java)
+    fun provideServiceFtSalesh(retrofit: Retrofit): RetrofitServiceFtSalesh = retrofit.create(
+        RetrofitServiceFtSalesh::class.java
+    )
 
     @Singleton
     @Provides
-    fun provideServiceFVendor(retrofit: Retrofit): RetrofitServiceFVendor = retrofit.create(RetrofitServiceFVendor::class.java)
+    fun provideServiceFVendor(retrofit: Retrofit): RetrofitServiceFVendor = retrofit.create(
+        RetrofitServiceFVendor::class.java
+    )
     @Singleton
     @Provides
-    fun provideServiceFWarehouse(retrofit: Retrofit): RetrofitServiceFWarehouse = retrofit.create(RetrofitServiceFWarehouse::class.java)
+    fun provideServiceFWarehouse(retrofit: Retrofit): RetrofitServiceFWarehouse = retrofit.create(
+        RetrofitServiceFWarehouse::class.java
+    )
     @Singleton
     @Provides
-    fun provideServiceSysvar(retrofit: Retrofit): RetrofitServiceSysvar = retrofit.create(RetrofitServiceSysvar::class.java)
+    fun provideServiceSysvar(retrofit: Retrofit): RetrofitServiceSysvar = retrofit.create(
+        RetrofitServiceSysvar::class.java
+    )
 
 }
+
+

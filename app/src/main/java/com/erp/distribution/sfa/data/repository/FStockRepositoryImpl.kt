@@ -1,6 +1,7 @@
 package com.erp.distribution.sfa.data.repository
 
 import androidx.lifecycle.LiveData
+import com.erp.distribution.sfa.MainApplication
 import com.erp.distribution.sfa.data.source.remote.RetrofitServiceFStock
 import com.erp.distribution.sfa.database.AppDatabase
 import com.erp.distribution.sfa.domain.repository.FStockRepository
@@ -20,30 +21,30 @@ class FStockRepositoryImpl(
 ) : FStockRepository {
 
     override fun getRemoteAllFStock(): Single<List<FStock>> {
-        return retrofitService.getRemoteAllFStock(Constants.authHeader)
+        return retrofitService.getRemoteAllFStock(MainApplication.authHeader)
     }
 
     override fun getRemoteFStockById(id: Int): Single<FStock> {
-        return retrofitService.getRemoteFStockById(Constants.authHeader, id)
+        return retrofitService.getRemoteFStockById(MainApplication.authHeader, id)
     }
 
     override fun getRemoteAllFStockByMaterial(materialId: Int, stockDateFrom: Date, stockDateTo: Date): Single<List<FStock>> {
-        return retrofitService.getRemoteAllFStockByFMaterial(Constants.authHeader, materialId, stockDateFrom, stockDateTo)
+        return retrofitService.getRemoteAllFStockByFMaterial(MainApplication.authHeader, materialId, stockDateFrom, stockDateTo)
     }
     override fun getRemoteAllFStockByWarehouse(warehouseId: Int, stockDateFrom: Date, stockDateTo: Date): Single<List<FStock>> {
-        return retrofitService.getRemoteAllFStockByFWarehouse(Constants.authHeader, warehouseId, stockDateFrom, stockDateTo)
+        return retrofitService.getRemoteAllFStockByFWarehouse(MainApplication.authHeader, warehouseId, stockDateFrom, stockDateTo)
     }
 
     override fun createRemoteFStock(fStock: FStock): Single<FStock> {
-        return retrofitService.createRemoteFStock(Constants.authHeader, fStock)
+        return retrofitService.createRemoteFStock(MainApplication.authHeader, fStock)
     }
 
     override fun putRemoteFStock(id: Int, fStock: FStock): Single<FStock> {
-        return retrofitService.putRemoteFStock(Constants.authHeader, id, fStock)
+        return retrofitService.putRemoteFStock(MainApplication.authHeader, id, fStock)
     }
 
     override fun deleteRemoteFStock(id: Int): Single<FStock> {
-        return retrofitService.deleteRemoteFStock(Constants.authHeader, id)
+        return retrofitService.deleteRemoteFStock(MainApplication.authHeader, id)
     }
 
 
@@ -87,7 +88,7 @@ class FStockRepositoryImpl(
 
 
 //    override fun getRemoteAllData(): Single<List<FStock>> {
-//        return retrofitService.getRemoteAllFStock(Constants.authHeader)
+//        return retrofitService.getRemoteAllFStock(MainApplication.authHeader)
 //    }
 
 

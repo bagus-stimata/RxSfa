@@ -1,6 +1,7 @@
 package com.erp.distribution.sfa.data.repository
 
 import androidx.lifecycle.LiveData
+import com.erp.distribution.sfa.MainApplication
 import com.erp.distribution.sfa.data.source.remote.RetrofitServiceFCustomerGroup
 import com.erp.distribution.sfa.database.AppDatabase
 import com.erp.distribution.sfa.domain.repository.FCustomerGroupRepository
@@ -19,27 +20,27 @@ class FCustomerGroupRepositoryImpl(
 ) : FCustomerGroupRepository {
 
     override fun getRemoteAllFCustomerGroup(): Single<List<FCustomerGroup>> {
-        return retrofitService.getRemoteAllFCustomerGroup(Constants.authHeader)
+        return retrofitService.getRemoteAllFCustomerGroup(MainApplication.authHeader)
     }
 
     override fun getRemoteFCustomerGroupById(id: Int): Single<FCustomerGroup> {
-        return retrofitService.getRemoteFCustomerGroupById(Constants.authHeader, id)
+        return retrofitService.getRemoteFCustomerGroupById(MainApplication.authHeader, id)
     }
 
     override fun getRemoteAllFCustomerGroupByDivision(divisionId: Int): Single<List<FCustomerGroup>> {
-        return retrofitService.getRemoteAllFCustomerGroupByDivision(Constants.authHeader, divisionId)
+        return retrofitService.getRemoteAllFCustomerGroupByDivision(MainApplication.authHeader, divisionId)
     }
 
     override fun createRemoteFCustomerGroup(fCustomerGroup: FCustomerGroup): Single<FCustomerGroup> {
-        return retrofitService.createRemoteFCustomerGroup(Constants.authHeader, fCustomerGroup)
+        return retrofitService.createRemoteFCustomerGroup(MainApplication.authHeader, fCustomerGroup)
     }
 
     override fun putRemoteFCustomerGroup(id: Int, fCustomerGroup: FCustomerGroup): Single<FCustomerGroup> {
-        return retrofitService.putRemoteFCustomerGroup(Constants.authHeader, id, fCustomerGroup)
+        return retrofitService.putRemoteFCustomerGroup(MainApplication.authHeader, id, fCustomerGroup)
     }
 
     override fun deleteRemoteFCustomerGroup(id: Int): Single<FCustomerGroup> {
-        return retrofitService.deleteRemoteFCustomerGroup(Constants.authHeader, id)
+        return retrofitService.deleteRemoteFCustomerGroup(MainApplication.authHeader, id)
     }
 
 
@@ -74,7 +75,7 @@ class FCustomerGroupRepositoryImpl(
 
 
 //    override fun getRemoteAllData(): Single<List<FCustomerGroup>> {
-//        return retrofitService.getRemoteAllFCustomerGroup(Constants.authHeader)
+//        return retrofitService.getRemoteAllFCustomerGroup(MainApplication.authHeader)
 //    }
 
 

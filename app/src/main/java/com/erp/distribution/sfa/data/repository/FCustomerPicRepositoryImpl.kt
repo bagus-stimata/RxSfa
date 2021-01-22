@@ -1,6 +1,7 @@
 package com.erp.distribution.sfa.data.repository
 
 import androidx.lifecycle.LiveData
+import com.erp.distribution.sfa.MainApplication
 import com.erp.distribution.sfa.data.source.remote.RetrofitServiceFCustomerPic
 import com.erp.distribution.sfa.database.AppDatabase
 import com.erp.distribution.sfa.domain.repository.FCustomerPicRepository
@@ -19,27 +20,27 @@ class FCustomerPicRepositoryImpl(
 ) : FCustomerPicRepository {
 
     override fun getRemoteAllFCustomerPic(): Single<List<FCustomerPic>> {
-        return retrofitService.getRemoteAllFCustomerPic(Constants.authHeader)
+        return retrofitService.getRemoteAllFCustomerPic(MainApplication.authHeader)
     }
 
     override fun getRemoteFCustomerPicById(id: Int): Single<FCustomerPic> {
-        return retrofitService.getRemoteFCustomerPicById(Constants.authHeader, id)
+        return retrofitService.getRemoteFCustomerPicById(MainApplication.authHeader, id)
     }
 
     override fun getRemoteAllFCustomerPicByParent(parentId: Int): Single<List<FCustomerPic>> {
-        return retrofitService.getRemoteAllFCustomerPicByParent(Constants.authHeader, parentId)
+        return retrofitService.getRemoteAllFCustomerPicByParent(MainApplication.authHeader, parentId)
     }
 
     override fun createRemoteFCustomerPic(fCustomerPic: FCustomerPic): Single<FCustomerPic> {
-        return retrofitService.createRemoteFCustomerPic(Constants.authHeader, fCustomerPic)
+        return retrofitService.createRemoteFCustomerPic(MainApplication.authHeader, fCustomerPic)
     }
 
     override fun putRemoteFCustomerPic(id: Int, fCustomerPic: FCustomerPic): Single<FCustomerPic> {
-        return retrofitService.putRemoteFCustomerPic(Constants.authHeader, id, fCustomerPic)
+        return retrofitService.putRemoteFCustomerPic(MainApplication.authHeader, id, fCustomerPic)
     }
 
     override fun deleteRemoteFCustomerPic(id: Int): Single<FCustomerPic> {
-        return retrofitService.deleteRemoteFCustomerPic(Constants.authHeader, id)
+        return retrofitService.deleteRemoteFCustomerPic(MainApplication.authHeader, id)
     }
 
 
@@ -74,7 +75,7 @@ class FCustomerPicRepositoryImpl(
 
 
 //    override fun getRemoteAllData(): Single<List<FCustomerPic>> {
-//        return retrofitService.getRemoteAllFCustomerPic(Constants.authHeader)
+//        return retrofitService.getRemoteAllFCustomerPic(MainApplication.authHeader)
 //    }
 
 

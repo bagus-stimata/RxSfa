@@ -1,6 +1,7 @@
 package com.erp.distribution.sfa.data.repository
 
 import androidx.lifecycle.LiveData
+import com.erp.distribution.sfa.MainApplication
 import com.erp.distribution.sfa.data.source.remote.RetrofitServiceFTax
 import com.erp.distribution.sfa.database.AppDatabase
 import com.erp.distribution.sfa.domain.repository.FTaxRepository
@@ -19,27 +20,27 @@ class FTaxRepositoryImpl(
 ) : FTaxRepository {
 
     override fun getRemoteAllFTax(): Single<List<FTax>> {
-        return retrofitService.getRemoteAllFTax(Constants.authHeader)
+        return retrofitService.getRemoteAllFTax(MainApplication.authHeader)
     }
 
     override fun getRemoteFTaxById(id: Int): Single<FTax> {
-        return retrofitService.getRemoteFTaxById(Constants.authHeader, id)
+        return retrofitService.getRemoteFTaxById(MainApplication.authHeader, id)
     }
 
     override fun getRemoteAllFTaxByDivision(divisionId: Int): Single<List<FTax>> {
-        return retrofitService.getRemoteAllFTaxByDivision(Constants.authHeader, divisionId)
+        return retrofitService.getRemoteAllFTaxByDivision(MainApplication.authHeader, divisionId)
     }
 
     override fun createRemoteFTax(fTax: FTax): Single<FTax> {
-        return retrofitService.createRemoteFTax(Constants.authHeader, fTax)
+        return retrofitService.createRemoteFTax(MainApplication.authHeader, fTax)
     }
 
     override fun putRemoteFTax(id: Int, fTax: FTax): Single<FTax> {
-        return retrofitService.putRemoteFTax(Constants.authHeader, id, fTax)
+        return retrofitService.putRemoteFTax(MainApplication.authHeader, id, fTax)
     }
 
     override fun deleteRemoteFTax(id: Int): Single<FTax> {
-        return retrofitService.deleteRemoteFTax(Constants.authHeader, id)
+        return retrofitService.deleteRemoteFTax(MainApplication.authHeader, id)
     }
 
 
@@ -74,7 +75,7 @@ class FTaxRepositoryImpl(
 
 
 //    override fun getRemoteAllData(): Single<List<FTax>> {
-//        return retrofitService.getRemoteAllFTax(Constants.authHeader)
+//        return retrofitService.getRemoteAllFTax(MainApplication.authHeader)
 //    }
 
 

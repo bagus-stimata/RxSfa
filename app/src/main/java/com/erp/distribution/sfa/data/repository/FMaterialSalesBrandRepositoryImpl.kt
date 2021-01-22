@@ -1,6 +1,7 @@
 package com.erp.distribution.sfa.data.repository
 
 import androidx.lifecycle.LiveData
+import com.erp.distribution.sfa.MainApplication
 import com.erp.distribution.sfa.data.source.remote.RetrofitServiceFMaterialSalesBrand
 import com.erp.distribution.sfa.database.AppDatabase
 import com.erp.distribution.sfa.domain.repository.FMaterialSalesBrandRepository
@@ -19,27 +20,27 @@ class FMaterialSalesBrandRepositoryImpl(
 ) : FMaterialSalesBrandRepository {
 
     override fun getRemoteAllFMaterialSalesBrand(): Single<List<FMaterialSalesBrand>> {
-        return retrofitService.getRemoteAllFMaterialSalesBrand(Constants.authHeader)
+        return retrofitService.getRemoteAllFMaterialSalesBrand(MainApplication.authHeader)
     }
 
     override fun getRemoteFMaterialSalesBrandById(id: Int): Single<FMaterialSalesBrand> {
-        return retrofitService.getRemoteFMaterialSalesBrandById(Constants.authHeader, id)
+        return retrofitService.getRemoteFMaterialSalesBrandById(MainApplication.authHeader, id)
     }
 
     override fun getRemoteAllFMaterialSalesBrandByDivision(divisionId: Int): Single<List<FMaterialSalesBrand>> {
-        return retrofitService.getRemoteAllFMaterialSalesBrandByDivision(Constants.authHeader, divisionId)
+        return retrofitService.getRemoteAllFMaterialSalesBrandByDivision(MainApplication.authHeader, divisionId)
     }
 
     override fun createRemoteFMaterialSalesBrand(fMaterialSalesBrand: FMaterialSalesBrand): Single<FMaterialSalesBrand> {
-        return retrofitService.createRemoteFMaterialSalesBrand(Constants.authHeader, fMaterialSalesBrand)
+        return retrofitService.createRemoteFMaterialSalesBrand(MainApplication.authHeader, fMaterialSalesBrand)
     }
 
     override fun putRemoteFMaterialSalesBrand(id: Int, fMaterialSalesBrand: FMaterialSalesBrand): Single<FMaterialSalesBrand> {
-        return retrofitService.putRemoteFMaterialSalesBrand(Constants.authHeader, id, fMaterialSalesBrand)
+        return retrofitService.putRemoteFMaterialSalesBrand(MainApplication.authHeader, id, fMaterialSalesBrand)
     }
 
     override fun deleteRemoteFMaterialSalesBrand(id: Int): Single<FMaterialSalesBrand> {
-        return retrofitService.deleteRemoteFMaterialSalesBrand(Constants.authHeader, id)
+        return retrofitService.deleteRemoteFMaterialSalesBrand(MainApplication.authHeader, id)
     }
 
 
@@ -74,7 +75,7 @@ class FMaterialSalesBrandRepositoryImpl(
 
 
 //    override fun getRemoteAllData(): Single<List<FMaterialSalesBrand>> {
-//        return retrofitService.getRemoteAllFMaterialSalesBrand(Constants.authHeader)
+//        return retrofitService.getRemoteAllFMaterialSalesBrand(MainApplication.authHeader)
 //    }
 
 

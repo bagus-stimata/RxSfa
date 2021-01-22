@@ -27,7 +27,7 @@ class DatabaseModule {
             AppDatabase.DB_NAME
         )
             .fallbackToDestructiveMigration()
-            .allowMainThreadQueries()
+//            .allowMainThreadQueries()
             .build()
     }
 

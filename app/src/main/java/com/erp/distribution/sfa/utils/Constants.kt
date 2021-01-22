@@ -8,14 +8,16 @@ object Constants {
 
 //     const val BASE_URL = "https://jsonplaceholder.typicode.com/"
      const val BASE_URL = "http://192.168.1.100:8989/rest/"
-     const val BASIC_AUTH_USERNAME = "bagus"
-     const val BASIC_AUTH_PASSWORD = "hacker"
+
+//     var BASIC_AUTH_USERNAME = "bagus_xx"
+//     var BASIC_AUTH_PASSWORD = "hacker_xx"
      /**
       * RETROFIT 2
       * SPRING BASIC AUTH
       */
-     val stringBaseAuth: String = BASIC_AUTH_USERNAME + ":" + BASIC_AUTH_PASSWORD
-     val authHeader = "Basic " + android.util.Base64.encodeToString(stringBaseAuth.toByteArray(), android.util.Base64.NO_WRAP)
+//     val stringBaseAuth: String = BASIC_AUTH_USERNAME + ":" + BASIC_AUTH_PASSWORD
+//     val authHeader = "Basic " + android.util.Base64.encodeToString(stringBaseAuth.toByteArray(), android.util.Base64.NO_WRAP)
+
 
 
 }

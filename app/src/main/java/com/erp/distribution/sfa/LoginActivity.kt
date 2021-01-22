@@ -4,6 +4,7 @@ import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
 import android.os.Handler
+import android.util.Log
 import android.view.View
 import android.widget.Button
 import android.widget.EditText
@@ -19,6 +20,7 @@ import org.jetbrains.anko.find
 
 @AndroidEntryPoint
 class LoginActivity : AppCompatActivity() {
+    private val TAG = LoginActivity::class.java.simpleName
 
     var itemHeader: FUser = FUser()
 
@@ -47,13 +49,14 @@ class LoginActivity : AppCompatActivity() {
          * Kebetulan Belum menggunakan Extra Parceable
          */
         val intent: Intent = getIntent()
-        //        if (intent.hasExtra(EXTRA_ID)) {
+//        if (intent.hasExtra(EXTRA_ID)) {
 //            setTitle("Add User");
 //            FUser note = (FUser) intent.getSerializableExtra(EXTRA_OBJECT);
 //            editTextTitle.setText(note.getTitle());
 //        } else {
 //            setTitle("Edit User");
 //        }
+
     }
 
     fun initialize() {

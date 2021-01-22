@@ -1,6 +1,7 @@
 package com.erp.distribution.sfa.data.repository
 
 import androidx.lifecycle.LiveData
+import com.erp.distribution.sfa.MainApplication
 import com.erp.distribution.sfa.data.source.remote.RetrofitServiceFVendor
 import com.erp.distribution.sfa.database.AppDatabase
 import com.erp.distribution.sfa.domain.repository.FVendorRepository
@@ -19,27 +20,27 @@ class FVendorRepositoryImpl(
 ) : FVendorRepository {
 
     override fun getRemoteAllFVendor(): Single<List<FVendor>> {
-        return retrofitService.getRemoteAllFVendor(Constants.authHeader)
+        return retrofitService.getRemoteAllFVendor(MainApplication.authHeader)
     }
 
     override fun getRemoteFVendorById(id: Int): Single<FVendor> {
-        return retrofitService.getRemoteFVendorById(Constants.authHeader, id)
+        return retrofitService.getRemoteFVendorById(MainApplication.authHeader, id)
     }
 
     override fun getRemoteAllFVendorByDivision(divisionId: Int): Single<List<FVendor>> {
-        return retrofitService.getRemoteAllFVendorByDivision(Constants.authHeader, divisionId)
+        return retrofitService.getRemoteAllFVendorByDivision(MainApplication.authHeader, divisionId)
     }
 
     override fun createRemoteFVendor(fVendor: FVendor): Single<FVendor> {
-        return retrofitService.createRemoteFVendor(Constants.authHeader, fVendor)
+        return retrofitService.createRemoteFVendor(MainApplication.authHeader, fVendor)
     }
 
     override fun putRemoteFVendor(id: Int, fVendor: FVendor): Single<FVendor> {
-        return retrofitService.putRemoteFVendor(Constants.authHeader, id, fVendor)
+        return retrofitService.putRemoteFVendor(MainApplication.authHeader, id, fVendor)
     }
 
     override fun deleteRemoteFVendor(id: Int): Single<FVendor> {
-        return retrofitService.deleteRemoteFVendor(Constants.authHeader, id)
+        return retrofitService.deleteRemoteFVendor(MainApplication.authHeader, id)
     }
 
 
@@ -74,7 +75,7 @@ class FVendorRepositoryImpl(
 
 
 //    override fun getRemoteAllData(): Single<List<FVendor>> {
-//        return retrofitService.getRemoteAllFVendor(Constants.authHeader)
+//        return retrofitService.getRemoteAllFVendor(MainApplication.authHeader)
 //    }
 
 

@@ -1,6 +1,7 @@
 package com.erp.distribution.sfa.data.repository
 
 import androidx.lifecycle.LiveData
+import com.erp.distribution.sfa.MainApplication
 import com.erp.distribution.sfa.data.source.remote.RetrofitServiceFSubArea
 import com.erp.distribution.sfa.database.AppDatabase
 import com.erp.distribution.sfa.domain.repository.FSubAreaRepository
@@ -19,27 +20,27 @@ class FSubAreaRepositoryImpl(
 ) : FSubAreaRepository {
 
     override fun getRemoteAllFSubArea(): Single<List<FSubArea>> {
-        return retrofitService.getRemoteAllFSubArea(Constants.authHeader)
+        return retrofitService.getRemoteAllFSubArea(MainApplication.authHeader)
     }
 
     override fun getRemoteFSubAreaById(id: Int): Single<FSubArea> {
-        return retrofitService.getRemoteFSubAreaById(Constants.authHeader, id)
+        return retrofitService.getRemoteFSubAreaById(MainApplication.authHeader, id)
     }
 
     override fun getRemoteAllFSubAreaByParent(parentId: Int): Single<List<FSubArea>> {
-        return retrofitService.getRemoteAllFSubAreaByParent(Constants.authHeader, parentId)
+        return retrofitService.getRemoteAllFSubAreaByParent(MainApplication.authHeader, parentId)
     }
 
     override fun createRemoteFSubArea(fSubArea: FSubArea): Single<FSubArea> {
-        return retrofitService.createRemoteFSubArea(Constants.authHeader, fSubArea)
+        return retrofitService.createRemoteFSubArea(MainApplication.authHeader, fSubArea)
     }
 
     override fun putRemoteFSubArea(id: Int, fSubArea: FSubArea): Single<FSubArea> {
-        return retrofitService.putRemoteFSubArea(Constants.authHeader, id, fSubArea)
+        return retrofitService.putRemoteFSubArea(MainApplication.authHeader, id, fSubArea)
     }
 
     override fun deleteRemoteFSubArea(id: Int): Single<FSubArea> {
-        return retrofitService.deleteRemoteFSubArea(Constants.authHeader, id)
+        return retrofitService.deleteRemoteFSubArea(MainApplication.authHeader, id)
     }
 
 
@@ -74,7 +75,7 @@ class FSubAreaRepositoryImpl(
 
 
 //    override fun getRemoteAllData(): Single<List<FSubArea>> {
-//        return retrofitService.getRemoteAllFSubArea(Constants.authHeader)
+//        return retrofitService.getRemoteAllFSubArea(MainApplication.authHeader)
 //    }
 
 
