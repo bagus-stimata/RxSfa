@@ -16,6 +16,8 @@ interface FCustomerSalesmanDao {
      */
     @Insert
     fun insert(fCustomerSalesman: FCustomerSalesman?)
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    fun insertAll(listFCustomerSalesman: List<FCustomerSalesman>)
 
     @Update
     fun update(fCustomerSalesman: FCustomerSalesman?)

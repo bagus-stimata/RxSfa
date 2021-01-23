@@ -16,7 +16,9 @@ interface FExpedisiDao {
      */
     @Insert
     fun insert(fExpedisi: FExpedisi?)
-
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    fun insertAll(listFExpedisi: List<FExpedisi>)
+    
     @Update
     fun update(fExpedisi: FExpedisi?)
 

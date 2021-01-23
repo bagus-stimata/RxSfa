@@ -61,4 +61,5 @@ class GetFCustomerUseCase @Inject constructor(private val repository: FCustomerR
     fun deleteAllCacheFCustomer(){
         repository.deleteAllCacheFArea()
     }
+
 }

@@ -16,6 +16,8 @@ interface FCustomerPicDao {
      */
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun insert(fCustomerPic: FCustomerPic)
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    fun insertAll(listFCustomerPic: List<FCustomerPic>)
 
     @Update
     fun update(fCustomerPic: FCustomerPic)

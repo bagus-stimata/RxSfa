@@ -16,6 +16,9 @@ interface FtApPaymenthDao {
      */
     @Insert
     fun insert(ftApPaymenth: FtApPaymenth?)
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    fun insertAll(listFtApPaymenth: List<FtApPaymenth>)
+
 
     @Update
     fun update(ftApPaymenth: FtApPaymenth?)

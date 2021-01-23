@@ -16,7 +16,9 @@ interface FParamDiskonNotaDao {
      */
     @Insert
     fun insert(fParamDiskonNota: FParamDiskonNota?)
-
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    fun insertAll(listFParamDiskonNota: List<FParamDiskonNota>)
+    
     @Update
     fun update(fParamDiskonNota: FParamDiskonNota?)
 

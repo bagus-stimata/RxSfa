@@ -74,9 +74,4 @@ class FCustomerRepositoryImpl(
     }
 
 
-//    override fun getRemoteAllData(): Single<List<FCustomer>> {
-//        return retrofitService.getRemoteAllFCustomer(MainApplication.authHeader)
-//    }
-
-
 }

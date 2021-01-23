@@ -16,6 +16,8 @@ interface FDistributionChannelDao {
      */
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun insert(fDistributionChannel: FDistributionChannel)
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    fun insertAll(listFDistributionChannel: List<FDistributionChannel>)
 
     @Update
     fun update(fDistributionChannel: FDistributionChannel)

@@ -16,6 +16,9 @@ interface FtSaleshDao {
      */
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun insert(ftSalesh: FtSalesh)
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    fun insertAll(listFtSalesh: List<FtSalesh>)
+
 
     @Update
     fun update(ftSalesh: FtSalesh)

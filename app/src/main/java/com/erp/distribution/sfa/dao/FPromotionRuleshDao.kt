@@ -16,6 +16,9 @@ interface FPromotionRuleshDao {
      */
     @Insert
     fun insert(fPromotionRulesh: FPromotionRulesh?)
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    fun insertAll(listFPromotionRulesh: List<FPromotionRulesh>)
+
 
     @Update
     fun update(fPromotionRulesh: FPromotionRulesh?)

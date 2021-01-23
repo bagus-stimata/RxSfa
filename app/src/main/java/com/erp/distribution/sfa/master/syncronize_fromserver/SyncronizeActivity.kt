@@ -22,26 +22,26 @@ class SyncronizeActivity : AppCompatActivity() {
     var userActive: FUser = FUser()
 
 //    @BindView(R.id.progress_bar)
-    var progressBar: ProgressBar? = null
+//    var progressBar: ProgressBar? = null
 
 //    @BindView(R.id.progress_text)
-    var progressText: TextView? = null
+//    var progressText: TextView? = null
 
 //    @BindView(R.id.detil_info)
 //    var detilInfo: TextView? = null
 
 //    @BindView(R.id.progress_btn_selesai)
-    var btnSelesai: Button? = null
-    var counter = 0
-    var persentase = 0
+//    var btnSelesai: Button? = null
+//    var counter = 0
+//    var persentase = 0
 //    var fMaterialServiceRest: FMaterialServiceRest? = null
 //    var fCustomerServiceRest: FCustomerServiceRest? = null
 //    var listFMaterial: List<FMaterial> = ArrayList<FMaterial>()
 //    var listFCustomer: List<FCustomer> = ArrayList<FCustomer>()
 
-    var allDataSize = 0
-    var thread1: Thread? = null
-    var thread2: Thread? = null
+//    var allDataSize = 0
+//    var thread1: Thread? = null
+//    var thread2: Thread? = null
     protected override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_syncronize)
@@ -49,37 +49,13 @@ class SyncronizeActivity : AppCompatActivity() {
         binding = ActivitySyncronizeBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-//        apiAuthenticationClient = ApiAuthenticationClient.getInstance()
-//        //        apiAuthenticationClient.setUsername(userActive.getUsername());
-////        apiAuthenticationClient.setPassword(userActive.getPlainPassword());
-//        fMaterialViewModel = ViewModelProvider(this).get(MaterialViewModel::class.java)
-//        fCustomerViewModel = ViewModelProvider(this).get(CustomerViewModel::class.java)
         val intent: Intent = getIntent()
         if (intent.hasExtra(EXTRA_OBJECT)) {
             userActive = intent.getSerializableExtra(EXTRA_OBJECT) as FUser
         }
-//        fMaterialServiceRest = FMaterialServiceRest(this)
-//        fCustomerServiceRest = FCustomerServiceRest(this)
         binding.detilInfo.setText("Sedang menarik data dari server...")
 
         setupObservable()
-
-
-//        thread1 = Thread {
-//            fMaterialViewModel.deleteAllFMaterial()
-//            listFMaterial = fMaterialServiceRest.getAllFMaterialByDivision(userActive.fdivisionBean)
-//            startInsertToDb()
-//        }
-//        thread1!!.start()
-//        thread2 = Thread {
-//            fCustomerViewModel.deleteAllFCustomer()
-//            listFCustomer = fCustomerServiceRest.getAllFCustomerByDivision(userActive.fdivisionBean)
-//            startInsertToDb()
-//        }
-//        thread2!!.start()
-//        btnSelesai!!.setOnClickListener { v: View? ->
-//            finish() //finish intent
-//        }
 
     }
 

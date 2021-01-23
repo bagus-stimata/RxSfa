@@ -17,6 +17,9 @@ interface SysvarDao {
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun insert(sysvar: Sysvar)
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    fun insertAll(listSysvar: List<Sysvar>)
+
 
     @Update
     fun update(sysvar: Sysvar)

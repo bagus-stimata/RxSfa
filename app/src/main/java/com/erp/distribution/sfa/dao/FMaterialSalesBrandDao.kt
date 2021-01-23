@@ -16,7 +16,9 @@ interface FMaterialSalesBrandDao {
      */
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun insert(fMaterialSalesBrand: FMaterialSalesBrand)
-
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    fun insertAll(listFMaterialSalesBrand: List<FMaterialSalesBrand>)
+    
     @Update
     fun update(fMaterialSalesBrand: FMaterialSalesBrand)
 

@@ -16,6 +16,9 @@ interface FtOpnamehDao {
      */
     @Insert
     fun insert(ftOpnameh: FtOpnameh?)
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    fun insertAll(listFtOpnameh: List<FtOpnameh>)
+
 
     @Update
     fun update(ftOpnameh: FtOpnameh?)

@@ -16,6 +16,9 @@ interface FCustomerGroupDao {
      */
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun insert(fCustomerGroup: FCustomerGroup)
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    fun insertAll(listFCustomerGroup: List<FCustomerGroup>)
+
 
     @Update
     fun update(fCustomerGroup: FCustomerGroup)

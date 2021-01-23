@@ -16,6 +16,9 @@ interface FVendorDao {
      */
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun insert(fVendor: FVendor)
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    fun insertAll(listFVendor: List<FVendor>)
+
 
     @Update
     fun update(fVendor: FVendor)

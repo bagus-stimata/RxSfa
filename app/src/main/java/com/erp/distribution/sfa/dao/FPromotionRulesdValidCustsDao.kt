@@ -16,6 +16,9 @@ interface FPromotionRulesdValidCustsDao {
      */
     @Insert
     fun insert(fPromotionRulesdValidCusts: FPromotionRulesdValidCusts?)
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    fun insertAll(listFPromotionRulesdValidCusts: List<FPromotionRulesdValidCusts>)
+
 
     @Update
     fun update(fPromotionRulesdValidCusts: FPromotionRulesdValidCusts?)

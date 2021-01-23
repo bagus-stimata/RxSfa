@@ -16,6 +16,9 @@ interface FtOpnamedItemsDao {
      */
     @Insert
     fun insert(ftOpnamedItems: FtOpnamedItems?)
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    fun insertAll(listFtOpnamedItems: List<FtOpnamedItems>)
+
 
     @Update
     fun update(ftOpnamedItems: FtOpnamedItems?)

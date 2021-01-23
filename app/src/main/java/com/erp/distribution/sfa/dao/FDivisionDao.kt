@@ -17,7 +17,9 @@ interface FDivisionDao {
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun insert(fDivision: FDivision)
-
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    fun insertAll(listFDivision: List<FDivision>)
+    
     @Update
     fun update(fDivision: FDivision)
 

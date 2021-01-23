@@ -17,6 +17,9 @@ interface FWarehouseDao {
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun insert(fWarehouse: FWarehouse)
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    fun insertAll(listFWarehouse: List<FWarehouse>)
+
 
     @Update
     fun update(fWarehouse: FWarehouse)

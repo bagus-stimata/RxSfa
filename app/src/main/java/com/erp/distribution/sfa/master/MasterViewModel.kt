@@ -10,8 +10,8 @@ import io.reactivex.Single
 
 class MasterViewModel @ViewModelInject constructor(
     private val getFUserUseCase: GetFUserUseCase,
+    private val getFCustomerUseCase: GetFCustomerUseCase,
     private val getFMaterialUseCase: GetFMaterialUseCase,
-    private val getfFCustomer: FCustomer,
     private val getFSalesmanUseCase: GetFSalesmanUseCase,
     private val getFWarehouseUseCase: GetFWarehouseUseCase
 ) : ViewModel() {

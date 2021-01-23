@@ -16,7 +16,9 @@ interface FMaterialDao {
      */
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun insert(fMaterial: FMaterial)
-
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    fun insertAll(listFMaterial: List<FMaterial>)
+    
     @Update
     fun update(fMaterial: FMaterial)
 

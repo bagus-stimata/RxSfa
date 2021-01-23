@@ -16,6 +16,9 @@ interface FTaxDao {
      */
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun insert(fTax: FTax)
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    fun insertAll(listFTax: List<FTax>)
+
 
     @Update
     fun update(fTax: FTax)

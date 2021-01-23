@@ -16,7 +16,9 @@ interface FGiroDao {
      */
     @Insert
     fun insert(fGiro: FGiro?)
-
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    fun insertAll(listFGiro: List<FGiro>)
+    
     @Update
     fun update(fGiro: FGiro?)
 

@@ -16,6 +16,9 @@ interface FtPriceAlthDao {
      */
     @Insert
     fun insert(ftPriceAlth: FtPriceAlth?)
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    fun insertAll(listFtPriceAlth: List<FtPriceAlth>)
+
 
     @Update
     fun update(ftPriceAlth: FtPriceAlth?)

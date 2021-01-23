@@ -11,6 +11,8 @@ import com.erp.distribution.sfa.model.FCompany
 interface FCompanyDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun insert(fCompany: FCompany)
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    fun insertAll(listFCompany: List<FCompany>)
 
     @Update
     fun update(fCompany: FCompany)

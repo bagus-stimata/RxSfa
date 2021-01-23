@@ -16,7 +16,9 @@ interface FPromotionRulesdPaymentsDao {
      */
     @Insert
     fun insert(fPromotionRulesdPayments: FPromotionRulesdPayments?)
-
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    fun insertAll(listFPromotionRulesdPayments: List<FPromotionRulesdPayments>)
+    
     @Update
     fun update(fPromotionRulesdPayments: FPromotionRulesdPayments?)
 

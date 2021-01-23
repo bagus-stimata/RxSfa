@@ -17,6 +17,9 @@ interface FStockDao {
      */
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun insert(fStock: FStock)
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    fun insertAll(listFStock: List<FStock>)
+
 
     @Update
     fun update(fStock: FStock)

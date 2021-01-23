@@ -16,6 +16,9 @@ interface FtPurchasedItemsDao {
      */
     @Insert
     fun insert(ftPurchasedItems: FtPurchasedItems?)
+        @Insert(onConflict = OnConflictStrategy.REPLACE)
+        fun insertAll(listFtPurchasedItems: List<FtPurchasedItems>)
+
 
     @Update
     fun update(ftPurchasedItems: FtPurchasedItems?)

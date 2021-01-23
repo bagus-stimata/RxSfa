@@ -16,6 +16,9 @@ interface FtSalesdItemsDao {
      */
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun insert(ftSalesdItems: FtSalesdItems)
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    fun insertAll(listFtSalesdItems: List<FtSalesdItems>)
+
 
     @Update
     fun update(ftSalesdItems: FtSalesdItems)

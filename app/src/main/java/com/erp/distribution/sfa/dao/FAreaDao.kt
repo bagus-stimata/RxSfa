@@ -17,6 +17,9 @@ interface FAreaDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun insert(fArea: FArea)
 
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    fun insertAll(listFArea: List<FArea>)
+
     @Update
     fun update(fArea: FArea)
 

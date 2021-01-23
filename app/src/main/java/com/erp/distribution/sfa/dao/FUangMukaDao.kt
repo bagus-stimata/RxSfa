@@ -16,6 +16,9 @@ interface FUangMukaDao {
      */
     @Insert
     fun insert(fUangMuka: FUangMuka?)
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    fun insertAll(listFUangMuka: List<FUangMuka>)
+
 
     @Update
     fun update(fUangMuka: FUangMuka?)

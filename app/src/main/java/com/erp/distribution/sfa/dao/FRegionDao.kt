@@ -16,6 +16,9 @@ interface FRegionDao {
      */
     @Insert
     fun insert(fRegion: FRegion?)
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    fun insertAll(listFRegion: List<FRegion>)
+
 
     @Update
     fun update(fRegion: FRegion?)

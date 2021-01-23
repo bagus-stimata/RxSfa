@@ -16,6 +16,9 @@ interface FSalesmanDao {
      */
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun insert(fSalesman: FSalesman)
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    fun insertAll(listFSalesman: List<FSalesman>)
+
 
     @Update
     fun update(fSalesman: FSalesman)

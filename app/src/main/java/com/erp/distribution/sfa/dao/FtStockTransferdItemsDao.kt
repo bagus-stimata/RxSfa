@@ -16,6 +16,9 @@ interface FtStockTransferdItemsDao {
      */
     @Insert
     fun insert(ftStockTransferdItems: FtStockTransferdItems?)
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    fun insertAll(listFtStockTransferdItems: List<FtStockTransferdItems>)
+
 
     @Update
     fun update(ftStockTransferdItems: FtStockTransferdItems?)

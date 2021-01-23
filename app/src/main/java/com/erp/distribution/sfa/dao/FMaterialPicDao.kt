@@ -16,7 +16,9 @@ interface FMaterialPicDao {
      */
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun insert(fMaterialPic: FMaterialPic)
-
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    fun insertAll(listFMaterialPic: List<FMaterialPic>)
+    
     @Update
     fun update(fMaterialPic: FMaterialPic)
 

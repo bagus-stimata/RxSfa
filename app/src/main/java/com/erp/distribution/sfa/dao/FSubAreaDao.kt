@@ -16,6 +16,9 @@ interface FSubAreaDao {
      */
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun insert(fSubArea: FSubArea)
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    fun insertAll(listFSubArea: List<FSubArea>)
+
 
     @Update
     fun update(fSubArea: FSubArea)
