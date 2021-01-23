@@ -69,7 +69,7 @@ class FMaterialRepositoryImpl(
         return appDatabase.materialDao.delete(fMaterial)
     }
 
-    override fun deleteAllCacheData() {
+    override fun deleteAllCacheFMaterial() {
         return appDatabase.materialDao.deleteAllFMaterial()
     }
 

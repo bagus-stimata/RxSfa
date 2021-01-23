@@ -69,7 +69,7 @@ class SysvarRepositoryImpl(
         return appDatabase.sysvarDao.delete(sysvar)
     }
 
-    override fun deleteAllCacheData() {
+    override fun deleteAllCacheSysvar() {
         return appDatabase.sysvarDao.deleteAllSysvar()
     }
 

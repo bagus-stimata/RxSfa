@@ -21,7 +21,7 @@ interface FAreaRepository {
     fun addCacheFArea(fArea: FArea)
     fun putCacheFArea(fArea: FArea)
     fun deleteCacheFArea(fArea: FArea)
-    fun deleteAllCacheData()
+    fun deleteAllCacheFArea()
 
 
 }

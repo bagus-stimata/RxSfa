@@ -21,7 +21,7 @@ interface SysvarRepository {
     fun addCacheSysvar(sysvar: Sysvar)
     fun putCacheSysvar(sysvar: Sysvar)
     fun deleteCacheSysvar(sysvar: Sysvar)
-    fun deleteAllCacheData()
+    fun deleteAllCacheSysvar()
 
 
 }

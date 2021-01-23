@@ -15,9 +15,6 @@ import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
 class SyncronizeActivity : AppCompatActivity() {
-//    var apiAuthenticationClient: ApiAuthenticationClient? = null
-//    var fMaterialViewModel: MaterialViewModel? = null
-//    var fCustomerViewModel: CustomerViewModel? = null
 
     val viewModel: MasterViewModel by viewModels<MasterViewModel> ()
     lateinit var binding: ActivitySyncronizeBinding

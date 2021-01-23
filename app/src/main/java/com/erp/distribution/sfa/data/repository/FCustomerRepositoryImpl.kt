@@ -69,7 +69,7 @@ class FCustomerRepositoryImpl(
         return appDatabase.customerDao.delete(fCustomer)
     }
 
-    override fun deleteAllCacheData() {
+    override fun deleteAllCacheFArea() {
         return appDatabase.customerDao.deleteAllFCustomer()
     }
 

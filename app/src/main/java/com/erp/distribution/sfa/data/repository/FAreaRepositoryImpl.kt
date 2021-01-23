@@ -69,7 +69,7 @@ class FAreaRepositoryImpl(
         return appDatabase.areaDao.delete(fArea)
     }
 
-    override fun deleteAllCacheData() {
+    override fun deleteAllCacheFArea() {
         return appDatabase.areaDao.deleteAllFArea()
     }
 

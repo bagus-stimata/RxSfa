@@ -21,7 +21,7 @@ interface FMaterialRepository {
     fun addCacheFMaterial(fMaterial: FMaterial)
     fun putCacheFMaterial(fMaterial: FMaterial)
     fun deleteCacheFMaterial(fMaterial: FMaterial)
-    fun deleteAllCacheData()
+    fun deleteAllCacheFMaterial()
 
 
 }

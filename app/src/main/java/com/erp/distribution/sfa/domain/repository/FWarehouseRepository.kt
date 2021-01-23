@@ -21,7 +21,7 @@ interface FWarehouseRepository {
     fun addCacheFWarehouse(fWarehouse: FWarehouse)
     fun putCacheFWarehouse(fWarehouse: FWarehouse)
     fun deleteCacheFWarehouse(fWarehouse: FWarehouse)
-    fun deleteAllCacheData()
+    fun deleteAllCacheFWarehouse()
 
 
 }

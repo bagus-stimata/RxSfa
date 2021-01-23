@@ -58,7 +58,7 @@ class GetFAreaUseCase @Inject constructor(private val repository: FAreaRepositor
     fun deleteCacheFArea(fArea: FArea){
         repository.deleteCacheFArea(fArea)
     }
-    fun deleteAllCacheData(){
-        repository.deleteAllCacheData()
+    fun deleteAllCacheFArea(){
+        repository.deleteAllCacheFArea()
     }
 }

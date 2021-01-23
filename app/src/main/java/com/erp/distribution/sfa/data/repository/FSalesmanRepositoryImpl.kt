@@ -69,7 +69,7 @@ class FSalesmanRepositoryImpl(
         return appDatabase.salesmanDao.delete(fSalesman)
     }
 
-    override fun deleteAllCacheData() {
+    override fun deleteAllCacheFSalesman() {
         return appDatabase.salesmanDao.deleteAllFSalesman()
     }
 

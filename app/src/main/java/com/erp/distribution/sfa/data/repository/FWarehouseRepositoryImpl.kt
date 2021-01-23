@@ -69,7 +69,7 @@ class FWarehouseRepositoryImpl(
         return appDatabase.warehouseDao.delete(fWarehouse)
     }
 
-    override fun deleteAllCacheData() {
+    override fun deleteAllCacheFWarehouse() {
         return appDatabase.warehouseDao.deleteAllFWarehouse()
     }
 

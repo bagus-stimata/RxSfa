@@ -21,7 +21,7 @@ interface FSalesmanRepository {
     fun addCacheFSalesman(fSalesman: FSalesman)
     fun putCacheFSalesman(fSalesman: FSalesman)
     fun deleteCacheFSalesman(fSalesman: FSalesman)
-    fun deleteAllCacheData()
+    fun deleteAllCacheFSalesman()
 
 
 }
