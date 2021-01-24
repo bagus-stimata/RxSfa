@@ -1,47 +1,36 @@
 package com.erp.distribution.sfa.master.syncronize_fromserver
 
+import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
-import android.widget.Button
-import android.widget.ProgressBar
-import android.widget.TextView
+import android.view.View
+import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.Observer
+import com.erp.distribution.sfa.LoginActivity
 import com.erp.distribution.sfa.R
 import com.erp.distribution.sfa.databinding.ActivitySyncronizeBinding
 import com.erp.distribution.sfa.master.MasterViewModel
+import com.erp.distribution.sfa.model.FCustomer
+import com.erp.distribution.sfa.model.FMaterial
 import com.erp.distribution.sfa.security_model.FUser
+import com.erp.distribution.sfa.utils.DisposableManager
 import dagger.hilt.android.AndroidEntryPoint
+import io.reactivex.android.schedulers.AndroidSchedulers
+import io.reactivex.disposables.CompositeDisposable
+import io.reactivex.schedulers.Schedulers
+import java.util.*
 
 @AndroidEntryPoint
 class SyncronizeActivity : AppCompatActivity() {
+    private val TAG = SyncronizeActivity::class.java.simpleName
+    private val compositeDisposable = CompositeDisposable()
 
     val viewModel: MasterViewModel by viewModels<MasterViewModel> ()
     lateinit var binding: ActivitySyncronizeBinding
 
-    var userActive: FUser = FUser()
 
-//    @BindView(R.id.progress_bar)
-//    var progressBar: ProgressBar? = null
-
-//    @BindView(R.id.progress_text)
-//    var progressText: TextView? = null
-
-//    @BindView(R.id.detil_info)
-//    var detilInfo: TextView? = null
-
-//    @BindView(R.id.progress_btn_selesai)
-//    var btnSelesai: Button? = null
-//    var counter = 0
-//    var persentase = 0
-//    var fMaterialServiceRest: FMaterialServiceRest? = null
-//    var fCustomerServiceRest: FCustomerServiceRest? = null
-//    var listFMaterial: List<FMaterial> = ArrayList<FMaterial>()
-//    var listFCustomer: List<FCustomer> = ArrayList<FCustomer>()
-
-//    var allDataSize = 0
-//    var thread1: Thread? = null
-//    var thread2: Thread? = null
     protected override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_syncronize)
@@ -49,93 +38,149 @@ class SyncronizeActivity : AppCompatActivity() {
         binding = ActivitySyncronizeBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        binding.activity = this
+        binding.masterViewModel = this.viewModel
+
         val intent: Intent = getIntent()
         if (intent.hasExtra(EXTRA_OBJECT)) {
-            userActive = intent.getSerializableExtra(EXTRA_OBJECT) as FUser
+            viewModel.userActive = intent.getSerializableExtra(EXTRA_OBJECT) as FUser
         }
-        binding.detilInfo.setText("Sedang menarik data dari server...")
+
+        binding.progressBar.max = 100
 
         setupObservable()
 
+        viewModel.subscribeFMaterialFromRepo()
+//        viewModel.subscribeCustomerFromRepo() pakai bawah bos cara lain
     }
 
     fun setupObservable() {
-//        viewModel.fetchCustomerFromRemote()
-//        viewModel.doSync_MaterialFromServer()
 
-    }
 
-    fun startInsertToDb() {
-//        if (listFMaterial.size > 0 && listFCustomer.size > 0) {
-//            allDataSize = listFCustomer.size + listFMaterial.size
-//            progressBar.setMax(allDataSize)
-//            progressBar.setIndeterminate(false)
-//            for (domain in listFMaterial) {
-//                val insertTask = InsertFMaterialAsyncTask(apiAuthenticationClient, domain)
-//                insertTask.execute()
+        viewModel.getCacheFMaterialLive() .observe(this, Observer {
+            when (it) {
+                null, emptyList<FMaterial>() -> {
+                    viewModel.checkList1 = "trying.. Sync Material/Product (empty)"
+                }
+                else -> {
+                    viewModel.checkList1 = "Product Selesai, sejumlah ${it.size} items"
+                    if (!viewModel.checkList1.contains("trying..")) {
+                        binding.progressBar.setIndeterminate(false)
+                        var currentProcess = binding.progressBar.progress +50
+                        binding.progressBar.progress = currentProcess
+                        binding.progressText.text = "${currentProcess}%"
+                        if (currentProcess ==100){
+                            viewModel.isLoading = false;
+                        }
+
+                    }
+                }
+            }
+            binding.masterViewModel = this.viewModel
+        })
+
+        viewModel.listFMaterialMutableLive.observe(this, Observer {
+            when (it) {
+                null, emptyList<FMaterial>() -> {
+
+                }
+                else -> {
+                    viewModel.insertCacheFMaterial(it)
+                }
+            }
+        })
+
+//        val observerMaterial = viewModel.getFMaterialFromRepo()
+//            .map { data ->
+//                data.map {
+////                    it.sprice = "Malang"
+////                    it.oldKode1 = "Kuno LU"
+//                    it
+//                }
 //            }
-//            for (domain in listFCustomer) {
-//                val insertTask = InsertFCustomerAsyncTask(apiAuthenticationClient, domain)
-//                insertTask.execute()
+//            .observeOn(AndroidSchedulers.mainThread())
+//            .subscribeOn(Schedulers.io())
+//            .subscribe(
+//                {
+//                    viewModel.insertCacheFMaterial(it as List<FMaterial>)
+//                },
+//                {
+//
+//                },
+//                {
+//
+//                }
+//            )
+//
+//        compositeDisposable.add(observerMaterial)
+
+
+
+        viewModel.getCacheFCustomerLive().observe(this, Observer {
+            when (it) {
+                null, emptyList<FCustomer>() -> {
+                    viewModel.checkList2 = "trying.. Sync Customer (empty)"
+                }
+                else -> {
+                    viewModel.checkList2 = "Customer Selesai, sejumlah ${it.size} items"
+                    if (!viewModel.checkList2.contains("trying..")) {
+                        binding.progressBar.setIndeterminate(false)
+                        var currentProcess = binding.progressBar.progress +50
+                        binding.progressBar.progress = currentProcess
+                        binding.progressText.text = "${currentProcess}%"
+                        if (currentProcess >=100){
+                            viewModel.isLoading = false;
+                        }
+
+                    }
+                }
+            }
+            binding.masterViewModel = this.viewModel
+        })
+
+//        viewModel.listFCustomerMutableLive.observe(this, Observer {
+//            when (it) {
+//                null, emptyList<FCustomer>() -> {
+//
+//                }
+//                else -> {
+//                    viewModel.insertCacheFCustomer(it)
+//                }
 //            }
-//        }
+//        })
+
+        val observerCustomer = viewModel.getFCustomerFromRepo()
+            .map { data ->
+               data.map {
+                    it.modified = Date()
+                    it.created = Date()
+                    it.modifiedBy = viewModel.userActive.username
+                   it
+               }
+            }
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribeOn(Schedulers.io())
+            .subscribe(
+                    {
+                        viewModel.insertCacheFCustomer(it as List<FCustomer>)
+                    },
+                    {
+
+                    },
+                    {
+
+                    }
+            )
+
+        compositeDisposable.add(observerCustomer)
+
 
     }
 
-    fun progressStatus() {
-//        progressBar.setProgress(counter)
-//        //            progressText.setText( ((progressBar.getProgress() /progressBar.getMax())*100) + "");
-//        progressText.setText(progressBar.getProgress().toString() + "")
-//        detilInfo.setText("Save Data: $counter of $allDataSize")
-//        if (progressBar.getProgress() == progressBar.getMax()) btnSelesai!!.visibility =
-//            View.VISIBLE
+    fun kembali() {
+        finish()
     }
 
-//    inner class InsertFMaterialAsyncTask(
-//        apiAuthenticationClient: ApiAuthenticationClient?,
-//        domain: FMaterial
-//    ) : AsyncTask<Void?, Void?, Int?>() {
-//        private val apiAuthenticationClient: ApiAuthenticationClient?
-//        var domain: FMaterial = FMaterial()
-//        protected override fun onPreExecute() {}
-//        protected override fun doInBackground(vararg voids: Void): Int {
-//            fMaterialViewModel.insert(domain)
-//            counter++
-//            return 0
-//        }
-//
-//        protected override fun onPostExecute(result: Int) {
-//            progressStatus()
-//        }
-//
-//        init {
-//            this.apiAuthenticationClient = apiAuthenticationClient
-//            this.domain = domain
-//        }
-//    }
-
-//    inner class InsertFCustomerAsyncTask(
-//        apiAuthenticationClient: ApiAuthenticationClient?,
-//        domain: FCustomer
-//    ) : AsyncTask<Void?, Void?, Int?>() {
-//        private val apiAuthenticationClient: ApiAuthenticationClient?
-//        var domain: FCustomer = FCustomer()
-//        protected override fun onPreExecute() {}
-//        protected override fun doInBackground(vararg voids: Void): Int {
-//            fCustomerViewModel.insert(domain)
-//            counter++
-//            return 0
-//        }
-//
-//        protected override fun onPostExecute(result: Int) {
-//            progressStatus()
-//        }
-//
-//        init {
-//            this.apiAuthenticationClient = apiAuthenticationClient
-//            this.domain = domain
-//        }
-//    }
 
     companion object {
         const val EXTRA_OBJECT = "com.erp.distribution.sfa.master.SyncronizeActivity.EXTRA_OBJECT"

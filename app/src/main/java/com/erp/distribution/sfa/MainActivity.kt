@@ -10,24 +10,18 @@ import android.view.Menu
 import android.view.MenuItem
 import android.view.View
 import android.widget.ProgressBar
-import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
-import androidx.lifecycle.Observer
 import com.erp.distribution.sfa.databinding.ActivityMainDashboardBinding
 import com.erp.distribution.sfa.common_utils.AlertDialogConfirm
-import com.erp.distribution.sfa.domain.model.Photo
 import com.erp.distribution.sfa.master.syncronize_fromserver.SyncronizeActivity
 import com.erp.distribution.sfa.security_model.FUser
-import com.erp.distribution.sfa.utils.SecurityUtil
 import dagger.hilt.android.AndroidEntryPoint
-import io.reactivex.Observable
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.schedulers.Schedulers
 import java.util.*
-import kotlin.collections.ArrayList
 
 
 @AndroidEntryPoint
@@ -51,7 +45,7 @@ class MainActivity : AppCompatActivity() {
         mainBinding.activity = this
         mainBinding.userActive = mainViewModel.userActive
 
-        initializeObserver()
+        setupObserver()
 
     }
 
@@ -68,39 +62,25 @@ class MainActivity : AppCompatActivity() {
      * 2. Login -> Ambil UserName dan Password dari Database -> Jika Ada maka simpan kedalam database
      * 3. User pada database akan dihapus jika: (a) Logout (b) Berhasil Login (diganti dengan data user baru)
      */
-    fun initializeObserver() {
+    fun setupObserver() {
 
         mainViewModel.listUserActiveLive?.observe(this, androidx.lifecycle.Observer  {
             when (it) {
                 null, emptyList<FUser>() -> {
-                    Log.d(TAG, "#result Listen Dipanggil")
+                    Log.d(TAG, "#result Empty Listen Dipanggil")
                     showLoginView()
                 }
                 else -> {
                     mainViewModel.userActive = it.get(0)
+
                     greeting()
-                    Log.d(TAG, "#result Listen Dipanggil ${mainViewModel.userActive}")
+//                    Log.d(TAG, "#result Listen Dipanggil ${MainApplication.authHeader}")
                 }
             }
             mainBinding.userActive = mainViewModel.userActive //tidak bisa sekali
         })
 
 
-//        mainViewModel.userActiveLive.observe(this, Observer {
-//            when (it){
-//                null -> showLoginView()
-//                else -> {
-//                    if (it.id > 0) {
-//                        mainViewModel.userActive = it
-//                        MainApplication.authHeader = SecurityUtil.getAuthHeader(it.username, it.password)
-//                        greeting()
-//                    }else {
-//                        showLoginView()
-//                    }
-//                }
-//            }
-//
-//        })
 
     }
 
@@ -121,13 +101,14 @@ class MainActivity : AppCompatActivity() {
         super.onActivityResult(requestCode, resultCode, data)
 
         if (requestCode == RE_LOGIN && resultCode == Activity.RESULT_OK) {
-            Log.d(TAG, "#result OKE MASUK ####")
+//            Log.d(TAG, "#result OKE MASUK ####")
             val resultObject: FUser = data!!.getSerializableExtra(LoginActivity.EXTRA_OBJECT) as FUser
 
-            Log.d(TAG, "#result OKE >> " + resultObject.username + " >> " + resultObject.password)
-            MainApplication.authHeader = SecurityUtil.getAuthHeader(resultObject.username, resultObject.password)
+//            Log.d(TAG, "#result OKE >> " + resultObject.username + " >> " + resultObject.password)
+            //Password yang dipakai adalah passwordConfirm: Untuk seterusnya
+            resultObject.passwordConfirm = resultObject.password
 
-            val observer = mainViewModel.getRemoteFUserSecond(resultObject)
+            val observer = mainViewModel.getRemoteFUserByUser(resultObject)
                     .toObservable()
                     .subscribeOn(Schedulers.io())
                     .observeOn(AndroidSchedulers.mainThread())
@@ -145,6 +126,8 @@ class MainActivity : AppCompatActivity() {
                                 newFUser.created = Date()
                                 newFUser.modifiedBy = "bagus"
 
+                                //kareana akan dipaki seterusnya
+                                newFUser.passwordConfirm = resultObject.password
                                 //CREATE JIKA SAMA SAJA
                                 mainViewModel.insertCacheFUser(newFUser)
 
@@ -159,6 +142,29 @@ class MainActivity : AppCompatActivity() {
                     )
 
             compositeDisposable.add(observer)
+
+
+            val observerAll = mainViewModel.fetchFUserFromRepo()
+                .toObservable()
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .map {
+                    it
+                }
+                .subscribe(
+                    {
+//                        val newFUser = it
+                        Log.d(TAG, "#result FUSER Login trying add all ${it}")
+
+                    },
+                    {
+                        Log.d(TAG, "#result FUSER Login  error add all")
+                    },
+                    {
+                    }
+                )
+
+            compositeDisposable.add(observerAll)
 
 
 
@@ -221,7 +227,6 @@ class MainActivity : AppCompatActivity() {
         alert.getButtonOke().setOnClickListener(View.OnClickListener { view: View? ->
             alert.dismiss()
 
-            MainApplication.authHeader = SecurityUtil.getAuthHeader("xxx", "xxx")
             mainViewModel.deleteCacheAllFUser()
 
         })
@@ -231,7 +236,6 @@ class MainActivity : AppCompatActivity() {
             })
         alert.showDialog()
     }
-
 
     fun menuSyncronize() {
         val alert = AlertDialogConfirm(
@@ -252,18 +256,78 @@ class MainActivity : AppCompatActivity() {
     fun menuSalesOrder() {
 //        val intent = Intent(this@MainActivity, SalesOrderActivity::class.java)
 //        startActivity(intent)
-        MainApplication.authHeader = "Hello om Sales Order"
+
+        val observer = mainViewModel.getRemoteFUserByUser(mainViewModel.userActive)
+                .toObservable()
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .map {
+                    it.lastModified = Date()
+                    it.created = Date()
+                    it.modifiedBy = "bagus"
+                    it
+                }
+                .subscribe(
+                        {
+                            val newFUser = it
+
+                            newFUser.lastModified = Date()
+                            newFUser.created = Date()
+                            newFUser.modifiedBy = "bagus"
+
+                            Log.d(TAG, "#result FUSER Login trying add all ${it}")
+                            //CREATE JIKA SAMA SAJA
+//                    mainViewModel.insertCacheFUser(newFUser)
+
+                        },
+                        {
+                            Log.e(TAG, "#result Error ${it.message}")
+
+                        },
+                        {
+                        }
+                )
+
+        compositeDisposable.add(observer)
+
+
+        val observerAll = mainViewModel.fetchFUserFromRepo()
+                .toObservable()
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .map {
+                    it
+                }
+                .subscribe(
+                        {
+//                        val newFUser = it
+                            Log.d(TAG, "#result FUSER MainActivity trying add all ${it}")
+
+                        },
+                        {
+                            Log.e(TAG, "#result FUSER MainActivity  error add all ${it.message}")
+                        },
+                        {
+                        }
+                )
+
+        compositeDisposable.add(observerAll)
     }
 
     fun menuProduct() {
 //        val intent = Intent(this@MainActivity, MaterialActivity::class.java)
 //        startActivity(intent)
-        MainApplication.authHeader = "Hello om Product"
     }
 
     fun menuCustomer() {
 //        val intent = Intent(this@MainActivity, CustomerActivity::class.java)
 //        startActivity(intent)
+
+
+        mainViewModel.fetchFCustomerFromRepo()
+
+
+
     }
 
     companion object {

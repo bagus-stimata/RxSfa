@@ -8,15 +8,15 @@ import io.reactivex.Single
  * To make an interaction between [AlbumRepositoryImp] & [GetAlbumsUseCase]
  * */
 interface FUserRepository {
-    fun getRemoteAllFUser(): Single<List<FUser>>
-    fun getRemoteFUserById(id: Int): Single<FUser>
-    fun getRemoteFUserByUsername(username: String): Single<FUser>
-    fun getRemoteFUserByUsernamePassword(username: String, password: String): Single<FUser>
-    fun getRemoteFUserByEmail(email: String): Single<FUser>
+    fun getRemoteAllFUser(authHeader: String): Single<List<FUser>>
+    fun getRemoteFUserById(authHeader: String, id: Int): Single<FUser>
+    fun getRemoteFUserByUsername(authHeader: String, username: String): Single<FUser>
+    fun getRemoteFUserByUsernamePassword(authHeader: String, username: String, password: String): Single<FUser>
+    fun getRemoteFUserByEmail(authHeader: String, email: String): Single<FUser>
 //    fun getRemoteDataByParentId(parenId: Int): Single<List<FUser>>
-    fun createRemoteFUser(fUser: FUser): Single<FUser>
-    fun putRemoteFUser(id: Int, fUser: FUser): Single<FUser>
-    fun deleteRemoteFUser(id: Int): Single<FUser>
+    fun createRemoteFUser(authHeader: String, fUser: FUser): Single<FUser>
+    fun putRemoteFUser(authHeader: String, id: Int, fUser: FUser): Single<FUser>
+    fun deleteRemoteFUser(authHeader: String, id: Int): Single<FUser>
     
 
     fun getCacheAllFUser(): LiveData<List<FUser>>

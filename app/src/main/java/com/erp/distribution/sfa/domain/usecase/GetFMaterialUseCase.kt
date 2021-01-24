@@ -16,26 +16,26 @@ import javax.inject.Inject
 class GetFMaterialUseCase @Inject constructor(private val repository: FMaterialRepository) : SingleUseCase<List<FMaterial>>() {
 
     override fun buildUseCaseSingle(): Single<List<FMaterial>> {
-        return repository.getRemoteAllFMaterial()
+        return repository.getRemoteAllFMaterial("authHeader")
     }
-    fun getRemoteAllFMaterial(): Single<List<FMaterial>>{
-        return repository.getRemoteAllFMaterial()
+    fun getRemoteAllFMaterial(authHeader: String): Single<List<FMaterial>>{
+        return repository.getRemoteAllFMaterial(authHeader)
     }
 
-    fun getRemoteFMaterialById(id: Int): Single<FMaterial>{
-        return repository.getRemoteFMaterialById(id)
+    fun getRemoteFMaterialById(authHeader: String, id: Int): Single<FMaterial>{
+        return repository.getRemoteFMaterialById(authHeader, id)
     }
-    fun getRemoteAllFMaterialByDivision(divisionId: Int): Single<List<FMaterial>>{
-        return repository.getRemoteAllFMaterialByDivision(divisionId)
+    fun getRemoteAllFMaterialByDivision(authHeader: String, divisionId: Int): Single<List<FMaterial>>{
+        return repository.getRemoteAllFMaterialByDivision(authHeader, divisionId)
     }
-    fun createRemoteFMaterial(fMaterial: FMaterial): Single<FMaterial>{
-        return repository.createRemoteFMaterial(fMaterial)
+    fun createRemoteFMaterial(authHeader: String, fMaterial: FMaterial): Single<FMaterial>{
+        return repository.createRemoteFMaterial(authHeader, fMaterial)
     }
-    fun putRemoteFMaterial(id: Int, fMaterial: FMaterial): Single<FMaterial>{
-        return repository.putRemoteFMaterial(id, fMaterial)
+    fun putRemoteFMaterial(authHeader: String, id: Int, fMaterial: FMaterial): Single<FMaterial>{
+        return repository.putRemoteFMaterial(authHeader, id, fMaterial)
     }
-    fun deleteRemoteFMaterial(id: Int): Single<FMaterial>{
-        return repository.deleteRemoteFMaterial(id)
+    fun deleteRemoteFMaterial(authHeader: String, id: Int): Single<FMaterial>{
+        return repository.deleteRemoteFMaterial(authHeader, id)
     }
 
 
@@ -51,6 +51,9 @@ class GetFMaterialUseCase @Inject constructor(private val repository: FMaterialR
     }
     fun addCacheFMaterial(fMaterial: FMaterial){
         repository.addCacheFMaterial(fMaterial)
+    }
+    fun addCacheListFMaterial(list: List<FMaterial>){
+        repository.addCacheListFMaterial(list)
     }
     fun putCacheFMaterial(fMaterial: FMaterial){
         repository.putCacheFMaterial(fMaterial)

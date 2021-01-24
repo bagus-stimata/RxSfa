@@ -20,31 +20,31 @@ class FStockRepositoryImpl(
     private val retrofitService: RetrofitServiceFStock
 ) : FStockRepository {
 
-    override fun getRemoteAllFStock(): Single<List<FStock>> {
-        return retrofitService.getRemoteAllFStock(MainApplication.authHeader)
+    override fun getRemoteAllFStock(authHeader: String, ): Single<List<FStock>> {
+        return retrofitService.getRemoteAllFStock(authHeader)
     }
 
-    override fun getRemoteFStockById(id: Int): Single<FStock> {
-        return retrofitService.getRemoteFStockById(MainApplication.authHeader, id)
+    override fun getRemoteFStockById(authHeader: String, id: Int): Single<FStock> {
+        return retrofitService.getRemoteFStockById(authHeader, id)
     }
 
-    override fun getRemoteAllFStockByMaterial(materialId: Int, stockDateFrom: Date, stockDateTo: Date): Single<List<FStock>> {
-        return retrofitService.getRemoteAllFStockByFMaterial(MainApplication.authHeader, materialId, stockDateFrom, stockDateTo)
+    override fun getRemoteAllFStockByMaterial(authHeader: String, materialId: Int, stockDateFrom: Date, stockDateTo: Date): Single<List<FStock>> {
+        return retrofitService.getRemoteAllFStockByFMaterial(authHeader, materialId, stockDateFrom, stockDateTo)
     }
-    override fun getRemoteAllFStockByWarehouse(warehouseId: Int, stockDateFrom: Date, stockDateTo: Date): Single<List<FStock>> {
-        return retrofitService.getRemoteAllFStockByFWarehouse(MainApplication.authHeader, warehouseId, stockDateFrom, stockDateTo)
-    }
-
-    override fun createRemoteFStock(fStock: FStock): Single<FStock> {
-        return retrofitService.createRemoteFStock(MainApplication.authHeader, fStock)
+    override fun getRemoteAllFStockByWarehouse(authHeader: String, warehouseId: Int, stockDateFrom: Date, stockDateTo: Date): Single<List<FStock>> {
+        return retrofitService.getRemoteAllFStockByFWarehouse(authHeader, warehouseId, stockDateFrom, stockDateTo)
     }
 
-    override fun putRemoteFStock(id: Int, fStock: FStock): Single<FStock> {
-        return retrofitService.putRemoteFStock(MainApplication.authHeader, id, fStock)
+    override fun createRemoteFStock(authHeader: String, fStock: FStock): Single<FStock> {
+        return retrofitService.createRemoteFStock(authHeader, fStock)
     }
 
-    override fun deleteRemoteFStock(id: Int): Single<FStock> {
-        return retrofitService.deleteRemoteFStock(MainApplication.authHeader, id)
+    override fun putRemoteFStock(authHeader: String, id: Int, fStock: FStock): Single<FStock> {
+        return retrofitService.putRemoteFStock(authHeader, id, fStock)
+    }
+
+    override fun deleteRemoteFStock(authHeader: String, id: Int): Single<FStock> {
+        return retrofitService.deleteRemoteFStock(authHeader, id)
     }
 
 
@@ -88,7 +88,7 @@ class FStockRepositoryImpl(
 
 
 //    override fun getRemoteAllData(): Single<List<FStock>> {
-//        return retrofitService.getRemoteAllFStock(MainApplication.authHeader)
+//        return retrofitService.getRemoteAllFStock(authHeader)
 //    }
 
 

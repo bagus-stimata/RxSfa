@@ -8,12 +8,12 @@ import io.reactivex.Single
  * To make an interaction between [AlbumRepositoryImp] & [GetAlbumsUseCase]
  * */
 interface FDistributionChannelRepository {
-    fun getRemoteAllFDistributionChannel(): Single<List<FDistributionChannel>>
-    fun getRemoteFDistributionChannelById(id: Int): Single<FDistributionChannel>
-    fun getRemoteAllFDistributionChannelByDivision(divisionId: Int): Single<List<FDistributionChannel>>
-    fun createRemoteFDistributionChannel(fDistributionChannel: FDistributionChannel): Single<FDistributionChannel>
-    fun putRemoteFDistributionChannel(id: Int, fDistributionChannel: FDistributionChannel): Single<FDistributionChannel>
-    fun deleteRemoteFDistributionChannel(id: Int): Single<FDistributionChannel>
+    fun getRemoteAllFDistributionChannel(authHeader: String): Single<List<FDistributionChannel>>
+    fun getRemoteFDistributionChannelById(authHeader: String, id: Int): Single<FDistributionChannel>
+    fun getRemoteAllFDistributionChannelByDivision(authHeader: String, divisionId: Int): Single<List<FDistributionChannel>>
+    fun createRemoteFDistributionChannel(authHeader: String, fDistributionChannel: FDistributionChannel): Single<FDistributionChannel>
+    fun putRemoteFDistributionChannel(authHeader: String, id: Int, fDistributionChannel: FDistributionChannel): Single<FDistributionChannel>
+    fun deleteRemoteFDistributionChannel(authHeader: String, id: Int): Single<FDistributionChannel>
 
     fun getCacheAllFDistributionChannel(): LiveData<List<FDistributionChannel>>
     fun getCacheFDistributionChannelById(id: Int): LiveData<FDistributionChannel>

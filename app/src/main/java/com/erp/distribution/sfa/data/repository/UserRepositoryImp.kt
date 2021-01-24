@@ -10,6 +10,7 @@ import com.erp.distribution.sfa.database.AppDatabase
 import com.erp.distribution.sfa.domain.repository.FUserRepository
 import com.erp.distribution.sfa.security_model.FUser
 import com.erp.distribution.sfa.utils.Constants
+import com.erp.distribution.sfa.utils.SecurityUtil
 import io.reactivex.Single
 
 
@@ -24,34 +25,36 @@ class UserRepositoryImp(
     FUserRepository {
 
 
-    override fun getRemoteAllFUser(): Single<List<FUser>> {
-        return retrofitService.getAllData(MainApplication.authHeader)
+    override fun getRemoteAllFUser(authHeader: String): Single<List<FUser>> {
+        return retrofitService.getAllData(authHeader)
+//        return retrofitService.getAllData(SecurityUtil.getAuthHeader("bagus", "hacker"))
     }
 
-    override fun getRemoteFUserById(id: Int): Single<FUser> {
-        return retrofitService.getFUserById( MainApplication.authHeader, id)
+    override fun getRemoteFUserById(authHeader: String, id: Int): Single<FUser> {
+        return retrofitService.getFUserById( authHeader, id)
     }
 
-    override fun getRemoteFUserByUsername(username: String): Single<FUser> {
-//        Log.d("UserRepository", "#result ${MainApplication.authHeader}")
-        return retrofitService.getFUserByUsername(MainApplication.authHeader, username)
+    override fun getRemoteFUserByUsername(authHeader: String, username: String): Single<FUser> {
+//        Log.d("UserRepository", "#result ${authHeader}")
+        return retrofitService.getFUserByUsername(authHeader, username)
+//        return retrofitService.getFUserByUsername(SecurityUtil.getAuthHeader("bagus", "hacker"), username)
     }
-    override fun getRemoteFUserByUsernamePassword(username: String, password: String): Single<FUser> {
-        return retrofitService.getFUserByUsernamePassword(MainApplication.authHeader, username, password)
+    override fun getRemoteFUserByUsernamePassword(authHeader: String, username: String, password: String): Single<FUser> {
+        return retrofitService.getFUserByUsernamePassword(authHeader, username, password)
     }
-    override fun getRemoteFUserByEmail(email: String): Single<FUser> {
-        return retrofitService.getFUserByEmail(MainApplication.authHeader, email)
+    override fun getRemoteFUserByEmail(authHeader: String, email: String): Single<FUser> {
+        return retrofitService.getFUserByEmail(authHeader, email)
     }
-    override fun createRemoteFUser(fUser: FUser): Single<FUser> {
-        return retrofitService.createRemoteFUser(MainApplication.authHeader, fUser)
-    }
-
-    override fun putRemoteFUser(id: Int, fUser: FUser): Single<FUser> {
-        return retrofitService.putRemoteFUser(MainApplication.authHeader, id, fUser)
+    override fun createRemoteFUser(authHeader: String, fUser: FUser): Single<FUser> {
+        return retrofitService.createRemoteFUser(authHeader, fUser)
     }
 
-    override fun deleteRemoteFUser(id: Int): Single<FUser> {
-        return retrofitService.deleteRemoteFUser(MainApplication.authHeader, id)
+    override fun putRemoteFUser(authHeader: String, id: Int, fUser: FUser): Single<FUser> {
+        return retrofitService.putRemoteFUser(authHeader, id, fUser)
+    }
+
+    override fun deleteRemoteFUser(authHeader: String, id: Int): Single<FUser> {
+        return retrofitService.deleteRemoteFUser(authHeader, id)
     }
     
 //    override fun getRemoteDataByParentId(parenId: Int): Single<List<FUser>> {

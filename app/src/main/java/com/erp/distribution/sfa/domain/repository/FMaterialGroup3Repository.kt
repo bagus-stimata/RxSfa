@@ -8,12 +8,12 @@ import io.reactivex.Single
  * To make an interaction between [AlbumRepositoryImp] & [GetAlbumsUseCase]
  * */
 interface FMaterialGroup3Repository {
-    fun getRemoteAllFMaterialGroup3(): Single<List<FMaterialGroup3>>
-    fun getRemoteFMaterialGroup3ById(id: Int): Single<FMaterialGroup3>
-    fun getRemoteAllFMaterialGroup3ByParent(parentId: Int): Single<List<FMaterialGroup3>>
-    fun createRemoteFMaterialGroup3(fMaterialGroup3: FMaterialGroup3): Single<FMaterialGroup3>
-    fun putRemoteFMaterialGroup3(id: Int, fMaterialGroup3: FMaterialGroup3): Single<FMaterialGroup3>
-    fun deleteRemoteFMaterialGroup3(id: Int): Single<FMaterialGroup3>
+    fun getRemoteAllFMaterialGroup3(authHeader: String, ): Single<List<FMaterialGroup3>>
+    fun getRemoteFMaterialGroup3ById(authHeader: String, id: Int): Single<FMaterialGroup3>
+    fun getRemoteAllFMaterialGroup3ByParent(authHeader: String, parentId: Int): Single<List<FMaterialGroup3>>
+    fun createRemoteFMaterialGroup3(authHeader: String, fMaterialGroup3: FMaterialGroup3): Single<FMaterialGroup3>
+    fun putRemoteFMaterialGroup3(authHeader: String, id: Int, fMaterialGroup3: FMaterialGroup3): Single<FMaterialGroup3>
+    fun deleteRemoteFMaterialGroup3(authHeader: String, id: Int): Single<FMaterialGroup3>
 
     fun getCacheAllFMaterialGroup3(): LiveData<List<FMaterialGroup3>>
     fun getCacheFMaterialGroup3ById(id: Int): LiveData<FMaterialGroup3>

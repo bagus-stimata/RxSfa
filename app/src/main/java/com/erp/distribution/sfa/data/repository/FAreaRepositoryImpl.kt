@@ -19,28 +19,28 @@ class FAreaRepositoryImpl(
     private val retrofitService: RetrofitServiceFArea
 ) : FAreaRepository {
 
-    override fun getRemoteAllFArea(): Single<List<FArea>> {
-        return retrofitService.getRemoteAllFArea(MainApplication.authHeader)
+    override fun getRemoteAllFArea(authHeader: String): Single<List<FArea>> {
+        return retrofitService.getRemoteAllFArea(authHeader)
     }
 
-    override fun getRemoteFAreaById(id: Int): Single<FArea> {
-        return retrofitService.getRemoteFAreaById(MainApplication.authHeader, id)
+    override fun getRemoteFAreaById(authHeader: String, id: Int): Single<FArea> {
+        return retrofitService.getRemoteFAreaById(authHeader, id)
     }
 
-    override fun getRemoteAllFAreaByDivision(divisionId: Int): Single<List<FArea>> {
-        return retrofitService.getRemoteAllFAreaByDivision(MainApplication.authHeader, divisionId)
+    override fun getRemoteAllFAreaByDivision(authHeader: String, divisionId: Int): Single<List<FArea>> {
+        return retrofitService.getRemoteAllFAreaByDivision(authHeader, divisionId)
     }
 
-    override fun createRemoteFArea(fArea: FArea): Single<FArea> {
-        return retrofitService.createRemoteFArea(MainApplication.authHeader, fArea)
+    override fun createRemoteFArea(authHeader: String, fArea: FArea): Single<FArea> {
+        return retrofitService.createRemoteFArea(authHeader, fArea)
     }
 
-    override fun putRemoteFArea(id: Int, fArea: FArea): Single<FArea> {
-        return retrofitService.putRemoteFArea(MainApplication.authHeader, id, fArea)
+    override fun putRemoteFArea(authHeader: String, id: Int, fArea: FArea): Single<FArea> {
+        return retrofitService.putRemoteFArea(authHeader, id, fArea)
     }
 
-    override fun deleteRemoteFArea(id: Int): Single<FArea> {
-        return retrofitService.deleteRemoteFArea(MainApplication.authHeader, id)
+    override fun deleteRemoteFArea(authHeader: String, id: Int): Single<FArea> {
+        return retrofitService.deleteRemoteFArea(authHeader, id)
     }
 
 
@@ -60,6 +60,9 @@ class FAreaRepositoryImpl(
     override fun addCacheFArea(fArea: FArea) {
         return appDatabase.areaDao.insert(fArea)
     }
+    override fun addCacheListFArea(list: List<FArea>) {
+        return appDatabase.areaDao.insertAll(list)
+    }
 
     override fun putCacheFArea(fArea: FArea) {
         return appDatabase.areaDao.update(fArea)
@@ -75,7 +78,7 @@ class FAreaRepositoryImpl(
 
 
 //    override fun getRemoteAllData(): Single<List<FArea>> {
-//        return retrofitService.getRemoteAllFArea(MainApplication.authHeader)
+//        return retrofitService.getRemoteAllFArea(authHeader)
 //    }
 
 

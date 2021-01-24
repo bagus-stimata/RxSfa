@@ -8,12 +8,12 @@ import io.reactivex.Single
  * To make an interaction between [AlbumRepositoryImp] & [GetAlbumsUseCase]
  * */
 interface FCustomerPicRepository {
-    fun getRemoteAllFCustomerPic(): Single<List<FCustomerPic>>
-    fun getRemoteFCustomerPicById(id: Int): Single<FCustomerPic>
-    fun getRemoteAllFCustomerPicByParent(parentId: Int): Single<List<FCustomerPic>>
-    fun createRemoteFCustomerPic(fCustomerPic: FCustomerPic): Single<FCustomerPic>
-    fun putRemoteFCustomerPic(id: Int, fCustomerPic: FCustomerPic): Single<FCustomerPic>
-    fun deleteRemoteFCustomerPic(id: Int): Single<FCustomerPic>
+    fun getRemoteAllFCustomerPic(authHeader: String): Single<List<FCustomerPic>>
+    fun getRemoteFCustomerPicById(authHeader: String, id: Int): Single<FCustomerPic>
+    fun getRemoteAllFCustomerPicByParent(authHeader: String, parentId: Int): Single<List<FCustomerPic>>
+    fun createRemoteFCustomerPic(authHeader: String, fCustomerPic: FCustomerPic): Single<FCustomerPic>
+    fun putRemoteFCustomerPic(authHeader: String, id: Int, fCustomerPic: FCustomerPic): Single<FCustomerPic>
+    fun deleteRemoteFCustomerPic(authHeader: String, id: Int): Single<FCustomerPic>
 
     fun getCacheAllFCustomerPic(): LiveData<List<FCustomerPic>>
     fun getCacheFCustomerPicById(id: Int): LiveData<FCustomerPic>

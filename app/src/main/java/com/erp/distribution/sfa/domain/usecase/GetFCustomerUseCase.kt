@@ -16,26 +16,26 @@ import javax.inject.Inject
 class GetFCustomerUseCase @Inject constructor(private val repository: FCustomerRepository) : SingleUseCase<List<FCustomer>>() {
 
     override fun buildUseCaseSingle(): Single<List<FCustomer>> {
-        return repository.getRemoteAllFCustomer()
+        return repository.getRemoteAllFCustomer("authHeader")
     }
-    fun getRemoteAllFCustomer(): Single<List<FCustomer>>{
-        return repository.getRemoteAllFCustomer()
+    fun getRemoteAllFCustomer(authHeader: String): Single<List<FCustomer>>{
+        return repository.getRemoteAllFCustomer(authHeader)
     }
 
-    fun getRemoteFCustomerById(id: Int): Single<FCustomer>{
-        return repository.getRemoteFCustomerById(id)
+    fun getRemoteFCustomerById(authHeader: String, id: Int): Single<FCustomer>{
+        return repository.getRemoteFCustomerById(authHeader, id)
     }
-    fun getRemoteAllFCustomerByDivision(divisionId: Int): Single<List<FCustomer>>{
-        return repository.getRemoteAllFCustomerByDivision(divisionId)
+    fun getRemoteAllFCustomerByDivision(authHeader: String, divisionId: Int): Single<List<FCustomer>>{
+        return repository.getRemoteAllFCustomerByDivision(authHeader, divisionId)
     }
-    fun createRemoteFCustomer(fCustomer: FCustomer): Single<FCustomer>{
-        return repository.createRemoteFCustomer(fCustomer)
+    fun createRemoteFCustomer(authHeader: String, fCustomer: FCustomer): Single<FCustomer>{
+        return repository.createRemoteFCustomer(authHeader, fCustomer)
     }
-    fun putRemoteFCustomer(id: Int, fCustomer: FCustomer): Single<FCustomer>{
-        return repository.putRemoteFCustomer(id, fCustomer)
+    fun putRemoteFCustomer(authHeader: String, id: Int, fCustomer: FCustomer): Single<FCustomer>{
+        return repository.putRemoteFCustomer(authHeader, id, fCustomer)
     }
-    fun deleteRemoteFCustomer(id: Int): Single<FCustomer>{
-        return repository.deleteRemoteFCustomer(id)
+    fun deleteRemoteFCustomer(authHeader: String, id: Int): Single<FCustomer>{
+        return repository.deleteRemoteFCustomer(authHeader, id)
     }
 
 
@@ -51,6 +51,9 @@ class GetFCustomerUseCase @Inject constructor(private val repository: FCustomerR
     }
     fun addCacheFCustomer(fCustomer: FCustomer){
         repository.addCacheFCustomer(fCustomer)
+    }
+    fun addCacheListFCustomer(list: List<FCustomer>){
+        repository.addCacheListFCustomer(list)
     }
     fun putCacheFCustomer( fCustomer: FCustomer){
         repository.putCacheFCustomer(fCustomer)

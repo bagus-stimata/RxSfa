@@ -8,6 +8,10 @@ import com.erp.distribution.sfa.model.modelenum.EnumTipePajakCustomer
 import com.erp.distribution.sfa.model.modelenum.EnumTunaiKredit
 import java.util.*
 
+
+data class ResponseFCustomer(
+    val data: MutableList<FCustomer>
+)
 //@Entity(tableName = "fcustomer")
 @Entity(tableName = "fCustomer")
 class FCustomer(
@@ -160,3 +164,4 @@ class FCustomer(
 //    var isSelected: Boolean,
 
 )
+

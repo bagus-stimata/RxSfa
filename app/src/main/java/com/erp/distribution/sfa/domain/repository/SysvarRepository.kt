@@ -8,12 +8,12 @@ import io.reactivex.Single
  * To make an interaction between [AlbumRepositoryImp] & [GetAlbumsUseCase]
  * */
 interface SysvarRepository {
-    fun getRemoteAllSysvar(): Single<List<Sysvar>>
-    fun getRemoteSysvarById(id: Int): Single<Sysvar>
-    fun getRemoteAllSysvarByDivision(divisionId: Int): Single<List<Sysvar>>
-    fun createRemoteSysvar(sysvar: Sysvar): Single<Sysvar>
-    fun putRemoteSysvar(id: Int, sysvar: Sysvar): Single<Sysvar>
-    fun deleteRemoteSysvar(id: Int): Single<Sysvar>
+    fun getRemoteAllSysvar(authHeader: String ): Single<List<Sysvar>>
+    fun getRemoteSysvarById(authHeader: String, id: Int): Single<Sysvar>
+    fun getRemoteAllSysvarByDivision(authHeader: String, divisionId: Int): Single<List<Sysvar>>
+    fun createRemoteSysvar(authHeader: String, sysvar: Sysvar): Single<Sysvar>
+    fun putRemoteSysvar(authHeader: String, id: Int, sysvar: Sysvar): Single<Sysvar>
+    fun deleteRemoteSysvar(authHeader: String, id: Int): Single<Sysvar>
 
     fun getCacheAllSysvar(): LiveData<List<Sysvar>>
     fun getCacheSysvarById(id: Int): LiveData<Sysvar>

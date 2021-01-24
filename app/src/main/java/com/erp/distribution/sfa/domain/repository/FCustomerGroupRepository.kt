@@ -8,12 +8,12 @@ import io.reactivex.Single
  * To make an interaction between [AlbumRepositoryImp] & [GetAlbumsUseCase]
  * */
 interface FCustomerGroupRepository {
-    fun getRemoteAllFCustomerGroup(): Single<List<FCustomerGroup>>
-    fun getRemoteFCustomerGroupById(id: Int): Single<FCustomerGroup>
-    fun getRemoteAllFCustomerGroupByDivision(divisionId: Int): Single<List<FCustomerGroup>>
-    fun createRemoteFCustomerGroup(fCustomerGroup: FCustomerGroup): Single<FCustomerGroup>
-    fun putRemoteFCustomerGroup(id: Int, fCustomerGroup: FCustomerGroup): Single<FCustomerGroup>
-    fun deleteRemoteFCustomerGroup(id: Int): Single<FCustomerGroup>
+    fun getRemoteAllFCustomerGroup(authHeader: String): Single<List<FCustomerGroup>>
+    fun getRemoteFCustomerGroupById(authHeader: String, id: Int): Single<FCustomerGroup>
+    fun getRemoteAllFCustomerGroupByDivision(authHeader: String, divisionId: Int): Single<List<FCustomerGroup>>
+    fun createRemoteFCustomerGroup(authHeader: String, fCustomerGroup: FCustomerGroup): Single<FCustomerGroup>
+    fun putRemoteFCustomerGroup(authHeader: String, id: Int, fCustomerGroup: FCustomerGroup): Single<FCustomerGroup>
+    fun deleteRemoteFCustomerGroup(authHeader: String, id: Int): Single<FCustomerGroup>
 
     fun getCacheAllFCustomerGroup(): LiveData<List<FCustomerGroup>>
     fun getCacheFCustomerGroupById(id: Int): LiveData<FCustomerGroup>

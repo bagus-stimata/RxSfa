@@ -19,28 +19,28 @@ class FtSaleshRepositoryImpl(
     private val retrofitService: RetrofitServiceFtSalesh
 ) : FtSaleshRepository {
 
-    override fun getRemoteAllFtSalesh(): Single<List<FtSalesh>> {
-        return retrofitService.getRemoteAllFtSalesh(MainApplication.authHeader)
+    override fun getRemoteAllFtSalesh(authHeader: String ): Single<List<FtSalesh>> {
+        return retrofitService.getRemoteAllFtSalesh(authHeader)
     }
 
-    override fun getRemoteFtSaleshById(id: Long): Single<FtSalesh> {
-        return retrofitService.getRemoteFtSaleshById(MainApplication.authHeader, id)
+    override fun getRemoteFtSaleshById(authHeader: String, id: Long): Single<FtSalesh> {
+        return retrofitService.getRemoteFtSaleshById(authHeader, id)
     }
 
-    override fun getRemoteAllFtSaleshByDivision(divisionId: Int): Single<List<FtSalesh>> {
-        return retrofitService.getRemoteAllFtSaleshByDivision(MainApplication.authHeader, divisionId)
+    override fun getRemoteAllFtSaleshByDivision(authHeader: String, divisionId: Int): Single<List<FtSalesh>> {
+        return retrofitService.getRemoteAllFtSaleshByDivision(authHeader, divisionId)
     }
 
-    override fun createRemoteFtSalesh(ftSalesh: FtSalesh): Single<FtSalesh> {
-        return retrofitService.createRemoteFtSalesh(MainApplication.authHeader, ftSalesh)
+    override fun createRemoteFtSalesh(authHeader: String, ftSalesh: FtSalesh): Single<FtSalesh> {
+        return retrofitService.createRemoteFtSalesh(authHeader, ftSalesh)
     }
 
-    override fun putRemoteFtSalesh(id: Long, ftSalesh: FtSalesh): Single<FtSalesh> {
-        return retrofitService.putRemoteFtSalesh(MainApplication.authHeader, id, ftSalesh)
+    override fun putRemoteFtSalesh(authHeader: String, id: Long, ftSalesh: FtSalesh): Single<FtSalesh> {
+        return retrofitService.putRemoteFtSalesh(authHeader, id, ftSalesh)
     }
 
-    override fun deleteRemoteFtSalesh(id: Long): Single<FtSalesh> {
-        return retrofitService.deleteRemoteFtSalesh(MainApplication.authHeader, id)
+    override fun deleteRemoteFtSalesh(authHeader: String, id: Long): Single<FtSalesh> {
+        return retrofitService.deleteRemoteFtSalesh(authHeader, id)
     }
 
 
@@ -75,7 +75,7 @@ class FtSaleshRepositoryImpl(
 
 
 //    override fun getRemoteAllData(): Single<List<FtSalesh>> {
-//        return retrofitService.getRemoteAllFtSalesh(MainApplication.authHeader)
+//        return retrofitService.getRemoteAllFtSalesh(authHeader)
 //    }
 
 

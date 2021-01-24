@@ -19,28 +19,28 @@ class FDivisionRepositoryImpl(
     private val retrofitService: RetrofitServiceFDivision
 ) : FDivisionRepository {
 
-    override fun getRemoteAllFDivision(): Single<List<FDivision>> {
-        return retrofitService.getRemoteAllFDivision(MainApplication.authHeader)
+    override fun getRemoteAllFDivision(authHeader: String, ): Single<List<FDivision>> {
+        return retrofitService.getRemoteAllFDivision(authHeader)
     }
 
-    override fun getRemoteFDivisionById(id: Int): Single<FDivision> {
-        return retrofitService.getRemoteFDivisionById(MainApplication.authHeader, id)
+    override fun getRemoteFDivisionById(authHeader: String, id: Int): Single<FDivision> {
+        return retrofitService.getRemoteFDivisionById(authHeader, id)
     }
 
-    override fun getRemoteAllFDivisionByParent(parentId: Int): Single<List<FDivision>> {
-        return retrofitService.getRemoteAllFDivisionByParent(MainApplication.authHeader, parentId)
+    override fun getRemoteAllFDivisionByParent(authHeader: String, parentId: Int): Single<List<FDivision>> {
+        return retrofitService.getRemoteAllFDivisionByParent(authHeader, parentId)
     }
 
-    override fun createRemoteFDivision(fDivision: FDivision): Single<FDivision> {
-        return retrofitService.createRemoteFDivision(MainApplication.authHeader, fDivision)
+    override fun createRemoteFDivision(authHeader: String, fDivision: FDivision): Single<FDivision> {
+        return retrofitService.createRemoteFDivision(authHeader, fDivision)
     }
 
-    override fun putRemoteFDivision(id: Int, fDivision: FDivision): Single<FDivision> {
-        return retrofitService.putRemoteFDivision(MainApplication.authHeader, id, fDivision)
+    override fun putRemoteFDivision(authHeader: String, id: Int, fDivision: FDivision): Single<FDivision> {
+        return retrofitService.putRemoteFDivision(authHeader, id, fDivision)
     }
 
-    override fun deleteRemoteFDivision(id: Int): Single<FDivision> {
-        return retrofitService.deleteRemoteFDivision(MainApplication.authHeader, id)
+    override fun deleteRemoteFDivision(authHeader: String, id: Int): Single<FDivision> {
+        return retrofitService.deleteRemoteFDivision(authHeader, id)
     }
 
 
@@ -75,7 +75,7 @@ class FDivisionRepositoryImpl(
 
 
 //    override fun getRemoteAllData(): Single<List<FDivision>> {
-//        return retrofitService.getRemoteAllFDivision(MainApplication.authHeader)
+//        return retrofitService.getRemoteAllFDivision(authHeader)
 //    }
 
 

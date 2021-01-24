@@ -19,28 +19,28 @@ class FCompanyRepositoryImpl(
     private val retrofitService: RetrofitServiceFCompany
 ) : FCompanyRepository {
 
-    override fun getRemoteAllFCompany(): Single<List<FCompany>> {
-        return retrofitService.getRemoteAllFCompany(MainApplication.authHeader)
+    override fun getRemoteAllFCompany(authHeader: String): Single<List<FCompany>> {
+        return retrofitService.getRemoteAllFCompany(authHeader)
     }
 
-    override fun getRemoteFCompanyById(id: Int): Single<FCompany> {
-        return retrofitService.getRemoteFCompanyById(MainApplication.authHeader, id)
+    override fun getRemoteFCompanyById(authHeader: String, id: Int): Single<FCompany> {
+        return retrofitService.getRemoteFCompanyById(authHeader, id)
     }
 
 //    override fun getRemoteAllFCompanyByDivision(divisionId: Int): Single<List<FCompany>> {
-//        return retrofitService.getRemoteAllFCompanyByDivision(MainApplication.authHeader, divisionId)
+//        return retrofitService.getRemoteAllFCompanyByDivision(authHeader, divisionId)
 //    }
 
-    override fun createRemoteFCompany(fCompany: FCompany): Single<FCompany> {
-        return retrofitService.createRemoteFCompany(MainApplication.authHeader, fCompany)
+    override fun createRemoteFCompany(authHeader: String, fCompany: FCompany): Single<FCompany> {
+        return retrofitService.createRemoteFCompany(authHeader, fCompany)
     }
 
-    override fun putRemoteFCompany(id: Int, fCompany: FCompany): Single<FCompany> {
-        return retrofitService.putRemoteFCompany(MainApplication.authHeader, id, fCompany)
+    override fun putRemoteFCompany(authHeader: String, id: Int, fCompany: FCompany): Single<FCompany> {
+        return retrofitService.putRemoteFCompany(authHeader, id, fCompany)
     }
 
-    override fun deleteRemoteFCompany(id: Int): Single<FCompany> {
-        return retrofitService.deleteRemoteFCompany(MainApplication.authHeader, id)
+    override fun deleteRemoteFCompany(authHeader: String, id: Int): Single<FCompany> {
+        return retrofitService.deleteRemoteFCompany(authHeader, id)
     }
 
 
@@ -75,7 +75,7 @@ class FCompanyRepositoryImpl(
 
 
 //    override fun getRemoteAllData(): Single<List<FCompany>> {
-//        return retrofitService.getRemoteAllFCompany(MainApplication.authHeader)
+//        return retrofitService.getRemoteAllFCompany(authHeader)
 //    }
 
 

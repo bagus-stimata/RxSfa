@@ -19,28 +19,28 @@ class FMaterialRepositoryImpl(
     private val retrofitService: RetrofitServiceFMaterial
 ) : FMaterialRepository {
 
-    override fun getRemoteAllFMaterial(): Single<List<FMaterial>> {
-        return retrofitService.getRemoteAllFMaterial(MainApplication.authHeader)
+    override fun getRemoteAllFMaterial(authHeader: String): Single<List<FMaterial>> {
+        return retrofitService.getRemoteAllFMaterial(authHeader)
     }
 
-    override fun getRemoteFMaterialById(id: Int): Single<FMaterial> {
-        return retrofitService.getRemoteFMaterialById(MainApplication.authHeader, id)
+    override fun getRemoteFMaterialById(authHeader: String, id: Int): Single<FMaterial> {
+        return retrofitService.getRemoteFMaterialById(authHeader, id)
     }
 
-    override fun getRemoteAllFMaterialByDivision(divisionId: Int): Single<List<FMaterial>> {
-        return retrofitService.getRemoteAllFMaterialByDivision(MainApplication.authHeader, divisionId)
+    override fun getRemoteAllFMaterialByDivision(authHeader: String, divisionId: Int): Single<List<FMaterial>> {
+        return retrofitService.getRemoteAllFMaterialByDivision(authHeader, divisionId)
     }
 
-    override fun createRemoteFMaterial(fMaterial: FMaterial): Single<FMaterial> {
-        return retrofitService.createRemoteFMaterial(MainApplication.authHeader, fMaterial)
+    override fun createRemoteFMaterial(authHeader: String, fMaterial: FMaterial): Single<FMaterial> {
+        return retrofitService.createRemoteFMaterial(authHeader, fMaterial)
     }
 
-    override fun putRemoteFMaterial(id: Int, fMaterial: FMaterial): Single<FMaterial> {
-        return retrofitService.putRemoteFMaterial(MainApplication.authHeader, id, fMaterial)
+    override fun putRemoteFMaterial(authHeader: String, id: Int, fMaterial: FMaterial): Single<FMaterial> {
+        return retrofitService.putRemoteFMaterial(authHeader, id, fMaterial)
     }
 
-    override fun deleteRemoteFMaterial(id: Int): Single<FMaterial> {
-        return retrofitService.deleteRemoteFMaterial(MainApplication.authHeader, id)
+    override fun deleteRemoteFMaterial(authHeader: String, id: Int): Single<FMaterial> {
+        return retrofitService.deleteRemoteFMaterial(authHeader, id)
     }
 
 
@@ -60,6 +60,9 @@ class FMaterialRepositoryImpl(
     override fun addCacheFMaterial(fMaterial: FMaterial) {
         return appDatabase.materialDao.insert(fMaterial)
     }
+    override fun addCacheListFMaterial(list: List<FMaterial>) {
+        return appDatabase.materialDao.insertAll(list)
+    }
 
     override fun putCacheFMaterial(fMaterial: FMaterial) {
         return appDatabase.materialDao.update(fMaterial)
@@ -75,7 +78,7 @@ class FMaterialRepositoryImpl(
 
 
 //    override fun getRemoteAllData(): Single<List<FMaterial>> {
-//        return retrofitService.getRemoteAllFMaterial(MainApplication.authHeader)
+//        return retrofitService.getRemoteAllFMaterial(authHeader)
 //    }
 
 

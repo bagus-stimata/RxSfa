@@ -129,7 +129,7 @@ class FMaterial  (
 
 //    @Ignore
 //    var productionCode : String,
-    var productionDate : Date = Date(),
+    var productionDate : Date? = Date(),
     var expiredDate : Date = Date(),
 
 //    @Ignore
@@ -150,7 +150,7 @@ class FMaterial  (
     * 4.uom 4
     * 
     */
-    var priceUom: EnumUom = EnumUom.UOM1,
+    var priceUom: EnumUom? = EnumUom.UOM1,
 
     //	@Transient
     //	private Integer temp_QtySaldo : Int,; //Penolong untuk keperluan lain: seperti untuk saldo retur atas faktur
@@ -189,14 +189,14 @@ class FMaterial  (
 //    var hppFifoTotalAmount : Int,
 
     //PPRICE:: Disimpan dalam satuan Terbesar dan Terkecil. Setelah dan sebelum PPN
-    var pprice : Int,
-    var ppriceAfterPpn : Int,
-    var pprice2 : Int,
-    var pprice2AfterPpn : Int,
-    var sprice : Int,
+    var pprice : Double,
+    var ppriceAfterPpn : Double,
+    var pprice2 : Double,
+    var pprice2AfterPpn : Double,
+    var sprice : Double,
     var spriceAfterPpn: Double,
-    var sprice2 : Int,
-    var sprice2AfterPpn : Int,
+    var sprice2 : Double,
+    var sprice2AfterPpn : Double,
 
     /*
     * Min Stok: sama dengan Buffer Stock

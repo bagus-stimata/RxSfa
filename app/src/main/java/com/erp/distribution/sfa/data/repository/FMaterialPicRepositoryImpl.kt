@@ -19,28 +19,28 @@ class FMaterialPicRepositoryImpl(
     private val retrofitService: RetrofitServiceFMaterialPic
 ) : FMaterialPicRepository {
 
-    override fun getRemoteAllFMaterialPic(): Single<List<FMaterialPic>> {
-        return retrofitService.getRemoteAllFMaterialPic(MainApplication.authHeader)
+    override fun getRemoteAllFMaterialPic(authHeader: String): Single<List<FMaterialPic>> {
+        return retrofitService.getRemoteAllFMaterialPic(authHeader)
     }
 
-    override fun getRemoteFMaterialPicById(id: Int): Single<FMaterialPic> {
-        return retrofitService.getRemoteFMaterialPicById(MainApplication.authHeader, id)
+    override fun getRemoteFMaterialPicById(authHeader: String, id: Int): Single<FMaterialPic> {
+        return retrofitService.getRemoteFMaterialPicById(authHeader, id)
     }
 
-    override fun getRemoteAllFMaterialPicByParent(parentId: Int): Single<List<FMaterialPic>> {
-        return retrofitService.getRemoteAllFMaterialPicByParent(MainApplication.authHeader, parentId)
+    override fun getRemoteAllFMaterialPicByParent(authHeader: String, parentId: Int): Single<List<FMaterialPic>> {
+        return retrofitService.getRemoteAllFMaterialPicByParent(authHeader, parentId)
     }
 
-    override fun createRemoteFMaterialPic(fMaterialPic: FMaterialPic): Single<FMaterialPic> {
-        return retrofitService.createRemoteFMaterialPic(MainApplication.authHeader, fMaterialPic)
+    override fun createRemoteFMaterialPic(authHeader: String, fMaterialPic: FMaterialPic): Single<FMaterialPic> {
+        return retrofitService.createRemoteFMaterialPic(authHeader, fMaterialPic)
     }
 
-    override fun putRemoteFMaterialPic(id: Int, fMaterialPic: FMaterialPic): Single<FMaterialPic> {
-        return retrofitService.putRemoteFMaterialPic(MainApplication.authHeader, id, fMaterialPic)
+    override fun putRemoteFMaterialPic(authHeader: String, id: Int, fMaterialPic: FMaterialPic): Single<FMaterialPic> {
+        return retrofitService.putRemoteFMaterialPic(authHeader, id, fMaterialPic)
     }
 
-    override fun deleteRemoteFMaterialPic(id: Int): Single<FMaterialPic> {
-        return retrofitService.deleteRemoteFMaterialPic(MainApplication.authHeader, id)
+    override fun deleteRemoteFMaterialPic(authHeader: String, id: Int): Single<FMaterialPic> {
+        return retrofitService.deleteRemoteFMaterialPic(authHeader, id)
     }
 
 
@@ -75,7 +75,7 @@ class FMaterialPicRepositoryImpl(
 
 
 //    override fun getRemoteAllData(): Single<List<FMaterialPic>> {
-//        return retrofitService.getRemoteAllFMaterialPic(MainApplication.authHeader)
+//        return retrofitService.getRemoteAllFMaterialPic(authHeader)
 //    }
 
 

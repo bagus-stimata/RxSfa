@@ -19,28 +19,28 @@ class FCustomerRepositoryImpl(
     private val retrofitService: RetrofitServiceFCustomer
 ) : FCustomerRepository {
 
-    override fun getRemoteAllFCustomer(): Single<List<FCustomer>> {
-        return retrofitService.getRemoteAllFCustomer(MainApplication.authHeader)
+    override fun getRemoteAllFCustomer(authHeader: String): Single<List<FCustomer>> {
+        return retrofitService.getRemoteAllFCustomer(authHeader)
     }
 
-    override fun getRemoteFCustomerById(id: Int): Single<FCustomer> {
-        return retrofitService.getRemoteFCustomerById(MainApplication.authHeader, id)
+    override fun getRemoteFCustomerById(authHeader: String, id: Int): Single<FCustomer> {
+        return retrofitService.getRemoteFCustomerById(authHeader, id)
     }
 
-    override fun getRemoteAllFCustomerByDivision(divisionId: Int): Single<List<FCustomer>> {
-        return retrofitService.getRemoteAllFCustomerByDivision(MainApplication.authHeader, divisionId)
+    override fun getRemoteAllFCustomerByDivision(authHeader: String, divisionId: Int): Single<List<FCustomer>> {
+        return retrofitService.getRemoteAllFCustomerByDivision(authHeader, divisionId)
     }
 
-    override fun createRemoteFCustomer(fCustomer: FCustomer): Single<FCustomer> {
-        return retrofitService.createRemoteFCustomer(MainApplication.authHeader, fCustomer)
+    override fun createRemoteFCustomer(authHeader: String, fCustomer: FCustomer): Single<FCustomer> {
+        return retrofitService.createRemoteFCustomer(authHeader, fCustomer)
     }
 
-    override fun putRemoteFCustomer(id: Int, fCustomer: FCustomer): Single<FCustomer> {
-        return retrofitService.putRemoteFCustomer(MainApplication.authHeader, id, fCustomer)
+    override fun putRemoteFCustomer(authHeader: String, id: Int, fCustomer: FCustomer): Single<FCustomer> {
+        return retrofitService.putRemoteFCustomer(authHeader, id, fCustomer)
     }
 
-    override fun deleteRemoteFCustomer(id: Int): Single<FCustomer> {
-        return retrofitService.deleteRemoteFCustomer(MainApplication.authHeader, id)
+    override fun deleteRemoteFCustomer(authHeader: String, id: Int): Single<FCustomer> {
+        return retrofitService.deleteRemoteFCustomer(authHeader, id)
     }
 
 
@@ -59,6 +59,11 @@ class FCustomerRepositoryImpl(
 
     override fun addCacheFCustomer(fCustomer: FCustomer) {
         return appDatabase.customerDao.insert(fCustomer)
+    }
+
+
+    override fun addCacheListFCustomer(list: List<FCustomer>) {
+        return appDatabase.customerDao.insertAll(list)
     }
 
     override fun putCacheFCustomer(fCustomer: FCustomer) {

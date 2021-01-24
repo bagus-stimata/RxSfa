@@ -19,28 +19,28 @@ class FMaterialSalesBrandRepositoryImpl(
     private val retrofitService: RetrofitServiceFMaterialSalesBrand
 ) : FMaterialSalesBrandRepository {
 
-    override fun getRemoteAllFMaterialSalesBrand(): Single<List<FMaterialSalesBrand>> {
-        return retrofitService.getRemoteAllFMaterialSalesBrand(MainApplication.authHeader)
+    override fun getRemoteAllFMaterialSalesBrand(authHeader: String): Single<List<FMaterialSalesBrand>> {
+        return retrofitService.getRemoteAllFMaterialSalesBrand(authHeader)
     }
 
-    override fun getRemoteFMaterialSalesBrandById(id: Int): Single<FMaterialSalesBrand> {
-        return retrofitService.getRemoteFMaterialSalesBrandById(MainApplication.authHeader, id)
+    override fun getRemoteFMaterialSalesBrandById(authHeader: String, id: Int): Single<FMaterialSalesBrand> {
+        return retrofitService.getRemoteFMaterialSalesBrandById(authHeader, id)
     }
 
-    override fun getRemoteAllFMaterialSalesBrandByDivision(divisionId: Int): Single<List<FMaterialSalesBrand>> {
-        return retrofitService.getRemoteAllFMaterialSalesBrandByDivision(MainApplication.authHeader, divisionId)
+    override fun getRemoteAllFMaterialSalesBrandByDivision(authHeader: String, divisionId: Int): Single<List<FMaterialSalesBrand>> {
+        return retrofitService.getRemoteAllFMaterialSalesBrandByDivision(authHeader, divisionId)
     }
 
-    override fun createRemoteFMaterialSalesBrand(fMaterialSalesBrand: FMaterialSalesBrand): Single<FMaterialSalesBrand> {
-        return retrofitService.createRemoteFMaterialSalesBrand(MainApplication.authHeader, fMaterialSalesBrand)
+    override fun createRemoteFMaterialSalesBrand(authHeader: String, fMaterialSalesBrand: FMaterialSalesBrand): Single<FMaterialSalesBrand> {
+        return retrofitService.createRemoteFMaterialSalesBrand(authHeader, fMaterialSalesBrand)
     }
 
-    override fun putRemoteFMaterialSalesBrand(id: Int, fMaterialSalesBrand: FMaterialSalesBrand): Single<FMaterialSalesBrand> {
-        return retrofitService.putRemoteFMaterialSalesBrand(MainApplication.authHeader, id, fMaterialSalesBrand)
+    override fun putRemoteFMaterialSalesBrand(authHeader: String, id: Int, fMaterialSalesBrand: FMaterialSalesBrand): Single<FMaterialSalesBrand> {
+        return retrofitService.putRemoteFMaterialSalesBrand(authHeader, id, fMaterialSalesBrand)
     }
 
-    override fun deleteRemoteFMaterialSalesBrand(id: Int): Single<FMaterialSalesBrand> {
-        return retrofitService.deleteRemoteFMaterialSalesBrand(MainApplication.authHeader, id)
+    override fun deleteRemoteFMaterialSalesBrand(authHeader: String, id: Int): Single<FMaterialSalesBrand> {
+        return retrofitService.deleteRemoteFMaterialSalesBrand(authHeader, id)
     }
 
 
@@ -75,7 +75,7 @@ class FMaterialSalesBrandRepositoryImpl(
 
 
 //    override fun getRemoteAllData(): Single<List<FMaterialSalesBrand>> {
-//        return retrofitService.getRemoteAllFMaterialSalesBrand(MainApplication.authHeader)
+//        return retrofitService.getRemoteAllFMaterialSalesBrand(authHeader)
 //    }
 
 

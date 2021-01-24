@@ -1,6 +1,7 @@
 package com.erp.distribution.sfa.domain.usecase
 
 import androidx.lifecycle.LiveData
+import com.erp.distribution.sfa.MainApplication
 import com.erp.distribution.sfa.domain.repository.FUserRepository
 import com.erp.distribution.sfa.domain.usecase.base.SingleUseCase
 import com.erp.distribution.sfa.security_model.FUser
@@ -13,46 +14,46 @@ import javax.inject.Inject
  * it handles the response that returns data &
  * contains a list of actions, event steps
  */
-class GetMainUseCase @Inject constructor(private val repositoryF: FUserRepository) : SingleUseCase<List<FUser>>() {
+class GetMainUseCase @Inject constructor(private val repository: FUserRepository) : SingleUseCase<List<FUser>>() {
 
     override fun buildUseCaseSingle(): Single<List<FUser>> {
-        return repositoryF.getRemoteAllFUser()
+        return repository.getRemoteAllFUser("authHeader")
     }
-    fun getRemoteAllData(): Single<List<FUser>>{
-        return repositoryF.getRemoteAllFUser()
+    fun getRemoteAllData(authHeader: String): Single<List<FUser>>{
+        return repository.getRemoteAllFUser(authHeader)
     }
 
-    fun getRemoteDataById(id: Int): Single<FUser>{
-        return repositoryF.getRemoteFUserById(id)
+    fun getRemoteDataById(authHeader: String, id: Int): Single<FUser>{
+        return repository.getRemoteFUserById(authHeader, id)
     }
-    fun getRemoteDataByUsername(username: String): Single<FUser>{
-        return repositoryF.getRemoteFUserByUsername(username)
+    fun getRemoteDataByUsername(authHeader: String, username: String): Single<FUser>{
+        return repository.getRemoteFUserByUsername(authHeader, username)
     }
-    fun getRemoteDataByEmail(email: String): Single<FUser>{
-        return repositoryF.getRemoteFUserByEmail(email)
+    fun getRemoteDataByEmail(authHeader: String, email: String): Single<FUser>{
+        return repository.getRemoteFUserByEmail(authHeader, email)
     }
 //    fun getRemoteDataByParentId(parenId: Int): Single<FUser>{
 //        return repository.getRemoteDataByParentId(parenId)
 //    }
 
     fun getCacheAllData(): LiveData<List<FUser>>{
-        return repositoryF.getCacheAllFUser()
+        return repository.getCacheAllFUser()
     }
     fun getCacheDataById(id: Int): LiveData<FUser>{
-        return repositoryF.getCacheFUserById(id)
+        return repository.getCacheFUserById(id)
     }
     fun getCacheDataByUsername(username: String): LiveData<FUser>{
-        return repositoryF.getCacheFUserByUsername(username)
+        return repository.getCacheFUserByUsername(username)
     }
     fun getCacheDataByEmail(email: String): LiveData<FUser>{
-        return repositoryF.getCacheFUserByEmail(email)
+        return repository.getCacheFUserByEmail(email)
     }
 
     fun addCacheData(fUser: FUser){
-        repositoryF.createCacheFUser(fUser)
+        repository.createCacheFUser(fUser)
     }
 
     fun deleteAllCacheData(){
-        repositoryF.deleteAllCacheFUser()
+        repository.deleteAllCacheFUser()
     }
 }

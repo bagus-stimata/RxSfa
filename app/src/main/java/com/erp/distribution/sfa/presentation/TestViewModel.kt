@@ -11,6 +11,7 @@ import com.erp.distribution.sfa.domain.usecase.GetFUserUseCase
 import com.erp.distribution.sfa.model.FArea
 import com.erp.distribution.sfa.presentation.extention.map
 import com.erp.distribution.sfa.security_model.FUser
+import com.erp.distribution.sfa.utils.SecurityUtil
 import io.reactivex.Observable
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
@@ -122,7 +123,7 @@ class TestViewModel @ViewModelInject constructor(
 
     private fun createNote(fArea: FArea) {
         disposable.add(
-                getFAreaUseCase.createRemoteFArea(fArea)
+                getFAreaUseCase.createRemoteFArea(SecurityUtil.getAuthHeader("bagus", "hacker"), fArea)
                         .map {
                             it
                         }

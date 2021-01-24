@@ -6,9 +6,12 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.erp.distribution.sfa.domain.model.Photo
+import com.erp.distribution.sfa.domain.usecase.GetFCustomerUseCase
 import com.erp.distribution.sfa.domain.usecase.GetFUserUseCase
 import com.erp.distribution.sfa.presentation.extention.map
 import com.erp.distribution.sfa.security_model.FUser
+import com.erp.distribution.sfa.utils.DisposableManager
+import com.erp.distribution.sfa.utils.SecurityUtil
 import io.reactivex.Observable
 import io.reactivex.Single
 import io.reactivex.android.schedulers.AndroidSchedulers
@@ -19,7 +22,8 @@ import java.util.*
 
 
 class MainViewModel  @ViewModelInject constructor(
-        private val getFUserUseCase: GetFUserUseCase
+        private val getFUserUseCase: GetFUserUseCase,
+        private val getFCustomerUseCase: GetFCustomerUseCase
 )  : ViewModel() {
     private val TAG = MainViewModel::class.java.simpleName
     var userActive: FUser = FUser()
@@ -54,15 +58,42 @@ class MainViewModel  @ViewModelInject constructor(
         )
     }
 
-    fun getRemoteFUserSecond(fUser: FUser): Single<FUser> {
-        return getFUserUseCase.getRemoteAllFUserByUsername(fUser.username)
+    fun fetchFCustomerFromRepo() {
+        DisposableManager.add(
+                getFCustomerUseCase.getRemoteAllFCustomer(SecurityUtil.getAuthHeader(userActive.username, userActive.passwordConfirm))
+                        .observeOn(AndroidSchedulers.mainThread())
+                        .subscribeOn(Schedulers.io())
+                        .subscribe(
+                                {
+//                            brewaryList -> Log.i(TAG, "from api----->\n"+brewaryList.toString())
+//                            RxJavaRetrofitRoomSampleApplication.database?.let {
+//                            it.getBrewaryDao().deleteAll()
+//                            it.getBrewaryDao().insertAll(brewaryList) //                        }
+                                    Log.d(TAG, "#result CUSTOMER trying add all ${it}")
+
+                                },
+                                {
+                                    Log.d(TAG, "#result CUSTOMER error add all")
+//                                  error -> Log.e(TAG, error.printStackTrace())
+                                }
+                        )
+        )
+    }
+
+    fun getRemoteFUserByUser(fUser: FUser): Single<FUser> {
+        return getFUserUseCase.getRemoteAllFUserByUsername(SecurityUtil.getAuthHeader(fUser.username, fUser.passwordConfirm), fUser.username)
+    }
+
+    fun fetchFUserFromRepo(): Single<List<FUser>> {
+       return getFUserUseCase.getRemoteAllFUser(SecurityUtil.getAuthHeader(userActive.username, userActive.passwordConfirm))
+
     }
 
     fun fetchRemoteFUser(fUser: FUser) {
 
         var returnFUser : FUser = fUser
         disposable.add(
-            getFUserUseCase.getRemoteAllFUserByUsername(fUser.username)
+            getFUserUseCase.getRemoteAllFUserByUsername(SecurityUtil.getAuthHeader(fUser.username, fUser.passwordConfirm), fUser.username)
                 .map {
                     it
                 }
@@ -84,7 +115,7 @@ class MainViewModel  @ViewModelInject constructor(
                                 .subscribeOn(Schedulers.computation())
                                 .observeOn(AndroidSchedulers.mainThread())
                                 .subscribe {
-                                    Log.d(TAG, "#result Berhasil Input Bos")
+//                                    Log.d(TAG, "#result Berhasil Input Bos")
                                 }
                             )
                         }else{
@@ -103,24 +134,24 @@ class MainViewModel  @ViewModelInject constructor(
 
     fun insert(fUser: FUser): FUser {
         var returnFUser : FUser = fUser
-        disposable.add(
-                getFUserUseCase.createRemoteFUser(fUser)
-                        .map {
-                            it
-                        }
-                        .subscribeOn(Schedulers.io())
-                        .observeOn(AndroidSchedulers.mainThread())
-                        .subscribeWith(object : DisposableSingleObserver<FUser>() {
-                            override fun onSuccess(successValue: FUser) {
-//                                Log.d("result", "Masuk bos ${successValue}")
-                                returnFUser = successValue
-
-                            }
-
-                            override fun onError(e: Throwable) {
-//                                Log.d("result", "Error bos ${e.printStackTrace().toString()}")
-                            }
-                        }))
+//        disposable.add(
+//                getFUserUseCase.createRemoteFUser(SecurityUtil.getAuthHeader(fUser.username, fUser.passwordConfirm), fUser)
+//                        .map {
+//                            it
+//                        }
+//                        .subscribeOn(Schedulers.io())
+//                        .observeOn(AndroidSchedulers.mainThread())
+//                        .subscribeWith(object : DisposableSingleObserver<FUser>() {
+//                            override fun onSuccess(successValue: FUser) {
+////                                Log.d("result", "Masuk bos ${successValue}")
+//                                returnFUser = successValue
+//
+//                            }
+//
+//                            override fun onError(e: Throwable) {
+////                                Log.d("result", "Error bos ${e.printStackTrace().toString()}")
+//                            }
+//                        }))
 
 //        repository.insert(fUser)
 
@@ -141,7 +172,7 @@ class MainViewModel  @ViewModelInject constructor(
     fun delete(fUser: FUser): FUser {
         var returnFUser : FUser
         disposable.add(
-                getFUserUseCase.deleteRemoteFUser(fUser.id)
+                getFUserUseCase.deleteRemoteFUser(SecurityUtil.getAuthHeader(fUser.username, fUser.passwordConfirm), fUser.id)
                         .map {
                             it
                         }
@@ -187,24 +218,12 @@ class MainViewModel  @ViewModelInject constructor(
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe {
 //                    userActiveLive.value = fUser
-                    Log.d(TAG, "#result Berhasil Input Cache Bos")
+//                    Log.d(TAG, "#result Berhasil Input Cache Bos")
                 }
         )
     }
     fun subscribeAllFUser(){
-
-//        val listFUser = arrayListOf<FUser>()
-//        listUserActiveLive!!.value = listFUser
         listUserActiveLive = getFUserUseCase.getCacheAllFUser().map { it }
-
-//        listUserActiveLive = getFUserUseCase.getCacheAllFUser().map { it.map {
-////            contributorEntityMapper.mapToDomain(it)
-//            //rubah rubah disini
-////            it.id = 9999
-////            it.username = "Ganteng Banget"
-////            Log.d(TAG, "#result getMappedFUser")
-//                it
-//        } }
     }
 
 

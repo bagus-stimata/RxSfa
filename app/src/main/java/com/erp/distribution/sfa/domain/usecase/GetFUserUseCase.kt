@@ -16,32 +16,32 @@ import javax.inject.Inject
 class GetFUserUseCase @Inject constructor(private val repository: FUserRepository) : SingleUseCase<List<FUser>>() {
 
     override fun buildUseCaseSingle(): Single<List<FUser>> {
-        return repository.getRemoteAllFUser()
+        return repository.getRemoteAllFUser("aa")
     }
-    fun getRemoteAllFUser(): Single<List<FUser>>{
-        return repository.getRemoteAllFUser()
+    fun getRemoteAllFUser(authHeader: String): Single<List<FUser>>{
+        return repository.getRemoteAllFUser(authHeader)
     }
 
-    fun getRemoteFUserById(id: Int): Single<FUser>{
-        return repository.getRemoteFUserById(id)
+    fun getRemoteFUserById(authHeader: String, id: Int): Single<FUser>{
+        return repository.getRemoteFUserById(authHeader, id)
     }
-    fun getRemoteAllFUserByUsername(username: String): Single<FUser>{
-        return repository.getRemoteFUserByUsername(username)
+    fun getRemoteAllFUserByUsername(authHeader: String, username: String): Single<FUser>{
+        return repository.getRemoteFUserByUsername(authHeader, username)
     }
-    fun getRemoteAllFUserByUsernamePassword(username: String, password: String): Single<FUser>{
-        return repository.getRemoteFUserByUsernamePassword(username, password)
+    fun getRemoteAllFUserByUsernamePassword(authHeader: String, username: String, password: String): Single<FUser>{
+        return repository.getRemoteFUserByUsernamePassword(authHeader, username, password)
     }
-    fun getRemoteAllFUserByEmail(email: String): Single<FUser>{
-        return repository.getRemoteFUserByEmail(email)
+    fun getRemoteAllFUserByEmail(authHeader: String, email: String): Single<FUser>{
+        return repository.getRemoteFUserByEmail(authHeader, email)
     }
-    fun createRemoteFUser(fUser: FUser): Single<FUser>{
-        return repository.createRemoteFUser(fUser)
+    fun createRemoteFUser(authHeader: String, fUser: FUser): Single<FUser>{
+        return repository.createRemoteFUser(authHeader, fUser)
     }
-    fun putRemoteFUser(id: Int, fUser: FUser): Single<FUser>{
-        return repository.putRemoteFUser(id, fUser)
+    fun putRemoteFUser(authHeader: String, id: Int, fUser: FUser): Single<FUser>{
+        return repository.putRemoteFUser(authHeader, id, fUser)
     }
-    fun deleteRemoteFUser(id: Int): Single<FUser>{
-        return repository.deleteRemoteFUser(id)
+    fun deleteRemoteFUser(authHeader: String, id: Int): Single<FUser>{
+        return repository.deleteRemoteFUser(authHeader, id)
     }
 
 

@@ -8,12 +8,12 @@ import io.reactivex.Single
  * To make an interaction between [AlbumRepositoryImp] & [GetAlbumsUseCase]
  * */
 interface FTaxRepository {
-    fun getRemoteAllFTax(): Single<List<FTax>>
-    fun getRemoteFTaxById(id: Int): Single<FTax>
-    fun getRemoteAllFTaxByDivision(divisionId: Int): Single<List<FTax>>
-    fun createRemoteFTax(fTax: FTax): Single<FTax>
-    fun putRemoteFTax(id: Int, fTax: FTax): Single<FTax>
-    fun deleteRemoteFTax(id: Int): Single<FTax>
+    fun getRemoteAllFTax(authHeader: String): Single<List<FTax>>
+    fun getRemoteFTaxById(authHeader: String, id: Int): Single<FTax>
+    fun getRemoteAllFTaxByDivision(authHeader: String, divisionId: Int): Single<List<FTax>>
+    fun createRemoteFTax(authHeader: String, fTax: FTax): Single<FTax>
+    fun putRemoteFTax(authHeader: String, id: Int, fTax: FTax): Single<FTax>
+    fun deleteRemoteFTax(authHeader: String, id: Int): Single<FTax>
 
     fun getCacheAllFTax(): LiveData<List<FTax>>
     fun getCacheFTaxById(id: Int): LiveData<FTax>

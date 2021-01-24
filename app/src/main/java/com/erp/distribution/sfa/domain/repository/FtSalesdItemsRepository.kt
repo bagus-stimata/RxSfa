@@ -8,12 +8,12 @@ import io.reactivex.Single
  * To make an interaction between [AlbumRepositoryImp] & [GetAlbumsUseCase]
  * */
 interface FtSalesdItemsRepository {
-    fun getRemoteAllFtSalesdItems(): Single<List<FtSalesdItems>>
-    fun getRemoteFtSalesdItemsById(id: Long): Single<FtSalesdItems>
-    fun getRemoteAllFtSalesdItemsByParent(parentId: Long): Single<List<FtSalesdItems>>
-    fun createRemoteFtSalesdItems(ftSalesdItems: FtSalesdItems): Single<FtSalesdItems>
-    fun putRemoteFtSalesdItems(id: Long, ftSalesdItems: FtSalesdItems): Single<FtSalesdItems>
-    fun deleteRemoteFtSalesdItems(id: Long): Single<FtSalesdItems>
+    fun getRemoteAllFtSalesdItems(authHeader: String): Single<List<FtSalesdItems>>
+    fun getRemoteFtSalesdItemsById(authHeader: String, id: Long): Single<FtSalesdItems>
+    fun getRemoteAllFtSalesdItemsByParent(authHeader: String, parentId: Long): Single<List<FtSalesdItems>>
+    fun createRemoteFtSalesdItems(authHeader: String, ftSalesdItems: FtSalesdItems): Single<FtSalesdItems>
+    fun putRemoteFtSalesdItems(authHeader: String, id: Long, ftSalesdItems: FtSalesdItems): Single<FtSalesdItems>
+    fun deleteRemoteFtSalesdItems(authHeader: String, id: Long): Single<FtSalesdItems>
 
     fun getCacheAllFtSalesdItems(): LiveData<List<FtSalesdItems>>
     fun getCacheFtSalesdItemsById(id: Long): LiveData<FtSalesdItems>

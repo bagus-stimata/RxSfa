@@ -19,28 +19,28 @@ class FSubAreaRepositoryImpl(
     private val retrofitService: RetrofitServiceFSubArea
 ) : FSubAreaRepository {
 
-    override fun getRemoteAllFSubArea(): Single<List<FSubArea>> {
-        return retrofitService.getRemoteAllFSubArea(MainApplication.authHeader)
+    override fun getRemoteAllFSubArea(authHeader: String): Single<List<FSubArea>> {
+        return retrofitService.getRemoteAllFSubArea(authHeader)
     }
 
-    override fun getRemoteFSubAreaById(id: Int): Single<FSubArea> {
-        return retrofitService.getRemoteFSubAreaById(MainApplication.authHeader, id)
+    override fun getRemoteFSubAreaById(authHeader: String, id: Int): Single<FSubArea> {
+        return retrofitService.getRemoteFSubAreaById(authHeader, id)
     }
 
-    override fun getRemoteAllFSubAreaByParent(parentId: Int): Single<List<FSubArea>> {
-        return retrofitService.getRemoteAllFSubAreaByParent(MainApplication.authHeader, parentId)
+    override fun getRemoteAllFSubAreaByParent(authHeader: String, parentId: Int): Single<List<FSubArea>> {
+        return retrofitService.getRemoteAllFSubAreaByParent(authHeader, parentId)
     }
 
-    override fun createRemoteFSubArea(fSubArea: FSubArea): Single<FSubArea> {
-        return retrofitService.createRemoteFSubArea(MainApplication.authHeader, fSubArea)
+    override fun createRemoteFSubArea(authHeader: String, fSubArea: FSubArea): Single<FSubArea> {
+        return retrofitService.createRemoteFSubArea(authHeader, fSubArea)
     }
 
-    override fun putRemoteFSubArea(id: Int, fSubArea: FSubArea): Single<FSubArea> {
-        return retrofitService.putRemoteFSubArea(MainApplication.authHeader, id, fSubArea)
+    override fun putRemoteFSubArea(authHeader: String, id: Int, fSubArea: FSubArea): Single<FSubArea> {
+        return retrofitService.putRemoteFSubArea(authHeader, id, fSubArea)
     }
 
-    override fun deleteRemoteFSubArea(id: Int): Single<FSubArea> {
-        return retrofitService.deleteRemoteFSubArea(MainApplication.authHeader, id)
+    override fun deleteRemoteFSubArea(authHeader: String, id: Int): Single<FSubArea> {
+        return retrofitService.deleteRemoteFSubArea(authHeader, id)
     }
 
 
@@ -75,7 +75,7 @@ class FSubAreaRepositoryImpl(
 
 
 //    override fun getRemoteAllData(): Single<List<FSubArea>> {
-//        return retrofitService.getRemoteAllFSubArea(MainApplication.authHeader)
+//        return retrofitService.getRemoteAllFSubArea(authHeader)
 //    }
 
 

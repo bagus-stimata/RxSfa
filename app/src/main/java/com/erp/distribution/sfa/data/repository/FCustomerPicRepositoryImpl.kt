@@ -19,28 +19,28 @@ class FCustomerPicRepositoryImpl(
     private val retrofitService: RetrofitServiceFCustomerPic
 ) : FCustomerPicRepository {
 
-    override fun getRemoteAllFCustomerPic(): Single<List<FCustomerPic>> {
-        return retrofitService.getRemoteAllFCustomerPic(MainApplication.authHeader)
+    override fun getRemoteAllFCustomerPic(authHeader: String): Single<List<FCustomerPic>> {
+        return retrofitService.getRemoteAllFCustomerPic(authHeader)
     }
 
-    override fun getRemoteFCustomerPicById(id: Int): Single<FCustomerPic> {
-        return retrofitService.getRemoteFCustomerPicById(MainApplication.authHeader, id)
+    override fun getRemoteFCustomerPicById(authHeader: String, id: Int): Single<FCustomerPic> {
+        return retrofitService.getRemoteFCustomerPicById(authHeader, id)
     }
 
-    override fun getRemoteAllFCustomerPicByParent(parentId: Int): Single<List<FCustomerPic>> {
-        return retrofitService.getRemoteAllFCustomerPicByParent(MainApplication.authHeader, parentId)
+    override fun getRemoteAllFCustomerPicByParent(authHeader: String, parentId: Int): Single<List<FCustomerPic>> {
+        return retrofitService.getRemoteAllFCustomerPicByParent(authHeader, parentId)
     }
 
-    override fun createRemoteFCustomerPic(fCustomerPic: FCustomerPic): Single<FCustomerPic> {
-        return retrofitService.createRemoteFCustomerPic(MainApplication.authHeader, fCustomerPic)
+    override fun createRemoteFCustomerPic(authHeader: String, fCustomerPic: FCustomerPic): Single<FCustomerPic> {
+        return retrofitService.createRemoteFCustomerPic(authHeader, fCustomerPic)
     }
 
-    override fun putRemoteFCustomerPic(id: Int, fCustomerPic: FCustomerPic): Single<FCustomerPic> {
-        return retrofitService.putRemoteFCustomerPic(MainApplication.authHeader, id, fCustomerPic)
+    override fun putRemoteFCustomerPic(authHeader: String, id: Int, fCustomerPic: FCustomerPic): Single<FCustomerPic> {
+        return retrofitService.putRemoteFCustomerPic(authHeader, id, fCustomerPic)
     }
 
-    override fun deleteRemoteFCustomerPic(id: Int): Single<FCustomerPic> {
-        return retrofitService.deleteRemoteFCustomerPic(MainApplication.authHeader, id)
+    override fun deleteRemoteFCustomerPic(authHeader: String, id: Int): Single<FCustomerPic> {
+        return retrofitService.deleteRemoteFCustomerPic(authHeader, id)
     }
 
 
@@ -75,7 +75,7 @@ class FCustomerPicRepositoryImpl(
 
 
 //    override fun getRemoteAllData(): Single<List<FCustomerPic>> {
-//        return retrofitService.getRemoteAllFCustomerPic(MainApplication.authHeader)
+//        return retrofitService.getRemoteAllFCustomerPic(authHeader)
 //    }
 
 

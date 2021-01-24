@@ -16,26 +16,26 @@ import javax.inject.Inject
 class GetFAreaUseCase @Inject constructor(private val repository: FAreaRepository) : SingleUseCase<List<FArea>>() {
 
     override fun buildUseCaseSingle(): Single<List<FArea>> {
-        return repository.getRemoteAllFArea()
+        return repository.getRemoteAllFArea("aa")
     }
-    fun getRemoteAllFArea(): Single<List<FArea>>{
-        return repository.getRemoteAllFArea()
+    fun getRemoteAllFArea(authHeader: String): Single<List<FArea>>{
+        return repository.getRemoteAllFArea(authHeader)
     }
 
-    fun getRemoteFAreaById(id: Int): Single<FArea>{
-        return repository.getRemoteFAreaById(id)
+    fun getRemoteFAreaById(authHeader: String, id: Int): Single<FArea>{
+        return repository.getRemoteFAreaById(authHeader, id)
     }
-    fun getRemoteAllFAreaByDivision(divisionId: Int): Single<List<FArea>>{
-        return repository.getRemoteAllFAreaByDivision(divisionId)
+    fun getRemoteAllFAreaByDivision(authHeader: String, divisionId: Int): Single<List<FArea>>{
+        return repository.getRemoteAllFAreaByDivision(authHeader, divisionId)
     }
-    fun createRemoteFArea(fArea: FArea): Single<FArea>{
-        return repository.createRemoteFArea(fArea)
+    fun createRemoteFArea(authHeader: String, fArea: FArea): Single<FArea>{
+        return repository.createRemoteFArea(authHeader, fArea)
     }
-    fun putRemoteFArea(id: Int, fArea: FArea): Single<FArea>{
-        return repository.putRemoteFArea(id, fArea)
+    fun putRemoteFArea(authHeader: String, id: Int, fArea: FArea): Single<FArea>{
+        return repository.putRemoteFArea(authHeader, id, fArea)
     }
-    fun deleteRemoteFArea(id: Int): Single<FArea>{
-        return repository.deleteRemoteFArea(id)
+    fun deleteRemoteFArea(authHeader: String, id: Int): Single<FArea>{
+        return repository.deleteRemoteFArea(authHeader, id)
     }
 
 
@@ -51,6 +51,9 @@ class GetFAreaUseCase @Inject constructor(private val repository: FAreaRepositor
     }
     fun addCacheFArea(fArea: FArea){
         repository.addCacheFArea(fArea)
+    }
+    fun addCacheListFArea(list: List<FArea>){
+        repository.addCacheListFArea(list)
     }
     fun putCacheFArea(fArea: FArea){
         repository.putCacheFArea(fArea)

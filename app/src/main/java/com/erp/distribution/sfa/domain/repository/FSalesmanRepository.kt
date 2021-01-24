@@ -8,12 +8,12 @@ import io.reactivex.Single
  * To make an interaction between [AlbumRepositoryImp] & [GetAlbumsUseCase]
  * */
 interface FSalesmanRepository {
-    fun getRemoteAllFSalesman(): Single<List<FSalesman>>
-    fun getRemoteFSalesmanById(id: Int): Single<FSalesman>
-    fun getRemoteAllFSalesmanByDivision(divisionId: Int): Single<List<FSalesman>>
-    fun createRemoteFSalesman(fSalesman: FSalesman): Single<FSalesman>
-    fun putRemoteFSalesman(id: Int, fSalesman: FSalesman): Single<FSalesman>
-    fun deleteRemoteFSalesman(id: Int): Single<FSalesman>
+    fun getRemoteAllFSalesman(authHeader: String): Single<List<FSalesman>>
+    fun getRemoteFSalesmanById(authHeader: String, id: Int): Single<FSalesman>
+    fun getRemoteAllFSalesmanByDivision(authHeader: String, divisionId: Int): Single<List<FSalesman>>
+    fun createRemoteFSalesman(authHeader: String, fSalesman: FSalesman): Single<FSalesman>
+    fun putRemoteFSalesman(authHeader: String, id: Int, fSalesman: FSalesman): Single<FSalesman>
+    fun deleteRemoteFSalesman(authHeader: String, id: Int): Single<FSalesman>
 
     fun getCacheAllFSalesman(): LiveData<List<FSalesman>>
     fun getCacheFSalesmanById(id: Int): LiveData<FSalesman>

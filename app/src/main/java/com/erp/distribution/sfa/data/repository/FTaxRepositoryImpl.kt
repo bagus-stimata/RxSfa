@@ -19,28 +19,28 @@ class FTaxRepositoryImpl(
     private val retrofitService: RetrofitServiceFTax
 ) : FTaxRepository {
 
-    override fun getRemoteAllFTax(): Single<List<FTax>> {
-        return retrofitService.getRemoteAllFTax(MainApplication.authHeader)
+    override fun getRemoteAllFTax(authHeader: String ): Single<List<FTax>> {
+        return retrofitService.getRemoteAllFTax(authHeader)
     }
 
-    override fun getRemoteFTaxById(id: Int): Single<FTax> {
-        return retrofitService.getRemoteFTaxById(MainApplication.authHeader, id)
+    override fun getRemoteFTaxById(authHeader: String, id: Int): Single<FTax> {
+        return retrofitService.getRemoteFTaxById(authHeader, id)
     }
 
-    override fun getRemoteAllFTaxByDivision(divisionId: Int): Single<List<FTax>> {
-        return retrofitService.getRemoteAllFTaxByDivision(MainApplication.authHeader, divisionId)
+    override fun getRemoteAllFTaxByDivision(authHeader: String, divisionId: Int): Single<List<FTax>> {
+        return retrofitService.getRemoteAllFTaxByDivision(authHeader, divisionId)
     }
 
-    override fun createRemoteFTax(fTax: FTax): Single<FTax> {
-        return retrofitService.createRemoteFTax(MainApplication.authHeader, fTax)
+    override fun createRemoteFTax(authHeader: String, fTax: FTax): Single<FTax> {
+        return retrofitService.createRemoteFTax(authHeader, fTax)
     }
 
-    override fun putRemoteFTax(id: Int, fTax: FTax): Single<FTax> {
-        return retrofitService.putRemoteFTax(MainApplication.authHeader, id, fTax)
+    override fun putRemoteFTax(authHeader: String, id: Int, fTax: FTax): Single<FTax> {
+        return retrofitService.putRemoteFTax(authHeader, id, fTax)
     }
 
-    override fun deleteRemoteFTax(id: Int): Single<FTax> {
-        return retrofitService.deleteRemoteFTax(MainApplication.authHeader, id)
+    override fun deleteRemoteFTax(authHeader: String, id: Int): Single<FTax> {
+        return retrofitService.deleteRemoteFTax(authHeader, id)
     }
 
 
@@ -75,7 +75,7 @@ class FTaxRepositoryImpl(
 
 
 //    override fun getRemoteAllData(): Single<List<FTax>> {
-//        return retrofitService.getRemoteAllFTax(MainApplication.authHeader)
+//        return retrofitService.getRemoteAllFTax(authHeader)
 //    }
 
 

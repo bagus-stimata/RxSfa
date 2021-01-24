@@ -16,26 +16,26 @@ import javax.inject.Inject
 class GetFWarehouseUseCase @Inject constructor(private val repository: FWarehouseRepository) : SingleUseCase<List<FWarehouse>>() {
 
     override fun buildUseCaseSingle(): Single<List<FWarehouse>> {
-        return repository.getRemoteAllFWarehouse()
+        return repository.getRemoteAllFWarehouse("authHeader")
     }
-    fun getRemoteAllFWarehouse(): Single<List<FWarehouse>>{
-        return repository.getRemoteAllFWarehouse()
+    fun getRemoteAllFWarehouse(authHeader: String): Single<List<FWarehouse>>{
+        return repository.getRemoteAllFWarehouse(authHeader)
     }
 
-    fun getRemoteFWarehouseById(id: Int): Single<FWarehouse>{
-        return repository.getRemoteFWarehouseById(id)
+    fun getRemoteFWarehouseById(authHeader: String, id: Int): Single<FWarehouse>{
+        return repository.getRemoteFWarehouseById(authHeader, id)
     }
-    fun getRemoteAllFWarehouseByDivision(divisionId: Int): Single<List<FWarehouse>>{
-        return repository.getRemoteAllFWarehouseByDivision(divisionId)
+    fun getRemoteAllFWarehouseByDivision(authHeader: String, divisionId: Int): Single<List<FWarehouse>>{
+        return repository.getRemoteAllFWarehouseByDivision(authHeader, divisionId)
     }
-    fun createRemoteFWarehouse(fWarehouse: FWarehouse): Single<FWarehouse>{
-        return repository.createRemoteFWarehouse(fWarehouse)
+    fun createRemoteFWarehouse(authHeader: String, fWarehouse: FWarehouse): Single<FWarehouse>{
+        return repository.createRemoteFWarehouse(authHeader, fWarehouse)
     }
-    fun putRemoteFWarehouse(id: Int, fWarehouse: FWarehouse): Single<FWarehouse>{
-        return repository.putRemoteFWarehouse(id, fWarehouse)
+    fun putRemoteFWarehouse(authHeader: String, id: Int, fWarehouse: FWarehouse): Single<FWarehouse>{
+        return repository.putRemoteFWarehouse(authHeader, id, fWarehouse)
     }
-    fun deleteRemoteFWarehouse(id: Int): Single<FWarehouse>{
-        return repository.deleteRemoteFWarehouse(id)
+    fun deleteRemoteFWarehouse(authHeader: String, id: Int): Single<FWarehouse>{
+        return repository.deleteRemoteFWarehouse(authHeader, id)
     }
 
 

@@ -9,13 +9,13 @@ import java.util.*
  * To make an interaction between [AlbumRepositoryImp] & [GetAlbumsUseCase]
  * */
 interface FStockRepository {
-    fun getRemoteAllFStock(): Single<List<FStock>>
-    fun getRemoteFStockById(id: Int): Single<FStock>
-    fun getRemoteAllFStockByMaterial(materialId: Int, stockDateFrom: Date, stockDateTo: Date): Single<List<FStock>>
-    fun getRemoteAllFStockByWarehouse(warehouseId: Int, stockDateFrom: Date, stockDateTo: Date): Single<List<FStock>>
-    fun createRemoteFStock(fStock: FStock): Single<FStock>
-    fun putRemoteFStock(id: Int, fStock: FStock): Single<FStock>
-    fun deleteRemoteFStock(id: Int): Single<FStock>
+    fun getRemoteAllFStock(authHeader: String): Single<List<FStock>>
+    fun getRemoteFStockById(authHeader: String, id: Int): Single<FStock>
+    fun getRemoteAllFStockByMaterial(authHeader: String, materialId: Int, stockDateFrom: Date, stockDateTo: Date): Single<List<FStock>>
+    fun getRemoteAllFStockByWarehouse(authHeader: String, warehouseId: Int, stockDateFrom: Date, stockDateTo: Date): Single<List<FStock>>
+    fun createRemoteFStock(authHeader: String, fStock: FStock): Single<FStock>
+    fun putRemoteFStock(authHeader: String, id: Int, fStock: FStock): Single<FStock>
+    fun deleteRemoteFStock(authHeader: String, id: Int): Single<FStock>
 
     fun getCacheAllFStock(): LiveData<List<FStock>>
     fun getCacheFStockById(id: Int): LiveData<FStock>

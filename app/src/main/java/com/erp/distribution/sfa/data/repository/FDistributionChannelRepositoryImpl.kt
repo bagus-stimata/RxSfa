@@ -19,28 +19,28 @@ class FDistributionChannelRepositoryImpl(
     private val retrofitService: RetrofitServiceFDistributionChannel
 ) : FDistributionChannelRepository {
 
-    override fun getRemoteAllFDistributionChannel(): Single<List<FDistributionChannel>> {
-        return retrofitService.getRemoteAllFDistributionChannel(MainApplication.authHeader)
+    override fun getRemoteAllFDistributionChannel(authHeader: String): Single<List<FDistributionChannel>> {
+        return retrofitService.getRemoteAllFDistributionChannel(authHeader)
     }
 
-    override fun getRemoteFDistributionChannelById(id: Int): Single<FDistributionChannel> {
-        return retrofitService.getRemoteFDistributionChannelById(MainApplication.authHeader, id)
+    override fun getRemoteFDistributionChannelById(authHeader: String, id: Int): Single<FDistributionChannel> {
+        return retrofitService.getRemoteFDistributionChannelById(authHeader, id)
     }
 
-    override fun getRemoteAllFDistributionChannelByDivision(divisionId: Int): Single<List<FDistributionChannel>> {
-        return retrofitService.getRemoteAllFDistributionChannelByDivision(MainApplication.authHeader, divisionId)
+    override fun getRemoteAllFDistributionChannelByDivision(authHeader: String, divisionId: Int): Single<List<FDistributionChannel>> {
+        return retrofitService.getRemoteAllFDistributionChannelByDivision(authHeader, divisionId)
     }
 
-    override fun createRemoteFDistributionChannel(fDistributionChannel: FDistributionChannel): Single<FDistributionChannel> {
-        return retrofitService.createRemoteFDistributionChannel(MainApplication.authHeader, fDistributionChannel)
+    override fun createRemoteFDistributionChannel(authHeader: String, fDistributionChannel: FDistributionChannel): Single<FDistributionChannel> {
+        return retrofitService.createRemoteFDistributionChannel(authHeader, fDistributionChannel)
     }
 
-    override fun putRemoteFDistributionChannel(id: Int, fDistributionChannel: FDistributionChannel): Single<FDistributionChannel> {
-        return retrofitService.putRemoteFDistributionChannel(MainApplication.authHeader, id, fDistributionChannel)
+    override fun putRemoteFDistributionChannel(authHeader: String, id: Int, fDistributionChannel: FDistributionChannel): Single<FDistributionChannel> {
+        return retrofitService.putRemoteFDistributionChannel(authHeader, id, fDistributionChannel)
     }
 
-    override fun deleteRemoteFDistributionChannel(id: Int): Single<FDistributionChannel> {
-        return retrofitService.deleteRemoteFDistributionChannel(MainApplication.authHeader, id)
+    override fun deleteRemoteFDistributionChannel(authHeader: String, id: Int): Single<FDistributionChannel> {
+        return retrofitService.deleteRemoteFDistributionChannel(authHeader, id)
     }
 
 
@@ -75,7 +75,7 @@ class FDistributionChannelRepositoryImpl(
 
 
 //    override fun getRemoteAllData(): Single<List<FDistributionChannel>> {
-//        return retrofitService.getRemoteAllFDistributionChannel(MainApplication.authHeader)
+//        return retrofitService.getRemoteAllFDistributionChannel(authHeader)
 //    }
 
 

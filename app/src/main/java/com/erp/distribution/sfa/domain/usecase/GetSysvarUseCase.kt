@@ -16,26 +16,26 @@ import javax.inject.Inject
 class GetSysvarUseCase @Inject constructor(private val repository: SysvarRepository) : SingleUseCase<List<Sysvar>>() {
 
     override fun buildUseCaseSingle(): Single<List<Sysvar>> {
-        return repository.getRemoteAllSysvar()
+        return repository.getRemoteAllSysvar("authHeader")
     }
-    fun getRemoteAllSysvar(): Single<List<Sysvar>>{
-        return repository.getRemoteAllSysvar()
+    fun getRemoteAllSysvar(authHeader: String ): Single<List<Sysvar>>{
+        return repository.getRemoteAllSysvar(authHeader)
     }
 
-    fun getRemoteSysvarById(id: Int): Single<Sysvar>{
-        return repository.getRemoteSysvarById(id)
+    fun getRemoteSysvarById(authHeader: String, id: Int): Single<Sysvar>{
+        return repository.getRemoteSysvarById(authHeader, id)
     }
-    fun getRemoteAllSysvarByDivision(divisionId: Int): Single<List<Sysvar>>{
-        return repository.getRemoteAllSysvarByDivision(divisionId)
+    fun getRemoteAllSysvarByDivision(authHeader: String, divisionId: Int): Single<List<Sysvar>>{
+        return repository.getRemoteAllSysvarByDivision(authHeader, divisionId)
     }
-    fun createRemoteSysvar(sysvar: Sysvar): Single<Sysvar>{
-        return repository.createRemoteSysvar(sysvar)
+    fun createRemoteSysvar(authHeader: String, sysvar: Sysvar): Single<Sysvar>{
+        return repository.createRemoteSysvar(authHeader, sysvar)
     }
-    fun putRemoteSysvar(id: Int, sysvar: Sysvar): Single<Sysvar>{
-        return repository.putRemoteSysvar(id, sysvar)
+    fun putRemoteSysvar(authHeader: String, id: Int, sysvar: Sysvar): Single<Sysvar>{
+        return repository.putRemoteSysvar(authHeader, id, sysvar)
     }
-    fun deleteRemoteSysvar(id: Int): Single<Sysvar>{
-        return repository.deleteRemoteSysvar(id)
+    fun deleteRemoteSysvar(authHeader: String, id: Int): Single<Sysvar>{
+        return repository.deleteRemoteSysvar(authHeader, id)
     }
 
 

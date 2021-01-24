@@ -21,8 +21,5 @@ class MainApplication : Application(){
         MultiDex.install(this)
     }
 
-    companion object {
-        var authHeader: String = "abcd"
-    }
 
 }

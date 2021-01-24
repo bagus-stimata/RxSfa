@@ -8,12 +8,12 @@ import io.reactivex.Single
  * To make an interaction between [AlbumRepositoryImp] & [GetAlbumsUseCase]
  * */
 interface FMaterialSalesBrandRepository {
-    fun getRemoteAllFMaterialSalesBrand(): Single<List<FMaterialSalesBrand>>
-    fun getRemoteFMaterialSalesBrandById(id: Int): Single<FMaterialSalesBrand>
-    fun getRemoteAllFMaterialSalesBrandByDivision(divisionId: Int): Single<List<FMaterialSalesBrand>>
-    fun createRemoteFMaterialSalesBrand(fMaterialSalesBrand: FMaterialSalesBrand): Single<FMaterialSalesBrand>
-    fun putRemoteFMaterialSalesBrand(id: Int, fMaterialSalesBrand: FMaterialSalesBrand): Single<FMaterialSalesBrand>
-    fun deleteRemoteFMaterialSalesBrand(id: Int): Single<FMaterialSalesBrand>
+    fun getRemoteAllFMaterialSalesBrand(authHeader: String): Single<List<FMaterialSalesBrand>>
+    fun getRemoteFMaterialSalesBrandById(authHeader: String, id: Int): Single<FMaterialSalesBrand>
+    fun getRemoteAllFMaterialSalesBrandByDivision(authHeader: String, divisionId: Int): Single<List<FMaterialSalesBrand>>
+    fun createRemoteFMaterialSalesBrand(authHeader: String, fMaterialSalesBrand: FMaterialSalesBrand): Single<FMaterialSalesBrand>
+    fun putRemoteFMaterialSalesBrand(authHeader: String, id: Int, fMaterialSalesBrand: FMaterialSalesBrand): Single<FMaterialSalesBrand>
+    fun deleteRemoteFMaterialSalesBrand(authHeader: String, id: Int): Single<FMaterialSalesBrand>
 
     fun getCacheAllFMaterialSalesBrand(): LiveData<List<FMaterialSalesBrand>>
     fun getCacheFMaterialSalesBrandById(id: Int): LiveData<FMaterialSalesBrand>

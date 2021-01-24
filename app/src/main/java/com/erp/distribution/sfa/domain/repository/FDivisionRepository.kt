@@ -8,12 +8,12 @@ import io.reactivex.Single
  * To make an interaction between [AlbumRepositoryImp] & [GetAlbumsUseCase]
  * */
 interface FDivisionRepository {
-    fun getRemoteAllFDivision(): Single<List<FDivision>>
-    fun getRemoteFDivisionById(id: Int): Single<FDivision>
-    fun getRemoteAllFDivisionByParent(parentId: Int): Single<List<FDivision>>
-    fun createRemoteFDivision(fDivision: FDivision): Single<FDivision>
-    fun putRemoteFDivision(id: Int, fDivision: FDivision): Single<FDivision>
-    fun deleteRemoteFDivision(id: Int): Single<FDivision>
+    fun getRemoteAllFDivision(authHeader: String, ): Single<List<FDivision>>
+    fun getRemoteFDivisionById(authHeader: String, id: Int): Single<FDivision>
+    fun getRemoteAllFDivisionByParent(authHeader: String, parentId: Int): Single<List<FDivision>>
+    fun createRemoteFDivision(authHeader: String, fDivision: FDivision): Single<FDivision>
+    fun putRemoteFDivision(authHeader: String, id: Int, fDivision: FDivision): Single<FDivision>
+    fun deleteRemoteFDivision(authHeader: String, id: Int): Single<FDivision>
 
     fun getCacheAllFDivision(): LiveData<List<FDivision>>
     fun getCacheFDivisionById(id: Int): LiveData<FDivision>

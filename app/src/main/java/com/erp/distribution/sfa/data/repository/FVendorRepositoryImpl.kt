@@ -19,28 +19,28 @@ class FVendorRepositoryImpl(
     private val retrofitService: RetrofitServiceFVendor
 ) : FVendorRepository {
 
-    override fun getRemoteAllFVendor(): Single<List<FVendor>> {
-        return retrofitService.getRemoteAllFVendor(MainApplication.authHeader)
+    override fun getRemoteAllFVendor(authHeader: String): Single<List<FVendor>> {
+        return retrofitService.getRemoteAllFVendor(authHeader)
     }
 
-    override fun getRemoteFVendorById(id: Int): Single<FVendor> {
-        return retrofitService.getRemoteFVendorById(MainApplication.authHeader, id)
+    override fun getRemoteFVendorById(authHeader: String, id: Int): Single<FVendor> {
+        return retrofitService.getRemoteFVendorById(authHeader, id)
     }
 
-    override fun getRemoteAllFVendorByDivision(divisionId: Int): Single<List<FVendor>> {
-        return retrofitService.getRemoteAllFVendorByDivision(MainApplication.authHeader, divisionId)
+    override fun getRemoteAllFVendorByDivision(authHeader: String, divisionId: Int): Single<List<FVendor>> {
+        return retrofitService.getRemoteAllFVendorByDivision(authHeader, divisionId)
     }
 
-    override fun createRemoteFVendor(fVendor: FVendor): Single<FVendor> {
-        return retrofitService.createRemoteFVendor(MainApplication.authHeader, fVendor)
+    override fun createRemoteFVendor(authHeader: String, fVendor: FVendor): Single<FVendor> {
+        return retrofitService.createRemoteFVendor(authHeader, fVendor)
     }
 
-    override fun putRemoteFVendor(id: Int, fVendor: FVendor): Single<FVendor> {
-        return retrofitService.putRemoteFVendor(MainApplication.authHeader, id, fVendor)
+    override fun putRemoteFVendor(authHeader: String, id: Int, fVendor: FVendor): Single<FVendor> {
+        return retrofitService.putRemoteFVendor(authHeader, id, fVendor)
     }
 
-    override fun deleteRemoteFVendor(id: Int): Single<FVendor> {
-        return retrofitService.deleteRemoteFVendor(MainApplication.authHeader, id)
+    override fun deleteRemoteFVendor(authHeader: String, id: Int): Single<FVendor> {
+        return retrofitService.deleteRemoteFVendor(authHeader, id)
     }
 
 
@@ -75,7 +75,7 @@ class FVendorRepositoryImpl(
 
 
 //    override fun getRemoteAllData(): Single<List<FVendor>> {
-//        return retrofitService.getRemoteAllFVendor(MainApplication.authHeader)
+//        return retrofitService.getRemoteAllFVendor(authHeader)
 //    }
 
 

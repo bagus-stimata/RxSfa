@@ -16,26 +16,26 @@ import javax.inject.Inject
 class GetFSalesmanUseCase @Inject constructor(private val repository: FSalesmanRepository) : SingleUseCase<List<FSalesman>>() {
 
     override fun buildUseCaseSingle(): Single<List<FSalesman>> {
-        return repository.getRemoteAllFSalesman()
+        return repository.getRemoteAllFSalesman("authHeader")
     }
-    fun getRemoteAllFSalesman(): Single<List<FSalesman>>{
-        return repository.getRemoteAllFSalesman()
+    fun getRemoteAllFSalesman(authHeader: String): Single<List<FSalesman>>{
+        return repository.getRemoteAllFSalesman(authHeader)
     }
 
-    fun getRemoteFSalesmanById(id: Int): Single<FSalesman>{
-        return repository.getRemoteFSalesmanById(id)
+    fun getRemoteFSalesmanById(authHeader: String, id: Int): Single<FSalesman>{
+        return repository.getRemoteFSalesmanById(authHeader, id)
     }
-    fun getRemoteAllFSalesmanByDivision(divisionId: Int): Single<List<FSalesman>>{
-        return repository.getRemoteAllFSalesmanByDivision(divisionId)
+    fun getRemoteAllFSalesmanByDivision(authHeader: String, divisionId: Int): Single<List<FSalesman>>{
+        return repository.getRemoteAllFSalesmanByDivision(authHeader, divisionId)
     }
-    fun createRemoteFSalesman(fSalesman: FSalesman): Single<FSalesman>{
-        return repository.createRemoteFSalesman(fSalesman)
+    fun createRemoteFSalesman(authHeader: String, fSalesman: FSalesman): Single<FSalesman>{
+        return repository.createRemoteFSalesman(authHeader, fSalesman)
     }
-    fun putRemoteFSalesman(id: Int, fSalesman: FSalesman): Single<FSalesman>{
-        return repository.putRemoteFSalesman(id, fSalesman)
+    fun putRemoteFSalesman(authHeader: String, id: Int, fSalesman: FSalesman): Single<FSalesman>{
+        return repository.putRemoteFSalesman(authHeader, id, fSalesman)
     }
-    fun deleteRemoteFSalesman(id: Int): Single<FSalesman>{
-        return repository.deleteRemoteFSalesman(id)
+    fun deleteRemoteFSalesman(authHeader: String, id: Int): Single<FSalesman>{
+        return repository.deleteRemoteFSalesman(authHeader, id)
     }
 
 

@@ -19,28 +19,28 @@ class FMaterialGroup3RepositoryImpl(
     private val retrofitService: RetrofitServiceFMaterialGroup3
 ) : FMaterialGroup3Repository {
 
-    override fun getRemoteAllFMaterialGroup3(): Single<List<FMaterialGroup3>> {
-        return retrofitService.getRemoteAllFMaterialGroup3(MainApplication.authHeader)
+    override fun getRemoteAllFMaterialGroup3(authHeader: String ): Single<List<FMaterialGroup3>> {
+        return retrofitService.getRemoteAllFMaterialGroup3(authHeader)
     }
 
-    override fun getRemoteFMaterialGroup3ById(id: Int): Single<FMaterialGroup3> {
-        return retrofitService.getRemoteFMaterialGroup3ById(MainApplication.authHeader, id)
+    override fun getRemoteFMaterialGroup3ById(authHeader: String, id: Int): Single<FMaterialGroup3> {
+        return retrofitService.getRemoteFMaterialGroup3ById(authHeader, id)
     }
 
-    override fun getRemoteAllFMaterialGroup3ByParent(parentId: Int): Single<List<FMaterialGroup3>> {
-        return retrofitService.getRemoteAllFMaterialGroup3ByParent(MainApplication.authHeader, parentId)
+    override fun getRemoteAllFMaterialGroup3ByParent(authHeader: String, parentId: Int): Single<List<FMaterialGroup3>> {
+        return retrofitService.getRemoteAllFMaterialGroup3ByParent(authHeader, parentId)
     }
 
-    override fun createRemoteFMaterialGroup3(fMaterialGroup3: FMaterialGroup3): Single<FMaterialGroup3> {
-        return retrofitService.createRemoteFMaterialGroup3(MainApplication.authHeader, fMaterialGroup3)
+    override fun createRemoteFMaterialGroup3(authHeader: String, fMaterialGroup3: FMaterialGroup3): Single<FMaterialGroup3> {
+        return retrofitService.createRemoteFMaterialGroup3(authHeader, fMaterialGroup3)
     }
 
-    override fun putRemoteFMaterialGroup3(id: Int, fMaterialGroup3: FMaterialGroup3): Single<FMaterialGroup3> {
-        return retrofitService.putRemoteFMaterialGroup3(MainApplication.authHeader, id, fMaterialGroup3)
+    override fun putRemoteFMaterialGroup3(authHeader: String, id: Int, fMaterialGroup3: FMaterialGroup3): Single<FMaterialGroup3> {
+        return retrofitService.putRemoteFMaterialGroup3(authHeader, id, fMaterialGroup3)
     }
 
-    override fun deleteRemoteFMaterialGroup3(id: Int): Single<FMaterialGroup3> {
-        return retrofitService.deleteRemoteFMaterialGroup3(MainApplication.authHeader, id)
+    override fun deleteRemoteFMaterialGroup3(authHeader: String, id: Int): Single<FMaterialGroup3> {
+        return retrofitService.deleteRemoteFMaterialGroup3(authHeader, id)
     }
 
 
@@ -75,7 +75,7 @@ class FMaterialGroup3RepositoryImpl(
 
 
 //    override fun getRemoteAllData(): Single<List<FMaterialGroup3>> {
-//        return retrofitService.getRemoteAllFMaterialGroup3(MainApplication.authHeader)
+//        return retrofitService.getRemoteAllFMaterialGroup3(authHeader)
 //    }
 
 

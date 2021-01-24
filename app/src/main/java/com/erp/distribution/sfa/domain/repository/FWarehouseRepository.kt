@@ -8,12 +8,12 @@ import io.reactivex.Single
  * To make an interaction between [AlbumRepositoryImp] & [GetAlbumsUseCase]
  * */
 interface FWarehouseRepository {
-    fun getRemoteAllFWarehouse(): Single<List<FWarehouse>>
-    fun getRemoteFWarehouseById(id: Int): Single<FWarehouse>
-    fun getRemoteAllFWarehouseByDivision(divisionId: Int): Single<List<FWarehouse>>
-    fun createRemoteFWarehouse(fWarehouse: FWarehouse): Single<FWarehouse>
-    fun putRemoteFWarehouse(id: Int, fWarehouse: FWarehouse): Single<FWarehouse>
-    fun deleteRemoteFWarehouse(id: Int): Single<FWarehouse>
+    fun getRemoteAllFWarehouse(authHeader: String ): Single<List<FWarehouse>>
+    fun getRemoteFWarehouseById(authHeader: String, id: Int): Single<FWarehouse>
+    fun getRemoteAllFWarehouseByDivision(authHeader: String, divisionId: Int): Single<List<FWarehouse>>
+    fun createRemoteFWarehouse(authHeader: String, fWarehouse: FWarehouse): Single<FWarehouse>
+    fun putRemoteFWarehouse(authHeader: String, id: Int, fWarehouse: FWarehouse): Single<FWarehouse>
+    fun deleteRemoteFWarehouse(authHeader: String, id: Int): Single<FWarehouse>
 
     fun getCacheAllFWarehouse(): LiveData<List<FWarehouse>>
     fun getCacheFWarehouseById(id: Int): LiveData<FWarehouse>

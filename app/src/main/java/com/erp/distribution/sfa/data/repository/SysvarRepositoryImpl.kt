@@ -19,28 +19,28 @@ class SysvarRepositoryImpl(
     private val retrofitService: RetrofitServiceSysvar
 ) : SysvarRepository {
 
-    override fun getRemoteAllSysvar(): Single<List<Sysvar>> {
-        return retrofitService.getRemoteAllSysvar(MainApplication.authHeader)
+    override fun getRemoteAllSysvar(authHeader: String ): Single<List<Sysvar>> {
+        return retrofitService.getRemoteAllSysvar(authHeader)
     }
 
-    override fun getRemoteSysvarById(id: Int): Single<Sysvar> {
-        return retrofitService.getRemoteSysvarById(MainApplication.authHeader, id)
+    override fun getRemoteSysvarById(authHeader: String, id: Int): Single<Sysvar> {
+        return retrofitService.getRemoteSysvarById(authHeader, id)
     }
 
-    override fun getRemoteAllSysvarByDivision(divisionId: Int): Single<List<Sysvar>> {
-        return retrofitService.getRemoteAllSysvarByDivision(MainApplication.authHeader, divisionId)
+    override fun getRemoteAllSysvarByDivision(authHeader: String, divisionId: Int): Single<List<Sysvar>> {
+        return retrofitService.getRemoteAllSysvarByDivision(authHeader, divisionId)
     }
 
-    override fun createRemoteSysvar(sysvar: Sysvar): Single<Sysvar> {
-        return retrofitService.createRemoteSysvar(MainApplication.authHeader, sysvar)
+    override fun createRemoteSysvar(authHeader: String, sysvar: Sysvar): Single<Sysvar> {
+        return retrofitService.createRemoteSysvar(authHeader, sysvar)
     }
 
-    override fun putRemoteSysvar(id: Int, sysvar: Sysvar): Single<Sysvar> {
-        return retrofitService.putRemoteSysvar(MainApplication.authHeader, id, sysvar)
+    override fun putRemoteSysvar(authHeader: String, id: Int, sysvar: Sysvar): Single<Sysvar> {
+        return retrofitService.putRemoteSysvar(authHeader, id, sysvar)
     }
 
-    override fun deleteRemoteSysvar(id: Int): Single<Sysvar> {
-        return retrofitService.deleteRemoteSysvar(MainApplication.authHeader, id)
+    override fun deleteRemoteSysvar(authHeader: String, id: Int): Single<Sysvar> {
+        return retrofitService.deleteRemoteSysvar(authHeader, id)
     }
 
 
@@ -75,7 +75,7 @@ class SysvarRepositoryImpl(
 
 
 //    override fun getRemoteAllData(): Single<List<Sysvar>> {
-//        return retrofitService.getRemoteAllSysvar(MainApplication.authHeader)
+//        return retrofitService.getRemoteAllSysvar(authHeader)
 //    }
 
 

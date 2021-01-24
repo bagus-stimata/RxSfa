@@ -19,28 +19,28 @@ class FSalesmanRepositoryImpl(
     private val retrofitService: RetrofitServiceFSalesman
 ) : FSalesmanRepository {
 
-    override fun getRemoteAllFSalesman(): Single<List<FSalesman>> {
-        return retrofitService.getRemoteAllFSalesman(MainApplication.authHeader)
+    override fun getRemoteAllFSalesman(authHeader: String ): Single<List<FSalesman>> {
+        return retrofitService.getRemoteAllFSalesman(authHeader)
     }
 
-    override fun getRemoteFSalesmanById(id: Int): Single<FSalesman> {
-        return retrofitService.getRemoteFSalesmanById(MainApplication.authHeader, id)
+    override fun getRemoteFSalesmanById(authHeader: String, id: Int): Single<FSalesman> {
+        return retrofitService.getRemoteFSalesmanById(authHeader, id)
     }
 
-    override fun getRemoteAllFSalesmanByDivision(divisionId: Int): Single<List<FSalesman>> {
-        return retrofitService.getRemoteAllFSalesmanByDivision(MainApplication.authHeader, divisionId)
+    override fun getRemoteAllFSalesmanByDivision(authHeader: String, divisionId: Int): Single<List<FSalesman>> {
+        return retrofitService.getRemoteAllFSalesmanByDivision(authHeader, divisionId)
     }
 
-    override fun createRemoteFSalesman(fSalesman: FSalesman): Single<FSalesman> {
-        return retrofitService.createRemoteFSalesman(MainApplication.authHeader, fSalesman)
+    override fun createRemoteFSalesman(authHeader: String, fSalesman: FSalesman): Single<FSalesman> {
+        return retrofitService.createRemoteFSalesman(authHeader, fSalesman)
     }
 
-    override fun putRemoteFSalesman(id: Int, fSalesman: FSalesman): Single<FSalesman> {
-        return retrofitService.putRemoteFSalesman(MainApplication.authHeader, id, fSalesman)
+    override fun putRemoteFSalesman(authHeader: String, id: Int, fSalesman: FSalesman): Single<FSalesman> {
+        return retrofitService.putRemoteFSalesman(authHeader, id, fSalesman)
     }
 
-    override fun deleteRemoteFSalesman(id: Int): Single<FSalesman> {
-        return retrofitService.deleteRemoteFSalesman(MainApplication.authHeader, id)
+    override fun deleteRemoteFSalesman(authHeader: String, id: Int): Single<FSalesman> {
+        return retrofitService.deleteRemoteFSalesman(authHeader, id)
     }
 
 
@@ -75,7 +75,7 @@ class FSalesmanRepositoryImpl(
 
 
 //    override fun getRemoteAllData(): Single<List<FSalesman>> {
-//        return retrofitService.getRemoteAllFSalesman(MainApplication.authHeader)
+//        return retrofitService.getRemoteAllFSalesman(authHeader)
 //    }
 
 

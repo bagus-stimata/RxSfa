@@ -8,17 +8,18 @@ import io.reactivex.Single
  * To make an interaction between [AlbumRepositoryImp] & [GetAlbumsUseCase]
  * */
 interface FMaterialRepository {
-    fun getRemoteAllFMaterial(): Single<List<FMaterial>>
-    fun getRemoteFMaterialById(id: Int): Single<FMaterial>
-    fun getRemoteAllFMaterialByDivision(divisionId: Int): Single<List<FMaterial>>
-    fun createRemoteFMaterial(fMaterial: FMaterial): Single<FMaterial>
-    fun putRemoteFMaterial(id: Int, fMaterial: FMaterial): Single<FMaterial>
-    fun deleteRemoteFMaterial(id: Int): Single<FMaterial>
+    fun getRemoteAllFMaterial(authHeader: String, ): Single<List<FMaterial>>
+    fun getRemoteFMaterialById(authHeader: String, id: Int): Single<FMaterial>
+    fun getRemoteAllFMaterialByDivision(authHeader: String, divisionId: Int): Single<List<FMaterial>>
+    fun createRemoteFMaterial(authHeader: String, fMaterial: FMaterial): Single<FMaterial>
+    fun putRemoteFMaterial(authHeader: String, id: Int, fMaterial: FMaterial): Single<FMaterial>
+    fun deleteRemoteFMaterial(authHeader: String, id: Int): Single<FMaterial>
 
     fun getCacheAllFMaterial(): LiveData<List<FMaterial>>
     fun getCacheFMaterialById(id: Int): LiveData<FMaterial>
     fun getCacheAllFMaterialByDivision(divisionId: Int): LiveData<List<FMaterial>>
     fun addCacheFMaterial(fMaterial: FMaterial)
+    fun addCacheListFMaterial(list: List<FMaterial>)
     fun putCacheFMaterial(fMaterial: FMaterial)
     fun deleteCacheFMaterial(fMaterial: FMaterial)
     fun deleteAllCacheFMaterial()
