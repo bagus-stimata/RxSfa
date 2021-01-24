@@ -19,6 +19,7 @@ interface FSalesmanRepository {
     fun getCacheFSalesmanById(id: Int): LiveData<FSalesman>
     fun getCacheAllFSalesmanByDivision(divisionId: Int): LiveData<List<FSalesman>>
     fun addCacheFSalesman(fSalesman: FSalesman)
+    fun addCacheListFSalesman(list: List<FSalesman>)
     fun putCacheFSalesman(fSalesman: FSalesman)
     fun deleteCacheFSalesman(fSalesman: FSalesman)
     fun deleteAllCacheFSalesman()

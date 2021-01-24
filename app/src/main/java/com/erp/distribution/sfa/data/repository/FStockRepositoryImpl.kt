@@ -73,6 +73,9 @@ class FStockRepositoryImpl(
     override fun addCacheFStock(fStock: FStock) {
         return appDatabase.stockDao.insert(fStock)
     }
+    override fun addCacheListFStock(list: List<FStock>) {
+        return appDatabase.stockDao.insertAll(list)
+    }
 
     override fun putCacheFStock(fStock: FStock) {
         return appDatabase.stockDao.update(fStock)

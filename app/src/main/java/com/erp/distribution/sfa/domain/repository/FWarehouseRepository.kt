@@ -19,6 +19,7 @@ interface FWarehouseRepository {
     fun getCacheFWarehouseById(id: Int): LiveData<FWarehouse>
     fun getCacheAllFWarehouseByDivision(divisionId: Int): LiveData<List<FWarehouse>>
     fun addCacheFWarehouse(fWarehouse: FWarehouse)
+    fun addCacheListFWarehouse(list: List<FWarehouse>)
     fun putCacheFWarehouse(fWarehouse: FWarehouse)
     fun deleteCacheFWarehouse(fWarehouse: FWarehouse)
     fun deleteAllCacheFWarehouse()

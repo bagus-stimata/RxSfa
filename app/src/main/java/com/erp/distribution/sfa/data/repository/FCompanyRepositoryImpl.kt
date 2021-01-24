@@ -60,6 +60,9 @@ class FCompanyRepositoryImpl(
     override fun addCacheFCompany(fCompany: FCompany) {
         return appDatabase.companyDao.insert(fCompany)
     }
+    override fun addCacheListFCompany(list: List<FCompany>) {
+        return appDatabase.companyDao.insertAll(list)
+    }
 
     override fun putCacheFCompany(fCompany: FCompany) {
         return appDatabase.companyDao.update(fCompany)
@@ -69,7 +72,7 @@ class FCompanyRepositoryImpl(
         return appDatabase.companyDao.delete(fCompany)
     }
 
-    override fun deleteAllCacheData() {
+    override fun deleteAllCacheFCompany() {
         return appDatabase.companyDao.deleteAllFCompany()
     }
 

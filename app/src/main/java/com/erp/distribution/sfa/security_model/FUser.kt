@@ -9,7 +9,7 @@ import java.util.*
 @Entity(tableName = "fUser")
 data class FUser(
     @PrimaryKey
-    var id: Int = 0,
+    var id: Int = -1,
     var email: String = "",
     var username: String = "",
 

@@ -60,6 +60,9 @@ class FSalesmanRepositoryImpl(
     override fun addCacheFSalesman(fSalesman: FSalesman) {
         return appDatabase.salesmanDao.insert(fSalesman)
     }
+    override fun addCacheListFSalesman(list: List<FSalesman>) {
+        return appDatabase.salesmanDao.insertAll(list)
+    }
 
     override fun putCacheFSalesman(fSalesman: FSalesman) {
         return appDatabase.salesmanDao.update(fSalesman)

@@ -19,9 +19,10 @@ interface FCompanyRepository {
     fun getCacheFCompanyById(id: Int): LiveData<FCompany>
 //    fun getCacheAllFCompanyByDivision(divisionId: Int): LiveData<List<FCompany>>
     fun addCacheFCompany(fCompany: FCompany)
+    fun addCacheListFCompany(list: List<FCompany>)
     fun putCacheFCompany(fCompany: FCompany)
     fun deleteCacheFCompany(fCompany: FCompany)
-    fun deleteAllCacheData()
+    fun deleteAllCacheFCompany()
 
 
 }

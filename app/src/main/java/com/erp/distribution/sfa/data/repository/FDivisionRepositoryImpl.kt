@@ -60,6 +60,9 @@ class FDivisionRepositoryImpl(
     override fun addCacheFDivision(fDivision: FDivision) {
         return appDatabase.divisionDao.insert(fDivision)
     }
+    override fun addCacheListFDivision(list: List<FDivision>) {
+        return appDatabase.divisionDao.insertAll(list)
+    }
 
     override fun putCacheFDivision(fDivision: FDivision) {
         return appDatabase.divisionDao.update(fDivision)
@@ -69,7 +72,7 @@ class FDivisionRepositoryImpl(
         return appDatabase.divisionDao.delete(fDivision)
     }
 
-    override fun deleteAllCacheData() {
+    override fun deleteAllCacheFDivision() {
         return appDatabase.divisionDao.deleteAllFDivision()
     }
 

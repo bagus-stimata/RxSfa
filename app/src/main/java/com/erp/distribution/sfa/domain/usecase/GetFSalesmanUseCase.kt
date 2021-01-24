@@ -52,6 +52,9 @@ class GetFSalesmanUseCase @Inject constructor(private val repository: FSalesmanR
     fun addCacheFSalesman(fSalesman: FSalesman){
         repository.addCacheFSalesman(fSalesman)
     }
+    fun addCacheListFSalesman(list: List<FSalesman>){
+        repository.addCacheListFSalesman(list)
+    }
     fun putCacheFSalesman( fSalesman: FSalesman){
         repository.putCacheFSalesman(fSalesman)
     }

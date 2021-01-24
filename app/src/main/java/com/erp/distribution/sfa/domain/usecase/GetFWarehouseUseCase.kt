@@ -52,6 +52,9 @@ class GetFWarehouseUseCase @Inject constructor(private val repository: FWarehous
     fun addCacheFWarehouse(fWarehouse: FWarehouse){
         repository.addCacheFWarehouse(fWarehouse)
     }
+    fun addCacheListFWarehouse(list: List<FWarehouse>){
+        repository.addCacheListFWarehouse(list)
+    }
     fun putCacheFWarehouse(fWarehouse: FWarehouse){
         repository.putCacheFWarehouse(fWarehouse)
     }

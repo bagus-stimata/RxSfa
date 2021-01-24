@@ -19,9 +19,10 @@ interface FDivisionRepository {
     fun getCacheFDivisionById(id: Int): LiveData<FDivision>
     fun getCacheAllFDivisionByParent(divisionId: Int): LiveData<List<FDivision>>
     fun addCacheFDivision(fDivision: FDivision)
+    fun addCacheListFDivision(list: List<FDivision>)
     fun putCacheFDivision(fDivision: FDivision)
     fun deleteCacheFDivision(fDivision: FDivision)
-    fun deleteAllCacheData()
+    fun deleteAllCacheFDivision()
 
 
 }

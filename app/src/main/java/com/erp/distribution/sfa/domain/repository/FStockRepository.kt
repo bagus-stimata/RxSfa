@@ -24,6 +24,7 @@ interface FStockRepository {
     fun getCacheAllFStockByMaterial(materialId: Int, stockDate: Date): LiveData<List<FStock>>
     fun getCacheAllFStockByWarehouse(warehouseId: Int, stockDate: Date): LiveData<List<FStock>>
     fun addCacheFStock(fStock: FStock)
+    fun addCacheListFStock(list: List<FStock>)
     fun putCacheFStock(fStock: FStock)
     fun deleteCacheFStock(fStock: FStock)
     fun deleteAllCacheData()

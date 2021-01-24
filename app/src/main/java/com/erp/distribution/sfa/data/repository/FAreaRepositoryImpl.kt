@@ -77,9 +77,4 @@ class FAreaRepositoryImpl(
     }
 
 
-//    override fun getRemoteAllData(): Single<List<FArea>> {
-//        return retrofitService.getRemoteAllFArea(authHeader)
-//    }
-
-
 }

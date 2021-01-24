@@ -8,6 +8,9 @@ import androidx.lifecycle.ViewModel
 import com.erp.distribution.sfa.domain.model.Photo
 import com.erp.distribution.sfa.domain.usecase.GetFCustomerUseCase
 import com.erp.distribution.sfa.domain.usecase.GetFUserUseCase
+import com.erp.distribution.sfa.model.FDivision
+import com.erp.distribution.sfa.model.FSalesman
+import com.erp.distribution.sfa.model.FWarehouse
 import com.erp.distribution.sfa.presentation.extention.map
 import com.erp.distribution.sfa.security_model.FUser
 import com.erp.distribution.sfa.utils.DisposableManager
@@ -27,6 +30,9 @@ class MainViewModel  @ViewModelInject constructor(
 )  : ViewModel() {
     private val TAG = MainViewModel::class.java.simpleName
     var userActive: FUser = FUser()
+    var divisionActive: FDivision = FDivision()
+    var salesmanActive: FSalesman = FSalesman()
+    var warehouseActive: FWarehouse = FWarehouse()
 
     var listUserActiveLive: LiveData<List<FUser>?>? = MutableLiveData()
 

@@ -60,6 +60,9 @@ class FWarehouseRepositoryImpl(
     override fun addCacheFWarehouse(fWarehouse: FWarehouse) {
         return appDatabase.warehouseDao.insert(fWarehouse)
     }
+    override fun addCacheListFWarehouse(list: List<FWarehouse>) {
+        return appDatabase.warehouseDao.insertAll(list)
+    }
 
     override fun putCacheFWarehouse(fWarehouse: FWarehouse) {
         return appDatabase.warehouseDao.update(fWarehouse)
