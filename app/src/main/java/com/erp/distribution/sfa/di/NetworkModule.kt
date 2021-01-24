@@ -137,6 +137,11 @@ class NetworkModule {
     )
     @Singleton
     @Provides
+    fun provideServiceFDivision(retrofit: Retrofit): RetrofitServiceFDivision = retrofit.create(
+        RetrofitServiceFDivision::class.java
+    )
+    @Singleton
+    @Provides
     fun provideServiceFCustomer(retrofit: Retrofit): RetrofitServiceFCustomer = retrofit.create(
         RetrofitServiceFCustomer::class.java
     )

@@ -36,12 +36,30 @@ class RepositoryModule {
 
     @Singleton
     @Provides
-    fun provideDummyUserRepository(
+    fun provideFUserRepository(
             appDatabase: AppDatabase,
             retrofitService: RetrofitServiceSecurity
     ): FUserRepository {
         return UserRepositoryImp(appDatabase, retrofitService)
     }
+    @Singleton
+    @Provides
+    fun provideFCompanyRepository(
+        appDatabase: AppDatabase,
+        retrofitService: RetrofitServiceFCompany
+    ): FCompanyRepository {
+        return FCompanyRepositoryImpl(appDatabase, retrofitService)
+    }
+    @Singleton
+    @Provides
+    fun provideFDivisionRepository(
+        appDatabase: AppDatabase,
+        retrofitService: RetrofitServiceFDivision
+    ): FDivisionRepository {
+        return FDivisionRepositoryImpl(appDatabase, retrofitService)
+    }
+
+
 
     @Singleton
     @Provides

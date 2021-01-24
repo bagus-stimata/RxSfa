@@ -17,6 +17,8 @@ import com.erp.distribution.sfa.databinding.ActivityMainDashboardBinding
 import com.erp.distribution.sfa.common_utils.AlertDialogConfirm
 import com.erp.distribution.sfa.master.syncronize_fromserver.SyncronizeActivity
 import com.erp.distribution.sfa.security_model.FUser
+import com.erp.distribution.sfa.utils.DisposableManager
+import com.erp.distribution.sfa.utils.SecurityUtil
 import dagger.hilt.android.AndroidEntryPoint
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
@@ -44,6 +46,9 @@ class MainActivity : AppCompatActivity() {
 
         mainBinding.activity = this
         mainBinding.userActive = mainViewModel.userActive
+        mainBinding.divisionActive = mainViewModel.divisionActive
+        mainBinding.salesmanActive = mainViewModel.salesmanActive
+        mainBinding.warehouseActive = mainViewModel.warehouseActive
 
         setupObserver()
 
@@ -72,16 +77,108 @@ class MainActivity : AppCompatActivity() {
                 }
                 else -> {
                     mainViewModel.userActive = it.get(0)
-
+//                    mainViewModel.getRemoteFSalesman(mainViewModel.userActive)
+                    if(mainViewModel.userActive.id >0) {
+                        subscribeRemoteFDivision(mainViewModel.userActive)
+                        subscribeRemoteFSalesman(mainViewModel.userActive)
+                        subscribeRemoteFWarehouse(mainViewModel.userActive)
+                    }
+                    Log.d(TAG, "#result userActive: ${mainViewModel.userActive.fdivisionBean}" +
+                            " and ${mainViewModel.userActive.fsalesmanBean} and ${mainViewModel.userActive.fwarehouseBean}")
                     greeting()
 //                    Log.d(TAG, "#result Listen Dipanggil ${MainApplication.authHeader}")
                 }
             }
-            mainBinding.userActive = mainViewModel.userActive //tidak bisa sekali
+            mainBinding.userActive = mainViewModel.userActive
+
         })
 
+//        val disposableFSalesman = mainViewModel.getRemoteFSalesman(mainViewModel.userActive!!)
+//            .toObservable()
+//            .observeOn(AndroidSchedulers.mainThread())
+//            .subscribeOn(Schedulers.io())
+//            .subscribe(
+//                {
+//                    Log.d(TAG, "#result salesman ${it}")
+////                    mainViewModel.salesmanActive = it
+//                },
+//                {
+//                    Log.d(TAG, "#result salesman error ${it.message}")
+//                },
+//                {
+//                    Log.d(TAG, "#result salesman complete")
+//                    mainBinding.salesmanActive = mainViewModel.salesmanActive
+//
+//                }
+//
+//            )
+//        compositeDisposable.addAll(disposableFSalesman)
 
 
+    }
+
+    fun subscribeRemoteFDivision(fUser: FUser) {
+        DisposableManager.add(mainViewModel.getRemoteFDivision(fUser)
+            .toObservable()
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribeOn(Schedulers.io())
+            .subscribe(
+                {
+                    mainViewModel.divisionActive = it
+                    mainViewModel.insertCacheFDivision(it)
+                    mainBinding.divisionActive = mainViewModel.divisionActive
+
+                },
+                {
+                    Log.d(TAG, "#result salesman error ${it.message}")
+                },
+                {
+
+                }
+            )
+        )
+    }
+    fun subscribeRemoteFSalesman(fUser: FUser) {
+        DisposableManager.add(mainViewModel.getRemoteFSalesman(fUser)
+            .toObservable()
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribeOn(Schedulers.io())
+            .subscribe(
+                {
+                    mainViewModel.salesmanActive = it
+                    mainViewModel.insertCacheFSalesman(it)
+                    mainBinding.salesmanActive = mainViewModel.salesmanActive
+
+                },
+                {
+                    Log.d(TAG, "#result salesman error ${it.message}")
+                },
+                {
+
+                }
+            )
+        )
+    }
+    fun subscribeRemoteFWarehouse(fUser: FUser) {
+        DisposableManager.add(mainViewModel.getRemoteFWarehouse(fUser)
+            .toObservable()
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribeOn(Schedulers.io())
+            .subscribe(
+                {
+                    mainViewModel.warehouseActive= it
+                    mainViewModel.insertCacheFWarehouse(it)
+                    mainBinding.warehouseActive = mainViewModel.warehouseActive
+
+                },
+                {
+                    Log.d(TAG, "#result salesman error ${it.message}")
+                },
+                {
+
+                }
+            )
+        )
     }
 
 
@@ -127,6 +224,7 @@ class MainActivity : AppCompatActivity() {
                                 newFUser.modifiedBy = "bagus"
 
                                 //kareana akan dipaki seterusnya
+                                newFUser.password = resultObject.password
                                 newFUser.passwordConfirm = resultObject.password
                                 //CREATE JIKA SAMA SAJA
                                 mainViewModel.insertCacheFUser(newFUser)
@@ -178,6 +276,8 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
+
+
     @SuppressLint("SetTextI18n")
     private fun greeting() {
         val calendar = Calendar.getInstance()
@@ -185,16 +285,16 @@ class MainActivity : AppCompatActivity() {
 //        val namaUser: String = mainViewModel.userActive.fullName
         if (mainViewModel.userActive.fullName.isEmpty()) mainViewModel.userActive.username
         if (timeOfDay >= 0 && timeOfDay < 12) {
-            mainBinding.greetingText1.setText("Selamat Pagi")
+//            mainBinding.greetingText1.setText("Selamat Pagi")
             mainBinding.greetingImg.setImageResource(R.drawable.img_default_half_morning)
         } else if (timeOfDay >= 12 && timeOfDay < 15) {
-            mainBinding.greetingText1.setText("Selamat Siang")
+//            mainBinding.greetingText1.setText("Selamat Siang")
             mainBinding.greetingImg.setImageResource(R.drawable.img_default_half_afternoon)
         } else if (timeOfDay >= 15 && timeOfDay < 18) {
-            mainBinding.greetingText1.setText("Selamat Sore")
+//            mainBinding.greetingText1.setText("Selamat Sore")
             mainBinding.greetingImg.setImageResource(R.drawable.img_default_half_without_sun)
         } else if (timeOfDay >= 18 && timeOfDay < 24) {
-            mainBinding.greetingText1.setText("Selamat Malam")
+//            mainBinding.greetingText1.setText("Selamat Malam")
             mainBinding.greetingText1.setTextColor(Color.WHITE)
             mainBinding.greetingImg.setImageResource(R.drawable.img_default_half_night)
         }
@@ -324,7 +424,7 @@ class MainActivity : AppCompatActivity() {
 //        startActivity(intent)
 
 
-        mainViewModel.fetchFCustomerFromRepo()
+//        mainViewModel.fetchFCustomerFromRepo()
 
 
 

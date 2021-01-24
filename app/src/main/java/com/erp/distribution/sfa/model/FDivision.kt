@@ -121,7 +121,7 @@ class FDivision (
  */
     //	@Column(name="INVOICE_COMPANY_NPWP_1", length=45)
     //	private String invoiceCompanyNpwpPhone1 : String ="", ;
-    var created: Date = Date(), 
-    var modified: Date = Date(), 
-    var modifiedBy : String =""  //User ID
+    var created: Date? = Date(),
+    var modified: Date? = Date(),
+    var modifiedBy : String? =""  //User ID
 )

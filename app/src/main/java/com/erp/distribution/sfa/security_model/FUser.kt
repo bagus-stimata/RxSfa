@@ -39,6 +39,7 @@ data class FUser(
      */
     var fdivisionBean: Int =0,
     var fwarehouseBean: Int =0,
+    var fsalesmanBean: Int =0,
 
 //    @Ignore
 //    var tempInt1: Int?,

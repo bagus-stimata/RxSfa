@@ -10,6 +10,16 @@
             name="userActive"
             type="com.erp.distribution.sfa.security_model.FUser" />
         <variable
+            name="divisionActive"
+            type="com.erp.distribution.sfa.model.FDivision" />
+        <variable
+            name="salesmanActive"
+            type="com.erp.distribution.sfa.model.FSalesman" />
+        <variable
+            name="warehouseActive"
+            type="com.erp.distribution.sfa.model.FWarehouse" />
+
+        <variable
             name="activity"
             type="com.erp.distribution.sfa.MainActivity" />
         <import type="android.view.View"/>
@@ -44,7 +54,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="70dp"
                 android:gravity="center"
-                android:text="Selamat Pagi"
+                android:text="@{userActive.fullName + ` (` + salesmanActive.spcode + `)`}"
                 android:textColor="?android:attr/colorEdgeEffect"
                 android:textSize="18sp" />
 
@@ -55,7 +65,7 @@
                 android:layout_below="@id/greeting_text1"
                 android:fontFamily="monospace"
                 android:gravity="center"
-                android:text="@{userActive.fullName}"
+                android:text="@{divisionActive.kode1 + ` | ` +  warehouseActive.kode1}"
                 android:textColor="@color/design_default_color_primary_variant"
                 android:textSize="18sp" />
 

@@ -26,26 +26,26 @@ class FWarehouse (
     //	@JoinColumn(name="fdivisionBean", referencedColumnName="ID")
     //	private FDivision fdivisionBean;
     var fdivisionBean : Int =0,
-    var isProductHppSaved : Boolean =false,
+    var isProductHppSaved : Boolean? =false,
     var numberPriority: Int? = 0,
     var description : String ="",
-    var isGudangUtama : Boolean =false,
+    var isGudangUtama : Boolean? =false,
     var address1 : String ="",
     var city1: String? ="",
     var state1 : String ="",
     var phone : String ="",
     var isStatusActive : Boolean =false,
-    var isGudangPo : Boolean =false,
-    var isGudangSo : Boolean =false,
-    var isGudangTransfer : Boolean =false,
-    var isGudangRetail : Boolean =false,
-    var isGudangPusatCompany : Boolean =false,
-    var isGudangTransitDiv : Boolean =false,
+    var isGudangPo : Boolean? =false,
+    var isGudangSo : Boolean? =false,
+    var isGudangTransfer : Boolean? =false,
+    var isGudangRetail : Boolean? =false,
+    var isGudangPusatCompany : Boolean? =false,
+    var isGudangTransitDiv : Boolean? =false,
     var tipeWarehouse: EnumTipeWarehouse? = EnumTipeWarehouse.GS,
 
     //PORT WS:: UNTUK TRANSAKSI PEMBALIAN DAN PENJUALAN
-    var wsport : String ="",
-    var created : Date = Date(),
-    var modified : Date = Date(),
-    var modifiedBy : String ="", //User ID
+    var wsport : String? ="",
+    var created : Date? = Date(),
+    var modified : Date? = Date(),
+    var modifiedBy : String? ="", //User ID
 ): Serializable

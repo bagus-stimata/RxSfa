@@ -49,7 +49,7 @@ class FSalesman (
     var lastTrans : Date = Date(),
     var bornPlace : String ="",
     var bornDate : Date = Date(),
-    var religion: EnumReligion = EnumReligion.OTH1,
+    var religion: EnumReligion? = EnumReligion.OTH1,
     var isStatusActive : Boolean =false,
     var isWebServiceActive : Boolean =false,
 
@@ -68,7 +68,7 @@ class FSalesman (
     */
     var isNoPromotionRules : Boolean = false,
     var isVendorcovered : Boolean = false,
-    var created : Date = Date(),
-    var modified : Date = Date(),
-    var modifiedBy : String ="" //User ID
+    var created : Date? = Date(),
+    var modified : Date? = Date(),
+    var modifiedBy : String? ="" //User ID
 ) : Serializable

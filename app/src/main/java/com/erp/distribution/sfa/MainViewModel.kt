@@ -6,8 +6,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.erp.distribution.sfa.domain.model.Photo
-import com.erp.distribution.sfa.domain.usecase.GetFCustomerUseCase
-import com.erp.distribution.sfa.domain.usecase.GetFUserUseCase
+import com.erp.distribution.sfa.domain.usecase.*
 import com.erp.distribution.sfa.model.FDivision
 import com.erp.distribution.sfa.model.FSalesman
 import com.erp.distribution.sfa.model.FWarehouse
@@ -26,7 +25,10 @@ import java.util.*
 
 class MainViewModel  @ViewModelInject constructor(
         private val getFUserUseCase: GetFUserUseCase,
-        private val getFCustomerUseCase: GetFCustomerUseCase
+        private val getFSalesmanUseCase: GetFSalesmanUseCase,
+        private val getFDivisionUseCase: GetFDivisionUseCase,
+        private val getFCompanyUseCase: GetFCompanyUseCase,
+        private val getFWarehouseUseCase: GetFWarehouseUseCase
 )  : ViewModel() {
     private val TAG = MainViewModel::class.java.simpleName
     var userActive: FUser = FUser()
@@ -64,27 +66,6 @@ class MainViewModel  @ViewModelInject constructor(
         )
     }
 
-    fun fetchFCustomerFromRepo() {
-        DisposableManager.add(
-                getFCustomerUseCase.getRemoteAllFCustomer(SecurityUtil.getAuthHeader(userActive.username, userActive.passwordConfirm))
-                        .observeOn(AndroidSchedulers.mainThread())
-                        .subscribeOn(Schedulers.io())
-                        .subscribe(
-                                {
-//                            brewaryList -> Log.i(TAG, "from api----->\n"+brewaryList.toString())
-//                            RxJavaRetrofitRoomSampleApplication.database?.let {
-//                            it.getBrewaryDao().deleteAll()
-//                            it.getBrewaryDao().insertAll(brewaryList) //                        }
-                                    Log.d(TAG, "#result CUSTOMER trying add all ${it}")
-
-                                },
-                                {
-                                    Log.d(TAG, "#result CUSTOMER error add all")
-//                                  error -> Log.e(TAG, error.printStackTrace())
-                                }
-                        )
-        )
-    }
 
     fun getRemoteFUserByUser(fUser: FUser): Single<FUser> {
         return getFUserUseCase.getRemoteAllFUserByUsername(SecurityUtil.getAuthHeader(fUser.username, fUser.passwordConfirm), fUser.username)
@@ -220,19 +201,60 @@ class MainViewModel  @ViewModelInject constructor(
         disposable.add(Observable.fromCallable {
             getFUserUseCase.addCacheFUser(fUser)
         }
+               .observeOn(AndroidSchedulers.mainThread())
                 .subscribeOn(Schedulers.computation())
-                .observeOn(AndroidSchedulers.mainThread())
                 .subscribe {
-//                    userActiveLive.value = fUser
-//                    Log.d(TAG, "#result Berhasil Input Cache Bos")
                 }
         )
+
     }
+
+    fun insertCacheFDivision(fDivision: FDivision){
+        disposable.add(Observable.fromCallable {
+            getFDivisionUseCase.addCacheFDivision(fDivision)
+        }
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribeOn(Schedulers.computation())
+            .subscribe {
+            }
+        )
+    }
+    fun insertCacheFSalesman(fSalesman: FSalesman){
+        disposable.add(Observable.fromCallable {
+            getFSalesmanUseCase.addCacheFSalesman(fSalesman)
+        }
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribeOn(Schedulers.computation())
+            .subscribe {
+            }
+        )
+    }
+    fun insertCacheFWarehouse(fWarehouse: FWarehouse){
+        disposable.add(Observable.fromCallable {
+            getFWarehouseUseCase.addCacheFWarehouse(fWarehouse)
+        }
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribeOn(Schedulers.computation())
+            .subscribe {
+            }
+        )
+    }
+
+
     fun subscribeAllFUser(){
         listUserActiveLive = getFUserUseCase.getCacheAllFUser().map { it }
     }
 
 
+    fun getRemoteFDivision(fUser: FUser): Single<FDivision> {
+        return getFDivisionUseCase.getRemoteFDivisionById(SecurityUtil.getAuthHeader(fUser.username, fUser.password), fUser.fdivisionBean)
+    }
+    fun getRemoteFSalesman(fUser: FUser): Single<FSalesman> {
+        return getFSalesmanUseCase.getRemoteFSalesmanById(SecurityUtil.getAuthHeader(fUser.username, fUser.password), fUser.fsalesmanBean)
+    }
+    fun getRemoteFWarehouse(fUser: FUser): Single<FWarehouse> {
+        return getFWarehouseUseCase.getRemoteFWarehouseById(SecurityUtil.getAuthHeader(fUser.username, fUser.password), fUser.fwarehouseBean)
+    }
 
 
 }
