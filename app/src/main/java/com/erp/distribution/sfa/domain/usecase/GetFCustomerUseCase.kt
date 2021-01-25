@@ -3,7 +3,7 @@ package com.erp.distribution.sfa.domain.usecase
 import androidx.lifecycle.LiveData
 import com.erp.distribution.sfa.domain.repository.FCustomerRepository
 import com.erp.distribution.sfa.domain.usecase.base.SingleUseCase
-import com.erp.distribution.sfa.model.FCustomer
+import com.erp.distribution.sfa.data.source.entity.FCustomer
 import io.reactivex.Single
 import javax.inject.Inject
 

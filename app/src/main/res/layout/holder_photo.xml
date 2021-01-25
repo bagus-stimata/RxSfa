@@ -4,7 +4,7 @@
 
         <import type="android.view.View"/>
 
-        <variable name="photoViewModel" type="com.erp.distribution.sfa.presentation.photo.PhotoViewModel"/>
+        <variable name="photoViewModel" type="com.erp.distribution.sfa.presentation.ui.photo.PhotoViewModel"/>
     </data>
 
 

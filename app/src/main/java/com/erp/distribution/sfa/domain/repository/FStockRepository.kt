@@ -1,7 +1,7 @@
 package com.erp.distribution.sfa.domain.repository
 
 import androidx.lifecycle.LiveData
-import com.erp.distribution.sfa.model.FStock
+import com.erp.distribution.sfa.data.source.entity.FStock
 import io.reactivex.Single
 import java.util.*
 

@@ -1,12 +1,10 @@
 package com.erp.distribution.sfa.data.repository
 
 import androidx.lifecycle.LiveData
-import com.erp.distribution.sfa.MainApplication
-import com.erp.distribution.sfa.data.source.remote.RetrofitServiceFWarehouse
-import com.erp.distribution.sfa.database.AppDatabase
+import com.erp.distribution.sfa.data.source.remote.service_api.RetrofitServiceFWarehouse
+import com.erp.distribution.sfa.data.source.local.database.AppDatabase
 import com.erp.distribution.sfa.domain.repository.FWarehouseRepository
-import com.erp.distribution.sfa.model.FWarehouse
-import com.erp.distribution.sfa.utils.Constants
+import com.erp.distribution.sfa.data.source.entity.FWarehouse
 import io.reactivex.Single
 
 

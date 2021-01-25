@@ -1,7 +1,7 @@
 package com.erp.distribution.sfa.data.repository
 
-import com.erp.distribution.sfa.database.AppDatabase
-import com.erp.distribution.sfa.data.source.remote.RetrofitService
+import com.erp.distribution.sfa.data.source.local.database.AppDatabase
+import com.erp.distribution.sfa.data.source.remote.service_api.RetrofitService
 import com.erp.distribution.sfa.domain.model.Photo
 import com.erp.distribution.sfa.domain.repository.PhotoRepository
 import io.reactivex.Single

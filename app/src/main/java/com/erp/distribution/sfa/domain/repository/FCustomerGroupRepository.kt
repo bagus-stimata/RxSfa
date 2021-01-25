@@ -1,7 +1,7 @@
 package com.erp.distribution.sfa.domain.repository
 
 import androidx.lifecycle.LiveData
-import com.erp.distribution.sfa.model.FCustomerGroup
+import com.erp.distribution.sfa.data.source.entity.FCustomerGroup
 import io.reactivex.Single
 
 /**

@@ -1,12 +1,10 @@
 package com.erp.distribution.sfa.data.repository
 
 import androidx.lifecycle.LiveData
-import com.erp.distribution.sfa.MainApplication
-import com.erp.distribution.sfa.data.source.remote.RetrofitServiceFMaterialGroup1
-import com.erp.distribution.sfa.database.AppDatabase
+import com.erp.distribution.sfa.data.source.remote.service_api.RetrofitServiceFMaterialGroup1
+import com.erp.distribution.sfa.data.source.local.database.AppDatabase
 import com.erp.distribution.sfa.domain.repository.FMaterialGroup1Repository
-import com.erp.distribution.sfa.model.FMaterialGroup1
-import com.erp.distribution.sfa.utils.Constants
+import com.erp.distribution.sfa.data.source.entity.FMaterialGroup1
 import io.reactivex.Single
 
 

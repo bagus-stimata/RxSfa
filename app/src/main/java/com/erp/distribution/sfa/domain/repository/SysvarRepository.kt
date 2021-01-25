@@ -1,7 +1,7 @@
 package com.erp.distribution.sfa.domain.repository
 
 import androidx.lifecycle.LiveData
-import com.erp.distribution.sfa.model.Sysvar
+import com.erp.distribution.sfa.data.source.entity.Sysvar
 import io.reactivex.Single
 
 /**

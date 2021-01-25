@@ -1,7 +1,7 @@
 package com.erp.distribution.sfa.domain.repository
 
 import androidx.lifecycle.LiveData
-import com.erp.distribution.sfa.security_model.FUser
+import com.erp.distribution.sfa.data.source.entity_security.FUser
 import io.reactivex.Single
 
 /**

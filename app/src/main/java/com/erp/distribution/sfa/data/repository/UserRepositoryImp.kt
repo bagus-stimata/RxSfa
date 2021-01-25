@@ -1,16 +1,11 @@
 package com.erp.distribution.sfa.data.repository
 
-import android.app.Application
-import android.util.Log
 import androidx.lifecycle.LiveData
-import com.erp.distribution.sfa.MainApplication
 import com.erp.distribution.sfa.domain.model.Album
-import com.erp.distribution.sfa.data.source.remote.RetrofitServiceSecurity
-import com.erp.distribution.sfa.database.AppDatabase
+import com.erp.distribution.sfa.data.source.remote.service_api.RetrofitServiceSecurity
+import com.erp.distribution.sfa.data.source.local.database.AppDatabase
 import com.erp.distribution.sfa.domain.repository.FUserRepository
-import com.erp.distribution.sfa.security_model.FUser
-import com.erp.distribution.sfa.utils.Constants
-import com.erp.distribution.sfa.utils.SecurityUtil
+import com.erp.distribution.sfa.data.source.entity_security.FUser
 import io.reactivex.Single
 
 

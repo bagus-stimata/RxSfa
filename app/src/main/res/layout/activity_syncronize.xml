@@ -3,16 +3,16 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    tools:context=".master.syncronize_fromserver.SyncronizeActivity">
+    tools:context=".presentation.ui.master.syncronize_fromserver.SyncronizeActivity">
 
     <data>
         <variable
             name="masterViewModel"
-            type="com.erp.distribution.sfa.master.MasterViewModel" />
+            type="com.erp.distribution.sfa.presentation.ui.master.MasterViewModel" />
 
         <variable
             name="activity"
-            type="com.erp.distribution.sfa.master.syncronize_fromserver.SyncronizeActivity" />
+            type="com.erp.distribution.sfa.presentation.ui.master.syncronize_fromserver.SyncronizeActivity" />
         <import type="android.view.View"/>
 
     </data>

@@ -2,26 +2,26 @@
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    tools:context=".MainActivity">
+    tools:context=".presentation.ui.MainActivity">
 
     <data>
 
         <variable
             name="userActive"
-            type="com.erp.distribution.sfa.security_model.FUser" />
+            type="com.erp.distribution.sfa.data.source.entity_security.FUser" />
         <variable
             name="divisionActive"
-            type="com.erp.distribution.sfa.model.FDivision" />
+            type="com.erp.distribution.sfa.data.source.entity.FDivision" />
         <variable
             name="salesmanActive"
-            type="com.erp.distribution.sfa.model.FSalesman" />
+            type="com.erp.distribution.sfa.data.source.entity.FSalesman" />
         <variable
             name="warehouseActive"
-            type="com.erp.distribution.sfa.model.FWarehouse" />
+            type="com.erp.distribution.sfa.data.source.entity.FWarehouse" />
 
         <variable
             name="activity"
-            type="com.erp.distribution.sfa.MainActivity" />
+            type="com.erp.distribution.sfa.presentation.ui.MainActivity" />
         <import type="android.view.View"/>
     </data>
 

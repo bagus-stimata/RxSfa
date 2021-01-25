@@ -3,7 +3,7 @@
     <data>
         <import type="android.view.View"/>
 
-        <variable name="photoDetailViewModel" type="com.erp.distribution.sfa.presentation.detailphoto.PhotoDetailViewModel"/>
+        <variable name="photoDetailViewModel" type="com.erp.distribution.sfa.presentation.ui.detailphoto.PhotoDetailViewModel"/>
 
     </data>
 
@@ -14,7 +14,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:fitsSystemWindows="true"
-            tools:context="com.erp.distribution.sfa.presentation.detailphoto.PhotoDetailActivity">
+            tools:context=".presentation.ui.detailphoto.PhotoDetailActivity">
 
         <com.google.android.material.appbar.AppBarLayout
                 android:id="@+id/detail_app_bar_layout"

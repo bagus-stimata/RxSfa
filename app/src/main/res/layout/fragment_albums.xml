@@ -5,7 +5,7 @@
 
         <import type="android.view.View"/>
 
-        <variable name="albumsViewModel" type="com.erp.distribution.sfa.presentation.album.AlbumsViewModel"/>
+        <variable name="albumsViewModel" type="com.erp.distribution.sfa.presentation.ui.album.AlbumsViewModel"/>
 
     </data>
 
