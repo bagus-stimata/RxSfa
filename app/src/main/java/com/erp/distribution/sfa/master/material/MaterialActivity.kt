@@ -10,12 +10,15 @@ import android.view.View
 import android.widget.RelativeLayout
 import android.widget.SearchView
 import android.widget.Toast
+import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.erp.distribution.sfa.MainViewModel
 import com.erp.distribution.sfa.model.FMaterial
 import com.erp.distribution.sfa.security_model.FUser
 import java.text.SimpleDateFormat
@@ -24,52 +27,93 @@ import java.util.function.Predicate
 import java.util.stream.Collectors
 import com.erp.distribution.sfa.R
 import com.erp.distribution.sfa.common_utils.AlertDialogWarning
+import com.erp.distribution.sfa.databinding.ActivitySyncronizeBinding
+import com.erp.distribution.sfa.databinding.ActiviyTemplate1Binding
+import com.erp.distribution.sfa.master.material.adapter.NoteAdapter
+import com.erp.distribution.sfa.presentation.extention.map
 import com.google.android.material.snackbar.Snackbar
 import dagger.hilt.android.AndroidEntryPoint
 import kotlin.collections.HashMap
 
 @AndroidEntryPoint
 class MaterialActivity : AppCompatActivity() {
-//    var apiAuthenticationClient: ApiAuthenticationClient? = null
+    private val TAG = MaterialActivity::class.java.simpleName
 
-    var userActive: FUser = FUser()
-    var fMaterialViewModel: MaterialViewModel? = null
-    private val adapter = MaterialAdapter()
-    lateinit var recyclerView: RecyclerView
-    var mapSource: MutableMap<Int?, FMaterial?> = HashMap<Int?, FMaterial?>()
-    var searchText = ""
-    lateinit var rootLayout: RelativeLayout
+    lateinit var binding: ActiviyTemplate1Binding
+//    private val viewModel: MaterialViewModel by viewModels<MaterialViewModel>()
+    private val mainViewModel: MainViewModel by viewModels<MainViewModel>()
 
-    interface OnViewListener {
-        fun aksiButtonFormSave()
-        fun aksiTableItemClick(note: FMaterial?)
+    private val adapter: NoteAdapter by lazy {
+        NoteAdapter { position -> doOnLongItemClickListener(position) }
     }
 
-    var onViewListener: OnViewListener? = null
+    var searchText = ""
+
+//    interface OnViewListener {
+//        fun aksiButtonFormSave()
+//        fun aksiTableItemClick(note: FMaterial?)
+//    }
+//    var onViewListener: OnViewListener? = null
+
     protected override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activiy_template1)
-        rootLayout = findViewById<RelativeLayout>(R.id.rootLayout)
 
+//        setContentView(R.layout.activiy_template1)
+        binding = ActiviyTemplate1Binding.inflate(layoutInflater)
+        setContentView(binding.root)
+
+
+//        rootLayout = findViewById<RelativeLayout>(R.id.rootLayout)
         getSupportActionBar()?.setDisplayHomeAsUpEnabled(true)
         getSupportActionBar()?.setDisplayShowHomeEnabled(true)
-        fMaterialViewModel =
-            ViewModelProvider(this).get<MaterialViewModel>(MaterialViewModel::class.java)
-        recyclerView = findViewById<RecyclerView>(R.id.recycler_view_customer)
-        recyclerView.setLayoutManager(LinearLayoutManager(this))
-        recyclerView.setHasFixedSize(true)
-        recyclerView.setAdapter(adapter)
-        //        recyclerView.setItemAnimator(new DefaultItemAnimator());
+//        fMaterialViewModel =
+//            ViewModelProvider(this).get<MaterialViewModel>(MaterialViewModel::class.java)
+//        recyclerView = findViewById<RecyclerView>(R.id.recycler_view_customer)
+//        recyclerView.setLayoutManager(LinearLayoutManager(this))
+//        recyclerView.setHasFixedSize(true)
+//        recyclerView.setAdapter(adapter)
+//        //        recyclerView.setItemAnimator(new DefaultItemAnimator());
+//
+//        //Tambah Devider dibawah setiap Item
+//        val dividerItemDecoration = DividerItemDecoration(this, DividerItemDecoration.VERTICAL)
+//        dividerItemDecoration.setDrawable(getResources().getDrawable(R.drawable.rv_divider))
+//        recyclerView.addItemDecoration(dividerItemDecoration)
 
+        initRecyclerView()
+        inizialize()
+        //        initListener()
+    }
+    private fun initRecyclerView() {
+
+        binding.recyclerViewTemplate1.layoutManager = LinearLayoutManager(this)
+        binding.recyclerViewTemplate1.setHasFixedSize(true)
+        binding.recyclerViewTemplate1.adapter = adapter
+
+//                recyclerView.setItemAnimator(new DefaultItemAnimator());
         //Tambah Devider dibawah setiap Item
         val dividerItemDecoration = DividerItemDecoration(this, DividerItemDecoration.VERTICAL)
         dividerItemDecoration.setDrawable(getResources().getDrawable(R.drawable.rv_divider))
-        recyclerView.addItemDecoration(dividerItemDecoration)
-        inizialize()
+        binding.recyclerViewTemplate1.addItemDecoration(dividerItemDecoration)
+
+
     }
 
     fun inizialize() {
-        initListener()
+
+        mainViewModel.getCacheFMaterial
+            .map {
+                it.sortedWith(compareBy({it.pname}))
+//                it : tidak jalan akru paia ini bos (pakai atas saja)
+            }
+            .observe(this, Observer {
+            it?.let {
+                adapter.updateData(it.toMutableList())
+                Log.d(TAG, "#result Material Size ${it.size}")
+            }
+        })
+
+
+
     }
 
     fun initListener() {
@@ -117,25 +161,25 @@ class MaterialActivity : AppCompatActivity() {
             }
 
             override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
-                val deletedFMaterial: FMaterial =
-                    fMaterialViewModel!!.delete(adapter.getFMaterialAt(viewHolder.getAdapterPosition())!!)
-                mapSource.remove(deletedFMaterial.id)
-                adapter.submitList(ArrayList<FMaterial>(mapSource.values))
-
-                // showing snack bar with Undo option
-                val snackbar: Snackbar = Snackbar
-                    .make(rootLayout, "Terhapus dari daftar!", Snackbar.LENGTH_LONG)
-                snackbar.setAction("UNDO", View.OnClickListener {
-                    fMaterialViewModel!!.insert(deletedFMaterial)
-                    mapSource[deletedFMaterial.id] = deletedFMaterial
-                    adapter.submitList(ArrayList<FMaterial>(mapSource.values))
-                })
-                snackbar.setActionTextColor(Color.YELLOW)
-                snackbar.show()
-                Toast.makeText(this@MaterialActivity, "FMaterial deleted", Toast.LENGTH_SHORT)
-                    .show()
+//                val deletedFMaterial: FMaterial =
+//                    fMaterialViewModel!!.delete(adapter.getFMaterialAt(viewHolder.getAdapterPosition())!!)
+//                mapSource.remove(deletedFMaterial.id)
+//                adapter.submitList(ArrayList<FMaterial>(mapSource.values))
+//
+//                // showing snack bar with Undo option
+//                val snackbar: Snackbar = Snackbar
+//                    .make(rootLayout, "Terhapus dari daftar!", Snackbar.LENGTH_LONG)
+//                snackbar.setAction("UNDO", View.OnClickListener {
+//                    fMaterialViewModel!!.insert(deletedFMaterial)
+//                    mapSource[deletedFMaterial.id] = deletedFMaterial
+//                    adapter.submitList(ArrayList<FMaterial>(mapSource.values))
+//                })
+//                snackbar.setActionTextColor(Color.YELLOW)
+//                snackbar.show()
+//                Toast.makeText(this@MaterialActivity, "FMaterial deleted", Toast.LENGTH_SHORT)
+//                    .show()
             }
-        }).attachToRecyclerView(recyclerView)
+        }).attachToRecyclerView(binding.recyclerViewTemplate1)
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
@@ -152,13 +196,13 @@ class MaterialActivity : AppCompatActivity() {
                 searchText = newText
                 //                Log.d("Ini Filter", newText);
                 if (newText != null) {
-                    adapter.submitList(
-                        mapSource.values.stream().filter(Predicate<FMaterial?> { x: FMaterial? ->
-                            x!!.pname.toLowerCase().contains(newText.toLowerCase())
-                        }).collect(
-                            Collectors.toList()
-                        )
-                    )
+//                    adapter.submitList(
+//                        mapSource.values.stream().filter(Predicate<FMaterial?> { x: FMaterial? ->
+//                            x!!.pname.toLowerCase().contains(newText.toLowerCase())
+//                        }).collect(
+//                            Collectors.toList()
+//                        )
+//                    )
                     return true
                 }
                 return false
@@ -227,6 +271,23 @@ class MaterialActivity : AppCompatActivity() {
             .setOnClickListener(View.OnClickListener { view: View? -> alert.dismiss() })
         alert.showDialog()
     }
+
+    private fun doOnLongItemClickListener(position: Int) {
+        println("Oke ON long klik listener")
+//        bottomSheetDialog?.show()
+//
+//        bottomSheetDialog?.delete_item_note_button?.setOnClickListener { view ->
+//            val note = adapter.getDataAtPosition(position)
+//
+//            val disposable = Observable.just(true)
+//                    .observeOn(Schedulers.io())
+//                    .doOnNext { noteViewModel.deleteNote(note) }
+//                    .observeOn(AndroidSchedulers.mainThread())
+//                    .subscribe { bottomSheetDialog?.dismiss() }
+//            compositeDisposable.add(disposable)
+//        }
+    }
+
 
     companion object {
         const val ADD_NOTE_REQUEST = 1

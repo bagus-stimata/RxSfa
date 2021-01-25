@@ -8,6 +8,7 @@ import androidx.lifecycle.ViewModel
 import com.erp.distribution.sfa.domain.model.Photo
 import com.erp.distribution.sfa.domain.usecase.*
 import com.erp.distribution.sfa.model.FDivision
+import com.erp.distribution.sfa.model.FMaterial
 import com.erp.distribution.sfa.model.FSalesman
 import com.erp.distribution.sfa.model.FWarehouse
 import com.erp.distribution.sfa.presentation.extention.map
@@ -28,7 +29,8 @@ class MainViewModel  @ViewModelInject constructor(
         private val getFSalesmanUseCase: GetFSalesmanUseCase,
         private val getFDivisionUseCase: GetFDivisionUseCase,
         private val getFCompanyUseCase: GetFCompanyUseCase,
-        private val getFWarehouseUseCase: GetFWarehouseUseCase
+        private val getFWarehouseUseCase: GetFWarehouseUseCase,
+        private val getFMaterialUseCase: GetFMaterialUseCase
 )  : ViewModel() {
     private val TAG = MainViewModel::class.java.simpleName
     var userActive: FUser = FUser()
@@ -257,4 +259,6 @@ class MainViewModel  @ViewModelInject constructor(
     }
 
 
+    val getCacheFMaterial: LiveData<List<FMaterial>>
+        get() = getFMaterialUseCase.getCacheAllFMaterial()
 }

@@ -38,7 +38,7 @@
 <!--        app:rightText="delete"/>-->
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/recycler_view_customer"
+        android:id="@+id/recycler_view_template1"
         android:background="@android:color/white"
         android:layout_width="match_parent"
         android:layout_below="@id/app_bar"

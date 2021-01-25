@@ -216,12 +216,9 @@ class FMaterial  (
     //Dalam Grams
     var caseWeight : Int,
 
-//    @Ignore
-    var isStared: Boolean = false,
-//    @Ignore
-    var isUnread: Boolean = false,
-//    @Ignore
-    var isSelected: Boolean = false,
+    var stared: Boolean? = false,
+    var unread: Boolean? = false,
+    var selected: Boolean? = false,
 
 
     var created : Date = Date(),

@@ -1,8 +1,6 @@
 package com.erp.distribution.sfa.master.material
 
-import android.app.Application
 import androidx.hilt.lifecycle.ViewModelInject
-import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -19,6 +17,7 @@ class MaterialViewModel @ViewModelInject constructor(
     val allFMaterialLive: LiveData<List<FMaterial>>? = null
     private val listFMaterial: List<FMaterial> = ArrayList()
     protected var itemHeader: MutableLiveData<FMaterial>? = null
+
     fun insert(fMaterial: FMaterial): FMaterial {
 //        repository.insert(fMaterial);
         return fMaterial

@@ -65,34 +65,34 @@ class MaterialAdapter : ListAdapter<FMaterial, FMaterialHolder>(DIFF_CALLBACK) {
                 fMaterial.sprice2AfterPpn
             )
             txtDate.text = sdf.format(fMaterial.modified)
-            txtUser.setTypeface(
-                Typeface.DEFAULT,
-                if (fMaterial.isSelected) Typeface.BOLD else Typeface.NORMAL
-            )
-            txtSubject.setTypeface(
-                Typeface.DEFAULT,
-                if (fMaterial.isSelected) Typeface.BOLD else Typeface.NORMAL
-            )
-            txtDate.setTypeface(
-                Typeface.DEFAULT,
-                if (fMaterial.isSelected) Typeface.BOLD else Typeface.NORMAL
-            )
-            imgStar.setImageResource(if (fMaterial.isStared) R.drawable.ic_star_black_24dp else R.drawable.ic_star_border_black_24dp)
-            if (fMaterial.isSelected) {
-                txtIcon.background =
-                    oval(Color.rgb(26, 115, 233), txtIcon)
-                val gradientDrawable = GradientDrawable()
-                gradientDrawable.shape = GradientDrawable.RECTANGLE
-                gradientDrawable.cornerRadius = 32f
-                gradientDrawable.setColor(Color.rgb(232, 240, 253))
-                itemView.background = gradientDrawable
-            } else {
-                val gradientDrawable = GradientDrawable()
-                gradientDrawable.shape = GradientDrawable.RECTANGLE
-                gradientDrawable.cornerRadius = 32f
-                gradientDrawable.setColor(Color.WHITE)
-                itemView.background = gradientDrawable
-            }
+//            txtUser.setTypeface(
+//                Typeface.DEFAULT,
+//                if (fMaterial.isSelected) Typeface.BOLD else Typeface.NORMAL
+//            )
+//            txtSubject.setTypeface(
+//                Typeface.DEFAULT,
+//                if (fMaterial.isSelected) Typeface.BOLD else Typeface.NORMAL
+//            )
+//            txtDate.setTypeface(
+//                Typeface.DEFAULT,
+//                if (fMaterial.isSelected) Typeface.BOLD else Typeface.NORMAL
+//            )
+//            imgStar.setImageResource(if (fMaterial.isStared) R.drawable.ic_star_black_24dp else R.drawable.ic_star_border_black_24dp)
+//            if (fMaterial.isSelected) {
+//                txtIcon.background =
+//                    oval(Color.rgb(26, 115, 233), txtIcon)
+//                val gradientDrawable = GradientDrawable()
+//                gradientDrawable.shape = GradientDrawable.RECTANGLE
+//                gradientDrawable.cornerRadius = 32f
+//                gradientDrawable.setColor(Color.rgb(232, 240, 253))
+//                itemView.background = gradientDrawable
+//            } else {
+//                val gradientDrawable = GradientDrawable()
+//                gradientDrawable.shape = GradientDrawable.RECTANGLE
+//                gradientDrawable.cornerRadius = 32f
+//                gradientDrawable.setColor(Color.WHITE)
+//                itemView.background = gradientDrawable
+//            }
 
             // animation
             if (selectedItems.size() > 0) animate(txtIcon, fMaterial)
@@ -108,8 +108,8 @@ class MaterialAdapter : ListAdapter<FMaterial, FMaterialHolder>(DIFF_CALLBACK) {
             oa1.addListener(object : AnimatorListenerAdapter() {
                 override fun onAnimationEnd(animation: Animator) {
                     super.onAnimationEnd(animation)
-                    if (fMaterial!!.isSelected) view.text = "\u2713"
-                    oa2.start()
+//                    if (fMaterial!!.isSelected) view.text = "\u2713"
+//                    oa2.start()
                 }
             })
             oa1.start()
