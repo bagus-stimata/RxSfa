@@ -3,8 +3,8 @@ package com.erp.distribution.sfa.model
 import androidx.room.Entity
 import androidx.room.Ignore
 import androidx.room.PrimaryKey
-import com.erp.distribution.sfa.model.modelenum.EnumMaterialType
 import com.erp.distribution.sfa.model.modelenum.EnumUom
+import org.codehaus.jackson.annotate.JsonIgnore
 import java.util.*
 
 //@Entity(tableName = "fmaterial")
@@ -216,99 +216,18 @@ class FMaterial  (
     //Dalam Grams
     var caseWeight : Int,
 
-    //IN Cm.. Cm3
 //    @Ignore
-//    var caseWidth : Int, //Panjang
-
+    var isStared: Boolean = false,
 //    @Ignore
-//    var caseHeight : Int, //Tinggi
-
+    var isUnread: Boolean = false,
 //    @Ignore
-//    var caseDepth : Int, //Lebar (dibalik kan kalau english.. hehehe)
-
-//    @Ignore
-//    var isFlagNewItem : Boolean,
-
-//    @Ignore
-//    var isFlagNewPrice : Boolean,
-
-//    @Ignore
-//    var isUseSpriceAlt : Boolean,
-
-    //#PRICEALT1 -- Retail -->ALL AFTER PPN
-    //Retail-Besar
-//    @Ignore
-//    var spriceAltRetailBes : Int,
-
-    //Retail-Sedang
-//    @Ignore
-//    var spriceAltRetailSed : Int,
-
-    //Retail-Kecil
-//    @Ignore
-//    var spriceAltRetailKec : Int,
-
-    //#PRICEALT2 --> Grosir 1
-    //Grosir-Besar
-//    @Ignore
-//    var spriceAltGrosir1Bes : Int,
-
-    //Grosir-Sed
-//    @Ignore
-//    var spriceAltGrosir1Sed : Int,
-
-    //Grosir-Kec
-//    @Ignore
-//    var spriceAltGrosir1Kec : Int,
-
-    //#PRICEALT3 --> Grosir 2
-    //Grosir2-Bes
-    //Grosir-Besar
-//    @Ignore
-//    var spriceAltGrosir2Bes : Int,
-
-    //Grosir-Sed
-//    @Ignore
-//    var spriceAltGrosir2Sed : Int,
-
-    //Grosir-Kec
-//    @Ignore
-//    var spriceAltGrosir2Kec : Int,
-
-    //Grosir Quantity
-//    @Ignore
-//    var spriceAltGrosirQtyMoreEqual1 : Int,
-
-//    @Ignore
-//    var spriceAltGrosirQtyMoreEqual2 : Int,
-
-//    @Ignore
-//    var spriceAltGrosirQtyMoreEqual3 : Int,
-
-//    @Ignore
-//    var spriceAltGrosirQtyMoreEqual4 : Int,
-
-//    @Ignore
-//    var spriceAltGrosirQtyValue1 : Int,
+    var isSelected: Boolean = false,
 
 
-//    @Ignore
-//    var spriceAltGrosirQtyValue2 : Int,
-//    @Ignore
-//    var spriceAltGrosirQtyValue3 : Int,
-//    @Ignore
-//    var spriceAltGrosirQtyValue4 : Int,
-
-     
     var created : Date = Date(),
      
     var modified : Date = Date(),
 
     var modifiedBy : String //User ID
-
-//    @Ignore
-//    var isStared : Boolean,
-//    @Ignore
-//    var isUnread : Boolean,
 
 )

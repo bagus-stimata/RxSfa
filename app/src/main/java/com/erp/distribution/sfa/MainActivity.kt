@@ -15,6 +15,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import com.erp.distribution.sfa.databinding.ActivityMainDashboardBinding
 import com.erp.distribution.sfa.common_utils.AlertDialogConfirm
+import com.erp.distribution.sfa.master.material.MaterialActivity
 import com.erp.distribution.sfa.master.syncronize_fromserver.SyncronizeActivity
 import com.erp.distribution.sfa.security_model.FUser
 import com.erp.distribution.sfa.utils.DisposableManager
@@ -415,8 +416,8 @@ class MainActivity : AppCompatActivity() {
     }
 
     fun menuProduct() {
-//        val intent = Intent(this@MainActivity, MaterialActivity::class.java)
-//        startActivity(intent)
+        val intent = Intent(this@MainActivity, MaterialActivity::class.java)
+        startActivity(intent)
     }
 
     fun menuCustomer() {
