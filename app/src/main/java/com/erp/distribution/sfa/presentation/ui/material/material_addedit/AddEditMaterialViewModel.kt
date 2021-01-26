@@ -18,11 +18,11 @@ import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.flow.receiveAsFlow
 import kotlinx.coroutines.launch
 
-class MaterialViewModelAddEdit @ViewModelInject constructor(
+class AddEditMaterialViewModel @ViewModelInject constructor(
     private val getFMaterialUseCase: GetFMaterialUseCase,
     @Assisted private val state: SavedStateHandle
 ) : ViewModel() {
-    val TAG = MaterialViewModelAddEdit::class.java.simpleName
+    val TAG = AddEditMaterialViewModel::class.java.simpleName
 
     val fMaterial = state.get<FMaterial>("fMaterial")
 

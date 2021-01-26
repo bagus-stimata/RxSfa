@@ -8,6 +8,7 @@ import com.erp.distribution.sfa.data.di.PreferencesManager
 import com.erp.distribution.sfa.data.di.SortOrder
 import com.erp.distribution.sfa.data.source.entity.FMaterial
 import com.erp.distribution.sfa.domain.usecase.GetFMaterialUseCase
+import com.erp.distribution.sfa.presentation.ui.material.material_addedit.AddEditMaterialViewModel
 import com.erp.distribution.sfa.presentation.ui.test.mvvm_todo.ADD_TASK_RESULT_OK
 import com.erp.distribution.sfa.presentation.ui.test.mvvm_todo.EDIT_TASK_RESULT_OK
 import com.erp.distribution.sfa.utils.DisposableManager
@@ -150,5 +151,8 @@ class MaterialViewModel @ViewModelInject constructor(
         data class ShowUndoDeleteMaterialMessage(val fMaterial: FMaterial) : MaterialEvent()
         data class ShowMaterialSavedConfirmationMessage(val msg: String) : MaterialEvent()
         object NavigateToDeleteAllCompletedScreen : MaterialEvent()
+
+        data class NavigateBackWithResult(val result: Int) : MaterialViewModel.MaterialEvent()
+
     }
 }

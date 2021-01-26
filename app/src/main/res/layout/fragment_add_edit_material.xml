@@ -3,7 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".presentation.ui.material.material_addedit.MaterialFragmentAddEdit">
+    tools:context=".presentation.ui.material.material_addedit.AddEditMaterialFragment">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -15,7 +15,7 @@
             android:id="@+id/edit_text_material_name"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Maerial/Produk name"
+            android:hint="Material/Produk name"
             android:inputType="text" />
 
         <CheckBox

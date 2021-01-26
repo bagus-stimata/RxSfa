@@ -16,7 +16,7 @@
     </fragment>
     <fragment
         android:id="@+id/materialFragmentAddEdit"
-        android:name="com.erp.distribution.sfa.presentation.ui.material.material_addedit.MaterialFragmentAddEdit"
+        android:name="com.erp.distribution.sfa.presentation.ui.material.material_addedit.AddEditMaterialFragment"
         android:label="{title}"
         tools:layout="@layout/fragment_add_edit_material">
         <argument

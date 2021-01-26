@@ -7,7 +7,9 @@ import android.view.MenuInflater
 import android.view.MenuItem
 import android.view.View
 import androidx.appcompat.widget.SearchView
+import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.setFragmentResult
 import androidx.fragment.app.setFragmentResultListener
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
@@ -40,6 +42,7 @@ class MaterialFragment : Fragment(R.layout.fragment_material), MaterialAdapter.O
         val binding = FragmentMaterialBinding.bind(view)
 
         val materialAdapter = MaterialAdapter(this)
+
 
         binding.apply {
             recyclerViewMaterial.apply {
@@ -127,6 +130,17 @@ class MaterialFragment : Fragment(R.layout.fragment_material), MaterialAdapter.O
 //                        val action =
 //                                MaterialFragmentDirections.actionGlobalDeleteAllCompletedDialogFragment()
 //                        findNavController().navigate(action)
+//                    }
+
+
+                    //Kamu Bisa Back Jika Kamu  Menggunakan Navigation ini
+//                    is MaterialViewModel.MaterialEvent.NavigateBackWithResult -> {
+////                        binding.editTextMaterialName.clearFocus()
+////                        setFragmentResult(
+////                                "add_edit_request",
+////                                bundleOf("add_edit_result" to event.result)
+////                        )
+//                        findNavController().popBackStack()
 //                    }
 
                     else -> {}
