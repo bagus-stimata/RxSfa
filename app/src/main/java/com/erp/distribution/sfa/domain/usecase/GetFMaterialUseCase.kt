@@ -1,10 +1,12 @@
 package com.erp.distribution.sfa.domain.usecase
 
 import androidx.lifecycle.LiveData
+import com.erp.distribution.sfa.data.di.SortOrder
 import com.erp.distribution.sfa.domain.repository.FMaterialRepository
 import com.erp.distribution.sfa.domain.usecase.base.SingleUseCase
 import com.erp.distribution.sfa.data.source.entity.FMaterial
 import io.reactivex.Single
+import kotlinx.coroutines.flow.Flow
 import javax.inject.Inject
 
 
@@ -42,6 +44,9 @@ class GetFMaterialUseCase @Inject constructor(private val repository: FMaterialR
 
     fun getCacheAllFMaterial(): LiveData<List<FMaterial>>{
         return repository.getCacheAllFMaterial()
+    }
+    fun getCacheAllFMaterialFlow(query: String, sortOrder: SortOrder, hideSelected: Boolean): Flow<List<FMaterial>> {
+        return repository.getCacheAllFMaterialFlow(query, sortOrder, hideSelected)
     }
     fun getCacheFMaterialById(id: Int): LiveData<FMaterial>{
         return repository.getCacheFMaterialById(id)

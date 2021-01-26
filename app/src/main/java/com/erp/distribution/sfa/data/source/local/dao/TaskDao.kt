@@ -10,7 +10,7 @@ interface TaskDao {
 
     fun getTasks(query: String, sortOrder: SortOrder, hideCompleted: Boolean): Flow<List<Task>> =
         when (sortOrder) {
-            SortOrder.BY_DATE -> getTasksSortedByDateCreated(query, hideCompleted)
+            SortOrder.BY_KODE -> getTasksSortedByDateCreated(query, hideCompleted)
             SortOrder.BY_NAME -> getTasksSortedByName(query, hideCompleted)
         }
 

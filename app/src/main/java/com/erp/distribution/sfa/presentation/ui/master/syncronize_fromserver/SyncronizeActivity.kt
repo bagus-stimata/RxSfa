@@ -85,30 +85,6 @@ class SyncronizeActivity : AppCompatActivity() {
             }
         })
 
-//        val observerMaterial = viewModel.getFMaterialFromRepo()
-//            .map { data ->
-//                data.map {
-////                    it.sprice = "Malang"
-////                    it.oldKode1 = "Kuno LU"
-//                    it
-//                }
-//            }
-//            .observeOn(AndroidSchedulers.mainThread())
-//            .subscribeOn(Schedulers.io())
-//            .subscribe(
-//                {
-//                    viewModel.insertCacheFMaterial(it as List<FMaterial>)
-//                },
-//                {
-//
-//                },
-//                {
-//
-//                }
-//            )
-//
-//        compositeDisposable.add(observerMaterial)
-
 
 
         viewModel.getCacheFCustomerLive().observe(this, Observer {

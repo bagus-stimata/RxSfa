@@ -1,8 +1,10 @@
 package com.erp.distribution.sfa.domain.repository
 
 import androidx.lifecycle.LiveData
+import com.erp.distribution.sfa.data.di.SortOrder
 import com.erp.distribution.sfa.data.source.entity.FMaterial
 import io.reactivex.Single
+import kotlinx.coroutines.flow.Flow
 
 /**
  * To make an interaction between [AlbumRepositoryImp] & [GetAlbumsUseCase]
@@ -16,6 +18,7 @@ interface FMaterialRepository {
     fun deleteRemoteFMaterial(authHeader: String, id: Int): Single<FMaterial>
 
     fun getCacheAllFMaterial(): LiveData<List<FMaterial>>
+    fun getCacheAllFMaterialFlow(query: String, sortOrder: SortOrder, hideSelected: Boolean): Flow<List<FMaterial>>
     fun getCacheFMaterialById(id: Int): LiveData<FMaterial>
     fun getCacheAllFMaterialByDivision(divisionId: Int): LiveData<List<FMaterial>>
     fun addCacheFMaterial(fMaterial: FMaterial)

@@ -16,6 +16,7 @@
         android:usesCleartextTraffic="true"
         android:theme="@style/Theme.RxSfa">
 <!--        <activity android:name="com.erp.distribution.sfa.presentation.ui.gallery.GalleryActivity">-->
+<!--        <activity android:name=".presentation.ui.MainActivity">-->
         <activity android:name=".presentation.ui.mvvm_todo.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -29,7 +30,7 @@
 
         <activity android:name=".presentation.ui.LoginActivity"/>
         <activity android:name="com.erp.distribution.sfa.presentation.ui.master.syncronize_fromserver.SyncronizeActivity"/>
-        <activity android:name="com.erp.distribution.sfa.presentation.ui.master.material.MaterialActivity"/>
+        <activity android:name="com.erp.distribution.sfa.presentation.ui.master.material_lama.MaterialActivity"/>
 
 
         <!--    <activity android:name=".sfa.master.syncronize_fromserver.SyncronizeActivity"/>-->

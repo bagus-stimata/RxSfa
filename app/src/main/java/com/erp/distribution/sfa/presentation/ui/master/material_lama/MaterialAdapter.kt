@@ -1,4 +1,4 @@
-package com.erp.distribution.sfa.presentation.ui.master.material
+package com.erp.distribution.sfa.presentation.ui.master.material_lama
 
 import android.animation.Animator
 import android.animation.AnimatorListenerAdapter
@@ -19,7 +19,7 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.erp.distribution.sfa.R
-import com.erp.distribution.sfa.presentation.ui.master.material.MaterialAdapter.FMaterialHolder
+import com.erp.distribution.sfa.presentation.ui.master.material_lama.MaterialAdapter.FMaterialHolder
 import com.erp.distribution.sfa.data.source.entity.FMaterial
 import java.text.NumberFormat
 import java.text.SimpleDateFormat
@@ -59,10 +59,12 @@ class MaterialAdapter : ListAdapter<FMaterial, FMaterialHolder>(DIFF_CALLBACK) {
                 oval(Color.rgb(hash, hash / 2, 0), txtIcon)
             txtUser.text = fMaterial.pname
             txtSubject.text = fMaterial.pcode
-            txtPreview.text = "IDR " + nf.format(fMaterial.spriceAfterPpn) + " @" + nf.format(
-                fMaterial.sprice2AfterPpn
-            )
+            txtPreview.text = "IDR ${nf.format(fMaterial.spriceAfterPpn)} @ ${nf.format(fMaterial.sprice2AfterPpn)}"
+
             txtDate.text = sdf.format(fMaterial.modified)
+
+
+
 //            txtUser.setTypeface(
 //                Typeface.DEFAULT,
 //                if (fMaterial.isSelected) Typeface.BOLD else Typeface.NORMAL
@@ -91,6 +93,8 @@ class MaterialAdapter : ListAdapter<FMaterial, FMaterialHolder>(DIFF_CALLBACK) {
 //                gradientDrawable.setColor(Color.WHITE)
 //                itemView.background = gradientDrawable
 //            }
+
+
 
             // animation
             if (selectedItems.size() > 0) animate(txtIcon, fMaterial)

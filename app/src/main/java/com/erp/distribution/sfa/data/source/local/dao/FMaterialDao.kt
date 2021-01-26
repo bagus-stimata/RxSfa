@@ -1,8 +1,11 @@
 package com.erp.distribution.sfa.data.source.local.dao
 
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.room.*
+import com.erp.distribution.sfa.data.di.SortOrder
 import com.erp.distribution.sfa.data.source.entity.FMaterial
+import kotlinx.coroutines.flow.Flow
 
 /**
  * Dao ini belum di koneksikan dengan database manapun
@@ -27,6 +30,41 @@ interface FMaterialDao {
 
     @Query("DELETE FROM fMaterial")
     fun deleteAllFMaterial()
+
+
+    fun getAllFMaterialFlow(query: String, sortOrder: SortOrder, hideSelected: Boolean?): Flow<List<FMaterial>> =
+            when (sortOrder) {
+//                SortOrder.BY_DATE -> getAllFMaterialSortedByDateCreated(query!!, hideSelected!!)
+//                SortOrder.BY_NAME -> getAllFMaterialSortedByName(query!!, hideSelected!!)
+                SortOrder.BY_KODE -> {
+//                    Log.d("#result", "By Date")
+                    getAllFMaterialSortedByIDFLow(query)
+                }
+                SortOrder.BY_NAME -> {
+//                    Log.d("#result", "by Name")
+                    getAllFMaterialSortedByNameFLow(query)
+                }
+//                else -> getAllFMaterialFLow()
+            }
+
+//    @Query("SELECT * FROM fMaterial WHERE (selected != :hideSelected OR selected = 0) AND pname LIKE '%' || :searchQuery || '%' ORDER BY selected DESC, pname")
+//    fun getAllFMaterialSortedByName(searchQuery: String, hideSelected: Boolean): Flow<List<FMaterial>>
+    @Query("SELECT * FROM fMaterial WHERE (selected = :hideSelected OR selected = 0 OR selected = NULL) AND pname LIKE '%' || :searchQuery || '%' ORDER BY pname ")
+    fun getAllFMaterialSortedByName(searchQuery: String, hideSelected: Boolean): Flow<List<FMaterial>>
+
+//    @Query("SELECT * FROM fMaterial WHERE (selected != :hideSelected OR selected = 0) AND pname LIKE '%' || :searchQuery || '%' ORDER BY selected DESC, created")
+//    fun getAllFMaterialSortedByDateCreated(searchQuery: String, hideSelected: Boolean): Flow<List<FMaterial>>
+    @Query("SELECT * FROM fMaterial WHERE (selected = :hideSelected OR selected = 0 OR selected = NULL) AND pname LIKE '%' || :searchQuery || '%'  ORDER BY created ")
+    fun getAllFMaterialSortedByDateCreated(searchQuery: String, hideSelected: Boolean): Flow<List<FMaterial>>
+
+    @Query("SELECT * FROM fMaterial WHERE  pname LIKE '%' || :searchQuery || '%'  ORDER BY pname ")
+    fun getAllFMaterialSortedByNameFLow(searchQuery: String): Flow<List<FMaterial>>
+    @Query("SELECT * FROM fMaterial WHERE  pname LIKE '%' || :searchQuery || '%'  ORDER BY pcode ")
+    fun getAllFMaterialSortedByIDFLow(searchQuery: String): Flow<List<FMaterial>>
+
+    @Query("SELECT * FROM fMaterial ")
+    fun getAllFMaterialFLow(): Flow<List<FMaterial>>
+
 
     @Query("SELECT * FROM fMaterial WHERE id = :id ")
     fun getAllById(id: Int): FMaterial

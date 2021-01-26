@@ -1,4 +1,4 @@
-package com.erp.distribution.sfa.presentation.ui.master.material.adapter
+package com.erp.distribution.sfa.presentation.ui.master.material_lama.adapter
 
 import android.graphics.Color
 import android.graphics.drawable.ShapeDrawable
@@ -87,7 +87,7 @@ class NoteAdapter(private val itemLongClickListener: (Int) -> Unit) : RecyclerVi
 
 class NoteViewHolder(private val itemBinding: AdapterRvItemTemplate1Binding,
                      itemLongClickListener: (Int) -> Unit) : RecyclerView.ViewHolder(itemBinding.root) {
-    var sdf = SimpleDateFormat("dd MMM yyyy")
+    val sdf = SimpleDateFormat("dd MMM yyyy")
     val nf = NumberFormat.getInstance()
 
     init {

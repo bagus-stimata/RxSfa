@@ -1,4 +1,4 @@
-package com.erp.distribution.sfa.presentation.ui.master.material.adapter
+package com.erp.distribution.sfa.presentation.ui.master.material_lama.adapter
 
 import androidx.recyclerview.widget.DiffUtil
 import com.erp.distribution.sfa.data.source.entity.FMaterial

@@ -12,12 +12,13 @@ import androidx.fragment.app.setFragmentResultListener
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
+import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.erp.distribution.sfa.data.di.SortOrder
+import com.erp.distribution.sfa.data.source.entity.FMaterial
 import com.erp.distribution.sfa.databinding.FragmentTasksBinding
-import com.erp.distribution.sfa.data.source.entity.Task
 import com.erp.distribution.sfa.presentation.ui.utils.onQueryTextChanged
 import com.erp.distribution.sfa.utils.exhaustive
 import com.google.android.material.snackbar.Snackbar
@@ -47,6 +48,7 @@ class TasksFragment : Fragment(R.layout.fragment_tasks), TasksAdapter.OnItemClic
                 setHasFixedSize(true)
             }
 
+
             ItemTouchHelper(object : ItemTouchHelper.SimpleCallback(
                 0,
                 ItemTouchHelper.LEFT or ItemTouchHelper.RIGHT
@@ -63,11 +65,24 @@ class TasksFragment : Fragment(R.layout.fragment_tasks), TasksAdapter.OnItemClic
                     val task = taskAdapter.currentList[viewHolder.adapterPosition]
                     viewModel.onTaskSwiped(task)
                 }
+
             }).attachToRecyclerView(recyclerViewTasks)
+
+
 
             fabAddTask.setOnClickListener {
                 viewModel.onAddNewTaskClick()
             }
+
+
+            /**
+             * adapter line
+             */
+            val dividerItemDecoration = DividerItemDecoration( context, DividerItemDecoration.VERTICAL)
+            dividerItemDecoration.setDrawable(getResources().getDrawable(R.drawable.rv_divider))
+            binding.recyclerViewTasks.addItemDecoration(dividerItemDecoration)
+
+
         }
 
         setFragmentResultListener("add_edit_request") { _, bundle ->
@@ -120,16 +135,16 @@ class TasksFragment : Fragment(R.layout.fragment_tasks), TasksAdapter.OnItemClic
         setHasOptionsMenu(true)
     }
 
-    override fun onItemClick(task: Task) {
+    override fun onItemClick(task: FMaterial) {
         viewModel.onTaskSelected(task)
     }
 
-    override fun onCheckBoxClick(task: Task, isChecked: Boolean) {
+    override fun onCheckBoxClick(task: FMaterial, isChecked: Boolean) {
         viewModel.onTaskCheckedChanged(task, isChecked)
     }
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
-        inflater.inflate(R.menu.menu_fragment_tasks, menu)
+        inflater.inflate(R.menu.menu_fragment_task, menu)
 
         val searchItem = menu.findItem(R.id.action_search)
         searchView = searchItem.actionView as SearchView
@@ -145,7 +160,7 @@ class TasksFragment : Fragment(R.layout.fragment_tasks), TasksAdapter.OnItemClic
         }
 
         viewLifecycleOwner.lifecycleScope.launch {
-            menu.findItem(R.id.action_hide_completed_tasks).isChecked =
+            menu.findItem(R.id.action_hide_inactive_material).isChecked =
                 viewModel.preferencesFlow.first().hideCompleted
         }
 
@@ -157,19 +172,19 @@ class TasksFragment : Fragment(R.layout.fragment_tasks), TasksAdapter.OnItemClic
                 viewModel.onSortOrderSelected(SortOrder.BY_NAME)
                 true
             }
-            R.id.action_sort_by_date_created -> {
-                viewModel.onSortOrderSelected(SortOrder.BY_DATE)
+            R.id.action_sort_by_kode -> {
+                viewModel.onSortOrderSelected(SortOrder.BY_KODE)
                 true
             }
-            R.id.action_hide_completed_tasks -> {
+            R.id.action_hide_inactive_material -> {
                 item.isChecked = !item.isChecked
                 viewModel.onHideCompletedClick(item.isChecked)
                 true
             }
-            R.id.action_delete_all_completed_tasks -> {
-                viewModel.onDeleteAllCompletedClick()
-                true
-            }
+//            R.id.action_delete_all_completed_tasks -> {
+//                viewModel.onDeleteAllCompletedClick()
+//                true
+//            }
             else -> super.onOptionsItemSelected(item)
         }
     }

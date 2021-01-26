@@ -1,15 +1,19 @@
 package com.erp.distribution.sfa.data.source.entity
 
+import android.os.Parcelable
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 import com.erp.distribution.sfa.data.source.entity.modelenum.EnumUom
+import kotlinx.android.parcel.Parcelize
+import java.text.DateFormat
 import java.util.*
 
 //@Entity(tableName = "fmaterial")
+@Parcelize
 @Entity(tableName = "fMaterial")
-class FMaterial  (
+data class FMaterial  (
     @PrimaryKey
-    var id : Int,
+    var id : Int =0,
 
     /*
     * JIKA COPY DARI TEMPAT LAIN: MAKA SEBAGAI LOG TRACK MENINGGALKAN SOURCE_ID = ID sumber asal dia dicopy
@@ -18,27 +22,27 @@ class FMaterial  (
     * 2. 
     */
 //    @Ignore
-//    var sourceID : Int,
+//    var sourceID : Int =0,
 
 //    @Ignore
-//    var noUrut : Int,
+//    var noUrut : Int =0,
 
-    var pcode : String,
-    var barcode : String,
-    var pname : String,
-
-//    @Ignore
-//    var oldKode1 : String,
+    var pcode : String ="",
+    var barcode : String ="",
+    var pname : String ="",
 
 //    @Ignore
-//    var varianName : String,
+//    var oldKode1 : String ="",
 
 //    @Ignore
-//    var isFreeGood : Boolean,
+//    var varianName : String ="",
 
 //    @Ignore
-//    var shortname : String,
-    var isStatusActive : Boolean,
+//    var isFreeGood : Boolean =false,
+
+//    @Ignore
+//    var shortname : String ="",
+    var isStatusActive : Boolean =false,
 
     /*
     * KLASIFIKASI: BASIC
@@ -53,15 +57,15 @@ class FMaterial  (
 	 * 	 Dalam satu Divisi biasanya terdapat beberapa Vendor
 	 */
 //    @Ignore
-//    var isExclusiveDivisionTransaction : Boolean,
+//    var isExclusiveDivisionTransaction : Boolean =false,
 
 //    @Ignore
-//    var isExclusiveDivisionView : Boolean,
+//    var isExclusiveDivisionView : Boolean =false,
 
     //	@ManyToOne
     //	@JoinColumn(name="fdivisionBean", referencedColumnName="ID")
     //	private FDivision fdivisionBean;
-    var fdivisionBean : Int,
+    var fdivisionBean : Int =0,
 
     /*
     * TAX
@@ -69,10 +73,10 @@ class FMaterial  (
     //	@ManyToOne
     //	@JoinColumn(name="ftaxBean", referencedColumnName="ID")
     //	private FTax ftaxBean;
-    var ftaxBean : Int,
+    var ftaxBean : Int =0,
 
 //    @Ignore
-//    var isTaxable : Boolean,
+//    var isTaxable : Boolean =false,
 
     /*
     * Adalah Vendor Utama Produk Tersebut
@@ -82,18 +86,18 @@ class FMaterial  (
     * Transaksi Mutasi & Stock opname tidak termasuk(sementara)
     */
 //    @Ignore
-//    var isExclusiveVendorTransaction : Boolean,
+//    var isExclusiveVendorTransaction : Boolean =false,
 
     //	@ManyToOne
     //	@JoinColumn(name="fvendorBean", referencedColumnName="ID")
     //	private FVendor fvendorBean;
-    var fvendorBean : Int,
+    var fvendorBean : Int =0,
 
     //	@ManyToOne
     //	@JoinColumn(name="fwarehouseBean_Utm", referencedColumnName="ID")
     //	private FWarehouse fwarehouseBean_Utm;
 //    @Ignore
-//    var fwarehouseBean_Utm : Int,
+//    var fwarehouseBean_Utm : Int =0,
 
 //    @Ignore
 //    var materialType: EnumMaterialType,
@@ -102,12 +106,12 @@ class FMaterial  (
     //	@JoinColumn(name="fdistributionChannelBean", referencedColumnName="ID")
     //	private FDistributionChannel fdistributionChannelBean;
 //    @Ignore
-//    var fdistributionChannelBean : Int,
+//    var fdistributionChannelBean : Int =0,
 
     //	@ManyToOne
     //	@JoinColumn(name="fmaterialGroup3Bean", referencedColumnName="ID")
     //	private FMaterialGroup3 fmaterialGroup3Bean;
-    var fmaterialGroup3Bean : Int,
+    var fmaterialGroup3Bean : Int =0,
 
     /*
     * KLASIFIKASI: SALES
@@ -115,30 +119,30 @@ class FMaterial  (
     //	@ManyToOne
     //	@JoinColumn(name="fmaterialSalesBrandBean", referencedColumnName="ID")
     //	private FMaterialSalesBrand fmaterialSalesBrandBean;
-    var fmaterialSalesBrandBean : Int,
+    var fmaterialSalesBrandBean : Int =0,
 
     //BATCH CODE --> Berhubungan dengan Stockist atau Gudang
     //PRODUCTION CODE --> Berhubungan dengan TANGGAL DIPRODUKSI DAN EXP.DATE
 //    @Ignore
-//    var principalCode : String,
+//    var principalCode : String ="",
 
 //    @Ignore
-//    var batchCode : String,
+//    var batchCode : String ="",
 
 //    @Ignore
-//    var productionCode : String,
+//    var productionCode : String ="",
     var productionDate : Date? = Date(),
     var expiredDate : Date = Date(),
 
 //    @Ignore
-//    var prodclass : Int,
-    var uom1 : String,
-    var uom2 : String,
-    var uom3 : String,
-    var uom4 : String,
-    var convfact1 : Int, //uom1 to uom4
-    var convfact2 : Int, //uom2 to uom4
-    var convfact3  : Int, //uom3 to uom4
+//    var prodclass : Int =0,
+    var uom1 : String ="",
+    var uom2 : String ="",
+    var uom3 : String ="",
+    var uom4 : String ="",
+    var convfact1 : Int =0, //uom1 to uom4
+    var convfact2 : Int =0, //uom2 to uom4
+    var convfact3  : Int =0, //uom3 to uom4
 
     /*
     * PRICE yang muncul pada faktur dengan menggunakan UOM
@@ -150,51 +154,16 @@ class FMaterial  (
     */
     var priceUom: EnumUom? = EnumUom.UOM1,
 
-    //	@Transient
-    //	private Integer temp_QtySaldo : Int,; //Penolong untuk keperluan lain: seperti untuk saldo retur atas faktur
-//    @Ignore
-//    var temp_QtySaldo : Int, //Penolong untuk keperluan lain: seperti untuk saldo retur atas faktur
-
-    /*
-    * Harga Beli berbeda dengan HPP
-    */
-//    @Ignore
-//    var hargaBeliUOM4NetAfterPpn : Int,
-
-    /*
-    * HPP disimpan Perdivisi pada Tabel AccBalanceHpp
-    * HPP adalah Harga Net Per Barang SEBELUM PPN
-    */
-//    @Ignore
-//    var hppAwalPprice2 : Int, //Jika tidak ada HPP Awal maka menggunakan Harga Barang Net Sebelum PPN
-
-//    @Ignore
-//    var hppLifo : Int,
-
-//    @Ignore
-//    var hppLifoTotalAmount : Int,
-
-//    @Ignore
-//    var hppAverage : Int,
-
-//    @Ignore
-//    var hppAverageTotalAmount : Int,
-
-//    @Ignore
-//    var hppFifo : Int,
-
-//    @Ignore
-//    var hppFifoTotalAmount : Int,
 
     //PPRICE:: Disimpan dalam satuan Terbesar dan Terkecil. Setelah dan sebelum PPN
-    var pprice : Double,
-    var ppriceAfterPpn : Double,
-    var pprice2 : Double,
-    var pprice2AfterPpn : Double,
-    var sprice : Double,
-    var spriceAfterPpn: Double,
-    var sprice2 : Double,
-    var sprice2AfterPpn : Double,
+    var pprice : Double =0.0,
+    var ppriceAfterPpn : Double =0.0,
+    var pprice2 : Double =0.0,
+    var pprice2AfterPpn : Double =0.0,
+    var sprice : Double =0.0,
+    var spriceAfterPpn: Double =0.0,
+    var sprice2 : Double =0.0,
+    var sprice2AfterPpn : Double =0.0,
 
     /*
     * Min Stok: sama dengan Buffer Stock
@@ -202,17 +171,14 @@ class FMaterial  (
     * cara yang paling realistis untuk mengukur stok over adalah
     * Melihat History Penjualan Vs Jumalh Stok hasilnya adalah = Jumlah hari stok akan habis
     */
-    var minQtyStok : Int,
-
-    //TIDAK BOLEH DIGANTI-GANTI
-//    @Ignore
-//    var volumeSmalest : Int,
+    var minQtyStok : Int =0,
+        
 
     //Dalam Grams
-    var weightSmalest : Int,
+    var weightSmalest : Int =0,
 
     //Dalam Grams
-    var caseWeight : Int,
+    var caseWeight : Int =0,
 
     var stared: Boolean? = false,
     var unread: Boolean? = false,
@@ -223,6 +189,9 @@ class FMaterial  (
      
     var modified : Date = Date(),
 
-    var modifiedBy : String //User ID
+    var modifiedBy : String ="" //User ID
 
-)
+): Parcelable {
+    val createdDateFormatted: String
+        get() = DateFormat.getDateTimeInstance().format(created)
+}

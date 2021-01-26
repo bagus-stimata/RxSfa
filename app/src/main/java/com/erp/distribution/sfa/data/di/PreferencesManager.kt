@@ -15,7 +15,7 @@ import javax.inject.Singleton
 
 private const val TAG = "PreferencesManager"
 
-enum class SortOrder { BY_NAME, BY_DATE }
+enum class SortOrder { BY_NAME, BY_KODE }
 
 data class FilterPreferences(val sortOrder: SortOrder, val hideCompleted: Boolean)
 
@@ -35,7 +35,7 @@ class PreferencesManager @Inject constructor(@ApplicationContext context: Contex
         }
         .map { preferences ->
             val sortOrder = SortOrder.valueOf(
-                preferences[PreferencesKeys.SORT_ORDER] ?: SortOrder.BY_DATE.name
+                preferences[PreferencesKeys.SORT_ORDER] ?: SortOrder.BY_KODE.name
             )
             val hideCompleted = preferences[PreferencesKeys.HIDE_COMPLETED] ?: false
             FilterPreferences(sortOrder, hideCompleted)

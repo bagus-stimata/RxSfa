@@ -1,4 +1,4 @@
-package com.erp.distribution.sfa.presentation.ui.master.material
+package com.erp.distribution.sfa.presentation.ui.master.material_lama
 
 import androidx.hilt.lifecycle.ViewModelInject
 import androidx.lifecycle.LiveData

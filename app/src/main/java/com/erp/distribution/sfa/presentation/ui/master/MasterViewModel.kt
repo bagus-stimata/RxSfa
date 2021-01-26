@@ -156,6 +156,7 @@ class MasterViewModel @ViewModelInject constructor(
 
 
     fun insertCacheFMaterial(listFMaterial:  List<FMaterial>){
+
         DisposableManager.add(Observable.fromCallable {
             getFMaterialUseCase.addCacheListFMaterial(listFMaterial)
         }

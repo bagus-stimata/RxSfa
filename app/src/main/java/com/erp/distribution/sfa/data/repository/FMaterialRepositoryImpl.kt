@@ -1,11 +1,13 @@
 package com.erp.distribution.sfa.data.repository
 
 import androidx.lifecycle.LiveData
+import com.erp.distribution.sfa.data.di.SortOrder
 import com.erp.distribution.sfa.data.source.remote.service_api.RetrofitServiceFMaterial
 import com.erp.distribution.sfa.data.source.local.database.AppDatabase
 import com.erp.distribution.sfa.domain.repository.FMaterialRepository
 import com.erp.distribution.sfa.data.source.entity.FMaterial
 import io.reactivex.Single
+import kotlinx.coroutines.flow.Flow
 
 
 /**
@@ -46,6 +48,9 @@ class FMaterialRepositoryImpl(
     override fun getCacheAllFMaterial(): LiveData<List<FMaterial>> {
         return appDatabase.materialDao.getAllFMaterialLive
     }
+    override fun getCacheAllFMaterialFlow(query: String, sortOrder: SortOrder, hideSelected: Boolean): Flow<List<FMaterial>> {
+        return appDatabase.materialDao.getAllFMaterialFlow(query, sortOrder, hideSelected)
+    }
 
     override fun getCacheFMaterialById(id: Int): LiveData<FMaterial> {
         return appDatabase.materialDao.getAllByIdLive(id)
@@ -73,11 +78,6 @@ class FMaterialRepositoryImpl(
     override fun deleteAllCacheFMaterial() {
         return appDatabase.materialDao.deleteAllFMaterial()
     }
-
-
-//    override fun getRemoteAllData(): Single<List<FMaterial>> {
-//        return retrofitService.getRemoteAllFMaterial(authHeader)
-//    }
 
 
 }

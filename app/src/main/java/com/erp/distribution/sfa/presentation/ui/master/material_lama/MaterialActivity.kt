@@ -1,4 +1,4 @@
-package com.erp.distribution.sfa.presentation.ui.master.material
+package com.erp.distribution.sfa.presentation.ui.master.material_lama
 
 import android.content.Intent
 import android.os.Bundle
@@ -19,7 +19,7 @@ import com.erp.distribution.sfa.data.source.entity.FMaterial
 import com.erp.distribution.sfa.R
 import com.erp.distribution.sfa.presentation.ui.utils.AlertDialogWarning
 import com.erp.distribution.sfa.databinding.ActiviyTemplate1Binding
-import com.erp.distribution.sfa.presentation.ui.master.material.adapter.NoteAdapter
+import com.erp.distribution.sfa.presentation.ui.master.material_lama.adapter.NoteAdapter
 import com.erp.distribution.sfa.presentation.extention.map
 import dagger.hilt.android.AndroidEntryPoint
 
