@@ -91,7 +91,7 @@ class NoteViewHolder(private val itemBinding: AdapterRvItemTemplate1Binding,
     val nf = NumberFormat.getInstance()
 
     init {
-        itemView?.setOnLongClickListener {
+        itemView.setOnLongClickListener {
             itemLongClickListener(adapterPosition)
             return@setOnLongClickListener true
         }

@@ -71,14 +71,17 @@ import com.erp.distribution.sfa.data.repository_security.FUserRolesDao
     FWarehouse::class,
     Sysvar::class,
 
-    Photo::class
+    Photo::class,
+    Task::class
 
 
-                     ], version = 28, exportSchema = false)
+
+                     ], version = 29, exportSchema = false)
 @TypeConverters(RoomDateConverters::class) //Karena ada Native Date
 abstract class AppDatabase : RoomDatabase() {
 
     abstract val photoDao: PhotoDao
+    abstract val taskDao: TaskDao
 
     abstract val userDao: FUserDao
     abstract val userRolesDao: FUserRolesDao
@@ -135,4 +138,5 @@ abstract class AppDatabase : RoomDatabase() {
     companion object {
         const val DB_NAME = "des_sfa.db"
     }
-}
+
+ }

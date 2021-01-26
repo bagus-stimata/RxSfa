@@ -11,6 +11,9 @@ import com.erp.distribution.sfa.data.repository_security.FUserRolesDao
 import dagger.Module
 import dagger.hilt.InstallIn
 import dagger.hilt.android.components.ApplicationComponent
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.SupervisorJob
+import javax.inject.Qualifier
 import javax.inject.Singleton
 
 @InstallIn(ApplicationComponent::class)
@@ -30,10 +33,18 @@ class DatabaseModule {
             .build()
     }
 
+    @ApplicationScope
+    @Provides
+    @Singleton
+    fun provideApplicationScope() = CoroutineScope(SupervisorJob())
 
     @Provides
     internal fun providePhotoDao(appDatabase: AppDatabase): PhotoDao {
         return appDatabase.photoDao
+    }
+    @Provides
+    internal fun provideTaskDao(appDatabase: AppDatabase): TaskDao {
+        return appDatabase.taskDao
     }
 
     @Provides
@@ -140,3 +151,7 @@ class DatabaseModule {
     internal fun provideSysvarDao(appDatabase: AppDatabase): SysvarDao = appDatabase.sysvarDao
 
 }
+
+@Retention(AnnotationRetention.RUNTIME)
+@Qualifier
+annotation class ApplicationScope

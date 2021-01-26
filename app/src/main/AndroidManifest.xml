@@ -16,7 +16,7 @@
         android:usesCleartextTraffic="true"
         android:theme="@style/Theme.RxSfa">
 <!--        <activity android:name="com.erp.distribution.sfa.presentation.ui.gallery.GalleryActivity">-->
-        <activity android:name=".presentation.ui.MainActivity">
+        <activity android:name=".presentation.ui.mvvm_todo.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
