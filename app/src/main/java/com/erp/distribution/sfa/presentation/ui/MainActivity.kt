@@ -16,9 +16,9 @@ import androidx.databinding.DataBindingUtil
 import com.erp.distribution.sfa.R
 import com.erp.distribution.sfa.databinding.ActivityMainDashboardBinding
 import com.erp.distribution.sfa.presentation.ui.utils.AlertDialogConfirm
-import com.erp.distribution.sfa.presentation.ui.master.material_lama.MaterialActivity
 import com.erp.distribution.sfa.presentation.ui.master.syncronize_fromserver.SyncronizeActivity
 import com.erp.distribution.sfa.data.source.entity_security.FUser
+import com.erp.distribution.sfa.presentation.ui.material.MaterialActivity
 import com.erp.distribution.sfa.utils.DisposableManager
 import dagger.hilt.android.AndroidEntryPoint
 import io.reactivex.android.schedulers.AndroidSchedulers

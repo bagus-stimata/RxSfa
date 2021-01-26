@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph_material"
+    app:startDestination="@id/materialFragment">
+
+    <fragment
+        android:id="@+id/materialFragment"
+        android:name="com.erp.distribution.sfa.presentation.ui.material.material_list.MaterialFragment"
+        android:label="Produk"
+        tools:layout="@layout/fragment_material">
+        <action
+            android:id="@+id/action_materialFragment_to_materialFragmentAddEdit"
+            app:destination="@id/materialFragmentAddEdit" />
+    </fragment>
+    <fragment
+        android:id="@+id/materialFragmentAddEdit"
+        android:name="com.erp.distribution.sfa.presentation.ui.material.material_addedit.MaterialFragmentAddEdit"
+        android:label="{title}"
+        tools:layout="@layout/fragment_add_edit_material">
+        <argument
+            android:name="fMaterial"
+            android:defaultValue="@null"
+            app:argType="com.erp.distribution.sfa.data.source.entity.FMaterial"
+            app:nullable="true" />
+        <argument
+            android:name="title"
+            app:argType="string" />
+    </fragment>
+<!--    <dialog-->
+<!--        android:id="@+id/deleteAllCompletedDialogFragment"-->
+<!--        android:name="com.erp.distribution.sfa.presentation.ui.test.mvvm_todo.deleteallcompleted.DeleteAllCompletedDialogFragment"-->
+<!--        android:label="DeleteAllCompletedDialogFragment" />-->
+<!--    <action-->
+<!--        android:id="@+id/action_global_deleteAllCompletedDialogFragment"-->
+<!--        app:destination="@id/deleteAllCompletedDialogFragment" />-->
+
+
+</navigation>

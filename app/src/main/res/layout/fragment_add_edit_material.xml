@@ -3,7 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".presentation.ui.test.mvvm_todo.addedittask.AddEditTaskFragment">
+    tools:context=".presentation.ui.material.material_addedit.MaterialFragmentAddEdit">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -12,17 +12,17 @@
         android:padding="8dp">
 
         <EditText
-            android:id="@+id/edit_text_task_name"
+            android:id="@+id/edit_text_material_name"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Task name"
+            android:hint="Maerial/Produk name"
             android:inputType="text" />
 
         <CheckBox
             android:id="@+id/check_box_important"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Important task" />
+            android:text="active" />
 
         <TextView
             android:id="@+id/text_view_date_created"
@@ -33,7 +33,7 @@
     </LinearLayout>
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/fab_save_task"
+        android:id="@+id/fab_save_material"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="bottom|end"
