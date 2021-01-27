@@ -2,7 +2,7 @@ package com.erp.distribution.sfa.data.source.local.dao
 
 import androidx.lifecycle.LiveData
 import androidx.room.*
-import com.erp.distribution.sfa.data.source.entity.FtOpnameh
+import com.erp.distribution.sfa.data.source.entity.FtOpnamehEntity
 
 /**
  * Dao ini belum di koneksikan dengan database manapun
@@ -10,34 +10,34 @@ import com.erp.distribution.sfa.data.source.entity.FtOpnameh
 @Dao
 interface FtOpnamehDao {
     /**
-     * @param ftOpnameh
+     * @param ftOpnamehEntity
      * Harus Menggunakan
      * .allowMainThreadQueries() pada Configurasi database utama agar tidak perlu menggunakan AsynT
      */
     @Insert
-    fun insert(ftOpnameh: FtOpnameh?)
+    fun insert(ftOpnamehEntity: FtOpnamehEntity?)
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    fun insertAll(listFtOpnameh: List<FtOpnameh>)
+    fun insertAll(listFtOpnamehEntity: List<FtOpnamehEntity>)
 
 
     @Update
-    fun update(ftOpnameh: FtOpnameh?)
+    fun update(ftOpnamehEntity: FtOpnamehEntity?)
 
     @Delete
-    fun delete(ftOpnameh: FtOpnameh?)
+    fun delete(ftOpnamehEntity: FtOpnamehEntity?)
 
     @Query("DELETE FROM ftOpnameh")
     fun deleteAllFtOpnameh()
 
     @get:Query("SELECT * FROM ftOpnameh ")
-    val allFtOpnamehLive: LiveData<List<FtOpnameh?>?>?
+    val allFtOpnamehEntityLive: LiveData<List<FtOpnamehEntity?>?>?
 
     @get:Query("SELECT * FROM ftOpnameh ")
-    val allFtOpnameh: List<FtOpnameh?>?
+    val allFtOpnamehEntity: List<FtOpnamehEntity?>?
 
     @Query("SELECT * FROM ftOpnameh WHERE refno = :refno ")
-    fun getAllById(refno: Long?): List<FtOpnameh?>?
+    fun getAllById(refno: Long?): List<FtOpnamehEntity?>?
 
     @Query("SELECT * FROM ftOpnameh WHERE fdivisionBean = :id ")
-    fun getAllByDivision(id: Int?): List<FtOpnameh?>?
+    fun getAllByDivision(id: Int?): List<FtOpnamehEntity?>?
 }

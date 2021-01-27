@@ -4,7 +4,7 @@ import androidx.lifecycle.LiveData
 import com.erp.distribution.sfa.data.source.remote.service_api.RetrofitServiceFMaterialSalesBrand
 import com.erp.distribution.sfa.data.source.local.database.AppDatabase
 import com.erp.distribution.sfa.domain.repository.FMaterialSalesBrandRepository
-import com.erp.distribution.sfa.data.source.entity.FMaterialSalesBrand
+import com.erp.distribution.sfa.data.source.entity.FMaterialSalesBrandEntity
 import io.reactivex.Single
 
 
@@ -17,54 +17,54 @@ class FMaterialSalesBrandRepositoryImpl(
     private val retrofitService: RetrofitServiceFMaterialSalesBrand
 ) : FMaterialSalesBrandRepository {
 
-    override fun getRemoteAllFMaterialSalesBrand(authHeader: String): Single<List<FMaterialSalesBrand>> {
+    override fun getRemoteAllFMaterialSalesBrand(authHeader: String): Single<List<FMaterialSalesBrandEntity>> {
         return retrofitService.getRemoteAllFMaterialSalesBrand(authHeader)
     }
 
-    override fun getRemoteFMaterialSalesBrandById(authHeader: String, id: Int): Single<FMaterialSalesBrand> {
+    override fun getRemoteFMaterialSalesBrandById(authHeader: String, id: Int): Single<FMaterialSalesBrandEntity> {
         return retrofitService.getRemoteFMaterialSalesBrandById(authHeader, id)
     }
 
-    override fun getRemoteAllFMaterialSalesBrandByDivision(authHeader: String, divisionId: Int): Single<List<FMaterialSalesBrand>> {
+    override fun getRemoteAllFMaterialSalesBrandByDivision(authHeader: String, divisionId: Int): Single<List<FMaterialSalesBrandEntity>> {
         return retrofitService.getRemoteAllFMaterialSalesBrandByDivision(authHeader, divisionId)
     }
 
-    override fun createRemoteFMaterialSalesBrand(authHeader: String, fMaterialSalesBrand: FMaterialSalesBrand): Single<FMaterialSalesBrand> {
-        return retrofitService.createRemoteFMaterialSalesBrand(authHeader, fMaterialSalesBrand)
+    override fun createRemoteFMaterialSalesBrand(authHeader: String, fMaterialSalesBrandEntity: FMaterialSalesBrandEntity): Single<FMaterialSalesBrandEntity> {
+        return retrofitService.createRemoteFMaterialSalesBrand(authHeader, fMaterialSalesBrandEntity)
     }
 
-    override fun putRemoteFMaterialSalesBrand(authHeader: String, id: Int, fMaterialSalesBrand: FMaterialSalesBrand): Single<FMaterialSalesBrand> {
-        return retrofitService.putRemoteFMaterialSalesBrand(authHeader, id, fMaterialSalesBrand)
+    override fun putRemoteFMaterialSalesBrand(authHeader: String, id: Int, fMaterialSalesBrandEntity: FMaterialSalesBrandEntity): Single<FMaterialSalesBrandEntity> {
+        return retrofitService.putRemoteFMaterialSalesBrand(authHeader, id, fMaterialSalesBrandEntity)
     }
 
-    override fun deleteRemoteFMaterialSalesBrand(authHeader: String, id: Int): Single<FMaterialSalesBrand> {
+    override fun deleteRemoteFMaterialSalesBrand(authHeader: String, id: Int): Single<FMaterialSalesBrandEntity> {
         return retrofitService.deleteRemoteFMaterialSalesBrand(authHeader, id)
     }
 
 
 
-    override fun getCacheAllFMaterialSalesBrand(): LiveData<List<FMaterialSalesBrand>> {
-        return appDatabase.materialSalesBrandDao.getAllFMaterialSalesBrandLive
+    override fun getCacheAllFMaterialSalesBrand(): LiveData<List<FMaterialSalesBrandEntity>> {
+        return appDatabase.materialSalesBrandDao.getAllFMaterialSalesBrandEntityLive
     }
 
-    override fun getCacheFMaterialSalesBrandById(id: Int): LiveData<FMaterialSalesBrand> {
+    override fun getCacheFMaterialSalesBrandById(id: Int): LiveData<FMaterialSalesBrandEntity> {
         return appDatabase.materialSalesBrandDao.getAllByIdLive(id)
     }
 
-    override fun getCacheAllFMaterialSalesBrandByDivision(divisionId: Int): LiveData<List<FMaterialSalesBrand>> {
+    override fun getCacheAllFMaterialSalesBrandByDivision(divisionId: Int): LiveData<List<FMaterialSalesBrandEntity>> {
         return appDatabase.materialSalesBrandDao.getAllByDivisionLive(divisionId)
     }
 
-    override fun addCacheFMaterialSalesBrand(fMaterialSalesBrand: FMaterialSalesBrand) {
-        return appDatabase.materialSalesBrandDao.insert(fMaterialSalesBrand)
+    override fun addCacheFMaterialSalesBrand(fMaterialSalesBrandEntity: FMaterialSalesBrandEntity) {
+        return appDatabase.materialSalesBrandDao.insert(fMaterialSalesBrandEntity)
     }
 
-    override fun putCacheFMaterialSalesBrand(fMaterialSalesBrand: FMaterialSalesBrand) {
-        return appDatabase.materialSalesBrandDao.update(fMaterialSalesBrand)
+    override fun putCacheFMaterialSalesBrand(fMaterialSalesBrandEntity: FMaterialSalesBrandEntity) {
+        return appDatabase.materialSalesBrandDao.update(fMaterialSalesBrandEntity)
     }
 
-    override fun deleteCacheFMaterialSalesBrand(fMaterialSalesBrand: FMaterialSalesBrand) {
-        return appDatabase.materialSalesBrandDao.delete(fMaterialSalesBrand)
+    override fun deleteCacheFMaterialSalesBrand(fMaterialSalesBrandEntity: FMaterialSalesBrandEntity) {
+        return appDatabase.materialSalesBrandDao.delete(fMaterialSalesBrandEntity)
     }
 
     override fun deleteAllCacheData() {

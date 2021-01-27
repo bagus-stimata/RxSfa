@@ -1,27 +1,27 @@
 package com.erp.distribution.sfa.domain.repository
 
 import androidx.lifecycle.LiveData
-import com.erp.distribution.sfa.data.source.entity.FSalesman
+import com.erp.distribution.sfa.data.source.entity.FSalesmanEntity
 import io.reactivex.Single
 
 /**
  * To make an interaction between [AlbumRepositoryImp] & [GetAlbumsUseCase]
  * */
 interface FSalesmanRepository {
-    fun getRemoteAllFSalesman(authHeader: String): Single<List<FSalesman>>
-    fun getRemoteFSalesmanById(authHeader: String, id: Int): Single<FSalesman>
-    fun getRemoteAllFSalesmanByDivision(authHeader: String, divisionId: Int): Single<List<FSalesman>>
-    fun createRemoteFSalesman(authHeader: String, fSalesman: FSalesman): Single<FSalesman>
-    fun putRemoteFSalesman(authHeader: String, id: Int, fSalesman: FSalesman): Single<FSalesman>
-    fun deleteRemoteFSalesman(authHeader: String, id: Int): Single<FSalesman>
+    fun getRemoteAllFSalesman(authHeader: String): Single<List<FSalesmanEntity>>
+    fun getRemoteFSalesmanById(authHeader: String, id: Int): Single<FSalesmanEntity>
+    fun getRemoteAllFSalesmanByDivision(authHeader: String, divisionId: Int): Single<List<FSalesmanEntity>>
+    fun createRemoteFSalesman(authHeader: String, fSalesmanEntity: FSalesmanEntity): Single<FSalesmanEntity>
+    fun putRemoteFSalesman(authHeader: String, id: Int, fSalesmanEntity: FSalesmanEntity): Single<FSalesmanEntity>
+    fun deleteRemoteFSalesman(authHeader: String, id: Int): Single<FSalesmanEntity>
 
-    fun getCacheAllFSalesman(): LiveData<List<FSalesman>>
-    fun getCacheFSalesmanById(id: Int): LiveData<FSalesman>
-    fun getCacheAllFSalesmanByDivision(divisionId: Int): LiveData<List<FSalesman>>
-    fun addCacheFSalesman(fSalesman: FSalesman)
-    fun addCacheListFSalesman(list: List<FSalesman>)
-    fun putCacheFSalesman(fSalesman: FSalesman)
-    fun deleteCacheFSalesman(fSalesman: FSalesman)
+    fun getCacheAllFSalesman(): LiveData<List<FSalesmanEntity>>
+    fun getCacheFSalesmanById(id: Int): LiveData<FSalesmanEntity>
+    fun getCacheAllFSalesmanByDivision(divisionId: Int): LiveData<List<FSalesmanEntity>>
+    fun addCacheFSalesman(fSalesmanEntity: FSalesmanEntity)
+    fun addCacheListFSalesman(list: List<FSalesmanEntity>)
+    fun putCacheFSalesman(fSalesmanEntity: FSalesmanEntity)
+    fun deleteCacheFSalesman(fSalesmanEntity: FSalesmanEntity)
     fun deleteAllCacheFSalesman()
 
 

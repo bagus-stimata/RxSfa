@@ -2,7 +2,7 @@ package com.erp.distribution.sfa.data.source.local.dao
 
 import androidx.lifecycle.LiveData
 import androidx.room.*
-import com.erp.distribution.sfa.data.source.entity.FTax
+import com.erp.distribution.sfa.data.source.entity.FTaxEntity
 
 /**
  * Dao ini belum di koneksikan dengan database manapun
@@ -10,47 +10,47 @@ import com.erp.distribution.sfa.data.source.entity.FTax
 @Dao
 interface FTaxDao {
     /**
-     * @param fTax
+     * @param fTaxEntity
      * Harus Menggunakan
      * .allowMainThreadQueries() pada Configurasi database utama agar tidak perlu menggunakan AsynT
      */
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    fun insert(fTax: FTax)
+    fun insert(fTaxEntity: FTaxEntity)
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    fun insertAll(listFTax: List<FTax>)
+    fun insertAll(listFTaxEntities: List<FTaxEntity>)
 
 
     @Update
-    fun update(fTax: FTax)
+    fun update(fTaxEntity: FTaxEntity)
 
     @Delete
-    fun delete(fTax: FTax)
+    fun delete(fTaxEntity: FTaxEntity)
 
     @Query("DELETE FROM fTax")
     fun deleteAllFTax()
 
     @Query("SELECT * FROM fTax WHERE id = :id ")
-    fun getAllById(id: Int): FTax
+    fun getAllById(id: Int): FTaxEntity
     @Query("SELECT * FROM fTax WHERE id = :id ")
-    fun getAllByIdLive(id: Int): LiveData<FTax>
+    fun getAllByIdLive(id: Int): LiveData<FTaxEntity>
 
 
     @get:Query("SELECT * FROM fTax ")
-    val getAllFTax: List<FTax>
+    val getAllFTaxEntities: List<FTaxEntity>
     @get:Query("SELECT * FROM fTax ")
-    val getAllFTaxLive: LiveData<List<FTax>>
+    val getAllFTaxEntityLive: LiveData<List<FTaxEntity>>
 
     @Query("SELECT * FROM fTax WHERE kode1 LIKE :kode1 ")
-    fun getAllFTaxByKode(kode1: String): List<FTax>
+    fun getAllFTaxByKode(kode1: String): List<FTaxEntity>
     @Query("SELECT * FROM fTax WHERE kode1 LIKE :kode1 ")
-    fun getAllFTaxByKodeLive(kode1: String): LiveData<List<FTax>>
+    fun getAllFTaxByKodeLive(kode1: String): LiveData<List<FTaxEntity>>
 
 
     @Query("SELECT * FROM fTax WHERE fdivisionBean = :id ")
-    fun getAllByDivision(id: Int): List<FTax>
+    fun getAllByDivision(id: Int): List<FTaxEntity>
 
     @Query("SELECT * FROM fTax WHERE fdivisionBean = :id ")
-    fun getAllByDivisionLive(id: Int): LiveData<List<FTax>>
+    fun getAllByDivisionLive(id: Int): LiveData<List<FTaxEntity>>
 
 
 }

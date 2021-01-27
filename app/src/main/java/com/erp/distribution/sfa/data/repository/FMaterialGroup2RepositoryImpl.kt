@@ -4,7 +4,7 @@ import androidx.lifecycle.LiveData
 import com.erp.distribution.sfa.data.source.remote.service_api.RetrofitServiceFMaterialGroup2
 import com.erp.distribution.sfa.data.source.local.database.AppDatabase
 import com.erp.distribution.sfa.domain.repository.FMaterialGroup2Repository
-import com.erp.distribution.sfa.data.source.entity.FMaterialGroup2
+import com.erp.distribution.sfa.data.source.entity.FMaterialGroup2Entity
 import io.reactivex.Single
 
 
@@ -17,54 +17,54 @@ class FMaterialGroup2RepositoryImpl(
     private val retrofitService: RetrofitServiceFMaterialGroup2
 ) : FMaterialGroup2Repository {
 
-    override fun getRemoteAllFMaterialGroup2(authHeader: String): Single<List<FMaterialGroup2>> {
+    override fun getRemoteAllFMaterialGroup2(authHeader: String): Single<List<FMaterialGroup2Entity>> {
         return retrofitService.getRemoteAllFMaterialGroup2(authHeader)
     }
 
-    override fun getRemoteFMaterialGroup2ById(authHeader: String, id: Int): Single<FMaterialGroup2> {
+    override fun getRemoteFMaterialGroup2ById(authHeader: String, id: Int): Single<FMaterialGroup2Entity> {
         return retrofitService.getRemoteFMaterialGroup2ById(authHeader, id)
     }
 
-    override fun getRemoteAllFMaterialGroup2ByParent(authHeader: String, parentId: Int): Single<List<FMaterialGroup2>> {
+    override fun getRemoteAllFMaterialGroup2ByParent(authHeader: String, parentId: Int): Single<List<FMaterialGroup2Entity>> {
         return retrofitService.getRemoteAllFMaterialGroup2ByParent(authHeader, parentId)
     }
 
-    override fun createRemoteFMaterialGroup2(authHeader: String, fMaterialGroup2: FMaterialGroup2): Single<FMaterialGroup2> {
-        return retrofitService.createRemoteFMaterialGroup2(authHeader, fMaterialGroup2)
+    override fun createRemoteFMaterialGroup2(authHeader: String, fMaterialGroup2Entity: FMaterialGroup2Entity): Single<FMaterialGroup2Entity> {
+        return retrofitService.createRemoteFMaterialGroup2(authHeader, fMaterialGroup2Entity)
     }
 
-    override fun putRemoteFMaterialGroup2(authHeader: String, id: Int, fMaterialGroup2: FMaterialGroup2): Single<FMaterialGroup2> {
-        return retrofitService.putRemoteFMaterialGroup2(authHeader, id, fMaterialGroup2)
+    override fun putRemoteFMaterialGroup2(authHeader: String, id: Int, fMaterialGroup2Entity: FMaterialGroup2Entity): Single<FMaterialGroup2Entity> {
+        return retrofitService.putRemoteFMaterialGroup2(authHeader, id, fMaterialGroup2Entity)
     }
 
-    override fun deleteRemoteFMaterialGroup2(authHeader: String, id: Int): Single<FMaterialGroup2> {
+    override fun deleteRemoteFMaterialGroup2(authHeader: String, id: Int): Single<FMaterialGroup2Entity> {
         return retrofitService.deleteRemoteFMaterialGroup2(authHeader, id)
     }
 
 
 
-    override fun getCacheAllFMaterialGroup2(): LiveData<List<FMaterialGroup2>> {
-        return appDatabase.materialGroup2Dao.getAllFMaterialGroup2Live
+    override fun getCacheAllFMaterialGroup2(): LiveData<List<FMaterialGroup2Entity>> {
+        return appDatabase.materialGroup2Dao.getAllFMaterialGroup2EntityLive
     }
 
-    override fun getCacheFMaterialGroup2ById(id: Int): LiveData<FMaterialGroup2> {
+    override fun getCacheFMaterialGroup2ById(id: Int): LiveData<FMaterialGroup2Entity> {
         return appDatabase.materialGroup2Dao.getAllByIdLive(id)
     }
 
-    override fun getCacheAllFMaterialGroup2ByParent(divisionId: Int): LiveData<List<FMaterialGroup2>> {
+    override fun getCacheAllFMaterialGroup2ByParent(divisionId: Int): LiveData<List<FMaterialGroup2Entity>> {
         return appDatabase.materialGroup2Dao.getAllByParentLive(divisionId)
     }
 
-    override fun addCacheFMaterialGroup2(fMaterialGroup2: FMaterialGroup2) {
-        return appDatabase.materialGroup2Dao.insert(fMaterialGroup2)
+    override fun addCacheFMaterialGroup2(fMaterialGroup2Entity: FMaterialGroup2Entity) {
+        return appDatabase.materialGroup2Dao.insert(fMaterialGroup2Entity)
     }
 
-    override fun putCacheFMaterialGroup2(fMaterialGroup2: FMaterialGroup2) {
-        return appDatabase.materialGroup2Dao.update(fMaterialGroup2)
+    override fun putCacheFMaterialGroup2(fMaterialGroup2Entity: FMaterialGroup2Entity) {
+        return appDatabase.materialGroup2Dao.update(fMaterialGroup2Entity)
     }
 
-    override fun deleteCacheFMaterialGroup2(fMaterialGroup2: FMaterialGroup2) {
-        return appDatabase.materialGroup2Dao.delete(fMaterialGroup2)
+    override fun deleteCacheFMaterialGroup2(fMaterialGroup2Entity: FMaterialGroup2Entity) {
+        return appDatabase.materialGroup2Dao.delete(fMaterialGroup2Entity)
     }
 
     override fun deleteAllCacheData() {

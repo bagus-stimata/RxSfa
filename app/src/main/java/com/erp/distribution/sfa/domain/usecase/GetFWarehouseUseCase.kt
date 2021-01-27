@@ -3,7 +3,7 @@ package com.erp.distribution.sfa.domain.usecase
 import androidx.lifecycle.LiveData
 import com.erp.distribution.sfa.domain.repository.FWarehouseRepository
 import com.erp.distribution.sfa.domain.usecase.base.SingleUseCase
-import com.erp.distribution.sfa.data.source.entity.FWarehouse
+import com.erp.distribution.sfa.data.source.entity.FWarehouseEntity
 import io.reactivex.Single
 import javax.inject.Inject
 
@@ -13,53 +13,53 @@ import javax.inject.Inject
  * it handles the response that returns data &
  * contains a list of actions, event steps
  */
-class GetFWarehouseUseCase @Inject constructor(private val repository: FWarehouseRepository) : SingleUseCase<List<FWarehouse>>() {
+class GetFWarehouseUseCase @Inject constructor(private val repository: FWarehouseRepository) : SingleUseCase<List<FWarehouseEntity>>() {
 
-    override fun buildUseCaseSingle(): Single<List<FWarehouse>> {
+    override fun buildUseCaseSingle(): Single<List<FWarehouseEntity>> {
         return repository.getRemoteAllFWarehouse("authHeader")
     }
-    fun getRemoteAllFWarehouse(authHeader: String): Single<List<FWarehouse>>{
+    fun getRemoteAllFWarehouse(authHeader: String): Single<List<FWarehouseEntity>>{
         return repository.getRemoteAllFWarehouse(authHeader)
     }
 
-    fun getRemoteFWarehouseById(authHeader: String, id: Int): Single<FWarehouse>{
+    fun getRemoteFWarehouseById(authHeader: String, id: Int): Single<FWarehouseEntity>{
         return repository.getRemoteFWarehouseById(authHeader, id)
     }
-    fun getRemoteAllFWarehouseByDivision(authHeader: String, divisionId: Int): Single<List<FWarehouse>>{
+    fun getRemoteAllFWarehouseByDivision(authHeader: String, divisionId: Int): Single<List<FWarehouseEntity>>{
         return repository.getRemoteAllFWarehouseByDivision(authHeader, divisionId)
     }
-    fun createRemoteFWarehouse(authHeader: String, fWarehouse: FWarehouse): Single<FWarehouse>{
-        return repository.createRemoteFWarehouse(authHeader, fWarehouse)
+    fun createRemoteFWarehouse(authHeader: String, fWarehouseEntity: FWarehouseEntity): Single<FWarehouseEntity>{
+        return repository.createRemoteFWarehouse(authHeader, fWarehouseEntity)
     }
-    fun putRemoteFWarehouse(authHeader: String, id: Int, fWarehouse: FWarehouse): Single<FWarehouse>{
-        return repository.putRemoteFWarehouse(authHeader, id, fWarehouse)
+    fun putRemoteFWarehouse(authHeader: String, id: Int, fWarehouseEntity: FWarehouseEntity): Single<FWarehouseEntity>{
+        return repository.putRemoteFWarehouse(authHeader, id, fWarehouseEntity)
     }
-    fun deleteRemoteFWarehouse(authHeader: String, id: Int): Single<FWarehouse>{
+    fun deleteRemoteFWarehouse(authHeader: String, id: Int): Single<FWarehouseEntity>{
         return repository.deleteRemoteFWarehouse(authHeader, id)
     }
 
 
 
-    fun getCacheAllFWarehouse(): LiveData<List<FWarehouse>>{
+    fun getCacheAllFWarehouse(): LiveData<List<FWarehouseEntity>>{
         return repository.getCacheAllFWarehouse()
     }
-    fun getCacheFWarehouseById(id: Int): LiveData<FWarehouse>{
+    fun getCacheFWarehouseById(id: Int): LiveData<FWarehouseEntity>{
         return repository.getCacheFWarehouseById(id)
     }
-    fun getCacheAllFWarehouseByDivision(divisionId: Int): LiveData<List<FWarehouse>>{
+    fun getCacheAllFWarehouseByDivision(divisionId: Int): LiveData<List<FWarehouseEntity>>{
         return repository.getCacheAllFWarehouseByDivision(divisionId)
     }
-    fun addCacheFWarehouse(fWarehouse: FWarehouse){
-        repository.addCacheFWarehouse(fWarehouse)
+    fun addCacheFWarehouse(fWarehouseEntity: FWarehouseEntity){
+        repository.addCacheFWarehouse(fWarehouseEntity)
     }
-    fun addCacheListFWarehouse(list: List<FWarehouse>){
+    fun addCacheListFWarehouse(list: List<FWarehouseEntity>){
         repository.addCacheListFWarehouse(list)
     }
-    fun putCacheFWarehouse(fWarehouse: FWarehouse){
-        repository.putCacheFWarehouse(fWarehouse)
+    fun putCacheFWarehouse(fWarehouseEntity: FWarehouseEntity){
+        repository.putCacheFWarehouse(fWarehouseEntity)
     }
-    fun deleteCacheFWarehouse(fWarehouse: FWarehouse){
-        repository.deleteCacheFWarehouse(fWarehouse)
+    fun deleteCacheFWarehouse(fWarehouseEntity: FWarehouseEntity){
+        repository.deleteCacheFWarehouse(fWarehouseEntity)
     }
     fun deleteAllCacheFWarehouse(){
         repository.deleteAllCacheFWarehouse()

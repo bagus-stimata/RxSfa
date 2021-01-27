@@ -2,7 +2,7 @@ package com.erp.distribution.sfa.data.source.local.dao
 
 import androidx.lifecycle.LiveData
 import androidx.room.*
-import com.erp.distribution.sfa.data.source.entity.FWarehouse
+import com.erp.distribution.sfa.data.source.entity.FWarehouseEntity
 
 /**
  * Dao ini belum di koneksikan dengan database manapun
@@ -10,47 +10,47 @@ import com.erp.distribution.sfa.data.source.entity.FWarehouse
 @Dao
 interface FWarehouseDao {
     /**
-     * @param fWarehouse
+     * @param fWarehouseEntity
      * Harus Menggunakan
      * .allowMainThreadQueries() pada Configurasi database utama agar tidak perlu menggunakan AsynT
      */
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    fun insert(fWarehouse: FWarehouse)
+    fun insert(fWarehouseEntity: FWarehouseEntity)
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    fun insertAll(listFWarehouse: List<FWarehouse>)
+    fun insertAll(listFWarehouseEntity: List<FWarehouseEntity>)
 
 
     @Update
-    fun update(fWarehouse: FWarehouse)
+    fun update(fWarehouseEntity: FWarehouseEntity)
 
     @Delete
-    fun delete(fWarehouse: FWarehouse)
+    fun delete(fWarehouseEntity: FWarehouseEntity)
 
     @Query("DELETE FROM fWarehouse")
     fun deleteAllFWarehouse()
 
     @Query("SELECT * FROM fWarehouse WHERE id = :id ")
-    fun getAllById(id: Int): FWarehouse
+    fun getAllById(id: Int): FWarehouseEntity
     @Query("SELECT * FROM fWarehouse WHERE id = :id ")
-    fun getAllByIdLive(id: Int): LiveData<FWarehouse>
+    fun getAllByIdLive(id: Int): LiveData<FWarehouseEntity>
 
 
     @get:Query("SELECT * FROM fWarehouse ")
-    val getAllFWarehouse: List<FWarehouse>
+    val getAllFWarehouseEntity: List<FWarehouseEntity>
     @get:Query("SELECT * FROM fWarehouse ")
-    val getAllFWarehouseLive: LiveData<List<FWarehouse>>
+    val getAllFWarehouseEntityLive: LiveData<List<FWarehouseEntity>>
 
     @Query("SELECT * FROM fWarehouse WHERE kode1 LIKE :kode1 ")
-    fun getAllFWarehouseByKode(kode1: String): List<FWarehouse>
+    fun getAllFWarehouseByKode(kode1: String): List<FWarehouseEntity>
     @Query("SELECT * FROM fWarehouse WHERE kode1 LIKE :kode1 ")
-    fun getAllFWarehouseByKodeLive(kode1: String): LiveData<List<FWarehouse>>
+    fun getAllFWarehouseByKodeLive(kode1: String): LiveData<List<FWarehouseEntity>>
 
 
     @Query("SELECT * FROM fWarehouse WHERE fdivisionBean = :id ")
-    fun getAllByDivision(id: Int): List<FWarehouse>
+    fun getAllByDivision(id: Int): List<FWarehouseEntity>
 
     @Query("SELECT * FROM fWarehouse WHERE fdivisionBean = :id ")
-    fun getAllByDivisionLive(id: Int): LiveData<List<FWarehouse>>
+    fun getAllByDivisionLive(id: Int): LiveData<List<FWarehouseEntity>>
 
 }

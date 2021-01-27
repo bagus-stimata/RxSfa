@@ -3,7 +3,7 @@ package com.erp.distribution.sfa.domain.usecase
 import androidx.lifecycle.LiveData
 import com.erp.distribution.sfa.domain.repository.FDivisionRepository
 import com.erp.distribution.sfa.domain.usecase.base.SingleUseCase
-import com.erp.distribution.sfa.data.source.entity.FDivision
+import com.erp.distribution.sfa.data.source.entity.FDivisionEntity
 import io.reactivex.Single
 import javax.inject.Inject
 
@@ -13,53 +13,53 @@ import javax.inject.Inject
  * it handles the response that returns data &
  * contains a list of actions, event steps
  */
-class GetFDivisionUseCase @Inject constructor(private val repository: FDivisionRepository) : SingleUseCase<List<FDivision>>() {
+class GetFDivisionUseCase @Inject constructor(private val repository: FDivisionRepository) : SingleUseCase<List<FDivisionEntity>>() {
 
-    override fun buildUseCaseSingle(): Single<List<FDivision>> {
+    override fun buildUseCaseSingle(): Single<List<FDivisionEntity>> {
         return repository.getRemoteAllFDivision("aa")
     }
-    fun getRemoteAllFDivision(authHeader: String): Single<List<FDivision>>{
+    fun getRemoteAllFDivision(authHeader: String): Single<List<FDivisionEntity>>{
         return repository.getRemoteAllFDivision(authHeader)
     }
 
-    fun getRemoteFDivisionById(authHeader: String, id: Int): Single<FDivision>{
+    fun getRemoteFDivisionById(authHeader: String, id: Int): Single<FDivisionEntity>{
         return repository.getRemoteFDivisionById(authHeader, id)
     }
-    fun getRemoteAllFDivisionByDivision(authHeader: String, divisionId: Int): Single<List<FDivision>>{
+    fun getRemoteAllFDivisionByDivision(authHeader: String, divisionId: Int): Single<List<FDivisionEntity>>{
         return repository.getRemoteAllFDivisionByParent(authHeader, divisionId)
     }
-    fun createRemoteFDivision(authHeader: String, fDivision: FDivision): Single<FDivision>{
-        return repository.createRemoteFDivision(authHeader, fDivision)
+    fun createRemoteFDivision(authHeader: String, fDivisionEntity: FDivisionEntity): Single<FDivisionEntity>{
+        return repository.createRemoteFDivision(authHeader, fDivisionEntity)
     }
-    fun putRemoteFDivision(authHeader: String, id: Int, fDivision: FDivision): Single<FDivision>{
-        return repository.putRemoteFDivision(authHeader, id, fDivision)
+    fun putRemoteFDivision(authHeader: String, id: Int, fDivisionEntity: FDivisionEntity): Single<FDivisionEntity>{
+        return repository.putRemoteFDivision(authHeader, id, fDivisionEntity)
     }
-    fun deleteRemoteFDivision(authHeader: String, id: Int): Single<FDivision>{
+    fun deleteRemoteFDivision(authHeader: String, id: Int): Single<FDivisionEntity>{
         return repository.deleteRemoteFDivision(authHeader, id)
     }
 
 
 
-    fun getCacheAllFDivision(): LiveData<List<FDivision>>{
+    fun getCacheAllFDivision(): LiveData<List<FDivisionEntity>>{
         return repository.getCacheAllFDivision()
     }
-    fun getCacheFDivisionById(id: Int): LiveData<FDivision>{
+    fun getCacheFDivisionById(id: Int): LiveData<FDivisionEntity>{
         return repository.getCacheFDivisionById(id)
     }
-    fun getCacheAllFDivisionByParent(parentId: Int): LiveData<List<FDivision>>{
+    fun getCacheAllFDivisionByParent(parentId: Int): LiveData<List<FDivisionEntity>>{
         return repository.getCacheAllFDivisionByParent(parentId)
     }
-    fun addCacheFDivision(fDivision: FDivision){
-        repository.addCacheFDivision(fDivision)
+    fun addCacheFDivision(fDivisionEntity: FDivisionEntity){
+        repository.addCacheFDivision(fDivisionEntity)
     }
-    fun addCacheListFDivision(list: List<FDivision>){
+    fun addCacheListFDivision(list: List<FDivisionEntity>){
         repository.addCacheListFDivision(list)
     }
-    fun putCacheFDivision(fDivision: FDivision){
-        repository.putCacheFDivision(fDivision)
+    fun putCacheFDivision(fDivisionEntity: FDivisionEntity){
+        repository.putCacheFDivision(fDivisionEntity)
     }
-    fun deleteCacheFDivision(fDivision: FDivision){
-        repository.deleteCacheFDivision(fDivision)
+    fun deleteCacheFDivision(fDivisionEntity: FDivisionEntity){
+        repository.deleteCacheFDivision(fDivisionEntity)
     }
     fun deleteAllCacheFDivision(){
         repository.deleteAllCacheFDivision()

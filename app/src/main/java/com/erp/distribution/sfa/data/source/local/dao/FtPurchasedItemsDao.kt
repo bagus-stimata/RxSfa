@@ -2,7 +2,7 @@ package com.erp.distribution.sfa.data.source.local.dao
 
 import androidx.lifecycle.LiveData
 import androidx.room.*
-import com.erp.distribution.sfa.data.source.entity.FtPurchasedItems
+import com.erp.distribution.sfa.data.source.entity.FtPurchasedItemsEntity
 
 /**
  * Dao ini belum di koneksikan dengan database manapun
@@ -10,34 +10,34 @@ import com.erp.distribution.sfa.data.source.entity.FtPurchasedItems
 @Dao
 interface FtPurchasedItemsDao {
     /**
-     * @param ftPurchasedItems
+     * @param ftPurchasedItemsEntity
      * Harus Menggunakan
      * .allowMainThreadQueries() pada Configurasi database utama agar tidak perlu menggunakan AsynT
      */
     @Insert
-    fun insert(ftPurchasedItems: FtPurchasedItems?)
+    fun insert(ftPurchasedItemsEntity: FtPurchasedItemsEntity?)
         @Insert(onConflict = OnConflictStrategy.REPLACE)
-        fun insertAll(listFtPurchasedItems: List<FtPurchasedItems>)
+        fun insertAll(listFtPurchasedItemEntities: List<FtPurchasedItemsEntity>)
 
 
     @Update
-    fun update(ftPurchasedItems: FtPurchasedItems?)
+    fun update(ftPurchasedItemsEntity: FtPurchasedItemsEntity?)
 
     @Delete
-    fun delete(ftPurchasedItems: FtPurchasedItems?)
+    fun delete(ftPurchasedItemsEntity: FtPurchasedItemsEntity?)
 
     @Query("DELETE FROM ftPurchasedItems")
     fun deleteAllFtPurchasedItems()
 
     @get:Query("SELECT * FROM ftPurchasedItems ")
-    val allFtPurchasedItemsLive: LiveData<List<FtPurchasedItems?>?>?
+    val allFtPurchasedItemsEntityLive: LiveData<List<FtPurchasedItemsEntity?>?>?
 
     @get:Query("SELECT * FROM ftPurchasedItems ")
-    val allFtPurchasedItems: List<FtPurchasedItems?>?
+    val allFtPurchasedItemEntities: List<FtPurchasedItemsEntity?>?
 
     @Query("SELECT * FROM ftPurchasedItems WHERE id = :id ")
-    fun getAllById(id: Long?): List<FtPurchasedItems?>?
+    fun getAllById(id: Long?): List<FtPurchasedItemsEntity?>?
 
     @Query("SELECT * FROM ftPurchasedItems WHERE ftPurchasehBean = :id ")
-    fun getAllByParentId(id: Long?): List<FtPurchasedItems?>?
+    fun getAllByParentId(id: Long?): List<FtPurchasedItemsEntity?>?
 }

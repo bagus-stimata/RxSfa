@@ -6,14 +6,14 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import com.erp.distribution.sfa.data.source.entity.FCustomer
+import com.erp.distribution.sfa.data.source.entity.FCustomerEntity
 import com.erp.distribution.sfa.databinding.AdapterRvItemTemplate1Binding
 import com.erp.distribution.sfa.presentation.ui.master.material_lama.adapter.NoteAdapter
 import java.text.NumberFormat
 import java.text.SimpleDateFormat
 
 class CustomerAdapter(private val listener: OnItemClickListener) :
-    ListAdapter<FCustomer, CustomerAdapter.CustomerViewHolder>(DiffCallback()) {
+    ListAdapter<FCustomerEntity, CustomerAdapter.CustomerViewHolder>(DiffCallback()) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CustomerViewHolder {
 //        val binding = ItemTaskBinding.inflate(LayoutInflater.from(parent.context), parent, false)
@@ -55,7 +55,7 @@ class CustomerAdapter(private val listener: OnItemClickListener) :
             }
         }
 
-        fun bind(item: FCustomer) {
+        fun bind(item: FCustomerEntity) {
             binding.apply {
 ////                checkBoxCompleted.isChecked = item.selected!!
 //                textViewName.text = item.pname
@@ -82,15 +82,15 @@ class CustomerAdapter(private val listener: OnItemClickListener) :
     }
 
     interface OnItemClickListener {
-        fun onItemClick(item: FCustomer)
-        fun onCheckBoxClick(item: FCustomer, isChecked: Boolean)
+        fun onItemClick(item: FCustomerEntity)
+        fun onCheckBoxClick(item: FCustomerEntity, isChecked: Boolean)
     }
 
-    class DiffCallback : DiffUtil.ItemCallback<FCustomer>() {
-        override fun areItemsTheSame(oldItem: FCustomer, newItem: FCustomer) =
+    class DiffCallback : DiffUtil.ItemCallback<FCustomerEntity>() {
+        override fun areItemsTheSame(oldItem: FCustomerEntity, newItem: FCustomerEntity) =
             oldItem.id == newItem.id
 
-        override fun areContentsTheSame(oldItem: FCustomer, newItem: FCustomer) =
+        override fun areContentsTheSame(oldItem: FCustomerEntity, newItem: FCustomerEntity) =
             oldItem.custno == newItem.custno
     }
 }

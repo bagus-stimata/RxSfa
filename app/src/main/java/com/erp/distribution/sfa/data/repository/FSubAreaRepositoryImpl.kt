@@ -4,7 +4,7 @@ import androidx.lifecycle.LiveData
 import com.erp.distribution.sfa.data.source.remote.service_api.RetrofitServiceFSubArea
 import com.erp.distribution.sfa.data.source.local.database.AppDatabase
 import com.erp.distribution.sfa.domain.repository.FSubAreaRepository
-import com.erp.distribution.sfa.data.source.entity.FSubArea
+import com.erp.distribution.sfa.data.source.entity.FSubAreaEntity
 import io.reactivex.Single
 
 
@@ -17,54 +17,54 @@ class FSubAreaRepositoryImpl(
     private val retrofitService: RetrofitServiceFSubArea
 ) : FSubAreaRepository {
 
-    override fun getRemoteAllFSubArea(authHeader: String): Single<List<FSubArea>> {
+    override fun getRemoteAllFSubArea(authHeader: String): Single<List<FSubAreaEntity>> {
         return retrofitService.getRemoteAllFSubArea(authHeader)
     }
 
-    override fun getRemoteFSubAreaById(authHeader: String, id: Int): Single<FSubArea> {
+    override fun getRemoteFSubAreaById(authHeader: String, id: Int): Single<FSubAreaEntity> {
         return retrofitService.getRemoteFSubAreaById(authHeader, id)
     }
 
-    override fun getRemoteAllFSubAreaByParent(authHeader: String, parentId: Int): Single<List<FSubArea>> {
+    override fun getRemoteAllFSubAreaByParent(authHeader: String, parentId: Int): Single<List<FSubAreaEntity>> {
         return retrofitService.getRemoteAllFSubAreaByParent(authHeader, parentId)
     }
 
-    override fun createRemoteFSubArea(authHeader: String, fSubArea: FSubArea): Single<FSubArea> {
-        return retrofitService.createRemoteFSubArea(authHeader, fSubArea)
+    override fun createRemoteFSubArea(authHeader: String, fSubAreaEntity: FSubAreaEntity): Single<FSubAreaEntity> {
+        return retrofitService.createRemoteFSubArea(authHeader, fSubAreaEntity)
     }
 
-    override fun putRemoteFSubArea(authHeader: String, id: Int, fSubArea: FSubArea): Single<FSubArea> {
-        return retrofitService.putRemoteFSubArea(authHeader, id, fSubArea)
+    override fun putRemoteFSubArea(authHeader: String, id: Int, fSubAreaEntity: FSubAreaEntity): Single<FSubAreaEntity> {
+        return retrofitService.putRemoteFSubArea(authHeader, id, fSubAreaEntity)
     }
 
-    override fun deleteRemoteFSubArea(authHeader: String, id: Int): Single<FSubArea> {
+    override fun deleteRemoteFSubArea(authHeader: String, id: Int): Single<FSubAreaEntity> {
         return retrofitService.deleteRemoteFSubArea(authHeader, id)
     }
 
 
 
-    override fun getCacheAllFSubArea(): LiveData<List<FSubArea>> {
-        return appDatabase.subAreaDao.getAllFSubAreaLive
+    override fun getCacheAllFSubArea(): LiveData<List<FSubAreaEntity>> {
+        return appDatabase.subAreaDao.getAllFSubAreaEntityLive
     }
 
-    override fun getCacheFSubAreaById(id: Int): LiveData<FSubArea> {
+    override fun getCacheFSubAreaById(id: Int): LiveData<FSubAreaEntity> {
         return appDatabase.subAreaDao.getAllByIdLive(id)
     }
 
-    override fun getCacheAllFSubAreaByParent(divisionId: Int): LiveData<List<FSubArea>> {
+    override fun getCacheAllFSubAreaByParent(divisionId: Int): LiveData<List<FSubAreaEntity>> {
         return appDatabase.subAreaDao.getAllByParentLive(divisionId)
     }
 
-    override fun addCacheFSubArea(fSubArea: FSubArea) {
-        return appDatabase.subAreaDao.insert(fSubArea)
+    override fun addCacheFSubArea(fSubAreaEntity: FSubAreaEntity) {
+        return appDatabase.subAreaDao.insert(fSubAreaEntity)
     }
 
-    override fun putCacheFSubArea(fSubArea: FSubArea) {
-        return appDatabase.subAreaDao.update(fSubArea)
+    override fun putCacheFSubArea(fSubAreaEntity: FSubAreaEntity) {
+        return appDatabase.subAreaDao.update(fSubAreaEntity)
     }
 
-    override fun deleteCacheFSubArea(fSubArea: FSubArea) {
-        return appDatabase.subAreaDao.delete(fSubArea)
+    override fun deleteCacheFSubArea(fSubAreaEntity: FSubAreaEntity) {
+        return appDatabase.subAreaDao.delete(fSubAreaEntity)
     }
 
     override fun deleteAllCacheData() {

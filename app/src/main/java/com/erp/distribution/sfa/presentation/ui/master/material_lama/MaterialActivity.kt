@@ -15,7 +15,7 @@ import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.erp.distribution.sfa.presentation.ui.MainViewModel
-import com.erp.distribution.sfa.data.source.entity.FMaterial
+import com.erp.distribution.sfa.data.source.entity.FMaterialEntity
 import com.erp.distribution.sfa.R
 import com.erp.distribution.sfa.presentation.ui.utils.AlertDialogWarning
 import com.erp.distribution.sfa.databinding.ActiviyTemplate1Binding
@@ -88,7 +88,7 @@ class MaterialActivity : AppCompatActivity() {
 
     fun inizialize() {
 
-        mainViewModel.getCacheFMaterial
+        mainViewModel.getCacheFMaterialEntity
             .map {
                 it.sortedWith(compareBy({it.pname}))
 //                it : tidak jalan akru paia ini bos (pakai atas saja)
@@ -239,7 +239,7 @@ class MaterialActivity : AppCompatActivity() {
 //        }
     }
 
-    fun formAddEditShow(note: FMaterial?) {
+    fun formAddEditShow(note: FMaterialEntity?) {
 //        Intent intent = new Intent(MainActivity.this, AddEditFMaterialActivity.class);
 //        intent.putExtra(AddEditFMaterialActivity.EXTRA_ID, note.getId());
 //        intent.putExtra(AddEditFMaterialActivity.DOMAIN, note);

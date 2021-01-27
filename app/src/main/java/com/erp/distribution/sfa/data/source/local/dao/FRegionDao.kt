@@ -2,7 +2,7 @@ package com.erp.distribution.sfa.data.source.local.dao
 
 import androidx.lifecycle.LiveData
 import androidx.room.*
-import com.erp.distribution.sfa.data.source.entity.FRegion
+import com.erp.distribution.sfa.data.source.entity.FRegionEntity
 
 /**
  * Dao ini belum di koneksikan dengan database manapun
@@ -10,34 +10,34 @@ import com.erp.distribution.sfa.data.source.entity.FRegion
 @Dao
 interface FRegionDao {
     /**
-     * @param fRegion
+     * @param fRegionEntity
      * Harus Menggunakan
      * .allowMainThreadQueries() pada Configurasi database utama agar tidak perlu menggunakan AsynT
      */
     @Insert
-    fun insert(fRegion: FRegion?)
+    fun insert(fRegionEntity: FRegionEntity?)
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    fun insertAll(listFRegion: List<FRegion>)
+    fun insertAll(listFRegionEntity: List<FRegionEntity>)
 
 
     @Update
-    fun update(fRegion: FRegion?)
+    fun update(fRegionEntity: FRegionEntity?)
 
     @Delete
-    fun delete(fRegion: FRegion?)
+    fun delete(fRegionEntity: FRegionEntity?)
 
     @Query("DELETE FROM fRegion")
     fun deleteAllFRegion()
 
     @get:Query("SELECT * FROM fRegion ")
-    val allFRegionLive: LiveData<List<FRegion?>?>?
+    val allFRegionEntityLive: LiveData<List<FRegionEntity?>?>?
 
     @get:Query("SELECT * FROM fRegion ")
-    val allFRegion: List<FRegion?>?
+    val allFRegionEntity: List<FRegionEntity?>?
 
     @Query("SELECT * FROM fRegion WHERE id = :id ")
-    fun getAllById(id: Int): List<FRegion?>?
+    fun getAllById(id: Int): List<FRegionEntity?>?
 
     @Query("SELECT * FROM fRegion WHERE fdivisionBean = :id ")
-    fun getAllByDivision(id: Int): List<FRegion?>?
+    fun getAllByDivision(id: Int): List<FRegionEntity?>?
 }

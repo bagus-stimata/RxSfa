@@ -4,7 +4,7 @@ import androidx.lifecycle.LiveData
 import com.erp.distribution.sfa.data.source.remote.service_api.RetrofitServiceFDivision
 import com.erp.distribution.sfa.data.source.local.database.AppDatabase
 import com.erp.distribution.sfa.domain.repository.FDivisionRepository
-import com.erp.distribution.sfa.data.source.entity.FDivision
+import com.erp.distribution.sfa.data.source.entity.FDivisionEntity
 import io.reactivex.Single
 
 
@@ -17,57 +17,57 @@ class FDivisionRepositoryImpl(
     private val retrofitService: RetrofitServiceFDivision
 ) : FDivisionRepository {
 
-    override fun getRemoteAllFDivision(authHeader: String, ): Single<List<FDivision>> {
+    override fun getRemoteAllFDivision(authHeader: String, ): Single<List<FDivisionEntity>> {
         return retrofitService.getRemoteAllFDivision(authHeader)
     }
 
-    override fun getRemoteFDivisionById(authHeader: String, id: Int): Single<FDivision> {
+    override fun getRemoteFDivisionById(authHeader: String, id: Int): Single<FDivisionEntity> {
         return retrofitService.getRemoteFDivisionById(authHeader, id)
     }
 
-    override fun getRemoteAllFDivisionByParent(authHeader: String, parentId: Int): Single<List<FDivision>> {
+    override fun getRemoteAllFDivisionByParent(authHeader: String, parentId: Int): Single<List<FDivisionEntity>> {
         return retrofitService.getRemoteAllFDivisionByParent(authHeader, parentId)
     }
 
-    override fun createRemoteFDivision(authHeader: String, fDivision: FDivision): Single<FDivision> {
-        return retrofitService.createRemoteFDivision(authHeader, fDivision)
+    override fun createRemoteFDivision(authHeader: String, fDivisionEntity: FDivisionEntity): Single<FDivisionEntity> {
+        return retrofitService.createRemoteFDivision(authHeader, fDivisionEntity)
     }
 
-    override fun putRemoteFDivision(authHeader: String, id: Int, fDivision: FDivision): Single<FDivision> {
-        return retrofitService.putRemoteFDivision(authHeader, id, fDivision)
+    override fun putRemoteFDivision(authHeader: String, id: Int, fDivisionEntity: FDivisionEntity): Single<FDivisionEntity> {
+        return retrofitService.putRemoteFDivision(authHeader, id, fDivisionEntity)
     }
 
-    override fun deleteRemoteFDivision(authHeader: String, id: Int): Single<FDivision> {
+    override fun deleteRemoteFDivision(authHeader: String, id: Int): Single<FDivisionEntity> {
         return retrofitService.deleteRemoteFDivision(authHeader, id)
     }
 
 
 
-    override fun getCacheAllFDivision(): LiveData<List<FDivision>> {
-        return appDatabase.divisionDao.getAllFDivisionLive
+    override fun getCacheAllFDivision(): LiveData<List<FDivisionEntity>> {
+        return appDatabase.divisionDao.getAllFDivisionEntityLive
     }
 
-    override fun getCacheFDivisionById(id: Int): LiveData<FDivision> {
+    override fun getCacheFDivisionById(id: Int): LiveData<FDivisionEntity> {
         return appDatabase.divisionDao.getAllByIdLive(id)
     }
 
-    override fun getCacheAllFDivisionByParent(divisionId: Int): LiveData<List<FDivision>> {
+    override fun getCacheAllFDivisionByParent(divisionId: Int): LiveData<List<FDivisionEntity>> {
         return appDatabase.divisionDao.getAllByParentLive(divisionId)
     }
 
-    override fun addCacheFDivision(fDivision: FDivision) {
-        return appDatabase.divisionDao.insert(fDivision)
+    override fun addCacheFDivision(fDivisionEntity: FDivisionEntity) {
+        return appDatabase.divisionDao.insert(fDivisionEntity)
     }
-    override fun addCacheListFDivision(list: List<FDivision>) {
+    override fun addCacheListFDivision(list: List<FDivisionEntity>) {
         return appDatabase.divisionDao.insertAll(list)
     }
 
-    override fun putCacheFDivision(fDivision: FDivision) {
-        return appDatabase.divisionDao.update(fDivision)
+    override fun putCacheFDivision(fDivisionEntity: FDivisionEntity) {
+        return appDatabase.divisionDao.update(fDivisionEntity)
     }
 
-    override fun deleteCacheFDivision(fDivision: FDivision) {
-        return appDatabase.divisionDao.delete(fDivision)
+    override fun deleteCacheFDivision(fDivisionEntity: FDivisionEntity) {
+        return appDatabase.divisionDao.delete(fDivisionEntity)
     }
 
     override fun deleteAllCacheFDivision() {

@@ -4,7 +4,7 @@ import androidx.lifecycle.LiveData
 import com.erp.distribution.sfa.data.source.remote.service_api.RetrofitServiceFCustomerPic
 import com.erp.distribution.sfa.data.source.local.database.AppDatabase
 import com.erp.distribution.sfa.domain.repository.FCustomerPicRepository
-import com.erp.distribution.sfa.data.source.entity.FCustomerPic
+import com.erp.distribution.sfa.data.source.entity.FCustomerPicEntity
 import io.reactivex.Single
 
 
@@ -17,54 +17,54 @@ class FCustomerPicRepositoryImpl(
     private val retrofitService: RetrofitServiceFCustomerPic
 ) : FCustomerPicRepository {
 
-    override fun getRemoteAllFCustomerPic(authHeader: String): Single<List<FCustomerPic>> {
+    override fun getRemoteAllFCustomerPic(authHeader: String): Single<List<FCustomerPicEntity>> {
         return retrofitService.getRemoteAllFCustomerPic(authHeader)
     }
 
-    override fun getRemoteFCustomerPicById(authHeader: String, id: Int): Single<FCustomerPic> {
+    override fun getRemoteFCustomerPicById(authHeader: String, id: Int): Single<FCustomerPicEntity> {
         return retrofitService.getRemoteFCustomerPicById(authHeader, id)
     }
 
-    override fun getRemoteAllFCustomerPicByParent(authHeader: String, parentId: Int): Single<List<FCustomerPic>> {
+    override fun getRemoteAllFCustomerPicByParent(authHeader: String, parentId: Int): Single<List<FCustomerPicEntity>> {
         return retrofitService.getRemoteAllFCustomerPicByParent(authHeader, parentId)
     }
 
-    override fun createRemoteFCustomerPic(authHeader: String, fCustomerPic: FCustomerPic): Single<FCustomerPic> {
-        return retrofitService.createRemoteFCustomerPic(authHeader, fCustomerPic)
+    override fun createRemoteFCustomerPic(authHeader: String, fCustomerPicEntity: FCustomerPicEntity): Single<FCustomerPicEntity> {
+        return retrofitService.createRemoteFCustomerPic(authHeader, fCustomerPicEntity)
     }
 
-    override fun putRemoteFCustomerPic(authHeader: String, id: Int, fCustomerPic: FCustomerPic): Single<FCustomerPic> {
-        return retrofitService.putRemoteFCustomerPic(authHeader, id, fCustomerPic)
+    override fun putRemoteFCustomerPic(authHeader: String, id: Int, fCustomerPicEntity: FCustomerPicEntity): Single<FCustomerPicEntity> {
+        return retrofitService.putRemoteFCustomerPic(authHeader, id, fCustomerPicEntity)
     }
 
-    override fun deleteRemoteFCustomerPic(authHeader: String, id: Int): Single<FCustomerPic> {
+    override fun deleteRemoteFCustomerPic(authHeader: String, id: Int): Single<FCustomerPicEntity> {
         return retrofitService.deleteRemoteFCustomerPic(authHeader, id)
     }
 
 
 
-    override fun getCacheAllFCustomerPic(): LiveData<List<FCustomerPic>> {
-        return appDatabase.customerPicDao.getAllFCustomerPicLive
+    override fun getCacheAllFCustomerPic(): LiveData<List<FCustomerPicEntity>> {
+        return appDatabase.customerPicDao.getAllFCustomerPicEntityLive
     }
 
-    override fun getCacheFCustomerPicById(id: Int): LiveData<FCustomerPic> {
+    override fun getCacheFCustomerPicById(id: Int): LiveData<FCustomerPicEntity> {
         return appDatabase.customerPicDao.getAllByIdLive(id)
     }
 
-    override fun getCacheAllFCustomerPicByParent(divisionId: Int): LiveData<List<FCustomerPic>> {
+    override fun getCacheAllFCustomerPicByParent(divisionId: Int): LiveData<List<FCustomerPicEntity>> {
         return appDatabase.customerPicDao.getAllByParentLive(divisionId)
     }
 
-    override fun addCacheFCustomerPic(fCustomerPic: FCustomerPic) {
-        return appDatabase.customerPicDao.insert(fCustomerPic)
+    override fun addCacheFCustomerPic(fCustomerPicEntity: FCustomerPicEntity) {
+        return appDatabase.customerPicDao.insert(fCustomerPicEntity)
     }
 
-    override fun putCacheFCustomerPic(fCustomerPic: FCustomerPic) {
-        return appDatabase.customerPicDao.update(fCustomerPic)
+    override fun putCacheFCustomerPic(fCustomerPicEntity: FCustomerPicEntity) {
+        return appDatabase.customerPicDao.update(fCustomerPicEntity)
     }
 
-    override fun deleteCacheFCustomerPic(fCustomerPic: FCustomerPic) {
-        return appDatabase.customerPicDao.delete(fCustomerPic)
+    override fun deleteCacheFCustomerPic(fCustomerPicEntity: FCustomerPicEntity) {
+        return appDatabase.customerPicDao.delete(fCustomerPicEntity)
     }
 
     override fun deleteAllCacheData() {

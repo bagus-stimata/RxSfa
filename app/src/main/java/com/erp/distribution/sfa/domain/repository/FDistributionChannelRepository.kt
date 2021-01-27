@@ -1,26 +1,26 @@
 package com.erp.distribution.sfa.domain.repository
 
 import androidx.lifecycle.LiveData
-import com.erp.distribution.sfa.data.source.entity.FDistributionChannel
+import com.erp.distribution.sfa.data.source.entity.FDistributionChannelEntity
 import io.reactivex.Single
 
 /**
  * To make an interaction between [AlbumRepositoryImp] & [GetAlbumsUseCase]
  * */
 interface FDistributionChannelRepository {
-    fun getRemoteAllFDistributionChannel(authHeader: String): Single<List<FDistributionChannel>>
-    fun getRemoteFDistributionChannelById(authHeader: String, id: Int): Single<FDistributionChannel>
-    fun getRemoteAllFDistributionChannelByDivision(authHeader: String, divisionId: Int): Single<List<FDistributionChannel>>
-    fun createRemoteFDistributionChannel(authHeader: String, fDistributionChannel: FDistributionChannel): Single<FDistributionChannel>
-    fun putRemoteFDistributionChannel(authHeader: String, id: Int, fDistributionChannel: FDistributionChannel): Single<FDistributionChannel>
-    fun deleteRemoteFDistributionChannel(authHeader: String, id: Int): Single<FDistributionChannel>
+    fun getRemoteAllFDistributionChannel(authHeader: String): Single<List<FDistributionChannelEntity>>
+    fun getRemoteFDistributionChannelById(authHeader: String, id: Int): Single<FDistributionChannelEntity>
+    fun getRemoteAllFDistributionChannelByDivision(authHeader: String, divisionId: Int): Single<List<FDistributionChannelEntity>>
+    fun createRemoteFDistributionChannel(authHeader: String, fDistributionChannelEntity: FDistributionChannelEntity): Single<FDistributionChannelEntity>
+    fun putRemoteFDistributionChannel(authHeader: String, id: Int, fDistributionChannelEntity: FDistributionChannelEntity): Single<FDistributionChannelEntity>
+    fun deleteRemoteFDistributionChannel(authHeader: String, id: Int): Single<FDistributionChannelEntity>
 
-    fun getCacheAllFDistributionChannel(): LiveData<List<FDistributionChannel>>
-    fun getCacheFDistributionChannelById(id: Int): LiveData<FDistributionChannel>
-    fun getCacheAllFDistributionChannelByDivision(divisionId: Int): LiveData<List<FDistributionChannel>>
-    fun addCacheFDistributionChannel(fDistributionChannel: FDistributionChannel)
-    fun putCacheFDistributionChannel(fDistributionChannel: FDistributionChannel)
-    fun deleteCacheFDistributionChannel(fDistributionChannel: FDistributionChannel)
+    fun getCacheAllFDistributionChannel(): LiveData<List<FDistributionChannelEntity>>
+    fun getCacheFDistributionChannelById(id: Int): LiveData<FDistributionChannelEntity>
+    fun getCacheAllFDistributionChannelByDivision(divisionId: Int): LiveData<List<FDistributionChannelEntity>>
+    fun addCacheFDistributionChannel(fDistributionChannelEntity: FDistributionChannelEntity)
+    fun putCacheFDistributionChannel(fDistributionChannelEntity: FDistributionChannelEntity)
+    fun deleteCacheFDistributionChannel(fDistributionChannelEntity: FDistributionChannelEntity)
     fun deleteAllCacheData()
 
 

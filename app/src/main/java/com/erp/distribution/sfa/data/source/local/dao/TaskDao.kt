@@ -2,7 +2,6 @@ package com.erp.distribution.sfa.data.source.local.dao
 
 import androidx.room.*
 import com.erp.distribution.sfa.data.di.SortOrder
-import com.erp.distribution.sfa.data.source.entity.FtSalesh
 import com.erp.distribution.sfa.data.source.entity.Task
 import kotlinx.coroutines.flow.Flow
 

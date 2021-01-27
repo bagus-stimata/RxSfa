@@ -5,7 +5,7 @@ import com.erp.distribution.sfa.data.di.SortOrder
 import com.erp.distribution.sfa.data.source.remote.service_api.RetrofitServiceFtSalesh
 import com.erp.distribution.sfa.data.source.local.database.AppDatabase
 import com.erp.distribution.sfa.domain.repository.FtSaleshRepository
-import com.erp.distribution.sfa.data.source.entity.FtSalesh
+import com.erp.distribution.sfa.data.source.entity.FtSaleshEntity
 import io.reactivex.Single
 import kotlinx.coroutines.flow.Flow
 
@@ -19,66 +19,66 @@ class FtSaleshRepositoryImpl(
     private val retrofitService: RetrofitServiceFtSalesh
 ) : FtSaleshRepository {
 
-    override fun getRemoteAllFtSalesh(authHeader: String ): Single<List<FtSalesh>> {
+    override fun getRemoteAllFtSalesh(authHeader: String ): Single<List<FtSaleshEntity>> {
         return retrofitService.getRemoteAllFtSalesh(authHeader)
     }
 
-    override fun getRemoteFtSaleshById(authHeader: String, id: Long): Single<FtSalesh> {
+    override fun getRemoteFtSaleshById(authHeader: String, id: Long): Single<FtSaleshEntity> {
         return retrofitService.getRemoteFtSaleshById(authHeader, id)
     }
 
-    override fun getRemoteAllFtSaleshByDivision(authHeader: String, divisionId: Int): Single<List<FtSalesh>> {
+    override fun getRemoteAllFtSaleshByDivision(authHeader: String, divisionId: Int): Single<List<FtSaleshEntity>> {
         return retrofitService.getRemoteAllFtSaleshByDivision(authHeader, divisionId)
     }
 
-    override fun createRemoteFtSalesh(authHeader: String, ftSalesh: FtSalesh): Single<FtSalesh> {
-        return retrofitService.createRemoteFtSalesh(authHeader, ftSalesh)
+    override fun createRemoteFtSalesh(authHeader: String, ftSaleshEntity: FtSaleshEntity): Single<FtSaleshEntity> {
+        return retrofitService.createRemoteFtSalesh(authHeader, ftSaleshEntity)
     }
 
-    override fun putRemoteFtSalesh(authHeader: String, id: Long, ftSalesh: FtSalesh): Single<FtSalesh> {
-        return retrofitService.putRemoteFtSalesh(authHeader, id, ftSalesh)
+    override fun putRemoteFtSalesh(authHeader: String, id: Long, ftSaleshEntity: FtSaleshEntity): Single<FtSaleshEntity> {
+        return retrofitService.putRemoteFtSalesh(authHeader, id, ftSaleshEntity)
     }
 
-    override fun deleteRemoteFtSalesh(authHeader: String, id: Long): Single<FtSalesh> {
+    override fun deleteRemoteFtSalesh(authHeader: String, id: Long): Single<FtSaleshEntity> {
         return retrofitService.deleteRemoteFtSalesh(authHeader, id)
     }
 
 
 
-    override fun getCacheAllFtSalesh(): LiveData<List<FtSalesh>> {
-        return appDatabase.saleshDao.getAllFtSaleshLive
+    override fun getCacheAllFtSalesh(): LiveData<List<FtSaleshEntity>> {
+        return appDatabase.saleshDao.getAllFtSaleshEntityLive
     }
 
     override fun getCacheAllFtSaleshFlow(
         query: String,
         sortOrder: SortOrder,
         hideSelected: Boolean
-    ): Flow<List<FtSalesh>> {
+    ): Flow<List<FtSaleshEntity>> {
         return appDatabase.saleshDao.getAllFtSaleshFlow(query, sortOrder, hideSelected)
     }
 
-    override fun getCacheFtSaleshById(id: Long): LiveData<FtSalesh> {
+    override fun getCacheFtSaleshById(id: Long): LiveData<FtSaleshEntity> {
         return appDatabase.saleshDao.getAllByIdLive(id)
     }
 
-    override fun getCacheAllFtSaleshByDivision(divisionId: Int): LiveData<List<FtSalesh>> {
+    override fun getCacheAllFtSaleshByDivision(divisionId: Int): LiveData<List<FtSaleshEntity>> {
         return appDatabase.saleshDao.getAllByDivisionLive(divisionId)
     }
 
-    override fun addCacheFtSalesh(ftSalesh: FtSalesh) {
-        return appDatabase.saleshDao.insert(ftSalesh)
+    override fun addCacheFtSalesh(ftSaleshEntity: FtSaleshEntity) {
+        return appDatabase.saleshDao.insert(ftSaleshEntity)
     }
 
-    override fun addCacheListFtSalesh(list: List<FtSalesh>) {
+    override fun addCacheListFtSalesh(list: List<FtSaleshEntity>) {
         return appDatabase.saleshDao.insertAll(list)
     }
 
-    override fun putCacheFtSalesh(ftSalesh: FtSalesh) {
-        return appDatabase.saleshDao.update(ftSalesh)
+    override fun putCacheFtSalesh(ftSaleshEntity: FtSaleshEntity) {
+        return appDatabase.saleshDao.update(ftSaleshEntity)
     }
 
-    override fun deleteCacheFtSalesh(ftSalesh: FtSalesh) {
-        return appDatabase.saleshDao.delete(ftSalesh)
+    override fun deleteCacheFtSalesh(ftSaleshEntity: FtSaleshEntity) {
+        return appDatabase.saleshDao.delete(ftSaleshEntity)
     }
 
     override fun deleteAllCacheFtSalesh() {

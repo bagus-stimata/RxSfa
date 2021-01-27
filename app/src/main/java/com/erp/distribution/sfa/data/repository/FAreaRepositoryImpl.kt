@@ -4,7 +4,7 @@ import androidx.lifecycle.LiveData
 import com.erp.distribution.sfa.data.source.remote.service_api.RetrofitServiceFArea
 import com.erp.distribution.sfa.data.source.local.database.AppDatabase
 import com.erp.distribution.sfa.domain.repository.FAreaRepository
-import com.erp.distribution.sfa.data.source.entity.FArea
+import com.erp.distribution.sfa.data.source.entity.FAreaEntity
 import io.reactivex.Single
 
 
@@ -17,57 +17,57 @@ class FAreaRepositoryImpl(
     private val retrofitService: RetrofitServiceFArea
 ) : FAreaRepository {
 
-    override fun getRemoteAllFArea(authHeader: String): Single<List<FArea>> {
+    override fun getRemoteAllFArea(authHeader: String): Single<List<FAreaEntity>> {
         return retrofitService.getRemoteAllFArea(authHeader)
     }
 
-    override fun getRemoteFAreaById(authHeader: String, id: Int): Single<FArea> {
+    override fun getRemoteFAreaById(authHeader: String, id: Int): Single<FAreaEntity> {
         return retrofitService.getRemoteFAreaById(authHeader, id)
     }
 
-    override fun getRemoteAllFAreaByDivision(authHeader: String, divisionId: Int): Single<List<FArea>> {
+    override fun getRemoteAllFAreaByDivision(authHeader: String, divisionId: Int): Single<List<FAreaEntity>> {
         return retrofitService.getRemoteAllFAreaByDivision(authHeader, divisionId)
     }
 
-    override fun createRemoteFArea(authHeader: String, fArea: FArea): Single<FArea> {
-        return retrofitService.createRemoteFArea(authHeader, fArea)
+    override fun createRemoteFArea(authHeader: String, fAreaEntity: FAreaEntity): Single<FAreaEntity> {
+        return retrofitService.createRemoteFArea(authHeader, fAreaEntity)
     }
 
-    override fun putRemoteFArea(authHeader: String, id: Int, fArea: FArea): Single<FArea> {
-        return retrofitService.putRemoteFArea(authHeader, id, fArea)
+    override fun putRemoteFArea(authHeader: String, id: Int, fAreaEntity: FAreaEntity): Single<FAreaEntity> {
+        return retrofitService.putRemoteFArea(authHeader, id, fAreaEntity)
     }
 
-    override fun deleteRemoteFArea(authHeader: String, id: Int): Single<FArea> {
+    override fun deleteRemoteFArea(authHeader: String, id: Int): Single<FAreaEntity> {
         return retrofitService.deleteRemoteFArea(authHeader, id)
     }
 
 
 
-    override fun getCacheAllFArea(): LiveData<List<FArea>> {
-        return appDatabase.areaDao.getAllFAreaLive
+    override fun getCacheAllFArea(): LiveData<List<FAreaEntity>> {
+        return appDatabase.areaDao.getAllFAreaEntityLive
     }
 
-    override fun getCacheFAreaById(id: Int): LiveData<FArea> {
+    override fun getCacheFAreaById(id: Int): LiveData<FAreaEntity> {
         return appDatabase.areaDao.getAllByIdLive(id)
     }
 
-    override fun getCacheAllFAreaByDivision(divisionId: Int): LiveData<List<FArea>> {
+    override fun getCacheAllFAreaByDivision(divisionId: Int): LiveData<List<FAreaEntity>> {
         return appDatabase.areaDao.getAllByDivisionLive(divisionId)
     }
 
-    override fun addCacheFArea(fArea: FArea) {
-        return appDatabase.areaDao.insert(fArea)
+    override fun addCacheFArea(fAreaEntity: FAreaEntity) {
+        return appDatabase.areaDao.insert(fAreaEntity)
     }
-    override fun addCacheListFArea(list: List<FArea>) {
+    override fun addCacheListFArea(list: List<FAreaEntity>) {
         return appDatabase.areaDao.insertAll(list)
     }
 
-    override fun putCacheFArea(fArea: FArea) {
-        return appDatabase.areaDao.update(fArea)
+    override fun putCacheFArea(fAreaEntity: FAreaEntity) {
+        return appDatabase.areaDao.update(fAreaEntity)
     }
 
-    override fun deleteCacheFArea(fArea: FArea) {
-        return appDatabase.areaDao.delete(fArea)
+    override fun deleteCacheFArea(fAreaEntity: FAreaEntity) {
+        return appDatabase.areaDao.delete(fAreaEntity)
     }
 
     override fun deleteAllCacheFArea() {

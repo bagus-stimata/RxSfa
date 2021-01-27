@@ -4,7 +4,7 @@ import androidx.lifecycle.LiveData
 import com.erp.distribution.sfa.data.source.remote.service_api.RetrofitServiceFCompany
 import com.erp.distribution.sfa.data.source.local.database.AppDatabase
 import com.erp.distribution.sfa.domain.repository.FCompanyRepository
-import com.erp.distribution.sfa.data.source.entity.FCompany
+import com.erp.distribution.sfa.data.source.entity.FCompanyEntity
 import io.reactivex.Single
 
 
@@ -17,11 +17,11 @@ class FCompanyRepositoryImpl(
     private val retrofitService: RetrofitServiceFCompany
 ) : FCompanyRepository {
 
-    override fun getRemoteAllFCompany(authHeader: String): Single<List<FCompany>> {
+    override fun getRemoteAllFCompany(authHeader: String): Single<List<FCompanyEntity>> {
         return retrofitService.getRemoteAllFCompany(authHeader)
     }
 
-    override fun getRemoteFCompanyById(authHeader: String, id: Int): Single<FCompany> {
+    override fun getRemoteFCompanyById(authHeader: String, id: Int): Single<FCompanyEntity> {
         return retrofitService.getRemoteFCompanyById(authHeader, id)
     }
 
@@ -29,25 +29,25 @@ class FCompanyRepositoryImpl(
 //        return retrofitService.getRemoteAllFCompanyByDivision(authHeader, divisionId)
 //    }
 
-    override fun createRemoteFCompany(authHeader: String, fCompany: FCompany): Single<FCompany> {
-        return retrofitService.createRemoteFCompany(authHeader, fCompany)
+    override fun createRemoteFCompany(authHeader: String, fCompanyEntity: FCompanyEntity): Single<FCompanyEntity> {
+        return retrofitService.createRemoteFCompany(authHeader, fCompanyEntity)
     }
 
-    override fun putRemoteFCompany(authHeader: String, id: Int, fCompany: FCompany): Single<FCompany> {
-        return retrofitService.putRemoteFCompany(authHeader, id, fCompany)
+    override fun putRemoteFCompany(authHeader: String, id: Int, fCompanyEntity: FCompanyEntity): Single<FCompanyEntity> {
+        return retrofitService.putRemoteFCompany(authHeader, id, fCompanyEntity)
     }
 
-    override fun deleteRemoteFCompany(authHeader: String, id: Int): Single<FCompany> {
+    override fun deleteRemoteFCompany(authHeader: String, id: Int): Single<FCompanyEntity> {
         return retrofitService.deleteRemoteFCompany(authHeader, id)
     }
 
 
 
-    override fun getCacheAllFCompany(): LiveData<List<FCompany>> {
-        return appDatabase.companyDao.getAllFCompanyLive
+    override fun getCacheAllFCompany(): LiveData<List<FCompanyEntity>> {
+        return appDatabase.companyDao.getAllFCompanyEntityLive
     }
 
-    override fun getCacheFCompanyById(id: Int): LiveData<FCompany> {
+    override fun getCacheFCompanyById(id: Int): LiveData<FCompanyEntity> {
         return appDatabase.companyDao.getAllByIdLive(id)
     }
 
@@ -55,19 +55,19 @@ class FCompanyRepositoryImpl(
 //        return appDatabase.companyDao.getAllByDivisionLive(divisionId)
 //    }
 
-    override fun addCacheFCompany(fCompany: FCompany) {
-        return appDatabase.companyDao.insert(fCompany)
+    override fun addCacheFCompany(fCompanyEntity: FCompanyEntity) {
+        return appDatabase.companyDao.insert(fCompanyEntity)
     }
-    override fun addCacheListFCompany(list: List<FCompany>) {
+    override fun addCacheListFCompany(list: List<FCompanyEntity>) {
         return appDatabase.companyDao.insertAll(list)
     }
 
-    override fun putCacheFCompany(fCompany: FCompany) {
-        return appDatabase.companyDao.update(fCompany)
+    override fun putCacheFCompany(fCompanyEntity: FCompanyEntity) {
+        return appDatabase.companyDao.update(fCompanyEntity)
     }
 
-    override fun deleteCacheFCompany(fCompany: FCompany) {
-        return appDatabase.companyDao.delete(fCompany)
+    override fun deleteCacheFCompany(fCompanyEntity: FCompanyEntity) {
+        return appDatabase.companyDao.delete(fCompanyEntity)
     }
 
     override fun deleteAllCacheFCompany() {

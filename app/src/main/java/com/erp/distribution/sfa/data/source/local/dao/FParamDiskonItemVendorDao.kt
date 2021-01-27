@@ -2,7 +2,7 @@ package com.erp.distribution.sfa.data.source.local.dao
 
 import androidx.lifecycle.LiveData
 import androidx.room.*
-import com.erp.distribution.sfa.data.source.entity.FParamDiskonItemVendor
+import com.erp.distribution.sfa.data.source.entity.FParamDiskonItemVendorEntity
 
 /**
  * Dao ini belum di koneksikan dengan database manapun
@@ -10,33 +10,33 @@ import com.erp.distribution.sfa.data.source.entity.FParamDiskonItemVendor
 @Dao
 interface FParamDiskonItemVendorDao {
     /**
-     * @param fParamDiskonItemVendor
+     * @param fParamDiskonItemVendorEntity
      * Harus Menggunakan
      * .allowMainThreadQueries() pada Configurasi database utama agar tidak perlu menggunakan AsynT
      */
     @Insert
-    fun insert(fParamDiskonItemVendor: FParamDiskonItemVendor?)
+    fun insert(fParamDiskonItemVendorEntity: FParamDiskonItemVendorEntity?)
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    fun insertAll(listFParamDiskonItemVendor: List<FParamDiskonItemVendor>)
+    fun insertAll(listFParamDiskonItemVendorEntity: List<FParamDiskonItemVendorEntity>)
     
     @Update
-    fun update(fParamDiskonItemVendor: FParamDiskonItemVendor?)
+    fun update(fParamDiskonItemVendorEntity: FParamDiskonItemVendorEntity?)
 
     @Delete
-    fun delete(fParamDiskonItemVendor: FParamDiskonItemVendor?)
+    fun delete(fParamDiskonItemVendorEntity: FParamDiskonItemVendorEntity?)
 
     @Query("DELETE FROM fParamDiskonItemVendor")
     fun deleteAllFParamDiskonItemVendor()
 
     @get:Query("SELECT * FROM fParamDiskonItemVendor ")
-    val allFParamDiskonItemVendorLive: LiveData<List<FParamDiskonItemVendor?>?>?
+    val allFParamDiskonItemVendorEntityLive: LiveData<List<FParamDiskonItemVendorEntity?>?>?
 
     @get:Query("SELECT * FROM fParamDiskonItemVendor ")
-    val allFParamDiskonItemVendor: List<FParamDiskonItemVendor?>?
+    val allFParamDiskonItemVendorEntity: List<FParamDiskonItemVendorEntity?>?
 
     @Query("SELECT * FROM fParamDiskonItemVendor WHERE id = :id ")
-    fun getAllById(id: Int): List<FParamDiskonItemVendor?>?
+    fun getAllById(id: Int): List<FParamDiskonItemVendorEntity?>?
 
     @Query("SELECT * FROM fParamDiskonItemVendor WHERE fdivisionBean = :id ")
-    fun getAllByDivision(id: Int): List<FParamDiskonItemVendor?>?
+    fun getAllByDivision(id: Int): List<FParamDiskonItemVendorEntity?>?
 }

@@ -8,7 +8,7 @@ import androidx.lifecycle.ViewModel
 import com.erp.distribution.sfa.domain.repository.FUserRepository
 import com.erp.distribution.sfa.domain.usecase.GetFAreaUseCase
 import com.erp.distribution.sfa.domain.usecase.GetFUserUseCase
-import com.erp.distribution.sfa.data.source.entity.FArea
+import com.erp.distribution.sfa.data.source.entity.FAreaEntity
 import com.erp.distribution.sfa.presentation.extention.map
 import com.erp.distribution.sfa.data.source.entity_security.FUser
 import com.erp.distribution.sfa.utils.SecurityUtil
@@ -62,8 +62,8 @@ class TestViewModel @ViewModelInject constructor(
 
 
     val domainData = MutableLiveData<List<FUser>>()
-    val dataFArea = MutableLiveData<List<FArea>>()
-    val fareaBean = MutableLiveData<FArea>()
+    val dataFArea = MutableLiveData<List<FAreaEntity>>()
+    val fareaBean = MutableLiveData<FAreaEntity>()
 
     private lateinit var notesResult: LiveData<List<FUser>>
     fun listenNotesResult(): LiveData<List<FUser>> {
@@ -90,7 +90,7 @@ class TestViewModel @ViewModelInject constructor(
     }
 
     fun createFArea() {
-        val newFArea = FArea(0, 0, "TEST", "", "Test Aja",
+        val newFArea = FAreaEntity(0, 0, "TEST", "", "Test Aja",
                 105, 11298240, true, Date(), Date(), "bagus")
 //        val newFArea = FArea(0, 0, "TEST", "", "Test Aja",
 //                105, 11298240, true, "bagus")
@@ -117,17 +117,17 @@ class TestViewModel @ViewModelInject constructor(
 //    private val apiService: ApiService? = null
     private val disposable = CompositeDisposable()
 
-    private fun createNote(fArea: FArea) {
+    private fun createNote(fAreaEntity: FAreaEntity) {
         disposable.add(
-                getFAreaUseCase.createRemoteFArea(SecurityUtil.getAuthHeader("bagus", "hacker"), fArea)
+                getFAreaUseCase.createRemoteFArea(SecurityUtil.getAuthHeader("bagus", "hacker"), fAreaEntity)
                         .map {
                             it
                         }
                         .subscribeOn(Schedulers.io())
                         .observeOn(AndroidSchedulers.mainThread())
-                        .subscribeWith(object : DisposableSingleObserver<FArea>() {
-                            override fun onSuccess(fArea1: FArea) {
-                                Log.d("result", "Masuk bos ${fArea1}")
+                        .subscribeWith(object : DisposableSingleObserver<FAreaEntity>() {
+                            override fun onSuccess(fAreaEntity1: FAreaEntity) {
+                                Log.d("result", "Masuk bos ${fAreaEntity1}")
                             }
                             override fun onError(e: Throwable) {
                                 Log.d("result", "Error bos ${e.printStackTrace().toString()}")

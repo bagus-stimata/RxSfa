@@ -4,7 +4,7 @@ import androidx.lifecycle.LiveData
 import com.erp.distribution.sfa.data.source.remote.service_api.RetrofitServiceFCustomerGroup
 import com.erp.distribution.sfa.data.source.local.database.AppDatabase
 import com.erp.distribution.sfa.domain.repository.FCustomerGroupRepository
-import com.erp.distribution.sfa.data.source.entity.FCustomerGroup
+import com.erp.distribution.sfa.data.source.entity.FCustomerGroupEntity
 import io.reactivex.Single
 
 
@@ -17,54 +17,54 @@ class FCustomerGroupRepositoryImpl(
     private val retrofitService: RetrofitServiceFCustomerGroup
 ) : FCustomerGroupRepository {
 
-    override fun getRemoteAllFCustomerGroup(authHeader: String): Single<List<FCustomerGroup>> {
+    override fun getRemoteAllFCustomerGroup(authHeader: String): Single<List<FCustomerGroupEntity>> {
         return retrofitService.getRemoteAllFCustomerGroup(authHeader)
     }
 
-    override fun getRemoteFCustomerGroupById(authHeader: String, id: Int): Single<FCustomerGroup> {
+    override fun getRemoteFCustomerGroupById(authHeader: String, id: Int): Single<FCustomerGroupEntity> {
         return retrofitService.getRemoteFCustomerGroupById(authHeader, id)
     }
 
-    override fun getRemoteAllFCustomerGroupByDivision(authHeader: String, divisionId: Int): Single<List<FCustomerGroup>> {
+    override fun getRemoteAllFCustomerGroupByDivision(authHeader: String, divisionId: Int): Single<List<FCustomerGroupEntity>> {
         return retrofitService.getRemoteAllFCustomerGroupByDivision(authHeader, divisionId)
     }
 
-    override fun createRemoteFCustomerGroup(authHeader: String, fCustomerGroup: FCustomerGroup): Single<FCustomerGroup> {
-        return retrofitService.createRemoteFCustomerGroup(authHeader, fCustomerGroup)
+    override fun createRemoteFCustomerGroup(authHeader: String, fCustomerGroupEntity: FCustomerGroupEntity): Single<FCustomerGroupEntity> {
+        return retrofitService.createRemoteFCustomerGroup(authHeader, fCustomerGroupEntity)
     }
 
-    override fun putRemoteFCustomerGroup(authHeader: String, id: Int, fCustomerGroup: FCustomerGroup): Single<FCustomerGroup> {
-        return retrofitService.putRemoteFCustomerGroup(authHeader, id, fCustomerGroup)
+    override fun putRemoteFCustomerGroup(authHeader: String, id: Int, fCustomerGroupEntity: FCustomerGroupEntity): Single<FCustomerGroupEntity> {
+        return retrofitService.putRemoteFCustomerGroup(authHeader, id, fCustomerGroupEntity)
     }
 
-    override fun deleteRemoteFCustomerGroup(authHeader: String, id: Int): Single<FCustomerGroup> {
+    override fun deleteRemoteFCustomerGroup(authHeader: String, id: Int): Single<FCustomerGroupEntity> {
         return retrofitService.deleteRemoteFCustomerGroup(authHeader, id)
     }
 
 
 
-    override fun getCacheAllFCustomerGroup(): LiveData<List<FCustomerGroup>> {
-        return appDatabase.customerGroupDao.getAllFCustomerGroupLive
+    override fun getCacheAllFCustomerGroup(): LiveData<List<FCustomerGroupEntity>> {
+        return appDatabase.customerGroupDao.getAllFCustomerGroupEntityLive
     }
 
-    override fun getCacheFCustomerGroupById(id: Int): LiveData<FCustomerGroup> {
+    override fun getCacheFCustomerGroupById(id: Int): LiveData<FCustomerGroupEntity> {
         return appDatabase.customerGroupDao.getAllByIdLive(id)
     }
 
-    override fun getCacheAllFCustomerGroupByDivision(divisionId: Int): LiveData<List<FCustomerGroup>> {
+    override fun getCacheAllFCustomerGroupByDivision(divisionId: Int): LiveData<List<FCustomerGroupEntity>> {
         return appDatabase.customerGroupDao.getAllByDivisionLive(divisionId)
     }
 
-    override fun addCacheFCustomerGroup(fCustomerGroup: FCustomerGroup) {
-        return appDatabase.customerGroupDao.insert(fCustomerGroup)
+    override fun addCacheFCustomerGroup(fCustomerGroupEntity: FCustomerGroupEntity) {
+        return appDatabase.customerGroupDao.insert(fCustomerGroupEntity)
     }
 
-    override fun putCacheFCustomerGroup(fCustomerGroup: FCustomerGroup) {
-        return appDatabase.customerGroupDao.update(fCustomerGroup)
+    override fun putCacheFCustomerGroup(fCustomerGroupEntity: FCustomerGroupEntity) {
+        return appDatabase.customerGroupDao.update(fCustomerGroupEntity)
     }
 
-    override fun deleteCacheFCustomerGroup(fCustomerGroup: FCustomerGroup) {
-        return appDatabase.customerGroupDao.delete(fCustomerGroup)
+    override fun deleteCacheFCustomerGroup(fCustomerGroupEntity: FCustomerGroupEntity) {
+        return appDatabase.customerGroupDao.delete(fCustomerGroupEntity)
     }
 
     override fun deleteAllCacheData() {

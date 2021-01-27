@@ -3,7 +3,7 @@ package com.erp.distribution.sfa.domain.usecase
 import androidx.lifecycle.LiveData
 import com.erp.distribution.sfa.domain.repository.FAreaRepository
 import com.erp.distribution.sfa.domain.usecase.base.SingleUseCase
-import com.erp.distribution.sfa.data.source.entity.FArea
+import com.erp.distribution.sfa.data.source.entity.FAreaEntity
 import io.reactivex.Single
 import javax.inject.Inject
 
@@ -13,53 +13,53 @@ import javax.inject.Inject
  * it handles the response that returns data &
  * contains a list of actions, event steps
  */
-class GetFAreaUseCase @Inject constructor(private val repository: FAreaRepository) : SingleUseCase<List<FArea>>() {
+class GetFAreaUseCase @Inject constructor(private val repository: FAreaRepository) : SingleUseCase<List<FAreaEntity>>() {
 
-    override fun buildUseCaseSingle(): Single<List<FArea>> {
+    override fun buildUseCaseSingle(): Single<List<FAreaEntity>> {
         return repository.getRemoteAllFArea("aa")
     }
-    fun getRemoteAllFArea(authHeader: String): Single<List<FArea>>{
+    fun getRemoteAllFArea(authHeader: String): Single<List<FAreaEntity>>{
         return repository.getRemoteAllFArea(authHeader)
     }
 
-    fun getRemoteFAreaById(authHeader: String, id: Int): Single<FArea>{
+    fun getRemoteFAreaById(authHeader: String, id: Int): Single<FAreaEntity>{
         return repository.getRemoteFAreaById(authHeader, id)
     }
-    fun getRemoteAllFAreaByDivision(authHeader: String, divisionId: Int): Single<List<FArea>>{
+    fun getRemoteAllFAreaByDivision(authHeader: String, divisionId: Int): Single<List<FAreaEntity>>{
         return repository.getRemoteAllFAreaByDivision(authHeader, divisionId)
     }
-    fun createRemoteFArea(authHeader: String, fArea: FArea): Single<FArea>{
-        return repository.createRemoteFArea(authHeader, fArea)
+    fun createRemoteFArea(authHeader: String, fAreaEntity: FAreaEntity): Single<FAreaEntity>{
+        return repository.createRemoteFArea(authHeader, fAreaEntity)
     }
-    fun putRemoteFArea(authHeader: String, id: Int, fArea: FArea): Single<FArea>{
-        return repository.putRemoteFArea(authHeader, id, fArea)
+    fun putRemoteFArea(authHeader: String, id: Int, fAreaEntity: FAreaEntity): Single<FAreaEntity>{
+        return repository.putRemoteFArea(authHeader, id, fAreaEntity)
     }
-    fun deleteRemoteFArea(authHeader: String, id: Int): Single<FArea>{
+    fun deleteRemoteFArea(authHeader: String, id: Int): Single<FAreaEntity>{
         return repository.deleteRemoteFArea(authHeader, id)
     }
 
 
 
-    fun getCacheAllFArea(): LiveData<List<FArea>>{
+    fun getCacheAllFArea(): LiveData<List<FAreaEntity>>{
         return repository.getCacheAllFArea()
     }
-    fun getCacheFAreaById(id: Int): LiveData<FArea>{
+    fun getCacheFAreaById(id: Int): LiveData<FAreaEntity>{
         return repository.getCacheFAreaById(id)
     }
-    fun getCacheAllFAreaByDivision(divisionId: Int): LiveData<List<FArea>>{
+    fun getCacheAllFAreaByDivision(divisionId: Int): LiveData<List<FAreaEntity>>{
         return repository.getCacheAllFAreaByDivision(divisionId)
     }
-    fun addCacheFArea(fArea: FArea){
-        repository.addCacheFArea(fArea)
+    fun addCacheFArea(fAreaEntity: FAreaEntity){
+        repository.addCacheFArea(fAreaEntity)
     }
-    fun addCacheListFArea(list: List<FArea>){
+    fun addCacheListFArea(list: List<FAreaEntity>){
         repository.addCacheListFArea(list)
     }
-    fun putCacheFArea(fArea: FArea){
-        repository.putCacheFArea(fArea)
+    fun putCacheFArea(fAreaEntity: FAreaEntity){
+        repository.putCacheFArea(fAreaEntity)
     }
-    fun deleteCacheFArea(fArea: FArea){
-        repository.deleteCacheFArea(fArea)
+    fun deleteCacheFArea(fAreaEntity: FAreaEntity){
+        repository.deleteCacheFArea(fAreaEntity)
     }
     fun deleteAllCacheFArea(){
         repository.deleteAllCacheFArea()

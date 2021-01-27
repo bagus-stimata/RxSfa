@@ -6,7 +6,7 @@ import androidx.hilt.lifecycle.ViewModelInject
 import androidx.lifecycle.*
 import com.erp.distribution.sfa.data.di.PreferencesManager
 import com.erp.distribution.sfa.data.di.SortOrder
-import com.erp.distribution.sfa.data.source.entity.FMaterial
+import com.erp.distribution.sfa.data.source.entity.FMaterialEntity
 import com.erp.distribution.sfa.domain.usecase.GetFMaterialUseCase
 import com.erp.distribution.sfa.presentation.ui.test.mvvm_todo.ADD_TASK_RESULT_OK
 import com.erp.distribution.sfa.presentation.ui.test.mvvm_todo.EDIT_TASK_RESULT_OK
@@ -56,11 +56,11 @@ class TasksViewModel @ViewModelInject constructor(
         preferencesManager.updateHideCompleted(hideCompleted)
     }
 
-    fun onTaskSelected(task: FMaterial) = viewModelScope.launch {
+    fun onTaskSelected(task: FMaterialEntity) = viewModelScope.launch {
         tasksEventChannel.send(TasksEvent.NavigateToEditTaskScreen(task))
     }
 
-    fun onTaskCheckedChanged(task: FMaterial, isChecked: Boolean) = viewModelScope.launch {
+    fun onTaskCheckedChanged(task: FMaterialEntity, isChecked: Boolean) = viewModelScope.launch {
 //        getFMaterialUseCase.putCacheFMaterial(task.copy(selected = isChecked))
         DisposableManager.add(Observable.fromCallable {
             getFMaterialUseCase.putCacheFMaterial(task.copy(selected = isChecked))
@@ -81,7 +81,7 @@ class TasksViewModel @ViewModelInject constructor(
 
     }
 
-    fun onTaskSwiped(task: FMaterial) = viewModelScope.launch {
+    fun onTaskSwiped(task: FMaterialEntity) = viewModelScope.launch {
 //        taskDao.delete(task)
 //        tasksEventChannel.send(TasksEvent.ShowUndoDeleteTaskMessage(task))
 //        getFMaterialUseCase.deleteCacheFMaterial(task)
@@ -105,7 +105,7 @@ class TasksViewModel @ViewModelInject constructor(
         tasksEventChannel.send(TasksEvent.ShowUndoDeleteTaskMessage(task))
     }
 
-    fun onUndoDeleteClick(task: FMaterial) = viewModelScope.launch {
+    fun onUndoDeleteClick(task: FMaterialEntity) = viewModelScope.launch {
 //        taskDao.insert(task)
 //        getFMaterialUseCase.addCacheFMaterial(task)
         DisposableManager.add(Observable.fromCallable {
@@ -147,8 +147,8 @@ class TasksViewModel @ViewModelInject constructor(
 
     sealed class TasksEvent {
         object NavigateToAddTaskScreen : TasksEvent()
-        data class NavigateToEditTaskScreen(val task: FMaterial) : TasksEvent()
-        data class ShowUndoDeleteTaskMessage(val task: FMaterial) : TasksEvent()
+        data class NavigateToEditTaskScreen(val task: FMaterialEntity) : TasksEvent()
+        data class ShowUndoDeleteTaskMessage(val task: FMaterialEntity) : TasksEvent()
         data class ShowTaskSavedConfirmationMessage(val msg: String) : TasksEvent()
         object NavigateToDeleteAllCompletedScreen : TasksEvent()
     }

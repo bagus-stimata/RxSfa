@@ -3,8 +3,7 @@ package com.erp.distribution.sfa.data.source.local.dao
 import androidx.lifecycle.LiveData
 import androidx.room.*
 import com.erp.distribution.sfa.data.di.SortOrder
-import com.erp.distribution.sfa.data.source.entity.FCustomer
-import com.erp.distribution.sfa.data.source.entity.FMaterial
+import com.erp.distribution.sfa.data.source.entity.FCustomerEntity
 import kotlinx.coroutines.flow.Flow
 
 /**
@@ -13,26 +12,26 @@ import kotlinx.coroutines.flow.Flow
 @Dao
 interface FCustomerDao {
     /**
-     * @param fCustomer
+     * @param fCustomerEntity
      * Harus Menggunakan
      * .allowMainThreadQueries() pada Configurasi database utama agar tidak perlu menggunakan AsynT
      */
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    fun insert(fCustomer: FCustomer)
+    fun insert(fCustomerEntity: FCustomerEntity)
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    fun insertAll(listFCustomer: List<FCustomer>)
+    fun insertAll(listFCustomerEntity: List<FCustomerEntity>)
 
     @Update
-    fun update(fCustomer: FCustomer)
+    fun update(fCustomerEntity: FCustomerEntity)
 
     @Delete
-    fun delete(fCustomer: FCustomer)
+    fun delete(fCustomerEntity: FCustomerEntity)
 
     @Query("DELETE FROM fCustomer")
     fun deleteAllFCustomer()
 
 
-    fun getAllFCustomerFlow(query: String, sortOrder: SortOrder, hideSelected: Boolean?): Flow<List<FCustomer>> =
+    fun getAllFCustomerFlow(query: String, sortOrder: SortOrder, hideSelected: Boolean?): Flow<List<FCustomerEntity>> =
         when (sortOrder) {
             SortOrder.BY_KODE -> {
                 getAllFCustomerSortedByIDFLow(query)
@@ -45,35 +44,35 @@ interface FCustomerDao {
 
 
     @Query("SELECT * FROM fCustomer WHERE  custname LIKE '%' || :searchQuery || '%'  OR custno LIKE '%' || :searchQuery || '%'  ORDER BY custname ")
-    fun getAllFCustomerSortedByNameFLow(searchQuery: String): Flow<List<FCustomer>>
+    fun getAllFCustomerSortedByNameFLow(searchQuery: String): Flow<List<FCustomerEntity>>
     @Query("SELECT * FROM fCustomer WHERE  custname LIKE '%' || :searchQuery || '%'  OR custno LIKE '%' || :searchQuery || '%'    ORDER BY custno ")
-    fun getAllFCustomerSortedByIDFLow(searchQuery: String): Flow<List<FCustomer>>
+    fun getAllFCustomerSortedByIDFLow(searchQuery: String): Flow<List<FCustomerEntity>>
 
     @Query("SELECT * FROM fCustomer ")
-    fun getAllFCustomerFLow(): Flow<List<FCustomer>>
+    fun getAllFCustomerFLow(): Flow<List<FCustomerEntity>>
 
 
     @Query("SELECT * FROM fCustomer WHERE id = :id ")
-    fun getAllById(id: Int): FCustomer
+    fun getAllById(id: Int): FCustomerEntity
     @Query("SELECT * FROM fCustomer WHERE id = :id ")
-    fun getAllByIdLive(id: Int): LiveData<FCustomer>
+    fun getAllByIdLive(id: Int): LiveData<FCustomerEntity>
 
 
     @get:Query("SELECT * FROM fCustomer ")
-    val getAllFCustomer: List<FCustomer>
+    val getAllFCustomerEntity: List<FCustomerEntity>
     @get:Query("SELECT * FROM fCustomer ")
-    val getAllFCustomerLive: LiveData<List<FCustomer>>
+    val getAllFCustomerEntityLive: LiveData<List<FCustomerEntity>>
 
     @Query("SELECT * FROM fCustomer WHERE custname LIKE :custname ")
-    fun getAllFCustomerByKode(custname: String): List<FCustomer>
+    fun getAllFCustomerByKode(custname: String): List<FCustomerEntity>
     @Query("SELECT * FROM fCustomer WHERE custname LIKE :custname ")
-    fun getAllFCustomerByKodeLive(custname: String): LiveData<List<FCustomer>>
+    fun getAllFCustomerByKodeLive(custname: String): LiveData<List<FCustomerEntity>>
 
 
     @Query("SELECT * FROM fCustomer WHERE fdivisionBean = :id ")
-    fun getAllByDivision(id: Int): List<FCustomer>
+    fun getAllByDivision(id: Int): List<FCustomerEntity>
 
     @Query("SELECT * FROM fCustomer WHERE fdivisionBean = :id ")
-    fun getAllByDivisionLive(id: Int): LiveData<List<FCustomer>>
+    fun getAllByDivisionLive(id: Int): LiveData<List<FCustomerEntity>>
 
 }

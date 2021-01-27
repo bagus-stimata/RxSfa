@@ -2,7 +2,7 @@ package com.erp.distribution.sfa.data.source.local.dao
 
 import androidx.lifecycle.LiveData
 import androidx.room.*
-import com.erp.distribution.sfa.data.source.entity.FExpedisi
+import com.erp.distribution.sfa.data.source.entity.FExpedisiEntity
 
 /**
  * Dao ini belum di koneksikan dengan database manapun
@@ -10,33 +10,33 @@ import com.erp.distribution.sfa.data.source.entity.FExpedisi
 @Dao
 interface FExpedisiDao {
     /**
-     * @param fExpedisi
+     * @param fExpedisiEntity
      * Harus Menggunakan
      * .allowMainThreadQueries() pada Configurasi database utama agar tidak perlu menggunakan AsynT
      */
     @Insert
-    fun insert(fExpedisi: FExpedisi?)
+    fun insert(fExpedisiEntity: FExpedisiEntity?)
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    fun insertAll(listFExpedisi: List<FExpedisi>)
+    fun insertAll(listFExpedisiEntity: List<FExpedisiEntity>)
     
     @Update
-    fun update(fExpedisi: FExpedisi?)
+    fun update(fExpedisiEntity: FExpedisiEntity?)
 
     @Delete
-    fun delete(fExpedisi: FExpedisi?)
+    fun delete(fExpedisiEntity: FExpedisiEntity?)
 
     @Query("DELETE FROM fexpedisi")
     fun deleteAllFExpedisi()
 
     @get:Query("SELECT * FROM fexpedisi ")
-    val allFExpedisiLive: LiveData<List<FExpedisi?>?>?
+    val allFExpedisiEntityLive: LiveData<List<FExpedisiEntity?>?>?
 
     @get:Query("SELECT * FROM fexpedisi ")
-    val allFExpedisi: List<FExpedisi?>?
+    val allFExpedisiEntity: List<FExpedisiEntity?>?
 
     @Query("SELECT * FROM fexpedisi WHERE id = :id ")
-    fun getAllById(id: Int): List<FExpedisi?>?
+    fun getAllById(id: Int): List<FExpedisiEntity?>?
 
     @Query("SELECT * FROM fexpedisi WHERE fdivisionBean = :id ")
-    fun getAllByDivision(id: Int): List<FExpedisi?>?
+    fun getAllByDivision(id: Int): List<FExpedisiEntity?>?
 }

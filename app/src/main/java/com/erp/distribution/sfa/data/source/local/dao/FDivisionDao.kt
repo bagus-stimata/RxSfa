@@ -2,7 +2,7 @@ package com.erp.distribution.sfa.data.source.local.dao
 
 import androidx.lifecycle.LiveData
 import androidx.room.*
-import com.erp.distribution.sfa.data.source.entity.FDivision
+import com.erp.distribution.sfa.data.source.entity.FDivisionEntity
 
 /**
  * Dao ini belum di koneksikan dengan database manapun
@@ -10,45 +10,45 @@ import com.erp.distribution.sfa.data.source.entity.FDivision
 @Dao
 interface FDivisionDao {
     /**
-     * @param fDivision
+     * @param fDivisionEntity
      * Harus Menggunakan
      * .allowMainThreadQueries() pada Configurasi database utama agar tidak perlu menggunakan AsynT
      */
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    fun insert(fDivision: FDivision)
+    fun insert(fDivisionEntity: FDivisionEntity)
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    fun insertAll(listFDivision: List<FDivision>)
+    fun insertAll(listFDivisionEntity: List<FDivisionEntity>)
     
     @Update
-    fun update(fDivision: FDivision)
+    fun update(fDivisionEntity: FDivisionEntity)
 
     @Delete
-    fun delete(fDivision: FDivision)
+    fun delete(fDivisionEntity: FDivisionEntity)
 
     @Query("DELETE FROM fDivision")
     fun deleteAllFDivision()
 
     @Query("SELECT * FROM fDivision WHERE id = :id ")
-    fun getAllById(id: Int): FDivision
+    fun getAllById(id: Int): FDivisionEntity
     @Query("SELECT * FROM fDivision WHERE id = :id ")
-    fun getAllByIdLive(id: Int): LiveData<FDivision>
+    fun getAllByIdLive(id: Int): LiveData<FDivisionEntity>
 
 
     @get:Query("SELECT * FROM fDivision ")
-    val getAllFDivision: List<FDivision>
+    val getAllFDivisionEntity: List<FDivisionEntity>
     @get:Query("SELECT * FROM fDivision ")
-    val getAllFDivisionLive: LiveData<List<FDivision>>
+    val getAllFDivisionEntityLive: LiveData<List<FDivisionEntity>>
 
     @Query("SELECT * FROM fDivision WHERE kode1 LIKE :kode1 ")
-    fun getAllFDivisionByKode(kode1: String): List<FDivision>
+    fun getAllFDivisionByKode(kode1: String): List<FDivisionEntity>
     @Query("SELECT * FROM fDivision WHERE kode1 LIKE :kode1 ")
-    fun getAllFDivisionByKodeLive(kode1: String): LiveData<List<FDivision>>
+    fun getAllFDivisionByKodeLive(kode1: String): LiveData<List<FDivisionEntity>>
 
 
     @Query("SELECT * FROM fDivision WHERE fcompanyBean = :parentId ")
-    fun getAllByParent(parentId: Int): List<FDivision>
+    fun getAllByParent(parentId: Int): List<FDivisionEntity>
 
     @Query("SELECT * FROM fDivision WHERE fcompanyBean = :parentId ")
-    fun getAllByParentLive(parentId: Int): LiveData<List<FDivision>>
+    fun getAllByParentLive(parentId: Int): LiveData<List<FDivisionEntity>>
 }

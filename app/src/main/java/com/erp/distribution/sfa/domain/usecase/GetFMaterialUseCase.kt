@@ -4,7 +4,7 @@ import androidx.lifecycle.LiveData
 import com.erp.distribution.sfa.data.di.SortOrder
 import com.erp.distribution.sfa.domain.repository.FMaterialRepository
 import com.erp.distribution.sfa.domain.usecase.base.SingleUseCase
-import com.erp.distribution.sfa.data.source.entity.FMaterial
+import com.erp.distribution.sfa.data.source.entity.FMaterialEntity
 import io.reactivex.Single
 import kotlinx.coroutines.flow.Flow
 import javax.inject.Inject
@@ -15,56 +15,56 @@ import javax.inject.Inject
  * it handles the response that returns data &
  * contains a list of actions, event steps
  */
-class GetFMaterialUseCase @Inject constructor(private val repository: FMaterialRepository) : SingleUseCase<List<FMaterial>>() {
+class GetFMaterialUseCase @Inject constructor(private val repository: FMaterialRepository) : SingleUseCase<List<FMaterialEntity>>() {
 
-    override fun buildUseCaseSingle(): Single<List<FMaterial>> {
+    override fun buildUseCaseSingle(): Single<List<FMaterialEntity>> {
         return repository.getRemoteAllFMaterial("authHeader")
     }
-    fun getRemoteAllFMaterial(authHeader: String): Single<List<FMaterial>>{
+    fun getRemoteAllFMaterial(authHeader: String): Single<List<FMaterialEntity>>{
         return repository.getRemoteAllFMaterial(authHeader)
     }
 
-    fun getRemoteFMaterialById(authHeader: String, id: Int): Single<FMaterial>{
+    fun getRemoteFMaterialById(authHeader: String, id: Int): Single<FMaterialEntity>{
         return repository.getRemoteFMaterialById(authHeader, id)
     }
-    fun getRemoteAllFMaterialByDivision(authHeader: String, divisionId: Int): Single<List<FMaterial>>{
+    fun getRemoteAllFMaterialByDivision(authHeader: String, divisionId: Int): Single<List<FMaterialEntity>>{
         return repository.getRemoteAllFMaterialByDivision(authHeader, divisionId)
     }
-    fun createRemoteFMaterial(authHeader: String, fMaterial: FMaterial): Single<FMaterial>{
-        return repository.createRemoteFMaterial(authHeader, fMaterial)
+    fun createRemoteFMaterial(authHeader: String, fMaterialEntity: FMaterialEntity): Single<FMaterialEntity>{
+        return repository.createRemoteFMaterial(authHeader, fMaterialEntity)
     }
-    fun putRemoteFMaterial(authHeader: String, id: Int, fMaterial: FMaterial): Single<FMaterial>{
-        return repository.putRemoteFMaterial(authHeader, id, fMaterial)
+    fun putRemoteFMaterial(authHeader: String, id: Int, fMaterialEntity: FMaterialEntity): Single<FMaterialEntity>{
+        return repository.putRemoteFMaterial(authHeader, id, fMaterialEntity)
     }
-    fun deleteRemoteFMaterial(authHeader: String, id: Int): Single<FMaterial>{
+    fun deleteRemoteFMaterial(authHeader: String, id: Int): Single<FMaterialEntity>{
         return repository.deleteRemoteFMaterial(authHeader, id)
     }
 
 
 
-    fun getCacheAllFMaterial(): LiveData<List<FMaterial>>{
+    fun getCacheAllFMaterial(): LiveData<List<FMaterialEntity>>{
         return repository.getCacheAllFMaterial()
     }
-    fun getCacheAllFMaterialFlow(query: String, sortOrder: SortOrder, hideSelected: Boolean): Flow<List<FMaterial>> {
+    fun getCacheAllFMaterialFlow(query: String, sortOrder: SortOrder, hideSelected: Boolean): Flow<List<FMaterialEntity>> {
         return repository.getCacheAllFMaterialFlow(query, sortOrder, hideSelected)
     }
-    fun getCacheFMaterialById(id: Int): LiveData<FMaterial>{
+    fun getCacheFMaterialById(id: Int): LiveData<FMaterialEntity>{
         return repository.getCacheFMaterialById(id)
     }
-    fun getCacheAllFMaterialByDivision(divisionId: Int): LiveData<List<FMaterial>>{
+    fun getCacheAllFMaterialByDivision(divisionId: Int): LiveData<List<FMaterialEntity>>{
         return repository.getCacheAllFMaterialByDivision(divisionId)
     }
-    fun addCacheFMaterial(fMaterial: FMaterial){
-        repository.addCacheFMaterial(fMaterial)
+    fun addCacheFMaterial(fMaterialEntity: FMaterialEntity){
+        repository.addCacheFMaterial(fMaterialEntity)
     }
-    fun addCacheListFMaterial(list: List<FMaterial>){
+    fun addCacheListFMaterial(list: List<FMaterialEntity>){
         repository.addCacheListFMaterial(list)
     }
-    fun putCacheFMaterial(fMaterial: FMaterial){
-        repository.putCacheFMaterial(fMaterial)
+    fun putCacheFMaterial(fMaterialEntity: FMaterialEntity){
+        repository.putCacheFMaterial(fMaterialEntity)
     }
-    fun deleteCacheFMaterial(fMaterial: FMaterial){
-        repository.deleteCacheFMaterial(fMaterial)
+    fun deleteCacheFMaterial(fMaterialEntity: FMaterialEntity){
+        repository.deleteCacheFMaterial(fMaterialEntity)
     }
     fun deleteAllCacheFMaterial(){
         repository.deleteAllCacheFMaterial()

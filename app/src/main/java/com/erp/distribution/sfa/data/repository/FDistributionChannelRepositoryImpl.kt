@@ -4,7 +4,7 @@ import androidx.lifecycle.LiveData
 import com.erp.distribution.sfa.data.source.remote.service_api.RetrofitServiceFDistributionChannel
 import com.erp.distribution.sfa.data.source.local.database.AppDatabase
 import com.erp.distribution.sfa.domain.repository.FDistributionChannelRepository
-import com.erp.distribution.sfa.data.source.entity.FDistributionChannel
+import com.erp.distribution.sfa.data.source.entity.FDistributionChannelEntity
 import io.reactivex.Single
 
 
@@ -17,54 +17,54 @@ class FDistributionChannelRepositoryImpl(
     private val retrofitService: RetrofitServiceFDistributionChannel
 ) : FDistributionChannelRepository {
 
-    override fun getRemoteAllFDistributionChannel(authHeader: String): Single<List<FDistributionChannel>> {
+    override fun getRemoteAllFDistributionChannel(authHeader: String): Single<List<FDistributionChannelEntity>> {
         return retrofitService.getRemoteAllFDistributionChannel(authHeader)
     }
 
-    override fun getRemoteFDistributionChannelById(authHeader: String, id: Int): Single<FDistributionChannel> {
+    override fun getRemoteFDistributionChannelById(authHeader: String, id: Int): Single<FDistributionChannelEntity> {
         return retrofitService.getRemoteFDistributionChannelById(authHeader, id)
     }
 
-    override fun getRemoteAllFDistributionChannelByDivision(authHeader: String, divisionId: Int): Single<List<FDistributionChannel>> {
+    override fun getRemoteAllFDistributionChannelByDivision(authHeader: String, divisionId: Int): Single<List<FDistributionChannelEntity>> {
         return retrofitService.getRemoteAllFDistributionChannelByDivision(authHeader, divisionId)
     }
 
-    override fun createRemoteFDistributionChannel(authHeader: String, fDistributionChannel: FDistributionChannel): Single<FDistributionChannel> {
-        return retrofitService.createRemoteFDistributionChannel(authHeader, fDistributionChannel)
+    override fun createRemoteFDistributionChannel(authHeader: String, fDistributionChannelEntity: FDistributionChannelEntity): Single<FDistributionChannelEntity> {
+        return retrofitService.createRemoteFDistributionChannel(authHeader, fDistributionChannelEntity)
     }
 
-    override fun putRemoteFDistributionChannel(authHeader: String, id: Int, fDistributionChannel: FDistributionChannel): Single<FDistributionChannel> {
-        return retrofitService.putRemoteFDistributionChannel(authHeader, id, fDistributionChannel)
+    override fun putRemoteFDistributionChannel(authHeader: String, id: Int, fDistributionChannelEntity: FDistributionChannelEntity): Single<FDistributionChannelEntity> {
+        return retrofitService.putRemoteFDistributionChannel(authHeader, id, fDistributionChannelEntity)
     }
 
-    override fun deleteRemoteFDistributionChannel(authHeader: String, id: Int): Single<FDistributionChannel> {
+    override fun deleteRemoteFDistributionChannel(authHeader: String, id: Int): Single<FDistributionChannelEntity> {
         return retrofitService.deleteRemoteFDistributionChannel(authHeader, id)
     }
 
 
 
-    override fun getCacheAllFDistributionChannel(): LiveData<List<FDistributionChannel>> {
-        return appDatabase.distributionChannelDao.getAllFDistributionChannelLive
+    override fun getCacheAllFDistributionChannel(): LiveData<List<FDistributionChannelEntity>> {
+        return appDatabase.distributionChannelDao.getAllFDistributionChannelEntityLive
     }
 
-    override fun getCacheFDistributionChannelById(id: Int): LiveData<FDistributionChannel> {
+    override fun getCacheFDistributionChannelById(id: Int): LiveData<FDistributionChannelEntity> {
         return appDatabase.distributionChannelDao.getAllByIdLive(id)
     }
 
-    override fun getCacheAllFDistributionChannelByDivision(divisionId: Int): LiveData<List<FDistributionChannel>> {
+    override fun getCacheAllFDistributionChannelByDivision(divisionId: Int): LiveData<List<FDistributionChannelEntity>> {
         return appDatabase.distributionChannelDao.getAllByDivisionLive(divisionId)
     }
 
-    override fun addCacheFDistributionChannel(fDistributionChannel: FDistributionChannel) {
-        return appDatabase.distributionChannelDao.insert(fDistributionChannel)
+    override fun addCacheFDistributionChannel(fDistributionChannelEntity: FDistributionChannelEntity) {
+        return appDatabase.distributionChannelDao.insert(fDistributionChannelEntity)
     }
 
-    override fun putCacheFDistributionChannel(fDistributionChannel: FDistributionChannel) {
-        return appDatabase.distributionChannelDao.update(fDistributionChannel)
+    override fun putCacheFDistributionChannel(fDistributionChannelEntity: FDistributionChannelEntity) {
+        return appDatabase.distributionChannelDao.update(fDistributionChannelEntity)
     }
 
-    override fun deleteCacheFDistributionChannel(fDistributionChannel: FDistributionChannel) {
-        return appDatabase.distributionChannelDao.delete(fDistributionChannel)
+    override fun deleteCacheFDistributionChannel(fDistributionChannelEntity: FDistributionChannelEntity) {
+        return appDatabase.distributionChannelDao.delete(fDistributionChannelEntity)
     }
 
     override fun deleteAllCacheData() {

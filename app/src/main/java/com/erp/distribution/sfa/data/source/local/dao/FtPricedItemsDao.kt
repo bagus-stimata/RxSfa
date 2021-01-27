@@ -2,7 +2,7 @@ package com.erp.distribution.sfa.data.source.local.dao
 
 import androidx.lifecycle.LiveData
 import androidx.room.*
-import com.erp.distribution.sfa.data.source.entity.FtPricedItems
+import com.erp.distribution.sfa.data.source.entity.FtPricedItemsEntity
 
 /**
  * Dao ini belum di koneksikan dengan database manapun
@@ -10,34 +10,34 @@ import com.erp.distribution.sfa.data.source.entity.FtPricedItems
 @Dao
 interface FtPricedItemsDao {
     /**
-     * @param ftPricedItems
+     * @param ftPricedItemsEntity
      * Harus Menggunakan
      * .allowMainThreadQueries() pada Configurasi database utama agar tidak perlu menggunakan AsynT
      */
     @Insert
-    fun insert(ftPricedItems: FtPricedItems?)
+    fun insert(ftPricedItemsEntity: FtPricedItemsEntity?)
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    fun insertAll(listFtPricedItems: List<FtPricedItems>)
+    fun insertAll(listFtPricedItemEntities: List<FtPricedItemsEntity>)
 
 
     @Update
-    fun update(ftPricedItems: FtPricedItems?)
+    fun update(ftPricedItemsEntity: FtPricedItemsEntity?)
 
     @Delete
-    fun delete(ftPricedItems: FtPricedItems?)
+    fun delete(ftPricedItemsEntity: FtPricedItemsEntity?)
 
     @Query("DELETE FROM ftPricedItems")
     fun deleteAllFtPricedItems()
 
     @get:Query("SELECT * FROM ftPricedItems ")
-    val allFtPricedItemsLive: LiveData<List<FtPricedItems?>?>?
+    val allFtPricedItemsEntityLive: LiveData<List<FtPricedItemsEntity?>?>?
 
     @get:Query("SELECT * FROM ftPricedItems ")
-    val allFtPricedItems: List<FtPricedItems?>?
+    val allFtPricedItemEntities: List<FtPricedItemsEntity?>?
 
     @Query("SELECT * FROM ftPricedItems WHERE id = :id ")
-    fun getAllById(id: Long?): List<FtPricedItems?>?
+    fun getAllById(id: Long?): List<FtPricedItemsEntity?>?
 
     @Query("SELECT * FROM ftPricedItems WHERE ftPricehBean = :id ")
-    fun getAllByDivision(id: Long?): List<FtPricedItems?>?
+    fun getAllByDivision(id: Long?): List<FtPricedItemsEntity?>?
 }

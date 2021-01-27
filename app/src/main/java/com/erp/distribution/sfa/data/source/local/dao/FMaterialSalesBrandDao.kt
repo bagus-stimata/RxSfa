@@ -2,7 +2,7 @@ package com.erp.distribution.sfa.data.source.local.dao
 
 import androidx.lifecycle.LiveData
 import androidx.room.*
-import com.erp.distribution.sfa.data.source.entity.FMaterialSalesBrand
+import com.erp.distribution.sfa.data.source.entity.FMaterialSalesBrandEntity
 
 /**
  * Dao ini belum di koneksikan dengan database manapun
@@ -10,46 +10,46 @@ import com.erp.distribution.sfa.data.source.entity.FMaterialSalesBrand
 @Dao
 interface FMaterialSalesBrandDao {
     /**
-     * @param fMaterialSalesBrand
+     * @param fMaterialSalesBrandEntity
      * Harus Menggunakan
      * .allowMainThreadQueries() pada Configurasi database utama agar tidak perlu menggunakan AsynT
      */
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    fun insert(fMaterialSalesBrand: FMaterialSalesBrand)
+    fun insert(fMaterialSalesBrandEntity: FMaterialSalesBrandEntity)
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    fun insertAll(listFMaterialSalesBrand: List<FMaterialSalesBrand>)
+    fun insertAll(listFMaterialSalesBrandEntity: List<FMaterialSalesBrandEntity>)
     
     @Update
-    fun update(fMaterialSalesBrand: FMaterialSalesBrand)
+    fun update(fMaterialSalesBrandEntity: FMaterialSalesBrandEntity)
 
     @Delete
-    fun delete(fMaterialSalesBrand: FMaterialSalesBrand)
+    fun delete(fMaterialSalesBrandEntity: FMaterialSalesBrandEntity)
 
     @Query("DELETE FROM fMaterialSalesBrand")
     fun deleteAllFMaterialSalesBrand()
 
     @Query("SELECT * FROM fMaterialSalesBrand WHERE id = :id ")
-    fun getAllById(id: Int): FMaterialSalesBrand
+    fun getAllById(id: Int): FMaterialSalesBrandEntity
     @Query("SELECT * FROM fMaterialSalesBrand WHERE id = :id ")
-    fun getAllByIdLive(id: Int): LiveData<FMaterialSalesBrand>
+    fun getAllByIdLive(id: Int): LiveData<FMaterialSalesBrandEntity>
 
 
     @get:Query("SELECT * FROM fMaterialSalesBrand ")
-    val getAllFMaterialSalesBrand: List<FMaterialSalesBrand>
+    val getAllFMaterialSalesBrandEntity: List<FMaterialSalesBrandEntity>
     @get:Query("SELECT * FROM fMaterialSalesBrand ")
-    val getAllFMaterialSalesBrandLive: LiveData<List<FMaterialSalesBrand>>
+    val getAllFMaterialSalesBrandEntityLive: LiveData<List<FMaterialSalesBrandEntity>>
 
     @Query("SELECT * FROM fMaterialSalesBrand WHERE kode1 LIKE :kode1 ")
-    fun getAllFMaterialSalesBrandByKode(kode1: String): List<FMaterialSalesBrand>
+    fun getAllFMaterialSalesBrandByKode(kode1: String): List<FMaterialSalesBrandEntity>
     @Query("SELECT * FROM fMaterialSalesBrand WHERE kode1 LIKE :kode1 ")
-    fun getAllFMaterialSalesBrandByKodeLive(kode1: String): LiveData<List<FMaterialSalesBrand>>
+    fun getAllFMaterialSalesBrandByKodeLive(kode1: String): LiveData<List<FMaterialSalesBrandEntity>>
 
 
     @Query("SELECT * FROM fMaterialSalesBrand WHERE fdivisionBean = :id ")
-    fun getAllByDivision(id: Int): List<FMaterialSalesBrand>
+    fun getAllByDivision(id: Int): List<FMaterialSalesBrandEntity>
 
     @Query("SELECT * FROM fMaterialSalesBrand WHERE fdivisionBean = :id ")
-    fun getAllByDivisionLive(id: Int): LiveData<List<FMaterialSalesBrand>>
+    fun getAllByDivisionLive(id: Int): LiveData<List<FMaterialSalesBrandEntity>>
 
 
 }

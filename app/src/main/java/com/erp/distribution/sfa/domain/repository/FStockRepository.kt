@@ -1,7 +1,7 @@
 package com.erp.distribution.sfa.domain.repository
 
 import androidx.lifecycle.LiveData
-import com.erp.distribution.sfa.data.source.entity.FStock
+import com.erp.distribution.sfa.data.source.entity.FStockEntity
 import io.reactivex.Single
 import java.util.*
 
@@ -9,24 +9,24 @@ import java.util.*
  * To make an interaction between [AlbumRepositoryImp] & [GetAlbumsUseCase]
  * */
 interface FStockRepository {
-    fun getRemoteAllFStock(authHeader: String): Single<List<FStock>>
-    fun getRemoteFStockById(authHeader: String, id: Int): Single<FStock>
-    fun getRemoteAllFStockByMaterial(authHeader: String, materialId: Int, stockDateFrom: Date, stockDateTo: Date): Single<List<FStock>>
-    fun getRemoteAllFStockByWarehouse(authHeader: String, warehouseId: Int, stockDateFrom: Date, stockDateTo: Date): Single<List<FStock>>
-    fun createRemoteFStock(authHeader: String, fStock: FStock): Single<FStock>
-    fun putRemoteFStock(authHeader: String, id: Int, fStock: FStock): Single<FStock>
-    fun deleteRemoteFStock(authHeader: String, id: Int): Single<FStock>
+    fun getRemoteAllFStock(authHeader: String): Single<List<FStockEntity>>
+    fun getRemoteFStockById(authHeader: String, id: Int): Single<FStockEntity>
+    fun getRemoteAllFStockByMaterial(authHeader: String, materialId: Int, stockDateFrom: Date, stockDateTo: Date): Single<List<FStockEntity>>
+    fun getRemoteAllFStockByWarehouse(authHeader: String, warehouseId: Int, stockDateFrom: Date, stockDateTo: Date): Single<List<FStockEntity>>
+    fun createRemoteFStock(authHeader: String, fStockEntity: FStockEntity): Single<FStockEntity>
+    fun putRemoteFStock(authHeader: String, id: Int, fStockEntity: FStockEntity): Single<FStockEntity>
+    fun deleteRemoteFStock(authHeader: String, id: Int): Single<FStockEntity>
 
-    fun getCacheAllFStock(): LiveData<List<FStock>>
-    fun getCacheFStockById(id: Int): LiveData<FStock>
-    fun getCacheAllFStockByMaterial(materialId: Int): LiveData<List<FStock>>
-    fun getCacheAllFStockByWarehouse(warehouseId: Int): LiveData<List<FStock>>
-    fun getCacheAllFStockByMaterial(materialId: Int, stockDate: Date): LiveData<List<FStock>>
-    fun getCacheAllFStockByWarehouse(warehouseId: Int, stockDate: Date): LiveData<List<FStock>>
-    fun addCacheFStock(fStock: FStock)
-    fun addCacheListFStock(list: List<FStock>)
-    fun putCacheFStock(fStock: FStock)
-    fun deleteCacheFStock(fStock: FStock)
+    fun getCacheAllFStock(): LiveData<List<FStockEntity>>
+    fun getCacheFStockById(id: Int): LiveData<FStockEntity>
+    fun getCacheAllFStockByMaterial(materialId: Int): LiveData<List<FStockEntity>>
+    fun getCacheAllFStockByWarehouse(warehouseId: Int): LiveData<List<FStockEntity>>
+    fun getCacheAllFStockByMaterial(materialId: Int, stockDate: Date): LiveData<List<FStockEntity>>
+    fun getCacheAllFStockByWarehouse(warehouseId: Int, stockDate: Date): LiveData<List<FStockEntity>>
+    fun addCacheFStock(fStockEntity: FStockEntity)
+    fun addCacheListFStock(list: List<FStockEntity>)
+    fun putCacheFStock(fStockEntity: FStockEntity)
+    fun deleteCacheFStock(fStockEntity: FStockEntity)
     fun deleteAllCacheData()
 
 

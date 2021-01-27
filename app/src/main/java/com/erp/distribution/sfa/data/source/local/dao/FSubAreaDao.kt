@@ -2,7 +2,7 @@ package com.erp.distribution.sfa.data.source.local.dao
 
 import androidx.lifecycle.LiveData
 import androidx.room.*
-import com.erp.distribution.sfa.data.source.entity.FSubArea
+import com.erp.distribution.sfa.data.source.entity.FSubAreaEntity
 
 /**
  * Dao ini belum di koneksikan dengan database manapun
@@ -10,46 +10,46 @@ import com.erp.distribution.sfa.data.source.entity.FSubArea
 @Dao
 interface FSubAreaDao {
     /**
-     * @param fSubArea
+     * @param fSubAreaEntity
      * Harus Menggunakan
      * .allowMainThreadQueries() pada Configurasi database utama agar tidak perlu menggunakan AsynT
      */
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    fun insert(fSubArea: FSubArea)
+    fun insert(fSubAreaEntity: FSubAreaEntity)
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    fun insertAll(listFSubArea: List<FSubArea>)
+    fun insertAll(listFSubAreaEntity: List<FSubAreaEntity>)
 
 
     @Update
-    fun update(fSubArea: FSubArea)
+    fun update(fSubAreaEntity: FSubAreaEntity)
 
     @Delete
-    fun delete(fSubArea: FSubArea)
+    fun delete(fSubAreaEntity: FSubAreaEntity)
 
     @Query("DELETE FROM fSubArea")
     fun deleteAllFSubArea()
 
     @Query("SELECT * FROM fSubArea WHERE id = :id ")
-    fun getAllById(id: Int): FSubArea
+    fun getAllById(id: Int): FSubAreaEntity
     @Query("SELECT * FROM fSubArea WHERE id = :id ")
-    fun getAllByIdLive(id: Int): LiveData<FSubArea>
+    fun getAllByIdLive(id: Int): LiveData<FSubAreaEntity>
 
 
     @get:Query("SELECT * FROM fSubArea ")
-    val getAllFSubArea: List<FSubArea>
+    val getAllFSubAreaEntity: List<FSubAreaEntity>
     @get:Query("SELECT * FROM fSubArea ")
-    val getAllFSubAreaLive: LiveData<List<FSubArea>>
+    val getAllFSubAreaEntityLive: LiveData<List<FSubAreaEntity>>
 
     @Query("SELECT * FROM fSubArea WHERE kode1 LIKE :kode1 ")
-    fun getAllFSubAreaByKode(kode1: String): List<FSubArea>
+    fun getAllFSubAreaByKode(kode1: String): List<FSubAreaEntity>
     @Query("SELECT * FROM fSubArea WHERE kode1 LIKE :kode1 ")
-    fun getAllFSubAreaByKodeLive(kode1: String): LiveData<List<FSubArea>>
+    fun getAllFSubAreaByKodeLive(kode1: String): LiveData<List<FSubAreaEntity>>
 
 
     @Query("SELECT * FROM fSubArea WHERE fareaBean = :parentId ")
-    fun getAllByParent(parentId: Int): List<FSubArea>
+    fun getAllByParent(parentId: Int): List<FSubAreaEntity>
 
     @Query("SELECT * FROM fSubArea WHERE fareaBean = :parentId ")
-    fun getAllByParentLive(parentId: Int): LiveData<List<FSubArea>>
+    fun getAllByParentLive(parentId: Int): LiveData<List<FSubAreaEntity>>
 
 }

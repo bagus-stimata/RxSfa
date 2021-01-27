@@ -6,7 +6,7 @@ import androidx.hilt.lifecycle.ViewModelInject
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.erp.distribution.sfa.data.source.entity.FtSalesh
+import com.erp.distribution.sfa.data.source.entity.FtSaleshEntity
 import com.erp.distribution.sfa.domain.usecase.GetFtSaleshUseCase
 import com.erp.distribution.sfa.presentation.ui.test.mvvm_todo.ADD_TASK_RESULT_OK
 import com.erp.distribution.sfa.presentation.ui.test.mvvm_todo.EDIT_TASK_RESULT_OK
@@ -24,7 +24,7 @@ class AddEditFtSaleshViewModel @ViewModelInject constructor(
 ) : ViewModel() {
     val TAG = AddEditFtSaleshViewModel::class.java.simpleName
 
-    val ftSalesh = state.get<FtSalesh>("ftSalesh") // Mengikuti nama pada argument yang ada di nav_graph.xml
+    val ftSalesh = state.get<FtSaleshEntity>("ftSalesh") // Mengikuti nama pada argument yang ada di nav_graph.xml
 
     var ftSaleshName = state.get<String>("ftSaleshName") ?: ftSalesh?.invoiceno ?: ""
         set(value) {
@@ -51,14 +51,14 @@ class AddEditFtSaleshViewModel @ViewModelInject constructor(
             val updatedFtSalesh = ftSalesh.copy(invoiceno = ftSaleshName, isValidOrder = ftSaleshImportance )
             updateFtSalesh(updatedFtSalesh)
         } else {
-            val newFtSalesh = FtSalesh(invoiceno = ftSaleshName, isValidOrder = ftSaleshImportance )
+            val newFtSalesh = FtSaleshEntity(invoiceno = ftSaleshName, isValidOrder = ftSaleshImportance )
             createFtSalesh(newFtSalesh)
         }
     }
 
-    private fun createFtSalesh(ftSalesh: FtSalesh) = viewModelScope.launch {
+    private fun createFtSalesh(ftSaleshEntity: FtSaleshEntity) = viewModelScope.launch {
         DisposableManager.add(Observable.fromCallable {
-            getFtSaleshUseCase.addCacheFtSalesh(ftSalesh)
+            getFtSaleshUseCase.addCacheFtSalesh(ftSaleshEntity)
         }
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
@@ -78,13 +78,13 @@ class AddEditFtSaleshViewModel @ViewModelInject constructor(
         addEditFtSaleshEventChannel.send(AddEditMaterialEvent.NavigateBackWithResult(ADD_TASK_RESULT_OK))
     }
 
-    private fun updateFtSalesh(ftSalesh: FtSalesh) = viewModelScope.launch {
+    private fun updateFtSalesh(ftSaleshEntity: FtSaleshEntity) = viewModelScope.launch {
 //        taskDao.update(task)
 //        getFtSaleshUseCase.putCacheFtSalesh(task)
 //        addEditTaskEventChannel.send(AddEditTaskEvent.NavigateBackWithResult(EDIT_TASK_RESULT_OK))
 
         DisposableManager.add(Observable.fromCallable {
-            getFtSaleshUseCase.putCacheFtSalesh(ftSalesh)
+            getFtSaleshUseCase.putCacheFtSalesh(ftSaleshEntity)
         }
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())

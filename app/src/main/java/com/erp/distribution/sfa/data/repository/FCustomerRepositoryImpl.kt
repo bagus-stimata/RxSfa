@@ -5,8 +5,7 @@ import com.erp.distribution.sfa.data.di.SortOrder
 import com.erp.distribution.sfa.data.source.remote.service_api.RetrofitServiceFCustomer
 import com.erp.distribution.sfa.data.source.local.database.AppDatabase
 import com.erp.distribution.sfa.domain.repository.FCustomerRepository
-import com.erp.distribution.sfa.data.source.entity.FCustomer
-import com.erp.distribution.sfa.data.source.entity.FMaterial
+import com.erp.distribution.sfa.data.source.entity.FCustomerEntity
 import io.reactivex.Single
 import kotlinx.coroutines.flow.Flow
 
@@ -20,61 +19,61 @@ class FCustomerRepositoryImpl(
     private val retrofitService: RetrofitServiceFCustomer
 ) : FCustomerRepository {
 
-    override fun getRemoteAllFCustomer(authHeader: String): Single<List<FCustomer>> {
+    override fun getRemoteAllFCustomer(authHeader: String): Single<List<FCustomerEntity>> {
         return retrofitService.getRemoteAllFCustomer(authHeader)
     }
 
-    override fun getRemoteFCustomerById(authHeader: String, id: Int): Single<FCustomer> {
+    override fun getRemoteFCustomerById(authHeader: String, id: Int): Single<FCustomerEntity> {
         return retrofitService.getRemoteFCustomerById(authHeader, id)
     }
 
-    override fun getRemoteAllFCustomerByDivision(authHeader: String, divisionId: Int): Single<List<FCustomer>> {
+    override fun getRemoteAllFCustomerByDivision(authHeader: String, divisionId: Int): Single<List<FCustomerEntity>> {
         return retrofitService.getRemoteAllFCustomerByDivision(authHeader, divisionId)
     }
 
-    override fun createRemoteFCustomer(authHeader: String, fCustomer: FCustomer): Single<FCustomer> {
-        return retrofitService.createRemoteFCustomer(authHeader, fCustomer)
+    override fun createRemoteFCustomer(authHeader: String, fCustomerEntity: FCustomerEntity): Single<FCustomerEntity> {
+        return retrofitService.createRemoteFCustomer(authHeader, fCustomerEntity)
     }
 
-    override fun putRemoteFCustomer(authHeader: String, id: Int, fCustomer: FCustomer): Single<FCustomer> {
-        return retrofitService.putRemoteFCustomer(authHeader, id, fCustomer)
+    override fun putRemoteFCustomer(authHeader: String, id: Int, fCustomerEntity: FCustomerEntity): Single<FCustomerEntity> {
+        return retrofitService.putRemoteFCustomer(authHeader, id, fCustomerEntity)
     }
 
-    override fun deleteRemoteFCustomer(authHeader: String, id: Int): Single<FCustomer> {
+    override fun deleteRemoteFCustomer(authHeader: String, id: Int): Single<FCustomerEntity> {
         return retrofitService.deleteRemoteFCustomer(authHeader, id)
     }
 
 
 
-    override fun getCacheAllFCustomer(): LiveData<List<FCustomer>> {
-        return appDatabase.customerDao.getAllFCustomerLive
+    override fun getCacheAllFCustomer(): LiveData<List<FCustomerEntity>> {
+        return appDatabase.customerDao.getAllFCustomerEntityLive
     }
-    override fun getCacheAllFCustomerFlow(query: String, sortOrder: SortOrder, hideSelected: Boolean): Flow<List<FCustomer>> {
+    override fun getCacheAllFCustomerFlow(query: String, sortOrder: SortOrder, hideSelected: Boolean): Flow<List<FCustomerEntity>> {
         return appDatabase.customerDao.getAllFCustomerFlow(query, sortOrder, hideSelected)
     }
-    override fun getCacheFCustomerById(id: Int): LiveData<FCustomer> {
+    override fun getCacheFCustomerById(id: Int): LiveData<FCustomerEntity> {
         return appDatabase.customerDao.getAllByIdLive(id)
     }
 
-    override fun getCacheAllFCustomerByDivision(divisionId: Int): LiveData<List<FCustomer>> {
+    override fun getCacheAllFCustomerByDivision(divisionId: Int): LiveData<List<FCustomerEntity>> {
         return appDatabase.customerDao.getAllByDivisionLive(divisionId)
     }
 
-    override fun addCacheFCustomer(fCustomer: FCustomer) {
-        return appDatabase.customerDao.insert(fCustomer)
+    override fun addCacheFCustomer(fCustomerEntity: FCustomerEntity) {
+        return appDatabase.customerDao.insert(fCustomerEntity)
     }
 
 
-    override fun addCacheListFCustomer(list: List<FCustomer>) {
+    override fun addCacheListFCustomer(list: List<FCustomerEntity>) {
         return appDatabase.customerDao.insertAll(list)
     }
 
-    override fun putCacheFCustomer(fCustomer: FCustomer) {
-        return appDatabase.customerDao.update(fCustomer)
+    override fun putCacheFCustomer(fCustomerEntity: FCustomerEntity) {
+        return appDatabase.customerDao.update(fCustomerEntity)
     }
 
-    override fun deleteCacheFCustomer(fCustomer: FCustomer) {
-        return appDatabase.customerDao.delete(fCustomer)
+    override fun deleteCacheFCustomer(fCustomerEntity: FCustomerEntity) {
+        return appDatabase.customerDao.delete(fCustomerEntity)
     }
 
     override fun deleteAllCacheFArea() {

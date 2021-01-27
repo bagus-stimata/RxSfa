@@ -4,7 +4,7 @@ import androidx.lifecycle.LiveData
 import com.erp.distribution.sfa.data.source.remote.service_api.RetrofitServiceFMaterialPic
 import com.erp.distribution.sfa.data.source.local.database.AppDatabase
 import com.erp.distribution.sfa.domain.repository.FMaterialPicRepository
-import com.erp.distribution.sfa.data.source.entity.FMaterialPic
+import com.erp.distribution.sfa.data.source.entity.FMaterialPicEntity
 import io.reactivex.Single
 
 
@@ -17,54 +17,54 @@ class FMaterialPicRepositoryImpl(
     private val retrofitService: RetrofitServiceFMaterialPic
 ) : FMaterialPicRepository {
 
-    override fun getRemoteAllFMaterialPic(authHeader: String): Single<List<FMaterialPic>> {
+    override fun getRemoteAllFMaterialPic(authHeader: String): Single<List<FMaterialPicEntity>> {
         return retrofitService.getRemoteAllFMaterialPic(authHeader)
     }
 
-    override fun getRemoteFMaterialPicById(authHeader: String, id: Int): Single<FMaterialPic> {
+    override fun getRemoteFMaterialPicById(authHeader: String, id: Int): Single<FMaterialPicEntity> {
         return retrofitService.getRemoteFMaterialPicById(authHeader, id)
     }
 
-    override fun getRemoteAllFMaterialPicByParent(authHeader: String, parentId: Int): Single<List<FMaterialPic>> {
+    override fun getRemoteAllFMaterialPicByParent(authHeader: String, parentId: Int): Single<List<FMaterialPicEntity>> {
         return retrofitService.getRemoteAllFMaterialPicByParent(authHeader, parentId)
     }
 
-    override fun createRemoteFMaterialPic(authHeader: String, fMaterialPic: FMaterialPic): Single<FMaterialPic> {
-        return retrofitService.createRemoteFMaterialPic(authHeader, fMaterialPic)
+    override fun createRemoteFMaterialPic(authHeader: String, fMaterialPicEntity: FMaterialPicEntity): Single<FMaterialPicEntity> {
+        return retrofitService.createRemoteFMaterialPic(authHeader, fMaterialPicEntity)
     }
 
-    override fun putRemoteFMaterialPic(authHeader: String, id: Int, fMaterialPic: FMaterialPic): Single<FMaterialPic> {
-        return retrofitService.putRemoteFMaterialPic(authHeader, id, fMaterialPic)
+    override fun putRemoteFMaterialPic(authHeader: String, id: Int, fMaterialPicEntity: FMaterialPicEntity): Single<FMaterialPicEntity> {
+        return retrofitService.putRemoteFMaterialPic(authHeader, id, fMaterialPicEntity)
     }
 
-    override fun deleteRemoteFMaterialPic(authHeader: String, id: Int): Single<FMaterialPic> {
+    override fun deleteRemoteFMaterialPic(authHeader: String, id: Int): Single<FMaterialPicEntity> {
         return retrofitService.deleteRemoteFMaterialPic(authHeader, id)
     }
 
 
 
-    override fun getCacheAllFMaterialPic(): LiveData<List<FMaterialPic>> {
-        return appDatabase.materialPicDao.getAllFMaterialPicLive
+    override fun getCacheAllFMaterialPic(): LiveData<List<FMaterialPicEntity>> {
+        return appDatabase.materialPicDao.getAllFMaterialPicEntityLive
     }
 
-    override fun getCacheFMaterialPicById(id: Int): LiveData<FMaterialPic> {
+    override fun getCacheFMaterialPicById(id: Int): LiveData<FMaterialPicEntity> {
         return appDatabase.materialPicDao.getAllByIdLive(id)
     }
 
-    override fun getCacheAllFMaterialPicByParent(divisionId: Int): LiveData<List<FMaterialPic>> {
+    override fun getCacheAllFMaterialPicByParent(divisionId: Int): LiveData<List<FMaterialPicEntity>> {
         return appDatabase.materialPicDao.getAllByParentLive(divisionId)
     }
 
-    override fun addCacheFMaterialPic(fMaterialPic: FMaterialPic) {
-        return appDatabase.materialPicDao.insert(fMaterialPic)
+    override fun addCacheFMaterialPic(fMaterialPicEntity: FMaterialPicEntity) {
+        return appDatabase.materialPicDao.insert(fMaterialPicEntity)
     }
 
-    override fun putCacheFMaterialPic(fMaterialPic: FMaterialPic) {
-        return appDatabase.materialPicDao.update(fMaterialPic)
+    override fun putCacheFMaterialPic(fMaterialPicEntity: FMaterialPicEntity) {
+        return appDatabase.materialPicDao.update(fMaterialPicEntity)
     }
 
-    override fun deleteCacheFMaterialPic(fMaterialPic: FMaterialPic) {
-        return appDatabase.materialPicDao.delete(fMaterialPic)
+    override fun deleteCacheFMaterialPic(fMaterialPicEntity: FMaterialPicEntity) {
+        return appDatabase.materialPicDao.delete(fMaterialPicEntity)
     }
 
     override fun deleteAllCacheData() {

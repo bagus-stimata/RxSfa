@@ -22,7 +22,7 @@
         <argument
             android:name="fCustomer"
             android:defaultValue="@null"
-            app:argType="com.erp.distribution.sfa.data.source.entity.FCustomer"
+            app:argType="com.erp.distribution.sfa.data.source.entity.FCustomerEntity"
             app:nullable="true" />
         <argument
             android:name="title"

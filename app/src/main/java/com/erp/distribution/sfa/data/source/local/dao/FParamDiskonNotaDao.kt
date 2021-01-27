@@ -2,7 +2,7 @@ package com.erp.distribution.sfa.data.source.local.dao
 
 import androidx.lifecycle.LiveData
 import androidx.room.*
-import com.erp.distribution.sfa.data.source.entity.FParamDiskonNota
+import com.erp.distribution.sfa.data.source.entity.FParamDiskonNotaEntity
 
 /**
  * Dao ini belum di koneksikan dengan database manapun
@@ -10,33 +10,33 @@ import com.erp.distribution.sfa.data.source.entity.FParamDiskonNota
 @Dao
 interface FParamDiskonNotaDao {
     /**
-     * @param fParamDiskonNota
+     * @param fParamDiskonNotaEntity
      * Harus Menggunakan
      * .allowMainThreadQueries() pada Configurasi database utama agar tidak perlu menggunakan AsynT
      */
     @Insert
-    fun insert(fParamDiskonNota: FParamDiskonNota?)
+    fun insert(fParamDiskonNotaEntity: FParamDiskonNotaEntity?)
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    fun insertAll(listFParamDiskonNota: List<FParamDiskonNota>)
+    fun insertAll(listFParamDiskonNotaEntity: List<FParamDiskonNotaEntity>)
     
     @Update
-    fun update(fParamDiskonNota: FParamDiskonNota?)
+    fun update(fParamDiskonNotaEntity: FParamDiskonNotaEntity?)
 
     @Delete
-    fun delete(fParamDiskonNota: FParamDiskonNota?)
+    fun delete(fParamDiskonNotaEntity: FParamDiskonNotaEntity?)
 
     @Query("DELETE FROM fParamDiskonNota")
     fun deleteAllFParamDiskonNota()
 
     @get:Query("SELECT * FROM fParamDiskonNota ")
-    val allFParamDiskonNotaLive: LiveData<List<FParamDiskonNota?>?>?
+    val allFParamDiskonNotaEntityLive: LiveData<List<FParamDiskonNotaEntity?>?>?
 
     @get:Query("SELECT * FROM fParamDiskonNota ")
-    val allFParamDiskonNota: List<FParamDiskonNota?>?
+    val allFParamDiskonNotaEntity: List<FParamDiskonNotaEntity?>?
 
     @Query("SELECT * FROM fParamDiskonNota WHERE id = :id ")
-    fun getAllById(id: Int): List<FParamDiskonNota?>?
+    fun getAllById(id: Int): List<FParamDiskonNotaEntity?>?
 
     @Query("SELECT * FROM fParamDiskonNota WHERE fdivisionBean = :id ")
-    fun getAllByDivision(id: Int): List<FParamDiskonNota?>?
+    fun getAllByDivision(id: Int): List<FParamDiskonNotaEntity?>?
 }

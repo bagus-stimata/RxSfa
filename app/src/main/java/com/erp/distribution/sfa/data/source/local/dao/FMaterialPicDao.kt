@@ -2,7 +2,7 @@ package com.erp.distribution.sfa.data.source.local.dao
 
 import androidx.lifecycle.LiveData
 import androidx.room.*
-import com.erp.distribution.sfa.data.source.entity.FMaterialPic
+import com.erp.distribution.sfa.data.source.entity.FMaterialPicEntity
 
 /**
  * Dao ini belum di koneksikan dengan database manapun
@@ -10,40 +10,40 @@ import com.erp.distribution.sfa.data.source.entity.FMaterialPic
 @Dao
 interface FMaterialPicDao {
     /**
-     * @param fMaterialPic
+     * @param fMaterialPicEntity
      * Harus Menggunakan
      * .allowMainThreadQueries() pada Configurasi database utama agar tidak perlu menggunakan AsynT
      */
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    fun insert(fMaterialPic: FMaterialPic)
+    fun insert(fMaterialPicEntity: FMaterialPicEntity)
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    fun insertAll(listFMaterialPic: List<FMaterialPic>)
+    fun insertAll(listFMaterialPicEntity: List<FMaterialPicEntity>)
     
     @Update
-    fun update(fMaterialPic: FMaterialPic)
+    fun update(fMaterialPicEntity: FMaterialPicEntity)
 
     @Delete
-    fun delete(fMaterialPic: FMaterialPic)
+    fun delete(fMaterialPicEntity: FMaterialPicEntity)
 
     @Query("DELETE FROM fMaterialPic")
     fun deleteAllFMaterialPic()
 
     @Query("SELECT * FROM fMaterialPic WHERE id = :id ")
-    fun getAllById(id: Int): FMaterialPic
+    fun getAllById(id: Int): FMaterialPicEntity
     @Query("SELECT * FROM fMaterialPic WHERE id = :id ")
-    fun getAllByIdLive(id: Int): LiveData<FMaterialPic>
+    fun getAllByIdLive(id: Int): LiveData<FMaterialPicEntity>
 
 
     @get:Query("SELECT * FROM fMaterialPic ")
-    val getAllFMaterialPic: List<FMaterialPic>
+    val getAllFMaterialPicEntity: List<FMaterialPicEntity>
     @get:Query("SELECT * FROM fMaterialPic ")
-    val getAllFMaterialPicLive: LiveData<List<FMaterialPic>>
+    val getAllFMaterialPicEntityLive: LiveData<List<FMaterialPicEntity>>
 
 
     @Query("SELECT * FROM fMaterialPic WHERE fmaterialBean = :parentId ")
-    fun getAllByParent(parentId: Int): List<FMaterialPic>
+    fun getAllByParent(parentId: Int): List<FMaterialPicEntity>
 
     @Query("SELECT * FROM fMaterialPic WHERE fmaterialBean = :parentId ")
-    fun getAllByParentLive(parentId: Int): LiveData<List<FMaterialPic>>
+    fun getAllByParentLive(parentId: Int): LiveData<List<FMaterialPicEntity>>
 
 }

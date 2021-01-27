@@ -3,7 +3,7 @@ package com.erp.distribution.sfa.domain.usecase
 import androidx.lifecycle.LiveData
 import com.erp.distribution.sfa.domain.repository.SysvarRepository
 import com.erp.distribution.sfa.domain.usecase.base.SingleUseCase
-import com.erp.distribution.sfa.data.source.entity.Sysvar
+import com.erp.distribution.sfa.data.source.entity.SysvarEntity
 import io.reactivex.Single
 import javax.inject.Inject
 
@@ -13,50 +13,50 @@ import javax.inject.Inject
  * it handles the response that returns data &
  * contains a list of actions, event steps
  */
-class GetSysvarUseCase @Inject constructor(private val repository: SysvarRepository) : SingleUseCase<List<Sysvar>>() {
+class GetSysvarUseCase @Inject constructor(private val repository: SysvarRepository) : SingleUseCase<List<SysvarEntity>>() {
 
-    override fun buildUseCaseSingle(): Single<List<Sysvar>> {
+    override fun buildUseCaseSingle(): Single<List<SysvarEntity>> {
         return repository.getRemoteAllSysvar("authHeader")
     }
-    fun getRemoteAllSysvar(authHeader: String ): Single<List<Sysvar>>{
+    fun getRemoteAllSysvar(authHeader: String ): Single<List<SysvarEntity>>{
         return repository.getRemoteAllSysvar(authHeader)
     }
 
-    fun getRemoteSysvarById(authHeader: String, id: Int): Single<Sysvar>{
+    fun getRemoteSysvarById(authHeader: String, id: Int): Single<SysvarEntity>{
         return repository.getRemoteSysvarById(authHeader, id)
     }
-    fun getRemoteAllSysvarByDivision(authHeader: String, divisionId: Int): Single<List<Sysvar>>{
+    fun getRemoteAllSysvarByDivision(authHeader: String, divisionId: Int): Single<List<SysvarEntity>>{
         return repository.getRemoteAllSysvarByDivision(authHeader, divisionId)
     }
-    fun createRemoteSysvar(authHeader: String, sysvar: Sysvar): Single<Sysvar>{
-        return repository.createRemoteSysvar(authHeader, sysvar)
+    fun createRemoteSysvar(authHeader: String, sysvarEntity: SysvarEntity): Single<SysvarEntity>{
+        return repository.createRemoteSysvar(authHeader, sysvarEntity)
     }
-    fun putRemoteSysvar(authHeader: String, id: Int, sysvar: Sysvar): Single<Sysvar>{
-        return repository.putRemoteSysvar(authHeader, id, sysvar)
+    fun putRemoteSysvar(authHeader: String, id: Int, sysvarEntity: SysvarEntity): Single<SysvarEntity>{
+        return repository.putRemoteSysvar(authHeader, id, sysvarEntity)
     }
-    fun deleteRemoteSysvar(authHeader: String, id: Int): Single<Sysvar>{
+    fun deleteRemoteSysvar(authHeader: String, id: Int): Single<SysvarEntity>{
         return repository.deleteRemoteSysvar(authHeader, id)
     }
 
 
 
-    fun getCacheAllSysvar(): LiveData<List<Sysvar>>{
+    fun getCacheAllSysvar(): LiveData<List<SysvarEntity>>{
         return repository.getCacheAllSysvar()
     }
-    fun getCacheSysvarById(id: Int): LiveData<Sysvar>{
+    fun getCacheSysvarById(id: Int): LiveData<SysvarEntity>{
         return repository.getCacheSysvarById(id)
     }
-    fun getCacheAllSysvarByDivision(divisionId: Int): LiveData<List<Sysvar>>{
+    fun getCacheAllSysvarByDivision(divisionId: Int): LiveData<List<SysvarEntity>>{
         return repository.getCacheAllSysvarByDivision(divisionId)
     }
-    fun addCacheSysvar(sysvar: Sysvar){
-        repository.addCacheSysvar(sysvar)
+    fun addCacheSysvar(sysvarEntity: SysvarEntity){
+        repository.addCacheSysvar(sysvarEntity)
     }
-    fun putCacheSysvar(sysvar: Sysvar){
-        repository.putCacheSysvar(sysvar)
+    fun putCacheSysvar(sysvarEntity: SysvarEntity){
+        repository.putCacheSysvar(sysvarEntity)
     }
-    fun deleteCacheSysvar(sysvar: Sysvar){
-        repository.deleteCacheSysvar(sysvar)
+    fun deleteCacheSysvar(sysvarEntity: SysvarEntity){
+        repository.deleteCacheSysvar(sysvarEntity)
     }
     fun deleteAllCacheSysvar(){
         repository.deleteAllCacheSysvar()

@@ -19,9 +19,9 @@ class FtJobdItemsSalesd : Serializable {
 
     //	@ManyToOne
     //	@JoinColumn(name="ftSalesdBean", referencedColumnName="ID", nullable = false)
-    private val ftSalesdBean: FtSalesdItems? = null
+    private val ftSalesdBeanEntity: FtSalesdItemsEntity? = null
 
     //	@ManyToOne
     //	@JoinColumn(name="fmaterialBean", referencedColumnName="ID", nullable = false)
-    private val fmaterialBean: FMaterial? = null
+    private val fmaterialBean: FMaterialEntity? = null
 }

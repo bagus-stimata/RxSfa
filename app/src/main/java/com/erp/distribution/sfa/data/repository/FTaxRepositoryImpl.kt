@@ -4,7 +4,7 @@ import androidx.lifecycle.LiveData
 import com.erp.distribution.sfa.data.source.remote.service_api.RetrofitServiceFTax
 import com.erp.distribution.sfa.data.source.local.database.AppDatabase
 import com.erp.distribution.sfa.domain.repository.FTaxRepository
-import com.erp.distribution.sfa.data.source.entity.FTax
+import com.erp.distribution.sfa.data.source.entity.FTaxEntity
 import io.reactivex.Single
 
 
@@ -17,54 +17,54 @@ class FTaxRepositoryImpl(
     private val retrofitService: RetrofitServiceFTax
 ) : FTaxRepository {
 
-    override fun getRemoteAllFTax(authHeader: String ): Single<List<FTax>> {
+    override fun getRemoteAllFTax(authHeader: String ): Single<List<FTaxEntity>> {
         return retrofitService.getRemoteAllFTax(authHeader)
     }
 
-    override fun getRemoteFTaxById(authHeader: String, id: Int): Single<FTax> {
+    override fun getRemoteFTaxById(authHeader: String, id: Int): Single<FTaxEntity> {
         return retrofitService.getRemoteFTaxById(authHeader, id)
     }
 
-    override fun getRemoteAllFTaxByDivision(authHeader: String, divisionId: Int): Single<List<FTax>> {
+    override fun getRemoteAllFTaxByDivision(authHeader: String, divisionId: Int): Single<List<FTaxEntity>> {
         return retrofitService.getRemoteAllFTaxByDivision(authHeader, divisionId)
     }
 
-    override fun createRemoteFTax(authHeader: String, fTax: FTax): Single<FTax> {
-        return retrofitService.createRemoteFTax(authHeader, fTax)
+    override fun createRemoteFTax(authHeader: String, fTaxEntity: FTaxEntity): Single<FTaxEntity> {
+        return retrofitService.createRemoteFTax(authHeader, fTaxEntity)
     }
 
-    override fun putRemoteFTax(authHeader: String, id: Int, fTax: FTax): Single<FTax> {
-        return retrofitService.putRemoteFTax(authHeader, id, fTax)
+    override fun putRemoteFTax(authHeader: String, id: Int, fTaxEntity: FTaxEntity): Single<FTaxEntity> {
+        return retrofitService.putRemoteFTax(authHeader, id, fTaxEntity)
     }
 
-    override fun deleteRemoteFTax(authHeader: String, id: Int): Single<FTax> {
+    override fun deleteRemoteFTax(authHeader: String, id: Int): Single<FTaxEntity> {
         return retrofitService.deleteRemoteFTax(authHeader, id)
     }
 
 
 
-    override fun getCacheAllFTax(): LiveData<List<FTax>> {
-        return appDatabase.taxDao.getAllFTaxLive
+    override fun getCacheAllFTax(): LiveData<List<FTaxEntity>> {
+        return appDatabase.taxDao.getAllFTaxEntityLive
     }
 
-    override fun getCacheFTaxById(id: Int): LiveData<FTax> {
+    override fun getCacheFTaxById(id: Int): LiveData<FTaxEntity> {
         return appDatabase.taxDao.getAllByIdLive(id)
     }
 
-    override fun getCacheAllFTaxByDivision(divisionId: Int): LiveData<List<FTax>> {
+    override fun getCacheAllFTaxByDivision(divisionId: Int): LiveData<List<FTaxEntity>> {
         return appDatabase.taxDao.getAllByDivisionLive(divisionId)
     }
 
-    override fun addCacheFTax(fTax: FTax) {
-        return appDatabase.taxDao.insert(fTax)
+    override fun addCacheFTax(fTaxEntity: FTaxEntity) {
+        return appDatabase.taxDao.insert(fTaxEntity)
     }
 
-    override fun putCacheFTax(fTax: FTax) {
-        return appDatabase.taxDao.update(fTax)
+    override fun putCacheFTax(fTaxEntity: FTaxEntity) {
+        return appDatabase.taxDao.update(fTaxEntity)
     }
 
-    override fun deleteCacheFTax(fTax: FTax) {
-        return appDatabase.taxDao.delete(fTax)
+    override fun deleteCacheFTax(fTaxEntity: FTaxEntity) {
+        return appDatabase.taxDao.delete(fTaxEntity)
     }
 
     override fun deleteAllCacheData() {

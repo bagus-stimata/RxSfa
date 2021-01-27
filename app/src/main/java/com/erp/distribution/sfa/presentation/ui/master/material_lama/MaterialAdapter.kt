@@ -20,17 +20,17 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.erp.distribution.sfa.R
 import com.erp.distribution.sfa.presentation.ui.master.material_lama.MaterialAdapter.FMaterialHolder
-import com.erp.distribution.sfa.data.source.entity.FMaterial
+import com.erp.distribution.sfa.data.source.entity.FMaterialEntity
 import java.text.NumberFormat
 import java.text.SimpleDateFormat
 
-class MaterialAdapter : ListAdapter<FMaterial, FMaterialHolder>(DIFF_CALLBACK) {
+class MaterialAdapter : ListAdapter<FMaterialEntity, FMaterialHolder>(DIFF_CALLBACK) {
     private var listener: OnItemClickListener? = null
     var sdf = SimpleDateFormat("dd MMM yyyy")
     var nf = NumberFormat.getInstance()
     val selectedItems = SparseBooleanArray()
     private val currentSelectedPos = 0
-    fun getFMaterialAt(position: Int): FMaterial? {
+    fun getFMaterialAt(position: Int): FMaterialEntity? {
         return getItem(position)
     }
 
@@ -52,16 +52,16 @@ class MaterialAdapter : ListAdapter<FMaterial, FMaterialHolder>(DIFF_CALLBACK) {
         var txtPreview: TextView
         var txtDate: TextView
         var imgStar: ImageView
-        fun bind(fMaterial: FMaterial?) {
-            val hash = fMaterial!!.pname.hashCode()
-            txtIcon.text = fMaterial.pname.trim { it <= ' ' }[0].toString()
+        fun bind(fMaterialEntity: FMaterialEntity?) {
+            val hash = fMaterialEntity!!.pname.hashCode()
+            txtIcon.text = fMaterialEntity.pname.trim { it <= ' ' }[0].toString()
             txtIcon.background =
                 oval(Color.rgb(hash, hash / 2, 0), txtIcon)
-            txtUser.text = fMaterial.pname
-            txtSubject.text = fMaterial.pcode
-            txtPreview.text = "IDR ${nf.format(fMaterial.spriceAfterPpn)} @ ${nf.format(fMaterial.sprice2AfterPpn)}"
+            txtUser.text = fMaterialEntity.pname
+            txtSubject.text = fMaterialEntity.pcode
+            txtPreview.text = "IDR ${nf.format(fMaterialEntity.spriceAfterPpn)} @ ${nf.format(fMaterialEntity.sprice2AfterPpn)}"
 
-            txtDate.text = sdf.format(fMaterial.modified)
+            txtDate.text = sdf.format(fMaterialEntity.modified)
 
 
 
@@ -97,10 +97,10 @@ class MaterialAdapter : ListAdapter<FMaterial, FMaterialHolder>(DIFF_CALLBACK) {
 
 
             // animation
-            if (selectedItems.size() > 0) animate(txtIcon, fMaterial)
+            if (selectedItems.size() > 0) animate(txtIcon, fMaterialEntity)
         }
 
-        private fun animate(view: TextView, fMaterial: FMaterial?) {
+        private fun animate(view: TextView, fMaterialEntity: FMaterialEntity?) {
             val oa1 = ObjectAnimator.ofFloat(view, "scaleX", 1f, 0f)
             val oa2 = ObjectAnimator.ofFloat(view, "scaleX", 0f, 1f)
             oa1.interpolator = DecelerateInterpolator()
@@ -134,7 +134,7 @@ class MaterialAdapter : ListAdapter<FMaterial, FMaterialHolder>(DIFF_CALLBACK) {
     }
 
     interface OnItemClickListener {
-        fun onItemClick(note: FMaterial?)
+        fun onItemClick(note: FMaterialEntity?)
     }
 
     fun setOnItemClickListener(listener: OnItemClickListener?) {
@@ -142,13 +142,13 @@ class MaterialAdapter : ListAdapter<FMaterial, FMaterialHolder>(DIFF_CALLBACK) {
     }
 
     companion object {
-        private val DIFF_CALLBACK: DiffUtil.ItemCallback<FMaterial> =
-            object : DiffUtil.ItemCallback<FMaterial>() {
-                override fun areItemsTheSame(oldItem: FMaterial, newItem: FMaterial): Boolean {
+        private val DIFF_CALLBACK: DiffUtil.ItemCallback<FMaterialEntity> =
+            object : DiffUtil.ItemCallback<FMaterialEntity>() {
+                override fun areItemsTheSame(oldItem: FMaterialEntity, newItem: FMaterialEntity): Boolean {
                     return oldItem.id == newItem.id
                 }
 
-                override fun areContentsTheSame(oldItem: FMaterial, newItem: FMaterial): Boolean {
+                override fun areContentsTheSame(oldItem: FMaterialEntity, newItem: FMaterialEntity): Boolean {
                     return oldItem.pcode == newItem.pcode && oldItem.pname == newItem.pname
                 }
             }

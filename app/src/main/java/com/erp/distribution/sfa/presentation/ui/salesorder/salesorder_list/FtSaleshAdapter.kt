@@ -3,19 +3,17 @@ package com.erp.distribution.sfa.presentation.ui.salesorder.salesorder_list
 import android.graphics.Color
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import androidx.annotation.ColorInt
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import com.erp.distribution.sfa.data.source.entity.FtSalesh
+import com.erp.distribution.sfa.data.source.entity.FtSaleshEntity
 import com.erp.distribution.sfa.databinding.AdapterRvItemTemplate2Binding
 import com.erp.distribution.sfa.presentation.ui.master.material_lama.adapter.NoteAdapter
-import org.jetbrains.anko.image
 import java.text.NumberFormat
 import java.text.SimpleDateFormat
 
 class FtSaleshAdapter(private val listener: OnItemClickListener) :
-    ListAdapter<FtSalesh, FtSaleshAdapter.FtSaleshViewHolder>(DiffCallback()) {
+    ListAdapter<FtSaleshEntity, FtSaleshAdapter.FtSaleshViewHolder>(DiffCallback()) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): FtSaleshViewHolder {
         val binding = AdapterRvItemTemplate2Binding.inflate(LayoutInflater.from(parent.context), parent, false)
@@ -56,7 +54,7 @@ class FtSaleshAdapter(private val listener: OnItemClickListener) :
             }
         }
 
-        fun bind(item: FtSalesh) {
+        fun bind(item: FtSaleshEntity) {
             binding.apply {
 ////                checkBoxCompleted.isChecked = item.selected!!
 //                textViewName.text = item.invoiceno
@@ -93,15 +91,15 @@ class FtSaleshAdapter(private val listener: OnItemClickListener) :
     }
 
     interface OnItemClickListener {
-        fun onItemClick(item: FtSalesh)
-        fun onCheckBoxClick(item: FtSalesh, isChecked: Boolean)
+        fun onItemClick(item: FtSaleshEntity)
+        fun onCheckBoxClick(item: FtSaleshEntity, isChecked: Boolean)
     }
 
-    class DiffCallback : DiffUtil.ItemCallback<FtSalesh>() {
-        override fun areItemsTheSame(oldItem: FtSalesh, newItem: FtSalesh) =
+    class DiffCallback : DiffUtil.ItemCallback<FtSaleshEntity>() {
+        override fun areItemsTheSame(oldItem: FtSaleshEntity, newItem: FtSaleshEntity) =
             oldItem.refno == newItem.refno
 
-        override fun areContentsTheSame(oldItem: FtSalesh, newItem: FtSalesh) =
+        override fun areContentsTheSame(oldItem: FtSaleshEntity, newItem: FtSaleshEntity) =
             oldItem.orderno == newItem.orderno
     }
 }

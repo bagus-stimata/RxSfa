@@ -49,9 +49,9 @@ class MainActivity : AppCompatActivity() {
 
         mainBinding.activity = this
         mainBinding.userActive = mainViewModel.userActive
-        mainBinding.divisionActive = mainViewModel.divisionActive
-        mainBinding.salesmanActive = mainViewModel.salesmanActive
-        mainBinding.warehouseActive = mainViewModel.warehouseActive
+        mainBinding.divisionActive = mainViewModel.divisionEntityActive
+        mainBinding.salesmanActive = mainViewModel.salesmanEntityActive
+        mainBinding.warehouseActive = mainViewModel.warehouseEntityActive
 
         setupObserver()
 
@@ -107,9 +107,9 @@ class MainActivity : AppCompatActivity() {
             .subscribeOn(Schedulers.io())
             .subscribe(
                 {
-                    mainViewModel.divisionActive = it
+                    mainViewModel.divisionEntityActive = it
                     mainViewModel.insertCacheFDivision(it)
-                    mainBinding.divisionActive = mainViewModel.divisionActive
+                    mainBinding.divisionActive = mainViewModel.divisionEntityActive
 
                 },
                 {
@@ -128,9 +128,9 @@ class MainActivity : AppCompatActivity() {
             .subscribeOn(Schedulers.io())
             .subscribe(
                 {
-                    mainViewModel.salesmanActive = it
+                    mainViewModel.salesmanEntityActive = it
                     mainViewModel.insertCacheFSalesman(it)
-                    mainBinding.salesmanActive = mainViewModel.salesmanActive
+                    mainBinding.salesmanActive = mainViewModel.salesmanEntityActive
 
                 },
                 {
@@ -149,9 +149,9 @@ class MainActivity : AppCompatActivity() {
             .subscribeOn(Schedulers.io())
             .subscribe(
                 {
-                    mainViewModel.warehouseActive= it
+                    mainViewModel.warehouseEntityActive= it
                     mainViewModel.insertCacheFWarehouse(it)
-                    mainBinding.warehouseActive = mainViewModel.warehouseActive
+                    mainBinding.warehouseActive = mainViewModel.warehouseEntityActive
 
                 },
                 {

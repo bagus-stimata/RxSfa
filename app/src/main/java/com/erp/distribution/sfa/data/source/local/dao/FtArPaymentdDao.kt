@@ -2,7 +2,7 @@ package com.erp.distribution.sfa.data.source.local.dao
 
 import androidx.lifecycle.LiveData
 import androidx.room.*
-import com.erp.distribution.sfa.data.source.entity.FtArPaymentd
+import com.erp.distribution.sfa.data.source.entity.FtArPaymentdEntity
 
 /**
  * Dao ini belum di koneksikan dengan database manapun
@@ -10,34 +10,34 @@ import com.erp.distribution.sfa.data.source.entity.FtArPaymentd
 @Dao
 interface FtArPaymentdDao {
     /**
-     * @param ftArPaymentd
+     * @param ftArPaymentdEntity
      * Harus Menggunakan
      * .allowMainThreadQueries() pada Configurasi database utama agar tidak perlu menggunakan AsynT
      */
     @Insert
-    fun insert(ftArPaymentd: FtArPaymentd?)
+    fun insert(ftArPaymentdEntity: FtArPaymentdEntity?)
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    fun insertAll(listFtArPaymentd: List<FtArPaymentd>)
+    fun insertAll(listFtArPaymentdEntity: List<FtArPaymentdEntity>)
 
 
     @Update
-    fun update(ftArPaymentd: FtArPaymentd?)
+    fun update(ftArPaymentdEntity: FtArPaymentdEntity?)
 
     @Delete
-    fun delete(ftArPaymentd: FtArPaymentd?)
+    fun delete(ftArPaymentdEntity: FtArPaymentdEntity?)
 
     @Query("DELETE FROM ftArPaymentd")
     fun deleteAllFtArPaymentd()
 
     @get:Query("SELECT * FROM ftArPaymentd ")
-    val allFtArPaymentdLive: LiveData<List<FtArPaymentd?>?>?
+    val allFtArPaymentdEntityLive: LiveData<List<FtArPaymentdEntity?>?>?
 
     @get:Query("SELECT * FROM ftArPaymentd ")
-    val allFtArPaymentd: List<FtArPaymentd?>?
+    val allFtArPaymentdEntity: List<FtArPaymentdEntity?>?
 
     @Query("SELECT * FROM ftArPaymentd WHERE id = :id ")
-    fun getAllById(id: Long?): List<FtArPaymentd?>?
+    fun getAllById(id: Long?): List<FtArPaymentdEntity?>?
 
     @Query("SELECT * FROM ftArPaymentd WHERE ftArPaymenthBean = :id ")
-    fun getAllByParentId(id: Long?): List<FtArPaymentd?>?
+    fun getAllByParentId(id: Long?): List<FtArPaymentdEntity?>?
 }

@@ -1,11 +1,10 @@
 package com.erp.distribution.sfa.domain.usecase
 
-import android.util.Log
 import androidx.lifecycle.LiveData
 import com.erp.distribution.sfa.data.di.SortOrder
 import com.erp.distribution.sfa.domain.repository.FtSaleshRepository
 import com.erp.distribution.sfa.domain.usecase.base.SingleUseCase
-import com.erp.distribution.sfa.data.source.entity.FtSalesh
+import com.erp.distribution.sfa.data.source.entity.FtSaleshEntity
 import io.reactivex.Single
 import kotlinx.coroutines.flow.Flow
 import javax.inject.Inject
@@ -16,56 +15,56 @@ import javax.inject.Inject
  * it handles the response that returns data &
  * contains a list of actions, event steps
  */
-class GetFtSaleshUseCase @Inject constructor(private val repository: FtSaleshRepository) : SingleUseCase<List<FtSalesh>>() {
+class GetFtSaleshUseCase @Inject constructor(private val repository: FtSaleshRepository) : SingleUseCase<List<FtSaleshEntity>>() {
 
-    override fun buildUseCaseSingle(): Single<List<FtSalesh>> {
+    override fun buildUseCaseSingle(): Single<List<FtSaleshEntity>> {
         return repository.getRemoteAllFtSalesh("authHeader")
     }
-    fun getRemoteAllFtSalesh(authHeader: String): Single<List<FtSalesh>>{
+    fun getRemoteAllFtSalesh(authHeader: String): Single<List<FtSaleshEntity>>{
         return repository.getRemoteAllFtSalesh(authHeader)
     }
 
-    fun getRemoteFtSaleshById(authHeader: String, id: Long): Single<FtSalesh>{
+    fun getRemoteFtSaleshById(authHeader: String, id: Long): Single<FtSaleshEntity>{
         return repository.getRemoteFtSaleshById(authHeader, id)
     }
-    fun getRemoteAllFtSaleshByDivision(authHeader: String, divisionId: Int): Single<List<FtSalesh>>{
+    fun getRemoteAllFtSaleshByDivision(authHeader: String, divisionId: Int): Single<List<FtSaleshEntity>>{
         return repository.getRemoteAllFtSaleshByDivision(authHeader, divisionId)
     }
-    fun createRemoteFtSalesh(authHeader: String, ftSalesh: FtSalesh): Single<FtSalesh>{
-        return repository.createRemoteFtSalesh(authHeader, ftSalesh)
+    fun createRemoteFtSalesh(authHeader: String, ftSaleshEntity: FtSaleshEntity): Single<FtSaleshEntity>{
+        return repository.createRemoteFtSalesh(authHeader, ftSaleshEntity)
     }
-    fun putRemoteFtSalesh(authHeader: String, id: Long, ftSalesh: FtSalesh): Single<FtSalesh>{
-        return repository.putRemoteFtSalesh(authHeader, id, ftSalesh)
+    fun putRemoteFtSalesh(authHeader: String, id: Long, ftSaleshEntity: FtSaleshEntity): Single<FtSaleshEntity>{
+        return repository.putRemoteFtSalesh(authHeader, id, ftSaleshEntity)
     }
-    fun deleteRemoteFtSalesh(authHeader: String, id: Long): Single<FtSalesh>{
+    fun deleteRemoteFtSalesh(authHeader: String, id: Long): Single<FtSaleshEntity>{
         return repository.deleteRemoteFtSalesh(authHeader, id)
     }
 
 
 
-    fun getCacheAllFtSalesh(): LiveData<List<FtSalesh>>{
+    fun getCacheAllFtSalesh(): LiveData<List<FtSaleshEntity>>{
         return repository.getCacheAllFtSalesh()
     }
-    fun getCacheAllFtSaleshFlow(query: String, sortOrder: SortOrder, hideSelected: Boolean): Flow<List<FtSalesh>> {
+    fun getCacheAllFtSaleshFlow(query: String, sortOrder: SortOrder, hideSelected: Boolean): Flow<List<FtSaleshEntity>> {
         return repository.getCacheAllFtSaleshFlow(query, sortOrder, hideSelected)
     }
-    fun getCacheFtSaleshById(id: Long): LiveData<FtSalesh>{
+    fun getCacheFtSaleshById(id: Long): LiveData<FtSaleshEntity>{
         return repository.getCacheFtSaleshById(id)
     }
-    fun getCacheAllFtSaleshByDivision(divisionId: Int): LiveData<List<FtSalesh>>{
+    fun getCacheAllFtSaleshByDivision(divisionId: Int): LiveData<List<FtSaleshEntity>>{
         return repository.getCacheAllFtSaleshByDivision(divisionId)
     }
-    fun addCacheFtSalesh(ftSalesh: FtSalesh){
-        repository.addCacheFtSalesh(ftSalesh)
+    fun addCacheFtSalesh(ftSaleshEntity: FtSaleshEntity){
+        repository.addCacheFtSalesh(ftSaleshEntity)
     }
-    fun addCacheListFtSalesh(list: List<FtSalesh>){
+    fun addCacheListFtSalesh(list: List<FtSaleshEntity>){
         repository.addCacheListFtSalesh(list)
     }
-    fun putCacheFtSalesh(ftSalesh: FtSalesh){
-        repository.putCacheFtSalesh(ftSalesh)
+    fun putCacheFtSalesh(ftSaleshEntity: FtSaleshEntity){
+        repository.putCacheFtSalesh(ftSaleshEntity)
     }
-    fun deleteCacheFtSalesh(ftSalesh: FtSalesh){
-        repository.deleteCacheFtSalesh(ftSalesh)
+    fun deleteCacheFtSalesh(ftSaleshEntity: FtSaleshEntity){
+        repository.deleteCacheFtSalesh(ftSaleshEntity)
     }
     fun deleteAllCacheFtSalesh(){
         repository.deleteAllCacheFtSalesh()

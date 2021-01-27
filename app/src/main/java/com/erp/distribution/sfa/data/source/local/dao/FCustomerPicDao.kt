@@ -2,7 +2,7 @@ package com.erp.distribution.sfa.data.source.local.dao
 
 import androidx.lifecycle.LiveData
 import androidx.room.*
-import com.erp.distribution.sfa.data.source.entity.FCustomerPic
+import com.erp.distribution.sfa.data.source.entity.FCustomerPicEntity
 
 /**
  * Dao ini belum di koneksikan dengan database manapun
@@ -10,40 +10,40 @@ import com.erp.distribution.sfa.data.source.entity.FCustomerPic
 @Dao
 interface FCustomerPicDao {
     /**
-     * @param fCustomerPic
+     * @param fCustomerPicEntity
      * Harus Menggunakan
      * .allowMainThreadQueries() pada Configurasi database utama agar tidak perlu menggunakan AsynT
      */
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    fun insert(fCustomerPic: FCustomerPic)
+    fun insert(fCustomerPicEntity: FCustomerPicEntity)
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    fun insertAll(listFCustomerPic: List<FCustomerPic>)
+    fun insertAll(listFCustomerPicEntity: List<FCustomerPicEntity>)
 
     @Update
-    fun update(fCustomerPic: FCustomerPic)
+    fun update(fCustomerPicEntity: FCustomerPicEntity)
 
     @Delete
-    fun delete(fCustomerPic: FCustomerPic)
+    fun delete(fCustomerPicEntity: FCustomerPicEntity)
 
     @Query("DELETE FROM fCustomerPic")
     fun deleteAllFCustomerPic()
 
     @Query("SELECT * FROM fCustomerPic WHERE id = :id ")
-    fun getAllById(id: Int): FCustomerPic
+    fun getAllById(id: Int): FCustomerPicEntity
     @Query("SELECT * FROM fCustomerPic WHERE id = :id ")
-    fun getAllByIdLive(id: Int): LiveData<FCustomerPic>
+    fun getAllByIdLive(id: Int): LiveData<FCustomerPicEntity>
 
 
     @get:Query("SELECT * FROM fCustomerPic ")
-    val getAllFCustomerPic: List<FCustomerPic>
+    val getAllFCustomerPicEntity: List<FCustomerPicEntity>
     @get:Query("SELECT * FROM fCustomerPic ")
-    val getAllFCustomerPicLive: LiveData<List<FCustomerPic>>
+    val getAllFCustomerPicEntityLive: LiveData<List<FCustomerPicEntity>>
 
     @Query("SELECT * FROM fCustomerPic WHERE fcustomerBean = :parentId ")
-    fun getAllByParent(parentId: Int): List<FCustomerPic>
+    fun getAllByParent(parentId: Int): List<FCustomerPicEntity>
 
     @Query("SELECT * FROM fCustomerPic WHERE fcustomerBean = :parentId ")
-    fun getAllByParentLive(parentId: Int): LiveData<List<FCustomerPic>>
+    fun getAllByParentLive(parentId: Int): LiveData<List<FCustomerPicEntity>>
 
 
 }

@@ -2,7 +2,7 @@ package com.erp.distribution.sfa.data.source.local.dao
 
 import androidx.lifecycle.LiveData
 import androidx.room.*
-import com.erp.distribution.sfa.data.source.entity.Sysvar
+import com.erp.distribution.sfa.data.source.entity.SysvarEntity
 
 /**
  * Dao ini belum di koneksikan dengan database manapun
@@ -10,48 +10,48 @@ import com.erp.distribution.sfa.data.source.entity.Sysvar
 @Dao
 interface SysvarDao {
     /**
-     * @param sysvar
+     * @param sysvarEntity
      * Harus Menggunakan
      * .allowMainThreadQueries() pada Configurasi database utama agar tidak perlu menggunakan AsynT
      */
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    fun insert(sysvar: Sysvar)
+    fun insert(sysvarEntity: SysvarEntity)
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    fun insertAll(listSysvar: List<Sysvar>)
+    fun insertAll(listSysvarEntity: List<SysvarEntity>)
 
 
     @Update
-    fun update(sysvar: Sysvar)
+    fun update(sysvarEntity: SysvarEntity)
 
     @Delete
-    fun delete(sysvar: Sysvar)
+    fun delete(sysvarEntity: SysvarEntity)
 
     @Query("DELETE FROM Sysvar")
     fun deleteAllSysvar()
 
     @Query("SELECT * FROM sysvar WHERE id = :id ")
-    fun getAllById(id: Int): Sysvar
+    fun getAllById(id: Int): SysvarEntity
     @Query("SELECT * FROM sysvar WHERE id = :id ")
-    fun getAllByIdLive(id: Int): LiveData<Sysvar>
+    fun getAllByIdLive(id: Int): LiveData<SysvarEntity>
 
 
     @get:Query("SELECT * FROM sysvar ")
-    val getAllSysvar: List<Sysvar>
+    val getAllSysvarEntity: List<SysvarEntity>
     @get:Query("SELECT * FROM sysvar ")
-    val getAllSysvarLive: LiveData<List<Sysvar>>
+    val getAllSysvarEntityLive: LiveData<List<SysvarEntity>>
 
     @Query("SELECT * FROM sysvar WHERE deskripsi LIKE :deskripsi ")
-    fun getAllSysvarByDeskripsi(deskripsi: String): List<Sysvar>
+    fun getAllSysvarByDeskripsi(deskripsi: String): List<SysvarEntity>
     @Query("SELECT * FROM sysvar WHERE deskripsi LIKE :deskripsi ")
-    fun getAllSysvarByDeskripsiLive(deskripsi: String): LiveData<List<Sysvar>>
+    fun getAllSysvarByDeskripsiLive(deskripsi: String): LiveData<List<SysvarEntity>>
 
 
     @Query("SELECT * FROM sysvar WHERE fdivisionBean = :id ")
-    fun getAllByDivision(id: Int): List<Sysvar>
+    fun getAllByDivision(id: Int): List<SysvarEntity>
 
     @Query("SELECT * FROM sysvar WHERE fdivisionBean = :id ")
-    fun getAllByDivisionLive(id: Int): LiveData<List<Sysvar>>
+    fun getAllByDivisionLive(id: Int): LiveData<List<SysvarEntity>>
 
 
 }

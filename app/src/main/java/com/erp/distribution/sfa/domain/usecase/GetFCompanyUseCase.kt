@@ -3,7 +3,7 @@ package com.erp.distribution.sfa.domain.usecase
 import androidx.lifecycle.LiveData
 import com.erp.distribution.sfa.domain.repository.FCompanyRepository
 import com.erp.distribution.sfa.domain.usecase.base.SingleUseCase
-import com.erp.distribution.sfa.data.source.entity.FCompany
+import com.erp.distribution.sfa.data.source.entity.FCompanyEntity
 import io.reactivex.Single
 import javax.inject.Inject
 
@@ -13,53 +13,53 @@ import javax.inject.Inject
  * it handles the response that returns data &
  * contains a list of actions, event steps
  */
-class GetFCompanyUseCase @Inject constructor(private val repository: FCompanyRepository) : SingleUseCase<List<FCompany>>() {
+class GetFCompanyUseCase @Inject constructor(private val repository: FCompanyRepository) : SingleUseCase<List<FCompanyEntity>>() {
 
-    override fun buildUseCaseSingle(): Single<List<FCompany>> {
+    override fun buildUseCaseSingle(): Single<List<FCompanyEntity>> {
         return repository.getRemoteAllFCompany("aa")
     }
-    fun getRemoteAllFCompany(authHeader: String): Single<List<FCompany>>{
+    fun getRemoteAllFCompany(authHeader: String): Single<List<FCompanyEntity>>{
         return repository.getRemoteAllFCompany(authHeader)
     }
 
-    fun getRemoteFCompanyById(authHeader: String, id: Int): Single<FCompany>{
+    fun getRemoteFCompanyById(authHeader: String, id: Int): Single<FCompanyEntity>{
         return repository.getRemoteFCompanyById(authHeader, id)
     }
 //    fun getRemoteAllFCompanyByDivision(authHeader: String, divisionId: Int): Single<List<FCompany>>{
 //        return repository.getRemoteAllFCompanyByDivision(authHeader, divisionId)
 //    }
-    fun createRemoteFCompany(authHeader: String, fCompany: FCompany): Single<FCompany>{
-        return repository.createRemoteFCompany(authHeader, fCompany)
+    fun createRemoteFCompany(authHeader: String, fCompanyEntity: FCompanyEntity): Single<FCompanyEntity>{
+        return repository.createRemoteFCompany(authHeader, fCompanyEntity)
     }
-    fun putRemoteFCompany(authHeader: String, id: Int, fCompany: FCompany): Single<FCompany>{
-        return repository.putRemoteFCompany(authHeader, id, fCompany)
+    fun putRemoteFCompany(authHeader: String, id: Int, fCompanyEntity: FCompanyEntity): Single<FCompanyEntity>{
+        return repository.putRemoteFCompany(authHeader, id, fCompanyEntity)
     }
-    fun deleteRemoteFCompany(authHeader: String, id: Int): Single<FCompany>{
+    fun deleteRemoteFCompany(authHeader: String, id: Int): Single<FCompanyEntity>{
         return repository.deleteRemoteFCompany(authHeader, id)
     }
 
 
 
-    fun getCacheAllFCompany(): LiveData<List<FCompany>>{
+    fun getCacheAllFCompany(): LiveData<List<FCompanyEntity>>{
         return repository.getCacheAllFCompany()
     }
-    fun getCacheFCompanyById(id: Int): LiveData<FCompany>{
+    fun getCacheFCompanyById(id: Int): LiveData<FCompanyEntity>{
         return repository.getCacheFCompanyById(id)
     }
 //    fun getCacheAllFCompanyByDivision(divisionId: Int): LiveData<List<FCompany>>{
 //        return repository.getCacheAllFCompanyByDivision(divisionId)
 //    }
-    fun addCacheFCompany(fCompany: FCompany){
-        repository.addCacheFCompany(fCompany)
+    fun addCacheFCompany(fCompanyEntity: FCompanyEntity){
+        repository.addCacheFCompany(fCompanyEntity)
     }
-    fun addCacheListFCompany(list: List<FCompany>){
+    fun addCacheListFCompany(list: List<FCompanyEntity>){
         repository.addCacheListFCompany(list)
     }
-    fun putCacheFCompany(fCompany: FCompany){
-        repository.putCacheFCompany(fCompany)
+    fun putCacheFCompany(fCompanyEntity: FCompanyEntity){
+        repository.putCacheFCompany(fCompanyEntity)
     }
-    fun deleteCacheFCompany(fCompany: FCompany){
-        repository.deleteCacheFCompany(fCompany)
+    fun deleteCacheFCompany(fCompanyEntity: FCompanyEntity){
+        repository.deleteCacheFCompany(fCompanyEntity)
     }
     fun deleteAllCacheFCompany(){
         repository.deleteAllCacheFCompany()

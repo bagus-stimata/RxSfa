@@ -2,7 +2,7 @@ package com.erp.distribution.sfa.data.source.local.dao
 
 import androidx.lifecycle.LiveData
 import androidx.room.*
-import com.erp.distribution.sfa.data.source.entity.FGiro
+import com.erp.distribution.sfa.data.source.entity.FGiroEntity
 
 /**
  * Dao ini belum di koneksikan dengan database manapun
@@ -10,33 +10,33 @@ import com.erp.distribution.sfa.data.source.entity.FGiro
 @Dao
 interface FGiroDao {
     /**
-     * @param fGiro
+     * @param fGiroEntity
      * Harus Menggunakan
      * .allowMainThreadQueries() pada Configurasi database utama agar tidak perlu menggunakan AsynT
      */
     @Insert
-    fun insert(fGiro: FGiro?)
+    fun insert(fGiroEntity: FGiroEntity?)
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    fun insertAll(listFGiro: List<FGiro>)
+    fun insertAll(listFGiroEntity: List<FGiroEntity>)
     
     @Update
-    fun update(fGiro: FGiro?)
+    fun update(fGiroEntity: FGiroEntity?)
 
     @Delete
-    fun delete(fGiro: FGiro?)
+    fun delete(fGiroEntity: FGiroEntity?)
 
     @Query("DELETE FROM fGiro")
     fun deleteAllFGiro()
 
     @get:Query("SELECT * FROM fGiro ")
-    val allFGiroLive: LiveData<List<FGiro?>?>?
+    val allFGiroEntityLive: LiveData<List<FGiroEntity?>?>?
 
     @get:Query("SELECT * FROM fGiro ")
-    val allFGiro: List<FGiro?>?
+    val allFGiroEntity: List<FGiroEntity?>?
 
     @Query("SELECT * FROM fGiro WHERE id = :id ")
-    fun getAllById(id: Int): List<FGiro?>?
+    fun getAllById(id: Int): List<FGiroEntity?>?
 
     @Query("SELECT * FROM fGiro WHERE fdivisionBean = :id ")
-    fun getAllByDivision(id: Int): List<FGiro?>?
+    fun getAllByDivision(id: Int): List<FGiroEntity?>?
 }

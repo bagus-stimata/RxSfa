@@ -1,26 +1,26 @@
 package com.erp.distribution.sfa.domain.repository
 
 import androidx.lifecycle.LiveData
-import com.erp.distribution.sfa.data.source.entity.FMaterialSalesBrand
+import com.erp.distribution.sfa.data.source.entity.FMaterialSalesBrandEntity
 import io.reactivex.Single
 
 /**
  * To make an interaction between [AlbumRepositoryImp] & [GetAlbumsUseCase]
  * */
 interface FMaterialSalesBrandRepository {
-    fun getRemoteAllFMaterialSalesBrand(authHeader: String): Single<List<FMaterialSalesBrand>>
-    fun getRemoteFMaterialSalesBrandById(authHeader: String, id: Int): Single<FMaterialSalesBrand>
-    fun getRemoteAllFMaterialSalesBrandByDivision(authHeader: String, divisionId: Int): Single<List<FMaterialSalesBrand>>
-    fun createRemoteFMaterialSalesBrand(authHeader: String, fMaterialSalesBrand: FMaterialSalesBrand): Single<FMaterialSalesBrand>
-    fun putRemoteFMaterialSalesBrand(authHeader: String, id: Int, fMaterialSalesBrand: FMaterialSalesBrand): Single<FMaterialSalesBrand>
-    fun deleteRemoteFMaterialSalesBrand(authHeader: String, id: Int): Single<FMaterialSalesBrand>
+    fun getRemoteAllFMaterialSalesBrand(authHeader: String): Single<List<FMaterialSalesBrandEntity>>
+    fun getRemoteFMaterialSalesBrandById(authHeader: String, id: Int): Single<FMaterialSalesBrandEntity>
+    fun getRemoteAllFMaterialSalesBrandByDivision(authHeader: String, divisionId: Int): Single<List<FMaterialSalesBrandEntity>>
+    fun createRemoteFMaterialSalesBrand(authHeader: String, fMaterialSalesBrandEntity: FMaterialSalesBrandEntity): Single<FMaterialSalesBrandEntity>
+    fun putRemoteFMaterialSalesBrand(authHeader: String, id: Int, fMaterialSalesBrandEntity: FMaterialSalesBrandEntity): Single<FMaterialSalesBrandEntity>
+    fun deleteRemoteFMaterialSalesBrand(authHeader: String, id: Int): Single<FMaterialSalesBrandEntity>
 
-    fun getCacheAllFMaterialSalesBrand(): LiveData<List<FMaterialSalesBrand>>
-    fun getCacheFMaterialSalesBrandById(id: Int): LiveData<FMaterialSalesBrand>
-    fun getCacheAllFMaterialSalesBrandByDivision(divisionId: Int): LiveData<List<FMaterialSalesBrand>>
-    fun addCacheFMaterialSalesBrand(fMaterialSalesBrand: FMaterialSalesBrand)
-    fun putCacheFMaterialSalesBrand(fMaterialSalesBrand: FMaterialSalesBrand)
-    fun deleteCacheFMaterialSalesBrand(fMaterialSalesBrand: FMaterialSalesBrand)
+    fun getCacheAllFMaterialSalesBrand(): LiveData<List<FMaterialSalesBrandEntity>>
+    fun getCacheFMaterialSalesBrandById(id: Int): LiveData<FMaterialSalesBrandEntity>
+    fun getCacheAllFMaterialSalesBrandByDivision(divisionId: Int): LiveData<List<FMaterialSalesBrandEntity>>
+    fun addCacheFMaterialSalesBrand(fMaterialSalesBrandEntity: FMaterialSalesBrandEntity)
+    fun putCacheFMaterialSalesBrand(fMaterialSalesBrandEntity: FMaterialSalesBrandEntity)
+    fun deleteCacheFMaterialSalesBrand(fMaterialSalesBrandEntity: FMaterialSalesBrandEntity)
     fun deleteAllCacheData()
 
 

@@ -2,7 +2,7 @@ package com.erp.distribution.sfa.data.source.local.dao
 
 import androidx.lifecycle.LiveData
 import androidx.room.*
-import com.erp.distribution.sfa.data.source.entity.FPromotionRulesdValidCusts
+import com.erp.distribution.sfa.data.source.entity.FPromotionRulesdValidCustsEntity
 
 /**
  * Dao ini belum di koneksikan dengan database manapun
@@ -10,34 +10,34 @@ import com.erp.distribution.sfa.data.source.entity.FPromotionRulesdValidCusts
 @Dao
 interface FPromotionRulesdValidCustsDao {
     /**
-     * @param fPromotionRulesdValidCusts
+     * @param fPromotionRulesdValidCustsEntity
      * Harus Menggunakan
      * .allowMainThreadQueries() pada Configurasi database utama agar tidak perlu menggunakan AsynT
      */
     @Insert
-    fun insert(fPromotionRulesdValidCusts: FPromotionRulesdValidCusts?)
+    fun insert(fPromotionRulesdValidCustsEntity: FPromotionRulesdValidCustsEntity?)
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    fun insertAll(listFPromotionRulesdValidCusts: List<FPromotionRulesdValidCusts>)
+    fun insertAll(listFPromotionRulesdValidCustEntities: List<FPromotionRulesdValidCustsEntity>)
 
 
     @Update
-    fun update(fPromotionRulesdValidCusts: FPromotionRulesdValidCusts?)
+    fun update(fPromotionRulesdValidCustsEntity: FPromotionRulesdValidCustsEntity?)
 
     @Delete
-    fun delete(fPromotionRulesdValidCusts: FPromotionRulesdValidCusts?)
+    fun delete(fPromotionRulesdValidCustsEntity: FPromotionRulesdValidCustsEntity?)
 
     @Query("DELETE FROM fPromotionRulesdValidCusts")
     fun deleteAllFPromotionRulesdValidCusts()
 
     @get:Query("SELECT * FROM fPromotionRulesdValidCusts ")
-    val allFPromotionRulesdValidCustsLive: LiveData<List<FPromotionRulesdValidCusts?>?>?
+    val allFPromotionRulesdValidCustsEntityLive: LiveData<List<FPromotionRulesdValidCustsEntity?>?>?
 
     @get:Query("SELECT * FROM fPromotionRulesdValidCusts ")
-    val allFPromotionRulesdValidCusts: List<FPromotionRulesdValidCusts?>?
+    val allFPromotionRulesdValidCustEntities: List<FPromotionRulesdValidCustsEntity?>?
 
     @Query("SELECT * FROM fPromotionRulesdValidCusts WHERE id = :id ")
-    fun getAllById(id: Int): List<FPromotionRulesdValidCusts?>?
+    fun getAllById(id: Int): List<FPromotionRulesdValidCustsEntity?>?
 
     @Query("SELECT * FROM fPromotionRulesdValidCusts WHERE fpromotionRuleshBean = :id ")
-    fun getAllByParentId(id: Int): List<FPromotionRulesdValidCusts?>?
+    fun getAllByParentId(id: Int): List<FPromotionRulesdValidCustsEntity?>?
 }

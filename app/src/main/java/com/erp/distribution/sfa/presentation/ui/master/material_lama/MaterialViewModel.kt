@@ -6,7 +6,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.erp.distribution.sfa.domain.usecase.GetFMaterialUseCase
 import com.erp.distribution.sfa.domain.usecase.GetFUserUseCase
-import com.erp.distribution.sfa.data.source.entity.FMaterial
+import com.erp.distribution.sfa.data.source.entity.FMaterialEntity
 import java.util.*
 
 class MaterialViewModel @ViewModelInject constructor(
@@ -14,33 +14,33 @@ class MaterialViewModel @ViewModelInject constructor(
     private val getFMaterialUseCase: GetFMaterialUseCase
 ) : ViewModel() {
     //    private FMaterialRepository repository;
-    val allFMaterialLive: LiveData<List<FMaterial>>? = null
-    private val listFMaterial: List<FMaterial> = ArrayList()
-    protected var itemHeader: MutableLiveData<FMaterial>? = null
+    val allFMaterialEntityLive: LiveData<List<FMaterialEntity>>? = null
+    private val listFMaterialEntity: List<FMaterialEntity> = ArrayList()
+    protected var itemHeader: MutableLiveData<FMaterialEntity>? = null
 
-    fun insert(fMaterial: FMaterial): FMaterial {
+    fun insert(fMaterialEntity: FMaterialEntity): FMaterialEntity {
 //        repository.insert(fMaterial);
-        return fMaterial
+        return fMaterialEntity
     }
 
-    fun update(fMaterial: FMaterial): FMaterial {
+    fun update(fMaterialEntity: FMaterialEntity): FMaterialEntity {
 //        repository.update(fMaterial);
-        return fMaterial
+        return fMaterialEntity
     }
 
-    fun delete(fMaterial: FMaterial): FMaterial {
+    fun delete(fMaterialEntity: FMaterialEntity): FMaterialEntity {
 //        repository.delete(fMaterial);
-        return fMaterial
+        return fMaterialEntity
     }
 
     fun deleteAllFMaterial() {
 //        repository.deleteAllFMaterial();
     }
 
-    val allFMaterial: LiveData<List<FMaterial>>
+    val allFMaterialEntity: LiveData<List<FMaterialEntity>>
         get() = getFMaterialUseCase.getCacheAllFMaterial()
 
-    fun getItemHeader(): LiveData<FMaterial>? {
+    fun getItemHeader(): LiveData<FMaterialEntity>? {
         return itemHeader
     }
 }

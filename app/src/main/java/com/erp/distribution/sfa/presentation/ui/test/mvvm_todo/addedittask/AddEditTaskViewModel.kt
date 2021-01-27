@@ -5,7 +5,7 @@ import androidx.hilt.lifecycle.ViewModelInject
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.erp.distribution.sfa.data.source.entity.FMaterial
+import com.erp.distribution.sfa.data.source.entity.FMaterialEntity
 import com.erp.distribution.sfa.domain.usecase.GetFMaterialUseCase
 import com.erp.distribution.sfa.presentation.ui.test.mvvm_todo.ADD_TASK_RESULT_OK
 import com.erp.distribution.sfa.presentation.ui.test.mvvm_todo.EDIT_TASK_RESULT_OK
@@ -19,7 +19,7 @@ class AddEditTaskViewModel @ViewModelInject constructor(
     @Assisted private val state: SavedStateHandle
 ) : ViewModel() {
 
-    val task = state.get<FMaterial>("task")
+    val task = state.get<FMaterialEntity>("task")
 
     var taskName = state.get<String>("taskName") ?: task?.pname ?: ""
         set(value) {
@@ -46,18 +46,18 @@ class AddEditTaskViewModel @ViewModelInject constructor(
             val updatedTask = task.copy(pname = taskName, isStatusActive = taskImportance )
             updateTask(updatedTask)
         } else {
-            val newTask = FMaterial(pname = taskName, isStatusActive = taskImportance )
+            val newTask = FMaterialEntity(pname = taskName, isStatusActive = taskImportance )
             createTask(newTask)
         }
     }
 
-    private fun createTask(task: FMaterial) = viewModelScope.launch {
+    private fun createTask(task: FMaterialEntity) = viewModelScope.launch {
 //        taskDao.insert(task)
         getFMaterialUseCase.addCacheFMaterial(task)
         addEditTaskEventChannel.send(AddEditTaskEvent.NavigateBackWithResult(ADD_TASK_RESULT_OK))
     }
 
-    private fun updateTask(task: FMaterial) = viewModelScope.launch {
+    private fun updateTask(task: FMaterialEntity) = viewModelScope.launch {
 //        taskDao.update(task)
         getFMaterialUseCase.putCacheFMaterial(task)
         addEditTaskEventChannel.send(AddEditTaskEvent.NavigateBackWithResult(EDIT_TASK_RESULT_OK))

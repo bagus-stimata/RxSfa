@@ -4,7 +4,7 @@ import androidx.lifecycle.LiveData
 import com.erp.distribution.sfa.data.source.remote.service_api.RetrofitServiceSysvar
 import com.erp.distribution.sfa.data.source.local.database.AppDatabase
 import com.erp.distribution.sfa.domain.repository.SysvarRepository
-import com.erp.distribution.sfa.data.source.entity.Sysvar
+import com.erp.distribution.sfa.data.source.entity.SysvarEntity
 import io.reactivex.Single
 
 
@@ -17,54 +17,54 @@ class SysvarRepositoryImpl(
     private val retrofitService: RetrofitServiceSysvar
 ) : SysvarRepository {
 
-    override fun getRemoteAllSysvar(authHeader: String ): Single<List<Sysvar>> {
+    override fun getRemoteAllSysvar(authHeader: String ): Single<List<SysvarEntity>> {
         return retrofitService.getRemoteAllSysvar(authHeader)
     }
 
-    override fun getRemoteSysvarById(authHeader: String, id: Int): Single<Sysvar> {
+    override fun getRemoteSysvarById(authHeader: String, id: Int): Single<SysvarEntity> {
         return retrofitService.getRemoteSysvarById(authHeader, id)
     }
 
-    override fun getRemoteAllSysvarByDivision(authHeader: String, divisionId: Int): Single<List<Sysvar>> {
+    override fun getRemoteAllSysvarByDivision(authHeader: String, divisionId: Int): Single<List<SysvarEntity>> {
         return retrofitService.getRemoteAllSysvarByDivision(authHeader, divisionId)
     }
 
-    override fun createRemoteSysvar(authHeader: String, sysvar: Sysvar): Single<Sysvar> {
-        return retrofitService.createRemoteSysvar(authHeader, sysvar)
+    override fun createRemoteSysvar(authHeader: String, sysvarEntity: SysvarEntity): Single<SysvarEntity> {
+        return retrofitService.createRemoteSysvar(authHeader, sysvarEntity)
     }
 
-    override fun putRemoteSysvar(authHeader: String, id: Int, sysvar: Sysvar): Single<Sysvar> {
-        return retrofitService.putRemoteSysvar(authHeader, id, sysvar)
+    override fun putRemoteSysvar(authHeader: String, id: Int, sysvarEntity: SysvarEntity): Single<SysvarEntity> {
+        return retrofitService.putRemoteSysvar(authHeader, id, sysvarEntity)
     }
 
-    override fun deleteRemoteSysvar(authHeader: String, id: Int): Single<Sysvar> {
+    override fun deleteRemoteSysvar(authHeader: String, id: Int): Single<SysvarEntity> {
         return retrofitService.deleteRemoteSysvar(authHeader, id)
     }
 
 
 
-    override fun getCacheAllSysvar(): LiveData<List<Sysvar>> {
-        return appDatabase.sysvarDao.getAllSysvarLive
+    override fun getCacheAllSysvar(): LiveData<List<SysvarEntity>> {
+        return appDatabase.sysvarDao.getAllSysvarEntityLive
     }
 
-    override fun getCacheSysvarById(id: Int): LiveData<Sysvar> {
+    override fun getCacheSysvarById(id: Int): LiveData<SysvarEntity> {
         return appDatabase.sysvarDao.getAllByIdLive(id)
     }
 
-    override fun getCacheAllSysvarByDivision(divisionId: Int): LiveData<List<Sysvar>> {
+    override fun getCacheAllSysvarByDivision(divisionId: Int): LiveData<List<SysvarEntity>> {
         return appDatabase.sysvarDao.getAllByDivisionLive(divisionId)
     }
 
-    override fun addCacheSysvar(sysvar: Sysvar) {
-        return appDatabase.sysvarDao.insert(sysvar)
+    override fun addCacheSysvar(sysvarEntity: SysvarEntity) {
+        return appDatabase.sysvarDao.insert(sysvarEntity)
     }
 
-    override fun putCacheSysvar(sysvar: Sysvar) {
-        return appDatabase.sysvarDao.update(sysvar)
+    override fun putCacheSysvar(sysvarEntity: SysvarEntity) {
+        return appDatabase.sysvarDao.update(sysvarEntity)
     }
 
-    override fun deleteCacheSysvar(sysvar: Sysvar) {
-        return appDatabase.sysvarDao.delete(sysvar)
+    override fun deleteCacheSysvar(sysvarEntity: SysvarEntity) {
+        return appDatabase.sysvarDao.delete(sysvarEntity)
     }
 
     override fun deleteAllCacheSysvar() {

@@ -17,7 +17,7 @@ import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.erp.distribution.sfa.data.di.SortOrder
-import com.erp.distribution.sfa.data.source.entity.FCustomer
+import com.erp.distribution.sfa.data.source.entity.FCustomerEntity
 import com.erp.distribution.sfa.databinding.FragmentCustomerBinding
 import com.erp.distribution.sfa.presentation.ui.utils.onQueryTextChanged
 import com.erp.distribution.sfa.utils.exhaustive
@@ -101,7 +101,7 @@ class CustomerFragment : Fragment(R.layout.fragment_customer), CustomerAdapter.O
                     is CustomerViewModel.CustomerEvent.ShowUndoDeleteCustomerMessage -> {
                         Snackbar.make(requireView(), "Customer deleted", Snackbar.LENGTH_LONG)
                             .setAction("UNDO") {
-                                viewModel.onUndoDeleteClick(event.fCustomer)
+                                viewModel.onUndoDeleteClick(event.fCustomerEntity)
                             }.show()
                     }
 
@@ -116,7 +116,7 @@ class CustomerFragment : Fragment(R.layout.fragment_customer), CustomerAdapter.O
                     is CustomerViewModel.CustomerEvent.NavigateToEditCustomerScreen -> {
                         val action =
                                 CustomerFragmentDirections.actionCustomerFragmentToCustomerFragmentAddEdit(
-                                event.fCustomer,
+                                event.fCustomerEntity,
                                 "Edit Customer"
                             )
                         findNavController().navigate(action)
@@ -151,12 +151,12 @@ class CustomerFragment : Fragment(R.layout.fragment_customer), CustomerAdapter.O
         setHasOptionsMenu(true)
     }
 
-    override fun onItemClick(fCustomer: FCustomer) {
-        viewModel.onCustomerSelected(fCustomer)
+    override fun onItemClick(fCustomerEntity: FCustomerEntity) {
+        viewModel.onCustomerSelected(fCustomerEntity)
     }
 
-    override fun onCheckBoxClick(fCustomer: FCustomer, isChecked: Boolean) {
-        viewModel.onFCustomerCheckedChanged(fCustomer, isChecked)
+    override fun onCheckBoxClick(fCustomerEntity: FCustomerEntity, isChecked: Boolean) {
+        viewModel.onFCustomerCheckedChanged(fCustomerEntity, isChecked)
     }
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {

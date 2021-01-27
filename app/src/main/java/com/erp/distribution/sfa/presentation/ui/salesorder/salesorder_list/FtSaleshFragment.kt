@@ -17,7 +17,7 @@ import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.erp.distribution.sfa.data.di.SortOrder
-import com.erp.distribution.sfa.data.source.entity.FtSalesh
+import com.erp.distribution.sfa.data.source.entity.FtSaleshEntity
 import com.erp.distribution.sfa.databinding.FragmentFtsaleshBinding
 import com.erp.distribution.sfa.presentation.ui.utils.onQueryTextChanged
 import com.erp.distribution.sfa.utils.exhaustive
@@ -101,7 +101,7 @@ class FtSaleshFragment : Fragment(R.layout.fragment_ftsalesh), FtSaleshAdapter.O
                     is FSaleshViewModel.FtSaleshEvent.ShowUndoDeleteFtSaleshMessage -> {
                         Snackbar.make(requireView(), "SalesOrder deleted", Snackbar.LENGTH_LONG)
                             .setAction("UNDO") {
-                                viewModelFSalesh.onUndoDeleteClick(event.ftSalesh)
+                                viewModelFSalesh.onUndoDeleteClick(event.ftSaleshEntity)
                             }.show()
                     }
                     is FSaleshViewModel.FtSaleshEvent.NavigateToAddFtSaleshScreen -> {
@@ -115,7 +115,7 @@ class FtSaleshFragment : Fragment(R.layout.fragment_ftsalesh), FtSaleshAdapter.O
                     is FSaleshViewModel.FtSaleshEvent.NavigateToEditFtSaleshScreen -> {
                         val action =
                             FtSaleshFragmentDirections.actionFtsaleshFragmentToFtSaleshFragmentAddEdit(
-                                event.ftSalesh,
+                                event.ftSaleshEntity,
                                 "Edit SalesOrder"
                             )
                         findNavController().navigate(action)
@@ -139,12 +139,12 @@ class FtSaleshFragment : Fragment(R.layout.fragment_ftsalesh), FtSaleshAdapter.O
         setHasOptionsMenu(true)
     }
 
-    override fun onItemClick(ftSalesh: FtSalesh) {
-        viewModelFSalesh.onItemSelected(ftSalesh)
+    override fun onItemClick(ftSaleshEntity: FtSaleshEntity) {
+        viewModelFSalesh.onItemSelected(ftSaleshEntity)
     }
 
-    override fun onCheckBoxClick(ftSalesh: FtSalesh, isChecked: Boolean) {
-        viewModelFSalesh.onItemCheckedChanged(ftSalesh, isChecked)
+    override fun onCheckBoxClick(ftSaleshEntity: FtSaleshEntity, isChecked: Boolean) {
+        viewModelFSalesh.onItemCheckedChanged(ftSaleshEntity, isChecked)
     }
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {

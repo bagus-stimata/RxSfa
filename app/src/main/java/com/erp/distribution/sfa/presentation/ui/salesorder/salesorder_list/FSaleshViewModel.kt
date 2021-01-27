@@ -6,7 +6,7 @@ import androidx.hilt.lifecycle.ViewModelInject
 import androidx.lifecycle.*
 import com.erp.distribution.sfa.data.di.PreferencesManager
 import com.erp.distribution.sfa.data.di.SortOrder
-import com.erp.distribution.sfa.data.source.entity.FtSalesh
+import com.erp.distribution.sfa.data.source.entity.FtSaleshEntity
 import com.erp.distribution.sfa.domain.usecase.GetFtSaleshUseCase
 import com.erp.distribution.sfa.presentation.ui.test.mvvm_todo.ADD_TASK_RESULT_OK
 import com.erp.distribution.sfa.presentation.ui.test.mvvm_todo.EDIT_TASK_RESULT_OK
@@ -53,13 +53,13 @@ class FSaleshViewModel @ViewModelInject constructor(
         preferencesManager.updateHideCompleted(hideCompleted)
     }
 
-    fun onItemSelected(ftSalesh: FtSalesh) = viewModelScope.launch {
-        ftSaleshEventChannel.send(FtSaleshEvent.NavigateToEditFtSaleshScreen(ftSalesh))
+    fun onItemSelected(ftSaleshEntity: FtSaleshEntity) = viewModelScope.launch {
+        ftSaleshEventChannel.send(FtSaleshEvent.NavigateToEditFtSaleshScreen(ftSaleshEntity))
     }
 
-    fun onItemCheckedChanged(ftSalesh: FtSalesh, isChecked: Boolean) = viewModelScope.launch {
+    fun onItemCheckedChanged(ftSaleshEntity: FtSaleshEntity, isChecked: Boolean) = viewModelScope.launch {
         DisposableManager.add(Observable.fromCallable {
-            getFtSaleshUseCase.putCacheFtSalesh(ftSalesh.copy(selected = isChecked))
+            getFtSaleshUseCase.putCacheFtSalesh(ftSaleshEntity.copy(selected = isChecked))
         }
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
@@ -77,9 +77,9 @@ class FSaleshViewModel @ViewModelInject constructor(
 
     }
 
-    fun onItemSwiped(ftSalesh: FtSalesh) = viewModelScope.launch {
+    fun onItemSwiped(ftSaleshEntity: FtSaleshEntity) = viewModelScope.launch {
         DisposableManager.add(Observable.fromCallable {
-            getFtSaleshUseCase.deleteCacheFtSalesh(ftSalesh)
+            getFtSaleshUseCase.deleteCacheFtSalesh(ftSaleshEntity)
         }
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
@@ -95,14 +95,14 @@ class FSaleshViewModel @ViewModelInject constructor(
                 )
         )
 
-        ftSaleshEventChannel.send(FtSaleshEvent.ShowUndoDeleteFtSaleshMessage(ftSalesh))
+        ftSaleshEventChannel.send(FtSaleshEvent.ShowUndoDeleteFtSaleshMessage(ftSaleshEntity))
     }
 
-    fun onUndoDeleteClick(ftSalesh: FtSalesh) = viewModelScope.launch {
+    fun onUndoDeleteClick(ftSaleshEntity: FtSaleshEntity) = viewModelScope.launch {
 //        taskDao.insert(task)
 //        getFtSaleshUseCase.addCacheFtSalesh(task)
         DisposableManager.add(Observable.fromCallable {
-            getFtSaleshUseCase.addCacheFtSalesh(ftSalesh)
+            getFtSaleshUseCase.addCacheFtSalesh(ftSaleshEntity)
         }
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
@@ -140,8 +140,8 @@ class FSaleshViewModel @ViewModelInject constructor(
 
     sealed class FtSaleshEvent {
         object NavigateToAddFtSaleshScreen : FtSaleshEvent()
-        data class NavigateToEditFtSaleshScreen(val ftSalesh: FtSalesh) : FtSaleshEvent()
-        data class ShowUndoDeleteFtSaleshMessage(val ftSalesh: FtSalesh) : FtSaleshEvent()
+        data class NavigateToEditFtSaleshScreen(val ftSaleshEntity: FtSaleshEntity) : FtSaleshEvent()
+        data class ShowUndoDeleteFtSaleshMessage(val ftSaleshEntity: FtSaleshEntity) : FtSaleshEvent()
         data class ShowFtSaleshSavedConfirmationMessage(val msg: String) : FtSaleshEvent()
         object NavigateToDeleteAllCompletedScreen : FtSaleshEvent()
 

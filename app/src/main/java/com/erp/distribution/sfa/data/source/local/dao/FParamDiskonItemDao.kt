@@ -2,7 +2,7 @@ package com.erp.distribution.sfa.data.source.local.dao
 
 import androidx.lifecycle.LiveData
 import androidx.room.*
-import com.erp.distribution.sfa.data.source.entity.FParamDiskonItem
+import com.erp.distribution.sfa.data.source.entity.FParamDiskonItemEntity
 
 /**
  * Dao ini belum di koneksikan dengan database manapun
@@ -10,33 +10,33 @@ import com.erp.distribution.sfa.data.source.entity.FParamDiskonItem
 @Dao
 interface FParamDiskonItemDao {
     /**
-     * @param fParamDiskonItem
+     * @param fParamDiskonItemEntity
      * Harus Menggunakan
      * .allowMainThreadQueries() pada Configurasi database utama agar tidak perlu menggunakan AsynT
      */
     @Insert
-    fun insert(fParamDiskonItem: FParamDiskonItem?)
+    fun insert(fParamDiskonItemEntity: FParamDiskonItemEntity?)
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    fun insertAll(listFParamDiskonItem: List<FParamDiskonItem>)
+    fun insertAll(listFParamDiskonItemEntity: List<FParamDiskonItemEntity>)
     
     @Update
-    fun update(fParamDiskonItem: FParamDiskonItem?)
+    fun update(fParamDiskonItemEntity: FParamDiskonItemEntity?)
 
     @Delete
-    fun delete(fParamDiskonItem: FParamDiskonItem?)
+    fun delete(fParamDiskonItemEntity: FParamDiskonItemEntity?)
 
     @Query("DELETE FROM fParamDiskonItem")
     fun deleteAllFParamDiskonItem()
 
     @get:Query("SELECT * FROM fParamDiskonItem ")
-    val allFParamDiskonItemLive: LiveData<List<FParamDiskonItem?>?>?
+    val allFParamDiskonItemEntityLive: LiveData<List<FParamDiskonItemEntity?>?>?
 
     @get:Query("SELECT * FROM fParamDiskonItem ")
-    val allFParamDiskonItem: List<FParamDiskonItem?>?
+    val allFParamDiskonItemEntity: List<FParamDiskonItemEntity?>?
 
     @Query("SELECT * FROM fParamDiskonItem WHERE id = :id ")
-    fun getAllById(id: Int): List<FParamDiskonItem?>?
+    fun getAllById(id: Int): List<FParamDiskonItemEntity?>?
 
     @Query("SELECT * FROM fParamDiskonItem WHERE fdivisionBean = :id ")
-    fun getAllByDivision(id: Int): List<FParamDiskonItem?>?
+    fun getAllByDivision(id: Int): List<FParamDiskonItemEntity?>?
 }

@@ -2,7 +2,7 @@ package com.erp.distribution.sfa.data.source.local.dao
 
 import androidx.lifecycle.LiveData
 import androidx.room.*
-import com.erp.distribution.sfa.data.source.entity.FtPriceAltdItems
+import com.erp.distribution.sfa.data.source.entity.FtPriceAltdItemsEntity
 
 /**
  * Dao ini belum di koneksikan dengan database manapun
@@ -10,34 +10,34 @@ import com.erp.distribution.sfa.data.source.entity.FtPriceAltdItems
 @Dao
 interface FtPriceAltdItemsDao {
     /**
-     * @param ftPriceAltdItems
+     * @param ftPriceAltdItemsEntity
      * Harus Menggunakan
      * .allowMainThreadQueries() pada Configurasi database utama agar tidak perlu menggunakan AsynT
      */
     @Insert
-    fun insert(ftPriceAltdItems: FtPriceAltdItems?)
+    fun insert(ftPriceAltdItemsEntity: FtPriceAltdItemsEntity?)
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    fun insertAll(listFtPriceAltdItems: List<FtPriceAltdItems>)
+    fun insertAll(listFtPriceAltdItemEntities: List<FtPriceAltdItemsEntity>)
 
 
     @Update
-    fun update(ftPriceAltdItems: FtPriceAltdItems?)
+    fun update(ftPriceAltdItemsEntity: FtPriceAltdItemsEntity?)
 
     @Delete
-    fun delete(ftPriceAltdItems: FtPriceAltdItems?)
+    fun delete(ftPriceAltdItemsEntity: FtPriceAltdItemsEntity?)
 
     @Query("DELETE FROM ftPriceAltdItems")
     fun deleteAllFtPriceAltdItems()
 
     @get:Query("SELECT * FROM ftPriceAltdItems ")
-    val allFtPriceAltdItemsLive: LiveData<List<FtPriceAltdItems?>?>?
+    val allFtPriceAltdItemsEntityLive: LiveData<List<FtPriceAltdItemsEntity?>?>?
 
     @get:Query("SELECT * FROM ftPriceAltdItems ")
-    val allFtPriceAltdItems: List<FtPriceAltdItems?>?
+    val allFtPriceAltdItemEntities: List<FtPriceAltdItemsEntity?>?
 
     @Query("SELECT * FROM ftPriceAltdItems WHERE id = :id ")
-    fun getAllById(id: Long?): List<FtPriceAltdItems?>?
+    fun getAllById(id: Long?): List<FtPriceAltdItemsEntity?>?
 
     @Query("SELECT * FROM ftPriceAltdItems WHERE ftPriceAlthBean = :id ")
-    fun getAllByDivision(id: Long?): List<FtPriceAltdItems?>?
+    fun getAllByDivision(id: Long?): List<FtPriceAltdItemsEntity?>?
 }

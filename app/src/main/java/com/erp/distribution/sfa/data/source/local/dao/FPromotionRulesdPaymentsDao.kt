@@ -2,7 +2,7 @@ package com.erp.distribution.sfa.data.source.local.dao
 
 import androidx.lifecycle.LiveData
 import androidx.room.*
-import com.erp.distribution.sfa.data.source.entity.FPromotionRulesdPayments
+import com.erp.distribution.sfa.data.source.entity.FPromotionRulesdPaymentsEntity
 
 /**
  * Dao ini belum di koneksikan dengan database manapun
@@ -10,33 +10,33 @@ import com.erp.distribution.sfa.data.source.entity.FPromotionRulesdPayments
 @Dao
 interface FPromotionRulesdPaymentsDao {
     /**
-     * @param fPromotionRulesdPayments
+     * @param fPromotionRulesdPaymentsEntity
      * Harus Menggunakan
      * .allowMainThreadQueries() pada Configurasi database utama agar tidak perlu menggunakan AsynT
      */
     @Insert
-    fun insert(fPromotionRulesdPayments: FPromotionRulesdPayments?)
+    fun insert(fPromotionRulesdPaymentsEntity: FPromotionRulesdPaymentsEntity?)
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    fun insertAll(listFPromotionRulesdPayments: List<FPromotionRulesdPayments>)
+    fun insertAll(listFPromotionRulesdPaymentEntities: List<FPromotionRulesdPaymentsEntity>)
     
     @Update
-    fun update(fPromotionRulesdPayments: FPromotionRulesdPayments?)
+    fun update(fPromotionRulesdPaymentsEntity: FPromotionRulesdPaymentsEntity?)
 
     @Delete
-    fun delete(fPromotionRulesdPayments: FPromotionRulesdPayments?)
+    fun delete(fPromotionRulesdPaymentsEntity: FPromotionRulesdPaymentsEntity?)
 
     @Query("DELETE FROM fPromotionRulesdPayments")
     fun deleteAllFPromotionRulesdPayments()
 
     @get:Query("SELECT * FROM fPromotionRulesdPayments ")
-    val allFPromotionRulesdPaymentsLive: LiveData<List<FPromotionRulesdPayments?>?>?
+    val allFPromotionRulesdPaymentsEntityLive: LiveData<List<FPromotionRulesdPaymentsEntity?>?>?
 
     @get:Query("SELECT * FROM fPromotionRulesdPayments ")
-    val allFPromotionRulesdPayments: List<FPromotionRulesdPayments?>?
+    val allFPromotionRulesdPaymentEntities: List<FPromotionRulesdPaymentsEntity?>?
 
     @Query("SELECT * FROM fPromotionRulesdPayments WHERE id = :id ")
-    fun getAllById(id: Int): List<FPromotionRulesdPayments?>?
+    fun getAllById(id: Int): List<FPromotionRulesdPaymentsEntity?>?
 
     @Query("SELECT * FROM fPromotionRulesdPayments WHERE fpromotionRuleshBean = :id ")
-    fun getAllByParentId(id: Int): List<FPromotionRulesdPayments?>?
+    fun getAllByParentId(id: Int): List<FPromotionRulesdPaymentsEntity?>?
 }

@@ -2,7 +2,7 @@ package com.erp.distribution.sfa.data.source.local.dao
 
 import androidx.lifecycle.LiveData
 import androidx.room.*
-import com.erp.distribution.sfa.data.source.entity.FCompany
+import com.erp.distribution.sfa.data.source.entity.FCompanyEntity
 
 /**
  * Dao ini belum di koneksikan dengan database manapun
@@ -10,33 +10,33 @@ import com.erp.distribution.sfa.data.source.entity.FCompany
 @Dao
 interface FCompanyDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    fun insert(fCompany: FCompany)
+    fun insert(fCompanyEntity: FCompanyEntity)
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    fun insertAll(listFCompany: List<FCompany>)
+    fun insertAll(listFCompanyEntity: List<FCompanyEntity>)
 
     @Update
-    fun update(fCompany: FCompany)
+    fun update(fCompanyEntity: FCompanyEntity)
 
     @Delete
-    fun delete(fCompany: FCompany)
+    fun delete(fCompanyEntity: FCompanyEntity)
 
     @Query("DELETE FROM fCompany")
     fun deleteAllFCompany()
 
     @Query("SELECT * FROM fCompany WHERE id = :id ")
-    fun getAllById(id: Int): FCompany
+    fun getAllById(id: Int): FCompanyEntity
 
     @Query("SELECT * FROM fCompany WHERE id = :id ")
-    fun getAllByIdLive(id: Int): LiveData<FCompany>
+    fun getAllByIdLive(id: Int): LiveData<FCompanyEntity>
 
     @get:Query("SELECT * FROM fCompany ")
-    val getAllFCompanyLive: LiveData<List<FCompany>>
+    val getAllFCompanyEntityLive: LiveData<List<FCompanyEntity>>
 
     @get:Query("SELECT * FROM fCompany ")
-    val getAllFCompanyByKodeLive: LiveData<List<FCompany>>
+    val getAllFCompanyEntityByKodeLive: LiveData<List<FCompanyEntity>>
 
     @get:Query("SELECT * FROM fCompany ")
-    val getAllFCompany: List<FCompany>
+    val getAllFCompanyEntity: List<FCompanyEntity>
 
 
 //    @Query("SELECT * FROM fCompany WHERE fdivisionBean = :id ")

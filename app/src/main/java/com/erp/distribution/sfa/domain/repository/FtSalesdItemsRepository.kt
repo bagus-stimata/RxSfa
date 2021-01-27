@@ -1,9 +1,7 @@
 package com.erp.distribution.sfa.domain.repository
 
 import androidx.lifecycle.LiveData
-import com.erp.distribution.sfa.data.di.SortOrder
-import com.erp.distribution.sfa.data.source.entity.FtSalesdItems
-import com.erp.distribution.sfa.data.source.entity.FtSalesh
+import com.erp.distribution.sfa.data.source.entity.FtSalesdItemsEntity
 import io.reactivex.Single
 import kotlinx.coroutines.flow.Flow
 
@@ -11,23 +9,23 @@ import kotlinx.coroutines.flow.Flow
  * To make an interaction between [AlbumRepositoryImp] & [GetAlbumsUseCase]
  * */
 interface FtSalesdItemsRepository {
-    fun getRemoteAllFtSalesdItems(authHeader: String): Single<List<FtSalesdItems>>
-    fun getRemoteFtSalesdItemsById(authHeader: String, id: Long): Single<FtSalesdItems>
-    fun getRemoteAllFtSalesdItemsByParent(authHeader: String, parentId: Long): Single<List<FtSalesdItems>>
-    fun createRemoteFtSalesdItems(authHeader: String, ftSalesdItems: FtSalesdItems): Single<FtSalesdItems>
-    fun putRemoteFtSalesdItems(authHeader: String, id: Long, ftSalesdItems: FtSalesdItems): Single<FtSalesdItems>
-    fun deleteRemoteFtSalesdItems(authHeader: String, id: Long): Single<FtSalesdItems>
+    fun getRemoteAllFtSalesdItems(authHeader: String): Single<List<FtSalesdItemsEntity>>
+    fun getRemoteFtSalesdItemsById(authHeader: String, id: Long): Single<FtSalesdItemsEntity>
+    fun getRemoteAllFtSalesdItemsByParent(authHeader: String, parentId: Long): Single<List<FtSalesdItemsEntity>>
+    fun createRemoteFtSalesdItems(authHeader: String, ftSalesdItemsEntity: FtSalesdItemsEntity): Single<FtSalesdItemsEntity>
+    fun putRemoteFtSalesdItems(authHeader: String, id: Long, ftSalesdItemsEntity: FtSalesdItemsEntity): Single<FtSalesdItemsEntity>
+    fun deleteRemoteFtSalesdItems(authHeader: String, id: Long): Single<FtSalesdItemsEntity>
 
-    fun getCacheAllFtSalesdItems(): LiveData<List<FtSalesdItems>>
-    fun getAllByFtSaleshAndMaterialFlow(ftSalesBean: Long, fmaterialBean: Int): Flow<List<FtSalesdItems>>
-    fun getCacheFtSalesdItemsById(id: Long): LiveData<FtSalesdItems>
-    fun getCacheAllFtSalesdItemsByParent(parentId: Long): LiveData<List<FtSalesdItems>>
+    fun getCacheAllFtSalesdItems(): LiveData<List<FtSalesdItemsEntity>>
+    fun getAllByFtSaleshAndMaterialFlow(ftSalesBean: Long, fmaterialBean: Int): Flow<List<FtSalesdItemsEntity>>
+    fun getCacheFtSalesdItemsById(id: Long): LiveData<FtSalesdItemsEntity>
+    fun getCacheAllFtSalesdItemsByParent(parentId: Long): LiveData<List<FtSalesdItemsEntity>>
 
-    fun addCacheFtSalesdItems(ftSalesdItems: FtSalesdItems)
-    fun addCacheListFtSalesdItems(list: List<FtSalesdItems>)
+    fun addCacheFtSalesdItems(ftSalesdItemsEntity: FtSalesdItemsEntity)
+    fun addCacheListFtSalesdItems(list: List<FtSalesdItemsEntity>)
 
-    fun putCacheFtSalesdItems(ftSalesdItems: FtSalesdItems)
-    fun deleteCacheFtSalesdItems(ftSalesdItems: FtSalesdItems)
+    fun putCacheFtSalesdItems(ftSalesdItemsEntity: FtSalesdItemsEntity)
+    fun deleteCacheFtSalesdItems(ftSalesdItemsEntity: FtSalesdItemsEntity)
     fun deleteAllCacheFtsalesdItems()
 
 

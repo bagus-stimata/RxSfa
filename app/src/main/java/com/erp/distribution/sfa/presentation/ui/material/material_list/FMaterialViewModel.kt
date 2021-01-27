@@ -6,7 +6,7 @@ import androidx.hilt.lifecycle.ViewModelInject
 import androidx.lifecycle.*
 import com.erp.distribution.sfa.data.di.PreferencesManager
 import com.erp.distribution.sfa.data.di.SortOrder
-import com.erp.distribution.sfa.data.source.entity.FMaterial
+import com.erp.distribution.sfa.data.source.entity.FMaterialEntity
 import com.erp.distribution.sfa.domain.usecase.GetFMaterialUseCase
 import com.erp.distribution.sfa.presentation.ui.test.mvvm_todo.ADD_TASK_RESULT_OK
 import com.erp.distribution.sfa.presentation.ui.test.mvvm_todo.EDIT_TASK_RESULT_OK
@@ -53,13 +53,13 @@ class FMaterialViewModel @ViewModelInject constructor(
         preferencesManager.updateHideCompleted(hideCompleted)
     }
 
-    fun onItemSelected(fMaterial: FMaterial) = viewModelScope.launch {
-        fMaterialEventChannel.send(FMaterialEvent.NavigateToEditFMaterialScreen(fMaterial))
+    fun onItemSelected(fMaterialEntity: FMaterialEntity) = viewModelScope.launch {
+        fMaterialEventChannel.send(FMaterialEvent.NavigateToEditFMaterialScreen(fMaterialEntity))
     }
 
-    fun onItemCheckedChanged(fMaterial: FMaterial, isChecked: Boolean) = viewModelScope.launch {
+    fun onItemCheckedChanged(fMaterialEntity: FMaterialEntity, isChecked: Boolean) = viewModelScope.launch {
         DisposableManager.add(Observable.fromCallable {
-            getFMaterialUseCase.putCacheFMaterial(fMaterial.copy(selected = isChecked))
+            getFMaterialUseCase.putCacheFMaterial(fMaterialEntity.copy(selected = isChecked))
         }
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
@@ -77,9 +77,9 @@ class FMaterialViewModel @ViewModelInject constructor(
 
     }
 
-    fun onItemSwiped(fMaterial: FMaterial) = viewModelScope.launch {
+    fun onItemSwiped(fMaterialEntity: FMaterialEntity) = viewModelScope.launch {
         DisposableManager.add(Observable.fromCallable {
-            getFMaterialUseCase.deleteCacheFMaterial(fMaterial)
+            getFMaterialUseCase.deleteCacheFMaterial(fMaterialEntity)
         }
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
@@ -95,14 +95,14 @@ class FMaterialViewModel @ViewModelInject constructor(
                 )
         )
 
-        fMaterialEventChannel.send(FMaterialEvent.ShowUndoDeleteFMaterialMessage(fMaterial))
+        fMaterialEventChannel.send(FMaterialEvent.ShowUndoDeleteFMaterialMessage(fMaterialEntity))
     }
 
-    fun onUndoDeleteClick(fMaterial: FMaterial) = viewModelScope.launch {
+    fun onUndoDeleteClick(fMaterialEntity: FMaterialEntity) = viewModelScope.launch {
 //        taskDao.insert(task)
 //        getFMaterialUseCase.addCacheFMaterial(task)
         DisposableManager.add(Observable.fromCallable {
-            getFMaterialUseCase.addCacheFMaterial(fMaterial)
+            getFMaterialUseCase.addCacheFMaterial(fMaterialEntity)
         }
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
@@ -140,8 +140,8 @@ class FMaterialViewModel @ViewModelInject constructor(
 
     sealed class FMaterialEvent {
         object NavigateToAddFMaterialScreen : FMaterialEvent()
-        data class NavigateToEditFMaterialScreen(val fMaterial: FMaterial) : FMaterialEvent()
-        data class ShowUndoDeleteFMaterialMessage(val fMaterial: FMaterial) : FMaterialEvent()
+        data class NavigateToEditFMaterialScreen(val fMaterialEntity: FMaterialEntity) : FMaterialEvent()
+        data class ShowUndoDeleteFMaterialMessage(val fMaterialEntity: FMaterialEntity) : FMaterialEvent()
         data class ShowFMaterialSavedConfirmationMessage(val msg: String) : FMaterialEvent()
         object NavigateToDeleteAllCompletedScreen : FMaterialEvent()
 

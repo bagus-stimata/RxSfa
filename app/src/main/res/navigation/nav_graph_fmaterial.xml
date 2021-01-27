@@ -22,7 +22,7 @@
         <argument
             android:name="fMaterial"
             android:defaultValue="@null"
-            app:argType="com.erp.distribution.sfa.data.source.entity.FMaterial"
+            app:argType="com.erp.distribution.sfa.data.source.entity.FMaterialEntity"
             app:nullable="true" />
         <argument
             android:name="title"

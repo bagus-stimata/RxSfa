@@ -8,8 +8,8 @@ import androidx.lifecycle.Observer
 import com.erp.distribution.sfa.R
 import com.erp.distribution.sfa.databinding.ActivitySyncronizeBinding
 import com.erp.distribution.sfa.presentation.ui.master.MasterViewModel
-import com.erp.distribution.sfa.data.source.entity.FCustomer
-import com.erp.distribution.sfa.data.source.entity.FMaterial
+import com.erp.distribution.sfa.data.source.entity.FCustomerEntity
+import com.erp.distribution.sfa.data.source.entity.FMaterialEntity
 import com.erp.distribution.sfa.data.source.entity_security.FUser
 import dagger.hilt.android.AndroidEntryPoint
 import io.reactivex.android.schedulers.AndroidSchedulers
@@ -54,7 +54,7 @@ class SyncronizeActivity : AppCompatActivity() {
 
         viewModel.getCacheFMaterialLive() .observe(this, Observer {
             when (it) {
-                null, emptyList<FMaterial>() -> {
+                null, emptyList<FMaterialEntity>() -> {
                     viewModel.checkList1 = "trying.. Sync Material/Product (empty)"
                 }
                 else -> {
@@ -74,9 +74,9 @@ class SyncronizeActivity : AppCompatActivity() {
             binding.masterViewModel = this.viewModel
         })
 
-        viewModel.listFMaterialMutableLive.observe(this, Observer {
+        viewModel.listFMaterialEntityMutableLive.observe(this, Observer {
             when (it) {
-                null, emptyList<FMaterial>() -> {
+                null, emptyList<FMaterialEntity>() -> {
 
                 }
                 else -> {
@@ -89,7 +89,7 @@ class SyncronizeActivity : AppCompatActivity() {
 
         viewModel.getCacheFCustomerLive().observe(this, Observer {
             when (it) {
-                null, emptyList<FCustomer>() -> {
+                null, emptyList<FCustomerEntity>() -> {
                     viewModel.checkList2 = "trying.. Sync Customer (empty)"
                 }
                 else -> {
@@ -133,7 +133,7 @@ class SyncronizeActivity : AppCompatActivity() {
             .subscribeOn(Schedulers.io())
             .subscribe(
                     {
-                        viewModel.insertCacheFCustomer(it as List<FCustomer>)
+                        viewModel.insertCacheFCustomer(it as List<FCustomerEntity>)
                     },
                     {
 

@@ -16,7 +16,7 @@ import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.erp.distribution.sfa.data.di.SortOrder
-import com.erp.distribution.sfa.data.source.entity.FMaterial
+import com.erp.distribution.sfa.data.source.entity.FMaterialEntity
 import com.erp.distribution.sfa.databinding.FragmentTasksBinding
 import com.erp.distribution.sfa.presentation.ui.utils.onQueryTextChanged
 import com.erp.distribution.sfa.utils.exhaustive
@@ -136,11 +136,11 @@ class TasksFragment : Fragment(R.layout.fragment_tasks), TasksAdapter.OnItemClic
         setHasOptionsMenu(true)
     }
 
-    override fun onItemClick(task: FMaterial) {
+    override fun onItemClick(task: FMaterialEntity) {
         viewModel.onTaskSelected(task)
     }
 
-    override fun onCheckBoxClick(task: FMaterial, isChecked: Boolean) {
+    override fun onCheckBoxClick(task: FMaterialEntity, isChecked: Boolean) {
         viewModel.onTaskCheckedChanged(task, isChecked)
     }
 

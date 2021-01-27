@@ -6,7 +6,7 @@ import androidx.hilt.lifecycle.ViewModelInject
 import androidx.lifecycle.*
 import com.erp.distribution.sfa.data.di.PreferencesManager
 import com.erp.distribution.sfa.data.di.SortOrder
-import com.erp.distribution.sfa.data.source.entity.FCustomer
+import com.erp.distribution.sfa.data.source.entity.FCustomerEntity
 import com.erp.distribution.sfa.domain.usecase.GetFCustomerUseCase
 import com.erp.distribution.sfa.presentation.ui.test.mvvm_todo.ADD_TASK_RESULT_OK
 import com.erp.distribution.sfa.presentation.ui.test.mvvm_todo.EDIT_TASK_RESULT_OK
@@ -54,14 +54,14 @@ class CustomerViewModel @ViewModelInject constructor(
         preferencesManager.updateHideCompleted(hideCompleted)
     }
 
-    fun onCustomerSelected(fCustomer: FCustomer) = viewModelScope.launch {
-        fCustomerEventChannel.send(CustomerEvent.NavigateToEditCustomerScreen(fCustomer))
+    fun onCustomerSelected(fCustomerEntity: FCustomerEntity) = viewModelScope.launch {
+        fCustomerEventChannel.send(CustomerEvent.NavigateToEditCustomerScreen(fCustomerEntity))
     }
 
-    fun onFCustomerCheckedChanged(fCustomer: FCustomer, isChecked: Boolean) = viewModelScope.launch {
+    fun onFCustomerCheckedChanged(fCustomerEntity: FCustomerEntity, isChecked: Boolean) = viewModelScope.launch {
 //        getFCustomerUseCase.putCacheFCustomer(task.copy(selected = isChecked))
         DisposableManager.add(Observable.fromCallable {
-            getFCustomerUseCase.putCacheFCustomer(fCustomer.copy(selected = isChecked))
+            getFCustomerUseCase.putCacheFCustomer(fCustomerEntity.copy(selected = isChecked))
         }
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
@@ -79,12 +79,12 @@ class CustomerViewModel @ViewModelInject constructor(
 
     }
 
-    fun onCustomerSwiped(fCustomer: FCustomer) = viewModelScope.launch {
+    fun onCustomerSwiped(fCustomerEntity: FCustomerEntity) = viewModelScope.launch {
 //        taskDao.delete(task)
 //        tasksEventChannel.send(TasksEvent.ShowUndoDeleteTaskMessage(task))
 //        getFCustomerUseCase.deleteCacheFCustomer(task)
         DisposableManager.add(Observable.fromCallable {
-            getFCustomerUseCase.deleteCacheFCustomer(fCustomer)
+            getFCustomerUseCase.deleteCacheFCustomer(fCustomerEntity)
         }
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
@@ -100,14 +100,14 @@ class CustomerViewModel @ViewModelInject constructor(
                 )
         )
 
-        fCustomerEventChannel.send(CustomerEvent.ShowUndoDeleteCustomerMessage(fCustomer))
+        fCustomerEventChannel.send(CustomerEvent.ShowUndoDeleteCustomerMessage(fCustomerEntity))
     }
 
-    fun onUndoDeleteClick(fCustomer: FCustomer) = viewModelScope.launch {
+    fun onUndoDeleteClick(fCustomerEntity: FCustomerEntity) = viewModelScope.launch {
 //        taskDao.insert(task)
 //        getFCustomerUseCase.addCacheFCustomer(task)
         DisposableManager.add(Observable.fromCallable {
-            getFCustomerUseCase.addCacheFCustomer(fCustomer)
+            getFCustomerUseCase.addCacheFCustomer(fCustomerEntity)
         }
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
@@ -145,8 +145,8 @@ class CustomerViewModel @ViewModelInject constructor(
 
     sealed class CustomerEvent {
         object NavigateToAddCustomerScreen : CustomerEvent()
-        data class NavigateToEditCustomerScreen(val fCustomer: FCustomer) : CustomerEvent()
-        data class ShowUndoDeleteCustomerMessage(val fCustomer: FCustomer) : CustomerEvent()
+        data class NavigateToEditCustomerScreen(val fCustomerEntity: FCustomerEntity) : CustomerEvent()
+        data class ShowUndoDeleteCustomerMessage(val fCustomerEntity: FCustomerEntity) : CustomerEvent()
         data class ShowCustomerSavedConfirmationMessage(val msg: String) : CustomerEvent()
         object NavigateToDeleteAllCompletedScreen : CustomerEvent()
 

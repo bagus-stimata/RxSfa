@@ -5,11 +5,8 @@ import androidx.hilt.lifecycle.ViewModelInject
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import com.erp.distribution.sfa.data.source.entity.*
 import com.erp.distribution.sfa.domain.usecase.*
-import com.erp.distribution.sfa.data.source.entity.FDivision
-import com.erp.distribution.sfa.data.source.entity.FMaterial
-import com.erp.distribution.sfa.data.source.entity.FSalesman
-import com.erp.distribution.sfa.data.source.entity.FWarehouse
 import com.erp.distribution.sfa.presentation.extention.map
 import com.erp.distribution.sfa.data.source.entity_security.FUser
 import com.erp.distribution.sfa.utils.SecurityUtil
@@ -32,9 +29,9 @@ class MainViewModel  @ViewModelInject constructor(
 )  : ViewModel() {
     private val TAG = MainViewModel::class.java.simpleName
     var userActive: FUser = FUser()
-    var divisionActive: FDivision = FDivision()
-    var salesmanActive: FSalesman = FSalesman()
-    var warehouseActive: FWarehouse = FWarehouse()
+    var divisionEntityActive: FDivisionEntity = FDivisionEntity()
+    var salesmanEntityActive: FSalesmanEntity = FSalesmanEntity()
+    var warehouseEntityActive: FWarehouseEntity = FWarehouseEntity()
 
     var listUserActiveLive: LiveData<List<FUser>?>? = MutableLiveData()
 
@@ -209,9 +206,9 @@ class MainViewModel  @ViewModelInject constructor(
 
     }
 
-    fun insertCacheFDivision(fDivision: FDivision){
+    fun insertCacheFDivision(fDivisionEntity: FDivisionEntity){
         disposable.add(Observable.fromCallable {
-            getFDivisionUseCase.addCacheFDivision(fDivision)
+            getFDivisionUseCase.addCacheFDivision(fDivisionEntity)
         }
             .observeOn(AndroidSchedulers.mainThread())
             .subscribeOn(Schedulers.computation())
@@ -219,9 +216,9 @@ class MainViewModel  @ViewModelInject constructor(
             }
         )
     }
-    fun insertCacheFSalesman(fSalesman: FSalesman){
+    fun insertCacheFSalesman(fSalesmanEntity: FSalesmanEntity){
         disposable.add(Observable.fromCallable {
-            getFSalesmanUseCase.addCacheFSalesman(fSalesman)
+            getFSalesmanUseCase.addCacheFSalesman(fSalesmanEntity)
         }
             .observeOn(AndroidSchedulers.mainThread())
             .subscribeOn(Schedulers.computation())
@@ -229,9 +226,9 @@ class MainViewModel  @ViewModelInject constructor(
             }
         )
     }
-    fun insertCacheFWarehouse(fWarehouse: FWarehouse){
+    fun insertCacheFWarehouse(fWarehouseEntity: FWarehouseEntity){
         disposable.add(Observable.fromCallable {
-            getFWarehouseUseCase.addCacheFWarehouse(fWarehouse)
+            getFWarehouseUseCase.addCacheFWarehouse(fWarehouseEntity)
         }
             .observeOn(AndroidSchedulers.mainThread())
             .subscribeOn(Schedulers.computation())
@@ -246,17 +243,17 @@ class MainViewModel  @ViewModelInject constructor(
     }
 
 
-    fun getRemoteFDivision(fUser: FUser): Single<FDivision> {
+    fun getRemoteFDivision(fUser: FUser): Single<FDivisionEntity> {
         return getFDivisionUseCase.getRemoteFDivisionById(SecurityUtil.getAuthHeader(fUser.username, fUser.password), fUser.fdivisionBean)
     }
-    fun getRemoteFSalesman(fUser: FUser): Single<FSalesman> {
+    fun getRemoteFSalesman(fUser: FUser): Single<FSalesmanEntity> {
         return getFSalesmanUseCase.getRemoteFSalesmanById(SecurityUtil.getAuthHeader(fUser.username, fUser.password), fUser.fsalesmanBean)
     }
-    fun getRemoteFWarehouse(fUser: FUser): Single<FWarehouse> {
+    fun getRemoteFWarehouse(fUser: FUser): Single<FWarehouseEntity> {
         return getFWarehouseUseCase.getRemoteFWarehouseById(SecurityUtil.getAuthHeader(fUser.username, fUser.password), fUser.fwarehouseBean)
     }
 
 
-    val getCacheFMaterial: LiveData<List<FMaterial>>
+    val getCacheFMaterialEntity: LiveData<List<FMaterialEntity>>
         get() = getFMaterialUseCase.getCacheAllFMaterial()
 }

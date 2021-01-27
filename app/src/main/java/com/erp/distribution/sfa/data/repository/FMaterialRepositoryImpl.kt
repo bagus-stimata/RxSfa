@@ -5,7 +5,7 @@ import com.erp.distribution.sfa.data.di.SortOrder
 import com.erp.distribution.sfa.data.source.remote.service_api.RetrofitServiceFMaterial
 import com.erp.distribution.sfa.data.source.local.database.AppDatabase
 import com.erp.distribution.sfa.domain.repository.FMaterialRepository
-import com.erp.distribution.sfa.data.source.entity.FMaterial
+import com.erp.distribution.sfa.data.source.entity.FMaterialEntity
 import io.reactivex.Single
 import kotlinx.coroutines.flow.Flow
 
@@ -19,60 +19,60 @@ class FMaterialRepositoryImpl(
     private val retrofitService: RetrofitServiceFMaterial
 ) : FMaterialRepository {
 
-    override fun getRemoteAllFMaterial(authHeader: String): Single<List<FMaterial>> {
+    override fun getRemoteAllFMaterial(authHeader: String): Single<List<FMaterialEntity>> {
         return retrofitService.getRemoteAllFMaterial(authHeader)
     }
 
-    override fun getRemoteFMaterialById(authHeader: String, id: Int): Single<FMaterial> {
+    override fun getRemoteFMaterialById(authHeader: String, id: Int): Single<FMaterialEntity> {
         return retrofitService.getRemoteFMaterialById(authHeader, id)
     }
 
-    override fun getRemoteAllFMaterialByDivision(authHeader: String, divisionId: Int): Single<List<FMaterial>> {
+    override fun getRemoteAllFMaterialByDivision(authHeader: String, divisionId: Int): Single<List<FMaterialEntity>> {
         return retrofitService.getRemoteAllFMaterialByDivision(authHeader, divisionId)
     }
 
-    override fun createRemoteFMaterial(authHeader: String, fMaterial: FMaterial): Single<FMaterial> {
-        return retrofitService.createRemoteFMaterial(authHeader, fMaterial)
+    override fun createRemoteFMaterial(authHeader: String, fMaterialEntity: FMaterialEntity): Single<FMaterialEntity> {
+        return retrofitService.createRemoteFMaterial(authHeader, fMaterialEntity)
     }
 
-    override fun putRemoteFMaterial(authHeader: String, id: Int, fMaterial: FMaterial): Single<FMaterial> {
-        return retrofitService.putRemoteFMaterial(authHeader, id, fMaterial)
+    override fun putRemoteFMaterial(authHeader: String, id: Int, fMaterialEntity: FMaterialEntity): Single<FMaterialEntity> {
+        return retrofitService.putRemoteFMaterial(authHeader, id, fMaterialEntity)
     }
 
-    override fun deleteRemoteFMaterial(authHeader: String, id: Int): Single<FMaterial> {
+    override fun deleteRemoteFMaterial(authHeader: String, id: Int): Single<FMaterialEntity> {
         return retrofitService.deleteRemoteFMaterial(authHeader, id)
     }
 
 
 
-    override fun getCacheAllFMaterial(): LiveData<List<FMaterial>> {
-        return appDatabase.materialDao.getAllFMaterialLive
+    override fun getCacheAllFMaterial(): LiveData<List<FMaterialEntity>> {
+        return appDatabase.materialDao.getAllFMaterialEntityLive
     }
-    override fun getCacheAllFMaterialFlow(query: String, sortOrder: SortOrder, hideSelected: Boolean): Flow<List<FMaterial>> {
+    override fun getCacheAllFMaterialFlow(query: String, sortOrder: SortOrder, hideSelected: Boolean): Flow<List<FMaterialEntity>> {
         return appDatabase.materialDao.getAllFMaterialFlow(query, sortOrder, hideSelected)
     }
 
-    override fun getCacheFMaterialById(id: Int): LiveData<FMaterial> {
+    override fun getCacheFMaterialById(id: Int): LiveData<FMaterialEntity> {
         return appDatabase.materialDao.getAllByIdLive(id)
     }
 
-    override fun getCacheAllFMaterialByDivision(divisionId: Int): LiveData<List<FMaterial>> {
+    override fun getCacheAllFMaterialByDivision(divisionId: Int): LiveData<List<FMaterialEntity>> {
         return appDatabase.materialDao.getAllByDivisionLive(divisionId)
     }
 
-    override fun addCacheFMaterial(fMaterial: FMaterial) {
-        return appDatabase.materialDao.insert(fMaterial)
+    override fun addCacheFMaterial(fMaterialEntity: FMaterialEntity) {
+        return appDatabase.materialDao.insert(fMaterialEntity)
     }
-    override fun addCacheListFMaterial(list: List<FMaterial>) {
+    override fun addCacheListFMaterial(list: List<FMaterialEntity>) {
         return appDatabase.materialDao.insertAll(list)
     }
 
-    override fun putCacheFMaterial(fMaterial: FMaterial) {
-        return appDatabase.materialDao.update(fMaterial)
+    override fun putCacheFMaterial(fMaterialEntity: FMaterialEntity) {
+        return appDatabase.materialDao.update(fMaterialEntity)
     }
 
-    override fun deleteCacheFMaterial(fMaterial: FMaterial) {
-        return appDatabase.materialDao.delete(fMaterial)
+    override fun deleteCacheFMaterial(fMaterialEntity: FMaterialEntity) {
+        return appDatabase.materialDao.delete(fMaterialEntity)
     }
 
     override fun deleteAllCacheFMaterial() {

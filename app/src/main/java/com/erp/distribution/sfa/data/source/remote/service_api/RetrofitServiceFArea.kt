@@ -1,28 +1,28 @@
 package com.erp.distribution.sfa.data.source.remote.service_api
 
-import com.erp.distribution.sfa.data.source.entity.FArea
+import com.erp.distribution.sfa.data.source.entity.FAreaEntity
 import io.reactivex.Single
 import retrofit2.http.*
 
 interface RetrofitServiceFArea {
 
     @GET("getAllFArea")
-    fun getRemoteAllFArea(@Header("Authorization") authHeader: String?): Single<List<FArea>>
+    fun getRemoteAllFArea(@Header("Authorization") authHeader: String?): Single<List<FAreaEntity>>
 
     @GET("getFAreaById/{id}")
-    fun getRemoteFAreaById(@Header("Authorization") authHeader: String?, @Path("id") id: Int): Single<FArea>
+    fun getRemoteFAreaById(@Header("Authorization") authHeader: String?, @Path("id") id: Int): Single<FAreaEntity>
 
     @GET("getAllFAreaByDivision/{fdivisionBean}")
-    fun getRemoteAllFAreaByDivision(@Header("Authorization") authHeader: String?, @Path("fdivisionBean") fdivisionBean: Int): Single<List<FArea>>
+    fun getRemoteAllFAreaByDivision(@Header("Authorization") authHeader: String?, @Path("fdivisionBean") fdivisionBean: Int): Single<List<FAreaEntity>>
 
 
     @POST("createFArea")
-    fun createRemoteFArea(@Header("Authorization") authHeader: String?, @Body fAreaBean: FArea): Single<FArea>
+    fun createRemoteFArea(@Header("Authorization") authHeader: String?, @Body fAreaEntityBean: FAreaEntity): Single<FAreaEntity>
 
     @PUT("updateFSubArea/{id}")
-    fun putRemoteFArea(@Header("Authorization") authHeader: String?, @Path("id") id: Int, @Body fAreaBean: FArea): Single<FArea>
+    fun putRemoteFArea(@Header("Authorization") authHeader: String?, @Path("id") id: Int, @Body fAreaEntityBean: FAreaEntity): Single<FAreaEntity>
 
     @HTTP(method = "DELETE", path = "deleteFArea/{id}", hasBody = true)
-    fun  deleteRemoteFArea(@Header("Authorization") authHeader: String?, @Path("id") id: Int): Single<FArea>
+    fun  deleteRemoteFArea(@Header("Authorization") authHeader: String?, @Path("id") id: Int): Single<FAreaEntity>
 
 }

@@ -1,8 +1,6 @@
 package com.erp.distribution.sfa.data.di
 
 import com.erp.distribution.sfa.data.repository.*
-import com.erp.distribution.sfa.data.source.entity.FtSalesdItems
-import com.erp.distribution.sfa.data.source.entity.FtSalesh
 import com.erp.distribution.sfa.data.source.remote.service_api.*
 import com.erp.distribution.sfa.data.source.local.database.AppDatabase
 import com.erp.distribution.sfa.domain.repository.*

@@ -1,9 +1,9 @@
 package com.erp.distribution.sfa.domain.usecase
 
 import androidx.lifecycle.LiveData
+import com.erp.distribution.sfa.data.source.entity.FSalesmanEntity
 import com.erp.distribution.sfa.domain.repository.FSalesmanRepository
 import com.erp.distribution.sfa.domain.usecase.base.SingleUseCase
-import com.erp.distribution.sfa.data.source.entity.FSalesman
 import io.reactivex.Single
 import javax.inject.Inject
 
@@ -13,53 +13,53 @@ import javax.inject.Inject
  * it handles the response that returns data &
  * contains a list of actions, event steps
  */
-class GetFSalesmanUseCase @Inject constructor(private val repository: FSalesmanRepository) : SingleUseCase<List<FSalesman>>() {
+class GetFSalesmanUseCase @Inject constructor(private val repository: FSalesmanRepository) : SingleUseCase<List<FSalesmanEntity>>() {
 
-    override fun buildUseCaseSingle(): Single<List<FSalesman>> {
+    override fun buildUseCaseSingle(): Single<List<FSalesmanEntity>> {
         return repository.getRemoteAllFSalesman("authHeader")
     }
-    fun getRemoteAllFSalesman(authHeader: String): Single<List<FSalesman>>{
+    fun getRemoteAllFSalesman(authHeader: String): Single<List<FSalesmanEntity>>{
         return repository.getRemoteAllFSalesman(authHeader)
     }
 
-    fun getRemoteFSalesmanById(authHeader: String, id: Int): Single<FSalesman>{
+    fun getRemoteFSalesmanById(authHeader: String, id: Int): Single<FSalesmanEntity>{
         return repository.getRemoteFSalesmanById(authHeader, id)
     }
-    fun getRemoteAllFSalesmanByDivision(authHeader: String, divisionId: Int): Single<List<FSalesman>>{
+    fun getRemoteAllFSalesmanByDivision(authHeader: String, divisionId: Int): Single<List<FSalesmanEntity>>{
         return repository.getRemoteAllFSalesmanByDivision(authHeader, divisionId)
     }
-    fun createRemoteFSalesman(authHeader: String, fSalesman: FSalesman): Single<FSalesman>{
-        return repository.createRemoteFSalesman(authHeader, fSalesman)
+    fun createRemoteFSalesman(authHeader: String, fSalesmanEntity: FSalesmanEntity): Single<FSalesmanEntity>{
+        return repository.createRemoteFSalesman(authHeader, fSalesmanEntity)
     }
-    fun putRemoteFSalesman(authHeader: String, id: Int, fSalesman: FSalesman): Single<FSalesman>{
-        return repository.putRemoteFSalesman(authHeader, id, fSalesman)
+    fun putRemoteFSalesman(authHeader: String, id: Int, fSalesmanEntity: FSalesmanEntity): Single<FSalesmanEntity>{
+        return repository.putRemoteFSalesman(authHeader, id, fSalesmanEntity)
     }
-    fun deleteRemoteFSalesman(authHeader: String, id: Int): Single<FSalesman>{
+    fun deleteRemoteFSalesman(authHeader: String, id: Int): Single<FSalesmanEntity>{
         return repository.deleteRemoteFSalesman(authHeader, id)
     }
 
 
 
-    fun getCacheAllFSalesman(): LiveData<List<FSalesman>>{
+    fun getCacheAllFSalesman(): LiveData<List<FSalesmanEntity>>{
         return repository.getCacheAllFSalesman()
     }
-    fun getCacheFSalesmanById(id: Int): LiveData<FSalesman>{
+    fun getCacheFSalesmanById(id: Int): LiveData<FSalesmanEntity>{
         return repository.getCacheFSalesmanById(id)
     }
-    fun getCacheAllFSalesmanByDivision(divisionId: Int): LiveData<List<FSalesman>>{
+    fun getCacheAllFSalesmanByDivision(divisionId: Int): LiveData<List<FSalesmanEntity>>{
         return repository.getCacheAllFSalesmanByDivision(divisionId)
     }
-    fun addCacheFSalesman(fSalesman: FSalesman){
-        repository.addCacheFSalesman(fSalesman)
+    fun addCacheFSalesman(fSalesmanEntity: FSalesmanEntity){
+        repository.addCacheFSalesman(fSalesmanEntity)
     }
-    fun addCacheListFSalesman(list: List<FSalesman>){
+    fun addCacheListFSalesman(list: List<FSalesmanEntity>){
         repository.addCacheListFSalesman(list)
     }
-    fun putCacheFSalesman( fSalesman: FSalesman){
-        repository.putCacheFSalesman(fSalesman)
+    fun putCacheFSalesman(fSalesmanEntity: FSalesmanEntity){
+        repository.putCacheFSalesman(fSalesmanEntity)
     }
-    fun deleteCacheFSalesman(fSalesman: FSalesman){
-        repository.deleteCacheFSalesman(fSalesman)
+    fun deleteCacheFSalesman(fSalesmanEntity: FSalesmanEntity){
+        repository.deleteCacheFSalesman(fSalesmanEntity)
     }
     fun deleteAllCacheFSalesman(){
         repository.deleteAllCacheFSalesman()

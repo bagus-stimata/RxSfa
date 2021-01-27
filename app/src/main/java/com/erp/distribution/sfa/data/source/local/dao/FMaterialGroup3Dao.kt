@@ -2,7 +2,7 @@ package com.erp.distribution.sfa.data.source.local.dao
 
 import androidx.lifecycle.LiveData
 import androidx.room.*
-import com.erp.distribution.sfa.data.source.entity.FMaterialGroup3
+import com.erp.distribution.sfa.data.source.entity.FMaterialGroup3Entity
 
 /**
  * Dao ini belum di koneksikan dengan database manapun
@@ -10,45 +10,45 @@ import com.erp.distribution.sfa.data.source.entity.FMaterialGroup3
 @Dao
 interface FMaterialGroup3Dao {
     /**
-     * @param fMaterialGroup3
+     * @param fMaterialGroup3Entity
      * Harus Menggunakan
      * .allowMainThreadQueries() pada Configurasi database utama agar tidak perlu menggunakan AsynT
      */
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    fun insert(fMaterialGroup3: FMaterialGroup3)
+    fun insert(fMaterialGroup3Entity: FMaterialGroup3Entity)
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    fun insertAll(listFMaterialGroup3: List<FMaterialGroup3>)
+    fun insertAll(listFMaterialGroup3Entity: List<FMaterialGroup3Entity>)
     
     @Update
-    fun update(fMaterialGroup3: FMaterialGroup3)
+    fun update(fMaterialGroup3Entity: FMaterialGroup3Entity)
 
     @Delete
-    fun delete(fMaterialGroup3: FMaterialGroup3)
+    fun delete(fMaterialGroup3Entity: FMaterialGroup3Entity)
 
     @Query("DELETE FROM fMaterialGroup3")
     fun deleteAllFMaterialGroup3()
 
     @Query("SELECT * FROM fMaterialGroup3 WHERE id = :id ")
-    fun getAllById(id: Int): FMaterialGroup3
+    fun getAllById(id: Int): FMaterialGroup3Entity
     @Query("SELECT * FROM fMaterialGroup3 WHERE id = :id ")
-    fun getAllByIdLive(id: Int): LiveData<FMaterialGroup3>
+    fun getAllByIdLive(id: Int): LiveData<FMaterialGroup3Entity>
 
 
     @get:Query("SELECT * FROM fMaterialGroup3 ")
-    val getAllFMaterialGroup3: List<FMaterialGroup3>
+    val getAllFMaterialGroup3Entity: List<FMaterialGroup3Entity>
     @get:Query("SELECT * FROM fMaterialGroup3 ")
-    val getAllFMaterialGroup3Live: LiveData<List<FMaterialGroup3>>
+    val getAllFMaterialGroup3EntityLive: LiveData<List<FMaterialGroup3Entity>>
 
     @Query("SELECT * FROM fMaterialGroup3 WHERE kode1 LIKE :kode1 ")
-    fun getAllFMaterialGroup3ByKode(kode1: String): List<FMaterialGroup3>
+    fun getAllFMaterialGroup3ByKode(kode1: String): List<FMaterialGroup3Entity>
     @Query("SELECT * FROM fMaterialGroup3 WHERE kode1 LIKE :kode1 ")
-    fun getAllFMaterialGroup3ByKodeLive(kode1: String): LiveData<List<FMaterialGroup3>>
+    fun getAllFMaterialGroup3ByKodeLive(kode1: String): LiveData<List<FMaterialGroup3Entity>>
 
 
     @Query("SELECT * FROM fMaterialGroup3 WHERE fmaterialGroup2Bean = :parentId ")
-    fun getAllByParent(parentId: Int): List<FMaterialGroup3>
+    fun getAllByParent(parentId: Int): List<FMaterialGroup3Entity>
 
     @Query("SELECT * FROM fMaterialGroup3 WHERE fmaterialGroup2Bean = :parentId ")
-    fun getAllByParentLive(parentId: Int): LiveData<List<FMaterialGroup3>>
+    fun getAllByParentLive(parentId: Int): LiveData<List<FMaterialGroup3Entity>>
 
 }

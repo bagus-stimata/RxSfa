@@ -4,7 +4,7 @@ import androidx.lifecycle.LiveData
 import com.erp.distribution.sfa.data.source.remote.service_api.RetrofitServiceFSalesman
 import com.erp.distribution.sfa.data.source.local.database.AppDatabase
 import com.erp.distribution.sfa.domain.repository.FSalesmanRepository
-import com.erp.distribution.sfa.data.source.entity.FSalesman
+import com.erp.distribution.sfa.data.source.entity.FSalesmanEntity
 import io.reactivex.Single
 
 
@@ -17,67 +17,63 @@ class FSalesmanRepositoryImpl(
     private val retrofitService: RetrofitServiceFSalesman
 ) : FSalesmanRepository {
 
-    override fun getRemoteAllFSalesman(authHeader: String ): Single<List<FSalesman>> {
+    override fun getRemoteAllFSalesman(authHeader: String ): Single<List<FSalesmanEntity>> {
         return retrofitService.getRemoteAllFSalesman(authHeader)
     }
 
-    override fun getRemoteFSalesmanById(authHeader: String, id: Int): Single<FSalesman> {
+    override fun getRemoteFSalesmanById(authHeader: String, id: Int): Single<FSalesmanEntity> {
         return retrofitService.getRemoteFSalesmanById(authHeader, id)
     }
 
-    override fun getRemoteAllFSalesmanByDivision(authHeader: String, divisionId: Int): Single<List<FSalesman>> {
+    override fun getRemoteAllFSalesmanByDivision(authHeader: String, divisionId: Int): Single<List<FSalesmanEntity>> {
         return retrofitService.getRemoteAllFSalesmanByDivision(authHeader, divisionId)
     }
 
-    override fun createRemoteFSalesman(authHeader: String, fSalesman: FSalesman): Single<FSalesman> {
-        return retrofitService.createRemoteFSalesman(authHeader, fSalesman)
+    override fun createRemoteFSalesman(authHeader: String, fSalesmanEntity: FSalesmanEntity): Single<FSalesmanEntity> {
+        return retrofitService.createRemoteFSalesman(authHeader, fSalesmanEntity)
     }
 
-    override fun putRemoteFSalesman(authHeader: String, id: Int, fSalesman: FSalesman): Single<FSalesman> {
-        return retrofitService.putRemoteFSalesman(authHeader, id, fSalesman)
+    override fun putRemoteFSalesman(authHeader: String, id: Int, fSalesmanEntity: FSalesmanEntity): Single<FSalesmanEntity> {
+        return retrofitService.putRemoteFSalesman(authHeader, id, fSalesmanEntity)
     }
 
-    override fun deleteRemoteFSalesman(authHeader: String, id: Int): Single<FSalesman> {
+    override fun deleteRemoteFSalesman(authHeader: String, id: Int): Single<FSalesmanEntity> {
         return retrofitService.deleteRemoteFSalesman(authHeader, id)
     }
 
 
 
-    override fun getCacheAllFSalesman(): LiveData<List<FSalesman>> {
-        return appDatabase.salesmanDao.getAllFSalesmanLive
+    override fun getCacheAllFSalesman(): LiveData<List<FSalesmanEntity>> {
+        return appDatabase.salesmanDao.getAllFSalesmanEnittyLive
     }
 
-    override fun getCacheFSalesmanById(id: Int): LiveData<FSalesman> {
+    override fun getCacheFSalesmanById(id: Int): LiveData<FSalesmanEntity> {
         return appDatabase.salesmanDao.getAllByIdLive(id)
     }
 
-    override fun getCacheAllFSalesmanByDivision(divisionId: Int): LiveData<List<FSalesman>> {
+    override fun getCacheAllFSalesmanByDivision(divisionId: Int): LiveData<List<FSalesmanEntity>> {
         return appDatabase.salesmanDao.getAllByDivisionLive(divisionId)
     }
 
-    override fun addCacheFSalesman(fSalesman: FSalesman) {
-        return appDatabase.salesmanDao.insert(fSalesman)
+    override fun addCacheFSalesman(fSalesmanEntity: FSalesmanEntity) {
+        return appDatabase.salesmanDao.insert(fSalesmanEntity)
     }
-    override fun addCacheListFSalesman(list: List<FSalesman>) {
+    override fun addCacheListFSalesman(list: List<FSalesmanEntity>) {
         return appDatabase.salesmanDao.insertAll(list)
     }
 
-    override fun putCacheFSalesman(fSalesman: FSalesman) {
-        return appDatabase.salesmanDao.update(fSalesman)
+    override fun putCacheFSalesman(fSalesmanEntity: FSalesmanEntity) {
+        return appDatabase.salesmanDao.update(fSalesmanEntity)
     }
 
-    override fun deleteCacheFSalesman(fSalesman: FSalesman) {
-        return appDatabase.salesmanDao.delete(fSalesman)
+    override fun deleteCacheFSalesman(fSalesmanEntity: FSalesmanEntity) {
+        return appDatabase.salesmanDao.delete(fSalesmanEntity)
     }
 
     override fun deleteAllCacheFSalesman() {
         return appDatabase.salesmanDao.deleteAllFSalesman()
     }
 
-
-//    override fun getRemoteAllData(): Single<List<FSalesman>> {
-//        return retrofitService.getRemoteAllFSalesman(authHeader)
-//    }
 
 
 }
