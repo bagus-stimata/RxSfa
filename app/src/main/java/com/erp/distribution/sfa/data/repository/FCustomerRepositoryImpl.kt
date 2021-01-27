@@ -1,11 +1,14 @@
 package com.erp.distribution.sfa.data.repository
 
 import androidx.lifecycle.LiveData
+import com.erp.distribution.sfa.data.di.SortOrder
 import com.erp.distribution.sfa.data.source.remote.service_api.RetrofitServiceFCustomer
 import com.erp.distribution.sfa.data.source.local.database.AppDatabase
 import com.erp.distribution.sfa.domain.repository.FCustomerRepository
 import com.erp.distribution.sfa.data.source.entity.FCustomer
+import com.erp.distribution.sfa.data.source.entity.FMaterial
 import io.reactivex.Single
+import kotlinx.coroutines.flow.Flow
 
 
 /**
@@ -46,7 +49,9 @@ class FCustomerRepositoryImpl(
     override fun getCacheAllFCustomer(): LiveData<List<FCustomer>> {
         return appDatabase.customerDao.getAllFCustomerLive
     }
-
+    override fun getCacheAllFCustomerFlow(query: String, sortOrder: SortOrder, hideSelected: Boolean): Flow<List<FCustomer>> {
+        return appDatabase.customerDao.getAllFCustomerFlow(query, sortOrder, hideSelected)
+    }
     override fun getCacheFCustomerById(id: Int): LiveData<FCustomer> {
         return appDatabase.customerDao.getAllByIdLive(id)
     }

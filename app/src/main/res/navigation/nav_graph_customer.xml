@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph_material"
+    app:startDestination="@id/customerFragment">
+
+    <fragment
+        android:id="@+id/customerFragment"
+        android:name="com.erp.distribution.sfa.presentation.ui.customer.customer_list.CustomerFragment"
+        android:label="Customer"
+        tools:layout="@layout/fragment_customer">
+        <action
+            android:id="@+id/action_customerFragment_to_customerFragmentAddEdit"
+            app:destination="@id/customerFragmentAddEdit" />
+    </fragment>
+    <fragment
+        android:id="@+id/customerFragmentAddEdit"
+        android:name="com.erp.distribution.sfa.presentation.ui.customer.customer_addedit.AddEditCustomerFragment"
+        android:label="{title}"
+        tools:layout="@layout/fragment_add_edit_customer">
+        <argument
+            android:name="fCustomer"
+            android:defaultValue="@null"
+            app:argType="com.erp.distribution.sfa.data.source.entity.FCustomer"
+            app:nullable="true" />
+        <argument
+            android:name="title"
+            app:argType="string" />
+    </fragment>
+<!--    <dialog-->
+<!--        android:id="@+id/deleteAllCompletedDialogFragment"-->
+<!--        android:name="com.erp.distribution.sfa.presentation.ui.test.mvvm_todo.deleteallcompleted.DeleteAllCompletedDialogFragment"-->
+<!--        android:label="DeleteAllCompletedDialogFragment" />-->
+<!--    <action-->
+<!--        android:id="@+id/action_global_deleteAllCompletedDialogFragment"-->
+<!--        app:destination="@id/deleteAllCompletedDialogFragment" />-->
+
+
+</navigation>

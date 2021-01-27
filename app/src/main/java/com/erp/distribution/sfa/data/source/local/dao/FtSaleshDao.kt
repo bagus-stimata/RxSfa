@@ -2,7 +2,10 @@ package com.erp.distribution.sfa.data.source.local.dao
 
 import androidx.lifecycle.LiveData
 import androidx.room.*
+import com.erp.distribution.sfa.data.di.SortOrder
+import com.erp.distribution.sfa.data.source.entity.FCustomer
 import com.erp.distribution.sfa.data.source.entity.FtSalesh
+import kotlinx.coroutines.flow.Flow
 
 /**
  * Dao ini belum di koneksikan dengan database manapun
@@ -33,6 +36,25 @@ interface FtSaleshDao {
     fun getAllById(id: Long): FtSalesh
     @Query("SELECT * FROM ftSalesh WHERE refno = :id ")
     fun getAllByIdLive(id: Long): LiveData<FtSalesh>
+
+    fun getAllFtSaleshFlow(query: String, sortOrder: SortOrder, hideSelected: Boolean?): Flow<List<FtSalesh>> =
+        when (sortOrder) {
+            SortOrder.BY_INVOICE_DATE -> {
+                getAllFtSaleshSortedByInvoiceDateFLow(query)
+            }
+            SortOrder.BY_ORDER_DATE -> {
+                getAllFtSaleshSortedByOrderDateFLow(query)
+            }
+                else -> getAllFtSaleshFLow()
+        }
+    
+    @Query("SELECT * FROM ftSalesh WHERE  orderno LIKE '%' || :searchQuery || '%'  ORDER BY invoiceDate ")
+    fun getAllFtSaleshSortedByInvoiceDateFLow(searchQuery: String): Flow<List<FtSalesh>>
+    @Query("SELECT * FROM ftSalesh WHERE  orderno LIKE '%' || :searchQuery || '%'  ORDER BY orderDate ")
+    fun getAllFtSaleshSortedByOrderDateFLow(searchQuery: String): Flow<List<FtSalesh>>
+
+    @Query("SELECT * FROM ftSalesh ")
+    fun getAllFtSaleshFLow(): Flow<List<FtSalesh>>
 
 
     @get:Query("SELECT * FROM ftSalesh ")
