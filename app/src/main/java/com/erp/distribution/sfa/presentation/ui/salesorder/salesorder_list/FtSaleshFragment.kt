@@ -18,7 +18,6 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.erp.distribution.sfa.data.di.SortOrder
 import com.erp.distribution.sfa.data.source.entity.FtSalesh
-import com.erp.distribution.sfa.databinding.FragmentFmaterialBinding
 import com.erp.distribution.sfa.databinding.FragmentFtsaleshBinding
 import com.erp.distribution.sfa.presentation.ui.utils.onQueryTextChanged
 import com.erp.distribution.sfa.utils.exhaustive
@@ -100,7 +99,7 @@ class FtSaleshFragment : Fragment(R.layout.fragment_ftsalesh), FtSaleshAdapter.O
             viewModelFSalesh.ftSaleshEvent.collect { event ->
                 when (event) {
                     is FSaleshViewModel.FtSaleshEvent.ShowUndoDeleteFtSaleshMessage -> {
-                        Snackbar.make(requireView(), "Material deleted", Snackbar.LENGTH_LONG)
+                        Snackbar.make(requireView(), "SalesOrder deleted", Snackbar.LENGTH_LONG)
                             .setAction("UNDO") {
                                 viewModelFSalesh.onUndoDeleteClick(event.ftSalesh)
                             }.show()
@@ -109,7 +108,7 @@ class FtSaleshFragment : Fragment(R.layout.fragment_ftsalesh), FtSaleshAdapter.O
                         val action =
                             FtSaleshFragmentDirections.actionFtsaleshFragmentToFtSaleshFragmentAddEdit(
                                 null,
-                                "New Material"
+                                "New SalesOrder"
                             )
                         findNavController().navigate(action)
                     }
@@ -117,7 +116,7 @@ class FtSaleshFragment : Fragment(R.layout.fragment_ftsalesh), FtSaleshAdapter.O
                         val action =
                             FtSaleshFragmentDirections.actionFtsaleshFragmentToFtSaleshFragmentAddEdit(
                                 event.ftSalesh,
-                                "Edit Material"
+                                "Edit SalesOrder"
                             )
                         findNavController().navigate(action)
                     }
@@ -165,7 +164,7 @@ class FtSaleshFragment : Fragment(R.layout.fragment_ftsalesh), FtSaleshAdapter.O
         }
 
         viewLifecycleOwner.lifecycleScope.launch {
-            menu.findItem(R.id.action_hide_inactive_material).isChecked =
+            menu.findItem(R.id.action_hide_inactive).isChecked =
                 viewModelFSalesh.preferencesFlow.first().hideCompleted
         }
 
@@ -181,7 +180,7 @@ class FtSaleshFragment : Fragment(R.layout.fragment_ftsalesh), FtSaleshAdapter.O
                 viewModelFSalesh.onSortOrderSelected(SortOrder.BY_KODE)
                 true
             }
-            R.id.action_hide_inactive_material -> {
+            R.id.action_hide_inactive -> {
                 item.isChecked = !item.isChecked
                 viewModelFSalesh.onHideCompletedClick(item.isChecked)
                 true

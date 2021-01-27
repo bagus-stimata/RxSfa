@@ -176,7 +176,7 @@ class CustomerFragment : Fragment(R.layout.fragment_customer), CustomerAdapter.O
         }
 
         viewLifecycleOwner.lifecycleScope.launch {
-            menu.findItem(R.id.action_hide_inactive_material).isChecked =
+            menu.findItem(R.id.action_hide_inactive).isChecked =
                 viewModel.preferencesFlow.first().hideCompleted
         }
 
@@ -192,7 +192,7 @@ class CustomerFragment : Fragment(R.layout.fragment_customer), CustomerAdapter.O
                 viewModel.onSortOrderSelected(SortOrder.BY_KODE)
                 true
             }
-            R.id.action_hide_inactive_material -> {
+            R.id.action_hide_inactive -> {
                 item.isChecked = !item.isChecked
                 viewModel.onHideCompletedClick(item.isChecked)
                 true

@@ -161,7 +161,7 @@ class TasksFragment : Fragment(R.layout.fragment_tasks), TasksAdapter.OnItemClic
         }
 
         viewLifecycleOwner.lifecycleScope.launch {
-            menu.findItem(R.id.action_hide_inactive_material).isChecked =
+            menu.findItem(R.id.action_hide_inactive).isChecked =
                 viewModel.preferencesFlow.first().hideCompleted
         }
 
@@ -177,7 +177,7 @@ class TasksFragment : Fragment(R.layout.fragment_tasks), TasksAdapter.OnItemClic
                 viewModel.onSortOrderSelected(SortOrder.BY_KODE)
                 true
             }
-            R.id.action_hide_inactive_material -> {
+            R.id.action_hide_inactive -> {
                 item.isChecked = !item.isChecked
                 viewModel.onHideCompletedClick(item.isChecked)
                 true

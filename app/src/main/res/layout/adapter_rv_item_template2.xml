@@ -1,0 +1,234 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.coordinatorlayout.widget.CoordinatorLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/card_view_bg"
+    tools:showIn="@layout/activiy_template2">
+
+    <RelativeLayout
+        android:id="@+id/relativeLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="16dp">
+
+        <TextView
+            android:id="@+id/txt_icon"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:background="@drawable/rv_item_circle_black"
+            android:gravity="center"
+            android:textColor="@android:color/white"
+            android:textSize="24sp"
+            tools:text="F" />
+
+        <TextView
+            android:id="@+id/txt_custname"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignTop="@id/txt_icon"
+            android:layout_marginStart="16dp"
+            android:layout_toStartOf="@id/txt_date"
+            android:layout_toEndOf="@id/txt_icon"
+            android:textColor="@color/darkerGray"
+            android:textSize="16sp"
+            tools:text="Toko Harapan Jaya Abadi. Tbk" />
+
+        <LinearLayout
+            android:id="@+id/layout_custno"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/txt_custname"
+            android:layout_alignStart="@id/txt_custname"
+            android:layout_marginEnd="24dp"
+            android:orientation="horizontal">
+                    <TextView
+                        android:id="@+id/txt_custno"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:ellipsize="marquee"
+                        android:singleLine="true"
+                        android:textColor="@color/darkerGray"
+                        android:textSize="13dp"
+                        tools:text="FGN12345676" />
+                    <TextView
+                        android:id="@+id/txt_tipe_cust"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:layout_marginEnd="24dp"
+                        android:ellipsize="marquee"
+                        android:singleLine="true"
+                        android:textColor="@color/colorPrimaryVariant"
+                        android:textSize="13dp"
+                        tools:text="General Trade" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/layout_address"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/layout_custno"
+            android:layout_alignStart="@id/layout_custno"
+            android:layout_marginEnd="24dp"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/txt_address"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:ellipsize="marquee"
+                android:singleLine="false"
+                android:textColor="@color/colorTextSecondary"
+                android:textSize="12sp"
+                tools:text="Jl. Kembang Jepun, Gang 5 RT1/RW2, Kecamatan Kedurus, Surabaya" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/layout_order"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:layout_marginEnd="30dp"
+            android:layout_marginStart="20dp"
+            android:layout_below="@id/layout_address"
+            android:layout_alignStart="@id/layout_address"
+            android:orientation="horizontal">
+            <TextView
+                android:id="@+id/txt_orderno"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="3"
+                android:ellipsize="marquee"
+                android:singleLine="true"
+                android:textColor="@color/darkerGray"
+                android:textSize="14sp"
+                tools:text="ORD.1234567890" />
+            <TextView
+                android:id="@+id/txt_orderdate"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="2"
+                android:gravity="right"
+                android:ellipsize="marquee"
+                android:singleLine="true"
+                android:textColor="@color/darkerGray"
+                android:textSize="14sp"
+                tools:text="26 Jan 2021" />
+        </LinearLayout>
+        <LinearLayout
+            android:id="@+id/txt_invoice"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="3dp"
+            android:layout_marginStart="20dp"
+            android:layout_marginEnd="30dp"
+            android:layout_below="@id/layout_order"
+            android:layout_alignStart="@id/layout_address"
+            android:orientation="horizontal">
+            <TextView
+                android:id="@+id/txt_invoiceno"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="3"
+                android:ellipsize="marquee"
+                android:singleLine="true"
+                android:textColor="@color/blue"
+                android:textSize="14sp"
+                tools:text="INV.1234567890" />
+            <TextView
+                android:id="@+id/txt_invoicedate"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="2"
+                android:gravity="right"
+                android:ellipsize="marquee"
+                android:singleLine="true"
+                android:textColor="@color/darkerGray"
+                android:textSize="14sp"
+                tools:text="26 Mei 2019" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/layout_total"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:layout_marginStart="0dp"
+            android:layout_marginEnd="50dp"
+            android:layout_below="@id/txt_invoice"
+            android:layout_alignStart="@id/layout_address"
+            android:orientation="horizontal">
+            <TextView
+                android:id="@+id/txt_item_sum"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="2"
+                android:ellipsize="marquee"
+                android:singleLine="true"
+                android:textColor="@color/black"
+                android:textSize="14sp"
+                tools:text="25 items" />
+            <TextView
+                android:id="@+id/txt_currency"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="2"
+                android:gravity="right"
+                android:ellipsize="marquee"
+                android:singleLine="true"
+                android:textColor="@android:color/secondary_text_dark"
+                android:textSize="14dp"
+                tools:text="IDR " />
+            <TextView
+                android:id="@+id/txt_total"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="right"
+                android:ellipsize="marquee"
+                android:singleLine="true"
+                android:textColor="@color/blue"
+                android:textSize="18sp"
+                tools:text="5.600.000" />
+
+        </LinearLayout>
+
+
+
+
+        <TextView
+            android:id="@+id/txt_date"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentEnd="true"
+            android:ellipsize="marquee"
+            android:singleLine="true"
+            android:textColor="@color/darkerGray"
+            android:textSize="10sp"
+            tools:text="20 mai" />
+
+        <ImageView
+            android:id="@+id/img_star"
+            android:layout_width="20dp"
+            android:layout_height="24dp"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentBottom="true"
+            android:src="@drawable/ic_baseline_check_24"
+            app:tint="@color/blue"
+            tools:ignore="ContentDescription" />
+
+    </RelativeLayout>
+
+
+
+
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

@@ -118,7 +118,7 @@ class MaterialAdapter : ListAdapter<FMaterial, FMaterialHolder>(DIFF_CALLBACK) {
         }
 
         init {
-            txtUser = itemView.findViewById(R.id.txt_user)
+            txtUser = itemView.findViewById(R.id.txt_custname)
             txtIcon = itemView.findViewById(R.id.txt_icon)
             txtSubject = itemView.findViewById(R.id.txt_subject)
             txtPreview = itemView.findViewById(R.id.txt_preview)

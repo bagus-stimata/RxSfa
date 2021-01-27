@@ -29,7 +29,7 @@
     </item>
 
     <item
-        android:id="@+id/action_hide_inactive_material"
+        android:id="@+id/action_hide_inactive"
         android:checkable="true"
         android:title="Hide Inactive"
         app:showAsAction="never" />

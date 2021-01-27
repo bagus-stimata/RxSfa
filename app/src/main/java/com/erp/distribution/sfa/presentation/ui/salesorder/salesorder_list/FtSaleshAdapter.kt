@@ -3,12 +3,14 @@ package com.erp.distribution.sfa.presentation.ui.salesorder.salesorder_list
 import android.graphics.Color
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.annotation.ColorInt
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.erp.distribution.sfa.data.source.entity.FtSalesh
-import com.erp.distribution.sfa.databinding.AdapterRvItemTemplate1Binding
+import com.erp.distribution.sfa.databinding.AdapterRvItemTemplate2Binding
 import com.erp.distribution.sfa.presentation.ui.master.material_lama.adapter.NoteAdapter
+import org.jetbrains.anko.image
 import java.text.NumberFormat
 import java.text.SimpleDateFormat
 
@@ -16,7 +18,7 @@ class FtSaleshAdapter(private val listener: OnItemClickListener) :
     ListAdapter<FtSalesh, FtSaleshAdapter.FtSaleshViewHolder>(DiffCallback()) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): FtSaleshViewHolder {
-        val binding = AdapterRvItemTemplate1Binding.inflate(LayoutInflater.from(parent.context), parent, false)
+        val binding = AdapterRvItemTemplate2Binding.inflate(LayoutInflater.from(parent.context), parent, false)
         return FtSaleshViewHolder(binding)
     }
 
@@ -26,7 +28,7 @@ class FtSaleshAdapter(private val listener: OnItemClickListener) :
     }
 
 //    inner class TasksViewHolder(private val binding: ItemTaskBinding) :
-    inner class FtSaleshViewHolder(private val binding: AdapterRvItemTemplate1Binding) :
+    inner class FtSaleshViewHolder(private val binding: AdapterRvItemTemplate2Binding) :
         RecyclerView.ViewHolder(binding.root) {
         val sdf = SimpleDateFormat("dd MMM yyyy")
         val nf = NumberFormat.getInstance()
@@ -65,14 +67,25 @@ class FtSaleshAdapter(private val listener: OnItemClickListener) :
 
                 nf.maximumFractionDigits = 0
                 val hash = item!!.invoiceno.hashCode()
-                txtIcon.text = item.invoiceno.trim { it <= ' ' }[0].toString()
-                txtIcon.background =
-                        NoteAdapter.oval(Color.rgb(hash, hash / 2, 0), binding.txtIcon)
-                txtUser.text = item.invoiceno
-                txtSubject.text = item.orderno
-                txtPreview.text = ""
-                txtDate.text = sdf.format(item.modified)
+//                txtIcon.text = item.invoiceno.trim { it <= ' ' }[0].toString()
+                txtIcon.background = NoteAdapter.oval(Color.rgb(hash, hash / 2, 0), binding.txtIcon)
+                txtCustname.text = "Toko Harapan Jaya Abadi. Tbk"
+                txtCustno.text = "FGN12345676"
+                txtTipeCust.text = "General Trade"
 
+//                txtAddress.text = "Jl. Kembang Jepun, Gang 5 RT1/RW2, Kecamatan Kedurus, Surabaya"
+                txtAddress.text = "Kedurus, Surabaya"
+                txtOrderno.text = "ORD.1234567890"
+                txtOrderdate.text = "26 Jan 2021"
+                txtInvoiceno.text = "INV.1234567890"
+                txtInvoicedate.text = "26 Jan 2021"
+
+                txtItemSum.text = "25 items"
+                txtCurrency.text = "IDR "
+                txtTotal.text = "5.600.000"
+
+                txtDate.text = sdf.format(item.modified)
+                imgStar.setColorFilter(Color.BLUE)
             }
 
 

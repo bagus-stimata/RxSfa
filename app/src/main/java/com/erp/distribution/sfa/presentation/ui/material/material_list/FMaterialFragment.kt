@@ -164,7 +164,7 @@ class FMaterialFragment : Fragment(R.layout.fragment_fmaterial), FMaterialAdapte
         }
 
         viewLifecycleOwner.lifecycleScope.launch {
-            menu.findItem(R.id.action_hide_inactive_material).isChecked =
+            menu.findItem(R.id.action_hide_inactive).isChecked =
                 viewModelFMaterial.preferencesFlow.first().hideCompleted
         }
 
@@ -180,7 +180,7 @@ class FMaterialFragment : Fragment(R.layout.fragment_fmaterial), FMaterialAdapte
                 viewModelFMaterial.onSortOrderSelected(SortOrder.BY_KODE)
                 true
             }
-            R.id.action_hide_inactive_material -> {
+            R.id.action_hide_inactive -> {
                 item.isChecked = !item.isChecked
                 viewModelFMaterial.onHideCompletedClick(item.isChecked)
                 true
