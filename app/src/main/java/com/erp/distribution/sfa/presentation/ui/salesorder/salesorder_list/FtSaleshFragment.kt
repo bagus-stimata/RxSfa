@@ -1,4 +1,4 @@
-package com.erp.distribution.sfa.presentation.ui.material.material_list
+package com.erp.distribution.sfa.presentation.ui.salesorder.salesorder_list
 
 import android.os.Bundle
 import com.erp.distribution.sfa.R
@@ -7,9 +7,7 @@ import android.view.MenuInflater
 import android.view.MenuItem
 import android.view.View
 import androidx.appcompat.widget.SearchView
-import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.setFragmentResult
 import androidx.fragment.app.setFragmentResultListener
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
@@ -19,8 +17,9 @@ import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.erp.distribution.sfa.data.di.SortOrder
-import com.erp.distribution.sfa.data.source.entity.FMaterial
-import com.erp.distribution.sfa.databinding.FragmentMaterialBinding
+import com.erp.distribution.sfa.data.source.entity.FtSalesh
+import com.erp.distribution.sfa.databinding.FragmentFmaterialBinding
+import com.erp.distribution.sfa.databinding.FragmentFtsaleshBinding
 import com.erp.distribution.sfa.presentation.ui.utils.onQueryTextChanged
 import com.erp.distribution.sfa.utils.exhaustive
 import com.google.android.material.snackbar.Snackbar
@@ -30,23 +29,23 @@ import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
-class MaterialFragment : Fragment(R.layout.fragment_material), MaterialAdapter.OnItemClickListener {
+class FtSaleshFragment : Fragment(R.layout.fragment_ftsalesh), FtSaleshAdapter.OnItemClickListener {
 
-    private val viewModel: MaterialViewModel by viewModels()
+    private val viewModelFSalesh: FSaleshViewModel by viewModels()
 
     private lateinit var searchView: SearchView
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val binding = FragmentMaterialBinding.bind(view)
+        val binding = FragmentFtsaleshBinding.bind(view)
 
-        val materialAdapter = MaterialAdapter(this)
+        val ftSaleshAdapter = FtSaleshAdapter(this)
 
 
         binding.apply {
-            recyclerViewMaterial.apply {
-                adapter = materialAdapter
+            recyclerViewFtsalesh.apply {
+                adapter = ftSaleshAdapter
                 layoutManager = LinearLayoutManager(requireContext())
                 setHasFixedSize(true)
             }
@@ -65,16 +64,16 @@ class MaterialFragment : Fragment(R.layout.fragment_material), MaterialAdapter.O
                 }
 
                 override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
-                    val fMaterial = materialAdapter.currentList[viewHolder.adapterPosition]
-                    viewModel.onMaterialSwiped(fMaterial)
+                    val ftSalesh = ftSaleshAdapter.currentList[viewHolder.adapterPosition]
+                    viewModelFSalesh.onItemSwiped(ftSalesh)
                 }
 
-            }).attachToRecyclerView(recyclerViewMaterial)
+            }).attachToRecyclerView(recyclerViewFtsalesh)
 
 
 
-            fabAddMaterial.setOnClickListener {
-                viewModel.onAddNewMaterialClick()
+            fabAddFtsalesh.setOnClickListener {
+                viewModelFSalesh.onAddNewFtSaleshClick()
             }
 
 
@@ -83,46 +82,46 @@ class MaterialFragment : Fragment(R.layout.fragment_material), MaterialAdapter.O
              */
             val dividerItemDecoration = DividerItemDecoration( context, DividerItemDecoration.VERTICAL)
             dividerItemDecoration.setDrawable(getResources().getDrawable(R.drawable.rv_divider))
-            binding.recyclerViewMaterial.addItemDecoration(dividerItemDecoration)
+            binding.recyclerViewFtsalesh.addItemDecoration(dividerItemDecoration)
 
 
         }
 
         setFragmentResultListener("add_edit_request") { _, bundle ->
             val result = bundle.getInt("add_edit_result")
-            viewModel.onAddEditResult(result)
+            viewModelFSalesh.onAddEditResult(result)
         }
 
-        viewModel.fMaterialLive.observe(viewLifecycleOwner) {
-            materialAdapter.submitList(it)
+        viewModelFSalesh.ftSaleshLive.observe(viewLifecycleOwner) {
+            ftSaleshAdapter.submitList(it)
         }
 
         viewLifecycleOwner.lifecycleScope.launchWhenStarted {
-            viewModel.fMaterialEvent.collect { event ->
+            viewModelFSalesh.ftSaleshEvent.collect { event ->
                 when (event) {
-                    is MaterialViewModel.MaterialEvent.ShowUndoDeleteMaterialMessage -> {
+                    is FSaleshViewModel.FtSaleshEvent.ShowUndoDeleteFtSaleshMessage -> {
                         Snackbar.make(requireView(), "Material deleted", Snackbar.LENGTH_LONG)
                             .setAction("UNDO") {
-                                viewModel.onUndoDeleteClick(event.fMaterial)
+                                viewModelFSalesh.onUndoDeleteClick(event.ftSalesh)
                             }.show()
                     }
-                    is MaterialViewModel.MaterialEvent.NavigateToAddMaterialScreen -> {
+                    is FSaleshViewModel.FtSaleshEvent.NavigateToAddFtSaleshScreen -> {
                         val action =
-                            MaterialFragmentDirections.actionMaterialFragmentToMaterialFragmentAddEdit(
+                            FtSaleshFragmentDirections.actionFtsaleshFragmentToFtSaleshFragmentAddEdit(
                                 null,
                                 "New Material"
                             )
                         findNavController().navigate(action)
                     }
-                    is MaterialViewModel.MaterialEvent.NavigateToEditMaterialScreen -> {
+                    is FSaleshViewModel.FtSaleshEvent.NavigateToEditFtSaleshScreen -> {
                         val action =
-                                MaterialFragmentDirections.actionMaterialFragmentToMaterialFragmentAddEdit(
-                                event.fMaterial,
+                            FtSaleshFragmentDirections.actionFtsaleshFragmentToFtSaleshFragmentAddEdit(
+                                event.ftSalesh,
                                 "Edit Material"
                             )
                         findNavController().navigate(action)
                     }
-                    is MaterialViewModel.MaterialEvent.ShowMaterialSavedConfirmationMessage -> {
+                    is FSaleshViewModel.FtSaleshEvent.ShowFtSaleshSavedConfirmationMessage -> {
                         Snackbar.make(requireView(), event.msg, Snackbar.LENGTH_SHORT).show()
                     }
 
@@ -133,16 +132,6 @@ class MaterialFragment : Fragment(R.layout.fragment_material), MaterialAdapter.O
 //                    }
 
 
-                    //Kamu Bisa Back Jika Kamu  Menggunakan Navigation ini
-//                    is MaterialViewModel.MaterialEvent.NavigateBackWithResult -> {
-////                        binding.editTextMaterialName.clearFocus()
-////                        setFragmentResult(
-////                                "add_edit_request",
-////                                bundleOf("add_edit_result" to event.result)
-////                        )
-//                        findNavController().popBackStack()
-//                    }
-
                     else -> {}
                 }.exhaustive
             }
@@ -151,12 +140,12 @@ class MaterialFragment : Fragment(R.layout.fragment_material), MaterialAdapter.O
         setHasOptionsMenu(true)
     }
 
-    override fun onItemClick(fMaterial: FMaterial) {
-        viewModel.onMaterialSelected(fMaterial)
+    override fun onItemClick(ftSalesh: FtSalesh) {
+        viewModelFSalesh.onItemSelected(ftSalesh)
     }
 
-    override fun onCheckBoxClick(fMaterial: FMaterial, isChecked: Boolean) {
-        viewModel.onFMaterialCheckedChanged(fMaterial, isChecked)
+    override fun onCheckBoxClick(ftSalesh: FtSalesh, isChecked: Boolean) {
+        viewModelFSalesh.onItemCheckedChanged(ftSalesh, isChecked)
     }
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
@@ -165,19 +154,19 @@ class MaterialFragment : Fragment(R.layout.fragment_material), MaterialAdapter.O
         val searchItem = menu.findItem(R.id.action_search)
         searchView = searchItem.actionView as SearchView
 
-        val pendingQuery = viewModel.searchQuery.value
+        val pendingQuery = viewModelFSalesh.searchQuery.value
         if (pendingQuery != null && pendingQuery.isNotEmpty()) {
             searchItem.expandActionView()
             searchView.setQuery(pendingQuery, false)
         }
 
         searchView.onQueryTextChanged {
-            viewModel.searchQuery.value = it
+            viewModelFSalesh.searchQuery.value = it
         }
 
         viewLifecycleOwner.lifecycleScope.launch {
             menu.findItem(R.id.action_hide_inactive_material).isChecked =
-                viewModel.preferencesFlow.first().hideCompleted
+                viewModelFSalesh.preferencesFlow.first().hideCompleted
         }
 
     }
@@ -185,16 +174,16 @@ class MaterialFragment : Fragment(R.layout.fragment_material), MaterialAdapter.O
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         return when (item.itemId) {
             R.id.action_sort_by_name -> {
-                viewModel.onSortOrderSelected(SortOrder.BY_NAME)
+                viewModelFSalesh.onSortOrderSelected(SortOrder.BY_NAME)
                 true
             }
             R.id.action_sort_by_kode -> {
-                viewModel.onSortOrderSelected(SortOrder.BY_KODE)
+                viewModelFSalesh.onSortOrderSelected(SortOrder.BY_KODE)
                 true
             }
             R.id.action_hide_inactive_material -> {
                 item.isChecked = !item.isChecked
-                viewModel.onHideCompletedClick(item.isChecked)
+                viewModelFSalesh.onHideCompletedClick(item.isChecked)
                 true
             }
 //            R.id.action_delete_all_completed_tasks -> {

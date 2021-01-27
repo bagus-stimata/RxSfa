@@ -1,6 +1,8 @@
 package com.erp.distribution.sfa.data.di
 
 import com.erp.distribution.sfa.data.repository.*
+import com.erp.distribution.sfa.data.source.entity.FtSalesdItems
+import com.erp.distribution.sfa.data.source.entity.FtSalesh
 import com.erp.distribution.sfa.data.source.remote.service_api.*
 import com.erp.distribution.sfa.data.source.local.database.AppDatabase
 import com.erp.distribution.sfa.domain.repository.*
@@ -118,5 +120,22 @@ class RepositoryModule {
         return FTaxRepositoryImpl(appDatabase, retrofitService)
     }
 
+
+    @Singleton
+    @Provides
+    fun provideFtSaleshRepository(
+        appDatabase: AppDatabase,
+        retrofitService: RetrofitServiceFtSalesh
+    ): FtSaleshRepository {
+        return FtSaleshRepositoryImpl(appDatabase, retrofitService)
+    }
+    @Singleton
+    @Provides
+    fun provideFtSalesdItemsRepository(
+            appDatabase: AppDatabase,
+            retrofitService: RetrofitServiceFtSalesdItems
+    ): FtSalesdItemsRepository {
+        return FtSalesdItemsRepositoryImpl(appDatabase, retrofitService)
+    }
 
 }

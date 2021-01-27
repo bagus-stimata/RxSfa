@@ -1,4 +1,4 @@
-package com.erp.distribution.sfa.presentation.ui.material.material_addedit
+package com.erp.distribution.sfa.presentation.ui.salesorder.salesorder_addedit
 
 import android.os.Bundle
 import android.view.View
@@ -11,50 +11,50 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import com.erp.distribution.sfa.R
-import com.erp.distribution.sfa.databinding.FragmentAddEditMaterialBinding
+import com.erp.distribution.sfa.databinding.FragmentAddEditFmaterialBinding
 import com.erp.distribution.sfa.utils.exhaustive
 import com.google.android.material.snackbar.Snackbar
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collect
 
 @AndroidEntryPoint
-class AddEditMaterialFragment : Fragment(R.layout.fragment_add_edit_material) {
+class AddEditFtSaleshFragment : Fragment(R.layout.fragment_add_edit_fmaterial) {
 
-    private val viewModelMaterialViewModel: AddEditMaterialViewModel by viewModels()
+    private val viewModelFtSaleshViewModel: AddEditFtSaleshViewModel by viewModels()
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val binding = FragmentAddEditMaterialBinding.bind(view)
+        val binding = FragmentAddEditFmaterialBinding.bind(view)
 
         binding.apply {
-            editTextMaterialName.setText(viewModelMaterialViewModel.fMaterialName)
-            checkBoxImportant.isChecked = viewModelMaterialViewModel.fMaterialImportance
+            editTextName.setText(viewModelFtSaleshViewModel.ftSaleshName)
+            checkBoxImportant.isChecked = viewModelFtSaleshViewModel.ftSaleshImportance
             checkBoxImportant.jumpDrawablesToCurrentState()
-            textViewDateCreated.isVisible = viewModelMaterialViewModel.fMaterial != null
-            textViewDateCreated.text = "Created: ${viewModelMaterialViewModel.fMaterial?.createdDateFormatted}"
+            textViewDateCreated.isVisible = viewModelFtSaleshViewModel.ftSalesh != null
+            textViewDateCreated.text = "Created: ${viewModelFtSaleshViewModel.ftSalesh?.createdDateFormatted}"
 
-            editTextMaterialName.addTextChangedListener {
-                viewModelMaterialViewModel.fMaterialName = it.toString()
+            editTextName.addTextChangedListener{
+                viewModelFtSaleshViewModel.ftSaleshName = it.toString()
             }
 
             checkBoxImportant.setOnCheckedChangeListener { _, isChecked ->
-                viewModelMaterialViewModel.fMaterialImportance = isChecked
+                viewModelFtSaleshViewModel.ftSaleshImportance = isChecked
             }
 
-            fabSaveMaterial.setOnClickListener {
-                viewModelMaterialViewModel.onSaveClick()
+            fabSaveFmaterial.setOnClickListener {
+                viewModelFtSaleshViewModel.onSaveClick()
             }
         }
 
         viewLifecycleOwner.lifecycleScope.launchWhenStarted {
-            viewModelMaterialViewModel.addEditMaterialEvent.collect { event ->
+            viewModelFtSaleshViewModel.addEditFtSaleshEvent.collect { event ->
                 when (event) {
-                    is AddEditMaterialViewModel.AddEditMaterialEvent.ShowInvalidInputMessage -> {
+                    is AddEditFtSaleshViewModel.AddEditMaterialEvent.ShowInvalidInputMessage -> {
                         Snackbar.make(requireView(), event.msg, Snackbar.LENGTH_LONG).show()
                     }
-                    is AddEditMaterialViewModel.AddEditMaterialEvent.NavigateBackWithResult -> {
-                        binding.editTextMaterialName.clearFocus()
+                    is AddEditFtSaleshViewModel.AddEditMaterialEvent.NavigateBackWithResult -> {
+                        binding.editTextName.clearFocus()
                         setFragmentResult(
                             "add_edit_request",
                             bundleOf("add_edit_result" to event.result)

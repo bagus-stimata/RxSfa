@@ -3,7 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".presentation.ui.material.material_addedit.AddEditMaterialFragment">
+    tools:context=".presentation.ui.material.material_addedit.AddEditFMaterialFragment">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -12,7 +12,7 @@
         android:padding="8dp">
 
         <EditText
-            android:id="@+id/edit_text_material_name"
+            android:id="@+id/edit_text_name"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="Material/Produk name"
@@ -33,7 +33,7 @@
     </LinearLayout>
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/fab_save_material"
+        android:id="@+id/fab_save_fmaterial"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="bottom|end"

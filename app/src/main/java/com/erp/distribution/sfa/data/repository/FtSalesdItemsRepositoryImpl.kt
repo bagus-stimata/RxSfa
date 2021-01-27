@@ -1,11 +1,14 @@
 package com.erp.distribution.sfa.data.repository
 
 import androidx.lifecycle.LiveData
+import com.erp.distribution.sfa.data.di.SortOrder
 import com.erp.distribution.sfa.data.source.remote.service_api.RetrofitServiceFtSalesdItems
 import com.erp.distribution.sfa.data.source.local.database.AppDatabase
 import com.erp.distribution.sfa.domain.repository.FtSalesdItemsRepository
 import com.erp.distribution.sfa.data.source.entity.FtSalesdItems
+import com.erp.distribution.sfa.data.source.entity.FtSalesh
 import io.reactivex.Single
+import kotlinx.coroutines.flow.Flow
 
 
 /**
@@ -46,6 +49,9 @@ class FtSalesdItemsRepositoryImpl(
     override fun getCacheAllFtSalesdItems(): LiveData<List<FtSalesdItems>> {
         return appDatabase.salesdItemsDao.getAllFtSalesdItemsLive
     }
+    override fun getAllByFtSaleshAndMaterialFlow(ftSalesBean: Long, fmaterialBean: Int): Flow<List<FtSalesdItems>> {
+        return appDatabase.salesdItemsDao.getAllByFtSaleshAndMaterialFlow(ftSalesBean, fmaterialBean)
+    }
 
     override fun getCacheFtSalesdItemsById(id: Long): LiveData<FtSalesdItems> {
         return appDatabase.salesdItemsDao.getAllByIdLive(id)
@@ -58,6 +64,9 @@ class FtSalesdItemsRepositoryImpl(
     override fun addCacheFtSalesdItems(ftSalesdItems: FtSalesdItems) {
         return appDatabase.salesdItemsDao.insert(ftSalesdItems)
     }
+    override fun addCacheListFtSalesdItems(list: List<FtSalesdItems>) {
+        return appDatabase.salesdItemsDao.insertAll(list)
+    }
 
     override fun putCacheFtSalesdItems(ftSalesdItems: FtSalesdItems) {
         return appDatabase.salesdItemsDao.update(ftSalesdItems)
@@ -67,14 +76,9 @@ class FtSalesdItemsRepositoryImpl(
         return appDatabase.salesdItemsDao.delete(ftSalesdItems)
     }
 
-    override fun deleteAllCacheData() {
+    override fun deleteAllCacheFtsalesdItems() {
         return appDatabase.salesdItemsDao.deleteAllFtSalesdItems()
     }
-
-
-//    override fun getRemoteAllData(): Single<List<FtSalesdItems>> {
-//        return retrofitService.getRemoteAllFtSalesdItems(authHeader)
-//    }
 
 
 }

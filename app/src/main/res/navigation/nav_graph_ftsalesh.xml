@@ -2,27 +2,27 @@
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/nav_graph_material"
-    app:startDestination="@id/materialFragment">
+    android:id="@+id/nav_graph_ftsalesh"
+    app:startDestination="@id/ftsaleshFragment">
 
     <fragment
-        android:id="@+id/materialFragment"
-        android:name="com.erp.distribution.sfa.presentation.ui.material.material_list.MaterialFragment"
-        android:label="Produk"
-        tools:layout="@layout/fragment_material">
+        android:id="@+id/ftsaleshFragment"
+        android:name="com.erp.distribution.sfa.presentation.ui.salesorder.salesorder_list.FtSaleshFragment"
+        android:label="Sales Order"
+        tools:layout="@layout/fragment_ftsalesh">
         <action
-            android:id="@+id/action_materialFragment_to_materialFragmentAddEdit"
-            app:destination="@id/materialFragmentAddEdit" />
+            android:id="@+id/action_ftsaleshFragment_to_ftSaleshFragmentAddEdit"
+            app:destination="@id/ftSaleshFragmentAddEdit" />
     </fragment>
     <fragment
-        android:id="@+id/materialFragmentAddEdit"
-        android:name="com.erp.distribution.sfa.presentation.ui.material.material_addedit.AddEditMaterialFragment"
+        android:id="@+id/ftSaleshFragmentAddEdit"
+        android:name="com.erp.distribution.sfa.presentation.ui.salesorder.salesorder_addedit.AddEditFtSaleshFragment"
         android:label="{title}"
-        tools:layout="@layout/fragment_add_edit_material">
+        tools:layout="@layout/fragment_add_edit_salesorder">
         <argument
-            android:name="fMaterial"
+            android:name="ftSalesh"
             android:defaultValue="@null"
-            app:argType="com.erp.distribution.sfa.data.source.entity.FMaterial"
+            app:argType="com.erp.distribution.sfa.data.source.entity.FtSalesh"
             app:nullable="true" />
         <argument
             android:name="title"

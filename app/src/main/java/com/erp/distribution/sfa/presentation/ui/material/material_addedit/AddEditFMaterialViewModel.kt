@@ -18,18 +18,18 @@ import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.flow.receiveAsFlow
 import kotlinx.coroutines.launch
 
-class AddEditMaterialViewModel @ViewModelInject constructor(
+class AddEditFMaterialViewModel @ViewModelInject constructor(
     private val getFMaterialUseCase: GetFMaterialUseCase,
     @Assisted private val state: SavedStateHandle
 ) : ViewModel() {
-    val TAG = AddEditMaterialViewModel::class.java.simpleName
+    val TAG = AddEditFMaterialViewModel::class.java.simpleName
 
-    val fMaterial = state.get<FMaterial>("fMaterial")
+    val fMaterial = state.get<FMaterial>("fMaterial") // Mengikuti nama pada argument yang ada di nav_graph.xml
 
-    var fMaterialName = state.get<String>("materialName") ?: fMaterial?.pname ?: ""
+    var fMaterialName = state.get<String>("fMaterialName") ?: fMaterial?.pname ?: ""
         set(value) {
             field = value
-            state.set("materialName", value)
+            state.set("fMaterialName", value)
         }
 
     var fMaterialImportance = state.get<Boolean>("statusActive") ?: fMaterial?.isStatusActive ?: false
@@ -38,8 +38,8 @@ class AddEditMaterialViewModel @ViewModelInject constructor(
             state.set("statusActive", value)
         }
 
-    private val addEditMaterialEventChannel = Channel<AddEditMaterialEvent>()
-    val addEditMaterialEvent = addEditMaterialEventChannel.receiveAsFlow()
+    private val addEditFMaterialEventChannel = Channel<AddEditMaterialEvent>()
+    val addEditFMaterialEvent = addEditFMaterialEventChannel.receiveAsFlow()
 
     fun onSaveClick() {
         if (fMaterialName.isBlank()) {
@@ -57,8 +57,6 @@ class AddEditMaterialViewModel @ViewModelInject constructor(
     }
 
     private fun createFMaterial(fMaterial: FMaterial) = viewModelScope.launch {
-//        taskDao.insert(task)
-//        getFMaterialUseCase.addCacheFMaterial(fMaterial)
         DisposableManager.add(Observable.fromCallable {
             getFMaterialUseCase.addCacheFMaterial(fMaterial)
         }
@@ -77,7 +75,7 @@ class AddEditMaterialViewModel @ViewModelInject constructor(
             )
         )
 
-        addEditMaterialEventChannel.send(AddEditMaterialEvent.NavigateBackWithResult(ADD_TASK_RESULT_OK))
+        addEditFMaterialEventChannel.send(AddEditMaterialEvent.NavigateBackWithResult(ADD_TASK_RESULT_OK))
     }
 
     private fun updateFMaterial(fMaterial: FMaterial) = viewModelScope.launch {
@@ -102,12 +100,12 @@ class AddEditMaterialViewModel @ViewModelInject constructor(
                 }
             )
         )
-        addEditMaterialEventChannel.send(AddEditMaterialEvent.NavigateBackWithResult(EDIT_TASK_RESULT_OK))
+        addEditFMaterialEventChannel.send(AddEditMaterialEvent.NavigateBackWithResult(EDIT_TASK_RESULT_OK))
 
     }
 
     private fun showInvalidInputMessage(text: String) = viewModelScope.launch {
-        addEditMaterialEventChannel.send(AddEditMaterialEvent.ShowInvalidInputMessage(text))
+        addEditFMaterialEventChannel.send(AddEditMaterialEvent.ShowInvalidInputMessage(text))
     }
 
     sealed class AddEditMaterialEvent {

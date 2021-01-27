@@ -12,22 +12,22 @@ import com.erp.distribution.sfa.presentation.ui.master.material_lama.adapter.Not
 import java.text.NumberFormat
 import java.text.SimpleDateFormat
 
-class MaterialAdapter(private val listener: OnItemClickListener) :
-    ListAdapter<FMaterial, MaterialAdapter.MaterialViewHolder>(DiffCallback()) {
+class FMaterialAdapter(private val listener: OnItemClickListener) :
+    ListAdapter<FMaterial, FMaterialAdapter.FMaterialViewHolder>(DiffCallback()) {
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MaterialViewHolder {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): FMaterialViewHolder {
 //        val binding = ItemTaskBinding.inflate(LayoutInflater.from(parent.context), parent, false)
         val binding = AdapterRvItemTemplate1Binding.inflate(LayoutInflater.from(parent.context), parent, false)
-        return MaterialViewHolder(binding)
+        return FMaterialViewHolder(binding)
     }
 
-    override fun onBindViewHolder(holder: MaterialViewHolder, position: Int) {
+    override fun onBindViewHolder(holderF: FMaterialViewHolder, position: Int) {
         val currentItem = getItem(position)
-        holder.bind(currentItem)
+        holderF.bind(currentItem)
     }
 
 //    inner class TasksViewHolder(private val binding: ItemTaskBinding) :
-    inner class MaterialViewHolder(private val binding: AdapterRvItemTemplate1Binding) :
+    inner class FMaterialViewHolder(private val binding: AdapterRvItemTemplate1Binding) :
         RecyclerView.ViewHolder(binding.root) {
         val sdf = SimpleDateFormat("dd MMM yyyy")
         val nf = NumberFormat.getInstance()

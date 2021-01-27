@@ -55,8 +55,9 @@
                 android:layout_marginTop="70dp"
                 android:gravity="center"
                 android:text="@{userActive.fullName + ` (` + salesmanActive.spcode + `)`}"
-                android:textColor="?android:attr/colorEdgeEffect"
+                android:textColor="@color/blue"
                 android:textSize="18sp" />
+<!--            android:textColor="?android:attr/colorPrimary"-->
 
             <TextView
                 android:id="@+id/greeting_text2"
@@ -67,7 +68,7 @@
                 android:gravity="center"
                 android:text="@{divisionActive.kode1 + ` | ` +  warehouseActive.kode1}"
                 android:textColor="@color/design_default_color_primary_variant"
-                android:textSize="18sp" />
+                android:textSize="14sp" />
 
 
         </RelativeLayout>
@@ -196,7 +197,8 @@
                                 android:layout_centerHorizontal="true"
                                 android:src="@drawable/ic_pulsa"
                                 android:visibility="@{userActive.username.isEmpty? View.GONE : View.VISIBLE}"
-                                app:tint="#673AB7" />
+                                app:tint="@color/lightGray" />
+<!--                            app:tint="#673AB7" />-->
 
                             <TextView
 
@@ -226,7 +228,8 @@
                                 android:layout_centerHorizontal="true"
                                 android:src="@drawable/ic_reward_prize"
                                 android:visibility="@{userActive.username.isEmpty? View.GONE : View.VISIBLE}"
-                                app:tint="#E91E63" />
+                                app:tint="@color/lightGray" />
+<!--                            app:tint="#E91E63" />-->
 
                             <TextView
                                 android:layout_width="match_parent"
@@ -325,7 +328,8 @@
                             android:padding="10dp"
                             android:scaleType="fitCenter"
                             android:src="@drawable/ic_calender_check"
-                            app:tint="@color/design_default_color_primary" />
+                            app:tint="@color/lightGray" />
+<!--                        app:tint="@color/design_default_color_primary" />-->
 
                         <TextView
                             android:id="@+id/textView3"
@@ -371,7 +375,7 @@
                             android:padding="10dp"
                             android:scaleType="fitCenter"
                             android:src="@drawable/ic_motor_cycle"
-                            app:tint="@android:color/holo_orange_dark" />
+                            app:tint="@android:color/holo_blue_bright" />
 
                         <TextView
                             android:id="@+id/textView2"
@@ -416,7 +420,8 @@
                             android:padding="10dp"
                             android:scaleType="fitCenter"
                             android:src="@drawable/ic_baseline_trending_up_24"
-                            app:tint="@android:color/holo_blue_light" />
+                            app:tint="@color/lightGray" />
+<!--                        app:tint="@android:color/holo_blue_light" />-->
 
                         <TextView
                             android:id="@+id/textView6"
@@ -472,7 +477,7 @@
                             android:padding="10dp"
                             android:scaleType="fitCenter"
                             android:src="@drawable/ic_hemat"
-                            app:tint="@color/colorPrimaryDark" />
+                            app:tint="@color/brown" />
 
                         <TextView
                             android:id="@+id/textView12"
@@ -518,7 +523,7 @@
                             android:padding="10dp"
                             android:scaleType="fitCenter"
                             android:src="@drawable/ic_baseline_people_alt_24"
-                            app:tint="?attr/colorPrimaryDark" />
+                            app:tint="@color/brown" />
 
                         <TextView
                             android:id="@+id/textView18"

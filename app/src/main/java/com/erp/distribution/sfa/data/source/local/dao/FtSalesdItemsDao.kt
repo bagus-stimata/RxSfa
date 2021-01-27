@@ -2,7 +2,10 @@ package com.erp.distribution.sfa.data.source.local.dao
 
 import androidx.lifecycle.LiveData
 import androidx.room.*
+import com.erp.distribution.sfa.data.di.SortOrder
 import com.erp.distribution.sfa.data.source.entity.FtSalesdItems
+import com.erp.distribution.sfa.data.source.entity.FtSalesh
+import kotlinx.coroutines.flow.Flow
 
 /**
  * Dao ini belum di koneksikan dengan database manapun
@@ -35,6 +38,14 @@ interface FtSalesdItemsDao {
     fun getAllByIdLive(id: Long): LiveData<FtSalesdItems>
 
 
+
+    @Query("SELECT * FROM ftSalesdItems WHERE ftSaleshBean = :ftSalesBean AND  fmaterialBean = :fmaterialBean ")
+    fun getAllByFtSaleshAndMaterialFlow(ftSalesBean: Long, fmaterialBean: Int): Flow<List<FtSalesdItems>>
+
+    @Query("SELECT * FROM ftSalesdItems ")
+    fun getAllFtSaleshFLow(): Flow<List<FtSalesdItems>>
+
+
     @get:Query("SELECT * FROM ftSalesdItems ")
     val getAllFtSalesdItems: List<FtSalesdItems>
     @get:Query("SELECT * FROM ftSalesdItems ")
@@ -51,9 +62,9 @@ interface FtSalesdItemsDao {
     @Query("SELECT * FROM ftSalesdItems WHERE ftSaleshBean = :ftSaleshId ")
     fun getAllByFtSaleshLive(ftSaleshId: Long): LiveData<List<FtSalesdItems>>
 
-    @Query("SELECT * FROM ftSalesdItems WHERE ftSaleshBean = :ftSaleshId AND  fmaterialBean = :materialId ")
-    fun getAllByFtSaleshAndMaterial(ftSaleshId: Long, materialId: Int): List<FtSalesdItems>
-    @Query("SELECT * FROM ftSalesdItems WHERE ftSaleshBean = :ftSaleshId AND  fmaterialBean = :materialId ")
-    fun getAllByFtSaleshAndMaterialLive(ftSaleshId: Long, materialId: Int): LiveData<List<FtSalesdItems>>
+    @Query("SELECT * FROM ftSalesdItems WHERE ftSaleshBean = :ftSaleshBean AND  fmaterialBean = :fmaterialBean ")
+    fun getAllByFtSaleshAndMaterial(ftSaleshBean: Long, fmaterialBean: Int): List<FtSalesdItems>
+    @Query("SELECT * FROM ftSalesdItems WHERE ftSaleshBean = :ftSaleshBean AND  fmaterialBean = :fmaterialBean ")
+    fun getAllByFtSaleshAndMaterialLive(ftSaleshBean: Long, fmaterialBean: Int): LiveData<List<FtSalesdItems>>
 
 }

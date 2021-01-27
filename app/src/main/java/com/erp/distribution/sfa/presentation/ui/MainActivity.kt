@@ -19,7 +19,8 @@ import com.erp.distribution.sfa.presentation.ui.utils.AlertDialogConfirm
 import com.erp.distribution.sfa.presentation.ui.master.syncronize_fromserver.SyncronizeActivity
 import com.erp.distribution.sfa.data.source.entity_security.FUser
 import com.erp.distribution.sfa.presentation.ui.customer.CustomerActivity
-import com.erp.distribution.sfa.presentation.ui.material.MaterialActivity
+import com.erp.distribution.sfa.presentation.ui.material.FMaterialActivity
+import com.erp.distribution.sfa.presentation.ui.salesorder.FtSaleshActivity
 import com.erp.distribution.sfa.utils.DisposableManager
 import dagger.hilt.android.AndroidEntryPoint
 import io.reactivex.android.schedulers.AndroidSchedulers
@@ -95,26 +96,6 @@ class MainActivity : AppCompatActivity() {
 
         })
 
-//        val disposableFSalesman = mainViewModel.getRemoteFSalesman(mainViewModel.userActive!!)
-//            .toObservable()
-//            .observeOn(AndroidSchedulers.mainThread())
-//            .subscribeOn(Schedulers.io())
-//            .subscribe(
-//                {
-//                    Log.d(TAG, "#result salesman ${it}")
-////                    mainViewModel.salesmanActive = it
-//                },
-//                {
-//                    Log.d(TAG, "#result salesman error ${it.message}")
-//                },
-//                {
-//                    Log.d(TAG, "#result salesman complete")
-//                    mainBinding.salesmanActive = mainViewModel.salesmanActive
-//
-//                }
-//
-//            )
-//        compositeDisposable.addAll(disposableFSalesman)
 
 
     }
@@ -361,80 +342,19 @@ class MainActivity : AppCompatActivity() {
     }
 
     fun menuSalesOrder() {
-//        val intent = Intent(this@MainActivity, SalesOrderActivity::class.java)
-//        startActivity(intent)
+        val intent = Intent(this@MainActivity, FtSaleshActivity::class.java)
+        startActivity(intent)
 
-        val observer = mainViewModel.getRemoteFUserByUser(mainViewModel.userActive)
-                .toObservable()
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .map {
-                    it.lastModified = Date()
-                    it.created = Date()
-                    it.modifiedBy = "bagus"
-                    it
-                }
-                .subscribe(
-                        {
-                            val newFUser = it
-
-                            newFUser.lastModified = Date()
-                            newFUser.created = Date()
-                            newFUser.modifiedBy = "bagus"
-
-                            Log.d(TAG, "#result FUSER Login trying add all ${it}")
-                            //CREATE JIKA SAMA SAJA
-//                    mainViewModel.insertCacheFUser(newFUser)
-
-                        },
-                        {
-                            Log.e(TAG, "#result Error ${it.message}")
-
-                        },
-                        {
-                        }
-                )
-
-        compositeDisposable.add(observer)
-
-
-        val observerAll = mainViewModel.fetchFUserFromRepo()
-                .toObservable()
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .map {
-                    it
-                }
-                .subscribe(
-                        {
-//                        val newFUser = it
-                            Log.d(TAG, "#result FUSER MainActivity trying add all ${it}")
-
-                        },
-                        {
-                            Log.e(TAG, "#result FUSER MainActivity  error add all ${it.message}")
-                        },
-                        {
-                        }
-                )
-
-        compositeDisposable.add(observerAll)
     }
 
     fun menuProduct() {
-        val intent = Intent(this@MainActivity, MaterialActivity::class.java)
+        val intent = Intent(this@MainActivity, FMaterialActivity::class.java)
         startActivity(intent)
     }
 
     fun menuCustomer() {
         val intent = Intent(this@MainActivity, CustomerActivity::class.java)
         startActivity(intent)
-
-
-//        mainViewModel.fetchFCustomerFromRepo()
-
-
-
     }
 
     companion object {

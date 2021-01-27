@@ -1,11 +1,13 @@
 package com.erp.distribution.sfa.data.repository
 
 import androidx.lifecycle.LiveData
+import com.erp.distribution.sfa.data.di.SortOrder
 import com.erp.distribution.sfa.data.source.remote.service_api.RetrofitServiceFtSalesh
 import com.erp.distribution.sfa.data.source.local.database.AppDatabase
 import com.erp.distribution.sfa.domain.repository.FtSaleshRepository
 import com.erp.distribution.sfa.data.source.entity.FtSalesh
 import io.reactivex.Single
+import kotlinx.coroutines.flow.Flow
 
 
 /**
@@ -47,6 +49,14 @@ class FtSaleshRepositoryImpl(
         return appDatabase.saleshDao.getAllFtSaleshLive
     }
 
+    override fun getCacheAllFtSaleshFlow(
+        query: String,
+        sortOrder: SortOrder,
+        hideSelected: Boolean
+    ): Flow<List<FtSalesh>> {
+        return appDatabase.saleshDao.getAllFtSaleshFlow(query, sortOrder, hideSelected)
+    }
+
     override fun getCacheFtSaleshById(id: Long): LiveData<FtSalesh> {
         return appDatabase.saleshDao.getAllByIdLive(id)
     }
@@ -59,6 +69,10 @@ class FtSaleshRepositoryImpl(
         return appDatabase.saleshDao.insert(ftSalesh)
     }
 
+    override fun addCacheListFtSalesh(list: List<FtSalesh>) {
+        return appDatabase.saleshDao.insertAll(list)
+    }
+
     override fun putCacheFtSalesh(ftSalesh: FtSalesh) {
         return appDatabase.saleshDao.update(ftSalesh)
     }
@@ -67,14 +81,10 @@ class FtSaleshRepositoryImpl(
         return appDatabase.saleshDao.delete(ftSalesh)
     }
 
-    override fun deleteAllCacheData() {
+    override fun deleteAllCacheFtSalesh() {
         return appDatabase.saleshDao.deleteAllFtSalesh()
     }
 
-
-//    override fun getRemoteAllData(): Single<List<FtSalesh>> {
-//        return retrofitService.getRemoteAllFtSalesh(authHeader)
-//    }
 
 
 }
