@@ -7,7 +7,7 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.erp.distribution.sfa.data.source.entity.FCustomerEntity
-import com.erp.distribution.sfa.databinding.AdapterRvItemTemplate1Binding
+import com.erp.distribution.sfa.databinding.AdapterRvItemTemplate3Binding
 import com.erp.distribution.sfa.presentation.ui.master.material_lama.adapter.NoteAdapter
 import java.text.NumberFormat
 import java.text.SimpleDateFormat
@@ -16,8 +16,7 @@ class CustomerAdapter(private val listener: OnItemClickListener) :
     ListAdapter<FCustomerEntity, CustomerAdapter.CustomerViewHolder>(DiffCallback()) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CustomerViewHolder {
-//        val binding = ItemTaskBinding.inflate(LayoutInflater.from(parent.context), parent, false)
-        val binding = AdapterRvItemTemplate1Binding.inflate(LayoutInflater.from(parent.context), parent, false)
+        val binding = AdapterRvItemTemplate3Binding.inflate(LayoutInflater.from(parent.context), parent, false)
         return CustomerViewHolder(binding)
     }
 
@@ -26,8 +25,7 @@ class CustomerAdapter(private val listener: OnItemClickListener) :
         holder.bind(currentItem)
     }
 
-//    inner class TasksViewHolder(private val binding: ItemTaskBinding) :
-    inner class CustomerViewHolder(private val binding: AdapterRvItemTemplate1Binding) :
+    inner class CustomerViewHolder(private val binding: AdapterRvItemTemplate3Binding) :
         RecyclerView.ViewHolder(binding.root) {
         val sdf = SimpleDateFormat("dd MMM yyyy")
         val nf = NumberFormat.getInstance()
@@ -70,8 +68,9 @@ class CustomerAdapter(private val listener: OnItemClickListener) :
                 txtIcon.background =
                         NoteAdapter.oval(Color.rgb(hash, hash / 2, 0), binding.txtIcon)
                 txtUser.text = item.custname
-                txtSubject.text = item.custno
-                txtPreview.text = "${item.address1} ${item.address2} ${item.city1}"
+                txtSubject.text = item.custno + " General Trade"
+                txtPreview.text = "${item.address1} ${item.address2} ${item.address3} " +
+                        "${item.city1}"
 
                 txtDate.text = sdf.format(item.modified)
 

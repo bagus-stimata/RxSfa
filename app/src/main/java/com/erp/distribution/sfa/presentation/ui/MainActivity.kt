@@ -285,7 +285,9 @@ class MainActivity : AppCompatActivity() {
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
+
         getMenuInflater().inflate(R.menu.dashboard_menu, menu)
+
         return super.onCreateOptionsMenu(menu)
     }
 

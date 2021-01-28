@@ -1,4 +1,4 @@
-package com.erp.distribution.sfa.data.source.entity
+package com.erp.distribution.sfa.domain.model
 
 import android.os.Parcelable
 import androidx.room.Entity
@@ -7,21 +7,16 @@ import com.erp.distribution.sfa.data.base.ModelEntity
 import com.erp.distribution.sfa.data.source.entity.modelenum.EnumCurrency
 import com.erp.distribution.sfa.data.source.entity.modelenum.EnumTipePajakCustomer
 import com.erp.distribution.sfa.data.source.entity.modelenum.EnumTunaiKredit
+import com.erp.distribution.sfa.domain.base.Model
 import kotlinx.parcelize.Parcelize
+import java.io.Serializable
 import java.text.DateFormat
 import java.util.*
 
 
-//data class ResponseFCustomer(
-//    val data: MutableList<FCustomer>
-//)
-//@Entity(tableName = "fcustomer")
-
-@Entity(tableName = "fCustomer")
 @Parcelize
-data class FCustomerEntity(
-    @PrimaryKey
-    var id: Int =0,
+data class FCustomer(
+        var id: Int =0,
 
     /*
     * JIKA COPY DARI TEMPAT LAIN: MAKA SEBAGAI LOG TRACK MENINGGALKAN SOURCE_ID = ID sumber asal dia dicopy
@@ -30,15 +25,16 @@ data class FCustomerEntity(
     * 2. 
     */
     var sourceID: Int =0,
-    var custno: String ="",
-    var isOutletActive: Boolean =false,
-    var oldKode1: String ="",
-    var isFlagNewItem: Boolean =false,
+        var custno: String ="",
+        var isOutletActive: Boolean =false,
+        var oldKode1: String ="",
+        var isFlagNewItem: Boolean =false,
 
     //	@ManyToOne
     //	@JoinColumn(name="fdivisionBean", referencedColumnName="ID")
     //	private FDivision fdivisionBean;
-    var fdivisionBean: Int =0,
+        var fdivisionBean: Int =0,
+
 
     /*
     * Fungsinya: Jika menarik data dari sistem lain dimana mempunyai kode customer yang berbeda
@@ -46,55 +42,55 @@ data class FCustomerEntity(
     * Pada import data: ada opsi pilih mapping customer yang mana
     */
     var mappingInCode1: String ="",
-    var mappingInCode2: String ="",
-    var mappingInCode3: String ="",
+        var mappingInCode2: String ="",
+        var mappingInCode3: String ="",
 
     /*
     * Digunanakan untuk menghasilkan kode yang berbeda jika di extract
     * Fungsinya: Untuk Integrasi dengan Sistem Lain jika ternyata kode customer berbeda
     */
     var mappingOutCode1: String ="",
-    var mappingOutCode2: String ="",
-    var custGroupPromo1: Int =0, //GROUP PROMO
-    var custGroupPromo2: Int =0, //GROUP PROMO
-    var custname: String ="",
-    var currency: EnumCurrency = EnumCurrency.IDR,
+        var mappingOutCode2: String ="",
+        var custGroupPromo1: Int =0, //GROUP PROMO
+        var custGroupPromo2: Int =0, //GROUP PROMO
+        var custname: String ="",
+        var currency: EnumCurrency = EnumCurrency.IDR,
 
     /*
     * PERPAJAKAN / TAX
     */
     var isPkp: Boolean =false,
-    var namaPrshFakturPajak: String ="",
-    var alamatPrshFakturPajak: String ="",
-    var namaPengusahaKenaPajak: String ="",
-    var nikPajak: String ="",
-    var npwp: String ="",
-    var tanggalPengukuhanPkp : Date = Date(),
-    var tipePajakCustomer: EnumTipePajakCustomer = EnumTipePajakCustomer.REG_01,
-    var tunaikredit: EnumTunaiKredit = EnumTunaiKredit.T,
-    var lamaCredit: Int =0,
-    var creditlimit: Int =0,
-    var maxInvoice: Int =0,
-    var namaPemilik: String ="",
-    var address1: String ="",
-    var address2: String ="",
-    var address3: String ="",
-    var city1: String ="",
-    var city2: String ="",
-    var state1: String ="",
-    var phone1: String ="",
-    var phone2: String ="",
-    var postcode: String ="",
-    var email: String ="",
-    var whatsApp: String ="",
-    var isStatusActive: Boolean =false,
+        var namaPrshFakturPajak: String ="",
+        var alamatPrshFakturPajak: String ="",
+        var namaPengusahaKenaPajak: String ="",
+        var nikPajak: String ="",
+        var npwp: String ="",
+        var tanggalPengukuhanPkp : Date = Date(),
+        var tipePajakCustomer: EnumTipePajakCustomer = EnumTipePajakCustomer.REG_01,
+        var tunaikredit: EnumTunaiKredit = EnumTunaiKredit.T,
+        var lamaCredit: Int =0,
+        var creditlimit: Int =0,
+        var maxInvoice: Int =0,
+        var namaPemilik: String ="",
+        var address1: String ="",
+        var address2: String ="",
+        var address3: String ="",
+        var city1: String ="",
+        var city2: String ="",
+        var state1: String ="",
+        var phone1: String ="",
+        var phone2: String ="",
+        var postcode: String ="",
+        var email: String ="",
+        var whatsApp: String ="",
+        var isStatusActive: Boolean =false,
 
     //Tidak akan dipkai: 
-    var harikunjungan: Int =0,
-    var pekankunjungan: Int =0,
-    var isNoeffcall: Boolean =false,
-    var latitude: Int =0,
-    var longitude: Int =0,
+        var harikunjungan: Int =0,
+        var pekankunjungan: Int =0,
+        var isNoeffcall: Boolean =false,
+        var latitude: Int =0,
+        var longitude: Int =0,
 
     /*
     * sementara belum dipakai sampai tahu principal atau SAP
@@ -104,10 +100,10 @@ data class FCustomerEntity(
     //	private String shipToBillTo ="";
     //	@Column(name="BILLTO", length=20)
     //	private String billTo ="";
-    var basicDisc1Barang: Int =0,
-    var basicDisc1PlusBarang: Int =0,
-    var isDisc1RegManual: Boolean =false,
-    var isDiscPlusRegManual: Boolean =false,
+        var basicDisc1Barang: Int =0,
+        var basicDisc1PlusBarang: Int =0,
+        var isDisc1RegManual: Boolean =false,
+        var isDiscPlusRegManual: Boolean =false,
 
     /*
     * 0 = Menggunakan Harga Reguler Distributor (tidak mengenal harga bertingkat)
@@ -120,12 +116,12 @@ data class FCustomerEntity(
     //	@ManyToOne
     //	@JoinColumn(name="fcustomerGroupBean", referencedColumnName="ID")
     //	private FCustomerGroup fcustomerGroupBean;
-    var fcustomerGroupBean: Int =0,
+        var fcustomerGroupBean: Int =0,
 
     //	@ManyToOne
     //	@JoinColumn(name="fsubAreaBean", referencedColumnName="ID")
     //	private FSubArea fsubAreaBean;
-    var fsubAreaBean: Int =0,
+        var fsubAreaBean: Int =0,
 
     /*
     * CLASSIFIKASI MATERIAL & SALES
@@ -135,12 +131,15 @@ data class FCustomerEntity(
     //	@ManyToOne
     //	@JoinColumn(name="fdistributionChannelBean", referencedColumnName="ID")
     //	private FDistributionChannel fdistributionChannelBean;
-    var fdistributionChannelBean: Int =0,
+        var fdistributionChannelBean: Int =0,
 
-    //	@ManyToOne
+        var ftSaleshSet : List<FtSalesh> = listOf<FtSalesh>(),
+
+
+        //	@ManyToOne
     //	@JoinColumn(name="ftPriceAlthBean", referencedColumnName="ID", nullable=true)
     //	private FtPriceAlth ftPriceAlthBean;
-    var ftPriceAlthBean: Int =0,
+        var ftPriceAlthBean: Int =0,
 
     /*
     * reject promotion rules setting
@@ -153,15 +152,15 @@ data class FCustomerEntity(
     */
     var isExclusiveSalesman: Boolean =false,
 
-    var stared: Boolean? = false,
-    var unread: Boolean? = false,
-    var selected: Boolean? = false,
+        var stared: Boolean? = false,
+        var unread: Boolean? = false,
+        var selected: Boolean? = false,
 
 //    @Ignore
 //    var notes: String ="",
-    var created : Date = Date(),
-    var modified : Date = Date(),
-    var modifiedBy: String ="", //User ID
+        var created : Date = Date(),
+        var modified : Date = Date(),
+        var modifiedBy: String ="", //User ID
 
 //    @Ignore
 //    var isStared: Boolean =false,
@@ -172,7 +171,7 @@ data class FCustomerEntity(
 //    @Ignore
 //    var isSelected: Boolean =false,
 
-): ModelEntity(), Parcelable {
+): Model(), Parcelable, Serializable{
     val createdDateFormatted: String
         get() = DateFormat.getDateTimeInstance().format(created)
 }

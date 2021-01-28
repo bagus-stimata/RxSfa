@@ -1,4 +1,4 @@
-package com.erp.distribution.sfa.data.source.entity
+package com.erp.distribution.sfa.domain.model
 
 import android.os.Parcelable
 import androidx.room.Entity
@@ -6,12 +6,12 @@ import androidx.room.Ignore
 import androidx.room.PrimaryKey
 import com.erp.distribution.sfa.data.base.ModelEntity
 import com.erp.distribution.sfa.data.source.entity.modelenum.EnumUom
+import com.erp.distribution.sfa.domain.base.Model
 import kotlinx.parcelize.Parcelize
 import java.io.Serializable
 
-@Entity(tableName = "ftSalesdItems")
 @Parcelize
-class FtSalesdItemsEntity (
+class FtSalesdItems (
     @PrimaryKey(autoGenerate =true)
     var id: Long =0,
     var isFreeGood : Boolean =false,
@@ -380,4 +380,4 @@ class FtSalesdItemsEntity (
     var ftSaleshBean : Long =0,
     var fmaterialBean : Int =0
 
-): Serializable, ModelEntity(), Parcelable
+): Serializable, Model(), Parcelable

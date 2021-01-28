@@ -5,8 +5,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="@drawable/card_view_bg"
-    tools:showIn="@layout/activiy_template2">
+    android:background="@drawable/card_view_bg">
+<!--    tools:showIn="@layout/activiy_template2">-->
 
     <RelativeLayout
         android:id="@+id/relativeLayout"
@@ -28,7 +28,7 @@
             tools:text="F" />
 
         <TextView
-            android:id="@+id/txt_custname"
+            android:id="@+id/txt_pname"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_alignTop="@id/txt_icon"
@@ -43,12 +43,12 @@
             android:id="@+id/layout_custno"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@id/txt_custname"
-            android:layout_alignStart="@id/txt_custname"
+            android:layout_below="@id/txt_pname"
+            android:layout_alignStart="@id/txt_pname"
             android:layout_marginEnd="24dp"
             android:orientation="horizontal">
                     <TextView
-                        android:id="@+id/txt_custno"
+                        android:id="@+id/txt_pcode"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
@@ -189,7 +189,7 @@
                 android:textSize="14dp"
                 tools:text="IDR " />
             <TextView
-                android:id="@+id/txt_total"
+                android:id="@+id/txt_stock"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:gravity="right"

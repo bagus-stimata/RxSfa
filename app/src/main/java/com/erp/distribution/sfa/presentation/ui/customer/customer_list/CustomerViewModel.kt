@@ -104,8 +104,6 @@ class CustomerViewModel @ViewModelInject constructor(
     }
 
     fun onUndoDeleteClick(fCustomerEntity: FCustomerEntity) = viewModelScope.launch {
-//        taskDao.insert(task)
-//        getFCustomerUseCase.addCacheFCustomer(task)
         DisposableManager.add(Observable.fromCallable {
             getFCustomerUseCase.addCacheFCustomer(fCustomerEntity)
         }

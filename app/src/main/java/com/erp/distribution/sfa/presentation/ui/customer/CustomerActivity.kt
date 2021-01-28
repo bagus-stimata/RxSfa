@@ -4,6 +4,7 @@ import android.app.Activity
 import android.app.DirectAction
 import android.os.Bundle
 import android.os.CancellationSignal
+import android.view.Menu
 import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
@@ -25,7 +26,6 @@ class CustomerActivity : AppCompatActivity() {
         val navHostFragment =
             supportFragmentManager.findFragmentById(R.id.nav_host_fragment_customer) as NavHostFragment
         navController = navHostFragment.findNavController()
-        //Ingat pada nav_host_fragment -> nav_graph_material sudah disetting Fragment utama yang akan muncul pertama kali
 
         setupActionBarWithNavController(navController)
 

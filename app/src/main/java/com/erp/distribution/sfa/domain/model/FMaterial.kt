@@ -1,19 +1,18 @@
-package com.erp.distribution.sfa.data.source.entity
+package com.erp.distribution.sfa.domain.model
 
 import android.os.Parcelable
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 import com.erp.distribution.sfa.data.base.ModelEntity
 import com.erp.distribution.sfa.data.source.entity.modelenum.EnumUom
-import kotlinx.android.parcel.Parcelize
+import com.erp.distribution.sfa.domain.base.Model
+import kotlinx.parcelize.Parcelize
+import java.io.Serializable
 import java.text.DateFormat
 import java.util.*
 
-//@Entity(tableName = "fmaterial")
 @Parcelize
-@Entity(tableName = "fMaterial")
-data class FMaterialEntity  (
-    @PrimaryKey
+data class FMaterial  (
     var id : Int =0,
 
     /*
@@ -122,7 +121,10 @@ data class FMaterialEntity  (
     //	private FMaterialSalesBrand fmaterialSalesBrandBean;
     var fmaterialSalesBrandBean : Int =0,
 
-    //BATCH CODE --> Berhubungan dengan Stockist atau Gudang
+    var ftSaleshdItemsSet : List<FtSalesdItems> = listOf<FtSalesdItems>(),
+
+
+        //BATCH CODE --> Berhubungan dengan Stockist atau Gudang
     //PRODUCTION CODE --> Berhubungan dengan TANGGAL DIPRODUKSI DAN EXP.DATE
 //    @Ignore
 //    var principalCode : String ="",
@@ -192,7 +194,7 @@ data class FMaterialEntity  (
 
     var modifiedBy : String ="" //User ID
 
-): ModelEntity(), Parcelable {
+): Model(), Parcelable, Serializable {
     val createdDateFormatted: String
         get() = DateFormat.getDateTimeInstance().format(created)
 }

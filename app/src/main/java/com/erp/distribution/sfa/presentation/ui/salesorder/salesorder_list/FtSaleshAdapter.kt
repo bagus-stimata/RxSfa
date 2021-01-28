@@ -67,23 +67,23 @@ class FtSaleshAdapter(private val listener: OnItemClickListener) :
                 val hash = item!!.invoiceno.hashCode()
 //                txtIcon.text = item.invoiceno.trim { it <= ' ' }[0].toString()
                 txtIcon.background = NoteAdapter.oval(Color.rgb(hash, hash / 2, 0), binding.txtIcon)
-                txtCustname.text = "Toko Harapan Jaya Abadi. Tbk"
-                txtCustno.text = "FGN12345676"
-                txtTipeCust.text = "General Trade"
+//                txtCustname.text = "Toko Harapan Jaya Abadi. Tbk"
+//                txtCustno.text = "FGN12345676"
+//                txtTipeCust.text = "General Trade"
 
 //                txtAddress.text = "Jl. Kembang Jepun, Gang 5 RT1/RW2, Kecamatan Kedurus, Surabaya"
-                txtAddress.text = "Kedurus, Surabaya"
-                txtOrderno.text = "ORD.1234567890"
-                txtOrderdate.text = "26 Jan 2021"
-                txtInvoiceno.text = "INV.1234567890"
-                txtInvoicedate.text = "26 Jan 2021"
+//                txtAddress.text = "Kedurus, Surabaya"
+//                txtOrderno.text = "ORD.1234567890"
+//                txtOrderdate.text = "26 Jan 2021"
+//                txtInvoiceno.text = "INV.1234567890"
+//                txtInvoicedate.text = "26 Jan 2021"
 
-                txtItemSum.text = "25 items"
-                txtCurrency.text = "IDR "
-                txtTotal.text = "5.600.000"
+//                txtItemSum.text = "25 items"
+//                txtCurrency.text = "IDR "
+//                txtTotal.text = "5.600.000"
 
-                txtDate.text = sdf.format(item.modified)
-                imgStar.setColorFilter(Color.BLUE)
+//                txtDate.text = sdf.format(item.modified)
+//                imgStar.setColorFilter(Color.BLUE)
             }
 
 

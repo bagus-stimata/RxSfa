@@ -160,7 +160,7 @@ class CustomerFragment : Fragment(R.layout.fragment_customer), CustomerAdapter.O
     }
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
-        inflater.inflate(R.menu.menu_fragment_simple, menu)
+        inflater.inflate(R.menu.menu_customer, menu)
 
         val searchItem = menu.findItem(R.id.action_search)
         searchView = searchItem.actionView as SearchView
@@ -197,10 +197,10 @@ class CustomerFragment : Fragment(R.layout.fragment_customer), CustomerAdapter.O
                 viewModel.onHideCompletedClick(item.isChecked)
                 true
             }
-//            R.id.action_delete_all_completed_tasks -> {
-//                viewModel.onDeleteAllCompletedClick()
-//                true
-//            }
+            R.id.action_delete_all_completed_tasks -> {
+                viewModel.onDeleteAllCompletedClick()
+                true
+            }
             else -> super.onOptionsItemSelected(item)
         }
     }
