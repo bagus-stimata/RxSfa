@@ -19,6 +19,8 @@ import androidx.recyclerview.widget.RecyclerView
 import com.erp.distribution.sfa.data.di.SortOrder
 import com.erp.distribution.sfa.data.source.entity.FMaterialEntity
 import com.erp.distribution.sfa.databinding.FragmentFmaterialBinding
+import com.erp.distribution.sfa.presentation.ui.utils.AlertDialogConfirm
+import com.erp.distribution.sfa.presentation.ui.utils.AlertDialogWarning
 import com.erp.distribution.sfa.presentation.ui.utils.onQueryTextChanged
 import com.erp.distribution.sfa.utils.exhaustive
 import com.google.android.material.snackbar.Snackbar
@@ -124,11 +126,29 @@ class FMaterialFragment : Fragment(R.layout.fragment_fmaterial), FMaterialAdapte
                         Snackbar.make(requireView(), event.msg, Snackbar.LENGTH_SHORT).show()
                     }
 
-//                    is MaterialViewModel.MaterialEvent.NavigateToDeleteAllCompletedScreen -> {
+                    is FMaterialViewModel.FMaterialEvent.NavigateToDeleteAllCompletedScreen -> {
+
 //                        val action =
-//                                MaterialFragmentDirections.actionGlobalDeleteAllCompletedDialogFragment()
+//                            FMaterialFragmentDirections.actionGlobalDeleteAllCompletedDialogFragment()
 //                        findNavController().navigate(action)
-//                    }
+
+                        val alert =
+                            AlertDialogWarning(
+                                context,
+                                "Hapus Seluruh Data?"
+                            )
+                        alert.getButtonOke().setOnClickListener(View.OnClickListener { view: View? ->
+                            alert.dismiss()
+
+                            viewModelFMaterial.onConfirmDeleteClick()
+
+                        })
+                        alert.getButtonCancel()
+                            .setOnClickListener(View.OnClickListener {view: View? ->
+                                alert.dismiss()
+                            })
+                        alert.showDialog()
+                    }
 
 
                     else -> {}
@@ -148,7 +168,7 @@ class FMaterialFragment : Fragment(R.layout.fragment_fmaterial), FMaterialAdapte
     }
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
-        inflater.inflate(R.menu.menu_fragment_simple, menu)
+        inflater.inflate(R.menu.menu_fragment_fmaterial, menu)
 
         val searchItem = menu.findItem(R.id.action_search)
         searchView = searchItem.actionView as SearchView
@@ -185,10 +205,10 @@ class FMaterialFragment : Fragment(R.layout.fragment_fmaterial), FMaterialAdapte
                 viewModelFMaterial.onHideCompletedClick(item.isChecked)
                 true
             }
-//            R.id.action_delete_all_completed_tasks -> {
-//                viewModel.onDeleteAllCompletedClick()
-//                true
-//            }
+            R.id.action_delete_all_completed_tasks -> {
+                viewModelFMaterial.onDeleteAllCompletedClick()
+                true
+            }
             else -> super.onOptionsItemSelected(item)
         }
     }

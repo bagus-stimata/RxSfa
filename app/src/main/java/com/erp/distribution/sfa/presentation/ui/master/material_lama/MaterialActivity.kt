@@ -172,7 +172,7 @@ class MaterialActivity : AppCompatActivity() {
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
         // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_customer, menu)
+        getMenuInflater().inflate(R.menu.menu_fragment_simple, menu)
         val menuItem = menu.findItem(R.id.app_bar_search)
         val searchView = menuItem.actionView as SearchView
         searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {

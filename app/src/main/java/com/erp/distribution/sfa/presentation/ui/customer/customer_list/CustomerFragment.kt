@@ -19,6 +19,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.erp.distribution.sfa.data.di.SortOrder
 import com.erp.distribution.sfa.data.source.entity.FCustomerEntity
 import com.erp.distribution.sfa.databinding.FragmentCustomerBinding
+import com.erp.distribution.sfa.presentation.ui.utils.AlertDialogWarning
 import com.erp.distribution.sfa.presentation.ui.utils.onQueryTextChanged
 import com.erp.distribution.sfa.utils.exhaustive
 import com.google.android.material.snackbar.Snackbar
@@ -126,11 +127,30 @@ class CustomerFragment : Fragment(R.layout.fragment_customer), CustomerAdapter.O
                         Snackbar.make(requireView(), event.msg, Snackbar.LENGTH_SHORT).show()
                     }
 
-//                    is CustomerViewModel.CustomerEvent.NavigateToDeleteAllCompletedScreen -> {
+                    is CustomerViewModel.CustomerEvent.NavigateToDeleteAllCompletedScreen -> {
 //                        val action =
 //                                CustomerFragmentDirections.actionGlobalDeleteAllCompletedDialogFragment()
 //                        findNavController().navigate(action)
-//                    }
+
+                        val alert =
+                            AlertDialogWarning(
+                                context,
+                                "Hapus Seluruh Data?"
+                            )
+                        alert.getButtonOke().setOnClickListener(View.OnClickListener { view: View? ->
+                            alert.dismiss()
+
+                            viewModel.onConfirmDeleteClick()
+
+                        })
+                        alert.getButtonCancel()
+                            .setOnClickListener(View.OnClickListener {view: View? ->
+                                alert.dismiss()
+                            })
+                        alert.showDialog()
+
+
+                    }
 
 
                     //Kamu Bisa Back Jika Kamu  Menggunakan Navigation ini
@@ -160,7 +180,7 @@ class CustomerFragment : Fragment(R.layout.fragment_customer), CustomerAdapter.O
     }
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
-        inflater.inflate(R.menu.menu_customer, menu)
+        inflater.inflate(R.menu.menu_fragment_fcustomer, menu)
 
         val searchItem = menu.findItem(R.id.action_search)
         searchView = searchItem.actionView as SearchView
@@ -197,7 +217,7 @@ class CustomerFragment : Fragment(R.layout.fragment_customer), CustomerAdapter.O
                 viewModel.onHideCompletedClick(item.isChecked)
                 true
             }
-            R.id.action_delete_all_completed_tasks -> {
+            R.id.action_delete_all_fcustomer -> {
                 viewModel.onDeleteAllCompletedClick()
                 true
             }

@@ -99,8 +99,6 @@ class FMaterialViewModel @ViewModelInject constructor(
     }
 
     fun onUndoDeleteClick(fMaterialEntity: FMaterialEntity) = viewModelScope.launch {
-//        taskDao.insert(task)
-//        getFMaterialUseCase.addCacheFMaterial(task)
         DisposableManager.add(Observable.fromCallable {
             getFMaterialUseCase.addCacheFMaterial(fMaterialEntity)
         }
@@ -136,6 +134,24 @@ class FMaterialViewModel @ViewModelInject constructor(
 
     fun onDeleteAllCompletedClick() = viewModelScope.launch {
         fMaterialEventChannel.send(FMaterialEvent.NavigateToDeleteAllCompletedScreen)
+    }
+    fun onConfirmDeleteClick() = viewModelScope.launch {
+        DisposableManager.add(Observable.fromCallable {
+            getFMaterialUseCase.deleteAllCacheFMaterial()
+        }
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribe (
+                {
+                },
+                {
+                    Log.d(TAG, "#result MATERIAL error  ${it.message}")
+                },
+                {
+
+                }
+            )
+        )
     }
 
     sealed class FMaterialEvent {

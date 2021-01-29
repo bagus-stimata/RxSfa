@@ -69,7 +69,7 @@ class CustomerViewModel @ViewModelInject constructor(
                         {
                         },
                         {
-                            Log.d(TAG, "#result MATERIAL error  ${it.message}")
+                            Log.d(TAG, "#result FCustomer error  ${it.message}")
                         },
                         {
 
@@ -92,7 +92,7 @@ class CustomerViewModel @ViewModelInject constructor(
                         {
                         },
                         {
-                            Log.d(TAG, "#result MATERIAL error  ${it.message}")
+                            Log.d(TAG, "#result FCustomer error  ${it.message}")
                         },
                         {
 
@@ -113,7 +113,7 @@ class CustomerViewModel @ViewModelInject constructor(
                         {
                         },
                         {
-                            Log.d(TAG, "#result MATERIAL error  ${it.message}")
+                            Log.d(TAG, "#result FCustomer error  ${it.message}")
                         },
                         {
 
@@ -140,6 +140,25 @@ class CustomerViewModel @ViewModelInject constructor(
     fun onDeleteAllCompletedClick() = viewModelScope.launch {
         fCustomerEventChannel.send(CustomerEvent.NavigateToDeleteAllCompletedScreen)
     }
+    fun onConfirmDeleteClick() = viewModelScope.launch {
+        DisposableManager.add(Observable.fromCallable {
+            getFCustomerUseCase.deleteAllCacheFCustomer()
+        }
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribe (
+                {
+                },
+                {
+                    Log.d(TAG, "#result FCustomer error  ${it.message}")
+                },
+                {
+
+                }
+            )
+        )
+    }
+
 
     sealed class CustomerEvent {
         object NavigateToAddCustomerScreen : CustomerEvent()
