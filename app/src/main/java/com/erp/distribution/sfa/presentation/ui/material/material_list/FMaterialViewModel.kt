@@ -7,6 +7,8 @@ import androidx.lifecycle.*
 import com.erp.distribution.sfa.data.di.PreferencesManager
 import com.erp.distribution.sfa.data.di.SortOrder
 import com.erp.distribution.sfa.data.source.entity.FMaterialEntity
+import com.erp.distribution.sfa.domain.model.FMaterial
+import com.erp.distribution.sfa.domain.usecase.GetFMaterialGroup3Group3UseCase
 import com.erp.distribution.sfa.domain.usecase.GetFMaterialUseCase
 import com.erp.distribution.sfa.presentation.ui.test.mvvm_todo.ADD_TASK_RESULT_OK
 import com.erp.distribution.sfa.presentation.ui.test.mvvm_todo.EDIT_TASK_RESULT_OK
@@ -22,6 +24,7 @@ import kotlinx.coroutines.launch
 
 class FMaterialViewModel @ViewModelInject constructor(
     private val getFMaterialUseCase: GetFMaterialUseCase,
+    private val getFMaterialGroup3Group3UseCase: GetFMaterialGroup3Group3UseCase,
     private val preferencesManager: PreferencesManager,
     @Assisted private val state: SavedStateHandle
 ) : ViewModel() {
@@ -40,7 +43,8 @@ class FMaterialViewModel @ViewModelInject constructor(
     ) { query, filterPreferences ->
         Pair(query, filterPreferences)
     }.flatMapLatest { (query, filterPreferences) ->
-        getFMaterialUseCase.getCacheAllFMaterialFlow(query, filterPreferences.sortOrder, filterPreferences.hideCompleted)
+//        getFMaterialUseCase.getCacheAllFMaterialFlow(query, filterPreferences.sortOrder, filterPreferences.hideCompleted)
+        getFMaterialUseCase.getCacheAllFMaterialDomainFlow(query, filterPreferences.sortOrder, filterPreferences.hideCompleted)
     }
 
     val fMaterialLive = fMaterialFlow.asLiveData()
@@ -53,13 +57,13 @@ class FMaterialViewModel @ViewModelInject constructor(
         preferencesManager.updateHideCompleted(hideCompleted)
     }
 
-    fun onItemSelected(fMaterialEntity: FMaterialEntity) = viewModelScope.launch {
-        fMaterialEventChannel.send(FMaterialEvent.NavigateToEditFMaterialScreen(fMaterialEntity))
+    fun onItemSelected(fMaterial: FMaterial) = viewModelScope.launch {
+        fMaterialEventChannel.send(FMaterialEvent.NavigateToEditFMaterialScreen(fMaterial))
     }
 
-    fun onItemCheckedChanged(fMaterialEntity: FMaterialEntity, isChecked: Boolean) = viewModelScope.launch {
+    fun onItemCheckedChanged(fMaterial: FMaterial, isChecked: Boolean) = viewModelScope.launch {
         DisposableManager.add(Observable.fromCallable {
-            getFMaterialUseCase.putCacheFMaterial(fMaterialEntity.copy(selected = isChecked))
+            getFMaterialUseCase.putCacheFMaterialDomain(fMaterial.copy(selected = isChecked))
         }
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
@@ -77,9 +81,9 @@ class FMaterialViewModel @ViewModelInject constructor(
 
     }
 
-    fun onItemSwiped(fMaterialEntity: FMaterialEntity) = viewModelScope.launch {
+    fun onItemSwiped(fMaterial: FMaterial) = viewModelScope.launch {
         DisposableManager.add(Observable.fromCallable {
-            getFMaterialUseCase.deleteCacheFMaterial(fMaterialEntity)
+            getFMaterialUseCase.deleteCacheFMaterialDomain(fMaterial)
         }
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
@@ -95,12 +99,12 @@ class FMaterialViewModel @ViewModelInject constructor(
                 )
         )
 
-        fMaterialEventChannel.send(FMaterialEvent.ShowUndoDeleteFMaterialMessage(fMaterialEntity))
+        fMaterialEventChannel.send(FMaterialEvent.ShowUndoDeleteFMaterialMessage(fMaterial))
     }
 
-    fun onUndoDeleteClick(fMaterialEntity: FMaterialEntity) = viewModelScope.launch {
+    fun onUndoDeleteClick(fMaterial: FMaterial) = viewModelScope.launch {
         DisposableManager.add(Observable.fromCallable {
-            getFMaterialUseCase.addCacheFMaterial(fMaterialEntity)
+            getFMaterialUseCase.addCacheFMaterialDomain(fMaterial)
         }
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
@@ -156,8 +160,8 @@ class FMaterialViewModel @ViewModelInject constructor(
 
     sealed class FMaterialEvent {
         object NavigateToAddFMaterialScreen : FMaterialEvent()
-        data class NavigateToEditFMaterialScreen(val fMaterialEntity: FMaterialEntity) : FMaterialEvent()
-        data class ShowUndoDeleteFMaterialMessage(val fMaterialEntity: FMaterialEntity) : FMaterialEvent()
+        data class NavigateToEditFMaterialScreen(val fMaterial: FMaterial) : FMaterialEvent()
+        data class ShowUndoDeleteFMaterialMessage(val fMaterial: FMaterial) : FMaterialEvent()
         data class ShowFMaterialSavedConfirmationMessage(val msg: String) : FMaterialEvent()
         object NavigateToDeleteAllCompletedScreen : FMaterialEvent()
 

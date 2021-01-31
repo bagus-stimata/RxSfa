@@ -1,14 +1,12 @@
-package com.erp.distribution.sfa.presentation.ui.master
+package com.erp.distribution.sfa.presentation.ui.syncronize_fromserver
 
 import android.util.Log
 import androidx.hilt.lifecycle.ViewModelInject
 import androidx.lifecycle.ViewModel
 import com.erp.distribution.sfa.domain.usecase.*
-import com.erp.distribution.sfa.data.source.entity.FCustomerEntity
 import com.erp.distribution.sfa.data.source.entity_security.FUser
 import androidx.lifecycle.*
-import com.erp.distribution.sfa.data.source.entity.FAreaEntity
-import com.erp.distribution.sfa.data.source.entity.FMaterialEntity
+import com.erp.distribution.sfa.data.source.entity.*
 import com.erp.distribution.sfa.data.source.entity.modelenum.EnumUom
 import com.erp.distribution.sfa.utils.DisposableManager
 import com.erp.distribution.sfa.utils.SecurityUtil
@@ -19,16 +17,18 @@ import io.reactivex.schedulers.Schedulers
 import java.util.*
 
 
-class MasterViewModel @ViewModelInject constructor(
+class SyncViewModel @ViewModelInject constructor(
     private val getFUserUseCase: GetFUserUseCase,
     private val getFAreaUseCase: GetFAreaUseCase,
     private val getFCustomerUseCase: GetFCustomerUseCase,
     private val getFMaterialUseCase: GetFMaterialUseCase,
+    private val fDivisionUseCase: GetFDivisionUseCase,
+    private val getFMaterialGroup3Group3UseCase: GetFMaterialGroup3Group3UseCase,
     private val getFSalesmanUseCase: GetFSalesmanUseCase,
-    private val getFWarehouseUseCase: GetFWarehouseUseCase
+    private val getFWarehouseUseCase: GetFWarehouseUseCase,
 ) : ViewModel() {
 
-    private val TAG = MasterViewModel::class.simpleName
+    private val TAG = SyncViewModel::class.simpleName
     private val compositeDisposable = CompositeDisposable()
 
     var isLoading = true
@@ -55,7 +55,7 @@ class MasterViewModel @ViewModelInject constructor(
                 .subscribe(
                     {
 //                        }
-                        Log.d(TAG, "#result FUSER trying add all ${it}")
+//                        Log.d(TAG, "#result FUSER trying add all ${it}")
 //                        getFCustomerUseCase.addCacheListFCustomer(it)
 
                     },
@@ -100,7 +100,7 @@ class MasterViewModel @ViewModelInject constructor(
                 .subscribeOn(Schedulers.io())
                 .subscribe(
                     {
-                            Log.d(TAG, "#result MATERIAL trying add all ${it}")
+//                            Log.d(TAG, "#result MATERIAL trying add all ${it}")
                         listFMaterialEntityMutableLive.value = it
 
                     },
@@ -116,44 +116,41 @@ class MasterViewModel @ViewModelInject constructor(
         )
     }
 
+    fun getFMaterialGroup3FromRepo(): Observable<List<FMaterialGroup3Entity>>  {
+        return   getFMaterialGroup3Group3UseCase.getRemoteAllFMaterialGroup3(SecurityUtil.getAuthHeader(userActive.username, userActive.passwordConfirm)).toObservable()
+    }
     fun getFMaterialFromRepo(): Observable<List<FMaterialEntity>>  {
-        return   getFMaterialUseCase.getRemoteAllFMaterialByDivision(SecurityUtil.getAuthHeader(userActive.username, userActive.passwordConfirm), 92082).toObservable()
+//        92082
+        return   getFMaterialUseCase.getRemoteAllFMaterialByDivision(SecurityUtil.getAuthHeader(userActive.username, userActive.passwordConfirm), userActive.fdivisionBean).toObservable()
 
     }
 
     fun getFCustomerFromRepo(): Observable<List<FCustomerEntity>>  {
-        return   getFCustomerUseCase.getRemoteAllFCustomerByDivision(SecurityUtil.getAuthHeader(userActive.username, userActive.passwordConfirm), 92082).toObservable()
+        return   getFCustomerUseCase.getRemoteAllFCustomerByDivision(SecurityUtil.getAuthHeader(userActive.username, userActive.passwordConfirm), userActive.fdivisionBean).toObservable()
 
     }
-    fun subscribeCustomerFromRepoX(){
-        DisposableManager.add(
-            getFCustomerUseCase.getRemoteAllFCustomerByDivision(SecurityUtil.getAuthHeader(userActive.username, userActive.passwordConfirm), 92082)
-                .toObservable()
-                .map { data -> data.map {
-                    it.oldKode1 = "Balik Lagi"
-                    it.address1 = "Malang Semua"
-                    it
-                } }
-                .observeOn(AndroidSchedulers.mainThread())
+
+    fun insertCacheFMaterialGroup3(list: List<FMaterialGroup3Entity>){
+
+        DisposableManager.add(Observable.fromCallable {
+            getFMaterialGroup3Group3UseCase.addCacheListFMaterialGroup3(list)
+        }
                 .subscribeOn(Schedulers.io())
-                .subscribe(
-                    {
-                            listFCustomerEntityMutableLive.value = it
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe (
+                        {
+                            Log.d(TAG, "#result Saved To Insert FMaterialGroup3 ${it .toString()}")
+                        },
+                        {
+                            Log.d(TAG, "#result FMaterialGroup3 error  ${it.message}")
 
-                    },
-                    {
-                        Log.d(TAG, "#result CUSTOMER error add all")
-//                            error -> Log.e(TAG, error.printStackTrace())
-                    } ,
-                    {
-                    }
+                        },
+                        {
 
-            )
-
+                        }
+                )
         )
-
     }
-
 
     fun insertCacheFMaterial(listFMaterialEntity:  List<FMaterialEntity>){
 
@@ -166,7 +163,7 @@ class MasterViewModel @ViewModelInject constructor(
                     {
                     },
                     {
-                        Log.d(TAG, "#result MATERIAL error  ${it.message}")
+                        Log.d(TAG, "#result FMaterial error  ${it.message}")
 
                     },
                     {
@@ -186,12 +183,18 @@ class MasterViewModel @ViewModelInject constructor(
         )
     }
 
+    fun getCacheFMaterialGroup3Live(): LiveData<List<FMaterialGroup3Entity>> {
+        return getFMaterialGroup3Group3UseCase.getCacheAllFMaterialGroup3()
+    }
     fun getCacheFMaterialLive(): LiveData<List<FMaterialEntity>> {
         return getFMaterialUseCase.getCacheAllFMaterial()
     }
     fun getCacheFCustomerLive(): LiveData<List<FCustomerEntity>> {
         return getFCustomerUseCase.getCacheAllFCustomer()
     }
+
+
+
 
     fun fetchFAreaFromRepo() {
         DisposableManager.add(
@@ -201,13 +204,13 @@ class MasterViewModel @ViewModelInject constructor(
                         .subscribeOn(Schedulers.io())
                         .subscribe(
                                 {
-                                    Log.d(TAG, "#result CUSTOMER trying add all ${it}")
+//                                    Log.d(TAG, "#result CUSTOMER trying add all ${it}")
 //                                   getFCustomerUseCase.addCacheListFCustomer(it)
 //                                    insertCacheFArea(it)
 
                                 },
                                 {
-                                    Log.d(TAG, "#result CUSTOMER error add all")
+//                                    Log.d(TAG, "#result CUSTOMER error add all")
 //                            error -> Log.e(TAG, error.printStackTrace())
                                 } ,
                                 {

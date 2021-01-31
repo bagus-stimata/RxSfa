@@ -5,6 +5,7 @@ import com.erp.distribution.sfa.data.di.SortOrder
 import com.erp.distribution.sfa.domain.repository.FMaterialRepository
 import com.erp.distribution.sfa.domain.usecase.base.SingleUseCase
 import com.erp.distribution.sfa.data.source.entity.FMaterialEntity
+import com.erp.distribution.sfa.domain.model.FMaterial
 import io.reactivex.Single
 import kotlinx.coroutines.flow.Flow
 import javax.inject.Inject
@@ -48,6 +49,9 @@ class GetFMaterialUseCase @Inject constructor(private val repository: FMaterialR
     fun getCacheAllFMaterialFlow(query: String, sortOrder: SortOrder, hideSelected: Boolean): Flow<List<FMaterialEntity>> {
         return repository.getCacheAllFMaterialFlow(query, sortOrder, hideSelected)
     }
+    fun getCacheAllFMaterialDomainFlow(query: String, sortOrder: SortOrder, hideSelected: Boolean): Flow<List<FMaterial>> {
+        return repository.getCacheAllFMaterialDomainFlow(query, sortOrder, hideSelected)
+    }
     fun getCacheFMaterialById(id: Int): LiveData<FMaterialEntity>{
         return repository.getCacheFMaterialById(id)
     }
@@ -57,14 +61,23 @@ class GetFMaterialUseCase @Inject constructor(private val repository: FMaterialR
     fun addCacheFMaterial(fMaterialEntity: FMaterialEntity){
         repository.addCacheFMaterial(fMaterialEntity)
     }
+    fun addCacheFMaterialDomain(fMaterial: FMaterial){
+        repository.addCacheFMaterialDomain(fMaterial)
+    }
     fun addCacheListFMaterial(list: List<FMaterialEntity>){
         repository.addCacheListFMaterial(list)
     }
     fun putCacheFMaterial(fMaterialEntity: FMaterialEntity){
         repository.putCacheFMaterial(fMaterialEntity)
     }
+    fun putCacheFMaterialDomain(fMaterial: FMaterial){
+        repository.putCacheFMaterialDomain(fMaterial)
+    }
     fun deleteCacheFMaterial(fMaterialEntity: FMaterialEntity){
         repository.deleteCacheFMaterial(fMaterialEntity)
+    }
+    fun deleteCacheFMaterialDomain(fMaterial: FMaterial){
+        repository.deleteCacheFMaterialDomain(fMaterial)
     }
     fun deleteAllCacheFMaterial(){
         repository.deleteAllCacheFMaterial()

@@ -1,15 +1,16 @@
-package com.erp.distribution.sfa.presentation.ui.master.syncronize_fromserver
+package com.erp.distribution.sfa.presentation.ui.syncronize_fromserver
 
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
 import com.erp.distribution.sfa.R
 import com.erp.distribution.sfa.databinding.ActivitySyncronizeBinding
-import com.erp.distribution.sfa.presentation.ui.master.MasterViewModel
 import com.erp.distribution.sfa.data.source.entity.FCustomerEntity
 import com.erp.distribution.sfa.data.source.entity.FMaterialEntity
+import com.erp.distribution.sfa.data.source.entity.FMaterialGroup3Entity
 import com.erp.distribution.sfa.data.source.entity_security.FUser
 import dagger.hilt.android.AndroidEntryPoint
 import io.reactivex.android.schedulers.AndroidSchedulers
@@ -22,7 +23,7 @@ class SyncronizeActivity : AppCompatActivity() {
     private val TAG = SyncronizeActivity::class.java.simpleName
     private val compositeDisposable = CompositeDisposable()
 
-    val viewModel: MasterViewModel by viewModels<MasterViewModel> ()
+    val viewModel: SyncViewModel by viewModels<SyncViewModel> ()
     lateinit var binding: ActivitySyncronizeBinding
 
 
@@ -45,11 +46,61 @@ class SyncronizeActivity : AppCompatActivity() {
 
         setupObservable()
 
-        viewModel.subscribeFMaterialFromRepo()
+//        viewModel.subscribeFMaterialFromRepo()
 //        viewModel.subscribeCustomerFromRepo() pakai bawah bos cara lain
     }
 
     fun setupObservable() {
+
+
+
+
+        viewModel.getCacheFMaterialGroup3Live().observe(this, Observer {
+            when (it) {
+                null, emptyList<FMaterialGroup3Entity>() -> {
+//                    viewModel.checkList1 = "trying.. Sync Material/Product (empty)"
+                }
+                else -> {
+//                    viewModel.checkList1 = "Product Selesai, sejumlah ${it.size} items"
+//                    if (!viewModel.checkList1.contains("trying..")) {
+                        binding.progressBar.setIndeterminate(false)
+                        var currentProcess = binding.progressBar.progress +10
+                        binding.progressBar.progress = currentProcess
+                        binding.progressText.text = "${currentProcess}%"
+                        if (currentProcess ==100){
+                            viewModel.isLoading = false;
+                        }
+//                    }
+                }
+            }
+            binding.masterViewModel = this.viewModel
+        })
+        val observerFMaterialGroup3 = viewModel.getFMaterialGroup3FromRepo()
+                .map { data ->
+                    data.map {
+                        it.modified = Date()
+                        it.created = Date()
+                        it.modifiedBy = viewModel.userActive.username
+                        it.isStatusActive=false
+                        it
+                    }
+                }
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribeOn(Schedulers.io())
+                .subscribe(
+                        {
+//                            Log.d(TAG, "#result Ready To Insert FMaterialGroup3  ${it}")
+                            viewModel.insertCacheFMaterialGroup3(it as List<FMaterialGroup3Entity>)
+                        },
+                        {
+                            Log.d(TAG, "#result Fetch FMaterialGroup3 error  ${it.message}")
+                        },
+                        {
+                        }
+                )
+
+        compositeDisposable.add(observerFMaterialGroup3)
+
 
 
         viewModel.getCacheFMaterialLive() .observe(this, Observer {
@@ -61,7 +112,7 @@ class SyncronizeActivity : AppCompatActivity() {
                     viewModel.checkList1 = "Product Selesai, sejumlah ${it.size} items"
                     if (!viewModel.checkList1.contains("trying..")) {
                         binding.progressBar.setIndeterminate(false)
-                        var currentProcess = binding.progressBar.progress +50
+                        var currentProcess = binding.progressBar.progress +45
                         binding.progressBar.progress = currentProcess
                         binding.progressText.text = "${currentProcess}%"
                         if (currentProcess ==100){
@@ -74,18 +125,40 @@ class SyncronizeActivity : AppCompatActivity() {
             binding.masterViewModel = this.viewModel
         })
 
-        viewModel.listFMaterialEntityMutableLive.observe(this, Observer {
-            when (it) {
-                null, emptyList<FMaterialEntity>() -> {
+//        viewModel.listFMaterialEntityMutableLive.observe(this, Observer {
+//            when (it) {
+//                null, emptyList<FMaterialEntity>() -> {
+//
+//                }
+//                else -> {
+//                    viewModel.insertCacheFMaterial(it)
+//                }
+//            }
+//        })
 
+
+        val observerFMaterial = viewModel.getFMaterialFromRepo()
+                .map { data ->
+                    data.map {
+                        it.modified = Date()
+                        it.created = Date()
+                        it.modifiedBy = viewModel.userActive.username
+                        it
+                    }
                 }
-                else -> {
-                    viewModel.insertCacheFMaterial(it)
-                }
-            }
-        })
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribeOn(Schedulers.io())
+                .subscribe(
+                        {
+                            viewModel.insertCacheFMaterial(it as List<FMaterialEntity>)
+                        },
+                        {
+                        },
+                        {
 
-
+                        }
+                )
+        compositeDisposable.add(observerFMaterial)
 
         viewModel.getCacheFCustomerLive().observe(this, Observer {
             when (it) {
@@ -96,7 +169,7 @@ class SyncronizeActivity : AppCompatActivity() {
                     viewModel.checkList2 = "Customer Selesai, sejumlah ${it.size} items"
                     if (!viewModel.checkList2.contains("trying..")) {
                         binding.progressBar.setIndeterminate(false)
-                        var currentProcess = binding.progressBar.progress +50
+                        var currentProcess = binding.progressBar.progress +45
                         binding.progressBar.progress = currentProcess
                         binding.progressText.text = "${currentProcess}%"
                         if (currentProcess >=100){
@@ -136,13 +209,11 @@ class SyncronizeActivity : AppCompatActivity() {
                         viewModel.insertCacheFCustomer(it as List<FCustomerEntity>)
                     },
                     {
-
                     },
                     {
 
                     }
             )
-
         compositeDisposable.add(observerCustomer)
 
 

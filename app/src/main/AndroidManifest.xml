@@ -29,7 +29,7 @@
             android:theme="@style/AppTheme.NoActionBar"/>
 
         <activity android:name=".presentation.ui.LoginActivity"/>
-        <activity android:name="com.erp.distribution.sfa.presentation.ui.master.syncronize_fromserver.SyncronizeActivity"/>
+        <activity android:name="com.erp.distribution.sfa.presentation.ui.syncronize_fromserver.SyncronizeActivity"/>
         <activity android:name="com.erp.distribution.sfa.presentation.ui.master.material_lama.MaterialActivity"/>
         <activity android:name="com.erp.distribution.sfa.presentation.ui.material.FMaterialActivity" android:parentActivityName=".presentation.ui.MainActivity"/>
         <activity android:name="com.erp.distribution.sfa.presentation.ui.customer.CustomerActivity" android:parentActivityName=".presentation.ui.MainActivity"/>

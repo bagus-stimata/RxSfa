@@ -3,11 +3,15 @@ package com.erp.distribution.sfa.data.source.entity
 import android.os.Parcelable
 import androidx.room.Entity
 import androidx.room.PrimaryKey
+import com.erp.distribution.sfa.data.base.EntityMapper
 import com.erp.distribution.sfa.data.base.ModelEntity
 import com.erp.distribution.sfa.data.source.entity.modelenum.EnumUom
+import com.erp.distribution.sfa.domain.model.FMaterial
+import com.erp.distribution.sfa.domain.model.FMaterialGroup3
 import kotlinx.android.parcel.Parcelize
 import java.text.DateFormat
 import java.util.*
+import javax.inject.Inject
 
 //@Entity(tableName = "fmaterial")
 @Parcelize
@@ -196,3 +200,27 @@ data class FMaterialEntity  (
     val createdDateFormatted: String
         get() = DateFormat.getDateTimeInstance().format(created)
 }
+
+class FMaterialEntityMapper @Inject constructor(
+        private val fMaterialGroup3EntityMapper: FMaterialGroup3EntityMapper
+): EntityMapper<FMaterial, FMaterialEntity>{
+    override fun mapToDomain(entity: FMaterialEntity): FMaterial  = FMaterial(
+            id = entity.id,
+            pcode = entity.pcode,
+            pname = entity.pname,
+            fdivisionBean = entity.fdivisionBean,
+//            fmaterialGroup3Bean = entity.fmaterialGroup3Bean?.let { fMaterialGroup3EntityMapper.mapToDomain(it) }
+//            fmaterialGroup3Bean =   entity.fmaterialGroup3Bean
+    )
+
+    override fun mapToEntity(model: FMaterial): FMaterialEntity = FMaterialEntity(
+            id = model.id,
+            pcode = model.pcode,
+            pname = model.pname,
+            fdivisionBean = model.fdivisionBean,
+//            fmaterialGroup3Bean =  model.fmaterialGroup3Bean
+    )
+
+}
+
+

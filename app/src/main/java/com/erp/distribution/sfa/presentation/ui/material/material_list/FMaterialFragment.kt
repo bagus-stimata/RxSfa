@@ -19,6 +19,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.erp.distribution.sfa.data.di.SortOrder
 import com.erp.distribution.sfa.data.source.entity.FMaterialEntity
 import com.erp.distribution.sfa.databinding.FragmentFmaterialBinding
+import com.erp.distribution.sfa.domain.model.FMaterial
 import com.erp.distribution.sfa.presentation.ui.utils.AlertDialogConfirm
 import com.erp.distribution.sfa.presentation.ui.utils.AlertDialogWarning
 import com.erp.distribution.sfa.presentation.ui.utils.onQueryTextChanged
@@ -103,7 +104,7 @@ class FMaterialFragment : Fragment(R.layout.fragment_fmaterial), FMaterialAdapte
                     is FMaterialViewModel.FMaterialEvent.ShowUndoDeleteFMaterialMessage -> {
                         Snackbar.make(requireView(), "Material deleted", Snackbar.LENGTH_LONG)
                             .setAction("UNDO") {
-                                viewModelFMaterial.onUndoDeleteClick(event.fMaterialEntity)
+                                viewModelFMaterial.onUndoDeleteClick(event.fMaterial)
                             }.show()
                     }
                     is FMaterialViewModel.FMaterialEvent.NavigateToAddFMaterialScreen -> {
@@ -117,7 +118,7 @@ class FMaterialFragment : Fragment(R.layout.fragment_fmaterial), FMaterialAdapte
                     is FMaterialViewModel.FMaterialEvent.NavigateToEditFMaterialScreen -> {
                         val action =
                             FMaterialFragmentDirections.actionMaterialFragmentToMaterialFragmentAddEdit(
-                                event.fMaterialEntity,
+                                event.fMaterial,
                                 "Edit Material"
                             )
                         findNavController().navigate(action)
@@ -159,12 +160,12 @@ class FMaterialFragment : Fragment(R.layout.fragment_fmaterial), FMaterialAdapte
         setHasOptionsMenu(true)
     }
 
-    override fun onItemClick(fMaterialEntity: FMaterialEntity) {
-        viewModelFMaterial.onItemSelected(fMaterialEntity)
+    override fun onItemClick(fmaterial: FMaterial) {
+        viewModelFMaterial.onItemSelected(fmaterial)
     }
 
-    override fun onCheckBoxClick(fMaterialEntity: FMaterialEntity, isChecked: Boolean) {
-        viewModelFMaterial.onItemCheckedChanged(fMaterialEntity, isChecked)
+    override fun onCheckBoxClick(fmaterial: FMaterial, isChecked: Boolean) {
+        viewModelFMaterial.onItemCheckedChanged(fmaterial, isChecked)
     }
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {

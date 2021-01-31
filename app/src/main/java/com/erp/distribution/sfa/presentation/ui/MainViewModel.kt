@@ -201,6 +201,7 @@ class MainViewModel  @ViewModelInject constructor(
                .observeOn(AndroidSchedulers.mainThread())
                 .subscribeOn(Schedulers.computation())
                 .subscribe {
+
                 }
         )
 
@@ -244,8 +245,14 @@ class MainViewModel  @ViewModelInject constructor(
 
 
     fun getRemoteFDivision(fUser: FUser): Single<FDivisionEntity> {
+        /**
+         * 1. Cari Divisinya -> Dapat Kode Company
+         * 2. Cari List Divivsi yan companynya sama
+         */
+
         return getFDivisionUseCase.getRemoteFDivisionById(SecurityUtil.getAuthHeader(fUser.username, fUser.password), fUser.fdivisionBean)
     }
+
     fun getRemoteFSalesman(fUser: FUser): Single<FSalesmanEntity> {
         return getFSalesmanUseCase.getRemoteFSalesmanById(SecurityUtil.getAuthHeader(fUser.username, fUser.password), fUser.fsalesmanBean)
     }

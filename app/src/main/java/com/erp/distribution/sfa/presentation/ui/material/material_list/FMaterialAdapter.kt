@@ -9,12 +9,13 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.erp.distribution.sfa.data.source.entity.FMaterialEntity
 import com.erp.distribution.sfa.databinding.AdapterRvItemFmaterialBinding
+import com.erp.distribution.sfa.domain.model.FMaterial
 import com.erp.distribution.sfa.presentation.ui.master.material_lama.adapter.NoteAdapter
 import java.text.NumberFormat
 import java.text.SimpleDateFormat
 
 class FMaterialAdapter(private val listener: OnItemClickListener) :
-    ListAdapter<FMaterialEntity, FMaterialAdapter.FMaterialViewHolder>(DiffCallback()) {
+    ListAdapter<FMaterial, FMaterialAdapter.FMaterialViewHolder>(DiffCallback()) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): FMaterialViewHolder {
         val binding = AdapterRvItemFmaterialBinding.inflate(LayoutInflater.from(parent.context), parent, false)
@@ -54,7 +55,7 @@ class FMaterialAdapter(private val listener: OnItemClickListener) :
             }
         }
 
-        fun bind(item: FMaterialEntity) {
+        fun bind(item: FMaterial) {
             binding.apply {
 
                 nf.maximumFractionDigits = 0
@@ -72,6 +73,8 @@ class FMaterialAdapter(private val listener: OnItemClickListener) :
 
                 txtStock.text = item.minQtyStok.toString()
 
+
+
                 imgStar.visibility = View.GONE
             }
 
@@ -80,15 +83,15 @@ class FMaterialAdapter(private val listener: OnItemClickListener) :
     }
 
     interface OnItemClickListener {
-        fun onItemClick(item: FMaterialEntity)
-        fun onCheckBoxClick(item: FMaterialEntity, isChecked: Boolean)
+        fun onItemClick(item: FMaterial)
+        fun onCheckBoxClick(item: FMaterial, isChecked: Boolean)
     }
 
-    class DiffCallback : DiffUtil.ItemCallback<FMaterialEntity>() {
-        override fun areItemsTheSame(oldItem: FMaterialEntity, newItem: FMaterialEntity) =
+    class DiffCallback : DiffUtil.ItemCallback<FMaterial>() {
+        override fun areItemsTheSame(oldItem: FMaterial, newItem: FMaterial) =
             oldItem.id == newItem.id
 
-        override fun areContentsTheSame(oldItem: FMaterialEntity, newItem: FMaterialEntity) =
+        override fun areContentsTheSame(oldItem: FMaterial, newItem: FMaterial) =
             oldItem.pcode == newItem.pcode
     }
 }

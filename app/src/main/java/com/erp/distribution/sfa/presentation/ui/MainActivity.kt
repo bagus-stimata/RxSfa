@@ -16,7 +16,7 @@ import androidx.databinding.DataBindingUtil
 import com.erp.distribution.sfa.R
 import com.erp.distribution.sfa.databinding.ActivityMainDashboardBinding
 import com.erp.distribution.sfa.presentation.ui.utils.AlertDialogConfirm
-import com.erp.distribution.sfa.presentation.ui.master.syncronize_fromserver.SyncronizeActivity
+import com.erp.distribution.sfa.presentation.ui.syncronize_fromserver.SyncronizeActivity
 import com.erp.distribution.sfa.data.source.entity_security.FUser
 import com.erp.distribution.sfa.presentation.ui.customer.CustomerActivity
 import com.erp.distribution.sfa.presentation.ui.material.FMaterialActivity
@@ -190,8 +190,8 @@ class MainActivity : AppCompatActivity() {
 
             val observer = mainViewModel.getRemoteFUserByUser(resultObject)
                     .toObservable()
-                    .subscribeOn(Schedulers.io())
                     .observeOn(AndroidSchedulers.mainThread())
+                    .subscribeOn(Schedulers.io())
                     .map {
                         it.lastModified = Date()
                         it.created = Date()
@@ -227,19 +227,19 @@ class MainActivity : AppCompatActivity() {
 
             val observerAll = mainViewModel.fetchFUserFromRepo()
                 .toObservable()
-                .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
+                .subscribeOn(Schedulers.io())
                 .map {
                     it
                 }
                 .subscribe(
                     {
 //                        val newFUser = it
-                        Log.d(TAG, "#result FUSER Login trying add all ${it}")
+                        Log.d(TAG, "#result FUser Login trying add all ${it}")
 
                     },
                     {
-                        Log.d(TAG, "#result FUSER Login  error add all")
+                        Log.d(TAG, "#result FUser Login  error add all")
                     },
                     {
                     }

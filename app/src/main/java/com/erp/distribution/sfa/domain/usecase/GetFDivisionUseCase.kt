@@ -25,7 +25,7 @@ class GetFDivisionUseCase @Inject constructor(private val repository: FDivisionR
     fun getRemoteFDivisionById(authHeader: String, id: Int): Single<FDivisionEntity>{
         return repository.getRemoteFDivisionById(authHeader, id)
     }
-    fun getRemoteAllFDivisionByDivision(authHeader: String, divisionId: Int): Single<List<FDivisionEntity>>{
+    fun getRemoteAllFDivisionByCompany(authHeader: String, divisionId: Int): Single<List<FDivisionEntity>>{
         return repository.getRemoteAllFDivisionByParent(authHeader, divisionId)
     }
     fun createRemoteFDivision(authHeader: String, fDivisionEntity: FDivisionEntity): Single<FDivisionEntity>{

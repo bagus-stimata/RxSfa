@@ -5,7 +5,11 @@ import com.erp.distribution.sfa.data.source.remote.service_api.RetrofitServiceFM
 import com.erp.distribution.sfa.data.source.local.database.AppDatabase
 import com.erp.distribution.sfa.domain.repository.FMaterialGroup3Repository
 import com.erp.distribution.sfa.data.source.entity.FMaterialGroup3Entity
+import com.erp.distribution.sfa.data.source.entity.FMaterialGroup3EntityMapper
+import com.erp.distribution.sfa.domain.model.FMaterialGroup3
 import io.reactivex.Single
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.map
 
 
 /**
@@ -14,7 +18,8 @@ import io.reactivex.Single
  * */
 class FMaterialGroup3RepositoryImpl(
     private val appDatabase: AppDatabase,
-    private val retrofitService: RetrofitServiceFMaterialGroup3
+    private val retrofitService: RetrofitServiceFMaterialGroup3,
+    private val fMaterialGroup3EntityMapper: FMaterialGroup3EntityMapper
 ) : FMaterialGroup3Repository {
 
     override fun getRemoteAllFMaterialGroup3(authHeader: String ): Single<List<FMaterialGroup3Entity>> {
@@ -46,35 +51,69 @@ class FMaterialGroup3RepositoryImpl(
     override fun getCacheAllFMaterialGroup3(): LiveData<List<FMaterialGroup3Entity>> {
         return appDatabase.materialGroup3Dao.getAllFMaterialGroup3EntityLive
     }
+    override fun getCacheAllFMaterialGroup3DomainFlow(): Flow<List<FMaterialGroup3>> {
+        return appDatabase.materialGroup3Dao.getAllFMaterialGroup3EntityFlow
+                .map { data ->
+                    data.map {
+                        fMaterialGroup3EntityMapper.mapToDomain(it)
+                    }
+                }
+    }
 
     override fun getCacheFMaterialGroup3ById(id: Int): LiveData<FMaterialGroup3Entity> {
         return appDatabase.materialGroup3Dao.getAllByIdLive(id)
+    }
+    override fun getCacheFMaterialGroup3ByIdDomainFlow(id: Int): Flow<FMaterialGroup3> {
+        return appDatabase.materialGroup3Dao.getAllByIdEntityFlow(id)
+                .map {
+                        fMaterialGroup3EntityMapper.mapToDomain(it)
+                }
+
     }
 
     override fun getCacheAllFMaterialGroup3ByParent(divisionId: Int): LiveData<List<FMaterialGroup3Entity>> {
         return appDatabase.materialGroup3Dao.getAllByParentLive(divisionId)
     }
+    override fun getCacheAllFMaterialGroup3ByParentDomainFlow(parentId: Int): Flow<List<FMaterialGroup3>> {
+        return appDatabase.materialGroup3Dao.getAllByParentFlow(parentId)
+                .map { data ->
+                    data.map {
+                        fMaterialGroup3EntityMapper.mapToDomain(it)
+                    }
+                }
+
+    }
+
+    override fun addCacheListFMaterialGroup3(list: List<FMaterialGroup3Entity>) {
+        return appDatabase.materialGroup3Dao.insertAll(list)
+    }
 
     override fun addCacheFMaterialGroup3(fMaterialGroup3Entity: FMaterialGroup3Entity) {
         return appDatabase.materialGroup3Dao.insert(fMaterialGroup3Entity)
+    }
+    override fun addCacheFMaterialGroup3Domain(fMaterialGroup3: FMaterialGroup3) {
+        return appDatabase.materialGroup3Dao.insert(fMaterialGroup3EntityMapper.mapToEntity(fMaterialGroup3))
     }
 
     override fun putCacheFMaterialGroup3(fMaterialGroup3Entity: FMaterialGroup3Entity) {
         return appDatabase.materialGroup3Dao.update(fMaterialGroup3Entity)
     }
+    override fun putCacheFMaterialGroup3Domain(fMaterialGroup3: FMaterialGroup3) {
+        return appDatabase.materialGroup3Dao.update(fMaterialGroup3EntityMapper.mapToEntity(fMaterialGroup3))
+    }
 
     override fun deleteCacheFMaterialGroup3(fMaterialGroup3Entity: FMaterialGroup3Entity) {
         return appDatabase.materialGroup3Dao.delete(fMaterialGroup3Entity)
     }
+    override fun deleteCacheFMaterialGroup3Domain(fMaterialGroup3: FMaterialGroup3) {
+        return appDatabase.materialGroup3Dao.delete(fMaterialGroup3EntityMapper.mapToEntity(fMaterialGroup3))
+    }
 
-    override fun deleteAllCacheData() {
+    override fun deleteAllCacheFMaterialGroup3() {
         return appDatabase.materialGroup3Dao.deleteAllFMaterialGroup3()
     }
 
 
-//    override fun getRemoteAllData(): Single<List<FMaterialGroup3>> {
-//        return retrofitService.getRemoteAllFMaterialGroup3(authHeader)
-//    }
 
 
 }

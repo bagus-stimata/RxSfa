@@ -3,6 +3,8 @@ package com.erp.distribution.sfa.data.source.local.dao
 import androidx.lifecycle.LiveData
 import androidx.room.*
 import com.erp.distribution.sfa.data.source.entity.FMaterialGroup3Entity
+import com.erp.distribution.sfa.domain.model.FMaterialGroup3
+import kotlinx.coroutines.flow.Flow
 
 /**
  * Dao ini belum di koneksikan dengan database manapun
@@ -32,12 +34,16 @@ interface FMaterialGroup3Dao {
     fun getAllById(id: Int): FMaterialGroup3Entity
     @Query("SELECT * FROM fMaterialGroup3 WHERE id = :id ")
     fun getAllByIdLive(id: Int): LiveData<FMaterialGroup3Entity>
+    @Query("SELECT * FROM fMaterialGroup3 WHERE id = :id ")
+    fun getAllByIdEntityFlow(id: Int): Flow<FMaterialGroup3Entity>
 
 
     @get:Query("SELECT * FROM fMaterialGroup3 ")
     val getAllFMaterialGroup3Entity: List<FMaterialGroup3Entity>
     @get:Query("SELECT * FROM fMaterialGroup3 ")
     val getAllFMaterialGroup3EntityLive: LiveData<List<FMaterialGroup3Entity>>
+    @get:Query("SELECT * FROM fMaterialGroup3 ")
+    val getAllFMaterialGroup3EntityFlow: Flow<List<FMaterialGroup3Entity>>
 
     @Query("SELECT * FROM fMaterialGroup3 WHERE kode1 LIKE :kode1 ")
     fun getAllFMaterialGroup3ByKode(kode1: String): List<FMaterialGroup3Entity>
@@ -50,5 +56,7 @@ interface FMaterialGroup3Dao {
 
     @Query("SELECT * FROM fMaterialGroup3 WHERE fmaterialGroup2Bean = :parentId ")
     fun getAllByParentLive(parentId: Int): LiveData<List<FMaterialGroup3Entity>>
+    @Query("SELECT * FROM fMaterialGroup3 WHERE fmaterialGroup2Bean = :parentId ")
+    fun getAllByParentFlow(parentId: Int): Flow<List<FMaterialGroup3Entity>>
 
 }

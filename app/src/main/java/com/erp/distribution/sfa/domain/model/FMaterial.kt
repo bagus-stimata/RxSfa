@@ -110,8 +110,9 @@ data class FMaterial  (
 
     //	@ManyToOne
     //	@JoinColumn(name="fmaterialGroup3Bean", referencedColumnName="ID")
-    //	private FMaterialGroup3 fmaterialGroup3Bean;
-    var fmaterialGroup3Bean : Int =0,
+//    var FMaterialGroup3 fmaterialGroup3Bean;
+//    var fmaterialGroup3Bean : Int =0,
+    var fmaterialGroup3Bean : FMaterialGroup3= FMaterialGroup3(),
 
     /*
     * KLASIFIKASI: SALES
