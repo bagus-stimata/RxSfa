@@ -144,10 +144,10 @@ class SyncViewModel @ViewModelInject constructor(
                         .subscribeOn(Schedulers.io())
                         .subscribe(
                                 {
-                                    it.iterator().forEach {
-                                        Log.d(TAG, "#result Fetch FDivison Sukses  ${it.kode1}")
-                                    }
-//                                    insertCacheFDivision(it)
+//                                    it.iterator().forEach {
+//                                        Log.d(TAG, "#result Fetch FDivison Sukses  ${it.kode1}")
+//                                    }
+                                    insertCacheFDivision(it)
                                 },
                                 {
                                     Log.d(TAG, "#result Fetch FDivison error  ${it}")
@@ -233,9 +233,10 @@ class SyncViewModel @ViewModelInject constructor(
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe (
                     {
+//                        Log.d(TAG, "#result Insert FMaterial Suscess  ${it}")
                     },
                     {
-                        Log.d(TAG, "#result FMaterial error  ${it.message}")
+                        Log.d(TAG, "#result Insert FMaterial error  ${it.message}")
 
                     },
                     {

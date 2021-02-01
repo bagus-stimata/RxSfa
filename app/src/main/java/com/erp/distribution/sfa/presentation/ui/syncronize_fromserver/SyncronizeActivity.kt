@@ -66,7 +66,6 @@ class SyncronizeActivity : AppCompatActivity() {
                 .subscribeOn(Schedulers.io())
                 .subscribe(
                         {
-//                            Log.d(TAG, "#result Ready To Insert FMaterialGroup3  ${it}")
                             viewModel.subscribeListFdivisionByParent_FromRepo(it)
                         },
                         {
@@ -78,30 +77,6 @@ class SyncronizeActivity : AppCompatActivity() {
 
         compositeDisposable.add(observerFDivision)
 
-//        val observerListFDivision = viewModel.getFDivisionFromRepo_FromId()
-//                .map {
-//                    it.modified = Date()
-//                    it.created = Date()
-//                    it.modifiedBy = viewModel.userActive.username
-//                    it.isStatusActive=true
-//                    it
-//                }
-//                .observeOn(AndroidSchedulers.mainThread())
-//                .subscribeOn(Schedulers.io())
-//                .subscribe(
-//                        {
-//                            viewModel.getListFDivisionByParentFromRepo(it)
-//                        },
-//                        {
-//                            Log.d(TAG, "#result Fetch FMaterialGroup3 error  ${it.message}")
-//                        },
-//                        {
-//                        }
-//                )
-//
-//        compositeDisposable.add(observerListFDivision)
-
-
 
         viewModel.getCacheFMaterialGroup3Live().observe(this, Observer {
             when (it) {
@@ -111,13 +86,13 @@ class SyncronizeActivity : AppCompatActivity() {
                 else -> {
 //                    viewModel.checkList1 = "Product Selesai, sejumlah ${it.size} items"
 //                    if (!viewModel.checkList1.contains("trying..")) {
-                        binding.progressBar.setIndeterminate(false)
-                        var currentProcess = binding.progressBar.progress +10
-                        binding.progressBar.progress = currentProcess
-                        binding.progressText.text = "${currentProcess}%"
-                        if (currentProcess ==100){
-                            viewModel.isLoading = false;
-                        }
+//                        binding.progressBar.setIndeterminate(false)
+//                        var currentProcess = binding.progressBar.progress +10
+//                        binding.progressBar.progress = currentProcess
+//                        binding.progressText.text = "${currentProcess}%"
+//                        if (currentProcess ==100){
+//                            viewModel.isLoading = false;
+//                        }
 //                    }
                 }
             }
@@ -151,6 +126,16 @@ class SyncronizeActivity : AppCompatActivity() {
 
 
 
+
+
+        setupObservableFMaterial()
+//        setupObservableFCustomer()
+
+
+    }
+
+    fun setupObservableFMaterial() {
+
         viewModel.getCacheFMaterialLive() .observe(this, Observer {
             when (it) {
                 null, emptyList<FMaterialEntity>() -> {
@@ -160,30 +145,18 @@ class SyncronizeActivity : AppCompatActivity() {
                     viewModel.checkList1 = "Product Selesai, sejumlah ${it.size} items"
                     if (!viewModel.checkList1.contains("trying..")) {
                         binding.progressBar.setIndeterminate(false)
-                        var currentProcess = binding.progressBar.progress +45
+                        var currentProcess = binding.progressBar.progress +50
                         binding.progressBar.progress = currentProcess
                         binding.progressText.text = "${currentProcess}%"
                         if (currentProcess ==100){
                             viewModel.isLoading = false;
                         }
-
                     }
+
                 }
             }
             binding.masterViewModel = this.viewModel
         })
-
-//        viewModel.listFMaterialEntityMutableLive.observe(this, Observer {
-//            when (it) {
-//                null, emptyList<FMaterialEntity>() -> {
-//
-//                }
-//                else -> {
-//                    viewModel.insertCacheFMaterial(it)
-//                }
-//            }
-//        })
-
 
         val observerFMaterial = viewModel.getFMaterialFromRepo()
                 .map { data ->
@@ -199,8 +172,10 @@ class SyncronizeActivity : AppCompatActivity() {
                 .subscribe(
                         {
                             viewModel.insertCacheFMaterial(it as List<FMaterialEntity>)
+                            Log.d(TAG, "#result InsertCache FMaterial Success")
                         },
                         {
+                            Log.d(TAG, "#result InsertCache FMaterial error  ${it.message}")
                         },
                         {
 
@@ -208,6 +183,10 @@ class SyncronizeActivity : AppCompatActivity() {
                 )
         compositeDisposable.add(observerFMaterial)
 
+
+    }
+
+    fun setupObservableFCustomer() {
         viewModel.getCacheFCustomerLive().observe(this, Observer {
             when (it) {
                 null, emptyList<FCustomerEntity>() -> {
@@ -217,7 +196,7 @@ class SyncronizeActivity : AppCompatActivity() {
                     viewModel.checkList2 = "Customer Selesai, sejumlah ${it.size} items"
                     if (!viewModel.checkList2.contains("trying..")) {
                         binding.progressBar.setIndeterminate(false)
-                        var currentProcess = binding.progressBar.progress +45
+                        var currentProcess = binding.progressBar.progress +50
                         binding.progressBar.progress = currentProcess
                         binding.progressText.text = "${currentProcess}%"
                         if (currentProcess >=100){
@@ -230,40 +209,28 @@ class SyncronizeActivity : AppCompatActivity() {
             binding.masterViewModel = this.viewModel
         })
 
-//        viewModel.listFCustomerMutableLive.observe(this, Observer {
-//            when (it) {
-//                null, emptyList<FCustomer>() -> {
-//
-//                }
-//                else -> {
-//                    viewModel.insertCacheFCustomer(it)
-//                }
-//            }
-//        })
 
         val observerCustomer = viewModel.getFCustomerFromRepo()
-            .map { data ->
-               data.map {
-                    it.modified = Date()
-                    it.created = Date()
-                    it.modifiedBy = viewModel.userActive.username
-                   it
-               }
-            }
-            .observeOn(AndroidSchedulers.mainThread())
-            .subscribeOn(Schedulers.io())
-            .subscribe(
-                    {
-                        viewModel.insertCacheFCustomer(it as List<FCustomerEntity>)
-                    },
-                    {
-                    },
-                    {
-
+                .map { data ->
+                    data.map {
+                        it.modified = Date()
+                        it.created = Date()
+                        it.modifiedBy = viewModel.userActive.username
+                        it
                     }
-            )
+                }
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribeOn(Schedulers.io())
+                .subscribe(
+                        {
+                            viewModel.insertCacheFCustomer(it as List<FCustomerEntity>)
+                        },
+                        {
+                        },
+                        {
+                        }
+                )
         compositeDisposable.add(observerCustomer)
-
 
     }
 

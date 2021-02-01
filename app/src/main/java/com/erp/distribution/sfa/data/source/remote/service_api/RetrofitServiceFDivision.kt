@@ -12,7 +12,7 @@ interface RetrofitServiceFDivision {
     @GET("getFDivisionById/{id}")
     fun getRemoteFDivisionById(@Header("Authorization") authHeader: String?, @Path("id") id: Int): Single<FDivisionEntity>
 
-    @GET("getAllFDivisionByParentId/{parentId}")
+    @GET("getAllFDivisionByParent/{parentId}")
     fun getRemoteAllFDivisionByParent(@Header("Authorization") authHeader: String?, @Path("parentId") parentId: Int): Single<List<FDivisionEntity>>
 
     @POST("createFDivision")
