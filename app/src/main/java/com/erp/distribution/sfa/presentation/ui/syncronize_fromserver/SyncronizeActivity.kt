@@ -9,6 +9,7 @@ import androidx.lifecycle.Observer
 import com.erp.distribution.sfa.R
 import com.erp.distribution.sfa.databinding.ActivitySyncronizeBinding
 import com.erp.distribution.sfa.data.source.entity.FCustomerEntity
+import com.erp.distribution.sfa.data.source.entity.FDivisionEntity
 import com.erp.distribution.sfa.data.source.entity.FMaterialEntity
 import com.erp.distribution.sfa.data.source.entity.FMaterialGroup3Entity
 import com.erp.distribution.sfa.data.source.entity_security.FUser
@@ -52,6 +53,54 @@ class SyncronizeActivity : AppCompatActivity() {
 
     fun setupObservable() {
 
+
+        val observerFDivision = viewModel.getFDivisionById_FromRepo()
+                .map {
+                        it.modified = Date()
+                        it.created = Date()
+                        it.modifiedBy = viewModel.userActive.username
+                        it.isStatusActive=true
+                        it
+
+                }
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribeOn(Schedulers.io())
+                .subscribe(
+                        {
+//                            Log.d(TAG, "#result Ready To Insert FMaterialGroup3  ${it}")
+                            viewModel.subscribeListFdivisionByParent_FromRepo(it)
+                        },
+                        {
+                            Log.d(TAG, "#result Fetch FMaterialGroup3 error  ${it.message}")
+                        },
+                        {
+                        }
+                )
+
+        compositeDisposable.add(observerFDivision)
+
+//        val observerListFDivision = viewModel.getFDivisionFromRepo_FromId()
+//                .map {
+//                    it.modified = Date()
+//                    it.created = Date()
+//                    it.modifiedBy = viewModel.userActive.username
+//                    it.isStatusActive=true
+//                    it
+//                }
+//                .observeOn(AndroidSchedulers.mainThread())
+//                .subscribeOn(Schedulers.io())
+//                .subscribe(
+//                        {
+//                            viewModel.getListFDivisionByParentFromRepo(it)
+//                        },
+//                        {
+//                            Log.d(TAG, "#result Fetch FMaterialGroup3 error  ${it.message}")
+//                        },
+//                        {
+//                        }
+//                )
+//
+//        compositeDisposable.add(observerListFDivision)
 
 
 

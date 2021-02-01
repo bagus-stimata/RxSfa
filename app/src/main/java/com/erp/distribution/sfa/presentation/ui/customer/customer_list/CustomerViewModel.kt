@@ -59,7 +59,6 @@ class CustomerViewModel @ViewModelInject constructor(
     }
 
     fun onFCustomerCheckedChanged(fCustomerEntity: FCustomerEntity, isChecked: Boolean) = viewModelScope.launch {
-//        getFCustomerUseCase.putCacheFCustomer(task.copy(selected = isChecked))
         DisposableManager.add(Observable.fromCallable {
             getFCustomerUseCase.putCacheFCustomer(fCustomerEntity.copy(selected = isChecked))
         }
@@ -80,9 +79,6 @@ class CustomerViewModel @ViewModelInject constructor(
     }
 
     fun onCustomerSwiped(fCustomerEntity: FCustomerEntity) = viewModelScope.launch {
-//        taskDao.delete(task)
-//        tasksEventChannel.send(TasksEvent.ShowUndoDeleteTaskMessage(task))
-//        getFCustomerUseCase.deleteCacheFCustomer(task)
         DisposableManager.add(Observable.fromCallable {
             getFCustomerUseCase.deleteCacheFCustomer(fCustomerEntity)
         }

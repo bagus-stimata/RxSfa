@@ -22,7 +22,7 @@ class SyncViewModel @ViewModelInject constructor(
     private val getFAreaUseCase: GetFAreaUseCase,
     private val getFCustomerUseCase: GetFCustomerUseCase,
     private val getFMaterialUseCase: GetFMaterialUseCase,
-    private val fDivisionUseCase: GetFDivisionUseCase,
+    private val getFDivisionUseCase: GetFDivisionUseCase,
     private val getFMaterialGroup3Group3UseCase: GetFMaterialGroup3Group3UseCase,
     private val getFSalesmanUseCase: GetFSalesmanUseCase,
     private val getFWarehouseUseCase: GetFWarehouseUseCase,
@@ -114,6 +114,72 @@ class SyncViewModel @ViewModelInject constructor(
 
                 )
         )
+    }
+
+
+    /**
+     * oke bos
+     */
+    fun getFDivisionById_FromRepo(): Observable<FDivisionEntity>  {
+        return   getFDivisionUseCase.getRemoteFDivisionById(SecurityUtil.getAuthHeader(userActive.username, userActive.passwordConfirm), userActive.id).toObservable()
+    }
+    fun subscribeListFdivisionByParent_FromRepo(fDivisionEntity: FDivisionEntity){
+        DisposableManager.add(
+                getFDivisionUseCase.getRemoteAllFDivisionByCompany(SecurityUtil.getAuthHeader(userActive.username, userActive.passwordConfirm), fDivisionEntity.fcompanyBean)
+                        .toObservable()
+                        .map { data ->
+                            data.map {
+                                it.modified = Date()
+                                it.created = Date()
+                                it.modifiedBy = userActive.username
+                                if (it.id ==  fDivisionEntity.id){
+                                    it.isStatusActive = true
+                                }else {
+                                    it.isStatusActive = false
+                                }
+                                it
+                            }
+                        }
+                        .observeOn(AndroidSchedulers.mainThread())
+                        .subscribeOn(Schedulers.io())
+                        .subscribe(
+                                {
+
+                                },
+                                {
+                                } ,
+                                {
+                                }
+
+                        )
+        )
+    }
+    fun insertCacheFDivision(list:  List<FDivisionEntity>){
+
+        DisposableManager.add(Observable.fromCallable {
+            getFDivisionUseCase.addCacheListFDivision(list)
+        }
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe (
+                        {
+                        },
+                        {
+                            Log.d(TAG, "#result FDivison error  ${it.message}")
+                        },
+                        {
+
+                        }
+                )
+        )
+    }
+
+
+
+
+
+    fun getFDivisionFromRepo(fCompanyEntity: FCompanyEntity): Observable<List<FDivisionEntity>>  {
+        return   getFDivisionUseCase.getRemoteAllFDivisionByCompany(SecurityUtil.getAuthHeader(userActive.username, userActive.passwordConfirm), fCompanyEntity.id).toObservable()
     }
 
     fun getFMaterialGroup3FromRepo(): Observable<List<FMaterialGroup3Entity>>  {

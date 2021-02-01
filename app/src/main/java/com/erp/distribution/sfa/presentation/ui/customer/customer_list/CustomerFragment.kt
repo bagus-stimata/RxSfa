@@ -70,12 +70,9 @@ class CustomerFragment : Fragment(R.layout.fragment_customer), CustomerAdapter.O
 
             }).attachToRecyclerView(recyclerViewCustomer)
 
-
-
             fabAddCustomer.setOnClickListener {
                 viewModel.onAddNewCustomerClick()
             }
-
 
             /**
              * adapter line
@@ -83,7 +80,6 @@ class CustomerFragment : Fragment(R.layout.fragment_customer), CustomerAdapter.O
             val dividerItemDecoration = DividerItemDecoration( context, DividerItemDecoration.VERTICAL)
             dividerItemDecoration.setDrawable(getResources().getDrawable(R.drawable.rv_divider))
             binding.recyclerViewCustomer.addItemDecoration(dividerItemDecoration)
-
 
         }
 
