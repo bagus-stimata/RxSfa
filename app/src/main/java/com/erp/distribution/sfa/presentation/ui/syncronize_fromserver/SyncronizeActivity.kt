@@ -53,7 +53,6 @@ class SyncronizeActivity : AppCompatActivity() {
 
     fun setupObservable() {
 
-
         val observerFDivision = viewModel.getFDivisionById_FromRepo()
                 .map {
                         it.modified = Date()
@@ -71,7 +70,7 @@ class SyncronizeActivity : AppCompatActivity() {
                             viewModel.subscribeListFdivisionByParent_FromRepo(it)
                         },
                         {
-                            Log.d(TAG, "#result Fetch FMaterialGroup3 error  ${it.message}")
+                            Log.d(TAG, "#result Fetch FDivision error  ${it.message}")
                         },
                         {
                         }

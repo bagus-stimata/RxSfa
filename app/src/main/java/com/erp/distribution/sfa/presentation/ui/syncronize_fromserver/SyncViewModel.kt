@@ -121,9 +121,10 @@ class SyncViewModel @ViewModelInject constructor(
      * oke bos
      */
     fun getFDivisionById_FromRepo(): Observable<FDivisionEntity>  {
-        return   getFDivisionUseCase.getRemoteFDivisionById(SecurityUtil.getAuthHeader(userActive.username, userActive.passwordConfirm), userActive.id).toObservable()
+        return   getFDivisionUseCase.getRemoteFDivisionById(SecurityUtil.getAuthHeader(userActive.username, userActive.passwordConfirm), userActive.fdivisionBean).toObservable()
     }
     fun subscribeListFdivisionByParent_FromRepo(fDivisionEntity: FDivisionEntity){
+        Log.d(TAG, "#result CompanyID from USER  ${fDivisionEntity.fcompanyBean}")
         DisposableManager.add(
                 getFDivisionUseCase.getRemoteAllFDivisionByCompany(SecurityUtil.getAuthHeader(userActive.username, userActive.passwordConfirm), fDivisionEntity.fcompanyBean)
                         .toObservable()
@@ -132,10 +133,9 @@ class SyncViewModel @ViewModelInject constructor(
                                 it.modified = Date()
                                 it.created = Date()
                                 it.modifiedBy = userActive.username
+                                it.isStatusActive = false
                                 if (it.id ==  fDivisionEntity.id){
                                     it.isStatusActive = true
-                                }else {
-                                    it.isStatusActive = false
                                 }
                                 it
                             }
@@ -144,9 +144,13 @@ class SyncViewModel @ViewModelInject constructor(
                         .subscribeOn(Schedulers.io())
                         .subscribe(
                                 {
-
+                                    it.iterator().forEach {
+                                        Log.d(TAG, "#result Fetch FDivison Sukses  ${it.kode1}")
+                                    }
+//                                    insertCacheFDivision(it)
                                 },
                                 {
+                                    Log.d(TAG, "#result Fetch FDivison error  ${it}")
                                 } ,
                                 {
                                 }
@@ -163,9 +167,11 @@ class SyncViewModel @ViewModelInject constructor(
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe (
                         {
+                            Log.d(TAG, "#result Insert FDivison Sukses  ${it}")
+
                         },
                         {
-                            Log.d(TAG, "#result FDivison error  ${it.message}")
+                            Log.d(TAG, "#result Insert FDivison error  ${it.message}")
                         },
                         {
 
@@ -280,7 +286,7 @@ class SyncViewModel @ViewModelInject constructor(
 //                            error -> Log.e(TAG, error.printStackTrace())
                                 } ,
                                 {
-                                    Log.d(TAG, "#result CUSTOMER Complete")
+                                    Log.d(TAG, "#result FArea Complete")
                                 }
 
                         )
