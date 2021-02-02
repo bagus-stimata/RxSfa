@@ -129,7 +129,7 @@ class SyncronizeActivity : AppCompatActivity() {
 
 
         setupObservableFMaterial()
-//        setupObservableFCustomer()
+        setupObservableFCustomer()
 
 
     }

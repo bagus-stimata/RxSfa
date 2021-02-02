@@ -161,6 +161,7 @@ class SyncViewModel @ViewModelInject constructor(
     fun insertCacheFDivision(list:  List<FDivisionEntity>){
 
         DisposableManager.add(Observable.fromCallable {
+            getFDivisionUseCase.deleteAllCacheFDivision()
             getFDivisionUseCase.addCacheListFDivision(list)
         }
                 .subscribeOn(Schedulers.io())
@@ -205,6 +206,7 @@ class SyncViewModel @ViewModelInject constructor(
     fun insertCacheFMaterialGroup3(list: List<FMaterialGroup3Entity>){
 
         DisposableManager.add(Observable.fromCallable {
+            getFMaterialGroup3Group3UseCase.deleteAllCacheFMaterialGroup3()
             getFMaterialGroup3Group3UseCase.addCacheListFMaterialGroup3(list)
         }
                 .subscribeOn(Schedulers.io())
@@ -227,6 +229,7 @@ class SyncViewModel @ViewModelInject constructor(
     fun insertCacheFMaterial(listFMaterialEntity:  List<FMaterialEntity>){
 
         DisposableManager.add(Observable.fromCallable {
+            getFMaterialUseCase.deleteAllCacheFMaterial()
             getFMaterialUseCase.addCacheListFMaterial(listFMaterialEntity)
         }
                 .subscribeOn(Schedulers.io())
@@ -247,6 +250,7 @@ class SyncViewModel @ViewModelInject constructor(
     }
     fun insertCacheFCustomer(listFCustomerEntity: List<FCustomerEntity>){
         DisposableManager.add(Observable.fromCallable {
+            getFCustomerUseCase.deleteAllCacheFCustomer()
             getFCustomerUseCase.addCacheListFCustomer(listFCustomerEntity)
         }
             .subscribeOn(Schedulers.io())

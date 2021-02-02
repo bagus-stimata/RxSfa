@@ -19,7 +19,7 @@ interface RetrofitServiceFDivision {
     fun createRemoteFDivision(@Header("Authorization") authHeader: String?, @Body fDivisionEntityBean: FDivisionEntity): Single<FDivisionEntity>
 
     @PUT("updateFDivision/{id}")
-    fun putRemoteFDivision(@Header("Authorization") authHeader: String?, @Path("id") id: Int, @Body fDivisionEntityBean: FDivisionEntity): Single<FDivisionEntity>
+    fun putRemoteFDivision(@Header("Author`ization") authHeader: String?, @Path("id") id: Int, @Body fDivisionEntityBean: FDivisionEntity): Single<FDivisionEntity>
 
     @HTTP(method = "DELETE", path = "deleteFDivision/{id}", hasBody = true)
     fun  deleteRemoteFDivision(@Header("Authorization") authHeader: String?, @Path("id") id: Int): Single<FDivisionEntity>
