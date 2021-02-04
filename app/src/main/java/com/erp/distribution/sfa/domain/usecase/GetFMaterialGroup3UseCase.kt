@@ -15,7 +15,7 @@ import javax.inject.Inject
  * it handles the response that returns data &
  * contains a list of actions, event steps
  */
-class GetFMaterialGroup3Group3UseCase @Inject constructor(private val repository: FMaterialGroup3Repository) : SingleUseCase<List<FMaterialGroup3Entity>>() {
+class GetFMaterialGroup3UseCase @Inject constructor(private val repository: FMaterialGroup3Repository) : SingleUseCase<List<FMaterialGroup3Entity>>() {
 
     override fun buildUseCaseSingle(): Single<List<FMaterialGroup3Entity>> {
         return repository.getRemoteAllFMaterialGroup3("authHeader")

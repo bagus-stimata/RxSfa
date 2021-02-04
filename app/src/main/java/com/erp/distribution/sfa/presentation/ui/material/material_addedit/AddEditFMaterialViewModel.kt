@@ -18,11 +18,11 @@ import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.flow.receiveAsFlow
 import kotlinx.coroutines.launch
 
-class AddEditFMaterialEntityViewModel @ViewModelInject constructor(
+class AddEditFMaterialViewModel @ViewModelInject constructor(
     private val fMaterialUseCase: GetFMaterialUseCase,
     @Assisted private val state: SavedStateHandle
 ) : ViewModel() {
-    val TAG = AddEditFMaterialEntityViewModel::class.java.simpleName
+    val TAG = AddEditFMaterialViewModel::class.java.simpleName
 
     val fMaterial = state.get<FMaterialEntity>("fMaterial") // Mengikuti nama pada argument yang ada di nav_graph.xml
 

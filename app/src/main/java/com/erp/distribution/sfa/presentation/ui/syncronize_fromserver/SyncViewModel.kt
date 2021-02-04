@@ -18,15 +18,16 @@ import java.util.*
 
 
 class SyncViewModel @ViewModelInject constructor(
-    private val getFUserUseCase: GetFUserUseCase,
-    private val getFAreaUseCase: GetFAreaUseCase,
-    private val getFSubAreaUseCase: GetFSubAreaUseCase,
-    private val getFCustomerUseCase: GetFCustomerUseCase,
-    private val getFMaterialUseCase: GetFMaterialUseCase,
-    private val getFDivisionUseCase: GetFDivisionUseCase,
-    private val getFMaterialGroup3Group3UseCase: GetFMaterialGroup3Group3UseCase,
-    private val getFSalesmanUseCase: GetFSalesmanUseCase,
-    private val getFWarehouseUseCase: GetFWarehouseUseCase,
+        private val getFUserUseCase: GetFUserUseCase,
+        private val getFAreaUseCase: GetFAreaUseCase,
+        private val getFSubAreaUseCase: GetFSubAreaUseCase,
+        private val getFCustomerUseCase: GetFCustomerUseCase,
+        private val getFMaterialUseCase: GetFMaterialUseCase,
+        private val getFCustomerGroupUseCase: GetFCustomerGroupUseCase,
+        private val getFDivisionUseCase: GetFDivisionUseCase,
+        private val getFMaterialGroup3UseCase: GetFMaterialGroup3UseCase,
+        private val getFSalesmanUseCase: GetFSalesmanUseCase,
+        private val getFWarehouseUseCase: GetFWarehouseUseCase,
 ) : ViewModel() {
 
     private val TAG = SyncViewModel::class.simpleName
@@ -74,16 +75,6 @@ class SyncViewModel @ViewModelInject constructor(
                 .toObservable()
                 .map { data ->
                     data.map {
-
-//                        it.pprice = 0.0
-//                        it.pprice2 = 0.0
-//                        it.pprice2AfterPpn = 0.0
-//                        it.ppriceAfterPpn = 0.0
-//
-//                        it.sprice = 0.0
-//                        it.sprice2 = 0.0
-//                        it.sprice2AfterPpn = 0.0
-//                        it.spriceAfterPpn = 0.0
 
                         it.modified = Date()
                         it.created = Date()
@@ -188,14 +179,12 @@ class SyncViewModel @ViewModelInject constructor(
         return   getFDivisionUseCase.getRemoteAllFDivisionByCompany(SecurityUtil.getAuthHeader(userActive.username, userActive.passwordConfirm), fCompanyEntity.id).toObservable()
     }
     fun getFAreaFromRepo(): Observable<List<FAreaEntity>>  {
-//        return getFAreaUseCase.getRemoteAllFAreaByDivision(SecurityUtil.getAuthHeader(userActive.username, userActive.passwordConfirm), userActive.fdivisionBean).toObservable()
         return getFAreaUseCase.getRemoteAllFAreaByDivision(SecurityUtil.getAuthHeader(userActive.username, userActive.passwordConfirm), userActive.fdivisionBean).toObservable()
     }
 //    fun getFSubAreaFromRepo(fAreaEntity: FAreaEntity): Observable<List<FSubAreaEntity>>  {
 //        return getFSubAreaUseCase.getRemoteAllFSubAreaByParent(SecurityUtil.getAuthHeader(userActive.username, userActive.passwordConfirm), fAreaEntity.id).toObservable()
 //    }
     fun subscribeListFSubAreaByParent_FromRepo(fAreaEntity: FAreaEntity){
-//        Log.d(TAG, "#result CompanyID from USER  ${fDivisionEntity.fcompanyBean}")
         DisposableManager.add(
                 getFSubAreaUseCase.getRemoteAllFSubAreaByParent(SecurityUtil.getAuthHeader(userActive.username, userActive.passwordConfirm), fAreaEntity.id)
                         .toObservable()
@@ -215,9 +204,13 @@ class SyncViewModel @ViewModelInject constructor(
         )
     }
 
+    fun getFCustomerGroupFromRepo(): Observable<List<FCustomerGroupEntity>>  {
+        return getFCustomerGroupUseCase.getRemoteAllFCustomerGroupByDivisionAndShareToCompany(SecurityUtil.getAuthHeader(userActive.username, userActive.passwordConfirm), divisionActive.id, divisionActive.fcompanyBean).toObservable()
+    }
+
 
     fun getFMaterialGroup3FromRepo(): Observable<List<FMaterialGroup3Entity>>  {
-        return   getFMaterialGroup3Group3UseCase.getRemoteAllFMaterialGroup3(SecurityUtil.getAuthHeader(userActive.username, userActive.passwordConfirm)).toObservable()
+        return   getFMaterialGroup3UseCase.getRemoteAllFMaterialGroup3(SecurityUtil.getAuthHeader(userActive.username, userActive.passwordConfirm)).toObservable()
     }
     fun getFMaterialFromRepo(): Observable<List<FMaterialEntity>>  {
 //        Log.d(TAG, "#result GetRepoFMaterial Div: ${divisionActive.id} and Comp: ${divisionActive.fcompanyBean}")
@@ -241,13 +234,11 @@ class SyncViewModel @ViewModelInject constructor(
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe (
                         {
-//                            Log.d(TAG, "#result Saved To Insert FMaterialGroup3 success ${it .toString()}")
                         },
                         {
                             Log.d(TAG, "#result FMaterialGroup3 error  ${it.message}")
                         },
                         {
-
                         }
                 )
         )
@@ -274,12 +265,32 @@ class SyncViewModel @ViewModelInject constructor(
                 )
         )
     }
+    fun insertCacheFCustomerGroup(list: List<FCustomerGroupEntity>){
+
+        DisposableManager.add(Observable.fromCallable {
+            getFCustomerGroupUseCase.deleteAllCacheFCustomerGroup()
+            getFCustomerGroupUseCase.addCacheListFCustomerGroup(list)
+        }
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe (
+                        {
+                        },
+                        {
+                            Log.d(TAG, "#result FMaterialGroup3 error  ${it.message}")
+                        },
+                        {
+                        }
+                )
+        )
+    }
+
 
     fun insertCacheFMaterialGroup3(list: List<FMaterialGroup3Entity>){
 
         DisposableManager.add(Observable.fromCallable {
-            getFMaterialGroup3Group3UseCase.deleteAllCacheFMaterialGroup3()
-            getFMaterialGroup3Group3UseCase.addCacheListFMaterialGroup3(list)
+            getFMaterialGroup3UseCase.deleteAllCacheFMaterialGroup3()
+            getFMaterialGroup3UseCase.addCacheListFMaterialGroup3(list)
         }
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
@@ -337,7 +348,7 @@ class SyncViewModel @ViewModelInject constructor(
     }
 
     fun getCacheFMaterialGroup3Live(): LiveData<List<FMaterialGroup3Entity>> {
-        return getFMaterialGroup3Group3UseCase.getCacheAllFMaterialGroup3()
+        return getFMaterialGroup3UseCase.getCacheAllFMaterialGroup3()
     }
     fun getCacheFMaterialLive(): LiveData<List<FMaterialEntity>> {
         return getFMaterialUseCase.getCacheAllFMaterial()

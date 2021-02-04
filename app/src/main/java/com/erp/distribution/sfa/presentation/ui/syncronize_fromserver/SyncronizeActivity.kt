@@ -24,7 +24,6 @@ class SyncronizeActivity : AppCompatActivity() {
     val viewModel: SyncViewModel by viewModels<SyncViewModel> ()
     lateinit var binding: ActivitySyncronizeBinding
 
-
     protected override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_syncronize)
@@ -59,7 +58,8 @@ class SyncronizeActivity : AppCompatActivity() {
         setupObservableFDivision()
 
         setupObservableArea()
-        setupObservableFMaterialGroup()
+        setupObservableFMaterialGroup3()
+        setupObservableFCustomerGroup()
 
         setupObservableFMaterial()
         setupObservableFCustomer()
@@ -72,7 +72,11 @@ class SyncronizeActivity : AppCompatActivity() {
                 it.modified = Date()
                 it.created = Date()
                 it.modifiedBy = viewModel.userActive.username
-                it.isStatusActive=true
+                it.isStatusActive = false
+                if (it.id==viewModel.divisionActive.id) {
+                    it.isStatusActive = true
+                }
+
                 it
 
             }
@@ -83,7 +87,7 @@ class SyncronizeActivity : AppCompatActivity() {
                     viewModel.subscribeListFdivisionByParent_FromRepo(it)
                 },
                 {
-                    Log.d(TAG, "#result Fetch FDivision error  ${it.message}")
+//                    Log.d(TAG, "#result Fetch FDivision error  ${it.message}")
                 },
                 {
                 }
@@ -136,7 +140,7 @@ class SyncronizeActivity : AppCompatActivity() {
 
     }
     
-    fun setupObservableFMaterialGroup(): Unit {
+    fun setupObservableFMaterialGroup3(): Unit {
         val observerFMaterialGroup3 = viewModel.getFMaterialGroup3FromRepo()
             .map { data ->
                 data.map {
@@ -160,6 +164,33 @@ class SyncronizeActivity : AppCompatActivity() {
             )
 
         compositeDisposable.add(observerFMaterialGroup3)
+
+    }
+
+    fun setupObservableFCustomerGroup(): Unit {
+        val observerFCustomerGroup = viewModel.getFCustomerGroupFromRepo()
+                .map { data ->
+                    data.map {
+                        it.modified = Date()
+                        it.created = Date()
+                        it.modifiedBy = viewModel.userActive.username
+                        it
+                    }
+                }
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribeOn(Schedulers.io())
+                .subscribe(
+                        {
+                            viewModel.insertCacheFCustomerGroup(it as List<FCustomerGroupEntity>)
+                        },
+                        {
+                            Log.d(TAG, "#result Fetch FMaterialGroup3 error  ${it.message}")
+                        },
+                        {
+                        }
+                )
+
+        compositeDisposable.add(observerFCustomerGroup)
 
     }
 

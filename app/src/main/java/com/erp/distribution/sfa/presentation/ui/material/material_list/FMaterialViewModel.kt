@@ -7,25 +7,29 @@ import androidx.lifecycle.*
 import com.erp.distribution.sfa.data.di.PreferencesManager
 import com.erp.distribution.sfa.data.di.SortOrder
 import com.erp.distribution.sfa.data.source.entity.FMaterialEntity
-import com.erp.distribution.sfa.domain.usecase.GetFMaterialGroup3Group3UseCase
+import com.erp.distribution.sfa.data.source.entity.FMaterialGroup2Entity
+import com.erp.distribution.sfa.data.source.entity.FMaterialGroup3Entity
+import com.erp.distribution.sfa.domain.usecase.GetFMaterialGroup3UseCase
 import com.erp.distribution.sfa.domain.usecase.GetFMaterialUseCase
 import com.erp.distribution.sfa.presentation.ui.test.mvvm_todo.ADD_TASK_RESULT_OK
 import com.erp.distribution.sfa.presentation.ui.test.mvvm_todo.EDIT_TASK_RESULT_OK
 import com.erp.distribution.sfa.utils.DisposableManager
+import io.reactivex.Flowable
 import io.reactivex.Observable
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 import kotlinx.coroutines.channels.Channel
+import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.flatMapLatest
 import kotlinx.coroutines.flow.receiveAsFlow
 import kotlinx.coroutines.launch
 
 class FMaterialViewModel @ViewModelInject constructor(
-    private val getFMaterialUseCase: GetFMaterialUseCase,
-    private val getFMaterialGroup3Group3UseCase: GetFMaterialGroup3Group3UseCase,
-    private val preferencesManager: PreferencesManager,
-    @Assisted private val state: SavedStateHandle
+        private val getFMaterialUseCase: GetFMaterialUseCase,
+        private val getFMaterialGroup3UseCase: GetFMaterialGroup3UseCase,
+        private val preferencesManager: PreferencesManager,
+        @Assisted private val state: SavedStateHandle
 ) : ViewModel() {
     private val TAG = FMaterialViewModel::class.java.simpleName
 
@@ -35,6 +39,8 @@ class FMaterialViewModel @ViewModelInject constructor(
 
     private val fMaterialEventChannel = Channel<FMaterialEntityEvent>()
     val fMaterialEvent = fMaterialEventChannel.receiveAsFlow()
+
+    val fMaterialGroup3Live = getFMaterialGroup3UseCase.getCacheAllFMaterialGroup3()
 
     private val fMaterialFlow = combine(
         searchQuery.asFlow(),

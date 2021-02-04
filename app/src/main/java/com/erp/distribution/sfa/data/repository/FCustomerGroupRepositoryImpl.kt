@@ -63,6 +63,10 @@ class FCustomerGroupRepositoryImpl(
         return appDatabase.customerGroupDao.insert(fCustomerGroupEntity)
     }
 
+    override fun addCacheListFCustomerGroup(list: List<FCustomerGroupEntity>) {
+        return appDatabase.customerGroupDao.insertAll(list)
+    }
+
     override fun putCacheFCustomerGroup(fCustomerGroupEntity: FCustomerGroupEntity) {
         return appDatabase.customerGroupDao.update(fCustomerGroupEntity)
     }
@@ -71,7 +75,7 @@ class FCustomerGroupRepositoryImpl(
         return appDatabase.customerGroupDao.delete(fCustomerGroupEntity)
     }
 
-    override fun deleteAllCacheData() {
+    override fun deleteAllCacheFCustomerGroup() {
         return appDatabase.customerGroupDao.deleteAllFCustomerGroup()
     }
 

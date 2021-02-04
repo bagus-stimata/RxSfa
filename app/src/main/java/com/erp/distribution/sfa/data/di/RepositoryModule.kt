@@ -88,6 +88,16 @@ class RepositoryModule {
     }
     @Singleton
     @Provides
+    fun provideFCustomerGroupRepository(
+            appDatabase: AppDatabase,
+            retrofitService: RetrofitServiceFCustomerGroup
+    ): FCustomerGroupRepository {
+        return FCustomerGroupRepositoryImpl(appDatabase, retrofitService)
+    }
+
+
+    @Singleton
+    @Provides
     fun provideFMaterialRepository(
         appDatabase: AppDatabase,
         retrofitService: RetrofitServiceFMaterial,

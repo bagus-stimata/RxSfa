@@ -10,7 +10,10 @@ import androidx.appcompat.widget.SearchView
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.setFragmentResultListener
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.Observer
+import androidx.lifecycle.distinctUntilChanged
 import androidx.lifecycle.lifecycleScope
+import androidx.lifecycle.map
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.ItemTouchHelper
@@ -19,7 +22,6 @@ import androidx.recyclerview.widget.RecyclerView
 import com.erp.distribution.sfa.data.di.SortOrder
 import com.erp.distribution.sfa.data.source.entity.FMaterialEntity
 import com.erp.distribution.sfa.databinding.FragmentFmaterialBinding
-import com.erp.distribution.sfa.presentation.ui.utils.AlertDialogConfirm
 import com.erp.distribution.sfa.presentation.ui.utils.AlertDialogWarning
 import com.erp.distribution.sfa.presentation.ui.utils.onQueryTextChanged
 import com.erp.distribution.sfa.utils.exhaustive
@@ -32,7 +34,7 @@ import kotlinx.coroutines.launch
 @AndroidEntryPoint
 class FMaterialFragment : Fragment(R.layout.fragment_fmaterial), FMaterialAdapter.OnItemClickListener {
 
-    private val viewModelFMaterialEntity: FMaterialViewModel by viewModels()
+    private val viewModelFMaterial: FMaterialViewModel by viewModels()
 
     private lateinit var searchView: SearchView
 
@@ -42,7 +44,6 @@ class FMaterialFragment : Fragment(R.layout.fragment_fmaterial), FMaterialAdapte
         val binding = FragmentFmaterialBinding.bind(view)
 
         val fMaterialAdapter = FMaterialAdapter(this)
-
 
         binding.apply {
             recyclerViewFMaterial.apply {
@@ -66,7 +67,7 @@ class FMaterialFragment : Fragment(R.layout.fragment_fmaterial), FMaterialAdapte
 
                 override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
                     val fMaterial = fMaterialAdapter.currentList[viewHolder.adapterPosition]
-                    viewModelFMaterialEntity.onItemSwiped(fMaterial)
+                    viewModelFMaterial.onItemSwiped(fMaterial)
                 }
 
             }).attachToRecyclerView(recyclerViewFMaterial)
@@ -74,7 +75,7 @@ class FMaterialFragment : Fragment(R.layout.fragment_fmaterial), FMaterialAdapte
 
 
             fabAddFMaterial.setOnClickListener {
-                viewModelFMaterialEntity.onAddNewFMaterialEntityClick()
+                viewModelFMaterial.onAddNewFMaterialEntityClick()
             }
 
 
@@ -90,20 +91,27 @@ class FMaterialFragment : Fragment(R.layout.fragment_fmaterial), FMaterialAdapte
 
         setFragmentResultListener("add_edit_request") { _, bundle ->
             val result = bundle.getInt("add_edit_result")
-            viewModelFMaterialEntity.onAddEditResult(result)
+            viewModelFMaterial.onAddEditResult(result)
         }
 
-        viewModelFMaterialEntity.fMaterialLive.observe(viewLifecycleOwner) {
+        viewModelFMaterial.fMaterialLive
+                .map {
+                    it.map {
+//                        it.fmaterialGroup3Bean = 1234
+                        it
+                    }
+                }
+                .observe(viewLifecycleOwner) {
             fMaterialAdapter.submitList(it)
         }
 
         viewLifecycleOwner.lifecycleScope.launchWhenStarted {
-            viewModelFMaterialEntity.fMaterialEvent.collect { event ->
+            viewModelFMaterial.fMaterialEvent.collect { event ->
                 when (event) {
                     is FMaterialViewModel.FMaterialEntityEvent.ShowUndoDeleteFMaterialEntityMessage -> {
                         Snackbar.make(requireView(), "Material deleted", Snackbar.LENGTH_LONG)
                             .setAction("UNDO") {
-                                viewModelFMaterialEntity.onUndoDeleteClick(event.fMaterial)
+                                viewModelFMaterial.onUndoDeleteClick(event.fMaterial)
                             }.show()
                     }
                     is FMaterialViewModel.FMaterialEntityEvent.NavigateToAddFMaterialEntityScreen -> {
@@ -140,7 +148,7 @@ class FMaterialFragment : Fragment(R.layout.fragment_fmaterial), FMaterialAdapte
                         alert.getButtonOke().setOnClickListener(View.OnClickListener { view: View? ->
                             alert.dismiss()
 
-                            viewModelFMaterialEntity.onConfirmDeleteClick()
+                            viewModelFMaterial.onConfirmDeleteClick()
 
                         })
                         alert.getButtonCancel()
@@ -160,11 +168,11 @@ class FMaterialFragment : Fragment(R.layout.fragment_fmaterial), FMaterialAdapte
     }
 
     override fun onItemClick(fmaterial: FMaterialEntity) {
-        viewModelFMaterialEntity.onItemSelected(fmaterial)
+        viewModelFMaterial.onItemSelected(fmaterial)
     }
 
     override fun onCheckBoxClick(fmaterial: FMaterialEntity, isChecked: Boolean) {
-        viewModelFMaterialEntity.onItemCheckedChanged(fmaterial, isChecked)
+        viewModelFMaterial.onItemCheckedChanged(fmaterial, isChecked)
     }
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
@@ -173,19 +181,19 @@ class FMaterialFragment : Fragment(R.layout.fragment_fmaterial), FMaterialAdapte
         val searchItem = menu.findItem(R.id.action_search)
         searchView = searchItem.actionView as SearchView
 
-        val pendingQuery = viewModelFMaterialEntity.searchQuery.value
+        val pendingQuery = viewModelFMaterial.searchQuery.value
         if (pendingQuery != null && pendingQuery.isNotEmpty()) {
             searchItem.expandActionView()
             searchView.setQuery(pendingQuery, false)
         }
 
         searchView.onQueryTextChanged {
-            viewModelFMaterialEntity.searchQuery.value = it
+            viewModelFMaterial.searchQuery.value = it
         }
 
         viewLifecycleOwner.lifecycleScope.launch {
             menu.findItem(R.id.action_hide_inactive).isChecked =
-                viewModelFMaterialEntity.preferencesFlow.first().hideCompleted
+                viewModelFMaterial.preferencesFlow.first().hideCompleted
         }
 
     }
@@ -193,20 +201,20 @@ class FMaterialFragment : Fragment(R.layout.fragment_fmaterial), FMaterialAdapte
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         return when (item.itemId) {
             R.id.action_sort_by_name -> {
-                viewModelFMaterialEntity.onSortOrderSelected(SortOrder.BY_NAME)
+                viewModelFMaterial.onSortOrderSelected(SortOrder.BY_NAME)
                 true
             }
             R.id.action_sort_by_kode -> {
-                viewModelFMaterialEntity.onSortOrderSelected(SortOrder.BY_KODE)
+                viewModelFMaterial.onSortOrderSelected(SortOrder.BY_KODE)
                 true
             }
             R.id.action_hide_inactive -> {
                 item.isChecked = !item.isChecked
-                viewModelFMaterialEntity.onHideCompletedClick(item.isChecked)
+                viewModelFMaterial.onHideCompletedClick(item.isChecked)
                 true
             }
             R.id.action_delete_all_completed_tasks -> {
-                viewModelFMaterialEntity.onDeleteAllCompletedClick()
+                viewModelFMaterial.onDeleteAllCompletedClick()
                 true
             }
             else -> super.onOptionsItemSelected(item)

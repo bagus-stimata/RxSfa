@@ -20,9 +20,10 @@ interface FCustomerGroupRepository {
     fun getCacheFCustomerGroupById(id: Int): LiveData<FCustomerGroupEntity>
     fun getCacheAllFCustomerGroupByDivision(divisionId: Int): LiveData<List<FCustomerGroupEntity>>
     fun addCacheFCustomerGroup(fCustomerGroupEntity: FCustomerGroupEntity)
+    fun addCacheListFCustomerGroup(list: List<FCustomerGroupEntity>)
     fun putCacheFCustomerGroup(fCustomerGroupEntity: FCustomerGroupEntity)
     fun deleteCacheFCustomerGroup(fCustomerGroupEntity: FCustomerGroupEntity)
-    fun deleteAllCacheData()
+    fun deleteAllCacheFCustomerGroup()
 
 
 }
