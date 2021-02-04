@@ -11,6 +11,7 @@ interface SysvarRepository {
     fun getRemoteAllSysvar(authHeader: String ): Single<List<SysvarEntity>>
     fun getRemoteSysvarById(authHeader: String, id: Int): Single<SysvarEntity>
     fun getRemoteAllSysvarByDivision(authHeader: String, divisionId: Int): Single<List<SysvarEntity>>
+    fun getRemoteAllSysvarByDivisionAndShareToCompany(authHeader: String, divisionId: Int, companyId: Int): Single<List<SysvarEntity>>
     fun createRemoteSysvar(authHeader: String, sysvarEntity: SysvarEntity): Single<SysvarEntity>
     fun putRemoteSysvar(authHeader: String, id: Int, sysvarEntity: SysvarEntity): Single<SysvarEntity>
     fun deleteRemoteSysvar(authHeader: String, id: Int): Single<SysvarEntity>

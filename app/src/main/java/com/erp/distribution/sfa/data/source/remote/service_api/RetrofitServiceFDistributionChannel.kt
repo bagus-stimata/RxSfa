@@ -14,6 +14,8 @@ interface RetrofitServiceFDistributionChannel {
 
     @GET("getAllFDistributionChannelByDivision/{fdivisionBean}")
     fun getRemoteAllFDistributionChannelByDivision(@Header("Authorization") authHeader: String?, @Path("fdivisionBean") fdivisionBean: Int): Single<List<FDistributionChannelEntity>>
+    @GET("getAllFDistributionChannelByDivisionAndShareToCompany/{fdivisionBean}/{fcompanyBean}")
+    fun getRemoteAllFDistributionChannelByDivisionAndShareToCompany(@Header("Authorization") authHeader: String?, @Path("fdivisionBean") fdivisionBean: Int, @Path("fcompanyBean") fcompanyBean: Int): Single<List<FDistributionChannelEntity>>
 
 
     @POST("createFDistributionChannel")

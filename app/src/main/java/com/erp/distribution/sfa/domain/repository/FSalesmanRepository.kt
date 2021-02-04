@@ -11,6 +11,7 @@ interface FSalesmanRepository {
     fun getRemoteAllFSalesman(authHeader: String): Single<List<FSalesmanEntity>>
     fun getRemoteFSalesmanById(authHeader: String, id: Int): Single<FSalesmanEntity>
     fun getRemoteAllFSalesmanByDivision(authHeader: String, divisionId: Int): Single<List<FSalesmanEntity>>
+    fun getRemoteAllFSalesmanByDivisionAndShareToCompany(authHeader: String, divisionId: Int, companyId: Int): Single<List<FSalesmanEntity>>
     fun createRemoteFSalesman(authHeader: String, fSalesmanEntity: FSalesmanEntity): Single<FSalesmanEntity>
     fun putRemoteFSalesman(authHeader: String, id: Int, fSalesmanEntity: FSalesmanEntity): Single<FSalesmanEntity>
     fun deleteRemoteFSalesman(authHeader: String, id: Int): Single<FSalesmanEntity>

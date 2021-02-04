@@ -13,7 +13,7 @@ import java.text.DateFormat
 import java.util.*
 import javax.inject.Inject
 
-//@Entity(tableName = "fmaterial")
+//@Entity(tableName? = "fmaterial")
 @Parcelize
 @Entity(tableName = "fMaterial")
 data class FMaterialEntity  (
@@ -21,32 +21,32 @@ data class FMaterialEntity  (
     var id : Int =0,
 
     /*
-    * JIKA COPY DARI TEMPAT LAIN: MAKA SEBAGAI LOG TRACK MENINGGALKAN SOURCE_ID = ID sumber asal dia dicopy
+    * JIKA COPY DARI TEMPAT LAIN: MAKA SEBAGAI LOG TRACK MENINGGALKAN SOURCE_ID? = ID sumber asal dia dicopy
     * keperluan diantaranya:
     * 1. Clone Database. karena tidak mungkin menggunakan Kode External yang bisa jadi kemungkinan kembar, tapi harus pakai kode internal
     * 2. 
     */
 //    @Ignore
-//    var sourceID : Int =0,
+//    var sourceID : Int? =0,
 
 //    @Ignore
-//    var noUrut : Int =0,
+//    var noUrut : Int? =0,
 
     var pcode : String ="",
-    var barcode : String ="",
+    var barcode : String? ="",
     var pname : String ="",
 
 //    @Ignore
-//    var oldKode1 : String ="",
+//    var oldKode1 : String? ="",
 
 //    @Ignore
-//    var varianName : String ="",
+//    var varianName : String? ="",
 
 //    @Ignore
-//    var isFreeGood : Boolean =false,
+//    var isFreeGood : Boolean? =false,
 
 //    @Ignore
-//    var shortname : String ="",
+//    var shortname : String? ="",
     var isStatusActive : Boolean =false,
 
     /*
@@ -55,22 +55,22 @@ data class FMaterialEntity  (
     /* 
 	 * exclusiveDivisionTransaction: Input Penjualan dan Pembelian akan menolak jika item product berlainan Divisi
 	 * Transaksi Mutasi & Stock opname tidak termasuk(sementara)
-	 * jika Division = All Division maka exclusiveDivisionView tidak berlaku
+	 * jika Division? = All Division maka exclusiveDivisionView tidak berlaku
 	 * 
 	 * exclusiveDivisionView: hanya akan dapat dilihat dan dipergunakan untuk transaksi untuk User dengan Divisi Sama
 	 * 
 	 * 	 Dalam satu Divisi biasanya terdapat beberapa Vendor
 	 */
 //    @Ignore
-//    var isExclusiveDivisionTransaction : Boolean =false,
+//    var isExclusiveDivisionTransaction : Boolean? =false,
 
 //    @Ignore
-//    var isExclusiveDivisionView : Boolean =false,
+//    var isExclusiveDivisionView : Boolean? =false,
 
     //	@ManyToOne
     //	@JoinColumn(name="fdivisionBean", referencedColumnName="ID")
     //	private FDivision fdivisionBean;
-    var fdivisionBean : Int =0,
+    var fdivisionBean : Int? =0,
 
     /*
     * TAX
@@ -78,10 +78,10 @@ data class FMaterialEntity  (
     //	@ManyToOne
     //	@JoinColumn(name="ftaxBean", referencedColumnName="ID")
     //	private FTax ftaxBean;
-    var ftaxBean : Int =0,
+    var ftaxBean : Int? =0,
 
 //    @Ignore
-//    var isTaxable : Boolean =false,
+//    var isTaxable : Boolean? =false,
 
     /*
     * Adalah Vendor Utama Produk Tersebut
@@ -91,7 +91,7 @@ data class FMaterialEntity  (
     * Transaksi Mutasi & Stock opname tidak termasuk(sementara)
     */
 //    @Ignore
-//    var isExclusiveVendorTransaction : Boolean =false,
+//    var isExclusiveVendorTransaction : Boolean? =false,
 
     //	@ManyToOne
     //	@JoinColumn(name="fvendorBean", referencedColumnName="ID")
@@ -102,7 +102,7 @@ data class FMaterialEntity  (
     //	@JoinColumn(name="fwarehouseBean_Utm", referencedColumnName="ID")
     //	private FWarehouse fwarehouseBean_Utm;
 //    @Ignore
-//    var fwarehouseBean_Utm : Int =0,
+//    var fwarehouseBean_Utm : Int? =0,
 
 //    @Ignore
 //    var materialType: EnumMaterialType,
@@ -111,7 +111,7 @@ data class FMaterialEntity  (
     //	@JoinColumn(name="fdistributionChannelBean", referencedColumnName="ID")
     //	private FDistributionChannel fdistributionChannelBean;
 //    @Ignore
-//    var fdistributionChannelBean : Int =0,
+//    var fdistributionChannelBean : Int? =0,
 
     //	@ManyToOne
     //	@JoinColumn(name="fmaterialGroup3Bean", referencedColumnName="ID")
@@ -129,18 +129,18 @@ data class FMaterialEntity  (
     //BATCH CODE --> Berhubungan dengan Stockist atau Gudang
     //PRODUCTION CODE --> Berhubungan dengan TANGGAL DIPRODUKSI DAN EXP.DATE
 //    @Ignore
-//    var principalCode : String ="",
+//    var principalCode : String? ="",
 
 //    @Ignore
-//    var batchCode : String ="",
+//    var batchCode : String? ="",
 
 //    @Ignore
-//    var productionCode : String ="",
+//    var productionCode : String? ="",
     var productionDate : Date? = Date(),
-    var expiredDate : Date = Date(),
+    var expiredDate : Date? = Date(),
 
 //    @Ignore
-//    var prodclass : Int =0,
+//    var prodclass : Int? =0,
     var uom1 : String ="",
     var uom2 : String ="",
     var uom3 : String ="",
@@ -174,27 +174,27 @@ data class FMaterialEntity  (
     * Min Stok: sama dengan Buffer Stock
     * Max Stock: Stok dikatakan Over, sebetulnya tidak terlalu kepake, karena
     * cara yang paling realistis untuk mengukur stok over adalah
-    * Melihat History Penjualan Vs Jumalh Stok hasilnya adalah = Jumlah hari stok akan habis
+    * Melihat History Penjualan Vs Jumalh Stok hasilnya adalah? = Jumlah hari stok akan habis
     */
-    var minQtyStok : Int =0,
+    var minQtyStok : Int? =0,
         
 
     //Dalam Grams
-    var weightSmalest : Int =0,
+    var weightSmalest : Int? =0,
 
     //Dalam Grams
-    var caseWeight : Int =0,
+    var caseWeight : Int? =0,
 
     var stared: Boolean? = false,
     var unread: Boolean? = false,
     var selected: Boolean? = false,
 
 
-    var created : Date = Date(),
+    var created : Date? = Date(),
      
-    var modified : Date = Date(),
+    var modified : Date? = Date(),
 
-    var modifiedBy : String ="" //User ID
+    var modifiedBy : String? ="" //User ID
 
 ): ModelEntity(), Parcelable {
     val createdDateFormatted: String
@@ -208,9 +208,9 @@ class FMaterialEntityMapper @Inject constructor(
             id = entity.id,
             pcode = entity.pcode,
             pname = entity.pname,
-            fdivisionBean = entity.fdivisionBean,
-//            fmaterialGroup3Bean = entity.fmaterialGroup3Bean?.let { fMaterialGroup3EntityMapper.mapToDomain(it) }
-//            fmaterialGroup3Bean =   entity.fmaterialGroup3Bean
+//            fdivisionBean = entity.fdivisionBean,
+//            fmaterialGroup3Bean? = entity.fmaterialGroup3Bean?.let { fMaterialGroup3EntityMapper.mapToDomain(it) }
+//            fmaterialGroup3Bean? =   entity.fmaterialGroup3Bean
     )
 
     override fun mapToEntity(model: FMaterial): FMaterialEntity = FMaterialEntity(
@@ -218,7 +218,7 @@ class FMaterialEntityMapper @Inject constructor(
             pcode = model.pcode,
             pname = model.pname,
             fdivisionBean = model.fdivisionBean,
-//            fmaterialGroup3Bean =  model.fmaterialGroup3Bean
+//            fmaterialGroup3Bean? =  model.fmaterialGroup3Bean
     )
 
 }

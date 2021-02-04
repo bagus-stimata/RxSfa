@@ -30,6 +30,9 @@ class FCustomerRepositoryImpl(
     override fun getRemoteAllFCustomerByDivision(authHeader: String, divisionId: Int): Single<List<FCustomerEntity>> {
         return retrofitService.getRemoteAllFCustomerByDivision(authHeader, divisionId)
     }
+    override fun getRemoteAllFCustomerByDivisionAndShareToCompany(authHeader: String, divisionId: Int, companyId: Int): Single<List<FCustomerEntity>> {
+        return retrofitService.getRemoteAllFCustomerByDivisionAndShareToCompany(authHeader, divisionId, companyId)
+    }
 
     override fun createRemoteFCustomer(authHeader: String, fCustomerEntity: FCustomerEntity): Single<FCustomerEntity> {
         return retrofitService.createRemoteFCustomer(authHeader, fCustomerEntity)

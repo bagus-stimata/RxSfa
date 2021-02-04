@@ -12,8 +12,12 @@ interface RetrofitServiceFWarehouse {
     @GET("getFWarehouseById/{id}")
     fun getRemoteFWarehouseById(@Header("Authorization") authHeader: String?, @Path("id") id: Int): Single<FWarehouseEntity>
 
+
     @GET("getAllFWarehouseByDivision/{fdivisionBean}")
     fun getRemoteAllFWarehouseByDivision(@Header("Authorization") authHeader: String?, @Path("fdivisionBean") fdivisionBean: Int): Single<List<FWarehouseEntity>>
+
+    @GET("getAllFWarehouseByDivisionAndShareToCompany/{fdivisionBean}/{fcompanyBean}")
+    fun getRemoteAllFWarehouseByDivisionAndShareToCompany(@Header("Authorization") authHeader: String?, @Path("fdivisionBean") fdivisionBean: Int, @Path("fcompanyBean") fcompanyBean: Int): Single<List<FWarehouseEntity>>
 
 
     @POST("createFWarehouse")

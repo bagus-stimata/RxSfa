@@ -11,6 +11,7 @@ interface FTaxRepository {
     fun getRemoteAllFTax(authHeader: String): Single<List<FTaxEntity>>
     fun getRemoteFTaxById(authHeader: String, id: Int): Single<FTaxEntity>
     fun getRemoteAllFTaxByDivision(authHeader: String, divisionId: Int): Single<List<FTaxEntity>>
+    fun getRemoteAllFTaxByDivisionAndShareToCompany(authHeader: String, divisionId: Int, companyId: Int): Single<List<FTaxEntity>>
     fun createRemoteFTax(authHeader: String, fTaxEntity: FTaxEntity): Single<FTaxEntity>
     fun putRemoteFTax(authHeader: String, id: Int, fTaxEntity: FTaxEntity): Single<FTaxEntity>
     fun deleteRemoteFTax(authHeader: String, id: Int): Single<FTaxEntity>

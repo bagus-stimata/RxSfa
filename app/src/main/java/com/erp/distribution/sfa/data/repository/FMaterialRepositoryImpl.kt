@@ -34,6 +34,9 @@ class FMaterialRepositoryImpl(
     override fun getRemoteAllFMaterialByDivision(authHeader: String, divisionId: Int): Single<List<FMaterialEntity>> {
         return retrofitService.getRemoteAllFMaterialByDivision(authHeader, divisionId)
     }
+    override fun getRemoteAllFMaterialByDivisionAndShareToCompany(authHeader: String, divisionId: Int, companyId: Int): Single<List<FMaterialEntity>> {
+        return retrofitService.getRemoteAllFMaterialByDivisionAndShareToCompany(authHeader, divisionId, companyId)
+    }
 
     override fun createRemoteFMaterial(authHeader: String, fMaterialEntity: FMaterialEntity): Single<FMaterialEntity> {
         return retrofitService.createRemoteFMaterial(authHeader, fMaterialEntity)

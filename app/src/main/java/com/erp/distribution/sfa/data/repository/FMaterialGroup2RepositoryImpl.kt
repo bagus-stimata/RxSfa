@@ -67,7 +67,7 @@ class FMaterialGroup2RepositoryImpl(
         return appDatabase.materialGroup2Dao.delete(fMaterialGroup2Entity)
     }
 
-    override fun deleteAllCacheData() {
+    override fun deleteAllCacheFMaterialGroup2() {
         return appDatabase.materialGroup2Dao.deleteAllFMaterialGroup2()
     }
 

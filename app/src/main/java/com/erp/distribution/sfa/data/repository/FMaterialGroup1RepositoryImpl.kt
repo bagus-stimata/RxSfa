@@ -28,6 +28,9 @@ class FMaterialGroup1RepositoryImpl(
     override fun getRemoteAllFMaterialGroup1ByDivision(authHeader: String, divisionId: Int): Single<List<FMaterialGroup1Entity>> {
         return retrofitService.getRemoteAllFMaterialGroup1ByDivision(authHeader, divisionId)
     }
+    override fun getRemoteAllFMaterialGroup1ByDivisionAndShareToCompany(authHeader: String, divisionId: Int, companyId: Int): Single<List<FMaterialGroup1Entity>> {
+        return retrofitService.getRemoteAllFMaterialGroup1ByDivisionAndShareToCompany(authHeader, divisionId, companyId)
+    }
 
     override fun createRemoteFMaterialGroup1(authHeader: String, fMaterialGroup1Entity: FMaterialGroup1Entity): Single<FMaterialGroup1Entity> {
         return retrofitService.createRemoteFMaterialGroup1(authHeader, fMaterialGroup1Entity)
@@ -67,7 +70,7 @@ class FMaterialGroup1RepositoryImpl(
         return appDatabase.materialGroup1Dao.delete(fMaterialGroup1Entity)
     }
 
-    override fun deleteAllCacheData() {
+    override fun deleteAllCacheFMaterialGroup1() {
         return appDatabase.materialGroup1Dao.deleteAllFMaterialGroup1()
     }
 

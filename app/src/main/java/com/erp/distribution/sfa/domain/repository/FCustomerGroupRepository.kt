@@ -11,6 +11,7 @@ interface FCustomerGroupRepository {
     fun getRemoteAllFCustomerGroup(authHeader: String): Single<List<FCustomerGroupEntity>>
     fun getRemoteFCustomerGroupById(authHeader: String, id: Int): Single<FCustomerGroupEntity>
     fun getRemoteAllFCustomerGroupByDivision(authHeader: String, divisionId: Int): Single<List<FCustomerGroupEntity>>
+    fun getRemoteAllFCustomerGroupByDivisionAndShareToCompany(authHeader: String, divisionId: Int, companyId: Int): Single<List<FCustomerGroupEntity>>
     fun createRemoteFCustomerGroup(authHeader: String, fCustomerGroupEntity: FCustomerGroupEntity): Single<FCustomerGroupEntity>
     fun putRemoteFCustomerGroup(authHeader: String, id: Int, fCustomerGroupEntity: FCustomerGroupEntity): Single<FCustomerGroupEntity>
     fun deleteRemoteFCustomerGroup(authHeader: String, id: Int): Single<FCustomerGroupEntity>

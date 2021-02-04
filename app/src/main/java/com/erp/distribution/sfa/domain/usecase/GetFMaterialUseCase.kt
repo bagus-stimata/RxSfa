@@ -31,6 +31,9 @@ class GetFMaterialUseCase @Inject constructor(private val repository: FMaterialR
     fun getRemoteAllFMaterialByDivision(authHeader: String, divisionId: Int): Single<List<FMaterialEntity>>{
         return repository.getRemoteAllFMaterialByDivision(authHeader, divisionId)
     }
+    fun getRemoteAllFMaterialByDivisionAndShareToCompany(authHeader: String, divisionId: Int, companyId: Int): Single<List<FMaterialEntity>>{
+        return repository.getRemoteAllFMaterialByDivisionAndShareToCompany(authHeader, divisionId, companyId)
+    }
     fun createRemoteFMaterial(authHeader: String, fMaterialEntity: FMaterialEntity): Single<FMaterialEntity>{
         return repository.createRemoteFMaterial(authHeader, fMaterialEntity)
     }

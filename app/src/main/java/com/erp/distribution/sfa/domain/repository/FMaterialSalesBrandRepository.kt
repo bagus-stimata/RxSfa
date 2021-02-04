@@ -11,6 +11,7 @@ interface FMaterialSalesBrandRepository {
     fun getRemoteAllFMaterialSalesBrand(authHeader: String): Single<List<FMaterialSalesBrandEntity>>
     fun getRemoteFMaterialSalesBrandById(authHeader: String, id: Int): Single<FMaterialSalesBrandEntity>
     fun getRemoteAllFMaterialSalesBrandByDivision(authHeader: String, divisionId: Int): Single<List<FMaterialSalesBrandEntity>>
+    fun getRemoteAllFMaterialSalesBrandByDivisionAndShareToCompany(authHeader: String, divisionId: Int, companyId: Int): Single<List<FMaterialSalesBrandEntity>>
     fun createRemoteFMaterialSalesBrand(authHeader: String, fMaterialSalesBrandEntity: FMaterialSalesBrandEntity): Single<FMaterialSalesBrandEntity>
     fun putRemoteFMaterialSalesBrand(authHeader: String, id: Int, fMaterialSalesBrandEntity: FMaterialSalesBrandEntity): Single<FMaterialSalesBrandEntity>
     fun deleteRemoteFMaterialSalesBrand(authHeader: String, id: Int): Single<FMaterialSalesBrandEntity>

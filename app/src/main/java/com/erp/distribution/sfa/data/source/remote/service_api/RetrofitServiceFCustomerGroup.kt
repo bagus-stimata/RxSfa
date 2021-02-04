@@ -15,6 +15,8 @@ interface RetrofitServiceFCustomerGroup {
     @GET("getAllFCustomerGroupByDivision/{fdivisionBean}")
     fun getRemoteAllFCustomerGroupByDivision(@Header("Authorization") authHeader: String?, @Path("fdivisionBean") fdivisionBean: Int): Single<List<FCustomerGroupEntity>>
 
+    @GET("getAllFCustomerGroupByDivisionAndShareToCompany/{fdivisionBean}/{fcompanyBean}")
+    fun getRemoteAllFCustomerGroupByDivisionAndShareToCompany(@Header("Authorization") authHeader: String?, @Path("fdivisionBean") fdivisionBean: Int, @Path("fcompanyBean") fcompanyBean: Int): Single<List<FCustomerGroupEntity>>
 
     @POST("createFCustomerGroup")
     fun createRemoteFCustomerGroup(@Header("Authorization") authHeader: String?, @Body fCustomerGroupEntityBean: FCustomerGroupEntity): Single<FCustomerGroupEntity>

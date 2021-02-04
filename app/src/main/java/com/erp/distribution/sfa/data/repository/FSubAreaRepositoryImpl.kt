@@ -58,6 +58,9 @@ class FSubAreaRepositoryImpl(
     override fun addCacheFSubArea(fSubAreaEntity: FSubAreaEntity) {
         return appDatabase.subAreaDao.insert(fSubAreaEntity)
     }
+    override fun addCacheListFSubArea(list: List<FSubAreaEntity>) {
+        return appDatabase.subAreaDao.insertAll(list)
+    }
 
     override fun putCacheFSubArea(fSubAreaEntity: FSubAreaEntity) {
         return appDatabase.subAreaDao.update(fSubAreaEntity)
@@ -67,7 +70,7 @@ class FSubAreaRepositoryImpl(
         return appDatabase.subAreaDao.delete(fSubAreaEntity)
     }
 
-    override fun deleteAllCacheData() {
+    override fun deleteAllCacheFSubArea() {
         return appDatabase.subAreaDao.deleteAllFSubArea()
     }
 

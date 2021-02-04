@@ -11,6 +11,7 @@ interface FAreaRepository {
     fun getRemoteAllFArea(authHeader: String): Single<List<FAreaEntity>>
     fun getRemoteFAreaById(authHeader: String, id: Int): Single<FAreaEntity>
     fun getRemoteAllFAreaByDivision(authHeader: String, divisionId: Int): Single<List<FAreaEntity>>
+    fun getRemoteAllFAreaByDivisionAndShareToCompany(authHeader: String, divisionId: Int, companyId: Int): Single<List<FAreaEntity>>
     fun createRemoteFArea(authHeader: String, fAreaEntity: FAreaEntity): Single<FAreaEntity>
     fun putRemoteFArea(authHeader: String, id: Int, fAreaEntity: FAreaEntity): Single<FAreaEntity>
     fun deleteRemoteFArea(authHeader: String, id: Int): Single<FAreaEntity>

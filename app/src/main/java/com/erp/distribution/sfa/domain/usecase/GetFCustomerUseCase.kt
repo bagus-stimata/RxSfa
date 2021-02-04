@@ -30,6 +30,9 @@ class GetFCustomerUseCase @Inject constructor(private val repository: FCustomerR
     fun getRemoteAllFCustomerByDivision(authHeader: String, divisionId: Int): Single<List<FCustomerEntity>>{
         return repository.getRemoteAllFCustomerByDivision(authHeader, divisionId)
     }
+    fun getRemoteAllFCustomerByDivisionAndShareToCompany(authHeader: String, divisionId: Int, companyId: Int): Single<List<FCustomerEntity>>{
+        return repository.getRemoteAllFCustomerByDivisionAndShareToCompany(authHeader, divisionId, companyId)
+    }
     fun createRemoteFCustomer(authHeader: String, fCustomerEntity: FCustomerEntity): Single<FCustomerEntity>{
         return repository.createRemoteFCustomer(authHeader, fCustomerEntity)
     }

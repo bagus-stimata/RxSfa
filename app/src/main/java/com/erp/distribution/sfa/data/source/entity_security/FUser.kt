@@ -1,10 +1,12 @@
 package com.erp.distribution.sfa.data.source.entity_security
 
+import android.os.Parcelable
 import androidx.room.Entity
 import androidx.room.PrimaryKey
+import kotlinx.parcelize.Parcelize
 import java.io.Serializable
 import java.util.*
-
+@Parcelize
 @Entity(tableName = "fUser")
 data class FUser(
     @PrimaryKey
@@ -53,6 +55,6 @@ data class FUser(
     var lastModified: Date = Date(),
     var modifiedBy: String = ""
 
-) : Serializable{
+) : Parcelable{
     
 }

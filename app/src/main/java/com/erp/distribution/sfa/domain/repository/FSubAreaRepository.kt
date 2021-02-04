@@ -19,9 +19,10 @@ interface FSubAreaRepository {
     fun getCacheFSubAreaById(id: Int): LiveData<FSubAreaEntity>
     fun getCacheAllFSubAreaByParent(divisionId: Int): LiveData<List<FSubAreaEntity>>
     fun addCacheFSubArea(fSubAreaEntity: FSubAreaEntity)
+    fun addCacheListFSubArea(list: List<FSubAreaEntity>)
     fun putCacheFSubArea(fSubAreaEntity: FSubAreaEntity)
     fun deleteCacheFSubArea(fSubAreaEntity: FSubAreaEntity)
-    fun deleteAllCacheData()
+    fun deleteAllCacheFSubArea()
 
 
 }

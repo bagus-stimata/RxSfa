@@ -28,6 +28,9 @@ class GetFAreaUseCase @Inject constructor(private val repository: FAreaRepositor
     fun getRemoteAllFAreaByDivision(authHeader: String, divisionId: Int): Single<List<FAreaEntity>>{
         return repository.getRemoteAllFAreaByDivision(authHeader, divisionId)
     }
+    fun getRemoteAllFAreaByDivisionAndShareToCompany(authHeader: String, divisionId: Int, companyId: Int): Single<List<FAreaEntity>>{
+        return repository.getRemoteAllFAreaByDivisionAndShareToCompany(authHeader, divisionId, companyId)
+    }
     fun createRemoteFArea(authHeader: String, fAreaEntity: FAreaEntity): Single<FAreaEntity>{
         return repository.createRemoteFArea(authHeader, fAreaEntity)
     }

@@ -12,9 +12,12 @@ interface RetrofitServiceFVendor {
     @GET("getFVendorById/{id}")
     fun getRemoteFVendorById(@Header("Authorization") authHeader: String?, @Path("id") id: Int): Single<FVendorEntity>
 
+
     @GET("getAllFVendorByDivision/{fdivisionBean}")
     fun getRemoteAllFVendorByDivision(@Header("Authorization") authHeader: String?, @Path("fdivisionBean") fdivisionBean: Int): Single<List<FVendorEntity>>
 
+    @GET("getAllFVendorByDivisionAndShareToCompany/{fdivisionBean}/{fcompanyBean}")
+    fun getRemoteAllFVendorByDivisionAndShareToCompany(@Header("Authorization") authHeader: String?, @Path("fdivisionBean") fdivisionBean: Int, @Path("fcompanyBean") fcompanyBean: Int): Single<List<FVendorEntity>>
 
     @POST("createFVendor")
     fun createRemoteFVendor(@Header("Authorization") authHeader: String?, @Body fVendorEntityBean: FVendorEntity): Single<FVendorEntity>

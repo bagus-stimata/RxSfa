@@ -11,6 +11,7 @@ interface FVendorRepository {
     fun getRemoteAllFVendor(authHeader: String ): Single<List<FVendorEntity>>
     fun getRemoteFVendorById(authHeader: String, id: Int): Single<FVendorEntity>
     fun getRemoteAllFVendorByDivision(authHeader: String, divisionId: Int): Single<List<FVendorEntity>>
+    fun getRemoteAllFVendorByDivisionAndShareToCompany(authHeader: String, divisionId: Int, companyId: Int): Single<List<FVendorEntity>>
     fun createRemoteFVendor(authHeader: String, fVendorEntity: FVendorEntity): Single<FVendorEntity>
     fun putRemoteFVendor(authHeader: String, id: Int, fVendorEntity: FVendorEntity): Single<FVendorEntity>
     fun deleteRemoteFVendor(authHeader: String, id: Int): Single<FVendorEntity>

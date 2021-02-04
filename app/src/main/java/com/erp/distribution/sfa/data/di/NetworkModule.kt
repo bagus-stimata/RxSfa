@@ -130,6 +130,11 @@ class NetworkModule {
     )
     @Singleton
     @Provides
+    fun provideServiceFSubArea(retrofit: Retrofit): RetrofitServiceFSubArea = retrofit.create(
+        RetrofitServiceFSubArea::class.java
+    )
+    @Singleton
+    @Provides
     fun provideServiceFCompany(retrofit: Retrofit): RetrofitServiceFCompany = retrofit.create(
         RetrofitServiceFCompany::class.java
     )

@@ -18,9 +18,9 @@ import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collect
 
 @AndroidEntryPoint
-class AddEditFMaterialFragment : Fragment(R.layout.fragment_add_edit_fmaterial) {
+class AddEditFMaterialEntityFragment : Fragment(R.layout.fragment_add_edit_fmaterial) {
 
-    private val viewModelFMaterialViewModel: AddEditFMaterialViewModel by viewModels()
+    private val viewModelFMaterialEntityViewModel: AddEditFMaterialEntityViewModel by viewModels()
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -28,32 +28,32 @@ class AddEditFMaterialFragment : Fragment(R.layout.fragment_add_edit_fmaterial) 
         val binding = FragmentAddEditFmaterialBinding.bind(view)
 
         binding.apply {
-            editTextName.setText(viewModelFMaterialViewModel.fMaterialName)
-            checkBoxImportant.isChecked = viewModelFMaterialViewModel.fMaterialImportance
+            editTextName.setText(viewModelFMaterialEntityViewModel.fMaterialName)
+            checkBoxImportant.isChecked = viewModelFMaterialEntityViewModel.fMaterialImportance
             checkBoxImportant.jumpDrawablesToCurrentState()
-            textViewDateCreated.isVisible = viewModelFMaterialViewModel.fMaterial != null
-            textViewDateCreated.text = "Created: ${viewModelFMaterialViewModel.fMaterial?.createdDateFormatted}"
+            textViewDateCreated.isVisible = viewModelFMaterialEntityViewModel.fMaterial != null
+            textViewDateCreated.text = "Created: ${viewModelFMaterialEntityViewModel.fMaterial?.createdDateFormatted}"
 
             editTextName.addTextChangedListener{
-                viewModelFMaterialViewModel.fMaterialName = it.toString()
+                viewModelFMaterialEntityViewModel.fMaterialName = it.toString()
             }
 
             checkBoxImportant.setOnCheckedChangeListener { _, isChecked ->
-                viewModelFMaterialViewModel.fMaterialImportance = isChecked
+                viewModelFMaterialEntityViewModel.fMaterialImportance = isChecked
             }
 
             fabSaveFmaterial.setOnClickListener {
-                viewModelFMaterialViewModel.onSaveClick()
+                viewModelFMaterialEntityViewModel.onSaveClick()
             }
         }
 
         viewLifecycleOwner.lifecycleScope.launchWhenStarted {
-            viewModelFMaterialViewModel.addEditFMaterialEvent.collect { event ->
+            viewModelFMaterialEntityViewModel.addEditFMaterialEntityEvent.collect { event ->
                 when (event) {
-                    is AddEditFMaterialViewModel.AddEditMaterialEvent.ShowInvalidInputMessage -> {
+                    is AddEditFMaterialEntityViewModel.AddEditMaterialEvent.ShowInvalidInputMessage -> {
                         Snackbar.make(requireView(), event.msg, Snackbar.LENGTH_LONG).show()
                     }
-                    is AddEditFMaterialViewModel.AddEditMaterialEvent.NavigateBackWithResult -> {
+                    is AddEditFMaterialEntityViewModel.AddEditMaterialEvent.NavigateBackWithResult -> {
                         binding.editTextName.clearFocus()
                         setFragmentResult(
                             "add_edit_request",

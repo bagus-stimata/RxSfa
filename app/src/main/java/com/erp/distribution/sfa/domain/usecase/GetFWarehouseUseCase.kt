@@ -28,6 +28,9 @@ class GetFWarehouseUseCase @Inject constructor(private val repository: FWarehous
     fun getRemoteAllFWarehouseByDivision(authHeader: String, divisionId: Int): Single<List<FWarehouseEntity>>{
         return repository.getRemoteAllFWarehouseByDivision(authHeader, divisionId)
     }
+    fun getRemoteAllFWarehouseByDivisionAndShareToCompany(authHeader: String, divisionId: Int, companyId: Int): Single<List<FWarehouseEntity>>{
+        return repository.getRemoteAllFWarehouseByDivisionAndShareToCompany(authHeader, divisionId, companyId)
+    }
     fun createRemoteFWarehouse(authHeader: String, fWarehouseEntity: FWarehouseEntity): Single<FWarehouseEntity>{
         return repository.createRemoteFWarehouse(authHeader, fWarehouseEntity)
     }

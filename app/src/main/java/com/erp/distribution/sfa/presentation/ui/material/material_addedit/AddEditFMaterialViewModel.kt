@@ -18,11 +18,11 @@ import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.flow.receiveAsFlow
 import kotlinx.coroutines.launch
 
-class AddEditFMaterialViewModel @ViewModelInject constructor(
-    private val getFMaterialUseCase: GetFMaterialUseCase,
+class AddEditFMaterialEntityViewModel @ViewModelInject constructor(
+    private val fMaterialUseCase: GetFMaterialUseCase,
     @Assisted private val state: SavedStateHandle
 ) : ViewModel() {
-    val TAG = AddEditFMaterialViewModel::class.java.simpleName
+    val TAG = AddEditFMaterialEntityViewModel::class.java.simpleName
 
     val fMaterial = state.get<FMaterialEntity>("fMaterial") // Mengikuti nama pada argument yang ada di nav_graph.xml
 
@@ -38,8 +38,8 @@ class AddEditFMaterialViewModel @ViewModelInject constructor(
             state.set("statusActive", value)
         }
 
-    private val addEditFMaterialEventChannel = Channel<AddEditMaterialEvent>()
-    val addEditFMaterialEvent = addEditFMaterialEventChannel.receiveAsFlow()
+    private val addEditFMaterialEntityEventChannel = Channel<AddEditMaterialEvent>()
+    val addEditFMaterialEntityEvent = addEditFMaterialEntityEventChannel.receiveAsFlow()
 
     fun onSaveClick() {
         if (fMaterialName.isBlank()) {
@@ -48,17 +48,17 @@ class AddEditFMaterialViewModel @ViewModelInject constructor(
         }
 
         if (fMaterial != null) {
-            val updatedFMaterial = fMaterial.copy(pname = fMaterialName, isStatusActive = fMaterialImportance )
-            updateFMaterial(updatedFMaterial)
+            val updatedFMaterialEntity = fMaterial.copy(pname = fMaterialName, isStatusActive = fMaterialImportance )
+            updateFMaterialEntity(updatedFMaterialEntity)
         } else {
-            val newFMaterial = FMaterialEntity(pname = fMaterialName, isStatusActive = fMaterialImportance )
-            createFMaterial(newFMaterial)
+            val newFMaterialEntity = FMaterialEntity(pname = fMaterialName, isStatusActive = fMaterialImportance )
+            createFMaterialEntity(newFMaterialEntity)
         }
     }
 
-    private fun createFMaterial(fMaterialEntity: FMaterialEntity) = viewModelScope.launch {
+    private fun createFMaterialEntity(fMaterialEntity: FMaterialEntity) = viewModelScope.launch {
         DisposableManager.add(Observable.fromCallable {
-            getFMaterialUseCase.addCacheFMaterial(fMaterialEntity)
+            fMaterialUseCase.addCacheFMaterial(fMaterialEntity)
         }
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
@@ -75,16 +75,16 @@ class AddEditFMaterialViewModel @ViewModelInject constructor(
             )
         )
 
-        addEditFMaterialEventChannel.send(AddEditMaterialEvent.NavigateBackWithResult(ADD_TASK_RESULT_OK))
+        addEditFMaterialEntityEventChannel.send(AddEditMaterialEvent.NavigateBackWithResult(ADD_TASK_RESULT_OK))
     }
 
-    private fun updateFMaterial(fMaterialEntity: FMaterialEntity) = viewModelScope.launch {
+    private fun updateFMaterialEntity(fMaterialEntity: FMaterialEntity) = viewModelScope.launch {
 //        taskDao.update(task)
-//        getFMaterialUseCase.putCacheFMaterial(task)
+//        fMaterialUseCase.putCacheFMaterialEntity(task)
 //        addEditTaskEventChannel.send(AddEditTaskEvent.NavigateBackWithResult(EDIT_TASK_RESULT_OK))
 
         DisposableManager.add(Observable.fromCallable {
-            getFMaterialUseCase.putCacheFMaterial(fMaterialEntity)
+            fMaterialUseCase.putCacheFMaterial(fMaterialEntity)
         }
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
@@ -100,12 +100,12 @@ class AddEditFMaterialViewModel @ViewModelInject constructor(
                 }
             )
         )
-        addEditFMaterialEventChannel.send(AddEditMaterialEvent.NavigateBackWithResult(EDIT_TASK_RESULT_OK))
+        addEditFMaterialEntityEventChannel.send(AddEditMaterialEvent.NavigateBackWithResult(EDIT_TASK_RESULT_OK))
 
     }
 
     private fun showInvalidInputMessage(text: String) = viewModelScope.launch {
-        addEditFMaterialEventChannel.send(AddEditMaterialEvent.ShowInvalidInputMessage(text))
+        addEditFMaterialEntityEventChannel.send(AddEditMaterialEvent.ShowInvalidInputMessage(text))
     }
 
     sealed class AddEditMaterialEvent {

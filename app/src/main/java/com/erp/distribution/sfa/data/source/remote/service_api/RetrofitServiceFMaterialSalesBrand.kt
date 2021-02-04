@@ -15,6 +15,8 @@ interface RetrofitServiceFMaterialSalesBrand {
     @GET("getAllFMaterialSalesBrandByDivision/{fdivisionBean}")
     fun getRemoteAllFMaterialSalesBrandByDivision(@Header("Authorization") authHeader: String?, @Path("fdivisionBean") fdivisionBean: Int): Single<List<FMaterialSalesBrandEntity>>
 
+    @GET("getAllFMaterialSalesBrandByDivisionAndShareToCompany/{fdivisionBean}/{fcompanyBean}")
+    fun getRemoteAllFMaterialSalesBrandByDivisionAndShareToCompany(@Header("Authorization") authHeader: String?, @Path("fdivisionBean") fdivisionBean: Int, @Path("fcompanyBean") fcompanyBean: Int): Single<List<FMaterialSalesBrandEntity>>
 
     @POST("createFMaterialSalesBrand")
     fun createRemoteFMaterialSalesBrand(@Header("Authorization") authHeader: String?, @Body fMaterialSalesBrandEntityBean: FMaterialSalesBrandEntity): Single<FMaterialSalesBrandEntity>

@@ -11,6 +11,7 @@ interface FWarehouseRepository {
     fun getRemoteAllFWarehouse(authHeader: String ): Single<List<FWarehouseEntity>>
     fun getRemoteFWarehouseById(authHeader: String, id: Int): Single<FWarehouseEntity>
     fun getRemoteAllFWarehouseByDivision(authHeader: String, divisionId: Int): Single<List<FWarehouseEntity>>
+    fun getRemoteAllFWarehouseByDivisionAndShareToCompany(authHeader: String, divisionId: Int, companyId: Int): Single<List<FWarehouseEntity>>
     fun createRemoteFWarehouse(authHeader: String, fWarehouseEntity: FWarehouseEntity): Single<FWarehouseEntity>
     fun putRemoteFWarehouse(authHeader: String, id: Int, fWarehouseEntity: FWarehouseEntity): Single<FWarehouseEntity>
     fun deleteRemoteFWarehouse(authHeader: String, id: Int): Single<FWarehouseEntity>

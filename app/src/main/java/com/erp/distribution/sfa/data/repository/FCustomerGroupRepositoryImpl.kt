@@ -29,6 +29,10 @@ class FCustomerGroupRepositoryImpl(
         return retrofitService.getRemoteAllFCustomerGroupByDivision(authHeader, divisionId)
     }
 
+    override fun getRemoteAllFCustomerGroupByDivisionAndShareToCompany(authHeader: String, divisionId: Int, companyId: Int): Single<List<FCustomerGroupEntity>> {
+        return retrofitService.getRemoteAllFCustomerGroupByDivisionAndShareToCompany(authHeader, divisionId, companyId)
+    }
+
     override fun createRemoteFCustomerGroup(authHeader: String, fCustomerGroupEntity: FCustomerGroupEntity): Single<FCustomerGroupEntity> {
         return retrofitService.createRemoteFCustomerGroup(authHeader, fCustomerGroupEntity)
     }

@@ -15,6 +15,9 @@ interface RetrofitServiceFArea {
     @GET("getAllFAreaByDivision/{fdivisionBean}")
     fun getRemoteAllFAreaByDivision(@Header("Authorization") authHeader: String?, @Path("fdivisionBean") fdivisionBean: Int): Single<List<FAreaEntity>>
 
+    @GET("getAllFAreaByDivisionAndShareToCompany/{fdivisionBean}/{fcompanyBean}")
+    fun getRemoteAllFAreaByDivisionAndShareToCompany(@Header("Authorization") authHeader: String?, @Path("fdivisionBean") fdivisionBean: Int, @Path("fcompanyBean") fcompanyBean: Int): Single<List<FAreaEntity>>
+
 
     @POST("createFArea")
     fun createRemoteFArea(@Header("Authorization") authHeader: String?, @Body fAreaEntityBean: FAreaEntity): Single<FAreaEntity>

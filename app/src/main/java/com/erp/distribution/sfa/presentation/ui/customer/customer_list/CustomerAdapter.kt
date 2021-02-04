@@ -60,7 +60,7 @@ class CustomerAdapter(private val listener: OnItemClickListener) :
 ////                checkBoxCompleted.isChecked = item.selected!!
                 nf.maximumFractionDigits = 0
                 val hash = item!!.custname.hashCode()
-                txtIcon.text = item.custname.trim { it <= ' ' }[0].toString()
+                txtIcon.text = item.custname!!.trim { it <= ' ' }[0].toString()
                 txtIcon.background =
                         NoteAdapter.oval(Color.rgb(hash, hash / 2, 0), binding.txtIcon)
                 txtDate.text = sdf.format(item.modified)

@@ -21,7 +21,7 @@ interface FMaterialGroup2Repository {
     fun addCacheFMaterialGroup2(fMaterialGroup2Entity: FMaterialGroup2Entity)
     fun putCacheFMaterialGroup2(fMaterialGroup2Entity: FMaterialGroup2Entity)
     fun deleteCacheFMaterialGroup2(fMaterialGroup2Entity: FMaterialGroup2Entity)
-    fun deleteAllCacheData()
+    fun deleteAllCacheFMaterialGroup2()
 
 
 }

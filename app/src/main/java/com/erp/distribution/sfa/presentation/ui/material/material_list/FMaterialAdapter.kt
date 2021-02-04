@@ -9,25 +9,24 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.erp.distribution.sfa.data.source.entity.FMaterialEntity
 import com.erp.distribution.sfa.databinding.AdapterRvItemFmaterialBinding
-import com.erp.distribution.sfa.domain.model.FMaterial
 import com.erp.distribution.sfa.presentation.ui.master.material_lama.adapter.NoteAdapter
 import java.text.NumberFormat
 import java.text.SimpleDateFormat
 
 class FMaterialAdapter(private val listener: OnItemClickListener) :
-    ListAdapter<FMaterial, FMaterialAdapter.FMaterialViewHolder>(DiffCallback()) {
+    ListAdapter<FMaterialEntity, FMaterialAdapter.FMaterialEntityViewHolder>(DiffCallback()) {
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): FMaterialViewHolder {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): FMaterialEntityViewHolder {
         val binding = AdapterRvItemFmaterialBinding.inflate(LayoutInflater.from(parent.context), parent, false)
-        return FMaterialViewHolder(binding)
+        return FMaterialEntityViewHolder(binding)
     }
 
-    override fun onBindViewHolder(holder: FMaterialViewHolder, position: Int) {
+    override fun onBindViewHolder(holder: FMaterialEntityViewHolder, position: Int) {
         val currentItem = getItem(position)
         holder.bind(currentItem)
     }
 
-    inner class FMaterialViewHolder(private val binding: AdapterRvItemFmaterialBinding) :
+    inner class FMaterialEntityViewHolder(private val binding: AdapterRvItemFmaterialBinding) :
         RecyclerView.ViewHolder(binding.root) {
         val sdf = SimpleDateFormat("dd MMM yyyy")
         val nf = NumberFormat.getInstance()
@@ -55,7 +54,7 @@ class FMaterialAdapter(private val listener: OnItemClickListener) :
             }
         }
 
-        fun bind(item: FMaterial) {
+        fun bind(item: FMaterialEntity) {
             binding.apply {
 
                 nf.maximumFractionDigits = 0
@@ -83,15 +82,15 @@ class FMaterialAdapter(private val listener: OnItemClickListener) :
     }
 
     interface OnItemClickListener {
-        fun onItemClick(item: FMaterial)
-        fun onCheckBoxClick(item: FMaterial, isChecked: Boolean)
+        fun onItemClick(item: FMaterialEntity)
+        fun onCheckBoxClick(item: FMaterialEntity, isChecked: Boolean)
     }
 
-    class DiffCallback : DiffUtil.ItemCallback<FMaterial>() {
-        override fun areItemsTheSame(oldItem: FMaterial, newItem: FMaterial) =
+    class DiffCallback : DiffUtil.ItemCallback<FMaterialEntity>() {
+        override fun areItemsTheSame(oldItem: FMaterialEntity, newItem: FMaterialEntity) =
             oldItem.id == newItem.id
 
-        override fun areContentsTheSame(oldItem: FMaterial, newItem: FMaterial) =
+        override fun areContentsTheSame(oldItem: FMaterialEntity, newItem: FMaterialEntity) =
             oldItem.pcode == newItem.pcode
     }
 }

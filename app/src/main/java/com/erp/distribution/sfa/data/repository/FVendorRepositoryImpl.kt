@@ -29,6 +29,10 @@ class FVendorRepositoryImpl(
         return retrofitService.getRemoteAllFVendorByDivision(authHeader, divisionId)
     }
 
+    override fun getRemoteAllFVendorByDivisionAndShareToCompany(authHeader: String, divisionId: Int, companyId: Int): Single<List<FVendorEntity>> {
+        return retrofitService.getRemoteAllFVendorByDivisionAndShareToCompany(authHeader, divisionId, companyId)
+    }
+
     override fun createRemoteFVendor(authHeader: String, fVendorEntity: FVendorEntity): Single<FVendorEntity> {
         return retrofitService.createRemoteFVendor(authHeader, fVendorEntity)
     }

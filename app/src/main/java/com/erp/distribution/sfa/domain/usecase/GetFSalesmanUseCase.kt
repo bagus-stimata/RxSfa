@@ -28,6 +28,9 @@ class GetFSalesmanUseCase @Inject constructor(private val repository: FSalesmanR
     fun getRemoteAllFSalesmanByDivision(authHeader: String, divisionId: Int): Single<List<FSalesmanEntity>>{
         return repository.getRemoteAllFSalesmanByDivision(authHeader, divisionId)
     }
+    fun getRemoteAllFSalesmanByDivisionAndShareToCompany(authHeader: String, divisionId: Int, companyId: Int): Single<List<FSalesmanEntity>>{
+        return repository.getRemoteAllFSalesmanByDivisionAndShareToCompany(authHeader, divisionId, companyId)
+    }
     fun createRemoteFSalesman(authHeader: String, fSalesmanEntity: FSalesmanEntity): Single<FSalesmanEntity>{
         return repository.createRemoteFSalesman(authHeader, fSalesmanEntity)
     }

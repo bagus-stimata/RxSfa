@@ -11,6 +11,7 @@ interface FDistributionChannelRepository {
     fun getRemoteAllFDistributionChannel(authHeader: String): Single<List<FDistributionChannelEntity>>
     fun getRemoteFDistributionChannelById(authHeader: String, id: Int): Single<FDistributionChannelEntity>
     fun getRemoteAllFDistributionChannelByDivision(authHeader: String, divisionId: Int): Single<List<FDistributionChannelEntity>>
+    fun getRemoteAllFDistributionChannelByDivisionAndShareToCompany(authHeader: String, divisionId: Int, companyId: Int): Single<List<FDistributionChannelEntity>>
     fun createRemoteFDistributionChannel(authHeader: String, fDistributionChannelEntity: FDistributionChannelEntity): Single<FDistributionChannelEntity>
     fun putRemoteFDistributionChannel(authHeader: String, id: Int, fDistributionChannelEntity: FDistributionChannelEntity): Single<FDistributionChannelEntity>
     fun deleteRemoteFDistributionChannel(authHeader: String, id: Int): Single<FDistributionChannelEntity>

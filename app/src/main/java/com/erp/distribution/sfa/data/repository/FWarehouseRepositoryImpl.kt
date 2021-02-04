@@ -29,6 +29,10 @@ class FWarehouseRepositoryImpl(
         return retrofitService.getRemoteAllFWarehouseByDivision(authHeader, divisionId)
     }
 
+    override fun getRemoteAllFWarehouseByDivisionAndShareToCompany(authHeader: String, divisionId: Int, companyId: Int): Single<List<FWarehouseEntity>> {
+        return retrofitService.getRemoteAllFWarehouseByDivisionAndShareToCompany(authHeader, divisionId, companyId)
+    }
+
     override fun createRemoteFWarehouse(authHeader: String, fWarehouseEntity: FWarehouseEntity): Single<FWarehouseEntity> {
         return retrofitService.createRemoteFWarehouse(authHeader, fWarehouseEntity)
     }

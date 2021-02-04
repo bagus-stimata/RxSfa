@@ -61,7 +61,6 @@ class RepositoryModule {
     }
 
 
-
     @Singleton
     @Provides
     fun provideFAreaRepository(
@@ -69,6 +68,14 @@ class RepositoryModule {
             retrofitService: RetrofitServiceFArea
     ): FAreaRepository {
         return FAreaRepositoryImpl(appDatabase, retrofitService)
+    }
+    @Singleton
+    @Provides
+    fun provideFSubAreaRepository(
+        appDatabase: AppDatabase,
+        retrofitService: RetrofitServiceFSubArea
+    ): FSubAreaRepository {
+        return FSubAreaRepositoryImpl(appDatabase, retrofitService)
     }
 
     @Singleton

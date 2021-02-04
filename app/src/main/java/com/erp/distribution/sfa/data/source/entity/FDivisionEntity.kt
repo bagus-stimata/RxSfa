@@ -1,10 +1,14 @@
 package com.erp.distribution.sfa.data.source.entity
 
+import android.os.Parcelable
 import androidx.room.Entity
 import androidx.room.PrimaryKey
+import kotlinx.parcelize.Parcelize
+import java.io.Serializable
 import java.util.*
 
 //@Entity(tableName = "fdivision")
+@Parcelize
 @Entity(tableName = "fDivision")
 class FDivisionEntity (
     @PrimaryKey
@@ -124,4 +128,4 @@ class FDivisionEntity (
     var created: Date? = Date(),
     var modified: Date? = Date(),
     var modifiedBy : String? =""  //User ID
-)
+): Parcelable

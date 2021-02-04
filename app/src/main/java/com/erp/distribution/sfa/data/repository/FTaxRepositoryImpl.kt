@@ -29,6 +29,10 @@ class FTaxRepositoryImpl(
         return retrofitService.getRemoteAllFTaxByDivision(authHeader, divisionId)
     }
 
+    override fun getRemoteAllFTaxByDivisionAndShareToCompany(authHeader: String, divisionId: Int, companyId: Int): Single<List<FTaxEntity>> {
+        return retrofitService.getRemoteAllFTaxByDivisionAndShareToCompany(authHeader, divisionId, companyId)
+    }
+
     override fun createRemoteFTax(authHeader: String, fTaxEntity: FTaxEntity): Single<FTaxEntity> {
         return retrofitService.createRemoteFTax(authHeader, fTaxEntity)
     }

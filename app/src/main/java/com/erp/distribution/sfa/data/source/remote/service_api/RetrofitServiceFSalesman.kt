@@ -15,6 +15,8 @@ interface RetrofitServiceFSalesman {
     @GET("getAllFSalesmanByDivision/{fdivisionBean}")
     fun getRemoteAllFSalesmanByDivision(@Header("Authorization") authHeader: String?, @Path("fdivisionBean") fdivisionBean: Int): Single<List<FSalesmanEntity>>
 
+    @GET("getAllFSalesmanByDivisionAndShareToCompany/{fdivisionBean}/{fcompanyBean}")
+    fun getRemoteAllFSalesmanByDivisionAndShareToCompany(@Header("Authorization") authHeader: String?, @Path("fdivisionBean") fdivisionBean: Int, @Path("fcompanyBean") fcompanyBean: Int): Single<List<FSalesmanEntity>>
 
     @POST("createFSalesman")
     fun createRemoteFSalesman(@Header("Authorization") authHeader: String?, @Body fSalesmanEntityBean: FSalesmanEntity): Single<FSalesmanEntity>

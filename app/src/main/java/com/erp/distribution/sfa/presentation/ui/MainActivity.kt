@@ -103,6 +103,10 @@ class MainActivity : AppCompatActivity() {
     fun subscribeRemoteFDivision(fUser: FUser) {
         DisposableManager.add(mainViewModel.getRemoteFDivision(fUser)
             .toObservable()
+            .map {
+                it.isStatusActive = true
+                it
+            }
             .observeOn(AndroidSchedulers.mainThread())
             .subscribeOn(Schedulers.io())
             .subscribe(
@@ -124,6 +128,10 @@ class MainActivity : AppCompatActivity() {
     fun subscribeRemoteFSalesman(fUser: FUser) {
         DisposableManager.add(mainViewModel.getRemoteFSalesman(fUser)
             .toObservable()
+            .map {
+                it.isStatusActive = true
+                it
+            }
             .observeOn(AndroidSchedulers.mainThread())
             .subscribeOn(Schedulers.io())
             .subscribe(
@@ -145,6 +153,10 @@ class MainActivity : AppCompatActivity() {
     fun subscribeRemoteFWarehouse(fUser: FUser) {
         DisposableManager.add(mainViewModel.getRemoteFWarehouse(fUser)
             .toObservable()
+            .map {
+                it.isStatusActive = true
+                it
+            }
             .observeOn(AndroidSchedulers.mainThread())
             .subscribeOn(Schedulers.io())
             .subscribe(
@@ -182,7 +194,7 @@ class MainActivity : AppCompatActivity() {
 
         if (requestCode == RE_LOGIN && resultCode == Activity.RESULT_OK) {
 //            Log.d(TAG, "#result OKE MASUK ####")
-            val resultObject: FUser = data!!.getSerializableExtra(LoginActivity.EXTRA_OBJECT) as FUser
+            val resultObject: FUser = data!!.getParcelableExtra<FUser>(LoginActivity.EXTRA_OBJECT) as FUser
 
 //            Log.d(TAG, "#result OKE >> " + resultObject.username + " >> " + resultObject.password)
             //Password yang dipakai adalah passwordConfirm: Untuk seterusnya
@@ -334,7 +346,10 @@ class MainActivity : AppCompatActivity() {
             )
         alert.getButtonOke().setOnClickListener(View.OnClickListener { view: View? ->
             val intent = Intent(this@MainActivity, SyncronizeActivity::class.java)
-            intent.putExtra(SyncronizeActivity.EXTRA_OBJECT, mainViewModel.userActive)
+
+            intent.putExtra(SyncronizeActivity.EXTRA_USERACTIVE, mainViewModel.userActive)
+            intent.putExtra(SyncronizeActivity.EXTRA_DIVISIONACTIVE, mainViewModel.divisionEntityActive)
+
             startActivity(intent)
             alert.dismiss()
         })

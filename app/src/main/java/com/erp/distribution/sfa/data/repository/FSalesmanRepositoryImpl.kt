@@ -29,6 +29,10 @@ class FSalesmanRepositoryImpl(
         return retrofitService.getRemoteAllFSalesmanByDivision(authHeader, divisionId)
     }
 
+    override fun getRemoteAllFSalesmanByDivisionAndShareToCompany(authHeader: String, divisionId: Int, companyId: Int): Single<List<FSalesmanEntity>> {
+        return retrofitService.getRemoteAllFSalesmanByDivisionAndShareToCompany(authHeader, divisionId, companyId)
+    }
+
     override fun createRemoteFSalesman(authHeader: String, fSalesmanEntity: FSalesmanEntity): Single<FSalesmanEntity> {
         return retrofitService.createRemoteFSalesman(authHeader, fSalesmanEntity)
     }

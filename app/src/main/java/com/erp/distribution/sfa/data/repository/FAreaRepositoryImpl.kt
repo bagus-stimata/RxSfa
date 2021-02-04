@@ -28,6 +28,9 @@ class FAreaRepositoryImpl(
     override fun getRemoteAllFAreaByDivision(authHeader: String, divisionId: Int): Single<List<FAreaEntity>> {
         return retrofitService.getRemoteAllFAreaByDivision(authHeader, divisionId)
     }
+    override fun getRemoteAllFAreaByDivisionAndShareToCompany(authHeader: String, divisionId: Int, companyId: Int): Single<List<FAreaEntity>> {
+        return retrofitService.getRemoteAllFAreaByDivisionAndShareToCompany(authHeader, divisionId, companyId)
+    }
 
     override fun createRemoteFArea(authHeader: String, fAreaEntity: FAreaEntity): Single<FAreaEntity> {
         return retrofitService.createRemoteFArea(authHeader, fAreaEntity)

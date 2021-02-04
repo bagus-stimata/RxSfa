@@ -28,6 +28,9 @@ class GetSysvarUseCase @Inject constructor(private val repository: SysvarReposit
     fun getRemoteAllSysvarByDivision(authHeader: String, divisionId: Int): Single<List<SysvarEntity>>{
         return repository.getRemoteAllSysvarByDivision(authHeader, divisionId)
     }
+    fun getRemoteAllSysvarByDivisionAndShareToCompany(authHeader: String, divisionId: Int, companyId: Int): Single<List<SysvarEntity>>{
+        return repository.getRemoteAllSysvarByDivisionAndShareToCompany(authHeader, divisionId, companyId)
+    }
     fun createRemoteSysvar(authHeader: String, sysvarEntity: SysvarEntity): Single<SysvarEntity>{
         return repository.createRemoteSysvar(authHeader, sysvarEntity)
     }

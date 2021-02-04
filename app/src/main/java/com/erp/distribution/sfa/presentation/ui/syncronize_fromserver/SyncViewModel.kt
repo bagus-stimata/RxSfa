@@ -20,6 +20,7 @@ import java.util.*
 class SyncViewModel @ViewModelInject constructor(
     private val getFUserUseCase: GetFUserUseCase,
     private val getFAreaUseCase: GetFAreaUseCase,
+    private val getFSubAreaUseCase: GetFSubAreaUseCase,
     private val getFCustomerUseCase: GetFCustomerUseCase,
     private val getFMaterialUseCase: GetFMaterialUseCase,
     private val getFDivisionUseCase: GetFDivisionUseCase,
@@ -38,13 +39,12 @@ class SyncViewModel @ViewModelInject constructor(
     var checkList4 = ""
 
     var userActive: FUser = FUser()
+    var divisionActive: FDivisionEntity = FDivisionEntity()
 
     var listFMaterialEntityMutableLive: MutableLiveData<List<FMaterialEntity>> = MutableLiveData()
     var listFCustomerEntityMutableLive: MutableLiveData<List<FCustomerEntity>> = MutableLiveData()
 
     init {
-//        deleteAllCacheFCustomer()
-
     }
 
     fun fetchFUserFromRepo() {
@@ -68,10 +68,9 @@ class SyncViewModel @ViewModelInject constructor(
     }
 
 
-
     fun subscribeFMaterialFromRepo(){
         DisposableManager.add(
-            getFMaterialUseCase.getRemoteAllFMaterialByDivision(SecurityUtil.getAuthHeader(userActive.username, userActive.passwordConfirm), 92082)
+            getFMaterialUseCase.getRemoteAllFMaterialByDivisionAndShareToCompany(SecurityUtil.getAuthHeader(userActive.username, userActive.passwordConfirm), divisionActive.id, divisionActive.fcompanyBean)
                 .toObservable()
                 .map { data ->
                     data.map {
@@ -123,8 +122,10 @@ class SyncViewModel @ViewModelInject constructor(
     fun getFDivisionById_FromRepo(): Observable<FDivisionEntity>  {
         return   getFDivisionUseCase.getRemoteFDivisionById(SecurityUtil.getAuthHeader(userActive.username, userActive.passwordConfirm), userActive.fdivisionBean).toObservable()
     }
+
+
     fun subscribeListFdivisionByParent_FromRepo(fDivisionEntity: FDivisionEntity){
-        Log.d(TAG, "#result CompanyID from USER  ${fDivisionEntity.fcompanyBean}")
+//        Log.d(TAG, "#result CompanyID from USER  ${fDivisionEntity.fcompanyBean}")
         DisposableManager.add(
                 getFDivisionUseCase.getRemoteAllFDivisionByCompany(SecurityUtil.getAuthHeader(userActive.username, userActive.passwordConfirm), fDivisionEntity.fcompanyBean)
                         .toObservable()
@@ -168,14 +169,12 @@ class SyncViewModel @ViewModelInject constructor(
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe (
                         {
-                            Log.d(TAG, "#result Insert FDivison Sukses  ${it}")
-
+//                            Log.d(TAG, "#result Insert FDivison Sukses  ${it}")
                         },
                         {
                             Log.d(TAG, "#result Insert FDivison error  ${it.message}")
                         },
                         {
-
                         }
                 )
         )
@@ -188,19 +187,92 @@ class SyncViewModel @ViewModelInject constructor(
     fun getFDivisionFromRepo(fCompanyEntity: FCompanyEntity): Observable<List<FDivisionEntity>>  {
         return   getFDivisionUseCase.getRemoteAllFDivisionByCompany(SecurityUtil.getAuthHeader(userActive.username, userActive.passwordConfirm), fCompanyEntity.id).toObservable()
     }
+    fun getFAreaFromRepo(): Observable<List<FAreaEntity>>  {
+//        return getFAreaUseCase.getRemoteAllFAreaByDivision(SecurityUtil.getAuthHeader(userActive.username, userActive.passwordConfirm), userActive.fdivisionBean).toObservable()
+        return getFAreaUseCase.getRemoteAllFAreaByDivision(SecurityUtil.getAuthHeader(userActive.username, userActive.passwordConfirm), userActive.fdivisionBean).toObservable()
+    }
+//    fun getFSubAreaFromRepo(fAreaEntity: FAreaEntity): Observable<List<FSubAreaEntity>>  {
+//        return getFSubAreaUseCase.getRemoteAllFSubAreaByParent(SecurityUtil.getAuthHeader(userActive.username, userActive.passwordConfirm), fAreaEntity.id).toObservable()
+//    }
+    fun subscribeListFSubAreaByParent_FromRepo(fAreaEntity: FAreaEntity){
+//        Log.d(TAG, "#result CompanyID from USER  ${fDivisionEntity.fcompanyBean}")
+        DisposableManager.add(
+                getFSubAreaUseCase.getRemoteAllFSubAreaByParent(SecurityUtil.getAuthHeader(userActive.username, userActive.passwordConfirm), fAreaEntity.id)
+                        .toObservable()
+                        .observeOn(AndroidSchedulers.mainThread())
+                        .subscribeOn(Schedulers.io())
+                        .subscribe(
+                                {
+                                    insertCacheFSubArea(it)
+                                },
+                                {
+                                    Log.d(TAG, "#result Fetch FDivison error  ${it}")
+                                } ,
+                                {
+                                }
+
+                        )
+        )
+    }
+
 
     fun getFMaterialGroup3FromRepo(): Observable<List<FMaterialGroup3Entity>>  {
         return   getFMaterialGroup3Group3UseCase.getRemoteAllFMaterialGroup3(SecurityUtil.getAuthHeader(userActive.username, userActive.passwordConfirm)).toObservable()
     }
     fun getFMaterialFromRepo(): Observable<List<FMaterialEntity>>  {
-//        92082
-        return   getFMaterialUseCase.getRemoteAllFMaterialByDivision(SecurityUtil.getAuthHeader(userActive.username, userActive.passwordConfirm), userActive.fdivisionBean).toObservable()
-
+//        Log.d(TAG, "#result GetRepoFMaterial Div: ${divisionActive.id} and Comp: ${divisionActive.fcompanyBean}")
+        return   getFMaterialUseCase.getRemoteAllFMaterialByDivisionAndShareToCompany(SecurityUtil.getAuthHeader(userActive.username, userActive.passwordConfirm), divisionActive.id, divisionActive.fcompanyBean).toObservable()
     }
 
     fun getFCustomerFromRepo(): Observable<List<FCustomerEntity>>  {
-        return   getFCustomerUseCase.getRemoteAllFCustomerByDivision(SecurityUtil.getAuthHeader(userActive.username, userActive.passwordConfirm), userActive.fdivisionBean).toObservable()
+        return   getFCustomerUseCase
+            .getRemoteAllFCustomerByDivisionAndShareToCompany(SecurityUtil.getAuthHeader(userActive.username, userActive.passwordConfirm), divisionActive.id, divisionActive.fcompanyBean).toObservable()
+//        return   getFCustomerUseCase
+//                .getRemoteAllFCustomerByDivision(SecurityUtil.getAuthHeader(userActive.username, userActive.passwordConfirm), divisionActive.id).toObservable()
+    }
 
+    fun insertCacheFArea(list: List<FAreaEntity>){
+
+        DisposableManager.add(Observable.fromCallable {
+            getFAreaUseCase.deleteAllCacheFArea()
+            getFAreaUseCase.addCacheListFArea(list)
+        }
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe (
+                        {
+//                            Log.d(TAG, "#result Saved To Insert FMaterialGroup3 success ${it .toString()}")
+                        },
+                        {
+                            Log.d(TAG, "#result FMaterialGroup3 error  ${it.message}")
+                        },
+                        {
+
+                        }
+                )
+        )
+    }
+    fun insertCacheFSubArea(list: List<FSubAreaEntity>){
+
+        DisposableManager.add(Observable.fromCallable {
+            getFSubAreaUseCase.deleteAllCacheFSubArea()
+            getFSubAreaUseCase.addCacheListFSubArea(list)
+        }
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe (
+                        {
+//                            Log.d(TAG, "#result Saved To Insert FSubArea success ${it .toString()}")
+                        },
+                        {
+                            Log.d(TAG, "#result FSubArea error  ${it.message}")
+
+                        },
+                        {
+
+                        }
+                )
+        )
     }
 
     fun insertCacheFMaterialGroup3(list: List<FMaterialGroup3Entity>){
@@ -213,7 +285,7 @@ class SyncViewModel @ViewModelInject constructor(
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe (
                         {
-                            Log.d(TAG, "#result Saved To Insert FMaterialGroup3 ${it .toString()}")
+//                            Log.d(TAG, "#result Saved To Insert FMaterialGroup3 success ${it .toString()}")
                         },
                         {
                             Log.d(TAG, "#result FMaterialGroup3 error  ${it.message}")
@@ -236,11 +308,10 @@ class SyncViewModel @ViewModelInject constructor(
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe (
                     {
-//                        Log.d(TAG, "#result Insert FMaterial Suscess  ${it}")
+//                        Log.d(TAG, "#result Insert FMaterial Tod Database Suscess ${it}")
                     },
                     {
-                        Log.d(TAG, "#result Insert FMaterial error  ${it.message}")
-
+                        Log.d(TAG, "#result Insert FMaterial error To Database ${it.message}")
                     },
                     {
 
@@ -258,6 +329,11 @@ class SyncViewModel @ViewModelInject constructor(
             .subscribe {
             }
         )
+    }
+
+
+    fun getCacheFAreaLive(): LiveData<List<FAreaEntity>> {
+        return getFAreaUseCase.getCacheAllFAreaByDivision(userActive.fdivisionBean)
     }
 
     fun getCacheFMaterialGroup3Live(): LiveData<List<FMaterialGroup3Entity>> {
@@ -291,25 +367,13 @@ class SyncViewModel @ViewModelInject constructor(
 //                            error -> Log.e(TAG, error.printStackTrace())
                                 } ,
                                 {
-                                    Log.d(TAG, "#result FArea Complete")
+//                                    Log.d(TAG, "#result FArea Complete")
                                 }
 
                         )
         )
     }
 
-    fun insertCacheFArea(listFAreaEntity: List<FAreaEntity>){
-        DisposableManager.add(Observable.fromCallable {
-            getFAreaUseCase.addCacheListFArea(listFAreaEntity)
-        }
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe {
-//                    userActiveLive.value = fUser
-                    Log.d(TAG, "#result Inserted All FArea")
-                }
-        )
-    }
 
 
 

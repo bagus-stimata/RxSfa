@@ -13,6 +13,7 @@ interface FCustomerRepository {
     fun getRemoteAllFCustomer(authHeader: String): Single<List<FCustomerEntity>>
     fun getRemoteFCustomerById(authHeader: String, id: Int): Single<FCustomerEntity>
     fun getRemoteAllFCustomerByDivision(authHeader: String, divisionId: Int): Single<List<FCustomerEntity>>
+    fun getRemoteAllFCustomerByDivisionAndShareToCompany(authHeader: String, divisionId: Int, companyId: Int): Single<List<FCustomerEntity>>
     fun createRemoteFCustomer(authHeader: String, fCustomerEntity: FCustomerEntity): Single<FCustomerEntity>
     fun putRemoteFCustomer(authHeader: String, id: Int, fCustomerEntity: FCustomerEntity): Single<FCustomerEntity>
     fun deleteRemoteFCustomer(authHeader: String,  id: Int): Single<FCustomerEntity>

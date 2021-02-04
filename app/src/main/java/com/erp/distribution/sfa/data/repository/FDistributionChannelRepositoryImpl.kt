@@ -28,6 +28,9 @@ class FDistributionChannelRepositoryImpl(
     override fun getRemoteAllFDistributionChannelByDivision(authHeader: String, divisionId: Int): Single<List<FDistributionChannelEntity>> {
         return retrofitService.getRemoteAllFDistributionChannelByDivision(authHeader, divisionId)
     }
+    override fun getRemoteAllFDistributionChannelByDivisionAndShareToCompany(authHeader: String, divisionId: Int, companyId: Int): Single<List<FDistributionChannelEntity>> {
+        return retrofitService.getRemoteAllFDistributionChannelByDivisionAndShareToCompany(authHeader, divisionId, companyId)
+    }
 
     override fun createRemoteFDistributionChannel(authHeader: String, fDistributionChannelEntity: FDistributionChannelEntity): Single<FDistributionChannelEntity> {
         return retrofitService.createRemoteFDistributionChannel(authHeader, fDistributionChannelEntity)

@@ -15,6 +15,9 @@ interface RetrofitServiceFMaterialGroup1 {
     @GET("getAllFMaterialGroup1ByDivision/{fdivisionBean}")
     fun getRemoteAllFMaterialGroup1ByDivision(@Header("Authorization") authHeader: String?, @Path("fdivisionBean") fdivisionBean: Int): Single<List<FMaterialGroup1Entity>>
 
+    @GET("getAllFMaterialGroup1ByDivisionAndShareToCompany/{fdivisionBean}/{fcompanyBean}")
+    fun getRemoteAllFMaterialGroup1ByDivisionAndShareToCompany(@Header("Authorization") authHeader: String?, @Path("fdivisionBean") fdivisionBean: Int, @Path("fcompanyBean") fcompanyBean: Int): Single<List<FMaterialGroup1Entity>>
+
 
     @POST("createFMaterialGroup1")
     fun createRemoteFMaterialGroup1(@Header("Authorization") authHeader: String?, @Body fMaterialGroup1EntityBean: FMaterialGroup1Entity): Single<FMaterialGroup1Entity>

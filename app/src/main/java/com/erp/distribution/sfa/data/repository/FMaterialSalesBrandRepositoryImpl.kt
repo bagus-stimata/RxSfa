@@ -29,6 +29,10 @@ class FMaterialSalesBrandRepositoryImpl(
         return retrofitService.getRemoteAllFMaterialSalesBrandByDivision(authHeader, divisionId)
     }
 
+    override fun getRemoteAllFMaterialSalesBrandByDivisionAndShareToCompany(authHeader: String, divisionId: Int, companyId: Int): Single<List<FMaterialSalesBrandEntity>> {
+        return retrofitService.getRemoteAllFMaterialSalesBrandByDivisionAndShareToCompany(authHeader, divisionId, companyId)
+    }
+
     override fun createRemoteFMaterialSalesBrand(authHeader: String, fMaterialSalesBrandEntity: FMaterialSalesBrandEntity): Single<FMaterialSalesBrandEntity> {
         return retrofitService.createRemoteFMaterialSalesBrand(authHeader, fMaterialSalesBrandEntity)
     }

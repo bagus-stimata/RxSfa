@@ -12,9 +12,12 @@ interface RetrofitServiceSysvar {
     @GET("getSysvarById/{id}")
     fun getRemoteSysvarById(@Header("Authorization") authHeader: String?, @Path("id") id: Int): Single<SysvarEntity>
 
+
     @GET("getAllSysvarByDivision/{fdivisionBean}")
     fun getRemoteAllSysvarByDivision(@Header("Authorization") authHeader: String?, @Path("fdivisionBean") fdivisionBean: Int): Single<List<SysvarEntity>>
 
+    @GET("getAllSysvarByDivisionAndShareToCompany/{fdivisionBean}/{fcompanyBean}")
+    fun getRemoteAllSysvarByDivisionAndShareToCompany(@Header("Authorization") authHeader: String?, @Path("fdivisionBean") fdivisionBean: Int, @Path("fcompanyBean") fcompanyBean: Int): Single<List<SysvarEntity>>
 
     @POST("createSysvar")
     fun createRemoteSysvar(@Header("Authorization") authHeader: String?, @Body sysvarEntityBean: SysvarEntity): Single<SysvarEntity>

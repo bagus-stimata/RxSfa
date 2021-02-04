@@ -29,6 +29,10 @@ class SysvarRepositoryImpl(
         return retrofitService.getRemoteAllSysvarByDivision(authHeader, divisionId)
     }
 
+    override fun getRemoteAllSysvarByDivisionAndShareToCompany(authHeader: String, divisionId: Int, companyId: Int): Single<List<SysvarEntity>> {
+        return retrofitService.getRemoteAllSysvarByDivisionAndShareToCompany(authHeader, divisionId, companyId)
+    }
+
     override fun createRemoteSysvar(authHeader: String, sysvarEntity: SysvarEntity): Single<SysvarEntity> {
         return retrofitService.createRemoteSysvar(authHeader, sysvarEntity)
     }

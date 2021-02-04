@@ -14,6 +14,7 @@ interface FMaterialRepository {
     fun getRemoteAllFMaterial(authHeader: String, ): Single<List<FMaterialEntity>>
     fun getRemoteFMaterialById(authHeader: String, id: Int): Single<FMaterialEntity>
     fun getRemoteAllFMaterialByDivision(authHeader: String, divisionId: Int): Single<List<FMaterialEntity>>
+    fun getRemoteAllFMaterialByDivisionAndShareToCompany(authHeader: String, divisionId: Int, companyId: Int): Single<List<FMaterialEntity>>
     fun createRemoteFMaterial(authHeader: String, fMaterialEntity: FMaterialEntity): Single<FMaterialEntity>
     fun putRemoteFMaterial(authHeader: String, id: Int, fMaterialEntity: FMaterialEntity): Single<FMaterialEntity>
     fun deleteRemoteFMaterial(authHeader: String, id: Int): Single<FMaterialEntity>
