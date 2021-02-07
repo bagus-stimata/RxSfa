@@ -120,12 +120,12 @@ data class FCustomerEntity(
     //	@ManyToOne
     //	@JoinColumn(name="fcustomerGroupBean", referencedColumnName="ID")
     //	private FCustomerGroup fcustomerGroupBean;
-    var fcustomerGroupBean: Int =0,
+    var fcustomerGroupBean: Int? =0,
 
     //	@ManyToOne
     //	@JoinColumn(name="fsubAreaBean", referencedColumnName="ID")
     //	private FSubArea fsubAreaBean;
-    var fsubAreaBean: Int =0,
+    var fsubAreaBean: Int? =0,
 
     /*
     * CLASSIFIKASI MATERIAL & SALES
@@ -135,7 +135,7 @@ data class FCustomerEntity(
     //	@ManyToOne
     //	@JoinColumn(name="fdistributionChannelBean", referencedColumnName="ID")
     //	private FDistributionChannel fdistributionChannelBean;
-    var fdistributionChannelBean: Int =0,
+    var fdistributionChannelBean: Int? =0,
 
     //	@ManyToOne
     //	@JoinColumn(name="ftPriceAlthBean", referencedColumnName="ID", nullable=true)

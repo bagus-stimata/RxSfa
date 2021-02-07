@@ -67,7 +67,8 @@ class FMaterialAdapter(private val listener: OnItemClickListener) :
                 txtPname.text  = item.pname
                 txtPcode.text = item.pcode
 
-                txtMaterialGroup.text = item.fmaterialGroup3Bean.toString()
+//                txtMaterialGroup.text = item.fmaterialGroup3Bean.toString()
+                txtMaterialGroup.text = item.modifiedBy
 
 
                 txtPrice.text = "Rp ${nf.format(item.spriceAfterPpn)}"

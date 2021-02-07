@@ -6,8 +6,8 @@ import androidx.hilt.lifecycle.ViewModelInject
 import androidx.lifecycle.*
 import com.erp.distribution.sfa.data.di.PreferencesManager
 import com.erp.distribution.sfa.data.di.SortOrder
-import com.erp.distribution.sfa.data.source.entity.FCustomerEntity
-import com.erp.distribution.sfa.domain.usecase.GetFCustomerUseCase
+import com.erp.distribution.sfa.data.source.entity.*
+import com.erp.distribution.sfa.domain.usecase.*
 import com.erp.distribution.sfa.presentation.ui.test.mvvm_todo.ADD_TASK_RESULT_OK
 import com.erp.distribution.sfa.presentation.ui.test.mvvm_todo.EDIT_TASK_RESULT_OK
 import com.erp.distribution.sfa.utils.DisposableManager
@@ -22,6 +22,9 @@ import kotlinx.coroutines.launch
 
 class CustomerViewModel @ViewModelInject constructor(
     private val getFCustomerUseCase: GetFCustomerUseCase,
+    private val getFDivisionUseCase: GetFDivisionUseCase,
+    private val getFSubAreaUseCase: GetFSubAreaUseCase,
+    private val getFCustomerGroupUseCase: GetFCustomerGroupUseCase,
     private val preferencesManager: PreferencesManager,
     @Assisted private val state: SavedStateHandle
 ) : ViewModel() {
@@ -33,6 +36,26 @@ class CustomerViewModel @ViewModelInject constructor(
 
     private val fCustomerEventChannel = Channel<CustomerEvent>()
     val fCustomerEvent = fCustomerEventChannel.receiveAsFlow()
+
+    fun getFDivisionEntityLive(id: Int):LiveData<FDivisionEntity> {
+        return getFDivisionUseCase.getCacheFDivisionById(id)
+    }
+    fun getFSubAreaEntityLive(id: Int):LiveData<FSubAreaEntity> {
+        return getFSubAreaUseCase.getCacheFSubAreaById(id)
+    }
+    fun getFCustomerGroupEntityLive(id: Int):LiveData<FCustomerGroupEntity> {
+        return getFCustomerGroupUseCase.getCacheFCustomerGroupById(id)
+    }
+
+    fun getListFCustomerWithDivision(list: List<FCustomerEntity>):LiveData<List<FCustomerEntity>> {
+        val newItemLive : MutableLiveData<List<FCustomerEntity>> = MutableLiveData()
+        /**
+         * Your Coding Hre
+         */
+
+        return newItemLive
+    }
+
 
     private val fCustomerFlow = combine(
         searchQuery.asFlow(),

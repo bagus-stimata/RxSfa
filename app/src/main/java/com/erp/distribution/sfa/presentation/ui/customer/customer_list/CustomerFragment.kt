@@ -10,7 +10,9 @@ import androidx.appcompat.widget.SearchView
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.setFragmentResultListener
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.Observer
 import androidx.lifecycle.lifecycleScope
+import androidx.lifecycle.map
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.ItemTouchHelper
@@ -88,9 +90,46 @@ class CustomerFragment : Fragment(R.layout.fragment_customer), CustomerAdapter.O
             viewModel.onAddEditResult(result)
         }
 
-        viewModel.fCustomerLive.observe(viewLifecycleOwner) {
-            customerAdapter.submitList(it)
-        }
+
+        /**
+         * THIS IS MAIN MODEL
+         */
+//        viewModel.fCustomerLive
+//                .map {
+//                    it.map { newData ->
+//                        viewModel.getfDivisionEntityLive(newData.fdivisionBean).observe(this.viewLifecycleOwner, Observer {
+//                            newData.mappingOutCode1 = it.description
+//                        })
+//                        newData
+//                    }
+//        }
+//                .observe(viewLifecycleOwner) {
+//                        customerAdapter.submitList(it)
+//        }
+        viewModel.fCustomerLive
+                .map {
+                    it.map { newData ->
+
+                        newData.fdivisionBean?.let {
+                            viewModel.getFDivisionEntityLive(newData.fdivisionBean).observe(this.viewLifecycleOwner, Observer {
+                                it?.let {  newData.mappingOutCode1 = it.description}
+                            })
+                        }
+
+//                        newData.fsubAreaBean?.let {
+//                            viewModel.getFSubAreaEntityLive(newData.fsubAreaBean!!).observe(this.viewLifecycleOwner, Observer {
+//                                it?.let {  newData.mappingOutCode2 = it.description }
+//                            })
+//                        }
+
+                        newData
+                    }
+                }
+                .observe(viewLifecycleOwner) {
+                    customerAdapter.submitList(it)
+                }
+
+
 
         viewLifecycleOwner.lifecycleScope.launchWhenStarted {
             viewModel.fCustomerEvent.collect { event ->

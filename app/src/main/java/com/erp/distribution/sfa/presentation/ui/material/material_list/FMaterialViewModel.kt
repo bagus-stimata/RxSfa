@@ -7,19 +7,17 @@ import androidx.lifecycle.*
 import com.erp.distribution.sfa.data.di.PreferencesManager
 import com.erp.distribution.sfa.data.di.SortOrder
 import com.erp.distribution.sfa.data.source.entity.FMaterialEntity
-import com.erp.distribution.sfa.data.source.entity.FMaterialGroup2Entity
 import com.erp.distribution.sfa.data.source.entity.FMaterialGroup3Entity
+import com.erp.distribution.sfa.domain.model.FMaterialGroup3
 import com.erp.distribution.sfa.domain.usecase.GetFMaterialGroup3UseCase
 import com.erp.distribution.sfa.domain.usecase.GetFMaterialUseCase
 import com.erp.distribution.sfa.presentation.ui.test.mvvm_todo.ADD_TASK_RESULT_OK
 import com.erp.distribution.sfa.presentation.ui.test.mvvm_todo.EDIT_TASK_RESULT_OK
 import com.erp.distribution.sfa.utils.DisposableManager
-import io.reactivex.Flowable
 import io.reactivex.Observable
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 import kotlinx.coroutines.channels.Channel
-import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.flatMapLatest
 import kotlinx.coroutines.flow.receiveAsFlow
@@ -41,6 +39,8 @@ class FMaterialViewModel @ViewModelInject constructor(
     val fMaterialEvent = fMaterialEventChannel.receiveAsFlow()
 
     val fMaterialGroup3Live = getFMaterialGroup3UseCase.getCacheAllFMaterialGroup3()
+    fun getCacheAllFMaterialGroup3Live(id: Int): LiveData<FMaterialGroup3Entity> =
+        getFMaterialGroup3UseCase.getCacheFMaterialGroup3ById(id)
 
     private val fMaterialFlow = combine(
         searchQuery.asFlow(),

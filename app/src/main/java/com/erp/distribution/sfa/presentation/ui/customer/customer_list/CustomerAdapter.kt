@@ -67,8 +67,10 @@ class CustomerAdapter(private val listener: OnItemClickListener) :
 
                 txtCustname.text = item.custname
                 txtCustno.text = item.custno
-                txtCustGroup.text = item.fcustomerGroupBean.toString()
-                txtDivision.text = item.fdivisionBean.toString()
+//                txtCustGroup.text = item.fcustomerGroupBean.toString()
+                txtCustGroup.text = item.mappingOutCode2
+//                txtDivision.text = item.fdivisionBean.toString()
+                txtDivision.text = item.mappingOutCode1
 
                 txtAddress.text = "${item.address1} ${item.address2} ${item.city1}"
 

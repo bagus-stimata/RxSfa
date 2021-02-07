@@ -179,7 +179,7 @@ class SyncViewModel @ViewModelInject constructor(
         return   getFDivisionUseCase.getRemoteAllFDivisionByCompany(SecurityUtil.getAuthHeader(userActive.username, userActive.passwordConfirm), fCompanyEntity.id).toObservable()
     }
     fun getFAreaFromRepo(): Observable<List<FAreaEntity>>  {
-        return getFAreaUseCase.getRemoteAllFAreaByDivision(SecurityUtil.getAuthHeader(userActive.username, userActive.passwordConfirm), userActive.fdivisionBean).toObservable()
+        return getFAreaUseCase.getRemoteAllFAreaByDivisionAndShareToCompany(SecurityUtil.getAuthHeader(userActive.username, userActive.passwordConfirm), divisionActive.id, divisionActive.fcompanyBean).toObservable()
     }
 //    fun getFSubAreaFromRepo(fAreaEntity: FAreaEntity): Observable<List<FSubAreaEntity>>  {
 //        return getFSubAreaUseCase.getRemoteAllFSubAreaByParent(SecurityUtil.getAuthHeader(userActive.username, userActive.passwordConfirm), fAreaEntity.id).toObservable()

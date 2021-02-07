@@ -96,13 +96,16 @@ class FMaterialFragment : Fragment(R.layout.fragment_fmaterial), FMaterialAdapte
 
         viewModelFMaterial.fMaterialLive
                 .map {
-                    it.map {
+                    it.map { data ->
 //                        it.fmaterialGroup3Bean = 1234
-                        it
+                        viewModelFMaterial.getCacheAllFMaterialGroup3Live(data.fmaterialGroup3Bean).observe(this.viewLifecycleOwner, Observer {
+                            data.modifiedBy = it.description
+                        })
+                        data
                     }
                 }
                 .observe(viewLifecycleOwner) {
-            fMaterialAdapter.submitList(it)
+//            fMaterialAdapter.submitList(it)
         }
 
         viewLifecycleOwner.lifecycleScope.launchWhenStarted {
