@@ -26,8 +26,7 @@ data class FCustomerItem(
     */
     var sourceID: Int =0,
         var custno: String ="",
-        var isOutletActive: Boolean =false,
-        var fdivisionBean: FDivisionItem?,
+        var fdivisionBean: FDivisionItem? = FDivisionItem(),
 
         var custname: String ="",
 
@@ -44,7 +43,7 @@ data class FCustomerItem(
         var longitude: Int =0,
 
     //	private FCustomerGroup fcustomerGroupBean;
-        var fcustomerGroupBean: Int =0,
+        var fcustomerGroupBean: FCustomerGroupItem? = FCustomerGroupItem(),
 
     //	@ManyToOne
     //	@JoinColumn(name="fsubAreaBean", referencedColumnName="ID")
@@ -52,7 +51,7 @@ data class FCustomerItem(
         var fsubAreaBean: Int =0,
 
     //	private FDistributionChannel fdistributionChannelBean;
-        var fdistributionChannelBean: Int =0,
+        var fdistributionChannelBean: Int? =0,
 
 //        var ftSaleshSet : List<FtSalesh> = listOf<FtSalesh>(),
 
@@ -60,7 +59,7 @@ data class FCustomerItem(
         //	@ManyToOne
     //	@JoinColumn(name="ftPriceAlthBean", referencedColumnName="ID", nullable=true)
     //	private FtPriceAlth ftPriceAlthBean;
-        var ftPriceAlthBean: Int =0,
+        var ftPriceAlthBean: Int? =0,
 
         var stared: Boolean? = false,
         var unread: Boolean? = false,

@@ -7,6 +7,7 @@ import androidx.lifecycle.*
 import com.erp.distribution.sfa.data.di.PreferencesManager
 import com.erp.distribution.sfa.data.di.SortOrder
 import com.erp.distribution.sfa.data.source.entity.FtSaleshEntity
+import com.erp.distribution.sfa.domain.usecase.GetFCustomerUseCase
 import com.erp.distribution.sfa.domain.usecase.GetFtSaleshUseCase
 import com.erp.distribution.sfa.presentation.ui.test.mvvm_todo.ADD_TASK_RESULT_OK
 import com.erp.distribution.sfa.presentation.ui.test.mvvm_todo.EDIT_TASK_RESULT_OK
@@ -22,6 +23,7 @@ import kotlinx.coroutines.launch
 
 class FSaleshViewModel @ViewModelInject constructor(
     private val getFtSaleshUseCase: GetFtSaleshUseCase,
+    private val getFCustomerUseCase: GetFCustomerUseCase,
     private val preferencesManager: PreferencesManager,
     @Assisted private val state: SavedStateHandle
 ) : ViewModel() {
@@ -29,8 +31,9 @@ class FSaleshViewModel @ViewModelInject constructor(
 
     val searchQuery = state.getLiveData("searchQuery", "")
 
-    val preferencesFlow = preferencesManager.preferencesFlow
 
+
+    val preferencesFlow = preferencesManager.preferencesFlow
     private val ftSaleshEventChannel = Channel<FtSaleshEvent>()
     val ftSaleshEvent = ftSaleshEventChannel.receiveAsFlow()
 

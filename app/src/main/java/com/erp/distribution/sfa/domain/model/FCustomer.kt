@@ -8,6 +8,7 @@ import com.erp.distribution.sfa.data.source.entity.modelenum.EnumCurrency
 import com.erp.distribution.sfa.data.source.entity.modelenum.EnumTipePajakCustomer
 import com.erp.distribution.sfa.data.source.entity.modelenum.EnumTunaiKredit
 import com.erp.distribution.sfa.domain.base.Model
+import com.erp.distribution.sfa.presentation.model.FCustomerGroupItem
 import kotlinx.parcelize.Parcelize
 import java.io.Serializable
 import java.text.DateFormat
@@ -16,7 +17,7 @@ import java.util.*
 
 @Parcelize
 data class FCustomer(
-        var id: Int =0,
+    var id: Int =0,
 
     /*
     * JIKA COPY DARI TEMPAT LAIN: MAKA SEBAGAI LOG TRACK MENINGGALKAN SOURCE_ID = ID sumber asal dia dicopy
@@ -25,15 +26,16 @@ data class FCustomer(
     * 2. 
     */
     var sourceID: Int =0,
-        var custno: String ="",
-        var isOutletActive: Boolean =false,
-        var oldKode1: String ="",
-        var isFlagNewItem: Boolean =false,
+    var custno: String ="",
+    var isOutletActive: Boolean =false,
+    var oldKode1: String ="",
+    var isFlagNewItem: Boolean =false,
 
     //	@ManyToOne
     //	@JoinColumn(name="fdivisionBean", referencedColumnName="ID")
     //	private FDivision fdivisionBean;
-        var fdivisionBean: Int =0,
+//    var fdivisionBean: Int =0,
+    var fdivisionBean: FDivision? =FDivision(),
 
 
     /*
@@ -111,17 +113,18 @@ data class FCustomer(
     * 2 = Menggunakan harga Grosir A
     * 3 = Menggunakan harga Grosir B
     */
-    var priceAltSwalayan: Int =0,
+//    var priceAltSwalayan: Int =0,
 
     //	@ManyToOne
     //	@JoinColumn(name="fcustomerGroupBean", referencedColumnName="ID")
     //	private FCustomerGroup fcustomerGroupBean;
-        var fcustomerGroupBean: Int =0,
+//        var fcustomerGroupBean: Int =0,
+    var fcustomerGroupBean: FCustomerGroup? = FCustomerGroup(),
 
     //	@ManyToOne
     //	@JoinColumn(name="fsubAreaBean", referencedColumnName="ID")
     //	private FSubArea fsubAreaBean;
-        var fsubAreaBean: Int =0,
+    var fsubAreaBean: Int? =0,
 
     /*
     * CLASSIFIKASI MATERIAL & SALES
@@ -131,15 +134,15 @@ data class FCustomer(
     //	@ManyToOne
     //	@JoinColumn(name="fdistributionChannelBean", referencedColumnName="ID")
     //	private FDistributionChannel fdistributionChannelBean;
-        var fdistributionChannelBean: Int =0,
+    var fdistributionChannelBean: Int? =0,
 
-        var ftSaleshSet : List<FtSalesh> = listOf<FtSalesh>(),
+    var ftSaleshSet : List<FtSalesh> = listOf<FtSalesh>(),
 
 
         //	@ManyToOne
     //	@JoinColumn(name="ftPriceAlthBean", referencedColumnName="ID", nullable=true)
     //	private FtPriceAlth ftPriceAlthBean;
-        var ftPriceAlthBean: Int =0,
+    var ftPriceAlthBean: Int? =0,
 
     /*
     * reject promotion rules setting
@@ -152,15 +155,15 @@ data class FCustomer(
     */
     var isExclusiveSalesman: Boolean =false,
 
-        var stared: Boolean? = false,
-        var unread: Boolean? = false,
-        var selected: Boolean? = false,
+    var stared: Boolean? = false,
+    var unread: Boolean? = false,
+    var selected: Boolean? = false,
 
 //    @Ignore
 //    var notes: String ="",
-        var created : Date = Date(),
-        var modified : Date = Date(),
-        var modifiedBy: String ="", //User ID
+    var created : Date = Date(),
+    var modified : Date = Date(),
+    var modifiedBy: String ="", //User ID
 
 //    @Ignore
 //    var isStared: Boolean =false,
