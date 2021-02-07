@@ -74,4 +74,5 @@ data class FSalesmanEntity (
     var created : Date? = Date(),
     var modified : Date? = Date(),
     var modifiedBy : String? ="" //User ID
+
 ) : Model(), Parcelable, Serializable

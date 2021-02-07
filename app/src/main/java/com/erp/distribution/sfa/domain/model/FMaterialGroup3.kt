@@ -21,7 +21,6 @@ class FMaterialGroup3 (
     */
     var sourceID :Int =0,
     var kode1 :String ="",
-    var kode2 :String ="",
     var description :String ="",
     var tempInt1 :Int =0,
     var tempInt2 :Int =0,

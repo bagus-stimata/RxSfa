@@ -25,8 +25,8 @@ class FMaterialActivity : AppCompatActivity() {
 
         setupActionBarWithNavController(navController)
 
-        supportActionBar?.setDisplayHomeAsUpEnabled(true)
-        supportActionBar?.setDisplayShowHomeEnabled(true)
+//        supportActionBar?.setDisplayHomeAsUpEnabled(true)
+//        supportActionBar?.setDisplayShowHomeEnabled(true)
 
     }
 

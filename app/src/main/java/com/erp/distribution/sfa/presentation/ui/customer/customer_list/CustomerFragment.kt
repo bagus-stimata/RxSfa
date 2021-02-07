@@ -115,6 +115,11 @@ class CustomerFragment : Fragment(R.layout.fragment_customer), CustomerAdapter.O
                                 it?.let {  newData.mappingOutCode1 = it.description}
                             })
                         }
+                        newData.fcustomerGroupBean?.let {
+                            viewModel.getFCustomerGroupEntityLive(newData.fcustomerGroupBean!!).observe(this.viewLifecycleOwner, Observer {
+                                it?.let {  newData.mappingOutCode2 = it.description}
+                            })
+                        }
 
 //                        newData.fsubAreaBean?.let {
 //                            viewModel.getFSubAreaEntityLive(newData.fsubAreaBean!!).observe(this.viewLifecycleOwner, Observer {

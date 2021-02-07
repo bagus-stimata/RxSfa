@@ -6,6 +6,7 @@ import androidx.hilt.lifecycle.ViewModelInject
 import androidx.lifecycle.*
 import com.erp.distribution.sfa.data.di.PreferencesManager
 import com.erp.distribution.sfa.data.di.SortOrder
+import com.erp.distribution.sfa.data.source.entity.FDivisionEntity
 import com.erp.distribution.sfa.data.source.entity.FMaterialEntity
 import com.erp.distribution.sfa.data.source.entity.FMaterialGroup3Entity
 import com.erp.distribution.sfa.domain.model.FMaterialGroup3
@@ -41,6 +42,10 @@ class FMaterialViewModel @ViewModelInject constructor(
     val fMaterialGroup3Live = getFMaterialGroup3UseCase.getCacheAllFMaterialGroup3()
     fun getCacheAllFMaterialGroup3Live(id: Int): LiveData<FMaterialGroup3Entity> =
         getFMaterialGroup3UseCase.getCacheFMaterialGroup3ById(id)
+
+    fun getFMaterialGroup3EntityLive(id: Int):LiveData<FMaterialGroup3Entity> {
+        return getFMaterialGroup3UseCase.getCacheFMaterialGroup3ById(id)
+    }
 
     private val fMaterialFlow = combine(
         searchQuery.asFlow(),

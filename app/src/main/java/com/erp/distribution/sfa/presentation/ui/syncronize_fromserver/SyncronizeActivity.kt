@@ -216,6 +216,7 @@ class SyncronizeActivity : AppCompatActivity() {
                 }
             }
             binding.masterViewModel = this.viewModel
+//            binding.executePendingBindings()
         })
 
         val observerFMaterial = viewModel.getFMaterialFromRepo()
@@ -271,6 +272,7 @@ class SyncronizeActivity : AppCompatActivity() {
                 }
             }
             binding.masterViewModel = this.viewModel
+//            binding.executePendingBindings()
         })
 
 

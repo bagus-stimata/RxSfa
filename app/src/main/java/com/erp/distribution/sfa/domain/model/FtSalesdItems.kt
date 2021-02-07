@@ -12,7 +12,6 @@ import java.io.Serializable
 
 @Parcelize
 class FtSalesdItems (
-    @PrimaryKey(autoGenerate =true)
     var id: Long =0,
     var isFreeGood : Boolean =false,
     var noUrut : Int =0,
@@ -377,7 +376,9 @@ class FtSalesdItems (
     //	@ManyToOne
     //	@JoinColumn(name="fmaterialBean", referencedColumnName="ID")
     //	private FMaterial fmaterialBean;
-    var ftSaleshBean : Long =0,
-    var fmaterialBean : Int =0
+//    var ftSaleshBean : Long =0,
+    var ftSaleshBean : FtSalesh = FtSalesh(),
+//    var fmaterialBean : Int =0
+    var fmaterialBean : FMaterial =FMaterial(),
 
 ): Serializable, Model(), Parcelable

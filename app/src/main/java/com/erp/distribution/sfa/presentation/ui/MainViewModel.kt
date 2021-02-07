@@ -118,27 +118,6 @@ class MainViewModel  @ViewModelInject constructor(
 
     fun insert(fUser: FUser): FUser {
         var returnFUser : FUser = fUser
-//        disposable.add(
-//                getFUserUseCase.createRemoteFUser(SecurityUtil.getAuthHeader(fUser.username, fUser.passwordConfirm), fUser)
-//                        .map {
-//                            it
-//                        }
-//                        .subscribeOn(Schedulers.io())
-//                        .observeOn(AndroidSchedulers.mainThread())
-//                        .subscribeWith(object : DisposableSingleObserver<FUser>() {
-//                            override fun onSuccess(successValue: FUser) {
-////                                Log.d("result", "Masuk bos ${successValue}")
-//                                returnFUser = successValue
-//
-//                            }
-//
-//                            override fun onError(e: Throwable) {
-////                                Log.d("result", "Error bos ${e.printStackTrace().toString()}")
-//                            }
-//                        }))
-
-//        repository.insert(fUser)
-
         disposable.add(Observable.fromCallable {
                         getFUserUseCase.addCacheFUser(fUser)
             }

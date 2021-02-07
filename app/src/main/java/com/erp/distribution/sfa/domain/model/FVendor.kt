@@ -1,14 +1,15 @@
-package com.erp.distribution.sfa.data.source.entity
+package com.erp.distribution.sfa.domain.model
 
+import android.os.Parcelable
 import androidx.room.Entity
 import androidx.room.Ignore
 import androidx.room.PrimaryKey
 import com.erp.distribution.sfa.data.source.entity.modelenum.EnumCurrency
+import kotlinx.parcelize.Parcelize
 import java.util.*
 
-@Entity(tableName = "fVendor")
-class FVendorEntity (
-    @PrimaryKey(autoGenerate = true)
+@Parcelize
+class FVendor (
     var id :Int = 0,
 
     /*
@@ -60,4 +61,4 @@ class FVendorEntity (
     var modified:Date? = Date(),
     var modifiedBy :String? = "" //User ID
 
-)
+): Parcelable

@@ -77,7 +77,7 @@ import com.erp.distribution.sfa.data.repository_security.FUserRolesDao
 
 
 
-                     ], version = 38, exportSchema = false)
+                     ], version = 39, exportSchema = false)
 @TypeConverters(RoomDateConverters::class) //Karena ada Native Date
 abstract class AppDatabase : RoomDatabase() {
 

@@ -41,56 +41,56 @@ data class FCustomer(
     * Maka akan di konversikan menjadi kode pada sistem
     * Pada import data: ada opsi pilih mapping customer yang mana
     */
-    var mappingInCode1: String ="",
-        var mappingInCode2: String ="",
-        var mappingInCode3: String ="",
+//    var mappingInCode1: String ="",
+//    var mappingInCode2: String ="",
+//    var mappingInCode3: String ="",
 
     /*
     * Digunanakan untuk menghasilkan kode yang berbeda jika di extract
     * Fungsinya: Untuk Integrasi dengan Sistem Lain jika ternyata kode customer berbeda
     */
-    var mappingOutCode1: String ="",
-        var mappingOutCode2: String ="",
-        var custGroupPromo1: Int =0, //GROUP PROMO
-        var custGroupPromo2: Int =0, //GROUP PROMO
-        var custname: String ="",
-        var currency: EnumCurrency = EnumCurrency.IDR,
+//    var mappingOutCode1: String ="",
+//    var mappingOutCode2: String ="",
+//    var custGroupPromo1: Int =0, //GROUP PROMO
+//    var custGroupPromo2: Int =0, //GROUP PROMO
+    var custname: String ="",
+    var currency: EnumCurrency = EnumCurrency.IDR,
 
     /*
     * PERPAJAKAN / TAX
     */
     var isPkp: Boolean =false,
-        var namaPrshFakturPajak: String ="",
-        var alamatPrshFakturPajak: String ="",
-        var namaPengusahaKenaPajak: String ="",
-        var nikPajak: String ="",
-        var npwp: String ="",
-        var tanggalPengukuhanPkp : Date = Date(),
-        var tipePajakCustomer: EnumTipePajakCustomer = EnumTipePajakCustomer.REG_01,
-        var tunaikredit: EnumTunaiKredit = EnumTunaiKredit.T,
-        var lamaCredit: Int =0,
-        var creditlimit: Int =0,
-        var maxInvoice: Int =0,
-        var namaPemilik: String ="",
-        var address1: String ="",
-        var address2: String ="",
-        var address3: String ="",
-        var city1: String ="",
-        var city2: String ="",
-        var state1: String ="",
-        var phone1: String ="",
-        var phone2: String ="",
-        var postcode: String ="",
-        var email: String ="",
-        var whatsApp: String ="",
-        var isStatusActive: Boolean =false,
+    var namaPrshFakturPajak: String ="",
+    var alamatPrshFakturPajak: String ="",
+    var namaPengusahaKenaPajak: String ="",
+    var nikPajak: String ="",
+    var npwp: String ="",
+    var tanggalPengukuhanPkp : Date = Date(),
+    var tipePajakCustomer: EnumTipePajakCustomer = EnumTipePajakCustomer.REG_01,
+    var tunaikredit: EnumTunaiKredit = EnumTunaiKredit.T,
+    var lamaCredit: Int =0,
+    var creditlimit: Int =0,
+    var maxInvoice: Int =0,
+    var namaPemilik: String ="",
+    var address1: String ="",
+    var address2: String ="",
+    var address3: String ="",
+    var city1: String ="",
+    var city2: String ="",
+    var state1: String ="",
+    var phone1: String ="",
+    var phone2: String ="",
+    var postcode: String ="",
+    var email: String ="",
+    var whatsApp: String ="",
+    var isStatusActive: Boolean =false,
 
     //Tidak akan dipkai: 
-        var harikunjungan: Int =0,
-        var pekankunjungan: Int =0,
-        var isNoeffcall: Boolean =false,
-        var latitude: Int =0,
-        var longitude: Int =0,
+    var harikunjungan: Int =0,
+    var pekankunjungan: Int =0,
+    var isNoeffcall: Boolean =false,
+    var latitude: Int =0,
+    var longitude: Int =0,
 
     /*
     * sementara belum dipakai sampai tahu principal atau SAP
@@ -100,10 +100,10 @@ data class FCustomer(
     //	private String shipToBillTo ="";
     //	@Column(name="BILLTO", length=20)
     //	private String billTo ="";
-        var basicDisc1Barang: Int =0,
-        var basicDisc1PlusBarang: Int =0,
-        var isDisc1RegManual: Boolean =false,
-        var isDiscPlusRegManual: Boolean =false,
+    var basicDisc1Barang: Int =0,
+    var basicDisc1PlusBarang: Int =0,
+    var isDisc1RegManual: Boolean =false,
+    var isDiscPlusRegManual: Boolean =false,
 
     /*
     * 0 = Menggunakan Harga Reguler Distributor (tidak mengenal harga bertingkat)

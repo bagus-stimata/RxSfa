@@ -31,17 +31,6 @@ data class FMaterial  (
     var barcode : String ="",
     var pname : String ="",
 
-//    @Ignore
-//    var oldKode1 : String ="",
-
-//    @Ignore
-//    var varianName : String ="",
-
-//    @Ignore
-//    var isFreeGood : Boolean =false,
-
-//    @Ignore
-//    var shortname : String ="",
     var isStatusActive : Boolean =false,
 
     /*
@@ -56,16 +45,8 @@ data class FMaterial  (
 	 * 
 	 * 	 Dalam satu Divisi biasanya terdapat beberapa Vendor
 	 */
-//    @Ignore
-//    var isExclusiveDivisionTransaction : Boolean =false,
-
-//    @Ignore
-//    var isExclusiveDivisionView : Boolean =false,
-
-    //	@ManyToOne
-    //	@JoinColumn(name="fdivisionBean", referencedColumnName="ID")
     //	private FDivision fdivisionBean;
-    var fdivisionBean : Int =0,
+//    var fdivisionBean : Int =0,
 
     /*
     * TAX
@@ -91,7 +72,8 @@ data class FMaterial  (
     //	@ManyToOne
     //	@JoinColumn(name="fvendorBean", referencedColumnName="ID")
     //	private FVendor fvendorBean;
-    var fvendorBean : Int =0,
+//    var fvendorBean : Int =0,
+    var fvendorBean : FVendor = FVendor(),
 
     //	@ManyToOne
     //	@JoinColumn(name="fwarehouseBean_Utm", referencedColumnName="ID")
@@ -112,7 +94,7 @@ data class FMaterial  (
     //	@JoinColumn(name="fmaterialGroup3Bean", referencedColumnName="ID")
 //    var FMaterialGroup3 fmaterialGroup3Bean;
 //    var fmaterialGroup3Bean : Int =0,
-    var fmaterialGroup3Bean : FMaterialGroup3= FMaterialGroup3(),
+    var fmaterialGroup3Bean : FMaterialGroup3 = FMaterialGroup3(),
 
     /*
     * KLASIFIKASI: SALES

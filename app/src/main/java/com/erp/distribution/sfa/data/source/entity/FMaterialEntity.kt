@@ -217,7 +217,7 @@ class FMaterialEntityMapper @Inject constructor(
             id = model.id,
             pcode = model.pcode,
             pname = model.pname,
-            fdivisionBean = model.fdivisionBean,
+//            fdivisionBean = model.fdivisionBean,
 //            fmaterialGroup3Bean? =  model.fmaterialGroup3Bean
     )
 
