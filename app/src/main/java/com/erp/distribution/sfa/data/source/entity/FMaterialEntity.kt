@@ -6,8 +6,10 @@ import androidx.room.PrimaryKey
 import com.erp.distribution.sfa.data.base.EntityMapper
 import com.erp.distribution.sfa.data.base.ModelEntity
 import com.erp.distribution.sfa.data.source.entity.modelenum.EnumUom
+import com.erp.distribution.sfa.domain.model.FDivision
 import com.erp.distribution.sfa.domain.model.FMaterial
 import com.erp.distribution.sfa.domain.model.FMaterialGroup3
+import com.erp.distribution.sfa.domain.model.FVendor
 import kotlinx.android.parcel.Parcelize
 import java.text.DateFormat
 import java.util.*
@@ -222,5 +224,46 @@ class FMaterialEntityMapper @Inject constructor(
     )
 
 }
+
+
+internal fun FMaterialEntity.toDomain(): FMaterial {
+    return FMaterial(
+        id = id,
+        pcode = pcode,
+        pname = pname,
+        uom1 = uom1,
+        uom2 = uom2,
+        uom3 = uom3,
+        uom4 = uom4,
+        convfact1 = convfact1,
+        convfact2 = convfact2,
+        convfact3 = convfact3,
+        pprice = pprice,
+        pprice2 = pprice2,
+        ppriceAfterPpn = ppriceAfterPpn,
+        pprice2AfterPpn = pprice2AfterPpn,
+        sprice = sprice,
+        sprice2 = sprice2,
+        spriceAfterPpn = spriceAfterPpn,
+        sprice2AfterPpn = sprice2AfterPpn,
+
+        isStatusActive = isStatusActive,
+        stared = stared,
+        selected = selected,
+        unread = unread,
+
+        fmaterialSalesBrandBean = fmaterialSalesBrandBean!!,
+        ftaxBean = ftaxBean!!,
+        fvendorBean = FVendor(fvendorBean),
+        fdivisionBean = FDivision(fdivisionBean!!),
+
+        created = created!!,
+        modified = modified!!,
+        modifiedBy = modifiedBy!!
+
+    )
+}
+
+
 
 

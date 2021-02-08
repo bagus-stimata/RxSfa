@@ -11,8 +11,7 @@ import java.util.*
 
 @Parcelize
 class FWarehouse (
-    @PrimaryKey(autoGenerate =false)
-    var id: Int = -1,
+    val id: Int = -1,
 
     /*
     * JIKA COPY DARI TEMPAT LAIN: MAKA SEBAGAI LOG TRACK MENINGGALKAN SOURCE_ID = ID sumber asal dia dicopy
@@ -20,36 +19,31 @@ class FWarehouse (
     * 1. Clone Database. karena tidak mungkin menggunakan Kode External yang bisa jadi kemungkinan kembar, tapi harus pakai kode internal
     * 2. 
     */
-    var sourceID : Int =0,
-    var kode1 : String ="",
-    var kode2 : String ="",
+    val sourceID : Int =0,
+    val kode1 : String ="",
+    val kode2 : String ="",
 
     //	@ManyToOne
     //	@JoinColumn(name="fdivisionBean", referencedColumnName="ID")
     //	private FDivision fdivisionBean;
-    var fdivisionBean : Int =0,
-    var isProductHppSaved : Boolean? =false,
-    var numberPriority: Int? = 0,
-    var description : String ="",
-    var isGudangUtama : Boolean? =false,
-    var address1 : String ="",
-    var city1: String? ="",
-    var state1 : String ="",
-    var phone : String ="",
-    var isStatusActive : Boolean =false,
-    var isGudangPo : Boolean? =false,
-    var isGudangSo : Boolean? =false,
-    var isGudangTransfer : Boolean? =false,
-    var isGudangRetail : Boolean? =false,
-    var isGudangPusatCompany : Boolean? =false,
-    var isGudangTransitDiv : Boolean? =false,
-    var tipeWarehouse: EnumTipeWarehouse? = EnumTipeWarehouse.GS,
+    val fdivisionBean : Int =0,
+    val description : String ="",
+    val isGudangUtama : Boolean? =false,
+    val address1 : String ="",
+    val city1: String? ="",
+    val state1 : String ="",
+    val phone : String ="",
+    val isStatusActive : Boolean =false,
+    val tipeWarehouse: EnumTipeWarehouse? = EnumTipeWarehouse.GS,
 
-    var ftSaleshSet : List<FtSalesh> = listOf<FtSalesh>(),
+    val ftSaleshSet : List<FtSalesh> = listOf<FtSalesh>(),
 
         //PORT WS:: UNTUK TRANSAKSI PEMBALIAN DAN PENJUALAN
-    var wsport : String? ="",
-    var created : Date? = Date(),
-    var modified : Date? = Date(),
-    var modifiedBy : String? ="", //User ID
-): Model(), Serializable, Parcelable
+    val wsport : String? ="",
+    val created : Date? = Date(),
+    val modified : Date? = Date(),
+    val modifiedBy : String? ="", //User ID
+): Model(), Serializable, Parcelable {
+    constructor(theId: Int): this(id = theId)
+
+}

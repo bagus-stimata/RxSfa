@@ -4,6 +4,7 @@ import androidx.lifecycle.LiveData
 import androidx.room.*
 import com.erp.distribution.sfa.data.di.SortOrder
 import com.erp.distribution.sfa.data.source.entity.FCustomerEntity
+import com.erp.distribution.sfa.data.source.entity.FtSaleshEntity
 import kotlinx.coroutines.flow.Flow
 
 /**
@@ -51,11 +52,16 @@ interface FCustomerDao {
     @Query("SELECT * FROM fCustomer ")
     fun getAllFCustomerFLow(): Flow<List<FCustomerEntity>>
 
+    @Query("SELECT * FROM fCustomer WHERE id IN (:listId)")
+    fun getAllFCustomerEntityLive(listId: List<Int>): LiveData<List<FCustomerEntity>>
+
 
     @Query("SELECT * FROM fCustomer WHERE id = :id ")
     fun getAllById(id: Int): FCustomerEntity
     @Query("SELECT * FROM fCustomer WHERE id = :id ")
     fun getAllByIdLive(id: Int): LiveData<FCustomerEntity>
+    @Query("SELECT * FROM fCustomer WHERE id = :id ")
+    fun getAllByIdFlow(id: Int): Flow<FCustomerEntity>
 
 
     @get:Query("SELECT * FROM fCustomer ")

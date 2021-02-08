@@ -1,6 +1,7 @@
 package com.erp.distribution.sfa.presentation.ui.salesorder.salesorder_list
 
 import android.os.Bundle
+import android.util.Log
 import com.erp.distribution.sfa.R
 import android.view.Menu
 import android.view.MenuInflater
@@ -10,7 +11,7 @@ import androidx.appcompat.widget.SearchView
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.setFragmentResultListener
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.lifecycleScope
+import androidx.lifecycle.*
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.ItemTouchHelper
@@ -18,11 +19,15 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.erp.distribution.sfa.data.di.SortOrder
 import com.erp.distribution.sfa.data.source.entity.FtSaleshEntity
+import com.erp.distribution.sfa.data.source.entity.toDomain
 import com.erp.distribution.sfa.databinding.FragmentFtsaleshBinding
+import com.erp.distribution.sfa.domain.model.FCustomer
+import com.erp.distribution.sfa.domain.model.FtSalesh
 import com.erp.distribution.sfa.presentation.ui.utils.onQueryTextChanged
 import com.erp.distribution.sfa.utils.exhaustive
 import com.google.android.material.snackbar.Snackbar
 import dagger.hilt.android.AndroidEntryPoint
+import io.reactivex.disposables.CompositeDisposable
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.launch
@@ -30,7 +35,10 @@ import kotlinx.coroutines.launch
 @AndroidEntryPoint
 class FtSaleshFragment : Fragment(R.layout.fragment_ftsalesh), FtSaleshAdapter.OnItemClickListener {
 
+    private val TAG = FtSaleshFragment::class.java.simpleName
+
     private val viewModelFSalesh: FSaleshViewModel by viewModels()
+    private val compositeDisposable = CompositeDisposable()
 
     private lateinit var searchView: SearchView
 
@@ -40,6 +48,7 @@ class FtSaleshFragment : Fragment(R.layout.fragment_ftsalesh), FtSaleshAdapter.O
         val binding = FragmentFtsaleshBinding.bind(view)
 
         val ftSaleshAdapter = FtSaleshAdapter(this)
+
 
 
         binding.apply {
@@ -91,17 +100,48 @@ class FtSaleshFragment : Fragment(R.layout.fragment_ftsalesh), FtSaleshAdapter.O
             viewModelFSalesh.onAddEditResult(result)
         }
 
-        viewModelFSalesh.ftSaleshLive.observe(viewLifecycleOwner) {
-            ftSaleshAdapter.submitList(it)
+
+//        viewModelFSalesh.getAllFCustomerEntityLive()
+//            .observe(viewLifecycleOwner, Observer {
+//                Log.d(TAG, "#result size kene ${viewModelFSalesh.mapFCustomer.size}")
+//            })
+//
+
+        viewModelFSalesh.ftSaleshLive
+            .map { data ->
+
+                data.map { newData ->
+//                    Log.d(TAG, "#result size ${viewModelFSalesh.mapFCustomer.size}")
+
+                    viewModelFSalesh.mapFCustomer[newData.fcustomerBean]?.let {
+                        newData.fcustomerBean = it
+                    }
+
+                    viewModelFSalesh.getFCustomerDomainLive(newData.fcustomerBean.id).observe(this.viewLifecycleOwner, Observer {
+                        it?.let {
+                            Log.d(TAG, "#result ${it.custname}")
+                            viewModelFSalesh.mapFCustomer.put(it.id, it)
+                        }
+                    })
+
+//                    Log.d(TAG, "#result ini adalah ${newData.fcustomerBean.custname}")
+                    newData
+                }
+
+            }
+            .observe(viewLifecycleOwner) {
+                ftSaleshAdapter.submitList(it)
+
         }
 
         viewLifecycleOwner.lifecycleScope.launchWhenStarted {
+
             viewModelFSalesh.ftSaleshEvent.collect { event ->
                 when (event) {
                     is FSaleshViewModel.FtSaleshEvent.ShowUndoDeleteFtSaleshMessage -> {
                         Snackbar.make(requireView(), "SalesOrder deleted", Snackbar.LENGTH_LONG)
                             .setAction("UNDO") {
-                                viewModelFSalesh.onUndoDeleteClick(event.ftSaleshEntity)
+                                viewModelFSalesh.onUndoDeleteClick(event.ftSalesh)
                             }.show()
                     }
                     is FSaleshViewModel.FtSaleshEvent.NavigateToAddFtSaleshScreen -> {
@@ -115,7 +155,7 @@ class FtSaleshFragment : Fragment(R.layout.fragment_ftsalesh), FtSaleshAdapter.O
                     is FSaleshViewModel.FtSaleshEvent.NavigateToEditFtSaleshScreen -> {
                         val action =
                             FtSaleshFragmentDirections.actionFtsaleshFragmentToFtSaleshFragmentAddEdit(
-                                event.ftSaleshEntity,
+                                event.ftSalesh,
                                 "Edit SalesOrder"
                             )
                         findNavController().navigate(action)
@@ -139,12 +179,12 @@ class FtSaleshFragment : Fragment(R.layout.fragment_ftsalesh), FtSaleshAdapter.O
         setHasOptionsMenu(true)
     }
 
-    override fun onItemClick(ftSaleshEntity: FtSaleshEntity) {
-        viewModelFSalesh.onItemSelected(ftSaleshEntity)
+    override fun onItemClick(ftSalesh: FtSalesh) {
+        viewModelFSalesh.onItemSelected(ftSalesh)
     }
 
-    override fun onCheckBoxClick(ftSaleshEntity: FtSaleshEntity, isChecked: Boolean) {
-        viewModelFSalesh.onItemCheckedChanged(ftSaleshEntity, isChecked)
+    override fun onCheckBoxClick(ftSalesh: FtSalesh, isChecked: Boolean) {
+        viewModelFSalesh.onItemCheckedChanged(ftSalesh, isChecked)
     }
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {

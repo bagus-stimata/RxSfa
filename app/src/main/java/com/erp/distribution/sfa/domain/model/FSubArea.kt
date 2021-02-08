@@ -1,14 +1,14 @@
-package com.erp.distribution.sfa.data.source.entity
+package com.erp.distribution.sfa.domain.model
 
+import android.os.Parcelable
 import androidx.room.Entity
 import androidx.room.PrimaryKey
+import kotlinx.parcelize.Parcelize
 import java.util.*
 
-//@Entity(tableName = "fsub_area")
-@Entity(tableName = "fSubArea")
-data class FSubAreaEntity (
-    @PrimaryKey
-    var id : Int = 0, 
+@Parcelize
+data class FSubArea (
+    var id : Int = 0,
 
     /*
     * JIKA COPY DARI TEMPAT LAIN: MAKA SEBAGAI LOG TRACK MENINGGALKAN SOURCE_ID = ID sumber asal dia dicopy
@@ -31,4 +31,6 @@ data class FSubAreaEntity (
     var created : Date = Date(), 
     var modified : Date = Date(), 
     var modifiedBy : String = ""  //User ID
-)
+): Parcelable {
+    constructor(theId: Int): this(id = theId)
+}

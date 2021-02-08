@@ -22,7 +22,7 @@
         <argument
             android:name="ftSalesh"
             android:defaultValue="@null"
-            app:argType="com.erp.distribution.sfa.data.source.entity.FtSaleshEntity"
+            app:argType="com.erp.distribution.sfa.domain.model.FtSalesh"
             app:nullable="true" />
         <argument
             android:name="title"

@@ -11,7 +11,7 @@ import kotlinx.parcelize.Parcelize
 import java.io.Serializable
 
 @Parcelize
-class FtSalesdItems (
+data class FtSalesdItems (
     var id: Long =0,
     var isFreeGood : Boolean =false,
     var noUrut : Int =0,

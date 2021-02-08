@@ -67,7 +67,7 @@ data class FCustomer(
     var namaPengusahaKenaPajak: String ="",
     var nikPajak: String ="",
     var npwp: String ="",
-    var tanggalPengukuhanPkp : Date = Date(),
+    var tanggalPengukuhanPkp : Date? = Date(),
     var tipePajakCustomer: EnumTipePajakCustomer = EnumTipePajakCustomer.REG_01,
     var tunaikredit: EnumTunaiKredit = EnumTunaiKredit.T,
     var lamaCredit: Int =0,
@@ -124,7 +124,7 @@ data class FCustomer(
     //	@ManyToOne
     //	@JoinColumn(name="fsubAreaBean", referencedColumnName="ID")
     //	private FSubArea fsubAreaBean;
-    var fsubAreaBean: Int? =0,
+    var fsubAreaBean: FSubArea? = FSubArea(),
 
     /*
     * CLASSIFIKASI MATERIAL & SALES
@@ -153,7 +153,7 @@ data class FCustomer(
     * Sales Covered
     * dan Jadwal Kunjungan
     */
-    var isExclusiveSalesman: Boolean =false,
+    var isExclusiveSalesman: Boolean? =false,
 
     var stared: Boolean? = false,
     var unread: Boolean? = false,
@@ -175,6 +175,9 @@ data class FCustomer(
 //    var isSelected: Boolean =false,
 
 ): Model(), Parcelable, Serializable{
+    constructor(theId: Int): this(id = theId)
+    constructor(theId: Int, theCustno: String, theCustname: String): this(id = theId, custno=theCustno, custname = theCustname)
+
     val createdDateFormatted: String
         get() = DateFormat.getDateTimeInstance().format(created)
 }

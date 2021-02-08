@@ -1,16 +1,13 @@
 package com.erp.distribution.sfa.domain.model
 
 import android.os.Parcelable
-import androidx.room.Entity
-import androidx.room.Ignore
-import androidx.room.PrimaryKey
 import com.erp.distribution.sfa.data.source.entity.modelenum.EnumCurrency
 import kotlinx.parcelize.Parcelize
 import java.util.*
 
 @Parcelize
 class FVendor (
-    var id :Int = 0,
+    val id :Int = 0,
 
     /*
     * JIKA COPY DARI TEMPAT LAIN: MAKA SEBAGAI LOG TRACK MENINGGALKAN SOURCE_ID = ID sumber asal dia dicopy
@@ -18,47 +15,49 @@ class FVendor (
     * 1. Clone Database. karena tidak mungkin menggunakan Kode External yang bisa jadi kemungkinan kembar, tapi harus pakai kode internal
     * 2. 
     */
-    var sourceID :Int = 0,
+    val sourceID :Int = 0,
 
-//    var fdivisionBean : FDivisionEntity? = FDivisionEntity(),
-    var fdivisionBean : Int = 0,
-    var vcode :String = "",
-    var vname :String = "",
-    var address1 :String = "",
-    var address2 :String = "",
-    var city1 :String = "",
-    var state1 :String = "",
-    var phone :String = "",
-    var email :String = "",
-    var joinDate:Date = Date(),
-    var lastTrans:Date = Date(),
-    var noRekening :String = "",
-    var currency: EnumCurrency? = EnumCurrency.IDR,
+//    val fdivisionBean : FDivisionEntity? = FDivisionEntity(),
+    val fdivisionBean : Int = 0,
+    val vcode :String = "",
+    val vname :String = "",
+    val address1 :String = "",
+    val address2 :String = "",
+    val city1 :String = "",
+    val state1 :String = "",
+    val phone :String = "",
+    val email :String = "",
+    val joinDate:Date = Date(),
+    val lastTrans:Date = Date(),
+    val noRekening :String = "",
+    val currency: EnumCurrency? = EnumCurrency.IDR,
 
     /*
     * Diskon Margin Barang: disc2 & Disc2Plus
     */
-    var disc2Margin :Double = 0.0,
-    var disc1PlusMargin :Double = 0.0,
+    val disc2Margin :Double = 0.0,
+    val disc1PlusMargin :Double = 0.0,
 
     /*
     * PERPAJAKAN
     */
-    var isPkp:Boolean? = true,
-    var namaPrshFakturPajak :String? = "",
-    var namaPengusahaKenaPajak :String? = "",
-    var npwp :String = "",
-    var tanggalPengukuhanPkp:Date? = Date(),
-    var isStatusActive: Boolean = true,
-    var top :Int? = 0,
+    val isPkp:Boolean? = true,
+    val namaPrshFakturPajak :String? = "",
+    val namaPengusahaKenaPajak :String? = "",
+    val npwp :String = "",
+    val tanggalPengukuhanPkp:Date? = Date(),
+    val isStatusActive: Boolean = true,
+    val top :Int? = 0,
 
     //PORT WS:: UNTUK TRANSAKSI PEMBALIAN DAN PENJUALAN
-    var wsport: String? = "",
-    var isDisc1RegManual :Boolean? = false,
-    var isDiscPlusRegManual :Boolean? = false,
+    val wsport: String? = "",
+    val isDisc1RegManual :Boolean? = false,
+    val isDiscPlusRegManual :Boolean? = false,
 
-    var created:Date? = Date(),
-    var modified:Date? = Date(),
-    var modifiedBy :String? = "" //User ID
+    val created:Date? = Date(),
+    val modified:Date? = Date(),
+    val modifiedBy :String? = "" //User ID
 
-): Parcelable
+): Parcelable {
+    constructor(theId: Int): this(id = theId)
+}

@@ -3,6 +3,10 @@ package com.erp.distribution.sfa.data.source.entity
 import android.os.Parcelable
 import androidx.room.Entity
 import androidx.room.PrimaryKey
+import com.erp.distribution.sfa.domain.model.FCustomer
+import com.erp.distribution.sfa.domain.model.FCustomerGroup
+import com.erp.distribution.sfa.domain.model.FDivision
+import com.erp.distribution.sfa.domain.model.FSubArea
 import kotlinx.parcelize.Parcelize
 import java.io.Serializable
 import java.util.*
@@ -129,3 +133,23 @@ class FDivisionEntity (
     var modified: Date? = Date(),
     var modifiedBy : String? =""  //User ID
 ): Parcelable
+
+
+
+internal fun FDivisionEntity.toDomain(): FDivision {
+    return FDivision(
+        id = id,
+
+        kode1 = kode1,
+        description= description,
+        fcompanyBean = fcompanyBean,
+        isStatusActive = isStatusActive,
+
+        created = created!!,
+        modified = modified!!,
+        modifiedBy = modifiedBy!!
+
+    )
+}
+
+

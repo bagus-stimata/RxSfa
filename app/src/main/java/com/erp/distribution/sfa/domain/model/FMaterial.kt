@@ -47,6 +47,7 @@ data class FMaterial  (
 	 */
     //	private FDivision fdivisionBean;
 //    var fdivisionBean : Int =0,
+    var fdivisionBean : FDivision = FDivision(),
 
     /*
     * TAX
@@ -73,7 +74,7 @@ data class FMaterial  (
     //	@JoinColumn(name="fvendorBean", referencedColumnName="ID")
     //	private FVendor fvendorBean;
 //    var fvendorBean : Int =0,
-    var fvendorBean : FVendor = FVendor(),
+    var fvendorBean : FVendor? = FVendor(),
 
     //	@ManyToOne
     //	@JoinColumn(name="fwarehouseBean_Utm", referencedColumnName="ID")
@@ -178,6 +179,8 @@ data class FMaterial  (
     var modifiedBy : String ="" //User ID
 
 ): Model(), Parcelable, Serializable {
+    constructor(theId: Int): this(id = theId)
+
     val createdDateFormatted: String
         get() = DateFormat.getDateTimeInstance().format(created)
 }

@@ -1,11 +1,14 @@
 package com.erp.distribution.sfa.data.repository
 
 import androidx.lifecycle.LiveData
+import androidx.lifecycle.map
 import com.erp.distribution.sfa.data.di.SortOrder
 import com.erp.distribution.sfa.data.source.remote.service_api.RetrofitServiceFCustomer
 import com.erp.distribution.sfa.data.source.local.database.AppDatabase
 import com.erp.distribution.sfa.domain.repository.FCustomerRepository
 import com.erp.distribution.sfa.data.source.entity.FCustomerEntity
+import com.erp.distribution.sfa.data.source.entity.toDomain
+import com.erp.distribution.sfa.domain.model.FCustomer
 import io.reactivex.Single
 import kotlinx.coroutines.flow.Flow
 
@@ -51,11 +54,24 @@ class FCustomerRepositoryImpl(
     override fun getCacheAllFCustomer(): LiveData<List<FCustomerEntity>> {
         return appDatabase.customerDao.getAllFCustomerEntityLive
     }
+
+    override fun getCacheAllFCustomer(list: List<Int>): LiveData<List<FCustomerEntity>> {
+        return appDatabase.customerDao.getAllFCustomerEntityLive(list)
+    }
+
     override fun getCacheAllFCustomerFlow(query: String, sortOrder: SortOrder, hideSelected: Boolean): Flow<List<FCustomerEntity>> {
         return appDatabase.customerDao.getAllFCustomerFlow(query, sortOrder, hideSelected)
     }
     override fun getCacheFCustomerById(id: Int): LiveData<FCustomerEntity> {
         return appDatabase.customerDao.getAllByIdLive(id)
+    }
+    override fun getCacheFCustomerDomainById(id: Int): LiveData<FCustomer> {
+        return appDatabase.customerDao.getAllByIdLive(id).map {
+            it.toDomain()
+        }
+    }
+    override fun getCacheFCustomerByIdFlow(id: Int): Flow<FCustomerEntity> {
+        return appDatabase.customerDao.getAllByIdFlow(id)
     }
 
     override fun getCacheAllFCustomerByDivision(divisionId: Int): LiveData<List<FCustomerEntity>> {

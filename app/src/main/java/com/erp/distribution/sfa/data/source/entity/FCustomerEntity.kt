@@ -7,6 +7,7 @@ import com.erp.distribution.sfa.data.base.ModelEntity
 import com.erp.distribution.sfa.data.source.entity.modelenum.EnumCurrency
 import com.erp.distribution.sfa.data.source.entity.modelenum.EnumTipePajakCustomer
 import com.erp.distribution.sfa.data.source.entity.modelenum.EnumTunaiKredit
+import com.erp.distribution.sfa.domain.model.*
 import kotlinx.parcelize.Parcelize
 import java.text.DateFormat
 import java.util.*
@@ -176,4 +177,78 @@ data class FCustomerEntity(
     val createdDateFormatted: String
         get() = DateFormat.getDateTimeInstance().format(created)
 }
+
+
+internal fun FCustomerEntity.toDomain(): FCustomer {
+    return FCustomer(
+        id = id,
+        sourceID = sourceID!!,
+        custno = custno,
+        isOutletActive = isOutletActive,
+        oldKode1 = oldKode1!!,
+        isFlagNewItem = isFlagNewItem!!,
+
+        fdivisionBean = FDivision(fdivisionBean),
+        custname = custname,
+        currency = currency!!,
+        isPkp = isPkp!!,
+        namaPrshFakturPajak = namaPrshFakturPajak!!,
+        alamatPrshFakturPajak = alamatPrshFakturPajak!!,
+        namaPengusahaKenaPajak = namaPengusahaKenaPajak!!,
+        nikPajak = nikPajak!!,
+        npwp = npwp!!,
+        tanggalPengukuhanPkp = tanggalPengukuhanPkp,
+        tipePajakCustomer = tipePajakCustomer!!,
+        tunaikredit = tunaikredit!!,
+        lamaCredit = lamaCredit,
+        creditlimit = creditlimit,
+        maxInvoice = maxInvoice,
+        namaPemilik = namaPemilik!!,
+        address1 = address1,
+        address2 = address2,
+        address3 = address3!!,
+        city1 = city1,
+        city2 = city2!!,
+        state1 = state1,
+        phone1 = phone1!!,
+        phone2 = phone2!!,
+        postcode = postcode!!,
+        email = email!!,
+        whatsApp = whatsApp!!,
+        isStatusActive = isStatusActive!!,
+        harikunjungan = harikunjungan!!,
+        pekankunjungan = pekankunjungan!!,
+        isNoeffcall = isNoeffcall!!,
+        latitude = latitude!!,
+        longitude = longitude!!,
+        basicDisc1Barang = basicDisc1Barang!!,
+        basicDisc1PlusBarang = basicDisc1PlusBarang!!,
+        isDisc1RegManual = isDisc1RegManual!!,
+        isDiscPlusRegManual = isDiscPlusRegManual!!,
+        fcustomerGroupBean = FCustomerGroup(fcustomerGroupBean!!),
+        fsubAreaBean = FSubArea(fsubAreaBean!!),
+
+        fdistributionChannelBean = fdistributionChannelBean,
+        ftPriceAlthBean = ftPriceAlthBean,
+
+        isNoPromotionRules = isNoPromotionRules!!,
+        isExclusiveSalesman = isExclusiveSalesman!!,
+
+
+
+
+
+
+
+        stared = stared,
+        unread = unread,
+        selected = selected,
+
+        created = created!!,
+        modified = modified!!,
+        modifiedBy = modifiedBy!!
+
+    )
+}
+
 

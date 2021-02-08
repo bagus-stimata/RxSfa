@@ -5,6 +5,7 @@ import com.erp.distribution.sfa.data.di.SortOrder
 import com.erp.distribution.sfa.domain.repository.FCustomerRepository
 import com.erp.distribution.sfa.domain.usecase.base.SingleUseCase
 import com.erp.distribution.sfa.data.source.entity.FCustomerEntity
+import com.erp.distribution.sfa.domain.model.FCustomer
 import io.reactivex.Single
 import kotlinx.coroutines.flow.Flow
 import javax.inject.Inject
@@ -48,12 +49,18 @@ class GetFCustomerUseCase @Inject constructor(private val repository: FCustomerR
     fun getCacheAllFCustomer(): LiveData<List<FCustomerEntity>>{
         return repository.getCacheAllFCustomer()
     }
+    fun getCacheAllFCustomer(list: List<Int>): LiveData<List<FCustomerEntity>>{
+        return repository.getCacheAllFCustomer(list)
+    }
     fun getCacheAllFCustomerFlow(query: String, sortOrder: SortOrder, hideSelected: Boolean): Flow<List<FCustomerEntity>> {
         return repository.getCacheAllFCustomerFlow(query, sortOrder, hideSelected)
     }
 
     fun getCacheFCustomerById(id: Int): LiveData<FCustomerEntity>{
         return repository.getCacheFCustomerById(id)
+    }
+    fun getCacheFCustomerDomainById(id: Int): LiveData<FCustomer>{
+        return repository.getCacheFCustomerDomainById(id)
     }
     fun getCacheAllFCustomerByDivision(divisionId: Int): LiveData<List<FCustomerEntity>>{
         return repository.getCacheAllFCustomerByDivision(divisionId)

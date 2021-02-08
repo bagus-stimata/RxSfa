@@ -3,6 +3,7 @@ package com.erp.distribution.sfa.domain.repository
 import androidx.lifecycle.LiveData
 import com.erp.distribution.sfa.data.di.SortOrder
 import com.erp.distribution.sfa.data.source.entity.FtSaleshEntity
+import com.erp.distribution.sfa.domain.model.FtSalesh
 import io.reactivex.Single
 import kotlinx.coroutines.flow.Flow
 
@@ -19,6 +20,7 @@ interface FtSaleshRepository {
 
     fun getCacheAllFtSalesh(): LiveData<List<FtSaleshEntity>>
     fun getCacheAllFtSaleshFlow(query: String, sortOrder: SortOrder, hideSelected: Boolean): Flow<List<FtSaleshEntity>>
+    fun getCacheAllFtSaleshDomainFlow(query: String, sortOrder: SortOrder, hideSelected: Boolean): Flow<List<FtSalesh>>
     fun getCacheFtSaleshById(id: Long): LiveData<FtSaleshEntity>
     fun getCacheAllFtSaleshByDivision(divisionId: Int): LiveData<List<FtSaleshEntity>>
     fun addCacheFtSalesh(ftSaleshEntity: FtSaleshEntity)

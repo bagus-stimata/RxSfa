@@ -6,8 +6,12 @@ import com.erp.distribution.sfa.data.source.remote.service_api.RetrofitServiceFt
 import com.erp.distribution.sfa.data.source.local.database.AppDatabase
 import com.erp.distribution.sfa.domain.repository.FtSaleshRepository
 import com.erp.distribution.sfa.data.source.entity.FtSaleshEntity
+import com.erp.distribution.sfa.data.source.entity.toDomain
+import com.erp.distribution.sfa.domain.model.FMaterial
+import com.erp.distribution.sfa.domain.model.FtSalesh
 import io.reactivex.Single
 import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.map
 
 
 /**
@@ -16,7 +20,7 @@ import kotlinx.coroutines.flow.Flow
  * */
 class FtSaleshRepositoryImpl(
     private val appDatabase: AppDatabase,
-    private val retrofitService: RetrofitServiceFtSalesh
+    private val retrofitService: RetrofitServiceFtSalesh,
 ) : FtSaleshRepository {
 
     override fun getRemoteAllFtSalesh(authHeader: String ): Single<List<FtSaleshEntity>> {
@@ -55,6 +59,15 @@ class FtSaleshRepositoryImpl(
         hideSelected: Boolean
     ): Flow<List<FtSaleshEntity>> {
         return appDatabase.saleshDao.getAllFtSaleshFlow(query, sortOrder, hideSelected)
+    }
+    override fun getCacheAllFtSaleshDomainFlow(query: String, sortOrder: SortOrder, hideSelected: Boolean): Flow<List<FtSalesh>> {
+        return appDatabase.saleshDao.getAllFtSaleshFlow(query, sortOrder, hideSelected)
+            .map { data ->
+                data.map {
+
+                    it.toDomain()
+                }
+            }
     }
 
     override fun getCacheFtSaleshById(id: Long): LiveData<FtSaleshEntity> {

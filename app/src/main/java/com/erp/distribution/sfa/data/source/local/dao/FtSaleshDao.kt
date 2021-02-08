@@ -61,6 +61,9 @@ interface FtSaleshDao {
     @get:Query("SELECT * FROM ftSalesh ")
     val getAllFtSaleshEntityLive: LiveData<List<FtSaleshEntity>>
 
+    @Query("SELECT * FROM ftSalesh WHERE refno IN (:listRefno)")
+    fun getAllFtSaleshEntityLive(listRefno: List<Long>): LiveData<List<FtSaleshEntity>>
+
     @Query("SELECT * FROM ftSalesh WHERE orderno LIKE :orderno ")
     fun getAllFtSaleshByOrderNo(orderno: String): List<FtSaleshEntity>
     @Query("SELECT * FROM ftSalesh WHERE orderno LIKE :orderno ")

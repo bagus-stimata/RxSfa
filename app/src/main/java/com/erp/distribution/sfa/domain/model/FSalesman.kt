@@ -11,7 +11,7 @@ import java.io.Serializable
 import java.util.*
 
 @Parcelize
-data class FSalesmanEntity (
+data class FSalesman (
     var id : Int = -1,
 
     /*
@@ -75,4 +75,7 @@ data class FSalesmanEntity (
     var modified : Date? = Date(),
     var modifiedBy : String? ="" //User ID
 
-) : Model(), Parcelable, Serializable
+) : Model(), Parcelable, Serializable {
+    constructor(theId: Int): this(id = theId)
+
+}

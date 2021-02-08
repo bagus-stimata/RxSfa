@@ -63,7 +63,6 @@ class FMaterialRepositoryImpl(
         return appDatabase.materialDao.getAllFMaterialFlow(query, sortOrder, hideSelected)
                 .map { data ->
                     data.map {
-//                        it.pcode = "ABC ${it.pcode}"
                         fMaterialEntityMapper.mapToDomain(it)
                     }
                 }

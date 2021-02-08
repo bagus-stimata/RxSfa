@@ -6,14 +6,20 @@ import androidx.hilt.lifecycle.ViewModelInject
 import androidx.lifecycle.*
 import com.erp.distribution.sfa.data.di.PreferencesManager
 import com.erp.distribution.sfa.data.di.SortOrder
+import com.erp.distribution.sfa.data.source.entity.FCustomerEntity
+import com.erp.distribution.sfa.data.source.entity.FDivisionEntity
 import com.erp.distribution.sfa.data.source.entity.FtSaleshEntity
+import com.erp.distribution.sfa.domain.model.FCustomer
+import com.erp.distribution.sfa.domain.model.FtSalesh
 import com.erp.distribution.sfa.domain.usecase.GetFCustomerUseCase
+import com.erp.distribution.sfa.domain.usecase.GetFDivisionUseCase
 import com.erp.distribution.sfa.domain.usecase.GetFtSaleshUseCase
 import com.erp.distribution.sfa.presentation.ui.test.mvvm_todo.ADD_TASK_RESULT_OK
 import com.erp.distribution.sfa.presentation.ui.test.mvvm_todo.EDIT_TASK_RESULT_OK
 import com.erp.distribution.sfa.utils.DisposableManager
 import io.reactivex.Observable
 import io.reactivex.android.schedulers.AndroidSchedulers
+import io.reactivex.functions.Function
 import io.reactivex.schedulers.Schedulers
 import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.flow.combine
@@ -21,16 +27,34 @@ import kotlinx.coroutines.flow.flatMapLatest
 import kotlinx.coroutines.flow.receiveAsFlow
 import kotlinx.coroutines.launch
 
+
 class FSaleshViewModel @ViewModelInject constructor(
     private val getFtSaleshUseCase: GetFtSaleshUseCase,
+    private val getFDivisionUseCase: GetFDivisionUseCase,
     private val getFCustomerUseCase: GetFCustomerUseCase,
     private val preferencesManager: PreferencesManager,
     @Assisted private val state: SavedStateHandle
 ) : ViewModel() {
     private val TAG = FSaleshViewModel::class.java.simpleName
 
+    public val getFCustomerUseCase_New: GetFCustomerUseCase = getFCustomerUseCase
+
+    var mapFCustomer: MutableMap<Int, FCustomer> = mutableMapOf()
+
+
     val searchQuery = state.getLiveData("searchQuery", "")
 
+
+
+    fun getFCustomerDomainLive(id: Int):LiveData<FCustomer> {
+        return getFCustomerUseCase.getCacheFCustomerDomainById(id)
+    }
+    fun getAllFCustomerEntityLive():LiveData<List<FCustomerEntity>> {
+        return getFCustomerUseCase.getCacheAllFCustomer()
+    }
+    fun getAllFDivisionEntityLive():LiveData<List<FDivisionEntity>> {
+        return getFDivisionUseCase.getCacheAllFDivision()
+    }
 
 
     val preferencesFlow = preferencesManager.preferencesFlow
@@ -43,7 +67,11 @@ class FSaleshViewModel @ViewModelInject constructor(
     ) { query, filterPreferences ->
         Pair(query, filterPreferences)
     }.flatMapLatest { (query, filterPreferences) ->
-        getFtSaleshUseCase.getCacheAllFtSaleshFlow(query, filterPreferences.sortOrder, filterPreferences.hideCompleted)
+        getFtSaleshUseCase.getCacheAllFtSaleshDomainFlow(
+            query,
+            filterPreferences.sortOrder,
+            filterPreferences.hideCompleted
+        )
     }
 
     val ftSaleshLive = ftSaleshFlow.asLiveData()
@@ -56,69 +84,69 @@ class FSaleshViewModel @ViewModelInject constructor(
         preferencesManager.updateHideCompleted(hideCompleted)
     }
 
-    fun onItemSelected(ftSaleshEntity: FtSaleshEntity) = viewModelScope.launch {
-        ftSaleshEventChannel.send(FtSaleshEvent.NavigateToEditFtSaleshScreen(ftSaleshEntity))
+    fun onItemSelected(ftSalesh: FtSalesh) = viewModelScope.launch {
+        ftSaleshEventChannel.send(FtSaleshEvent.NavigateToEditFtSaleshScreen(ftSalesh))
     }
 
-    fun onItemCheckedChanged(ftSaleshEntity: FtSaleshEntity, isChecked: Boolean) = viewModelScope.launch {
+    fun onItemCheckedChanged(ftSalesh: FtSalesh, isChecked: Boolean) = viewModelScope.launch {
         DisposableManager.add(Observable.fromCallable {
-            getFtSaleshUseCase.putCacheFtSalesh(ftSaleshEntity.copy(selected = isChecked))
+            getFtSaleshUseCase.putCacheFtSaleshDomain(ftSalesh.copy(selected = isChecked))
         }
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe (
-                        {
-                        },
-                        {
-                            Log.d(TAG, "#result FtSalesh error  ${it.message}")
-                        },
-                        {
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribe(
+                {
+                },
+                {
+                    Log.d(TAG, "#result FtSalesh error  ${it.message}")
+                },
+                {
 
-                        }
-                )
+                }
+            )
         )
 
     }
 
-    fun onItemSwiped(ftSaleshEntity: FtSaleshEntity) = viewModelScope.launch {
+    fun onItemSwiped(ftSalesh: FtSalesh) = viewModelScope.launch {
         DisposableManager.add(Observable.fromCallable {
-            getFtSaleshUseCase.deleteCacheFtSalesh(ftSaleshEntity)
+            getFtSaleshUseCase.deleteCacheFtSaleshDomain(ftSalesh)
         }
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe (
-                        {
-                        },
-                        {
-                            Log.d(TAG, "#result FtSalesh error  ${it.message}")
-                        },
-                        {
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribe(
+                {
+                },
+                {
+                    Log.d(TAG, "#result FtSalesh error  ${it.message}")
+                },
+                {
 
-                        }
-                )
+                }
+            )
         )
 
-        ftSaleshEventChannel.send(FtSaleshEvent.ShowUndoDeleteFtSaleshMessage(ftSaleshEntity))
+        ftSaleshEventChannel.send(FtSaleshEvent.ShowUndoDeleteFtSaleshMessage(ftSalesh))
     }
 
-    fun onUndoDeleteClick(ftSaleshEntity: FtSaleshEntity) = viewModelScope.launch {
+    fun onUndoDeleteClick(ftSalesh: FtSalesh) = viewModelScope.launch {
 //        taskDao.insert(task)
 //        getFtSaleshUseCase.addCacheFtSalesh(task)
         DisposableManager.add(Observable.fromCallable {
-            getFtSaleshUseCase.addCacheFtSalesh(ftSaleshEntity)
+            getFtSaleshUseCase.addCacheFtSaleshDomain(ftSalesh)
         }
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe (
-                        {
-                        },
-                        {
-                            Log.d(TAG, "#result MATERIAL error  ${it.message}")
-                        },
-                        {
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribe(
+                {
+                },
+                {
+                    Log.d(TAG, "#result MATERIAL error  ${it.message}")
+                },
+                {
 
-                        }
-                )
+                }
+            )
         )
     }
 
@@ -143,12 +171,35 @@ class FSaleshViewModel @ViewModelInject constructor(
 
     sealed class FtSaleshEvent {
         object NavigateToAddFtSaleshScreen : FtSaleshEvent()
-        data class NavigateToEditFtSaleshScreen(val ftSaleshEntity: FtSaleshEntity) : FtSaleshEvent()
-        data class ShowUndoDeleteFtSaleshMessage(val ftSaleshEntity: FtSaleshEntity) : FtSaleshEvent()
+        data class NavigateToEditFtSaleshScreen(val ftSalesh: FtSalesh) : FtSaleshEvent()
+        data class ShowUndoDeleteFtSaleshMessage(val ftSalesh: FtSalesh) : FtSaleshEvent()
         data class ShowFtSaleshSavedConfirmationMessage(val msg: String) : FtSaleshEvent()
         object NavigateToDeleteAllCompletedScreen : FtSaleshEvent()
 
         data class NavigateBackWithResult(val result: Int) : FSaleshViewModel.FtSaleshEvent()
 
     }
+
+
+    fun getStates(): LiveData<List<FtSaleshEntity>> {
+        var statesLiveData: LiveData<List<FtSaleshEntity>> = getFtSaleshUseCase.getCacheAllFtSalesh()
+        statesLiveData = Transformations.switchMap(statesLiveData,
+            Function<List<FtSaleshEntity>, LiveData<List<FtSaleshEntity>>> { inputStates ->
+                val statesMediatorLiveData: MediatorLiveData<List<FtSaleshEntity>> =
+                    MediatorLiveData<List<FtSaleshEntity>>()
+                for (state in inputStates) {
+//                    statesMediatorLiveData.addSource(dao.getCities(state.getId()),
+//                        Observer<List<FtSaleshEntity>> { cities ->
+//                            state.setCities(cities)
+//                            statesMediatorLiveData.postValue(inputStates)
+//                        })
+                }
+                statesMediatorLiveData
+            })
+        return statesLiveData
+    }
+
+
+
+    
 }

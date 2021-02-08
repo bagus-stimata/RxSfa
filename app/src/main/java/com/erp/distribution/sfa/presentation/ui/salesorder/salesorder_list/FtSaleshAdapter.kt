@@ -1,28 +1,32 @@
 package com.erp.distribution.sfa.presentation.ui.salesorder.salesorder_list
 
 import android.graphics.Color
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import com.erp.distribution.sfa.data.source.entity.FtSaleshEntity
 import com.erp.distribution.sfa.databinding.AdapterRvItemTemplate2Binding
+import com.erp.distribution.sfa.domain.model.FtSalesh
+import com.erp.distribution.sfa.domain.usecase.GetFCustomerUseCase
 import com.erp.distribution.sfa.presentation.ui.master.material_lama.adapter.NoteAdapter
 import java.text.NumberFormat
 import java.text.SimpleDateFormat
+import java.util.*
+import javax.inject.Inject
 
 class FtSaleshAdapter(private val listener: OnItemClickListener) :
-    ListAdapter<FtSaleshEntity, FtSaleshAdapter.FtSaleshViewHolder>(DiffCallback()) {
+    ListAdapter<FtSalesh, FtSaleshAdapter.FtSaleshViewHolder>(DiffCallback()) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): FtSaleshViewHolder {
         val binding = AdapterRvItemTemplate2Binding.inflate(LayoutInflater.from(parent.context), parent, false)
         return FtSaleshViewHolder(binding)
     }
 
-    override fun onBindViewHolder(holderF: FtSaleshViewHolder, position: Int) {
+    override fun onBindViewHolder(holder: FtSaleshViewHolder, position: Int) {
         val currentItem = getItem(position)
-        holderF.bind(currentItem)
+        holder.bind(currentItem)
     }
 
 //    inner class TasksViewHolder(private val binding: ItemTaskBinding) :
@@ -36,8 +40,8 @@ class FtSaleshAdapter(private val listener: OnItemClickListener) :
                 root.setOnClickListener {
                     val position = adapterPosition
                     if (position != RecyclerView.NO_POSITION) {
-                        val task = getItem(position)
-                        listener.onItemClick(task)
+                        val newItem = getItem(position)
+                        listener.onItemClick(newItem)
                     }
                 }
 
@@ -54,7 +58,7 @@ class FtSaleshAdapter(private val listener: OnItemClickListener) :
             }
         }
 
-        fun bind(item: FtSaleshEntity) {
+        fun bind(item: FtSalesh) {
             binding.apply {
 ////                checkBoxCompleted.isChecked = item.selected!!
 //                textViewName.text = item.invoiceno
@@ -67,12 +71,29 @@ class FtSaleshAdapter(private val listener: OnItemClickListener) :
                 val hash = item!!.invoiceno.hashCode()
 //                txtIcon.text = item.invoiceno.trim { it <= ' ' }[0].toString()
                 txtIcon.background = NoteAdapter.oval(Color.rgb(hash, hash / 2, 0), binding.txtIcon)
-//                txtCustname.text = "Toko Harapan Jaya Abadi. Tbk"
-//                txtCustno.text = "FGN12345676"
-//                txtTipeCust.text = "General Trade"
+
+                txtCustname.text = item.fcustomerBean.custname
+//                txtCustname.text = "Piye jum"
+
+                txtCustno.text = item.fcustomerBean.custname
+                txtTipeCust.text = item.fcustomerBean.fcustomerGroupBean!!.kode1
+                txtAddress.text = "${item.fcustomerBean.address1} ${item.fcustomerBean.address1} ${item.fcustomerBean.city1} "
+                txtOrderno.text = item.orderno
+                txtOrderdate.text = sdf.format(item.orderDate)
+                txtInvoiceno.text = item.invoiceno
+                txtInvoicedate.text = sdf.format(item.invoiceDate)
+
+                txtItemSum.text = "${item.mapFtSalesdItems.size} items"
+                txtCurrency.text = "IDR "
+                txtTotal.text = "${nf.format(item.amountAfterDiscPlusRpAfterPpn_FG)}"
+
+
+
+//                fCustomerUseCase.getCacheAllFCustomer().observe(viewLifecycleOwner, androidx.lifecycle.Observer {
+//
+//                })
 
 //                txtAddress.text = "Jl. Kembang Jepun, Gang 5 RT1/RW2, Kecamatan Kedurus, Surabaya"
-//                txtAddress.text = "Kedurus, Surabaya"
 //                txtOrderno.text = "ORD.1234567890"
 //                txtOrderdate.text = "26 Jan 2021"
 //                txtInvoiceno.text = "INV.1234567890"
@@ -82,8 +103,8 @@ class FtSaleshAdapter(private val listener: OnItemClickListener) :
 //                txtCurrency.text = "IDR "
 //                txtTotal.text = "5.600.000"
 
-//                txtDate.text = sdf.format(item.modified)
-//                imgStar.setColorFilter(Color.BLUE)
+                txtDate.text = sdf.format(item.modified)
+                imgStar.setColorFilter(Color.GRAY)
             }
 
 
@@ -91,15 +112,15 @@ class FtSaleshAdapter(private val listener: OnItemClickListener) :
     }
 
     interface OnItemClickListener {
-        fun onItemClick(item: FtSaleshEntity)
-        fun onCheckBoxClick(item: FtSaleshEntity, isChecked: Boolean)
+        fun onItemClick(item: FtSalesh)
+        fun onCheckBoxClick(item: FtSalesh, isChecked: Boolean)
     }
 
-    class DiffCallback : DiffUtil.ItemCallback<FtSaleshEntity>() {
-        override fun areItemsTheSame(oldItem: FtSaleshEntity, newItem: FtSaleshEntity) =
+    class DiffCallback : DiffUtil.ItemCallback<FtSalesh>() {
+        override fun areItemsTheSame(oldItem: FtSalesh, newItem: FtSalesh) =
             oldItem.refno == newItem.refno
 
-        override fun areContentsTheSame(oldItem: FtSaleshEntity, newItem: FtSaleshEntity) =
+        override fun areContentsTheSame(oldItem: FtSalesh, newItem: FtSalesh) =
             oldItem.orderno == newItem.orderno
     }
 }

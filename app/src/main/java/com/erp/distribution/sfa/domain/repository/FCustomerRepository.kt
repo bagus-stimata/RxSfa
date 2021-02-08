@@ -3,6 +3,7 @@ package com.erp.distribution.sfa.domain.repository
 import androidx.lifecycle.LiveData
 import com.erp.distribution.sfa.data.di.SortOrder
 import com.erp.distribution.sfa.data.source.entity.FCustomerEntity
+import com.erp.distribution.sfa.domain.model.FCustomer
 import io.reactivex.Single
 import kotlinx.coroutines.flow.Flow
 
@@ -19,8 +20,11 @@ interface FCustomerRepository {
     fun deleteRemoteFCustomer(authHeader: String,  id: Int): Single<FCustomerEntity>
 
     fun getCacheAllFCustomer(): LiveData<List<FCustomerEntity>>
+    fun getCacheAllFCustomer(list: List<Int>): LiveData<List<FCustomerEntity>>
     fun getCacheAllFCustomerFlow(query: String, sortOrder: SortOrder, hideSelected: Boolean): Flow<List<FCustomerEntity>>
     fun getCacheFCustomerById(id: Int): LiveData<FCustomerEntity>
+    fun getCacheFCustomerDomainById(id: Int): LiveData<FCustomer>
+    fun getCacheFCustomerByIdFlow(id: Int): Flow<FCustomerEntity>
     fun getCacheAllFCustomerByDivision(divisionId: Int): LiveData<List<FCustomerEntity>>
     fun addCacheFCustomer(fCustomerEntity: FCustomerEntity)
     fun addCacheListFCustomer(list: List<FCustomerEntity>)

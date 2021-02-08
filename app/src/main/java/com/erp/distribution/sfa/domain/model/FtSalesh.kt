@@ -4,16 +4,19 @@ import android.os.Parcelable
 import androidx.room.Entity
 import androidx.room.Ignore
 import androidx.room.PrimaryKey
+import com.erp.distribution.sfa.data.source.entity.FMaterialEntity
+import com.erp.distribution.sfa.data.source.entity.FtSaleshEntity
 import com.erp.distribution.sfa.data.source.entity.modelenum.*
 import com.erp.distribution.sfa.domain.base.Model
 import kotlinx.parcelize.Parcelize
 import java.io.Serializable
 import java.text.DateFormat
 import java.util.*
+import kotlin.collections.HashMap
 
 @Parcelize
 data class FtSalesh  (
-    val refno: Long =0,
+    var refno: Long =0,
 
     /*
     * JIKA COPY DARI TEMPAT LAIN: MAKA SEBAGAI LOG TRACK MENINGGALKAN SOURCE_ID = ID sumber asal dia dicopy
@@ -21,22 +24,22 @@ data class FtSalesh  (
     * 1. Clone Database. karena tidak mungkin menggunakan Kode External yang bisa jadi kemungkinan kembar, tapi harus pakai kode internal
     * 2. 
     */
-    val sourceID: Long =0,
+    var sourceID: Long =0,
 
     //ORDERNO=SO
-    val orderno : String ="",
-    val isValidOrder : Boolean =false,
+    var orderno : String ="",
+    var isValidOrder : Boolean =false,
 
     //INVOICENO
-    val invoiceno : String ="",
-//    val priority : Int =0,
+    var invoiceno : String ="",
+//    var priority : Int =0,
 
     /*
     * ignore/reject promotion rules setting
     */
-    val isNoPromotionRules : Boolean =false,
-    val taxNumber : String ="",
-    val taxDate : Date =Date(),
+    var isNoPromotionRules : Boolean =false,
+    var taxNumber : String ="",
+    var taxDate : Date =Date(),
 
     /*
     * SO: FROM GOOD RECEIVE
@@ -44,7 +47,7 @@ data class FtSalesh  (
     //	@ManyToOne
     //	@JoinColumn(name="fromGoodReceiptBean", referencedColumnName="refno", nullable=true)
     //	private  FtPurchaseh fromGoodReceiptBean;
-        val fromGoodReceiptBean : Int =0,
+    var fromGoodReceiptBean : Int =0,
 
     /*
     * FAKTUR FROM SO
@@ -52,22 +55,22 @@ data class FtSalesh  (
     //	@ManyToOne
     //	@JoinColumn(name="fakturSOBean", referencedColumnName="refno")
     //	private  FtSalesh fakturSOBean; //me as Sales Invoice
-        val fakturSOBean : Int =0,
+    var fakturSOBean : Int =0,
 
     //	@ManyToOne
     //	@JoinColumn(name="returAtasFakturBean", referencedColumnName="refno", nullable=true)
     //	private  FtSalesh returAtasFakturBean;
-        val returAtasFakturBean : Int =0,
+    var returAtasFakturBean : Int =0,
 
     /*
     * Status Nota: (1)O-Open Sedang dikirim, (2)T-Terkirim, 
     * 		(3)P-Pending Pengiriman, (4)B-Batal Nota Batal Seluruhnya
     */
-    val statusPengiriman: EnumStatusPengiriman = EnumStatusPengiriman.NOTA_OPEN,
+    var statusPengiriman: EnumStatusPengiriman = EnumStatusPengiriman.NOTA_OPEN,
 
     //SURAT JALAN PENGIRIMAIN = DO
-        val sjPengirimanNo : String ="",
-        val sjPengirimanDate : Date =Date(), //Jika tidak ada nomor SJ maka tidak berlaku
+    var sjPengirimanNo : String ="",
+    var sjPengirimanDate : Date =Date(), //Jika tidak ada nomor SJ maka tidak berlaku
 
     //Driver
     //	@Column(name="DRIVER_NAME", length=40)
@@ -75,8 +78,8 @@ data class FtSalesh  (
     //	@ManyToOne
     //	@JoinColumn(name="driverBean", referencedColumnName="ID", nullable=true)
     //	private FSalesman driverBean;
-        val driverBean : Int =0,
-        val nopol : String ="",
+    var driverBean : Int =0,
+    var nopol : String ="",
 
     /*
     * HARUS DIGANTI MENGGUNAKAN LIST
@@ -84,17 +87,17 @@ data class FtSalesh  (
     //SJ Pengiriman, Delivery, SJ Penagihan
     //	@Column(name="SJ_AND_DELV_HISTORY", length=250)
     //	private String sjAndDelvHistory="";		
-        val sjPenagihanNo : String ="",
-        val sjPenagihanDate : Date =Date(),
+    var sjPenagihanNo : String ="",
+    var sjPenagihanDate : Date =Date(),
 
     //	@ManyToOne
     //	@JoinColumn(name="collectorBean", referencedColumnName="ID", nullable=true)
     //	private FSalesman collectorBean;
-        val collectorBean : Int =0,
-        val invoiceDate : Date =Date(),
-        val orderDate : Date =Date(),
-        val top : Int =0,
-        val dueDate : Date =Date(),
+    var collectorBean : Int =0,
+    var invoiceDate : Date =Date(),
+    var orderDate : Date =Date(),
+    var top : Int =0,
+    var dueDate : Date =Date(),
 
     /*
     * SEPERTINYA KITA TIDAK PAKAI INI
@@ -105,11 +108,11 @@ data class FtSalesh  (
     /*
 	 * AMOUNT: Amount Setelah Disc1, Disc2, Disc3, +Disc1, +Disc2 pada DETIL (Amount Detil Setelah dipotong Diskon) 
 	 */
-    val amountRp : Int =0,
-        val amountPpnRp : Int =0,
+    var amountRp : Double =0.0,
+    var amountPpnRp : Double =0.0,
 
-        @Ignore
-    val amountRpAfterPpn : Int =0,
+    @Ignore
+    var amountRpAfterPpn : Double =0.0,
 
     /*
     * berhubungan dengan Account -> menjadi apa
@@ -130,115 +133,117 @@ data class FtSalesh  (
     //	@ManyToOne
     //	@JoinColumn(name="fuangMuka_SOBean", referencedColumnName="ID", nullable=true)
     //	private FUangMuka fuangMuka_SOBean;
-    val fuangMuka_SOBean : Int =0,
-    val disc1 : Int =0,
+//    var fuangMuka_SOBean : Double =0.0,
+    var disc1 : Double =0.0,
 
 //    @Ignore
-//    val disc1Rp : Int =0,
+//    var disc1Rp : Int =0,
 
 //    @Ignore
-//    val disc1PpnRp : Int =0,
+//    var disc1PpnRp : Int =0,
 
 //    @Ignore
-//    val disc1RpAfterPpn : Int =0,
+//    var disc1RpAfterPpn : Int =0,
 
     //###TAMBAHAN
 //    @Ignore
-//    val amountAfterDisc1Rp : Int =0,
+//    var amountAfterDisc1Rp : Int =0,
 
 //    @Ignore
-//    val amountAfterDisc1PpnRp : Int =0,
+//    var amountAfterDisc1PpnRp : Int =0,
 
 //    @Ignore
-//    val amountAfterDisc1RpAfterPpn : Int =0,
-        val disc2 : Int =0,
+//    var amountAfterDisc1RpAfterPpn : Int =0,
+    var disc2 : Double =0.0,
 
 //    @Ignore
-//    val disc2Rp : Int =0,
+//    var disc2Rp : Int =0,
 
 //    @Ignore
-//    val disc2PpnRp : Int =0,
+//    var disc2PpnRp : Int =0,
 
 //    @Ignore
-//    val disc2RpAfterPpn : Int =0,
+//    var disc2RpAfterPpn : Int =0,
 
     //AMOUNT AFTER DISC1 dan DISC2 dan DiscPlus
 //    @Ignore
-//    val amountAfterDisc2Rp : Int =0,
+//    var amountAfterDisc2Rp : Int =0,
 
 //    @Ignore
-//    val amountAfterDisc2PpnRp : Int =0,
+//    var amountAfterDisc2PpnRp : Int =0,
 
 //    @Ignore
-//    val amountAfterDisc2RpAfterPpn : Int =0,
-        val discPlus_FG : Int =0,
+//    var amountAfterDisc2RpAfterPpn : Int =0,
+    var discPlus_FG : Double =0.0,
 
 //    @Ignore
-//    val discPlusRp_FG : Int =0,
+//    var discPlusRp_FG : Int =0,
 
 //    @Ignore
-//    val discPlusPpnRp_FG : Int =0,
+//    var discPlusPpnRp_FG : Int =0,
 
 //    @Ignore
-//    val discPlusRpAfterPpn_FG : Int =0,
+//    var discPlusRpAfterPpn_FG : Int =0,
 
     ///Jika yes maka setiap FG yang harganya nol maka akan di hitung akumulasinya, lalu nilainya ditaruh di CashBack
-        val isCalcCashBackFg : Boolean =false,
+    var isCalcCashBackFg : Boolean =false,
 
     /*
     * Sama dengan bawah: Jangan Lupa
     */
     //DPP
-        val amountAfterDiscPlusRp_FG : Int =0,
-        val ppnRp : Int =0,
+    var amountAfterDiscPlusRp_FG : Double =0.0,
+    var ppnRp : Double =0.0,
 
     //DPP+PPN
-        val amountAfterDiscPlusRpAfterPpn_FG : Int =0,
+    var amountAfterDiscPlusRpAfterPpn_FG : Double =0.0,
 
     //AMOUNT PAY
-        val amountPayRp : Int =0,
-        val isEndOfDay : Boolean =false,
-        val isOpenLockInputPriceAndDiscount : Boolean =false,
+    var amountPayRp : Int =0,
+    var isEndOfDay : Boolean =false,
+    var isOpenLockInputPriceAndDiscount : Boolean =false,
 
     /*
     * REQUEST PLAFON
     */
-    val statusRequestDiscount: EnumRequestStatus = EnumRequestStatus.OPEN,
-        val statusRequestPlafon: EnumRequestStatus = EnumRequestStatus.OPEN,
-        val notes : String ="",
-        val tunaiKredit: EnumTunaiKredit = EnumTunaiKredit.T,
+    var statusRequestDiscount: EnumRequestStatus = EnumRequestStatus.OPEN,
+    var statusRequestPlafon: EnumRequestStatus = EnumRequestStatus.OPEN,
+    var notes : String ="",
+    var tunaiKredit: EnumTunaiKredit = EnumTunaiKredit.T,
 
     /* TIPE FAKTUR
     * F=FAKTUR PENJUALAN STANDART, R= RETURN PENJULAN, FI=PENJUALAN INTERN, 
     * FDN= DEBIT NOTE MANUAL, RCN=RETUR CREDIT NOTE MANUAL
     * */
-    val tipeFaktur: EnumTipeFakturJual = EnumTipeFakturJual.F,
+    var tipeFaktur: EnumTipeFakturJual = EnumTipeFakturJual.F,
 
     /* TIPE JUAL
     * SHOP=SHOPSALE, TO=TAKING ORDER, C=CANVAS, TF=TASK FORCE, D=DENTED, BS=BAD STOCK
     * */
-    val salesType: EnumSalesType = EnumSalesType.TO,
-        val printCounter : Int =0,
+    var salesType: EnumSalesType = EnumSalesType.TO,
+    var printCounter : Int =0,
 
     //ATURAN: update stok dan sumber apakah manual atau tidak
     //	@Column(name="SOURCE", length=3)
     //	private String source ="";	
-    val isProses : Boolean =false,
-    val isUsedSO : Boolean =false,
+    var isProses : Boolean =false,
+    var isUsedSO : Boolean =false,
 
     //1.Cash 2.Debit 3.Kartu Kredit 4.Cek 5.E-Wallet 6.Lain-lain
-    val tipeBayarPos : Int =0,
-    val amountKasirBayar : Int =0,
+    var tipeBayarPos : Int =0,
+    var amountKasirBayar : Double =0.0,
 
     //	@ManyToOne
     //	@JoinColumn(name="fdivisionBean", referencedColumnName="ID", nullable=false)
     //	private FDivision fdivisionBean;
-    val fdivisionBean : Int =0,
+//    var fdivisionBean : Int =0,
+    var fdivisionBean : FDivision = FDivision(),
 
     //	@ManyToOne
     //	@JoinColumn(name="fsalesmanBean", referencedColumnName="ID", nullable=false)
     //	private FSalesman fsalesmanBean;
-    val fsalesmanBean : Int =0,
+//    var fsalesmanBean : Int =0,
+    var fsalesmanBean : FSalesman =FSalesman(),
 
     /*
     *	fcustomerBean = Bill To adalah yang melakuan Order Pertama kali
@@ -248,29 +253,29 @@ data class FtSalesh  (
     //	@ManyToOne
     //	@JoinColumn(name="fcustomerBean", referencedColumnName="ID", nullable=false)
 //    @Ignore
-//    val fcustomerBeanTemp: FCustomer? = null,
-//    val fcustomerBean : Int =0,
-    val fcustomerBean : FCustomer = FCustomer(),
+//    var fcustomerBeanTemp: FCustomer? = null,
+//    var fcustomerBean : Int =0,
+    var fcustomerBean : FCustomer = FCustomer(),
 
     //Allow Null
     //	@ManyToOne
     //	@JoinColumn(name="fcustomerShipToBean", referencedColumnName="ID", nullable=true)
     //	private FCustomer fcustomerShipToBean;
-    //  val fcustomerShipToBean : Int =0,
-    val fcustomerShipToBean : FCustomer = FCustomer(),
+    //  var fcustomerShipToBean : Int =0,
+    var fcustomerShipToBean : FCustomer = FCustomer(),
 
     //Allow Null
     //	@ManyToOne
     //	@JoinColumn(name="fcustomerPromoToBean", referencedColumnName="ID", nullable=true)
     //	private FCustomer fcustomerPromoToBean;
-//        val fcustomerPromoToBean : Int =0,
-    val fcustomerPromoToBean : FCustomer = FCustomer(),
+//        var fcustomerPromoToBean : Int =0,
+    var fcustomerPromoToBean : FCustomer = FCustomer(),
 
     //	@ManyToOne
     //	@JoinColumn(name="fwarehouseBean", referencedColumnName="ID", nullable=false)
     //	private FWarehouse fwarehouseBean;
-//        val fwarehouseBean : Int =0,
-    val fwarehouseBean : FWarehouse = FWarehouse(),
+//        var fwarehouseBean : Int =0,
+    var fwarehouseBean : FWarehouse = FWarehouse(),
 
     /*
     * Account Mapping
@@ -278,27 +283,28 @@ data class FtSalesh  (
     //	@ManyToOne
     //	@JoinColumn(name="accAccountArKbBean", referencedColumnName="ID", nullable =true)
     //	private AccAccount accAccountArKbBean;
-    val accAccountArKbBean : Int =0,
+    var accAccountArKbBean : Int =0,
 
     //	@ManyToOne
     //	@JoinColumn(name="accAccountFtSaleshCredit", referencedColumnName="ID", nullable =true)
     //	private AccAccount accAccountFtSaleshCredit;
-    val accAccountFtSaleshCredit : Int =0,
+    var accAccountFtSaleshCredit : Int =0,
 
 //    @Ignore
-//    val mapFtSalesdTemp: Map<Long, FtSalesdItems> = HashMap()
+//    var mapFtSalesdTemp: Map<Long, FtSalesdItems> = HashMap()
+    var mapFtSalesdItems: Map<Long, FtSalesdItems> = HashMap(),
 
     //PEGIRIMAN:
     //	@ManyToOne
     //	@JoinColumn(name="fexpedisiBean", referencedColumnName="ID", nullable=true)
     //	private FExpedisi fexpedisiBean;
-    val fexpedisiBean : Int =0,
+    var fexpedisiBean : Int =0,
 
 //    @Ignore
-//    val isSelected : Boolean =false,
-    val stared: Boolean? = false,
-    val unread: Boolean? = false,
-    val selected: Boolean? = false,
+//    var isSelected : Boolean =false,
+    var stared: Boolean? = false,
+    var unread: Boolean? = false,
+    var selected: Boolean? = false,
 
     /*
     * MAPPING ACCOUNT
@@ -310,9 +316,9 @@ data class FtSalesh  (
     * 1. Kas Besar
     * 2. Piutang 
     */
-    val created : Date =Date(),
-    val modified : Date =Date(),
-    val modifiedBy : String ="" //User ID
+    var created : Date =Date(),
+    var modified : Date =Date(),
+    var modifiedBy : String ="" //User ID
 
 
 ): Model(), Parcelable, Serializable{
@@ -320,3 +326,79 @@ data class FtSalesh  (
         get() = DateFormat.getDateTimeInstance().format(created)
 
 }
+
+internal fun FtSalesh.toEntity(): FtSaleshEntity {
+    return FtSaleshEntity(
+        refno = refno,
+        sourceID = sourceID,
+        orderno = orderno,
+        isValidOrder = isValidOrder,
+        invoiceno = invoiceno,
+        isNoPromotionRules = isNoPromotionRules,
+        taxNumber = taxNumber,
+        taxDate = taxDate,
+
+        statusPengiriman = statusPengiriman,
+        sjPengirimanNo = sjPengirimanNo,
+        sjPengirimanDate = sjPengirimanDate,
+        driverBean = driverBean,
+        nopol = nopol,
+
+        sjPenagihanNo = sjPenagihanNo,
+        sjPenagihanDate = sjPenagihanDate,
+
+        collectorBean = collectorBean,
+        invoiceDate = invoiceDate,
+        orderDate = orderDate,
+        top = top,
+        dueDate = dueDate,
+
+        amountRp = amountRp,
+        amountPpnRp = amountPpnRp,
+        disc1 = disc1,
+        disc2 = disc2,
+        discPlus_FG = discPlus_FG,
+        isCalcCashBackFg = isCalcCashBackFg,
+        amountAfterDiscPlusRp_FG = amountAfterDiscPlusRp_FG,
+        ppnRp = ppnRp,
+        amountAfterDiscPlusRpAfterPpn_FG = amountAfterDiscPlusRpAfterPpn_FG,
+
+        amountPayRp = amountPayRp,
+        isEndOfDay = isEndOfDay,
+        isOpenLockInputPriceAndDiscount = isOpenLockInputPriceAndDiscount,
+
+        statusRequestDiscount = statusRequestDiscount,
+        statusRequestPlafon = statusRequestPlafon,
+        notes = notes,
+        tunaiKredit = tunaiKredit,
+        tipeFaktur = tipeFaktur,
+
+        salesType = salesType,
+        printCounter = printCounter,
+
+        isProses = isProses,
+        isUsedSO = isUsedSO,
+
+        tipeBayarPos = tipeBayarPos,
+        amountKasirBayar = amountKasirBayar,
+
+        fdivisionBean = fdivisionBean.id,
+        fsalesmanBean = fsalesmanBean.id,
+        fcustomerBean = fcustomerBean.id,
+        fcustomerShipToBean = fcustomerShipToBean.id,
+        fcustomerPromoToBean = fcustomerPromoToBean.id,
+        fwarehouseBean = fwarehouseBean.id,
+
+        stared = stared,
+        unread = unread,
+        selected = selected,
+
+
+
+        created = created!!,
+        modified = modified!!,
+        modifiedBy = modifiedBy!!
+
+    )
+}
+

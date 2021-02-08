@@ -35,4 +35,7 @@ class FMaterialGroup3 (
     var modified : Date = Date(),
     var modifiedBy :String ="" //User ID
 
-): Model(), Parcelable, Serializable
+): Model(), Parcelable, Serializable {
+    constructor(theId: Int): this(id = theId)
+
+}
