@@ -69,15 +69,17 @@ class FtSaleshAdapter(private val listener: OnItemClickListener) :
 
                 nf.maximumFractionDigits = 0
                 val hash = item!!.invoiceno.hashCode()
-//                txtIcon.text = item.invoiceno.trim { it <= ' ' }[0].toString()
-                txtIcon.background = NoteAdapter.oval(Color.rgb(hash, hash / 2, 0), binding.txtIcon)
+                if (item.fcustomerBean.custname.length >1) {
+                    txtIcon.text = item.fcustomerBean.custname.trim { it <= ' ' }[0].toString()
+                    txtIcon.background = NoteAdapter.oval(Color.rgb(hash, hash / 2, 0), binding.txtIcon)
+                }
 
                 txtCustname.text = item.fcustomerBean.custname
 //                txtCustname.text = "Piye jum"
 
                 txtCustno.text = item.fcustomerBean.custname
                 txtTipeCust.text = item.fcustomerBean.fcustomerGroupBean!!.kode1
-                txtAddress.text = "${item.fcustomerBean.address1} ${item.fcustomerBean.address1} ${item.fcustomerBean.city1} "
+                txtAddress.text = "${item.fcustomerBean.address1} ${item.fcustomerBean.address2} ${item.fcustomerBean.city1} "
                 txtOrderno.text = item.orderno
                 txtOrderdate.text = sdf.format(item.orderDate)
                 txtInvoiceno.text = item.invoiceno
@@ -87,23 +89,8 @@ class FtSaleshAdapter(private val listener: OnItemClickListener) :
                 txtCurrency.text = "IDR "
                 txtTotal.text = "${nf.format(item.amountAfterDiscPlusRpAfterPpn_FG)}"
 
-
-
-//                fCustomerUseCase.getCacheAllFCustomer().observe(viewLifecycleOwner, androidx.lifecycle.Observer {
-//
-//                })
-
-//                txtAddress.text = "Jl. Kembang Jepun, Gang 5 RT1/RW2, Kecamatan Kedurus, Surabaya"
-//                txtOrderno.text = "ORD.1234567890"
-//                txtOrderdate.text = "26 Jan 2021"
-//                txtInvoiceno.text = "INV.1234567890"
-//                txtInvoicedate.text = "26 Jan 2021"
-
-//                txtItemSum.text = "25 items"
-//                txtCurrency.text = "IDR "
-//                txtTotal.text = "5.600.000"
-
                 txtDate.text = sdf.format(item.modified)
+
                 imgStar.setColorFilter(Color.GRAY)
             }
 

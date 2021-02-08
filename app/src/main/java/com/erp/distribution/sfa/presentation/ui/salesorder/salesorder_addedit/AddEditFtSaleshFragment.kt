@@ -11,30 +11,30 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import com.erp.distribution.sfa.R
-import com.erp.distribution.sfa.databinding.FragmentAddEditFmaterialBinding
+import com.erp.distribution.sfa.databinding.FragmentAddEditSalesorderBinding
 import com.erp.distribution.sfa.utils.exhaustive
 import com.google.android.material.snackbar.Snackbar
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collect
 
 @AndroidEntryPoint
-class AddEditFtSaleshFragment : Fragment(R.layout.fragment_add_edit_fmaterial) {
+class AddEditFtSaleshFragment : Fragment(R.layout.fragment_add_edit_salesorder) {
 
     private val viewModelFtSaleshViewModel: AddEditFtSaleshViewModel by viewModels()
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val binding = FragmentAddEditFmaterialBinding.bind(view)
+        val binding = FragmentAddEditSalesorderBinding.bind(view)
 
         binding.apply {
-            editTextName.setText(viewModelFtSaleshViewModel.ftSaleshName)
+            editTextSoName.setText(viewModelFtSaleshViewModel.ftSaleshName)
             checkBoxImportant.isChecked = viewModelFtSaleshViewModel.ftSaleshImportance
             checkBoxImportant.jumpDrawablesToCurrentState()
             textViewDateCreated.isVisible = viewModelFtSaleshViewModel.ftSalesh != null
             textViewDateCreated.text = "Created: ${viewModelFtSaleshViewModel.ftSalesh?.createdDateFormatted}"
 
-            editTextName.addTextChangedListener{
+            editTextSoName.addTextChangedListener{
                 viewModelFtSaleshViewModel.ftSaleshName = it.toString()
             }
 
@@ -42,9 +42,10 @@ class AddEditFtSaleshFragment : Fragment(R.layout.fragment_add_edit_fmaterial) {
                 viewModelFtSaleshViewModel.ftSaleshImportance = isChecked
             }
 
-            fabSaveFmaterial.setOnClickListener {
+            fabSaveSalesorder.setOnClickListener {
                 viewModelFtSaleshViewModel.onSaveClick()
             }
+
         }
 
         viewLifecycleOwner.lifecycleScope.launchWhenStarted {
@@ -54,7 +55,7 @@ class AddEditFtSaleshFragment : Fragment(R.layout.fragment_add_edit_fmaterial) {
                         Snackbar.make(requireView(), event.msg, Snackbar.LENGTH_LONG).show()
                     }
                     is AddEditFtSaleshViewModel.AddEditMaterialEvent.NavigateBackWithResult -> {
-                        binding.editTextName.clearFocus()
+                        binding.editTextSoName.clearFocus()
                         setFragmentResult(
                             "add_edit_request",
                             bundleOf("add_edit_result" to event.result)
@@ -64,6 +65,8 @@ class AddEditFtSaleshFragment : Fragment(R.layout.fragment_add_edit_fmaterial) {
                 }.exhaustive
             }
         }
+
+
 
 
     }

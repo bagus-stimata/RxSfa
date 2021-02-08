@@ -3,7 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".presentation.ui.salesorder.salesorder_addedit.AddEditSalesOrderFragment">
+    tools:context=".presentation.ui.salesorder.salesorder_addedit.AddEditFtSaleshFragment">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -12,7 +12,7 @@
         android:padding="8dp">
 
         <EditText
-            android:id="@+id/edit_text_salesorder_name"
+            android:id="@+id/edit_text_so_name"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="No. Order"

@@ -8,7 +8,7 @@ import com.erp.distribution.sfa.data.di.PreferencesManager
 import com.erp.distribution.sfa.data.di.SortOrder
 import com.erp.distribution.sfa.data.source.entity.FCustomerEntity
 import com.erp.distribution.sfa.data.source.entity.FDivisionEntity
-import com.erp.distribution.sfa.data.source.entity.FtSaleshEntity
+import com.erp.distribution.sfa.data.source.entity.toDomain
 import com.erp.distribution.sfa.domain.model.FCustomer
 import com.erp.distribution.sfa.domain.model.FtSalesh
 import com.erp.distribution.sfa.domain.usecase.GetFCustomerUseCase
@@ -19,7 +19,6 @@ import com.erp.distribution.sfa.presentation.ui.test.mvvm_todo.EDIT_TASK_RESULT_
 import com.erp.distribution.sfa.utils.DisposableManager
 import io.reactivex.Observable
 import io.reactivex.android.schedulers.AndroidSchedulers
-import io.reactivex.functions.Function
 import io.reactivex.schedulers.Schedulers
 import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.flow.combine
@@ -37,7 +36,6 @@ class FSaleshViewModel @ViewModelInject constructor(
 ) : ViewModel() {
     private val TAG = FSaleshViewModel::class.java.simpleName
 
-    public val getFCustomerUseCase_New: GetFCustomerUseCase = getFCustomerUseCase
 
     var mapFCustomer: MutableMap<Int, FCustomer> = mutableMapOf()
 
@@ -45,12 +43,8 @@ class FSaleshViewModel @ViewModelInject constructor(
     val searchQuery = state.getLiveData("searchQuery", "")
 
 
-
     fun getFCustomerDomainLive(id: Int):LiveData<FCustomer> {
         return getFCustomerUseCase.getCacheFCustomerDomainById(id)
-    }
-    fun getAllFCustomerEntityLive():LiveData<List<FCustomerEntity>> {
-        return getFCustomerUseCase.getCacheAllFCustomer()
     }
     fun getAllFDivisionEntityLive():LiveData<List<FDivisionEntity>> {
         return getFDivisionUseCase.getCacheAllFDivision()
@@ -181,23 +175,31 @@ class FSaleshViewModel @ViewModelInject constructor(
     }
 
 
-    fun getStates(): LiveData<List<FtSaleshEntity>> {
-        var statesLiveData: LiveData<List<FtSaleshEntity>> = getFtSaleshUseCase.getCacheAllFtSalesh()
-        statesLiveData = Transformations.switchMap(statesLiveData,
-            Function<List<FtSaleshEntity>, LiveData<List<FtSaleshEntity>>> { inputStates ->
-                val statesMediatorLiveData: MediatorLiveData<List<FtSaleshEntity>> =
-                    MediatorLiveData<List<FtSaleshEntity>>()
-                for (state in inputStates) {
-//                    statesMediatorLiveData.addSource(dao.getCities(state.getId()),
-//                        Observer<List<FtSaleshEntity>> { cities ->
-//                            state.setCities(cities)
-//                            statesMediatorLiveData.postValue(inputStates)
-//                        })
-                }
-                statesMediatorLiveData
-            })
-        return statesLiveData
+    fun getFtSaleshWithFCustomerLive(): LiveData<List<FtSalesh>> {
+        var resultLiveData: LiveData<List<FtSalesh>> = ftSaleshLive
+
+        resultLiveData = Transformations.switchMap(resultLiveData, {
+            conversionFtSaleshWithFCustomer(it)
+        })
+
+        return resultLiveData
     }
+
+
+    fun conversionFtSaleshWithFCustomer(list: List<FtSalesh>) : LiveData<List<FtSalesh>> {
+        val resultMediatorLiveData: MediatorLiveData<List<FtSalesh>> = MediatorLiveData<List<FtSalesh>>()
+        for (data in list) {
+            resultMediatorLiveData.addSource(getFCustomerUseCase.getCacheFCustomerById(data.fcustomerBean.id), Observer {
+                    data.fcustomerBean = it.toDomain()
+                    resultMediatorLiveData.postValue(list)
+                }
+            )
+        }
+        resultMediatorLiveData
+
+        return resultMediatorLiveData
+    }
+
 
 
 

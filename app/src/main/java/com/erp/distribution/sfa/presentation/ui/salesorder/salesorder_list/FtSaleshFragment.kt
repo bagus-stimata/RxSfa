@@ -1,7 +1,6 @@
 package com.erp.distribution.sfa.presentation.ui.salesorder.salesorder_list
 
 import android.os.Bundle
-import android.util.Log
 import com.erp.distribution.sfa.R
 import android.view.Menu
 import android.view.MenuInflater
@@ -18,10 +17,7 @@ import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.erp.distribution.sfa.data.di.SortOrder
-import com.erp.distribution.sfa.data.source.entity.FtSaleshEntity
-import com.erp.distribution.sfa.data.source.entity.toDomain
 import com.erp.distribution.sfa.databinding.FragmentFtsaleshBinding
-import com.erp.distribution.sfa.domain.model.FCustomer
 import com.erp.distribution.sfa.domain.model.FtSalesh
 import com.erp.distribution.sfa.presentation.ui.utils.onQueryTextChanged
 import com.erp.distribution.sfa.utils.exhaustive
@@ -50,14 +46,12 @@ class FtSaleshFragment : Fragment(R.layout.fragment_ftsalesh), FtSaleshAdapter.O
         val ftSaleshAdapter = FtSaleshAdapter(this)
 
 
-
         binding.apply {
             recyclerViewFtsalesh.apply {
                 adapter = ftSaleshAdapter
                 layoutManager = LinearLayoutManager(requireContext())
                 setHasFixedSize(true)
             }
-
 
             ItemTouchHelper(object : ItemTouchHelper.SimpleCallback(
                 0,
@@ -84,7 +78,6 @@ class FtSaleshFragment : Fragment(R.layout.fragment_ftsalesh), FtSaleshAdapter.O
                 viewModelFSalesh.onAddNewFtSaleshClick()
             }
 
-
             /**
              * adapter line
              */
@@ -100,38 +93,9 @@ class FtSaleshFragment : Fragment(R.layout.fragment_ftsalesh), FtSaleshAdapter.O
             viewModelFSalesh.onAddEditResult(result)
         }
 
-
-//        viewModelFSalesh.getAllFCustomerEntityLive()
-//            .observe(viewLifecycleOwner, Observer {
-//                Log.d(TAG, "#result size kene ${viewModelFSalesh.mapFCustomer.size}")
-//            })
-//
-
-        viewModelFSalesh.ftSaleshLive
-            .map { data ->
-
-                data.map { newData ->
-//                    Log.d(TAG, "#result size ${viewModelFSalesh.mapFCustomer.size}")
-
-                    viewModelFSalesh.mapFCustomer[newData.fcustomerBean]?.let {
-                        newData.fcustomerBean = it
-                    }
-
-                    viewModelFSalesh.getFCustomerDomainLive(newData.fcustomerBean.id).observe(this.viewLifecycleOwner, Observer {
-                        it?.let {
-                            Log.d(TAG, "#result ${it.custname}")
-                            viewModelFSalesh.mapFCustomer.put(it.id, it)
-                        }
-                    })
-
-//                    Log.d(TAG, "#result ini adalah ${newData.fcustomerBean.custname}")
-                    newData
-                }
-
-            }
+        viewModelFSalesh.getFtSaleshWithFCustomerLive()
             .observe(viewLifecycleOwner) {
                 ftSaleshAdapter.submitList(it)
-
         }
 
         viewLifecycleOwner.lifecycleScope.launchWhenStarted {
