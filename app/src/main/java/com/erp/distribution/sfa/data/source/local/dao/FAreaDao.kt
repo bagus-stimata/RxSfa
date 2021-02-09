@@ -42,6 +42,7 @@ interface FAreaDao {
 
     @Query("SELECT * FROM fArea WHERE kode1 LIKE :kode1 ")
     fun getAllFAreaByKode(kode1: String): List<FAreaEntity>
+
     @Query("SELECT * FROM fArea WHERE kode1 LIKE :kode1 ")
     fun getAllFAreaByKodeLive(kode1: String): LiveData<List<FAreaEntity>>
 

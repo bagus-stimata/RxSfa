@@ -3,10 +3,7 @@ package com.erp.distribution.sfa.data.di
 
 import android.Manifest
 import android.content.Context
-import android.net.ConnectivityManager
-import android.net.NetworkInfo
 import androidx.annotation.RequiresPermission
-import com.erp.distribution.sfa.data.di.providers.NetworkChecker
 import com.erp.distribution.sfa.data.source.remote.service_api.*
 import com.erp.distribution.sfa.utils.Constants.BASE_URL
 import com.google.gson.Gson
@@ -28,7 +25,6 @@ import javax.inject.Singleton
 @InstallIn(ApplicationComponent::class)
 @Module
 class NetworkModule {
-
 
 
     @RequiresPermission(value = Manifest.permission.INTERNET)
@@ -115,10 +111,6 @@ class NetworkModule {
 //        val activeNetwork: NetworkInfo? = connectivityManager.activeNetworkInfo
 //        return activeNetwork != null && activeNetwork.isConnected
 //    }
-
-    @Provides
-    @Singleton
-    internal fun provideNetworkChecker(context: Context): NetworkChecker = NetworkChecker(context)
 
 
     @Singleton

@@ -51,6 +51,7 @@ class MainViewModel  @ViewModelInject constructor(
 
 
     fun fetchRemoteFUser() {
+
         getFUserUseCase.execute(
             onSuccess = {
                 listFUser = it

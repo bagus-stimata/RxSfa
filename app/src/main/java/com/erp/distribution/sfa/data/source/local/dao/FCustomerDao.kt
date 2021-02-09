@@ -51,21 +51,27 @@ interface FCustomerDao {
 //    @Query("SELECT * FROM fCustomer WHERE  custname LIKE '%' || :searchQuery || '%'  OR custno LIKE '%' || :searchQuery || '%'    ORDER BY custno ")
 //    fun getAllFCustomerSortedByIDFLow(searchQuery: String): Flow<List<FCustomerEntity>>
 
+    @Transaction
     @Query("SELECT * FROM fCustomer WHERE  custname LIKE '%' || :searchQuery || '%'  OR custno LIKE '%' || :searchQuery || '%'  ORDER BY custname ")
     fun getAllFCustomerSortedByNameFLow(searchQuery: String): Flow<List<FCustomerWithFDivisionAndGroup>>
+    @Transaction
     @Query("SELECT * FROM fCustomer WHERE  custname LIKE '%' || :searchQuery || '%'  OR custno LIKE '%' || :searchQuery || '%'    ORDER BY custno ")
     fun getAllFCustomerSortedByIDFLow(searchQuery: String): Flow<List<FCustomerWithFDivisionAndGroup>>
 
 
 //    @Query("SELECT * FROM fCustomer ")
 //    fun getAllFCustomerFLow(): Flow<List<FCustomerEntity>>
+    @Transaction
     @Query("SELECT * FROM fCustomer ")
     fun getAllFCustomerFLow(): Flow<List<FCustomerWithFDivisionAndGroup>>
 
+    @Transaction
     @Query("SELECT * FROM fCustomer ")
     fun getAllFCustomerWithFDivisionLive(): LiveData<List<FCustomerWithFDivision>>
+    @Transaction
     @Query("SELECT * FROM fCustomer ")
     fun getAllFCustomerWithGroupLive(): LiveData<List<FCustomerWithGroup>>
+    @Transaction
     @Query("SELECT * FROM fCustomer ")
     fun getAllFCustomerWithFDivisionAndGroupLive(): LiveData<List<FCustomerWithFDivisionAndGroup>>
 

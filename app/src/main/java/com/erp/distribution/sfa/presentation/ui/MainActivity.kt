@@ -82,6 +82,9 @@ class MainActivity : AppCompatActivity() {
                     mainViewModel.userActive = it.get(0)
 //                    mainViewModel.getRemoteFSalesman(mainViewModel.userActive)
                     if(mainViewModel.userActive.id >0) {
+                        /**
+                         * Lihat Masih dari Remote
+                         */
                         subscribeRemoteFDivision(mainViewModel.userActive)
                         subscribeRemoteFSalesman(mainViewModel.userActive)
                         subscribeRemoteFWarehouse(mainViewModel.userActive)
@@ -118,6 +121,7 @@ class MainActivity : AppCompatActivity() {
                 },
                 {
                     Log.d(TAG, "#result salesman error ${it.message}")
+
                 },
                 {
 

@@ -45,6 +45,7 @@ class FMaterialFragment : Fragment(R.layout.fragment_fmaterial), FMaterialAdapte
 
         val fMaterialAdapter = FMaterialAdapter(this)
 
+
         binding.apply {
             recyclerViewFMaterial.apply {
                 adapter = fMaterialAdapter

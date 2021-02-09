@@ -41,6 +41,7 @@ interface FSubAreaDao {
     @get:Query("SELECT * FROM fSubArea ")
     val getAllFSubAreaEntityLive: LiveData<List<FSubAreaEntity>>
 
+    @Transaction
     @Query("SELECT * FROM fSubArea ")
     fun getAllFSubAreaEntityLive(): LiveData<List<FSubAreaWithFArea>>
 

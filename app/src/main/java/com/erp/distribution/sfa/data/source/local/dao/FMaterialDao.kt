@@ -56,10 +56,13 @@ interface FMaterialDao {
 //    @Query("SELECT * FROM fMaterial ")
 //    fun getAllFMaterialFLow(): Flow<List<FMaterialEntity>>
 
+    @Transaction
     @Query("SELECT * FROM fMaterial WHERE  pname LIKE '%' || :searchQuery || '%'  OR pcode LIKE '%' || :searchQuery || '%' ORDER BY pname ")
     fun getAllFMaterialSortedByNameFLow(searchQuery: String): Flow<List<FMaterialWithFDivisionAndVendorAndGroup>>
+    @Transaction
     @Query("SELECT * FROM fMaterial WHERE  pname LIKE '%' || :searchQuery || '%'  OR pcode LIKE '%' || :searchQuery || '%'  ORDER BY pcode ")
     fun getAllFMaterialSortedByIDFLow(searchQuery: String): Flow<List<FMaterialWithFDivisionAndVendorAndGroup>>
+    @Transaction
     @Query("SELECT * FROM fMaterial ")
     fun getAllFMaterialFLow(): Flow<List<FMaterialWithFDivisionAndVendorAndGroup>>
 
@@ -74,8 +77,10 @@ interface FMaterialDao {
     val getAllFMaterialEntity: List<FMaterialEntity>
     @get:Query("SELECT * FROM fMaterial ")
     val getAllFMaterialEntityLive: LiveData<List<FMaterialEntity>>
-    @get:Query("SELECT * FROM fMaterial ")
-    val getAllFMateriaWithDivisionAndVendorAndGroupLive: LiveData<List<FMaterialWithFDivisionAndVendorAndGroup>>
+
+    @Transaction
+    @Query("SELECT * FROM fMaterial ")
+    fun getAllFMateriaWithDivisionAndVendorAndGroupLive(): LiveData<List<FMaterialWithFDivisionAndVendorAndGroup>>
 
     @Query("SELECT * FROM fMaterial WHERE pcode LIKE :pcode ")
     fun getAllFMaterialByKode(pcode: String): List<FMaterialEntity>
