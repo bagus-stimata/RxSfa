@@ -34,7 +34,7 @@ interface FCustomerDao {
     fun deleteAllFCustomer()
 
 
-    fun getAllFCustomerFlow(query: String, sortOrder: SortOrder, hideSelected: Boolean?): Flow<List<FCustomerEntity>> =
+    fun getAllFCustomerFlow(query: String, sortOrder: SortOrder, hideSelected: Boolean?): Flow<List<FCustomerWithFDivisionAndGroup>> =
         when (sortOrder) {
             SortOrder.BY_KODE -> {
                 getAllFCustomerSortedByIDFLow(query)
@@ -46,13 +46,21 @@ interface FCustomerDao {
         }
 
 
-    @Query("SELECT * FROM fCustomer WHERE  custname LIKE '%' || :searchQuery || '%'  OR custno LIKE '%' || :searchQuery || '%'  ORDER BY custname ")
-    fun getAllFCustomerSortedByNameFLow(searchQuery: String): Flow<List<FCustomerEntity>>
-    @Query("SELECT * FROM fCustomer WHERE  custname LIKE '%' || :searchQuery || '%'  OR custno LIKE '%' || :searchQuery || '%'    ORDER BY custno ")
-    fun getAllFCustomerSortedByIDFLow(searchQuery: String): Flow<List<FCustomerEntity>>
+//    @Query("SELECT * FROM fCustomer WHERE  custname LIKE '%' || :searchQuery || '%'  OR custno LIKE '%' || :searchQuery || '%'  ORDER BY custname ")
+//    fun getAllFCustomerSortedByNameFLow(searchQuery: String): Flow<List<FCustomerEntity>>
+//    @Query("SELECT * FROM fCustomer WHERE  custname LIKE '%' || :searchQuery || '%'  OR custno LIKE '%' || :searchQuery || '%'    ORDER BY custno ")
+//    fun getAllFCustomerSortedByIDFLow(searchQuery: String): Flow<List<FCustomerEntity>>
 
+    @Query("SELECT * FROM fCustomer WHERE  custname LIKE '%' || :searchQuery || '%'  OR custno LIKE '%' || :searchQuery || '%'  ORDER BY custname ")
+    fun getAllFCustomerSortedByNameFLow(searchQuery: String): Flow<List<FCustomerWithFDivisionAndGroup>>
+    @Query("SELECT * FROM fCustomer WHERE  custname LIKE '%' || :searchQuery || '%'  OR custno LIKE '%' || :searchQuery || '%'    ORDER BY custno ")
+    fun getAllFCustomerSortedByIDFLow(searchQuery: String): Flow<List<FCustomerWithFDivisionAndGroup>>
+
+
+//    @Query("SELECT * FROM fCustomer ")
+//    fun getAllFCustomerFLow(): Flow<List<FCustomerEntity>>
     @Query("SELECT * FROM fCustomer ")
-    fun getAllFCustomerFLow(): Flow<List<FCustomerEntity>>
+    fun getAllFCustomerFLow(): Flow<List<FCustomerWithFDivisionAndGroup>>
 
     @Query("SELECT * FROM fCustomer ")
     fun getAllFCustomerWithFDivisionLive(): LiveData<List<FCustomerWithFDivision>>

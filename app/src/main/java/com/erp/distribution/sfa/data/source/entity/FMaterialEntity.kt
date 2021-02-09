@@ -204,28 +204,6 @@ data class FMaterialEntity  (
         get() = DateFormat.getDateTimeInstance().format(created)
 }
 
-class FMaterialEntityMapper @Inject constructor(
-        private val fMaterialGroup3EntityMapper: FMaterialGroup3EntityMapper
-): EntityMapper<FMaterial, FMaterialEntity>{
-    override fun mapToDomain(entity: FMaterialEntity): FMaterial  = FMaterial(
-            id = entity.id,
-            pcode = entity.pcode,
-            pname = entity.pname,
-//            fdivisionBean = entity.fdivisionBean,
-//            fmaterialGroup3Bean? = entity.fmaterialGroup3Bean?.let { fMaterialGroup3EntityMapper.mapToDomain(it) }
-//            fmaterialGroup3Bean? =   entity.fmaterialGroup3Bean
-    )
-
-    override fun mapToEntity(model: FMaterial): FMaterialEntity = FMaterialEntity(
-            id = model.id,
-            pcode = model.pcode,
-            pname = model.pname,
-//            fdivisionBean = model.fdivisionBean,
-//            fmaterialGroup3Bean? =  model.fmaterialGroup3Bean
-    )
-
-}
-
 
 internal fun FMaterialEntity.toDomain(): FMaterial {
     return FMaterial(
@@ -264,6 +242,22 @@ internal fun FMaterialEntity.toDomain(): FMaterial {
 
     )
 }
+
+data class FMaterialWithFDivisionAndVendor(
+        @Embedded  val fMaterialEntity: FMaterialEntity,
+
+        @Relation(
+                parentColumn = "fdivisionBean",
+                entityColumn = "id"
+        )
+        val fDivisionEntity: FDivisionEntity,
+
+        @Relation(
+                parentColumn = "fvendorBean",
+                entityColumn = "id"
+        )
+        val fVendorEntity: FVendorEntity?
+)
 
 
 

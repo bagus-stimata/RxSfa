@@ -1,15 +1,17 @@
 package com.erp.distribution.sfa.data.source.entity
 
+import android.os.Parcelable
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 import com.erp.distribution.sfa.data.source.entity.modelenum.EnumReligion
 import com.erp.distribution.sfa.data.source.entity.modelenum.EnumSalesType
+import kotlinx.parcelize.Parcelize
 import java.io.Serializable
 import java.util.*
 
-//@Entity(tableName = "fsalesman")
+@Parcelize
 @Entity(tableName = "fSalesman")
-class FSalesmanEntity (
+data class FSalesmanEntity (
     @PrimaryKey
     var id : Int = -1,
 
@@ -71,4 +73,4 @@ class FSalesmanEntity (
     var created : Date? = Date(),
     var modified : Date? = Date(),
     var modifiedBy : String? ="" //User ID
-) : Serializable
+) : Parcelable

@@ -106,13 +106,20 @@ class GetFCustomerUseCase @Inject constructor(private val repository: FCustomerR
     fun getCacheAllFCustomer(list: List<Int>): LiveData<List<FCustomerEntity>>{
         return repository.getCacheAllFCustomer(list)
     }
-    fun getCacheAllFCustomerFlow(query: String, sortOrder: SortOrder, hideSelected: Boolean): Flow<List<FCustomerEntity>> {
-        return repository.getCacheAllFCustomerFlow(query, sortOrder, hideSelected)
-    }
+//    fun getCacheAllFCustomerFlow(query: String, sortOrder: SortOrder, hideSelected: Boolean): Flow<List<FCustomerEntity>> {
+//        return repository.getCacheAllFCustomerFlow(query, sortOrder, hideSelected)
+//    }
+
     fun getCacheAllFCustomerDomainFlow(query: String, sortOrder: SortOrder, hideSelected: Boolean): Flow<List<FCustomer>> {
         return repository.getCacheAllFCustomerFlow(query, sortOrder, hideSelected).map {
             it.map {
-                it.toDomain()
+                val fcustomerBean = it.fCustomerEntity.toDomain()
+                val division = it.fDivisionEntity.toDomain()
+                fcustomerBean.fdivisionBean = division
+                it.fCustomerGroupEntity?.let {
+                    fcustomerBean.fcustomerGroupBean = it.toDomain()
+                }
+                fcustomerBean
             }
         }
     }

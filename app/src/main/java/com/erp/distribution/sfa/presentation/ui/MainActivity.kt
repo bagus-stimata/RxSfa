@@ -150,6 +150,8 @@ class MainActivity : AppCompatActivity() {
             )
         )
     }
+
+
     fun subscribeRemoteFWarehouse(fUser: FUser) {
         DisposableManager.add(mainViewModel.getRemoteFWarehouse(fUser)
             .toObservable()

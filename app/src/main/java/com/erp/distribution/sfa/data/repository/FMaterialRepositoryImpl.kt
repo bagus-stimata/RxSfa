@@ -6,8 +6,9 @@ import com.erp.distribution.sfa.data.source.remote.service_api.RetrofitServiceFM
 import com.erp.distribution.sfa.data.source.local.database.AppDatabase
 import com.erp.distribution.sfa.domain.repository.FMaterialRepository
 import com.erp.distribution.sfa.data.source.entity.FMaterialEntity
-import com.erp.distribution.sfa.data.source.entity.FMaterialEntityMapper
+import com.erp.distribution.sfa.data.source.entity.toDomain
 import com.erp.distribution.sfa.domain.model.FMaterial
+import com.erp.distribution.sfa.domain.model.toEntity
 import io.reactivex.Single
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
@@ -19,8 +20,7 @@ import kotlinx.coroutines.flow.map
  * */
 class FMaterialRepositoryImpl(
     private val appDatabase: AppDatabase,
-    private val retrofitService: RetrofitServiceFMaterial,
-    private val fMaterialEntityMapper: FMaterialEntityMapper
+    private val retrofitService: RetrofitServiceFMaterial
 ) : FMaterialRepository {
 
     override fun getRemoteAllFMaterial(authHeader: String): Single<List<FMaterialEntity>> {
@@ -63,7 +63,7 @@ class FMaterialRepositoryImpl(
         return appDatabase.materialDao.getAllFMaterialFlow(query, sortOrder, hideSelected)
                 .map { data ->
                     data.map {
-                        fMaterialEntityMapper.mapToDomain(it)
+                        it.toDomain()
                     }
                 }
     }
@@ -78,7 +78,7 @@ class FMaterialRepositoryImpl(
     }
 
     override fun addCacheFMaterialDomain(fMaterial: FMaterial) {
-        return appDatabase.materialDao.insert(fMaterialEntityMapper.mapToEntity(fMaterial))
+        return appDatabase.materialDao.insert(fMaterial.toEntity())
     }
     override fun addCacheFMaterial(fMaterialEntity: FMaterialEntity) {
         return appDatabase.materialDao.insert(fMaterialEntity)
@@ -91,15 +91,14 @@ class FMaterialRepositoryImpl(
         return appDatabase.materialDao.update(fMaterialEntity)
     }
     override fun putCacheFMaterialDomain(fmaterial: FMaterial) {
-        return appDatabase.materialDao.update(fMaterialEntityMapper.mapToEntity(fmaterial))
+        return appDatabase.materialDao.update(fmaterial.toEntity())
     }
 
     override fun deleteCacheFMaterial(fMaterialEntity: FMaterialEntity) {
         return appDatabase.materialDao.delete(fMaterialEntity)
     }
     override fun deleteCacheFMaterialDomain(fmaterial: FMaterial) {
-//        return appDatabase.materialDao.delete(fMaterialEntity)
-        return appDatabase.materialDao.delete(fMaterialEntityMapper.mapToEntity(fmaterial))
+        return appDatabase.materialDao.delete(fmaterial.toEntity())
     }
 
     override fun deleteAllCacheFMaterial() {

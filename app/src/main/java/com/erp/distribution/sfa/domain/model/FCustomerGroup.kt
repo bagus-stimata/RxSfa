@@ -29,4 +29,8 @@ class FCustomerGroup (
     var created : Date? = Date(),
     var modified : Date? = Date(),
     var modifiedBy : String? = "" //User ID
-): Parcelable
+): Parcelable {
+    constructor(theId: Int): this(id = theId)
+    constructor(theId: Int, theDecription: String): this(id = theId, description = theDecription)
+
+}

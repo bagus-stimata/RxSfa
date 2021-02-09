@@ -1,21 +1,17 @@
-package com.erp.distribution.sfa.data.source.entity
+package com.erp.distribution.sfa.domain.model
 
 import android.os.Parcelable
 import androidx.room.Entity
 import androidx.room.PrimaryKey
-import com.erp.distribution.sfa.domain.model.FArea
-import com.erp.distribution.sfa.domain.model.FDivision
-import com.erp.distribution.sfa.domain.model.FTax
+import com.erp.distribution.sfa.data.source.entity.FAreaEntity
+import com.erp.distribution.sfa.data.source.entity.FTaxEntity
 import kotlinx.parcelize.Parcelize
 import java.io.Serializable
 import java.util.*
 
 @Parcelize
-@Entity(tableName = "fTax")
-data class FTaxEntity (
-    @PrimaryKey(autoGenerate = true,)
+data class FTax (
     var id :Int = 0,
-
     /*
     * JIKA COPY DARI TEMPAT LAIN: MAKA SEBAGAI LOG TRACK MENINGGALKAN SOURCE_ID = ID sumber asal dia dicopy
     * keperluan diantaranya:
@@ -35,35 +31,13 @@ data class FTaxEntity (
     var accAccountTaxSalesBean :Int = 0,
 
     //	private FDivision fdivisionBean;
-    var fdivisionBean :Int = 0,
-    
+    var fdivisionBean :FDivision = FDivision(),
+
     var isStatusActive :Boolean = true,
     var created : Date = Date(),
     var modified : Date = Date(),
     var modifiedBy :String = ""//User ID
 ):Parcelable
-
-internal fun FTaxEntity.toDomain(): FTax {
-    return FTax(
-            id = id,
-            kode1 = kode1,
-            description= description,
-
-            taxPercent = taxPercent,
-
-            accAccountTaxPurchaseBean = accAccountTaxPurchaseBean,
-            accAccountTaxSalesBean = accAccountTaxSalesBean,
-
-
-            fdivisionBean = FDivision(fdivisionBean),
-            isStatusActive = isStatusActive,
-
-            created = created!!,
-            modified = modified!!,
-            modifiedBy = modifiedBy!!
-    )
-}
-
 
 
 

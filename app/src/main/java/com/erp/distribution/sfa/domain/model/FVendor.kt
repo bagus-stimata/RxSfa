@@ -60,4 +60,6 @@ class FVendor (
 
 ): Parcelable {
     constructor(theId: Int): this(id = theId)
+    constructor(theId: Int, theVname: String): this(id = theId, vname = theVname)
+
 }

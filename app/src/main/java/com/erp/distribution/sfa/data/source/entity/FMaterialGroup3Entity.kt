@@ -5,7 +5,10 @@ import androidx.room.Entity
 import androidx.room.PrimaryKey
 import com.erp.distribution.sfa.data.base.EntityMapper
 import com.erp.distribution.sfa.data.base.ModelEntity
+import com.erp.distribution.sfa.domain.model.FArea
+import com.erp.distribution.sfa.domain.model.FMaterialGroup2
 import com.erp.distribution.sfa.domain.model.FMaterialGroup3
+import com.erp.distribution.sfa.domain.model.FSubArea
 import kotlinx.parcelize.Parcelize
 import java.io.Serializable
 import java.util.*
@@ -40,39 +43,20 @@ class FMaterialGroup3Entity (
     var modified : Date = Date(),
     var modifiedBy :String ="" //User ID
 
-): ModelEntity(), Parcelable, Serializable
+): Parcelable
 
-class FMaterialGroup3EntityMapper @Inject constructor(): EntityMapper<FMaterialGroup3, FMaterialGroup3Entity> {
-    override fun mapToDomain(entity: FMaterialGroup3Entity): FMaterialGroup3 = FMaterialGroup3(
-            id = entity.id,
-            sourceID = entity.sourceID,
-            kode1 = entity.kode1,
-            description = entity.description,
-            tempInt1 = entity.tempInt1,
-            tempInt2 = entity.tempInt2,
-            tempInt3 = entity.tempInt3,
+internal fun FMaterialGroup3Entity.toDomain(): FMaterialGroup3 {
+    return FMaterialGroup3(
+            id = id,
+            kode1 = kode1,
+            description= description,
 
-            fmaterialGroup2Bean = entity.fmaterialGroup2Bean,
-            isStatusActive = entity.isStatusActive,
-            created = entity.created,
-            modified = entity.modified,
-            modifiedBy = entity.modifiedBy
+            fmaterialGroup2Bean = FMaterialGroup2(fmaterialGroup2Bean),
+            isStatusActive = isStatusActive,
+
+            created = created!!,
+            modified = modified!!,
+            modifiedBy = modifiedBy!!
     )
-
-    override fun mapToEntity(model: FMaterialGroup3): FMaterialGroup3Entity = FMaterialGroup3Entity(
-            id = model.id,
-            sourceID = model.sourceID,
-            kode1 = model.kode1,
-            description = model.description,
-            tempInt1 = model.tempInt1,
-            tempInt2 = model.tempInt2,
-            tempInt3 = model.tempInt3,
-
-            fmaterialGroup2Bean = model.fmaterialGroup2Bean,
-            isStatusActive = model.isStatusActive,
-            created = model.created,
-            modified = model.modified,
-            modifiedBy = model.modifiedBy
-    )
-
 }
+

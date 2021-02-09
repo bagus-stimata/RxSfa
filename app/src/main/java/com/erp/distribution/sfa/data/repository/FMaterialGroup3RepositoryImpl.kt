@@ -5,8 +5,9 @@ import com.erp.distribution.sfa.data.source.remote.service_api.RetrofitServiceFM
 import com.erp.distribution.sfa.data.source.local.database.AppDatabase
 import com.erp.distribution.sfa.domain.repository.FMaterialGroup3Repository
 import com.erp.distribution.sfa.data.source.entity.FMaterialGroup3Entity
-import com.erp.distribution.sfa.data.source.entity.FMaterialGroup3EntityMapper
+import com.erp.distribution.sfa.data.source.entity.toDomain
 import com.erp.distribution.sfa.domain.model.FMaterialGroup3
+import com.erp.distribution.sfa.domain.model.toEntity
 import io.reactivex.Single
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
@@ -18,8 +19,7 @@ import kotlinx.coroutines.flow.map
  * */
 class FMaterialGroup3RepositoryImpl(
     private val appDatabase: AppDatabase,
-    private val retrofitService: RetrofitServiceFMaterialGroup3,
-    private val fMaterialGroup3EntityMapper: FMaterialGroup3EntityMapper
+    private val retrofitService: RetrofitServiceFMaterialGroup3
 ) : FMaterialGroup3Repository {
 
     override fun getRemoteAllFMaterialGroup3(authHeader: String ): Single<List<FMaterialGroup3Entity>> {
@@ -51,11 +51,12 @@ class FMaterialGroup3RepositoryImpl(
     override fun getCacheAllFMaterialGroup3(): LiveData<List<FMaterialGroup3Entity>> {
         return appDatabase.materialGroup3Dao.getAllFMaterialGroup3EntityLive
     }
+
     override fun getCacheAllFMaterialGroup3DomainFlow(): Flow<List<FMaterialGroup3>> {
         return appDatabase.materialGroup3Dao.getAllFMaterialGroup3EntityFlow
                 .map { data ->
                     data.map {
-                        fMaterialGroup3EntityMapper.mapToDomain(it)
+                        it.toDomain()
                     }
                 }
     }
@@ -66,7 +67,7 @@ class FMaterialGroup3RepositoryImpl(
     override fun getCacheFMaterialGroup3ByIdDomainFlow(id: Int): Flow<FMaterialGroup3> {
         return appDatabase.materialGroup3Dao.getAllByIdEntityFlow(id)
                 .map {
-                        fMaterialGroup3EntityMapper.mapToDomain(it)
+                        it.toDomain()
                 }
 
     }
@@ -78,7 +79,7 @@ class FMaterialGroup3RepositoryImpl(
         return appDatabase.materialGroup3Dao.getAllByParentFlow(parentId)
                 .map { data ->
                     data.map {
-                        fMaterialGroup3EntityMapper.mapToDomain(it)
+                        it.toDomain()
                     }
                 }
 
@@ -92,21 +93,21 @@ class FMaterialGroup3RepositoryImpl(
         return appDatabase.materialGroup3Dao.insert(fMaterialGroup3Entity)
     }
     override fun addCacheFMaterialGroup3Domain(fMaterialGroup3: FMaterialGroup3) {
-        return appDatabase.materialGroup3Dao.insert(fMaterialGroup3EntityMapper.mapToEntity(fMaterialGroup3))
+        return appDatabase.materialGroup3Dao.insert(fMaterialGroup3.toEntity())
     }
 
     override fun putCacheFMaterialGroup3(fMaterialGroup3Entity: FMaterialGroup3Entity) {
         return appDatabase.materialGroup3Dao.update(fMaterialGroup3Entity)
     }
     override fun putCacheFMaterialGroup3Domain(fMaterialGroup3: FMaterialGroup3) {
-        return appDatabase.materialGroup3Dao.update(fMaterialGroup3EntityMapper.mapToEntity(fMaterialGroup3))
+        return appDatabase.materialGroup3Dao.update(fMaterialGroup3.toEntity())
     }
 
     override fun deleteCacheFMaterialGroup3(fMaterialGroup3Entity: FMaterialGroup3Entity) {
         return appDatabase.materialGroup3Dao.delete(fMaterialGroup3Entity)
     }
     override fun deleteCacheFMaterialGroup3Domain(fMaterialGroup3: FMaterialGroup3) {
-        return appDatabase.materialGroup3Dao.delete(fMaterialGroup3EntityMapper.mapToEntity(fMaterialGroup3))
+        return appDatabase.materialGroup3Dao.delete(fMaterialGroup3.toEntity())
     }
 
     override fun deleteAllCacheFMaterialGroup3() {

@@ -75,7 +75,8 @@ data class FSalesman (
     var modified : Date? = Date(),
     var modifiedBy : String? ="" //User ID
 
-) : Model(), Parcelable, Serializable {
+): Parcelable {
     constructor(theId: Int): this(id = theId)
+    constructor(theId: Int, theSpname: String): this(id = theId, spname = theSpname)
 
 }

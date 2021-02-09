@@ -68,7 +68,7 @@ class FCustomerRepositoryImpl(
         return appDatabase.customerDao.getAllFCustomerEntityLive(list)
     }
 
-    override fun getCacheAllFCustomerFlow(query: String, sortOrder: SortOrder, hideSelected: Boolean): Flow<List<FCustomerEntity>> {
+    override fun getCacheAllFCustomerFlow(query: String, sortOrder: SortOrder, hideSelected: Boolean): Flow<List<FCustomerWithFDivisionAndGroup>> {
         return appDatabase.customerDao.getAllFCustomerFlow(query, sortOrder, hideSelected)
     }
     override fun getCacheFCustomerById(id: Int): LiveData<FCustomerEntity> {

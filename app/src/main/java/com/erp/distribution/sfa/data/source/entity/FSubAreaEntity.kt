@@ -4,6 +4,9 @@ import androidx.room.Embedded
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 import androidx.room.Relation
+import com.erp.distribution.sfa.domain.model.FArea
+import com.erp.distribution.sfa.domain.model.FDivision
+import com.erp.distribution.sfa.domain.model.FSubArea
 import java.util.*
 
 //@Entity(tableName = "fsub_area")
@@ -33,6 +36,21 @@ data class FSubAreaEntity (
     var modifiedBy : String = ""  //User ID
 )
 
+internal fun FSubAreaEntity.toDomain(): FSubArea {
+    return FSubArea(
+            id = id,
+            kode1 = kode1,
+            description= description,
+
+            fareaBean = FArea(fareaBean),
+            isStatusActive = isStatusActive,
+
+            created = created!!,
+            modified = modified!!,
+            modifiedBy = modifiedBy!!
+    )
+}
+
 data class FSubAreaWithFArea(
     @Embedded val fSubAreaEntity: FSubAreaEntity,
     @Relation(
@@ -40,5 +58,4 @@ data class FSubAreaWithFArea(
         entityColumn = "id" //bagian dari fcustomer
     )
     val fAreaEntity: FAreaEntity
-
 )

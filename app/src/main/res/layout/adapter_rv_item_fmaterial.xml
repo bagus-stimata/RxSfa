@@ -44,8 +44,8 @@
             android:id="@+id/layout_custno"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@id/txt_custname"
-            android:layout_alignStart="@id/txt_custname"
+            android:layout_below="@id/txt_pname"
+            android:layout_alignStart="@id/txt_pname"
             android:layout_marginEnd="25dp"
             android:orientation="horizontal">
 

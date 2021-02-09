@@ -1,11 +1,17 @@
 package com.erp.distribution.sfa.data.source.entity
 
+import android.os.Parcelable
+import androidx.room.Embedded
 import androidx.room.Entity
 import androidx.room.PrimaryKey
+import androidx.room.Relation
+import com.erp.distribution.sfa.domain.model.FArea
+import com.erp.distribution.sfa.domain.model.FDivision
+import kotlinx.parcelize.Parcelize
 import java.util.*
 
-//@Entity(tableName = "farea")
 @Entity(tableName = "fArea")
+@Parcelize
 data class FAreaEntity (
     @PrimaryKey(autoGenerate = true)
     var id: Int = 0,
@@ -17,20 +23,44 @@ data class FAreaEntity (
     * 2. 
     */
     var sourceID: Int = 0,
-    var kode1: String,
-    var kode2: String,
-    var description: String,
+    var kode1: String = "",
+    var kode2: String = "",
+    var description: String = "",
 
     //	private FDivision fdivisionBean;
-    var fdivisionBean: Int,
+    var fdivisionBean: Int = 0,
 
     //	private FRegion fregionBean;
-    var fregionBean: Int,
+    var fregionBean: Int = 0,
 
     var isStatusActive: Boolean = true,
+
     var created: Date = Date(),
     var modified: Date = Date(),
-    var modifiedBy: String //User ID
+    var modifiedBy: String = "" //User ID
+): Parcelable
 
 
+internal fun FAreaEntity.toDomain(): FArea {
+    return FArea(
+            id = id,
+            kode1 = kode1,
+            description= description,
+
+            fdivisionBean = FDivision(fdivisionBean),
+            isStatusActive = isStatusActive,
+
+            created = created!!,
+            modified = modified!!,
+            modifiedBy = modifiedBy!!
+    )
+}
+
+data class FAreaWithFDivision(
+        @Embedded val fAreaEntity: FAreaEntity,
+        @Relation(
+                parentColumn = "fdivisionBean", //id nya division
+                entityColumn = "id" //bagian dari fcustomer
+        )
+        val fDivisionEntity: FDivisionEntity
 )

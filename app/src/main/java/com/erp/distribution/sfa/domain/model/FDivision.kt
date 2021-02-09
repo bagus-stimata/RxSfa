@@ -21,4 +21,6 @@ class FDivision (
     var modifiedBy : String? =""  //User ID
 ): Parcelable {
     constructor(theId: Int): this(id = theId)
+    constructor(theId: Int, theDecription: String): this(id = theId, description = theDecription)
+
 }

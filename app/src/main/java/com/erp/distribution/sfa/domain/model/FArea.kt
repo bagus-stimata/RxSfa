@@ -1,4 +1,4 @@
-package com.erp.distribution.sfa.data.source.entity
+package com.erp.distribution.sfa.domain.model
 
 import android.os.Parcelable
 import androidx.room.Entity
@@ -7,9 +7,7 @@ import kotlinx.parcelize.Parcelize
 import java.util.*
 
 @Parcelize
-@Entity(tableName = "FMaterialGroup1")
-data class FMaterialGroup1Entity (
-    @PrimaryKey(autoGenerate = true)
+data class FArea (
     var id: Int = 0,
 
     /*
@@ -24,10 +22,18 @@ data class FMaterialGroup1Entity (
     var description: String = "",
 
     //	private FDivision fdivisionBean;
-    var fdivisionBean: Int = 0,
+    var fdivisionBean: FDivision = FDivision(),
+
+    //	private FRegion fregionBean;
+    var fregionBean: Int = 0,
+
     var isStatusActive: Boolean = true,
+
     var created: Date = Date(),
     var modified: Date = Date(),
     var modifiedBy: String = "" //User ID
+): Parcelable {
+    constructor(theId: Int): this(id = theId)
+    constructor(theId: Int, theDecription: String): this(id = theId, description = theDecription)
 
-): Parcelable
+}

@@ -4,6 +4,7 @@ import android.os.Parcelable
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 import com.erp.distribution.sfa.data.base.ModelEntity
+import com.erp.distribution.sfa.data.source.entity.FMaterialEntity
 import com.erp.distribution.sfa.data.source.entity.modelenum.EnumUom
 import com.erp.distribution.sfa.domain.base.Model
 import kotlinx.parcelize.Parcelize
@@ -180,7 +181,48 @@ data class FMaterial  (
 
 ): Model(), Parcelable, Serializable {
     constructor(theId: Int): this(id = theId)
+    constructor(theId: Int, thePcode: String, thePname: String): this(id = theId, pcode=thePcode, pname = thePname)
+
 
     val createdDateFormatted: String
         get() = DateFormat.getDateTimeInstance().format(created)
+}
+
+
+internal fun FMaterial.toEntity(): FMaterialEntity {
+    return FMaterialEntity(
+            id = id,
+            pcode = pcode,
+            pname = pname,
+            uom1 = uom1,
+            uom2 = uom2,
+            uom3 = uom3,
+            uom4 = uom4,
+            convfact1 = convfact1,
+            convfact2 = convfact2,
+            convfact3 = convfact3,
+            pprice = pprice,
+            pprice2 = pprice2,
+            ppriceAfterPpn = ppriceAfterPpn,
+            pprice2AfterPpn = pprice2AfterPpn,
+            sprice = sprice,
+            sprice2 = sprice2,
+            spriceAfterPpn = spriceAfterPpn,
+            sprice2AfterPpn = sprice2AfterPpn,
+
+            isStatusActive = isStatusActive,
+            stared = stared,
+            selected = selected,
+            unread = unread,
+
+            fmaterialSalesBrandBean = fmaterialSalesBrandBean!!,
+            ftaxBean = ftaxBean!!,
+            fvendorBean = fvendorBean!!.id,
+            fdivisionBean = fdivisionBean.id,
+
+            created = created!!,
+            modified = modified!!,
+            modifiedBy = modifiedBy!!
+
+    )
 }

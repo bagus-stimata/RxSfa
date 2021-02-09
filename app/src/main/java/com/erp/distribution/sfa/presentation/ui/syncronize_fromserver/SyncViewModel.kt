@@ -205,8 +205,8 @@ class SyncViewModel @ViewModelInject constructor(
     }
 
     fun getFCustomerGroupFromRepo(): Observable<List<FCustomerGroupEntity>>  {
-//        return getFCustomerGroupUseCase.getRemoteAllFCustomerGroupByDivisionAndShareToCompany(SecurityUtil.getAuthHeader(userActive.username, userActive.passwordConfirm), divisionActive.id, divisionActive.fcompanyBean).toObservable()
-        return getFCustomerGroupUseCase.getRemoteAllFCustomerGroup(SecurityUtil.getAuthHeader(userActive.username, userActive.passwordConfirm)).toObservable()
+        return getFCustomerGroupUseCase.getRemoteAllFCustomerGroupByDivisionAndShareToCompany(SecurityUtil.getAuthHeader(userActive.username, userActive.passwordConfirm), divisionActive.id, divisionActive.fcompanyBean).toObservable()
+//        return getFCustomerGroupUseCase.getRemoteAllFCustomerGroup(SecurityUtil.getAuthHeader(userActive.username, userActive.passwordConfirm)).toObservable()
     }
 
 

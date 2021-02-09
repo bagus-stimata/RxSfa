@@ -54,24 +54,24 @@ class CustomerFragment : Fragment(R.layout.fragment_customer), CustomerAdapter.O
             }
 
 
-            ItemTouchHelper(object : ItemTouchHelper.SimpleCallback(
-                0,
-                ItemTouchHelper.LEFT or ItemTouchHelper.RIGHT
-            ) {
-                override fun onMove(
-                    recyclerView: RecyclerView,
-                    viewHolder: RecyclerView.ViewHolder,
-                    target: RecyclerView.ViewHolder
-                ): Boolean {
-                    return false
-                }
-
-                override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
-                    val fCustomer = customerAdapter.currentList[viewHolder.adapterPosition]
-                    viewModel.onCustomerSwiped(fCustomer)
-                }
-
-            }).attachToRecyclerView(recyclerViewCustomer)
+//            ItemTouchHelper(object : ItemTouchHelper.SimpleCallback(
+//                0,
+//                ItemTouchHelper.LEFT or ItemTouchHelper.RIGHT
+//            ) {
+//                override fun onMove(
+//                    recyclerView: RecyclerView,
+//                    viewHolder: RecyclerView.ViewHolder,
+//                    target: RecyclerView.ViewHolder
+//                ): Boolean {
+//                    return false
+//                }
+//
+//                override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
+//                    val fCustomer = customerAdapter.currentList[viewHolder.adapterPosition]
+//                    viewModel.onCustomerSwiped(fCustomer)
+//                }
+//
+//            }).attachToRecyclerView(recyclerViewCustomer)
 
             fabAddCustomer.setOnClickListener {
                 viewModel.onAddNewCustomerClick()
@@ -96,23 +96,12 @@ class CustomerFragment : Fragment(R.layout.fragment_customer), CustomerAdapter.O
          * THIS IS MAIN MODEL
          */
         viewModel.fCustomerLive
-                .map {
-                    it.map { newData ->
-
-//                        newData.fdivisionBean?.let {
-//                            viewModel.getFDivisionEntityLive(newData.fdivisionBean).observe(this.viewLifecycleOwner, Observer {
-//                                it?.let {  newData.mappingOutCode1 = it.description}
-//                            })
-//                        }
-//                        newData.fcustomerGroupBean?.let {
-//                            viewModel.getFCustomerGroupEntityLive(newData.fcustomerGroupBean!!).observe(this.viewLifecycleOwner, Observer {
-//                                it?.let {  newData.mappingOutCode2 = it.description}
-//                            })
-//                        }
-
-                        newData
-                    }
-                }
+//                .map {
+//                    it.map { newData ->
+//
+//                        newData
+//                    }
+//                }
                 .observe(viewLifecycleOwner) {
                     customerAdapter.submitList(it)
                 }
@@ -135,7 +124,7 @@ class CustomerFragment : Fragment(R.layout.fragment_customer), CustomerAdapter.O
                                 null,
                                 "New Customer"
                             )
-                        findNavController().navigate(action)
+//                        findNavController().navigate(action)
                     }
                     is CustomerViewModel.CustomerEvent.NavigateToEditCustomerScreen -> {
                         val action =
@@ -143,7 +132,7 @@ class CustomerFragment : Fragment(R.layout.fragment_customer), CustomerAdapter.O
                                 event.fCustomer,
                                 "Edit Customer"
                             )
-                        findNavController().navigate(action)
+//                        findNavController().navigate(action)
                     }
 
                     is CustomerViewModel.CustomerEvent.ShowCustomerSavedConfirmationMessage -> {

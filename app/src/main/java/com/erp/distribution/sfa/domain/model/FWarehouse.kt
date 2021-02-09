@@ -43,7 +43,9 @@ class FWarehouse (
     val created : Date? = Date(),
     val modified : Date? = Date(),
     val modifiedBy : String? ="", //User ID
-): Model(), Serializable, Parcelable {
+
+): Parcelable {
     constructor(theId: Int): this(id = theId)
+    constructor(theId: Int, theDecription: String): this(id = theId, description = theDecription)
 
 }

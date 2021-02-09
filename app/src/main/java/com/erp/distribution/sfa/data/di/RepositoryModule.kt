@@ -1,8 +1,6 @@
 package com.erp.distribution.sfa.data.di
 
 import com.erp.distribution.sfa.data.repository.*
-import com.erp.distribution.sfa.data.source.entity.FMaterialEntityMapper
-import com.erp.distribution.sfa.data.source.entity.FMaterialGroup3EntityMapper
 import com.erp.distribution.sfa.data.source.remote.service_api.*
 import com.erp.distribution.sfa.data.source.local.database.AppDatabase
 import com.erp.distribution.sfa.domain.repository.*
@@ -100,19 +98,17 @@ class RepositoryModule {
     @Provides
     fun provideFMaterialRepository(
         appDatabase: AppDatabase,
-        retrofitService: RetrofitServiceFMaterial,
-        fMaterialEntityMapper: FMaterialEntityMapper
+        retrofitService: RetrofitServiceFMaterial
     ): FMaterialRepository {
-        return FMaterialRepositoryImpl(appDatabase, retrofitService, fMaterialEntityMapper)
+        return FMaterialRepositoryImpl(appDatabase, retrofitService)
     }
     @Singleton
     @Provides
     fun provideFMaterialGroup3Repository(
             appDatabase: AppDatabase,
-            retrofitService: RetrofitServiceFMaterialGroup3,
-            fMaterialGroup3EntityMapper: FMaterialGroup3EntityMapper
+            retrofitService: RetrofitServiceFMaterialGroup3
     ): FMaterialGroup3Repository {
-        return FMaterialGroup3RepositoryImpl(appDatabase, retrofitService, fMaterialGroup3EntityMapper)
+        return FMaterialGroup3RepositoryImpl(appDatabase, retrofitService)
     }
 
     @Singleton

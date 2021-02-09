@@ -67,11 +67,10 @@ class CustomerViewModel @ViewModelInject constructor(
     }.flatMapLatest { (query, filterPreferences) ->
         getFCustomerUseCase.getCacheAllFCustomerDomainFlow(query, filterPreferences.sortOrder, filterPreferences.hideCompleted)
     }
-
-//    val fCustomerLive = fCustomerFlow.asLiveData()
+    val fCustomerLive = fCustomerFlow.asLiveData()
 //    val fCustomerLive = getFCustomerUseCase.getCacheAllFCustomerWithFDivisionDomainLive()
 //    val fCustomerLive = getFCustomerUseCase.getCacheAllFCustomerWithGroupDomainLive()
-    val fCustomerLive = getFCustomerUseCase.getCacheAllFCustomerWithFDivisionAndGroupDomainLive()
+//    val fCustomerLive = getFCustomerUseCase.getCacheAllFCustomerWithFDivisionAndGroupDomainLive()
 
     fun onSortOrderSelected(sortOrder: SortOrder) = viewModelScope.launch {
         preferencesManager.updateSortOrder(sortOrder)
