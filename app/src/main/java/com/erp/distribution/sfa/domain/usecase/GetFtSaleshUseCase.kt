@@ -73,6 +73,7 @@ class GetFtSaleshUseCase @Inject constructor(
         }
     }
 
+
     fun getCacheFtSaleshById(id: Long): LiveData<FtSaleshEntity>{
         return repository.getCacheFtSaleshById(id)
     }

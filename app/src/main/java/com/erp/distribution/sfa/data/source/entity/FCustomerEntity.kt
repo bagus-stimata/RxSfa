@@ -1,8 +1,10 @@
 package com.erp.distribution.sfa.data.source.entity
 
 import android.os.Parcelable
+import androidx.room.Embedded
 import androidx.room.Entity
 import androidx.room.PrimaryKey
+import androidx.room.Relation
 import com.erp.distribution.sfa.data.base.ModelEntity
 import com.erp.distribution.sfa.data.source.entity.modelenum.EnumCurrency
 import com.erp.distribution.sfa.data.source.entity.modelenum.EnumTipePajakCustomer
@@ -13,10 +15,6 @@ import java.text.DateFormat
 import java.util.*
 
 
-//data class ResponseFCustomer(
-//    val data: MutableList<FCustomer>
-//)
-//@Entity(tableName? = "fcustomer")
 
 @Entity(tableName= "fCustomer")
 @Parcelize
@@ -235,11 +233,6 @@ internal fun FCustomerEntity.toDomain(): FCustomer {
         isExclusiveSalesman = isExclusiveSalesman!!,
 
 
-
-
-
-
-
         stared = stared,
         unread = unread,
         selected = selected,
@@ -252,3 +245,36 @@ internal fun FCustomerEntity.toDomain(): FCustomer {
 }
 
 
+data class FCustomerWithFDivision(
+    @Embedded  val fCustomerEntity: FCustomerEntity,
+    @Relation(
+        parentColumn = "fdivisionBean",
+        entityColumn = "id"
+    )
+    val fDivisionEntity: FDivisionEntity
+
+)
+data class FCustomerWithGroup(
+    @Embedded  val fCustomerEntity: FCustomerEntity,
+    @Relation(
+        parentColumn = "fcustomerGroupBean",
+        entityColumn = "id"
+    )
+    val fCustomerGroupEntity: FCustomerGroupEntity?
+)
+
+data class FCustomerWithFDivisionAndGroup(
+    @Embedded  val fCustomerEntity: FCustomerEntity,
+
+    @Relation(
+        parentColumn = "fdivisionBean",
+        entityColumn = "id"
+    )
+    val fDivisionEntity: FDivisionEntity,
+
+    @Relation(
+        parentColumn = "fcustomerGroupBean",
+        entityColumn = "id"
+    )
+    val fCustomerGroupEntity: FCustomerGroupEntity?
+)

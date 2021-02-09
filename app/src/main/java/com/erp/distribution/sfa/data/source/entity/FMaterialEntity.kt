@@ -1,8 +1,10 @@
 package com.erp.distribution.sfa.data.source.entity
 
 import android.os.Parcelable
+import androidx.room.Embedded
 import androidx.room.Entity
 import androidx.room.PrimaryKey
+import androidx.room.Relation
 import com.erp.distribution.sfa.data.base.EntityMapper
 import com.erp.distribution.sfa.data.base.ModelEntity
 import com.erp.distribution.sfa.data.source.entity.modelenum.EnumUom
@@ -15,7 +17,6 @@ import java.text.DateFormat
 import java.util.*
 import javax.inject.Inject
 
-//@Entity(tableName? = "fmaterial")
 @Parcelize
 @Entity(tableName = "fMaterial")
 data class FMaterialEntity  (

@@ -26,7 +26,9 @@ import com.erp.distribution.sfa.data.repository_security.FUserRolesDao
 
     FAreaEntity::class,
     FCompanyEntity::class,
+
     FCustomerEntity::class,
+
     FCustomerGroupEntity::class,
     FCustomerPicEntity::class,
 //    FCustomerSalesman::class,
@@ -77,7 +79,7 @@ import com.erp.distribution.sfa.data.repository_security.FUserRolesDao
 
 
 
-                     ], version = 39, exportSchema = false)
+                     ], version = 49, exportSchema = false)
 @TypeConverters(RoomDateConverters::class) //Karena ada Native Date
 abstract class AppDatabase : RoomDatabase() {
 

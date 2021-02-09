@@ -3,8 +3,10 @@ package com.erp.distribution.sfa.data.source.local.dao
 import androidx.lifecycle.LiveData
 import androidx.room.*
 import com.erp.distribution.sfa.data.di.SortOrder
+import com.erp.distribution.sfa.data.source.entity.FCustomerWithFDivision
 import com.erp.distribution.sfa.data.source.entity.FCustomerEntity
-import com.erp.distribution.sfa.data.source.entity.FtSaleshEntity
+import com.erp.distribution.sfa.data.source.entity.FCustomerWithFDivisionAndGroup
+import com.erp.distribution.sfa.data.source.entity.FCustomerWithGroup
 import kotlinx.coroutines.flow.Flow
 
 /**
@@ -51,6 +53,13 @@ interface FCustomerDao {
 
     @Query("SELECT * FROM fCustomer ")
     fun getAllFCustomerFLow(): Flow<List<FCustomerEntity>>
+
+    @Query("SELECT * FROM fCustomer ")
+    fun getAllFCustomerWithFDivisionLive(): LiveData<List<FCustomerWithFDivision>>
+    @Query("SELECT * FROM fCustomer ")
+    fun getAllFCustomerWithGroupLive(): LiveData<List<FCustomerWithGroup>>
+    @Query("SELECT * FROM fCustomer ")
+    fun getAllFCustomerWithFDivisionAndGroupLive(): LiveData<List<FCustomerWithFDivisionAndGroup>>
 
     @Query("SELECT * FROM fCustomer WHERE id IN (:listId)")
     fun getAllFCustomerEntityLive(listId: List<Int>): LiveData<List<FCustomerEntity>>

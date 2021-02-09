@@ -16,20 +16,17 @@ class FCustomerGroup (
     * 1. Clone Database. karena tidak mungkin menggunakan Kode External yang bisa jadi kemungkinan kembar, tapi harus pakai kode internal
     * 2. 
     */
-    var sourceID : Int = 0,
     var kode1 : String = "",
-    var kode2 : String = "",
     var description: String = "",
     var isStatusActive : Boolean = false,
 
     //	private FDivision fdivisionBean;
-    var fdivisionBean : Int = 0,
+    var fdivisionBean : Int? = 0,
 
-    //	@ManyToOne
-    //	@JoinColumn(name="ftPriceAlthBean", referencedColumnName="ID", nullable=true)
     //	private FtPriceAlth ftPriceAlthBean;
-    var ftPriceAlthBean : Int = 0,
-    var created : Date = Date(),
-    var modified : Date = Date(),
-    var modifiedBy : String = "" //User ID
+    var ftPriceAlthBean : Int? = 0,
+
+    var created : Date? = Date(),
+    var modified : Date? = Date(),
+    var modifiedBy : String? = "" //User ID
 ): Parcelable

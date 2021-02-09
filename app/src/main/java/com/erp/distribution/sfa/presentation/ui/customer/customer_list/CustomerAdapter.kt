@@ -7,15 +7,15 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import com.erp.distribution.sfa.data.source.entity.FCustomerEntity
 import com.erp.distribution.sfa.databinding.AdapterRvItemFcustomerBinding
 import com.erp.distribution.sfa.databinding.AdapterRvItemTemplate3Binding
+import com.erp.distribution.sfa.domain.model.FCustomer
 import com.erp.distribution.sfa.presentation.ui.master.material_lama.adapter.NoteAdapter
 import java.text.NumberFormat
 import java.text.SimpleDateFormat
 
 class CustomerAdapter(private val listener: OnItemClickListener) :
-    ListAdapter<FCustomerEntity, CustomerAdapter.CustomerViewHolder>(DiffCallback()) {
+    ListAdapter<FCustomer, CustomerAdapter.CustomerViewHolder>(DiffCallback()) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CustomerViewHolder {
         val binding = AdapterRvItemFcustomerBinding.inflate(LayoutInflater.from(parent.context), parent, false)
@@ -55,7 +55,7 @@ class CustomerAdapter(private val listener: OnItemClickListener) :
             }
         }
 
-        fun bind(item: FCustomerEntity) {
+        fun bind(item: FCustomer) {
             binding.apply {
 ////                checkBoxCompleted.isChecked = item.selected!!
                 nf.maximumFractionDigits = 0
@@ -67,10 +67,10 @@ class CustomerAdapter(private val listener: OnItemClickListener) :
 
                 txtCustname.text = item.custname
                 txtCustno.text = item.custno
-//                txtCustGroup.text = item.fcustomerGroupBean.toString()
-                txtCustGroup.text = item.mappingOutCode2
-//                txtDivision.text = item.fdivisionBean.toString()
-                txtDivision.text = item.mappingOutCode1
+                txtCustGroup.text = item.fcustomerGroupBean!!.kode1
+//                txtCustGroup.text = item.mappingOutCode2
+                txtDivision.text = item.fdivisionBean!!.kode1
+//                txtDivision.text = item.mappingOutCode1
 
                 txtAddress.text = "${item.address1} ${item.address2} ${item.city1}"
 
@@ -85,15 +85,15 @@ class CustomerAdapter(private val listener: OnItemClickListener) :
     }
 
     interface OnItemClickListener {
-        fun onItemClick(item: FCustomerEntity)
-        fun onCheckBoxClick(item: FCustomerEntity, isChecked: Boolean)
+        fun onItemClick(item: FCustomer)
+        fun onCheckBoxClick(item: FCustomer, isChecked: Boolean)
     }
 
-    class DiffCallback : DiffUtil.ItemCallback<FCustomerEntity>() {
-        override fun areItemsTheSame(oldItem: FCustomerEntity, newItem: FCustomerEntity) =
+    class DiffCallback : DiffUtil.ItemCallback<FCustomer>() {
+        override fun areItemsTheSame(oldItem: FCustomer, newItem: FCustomer) =
             oldItem.id == newItem.id
 
-        override fun areContentsTheSame(oldItem: FCustomerEntity, newItem: FCustomerEntity) =
+        override fun areContentsTheSame(oldItem: FCustomer, newItem: FCustomer) =
             oldItem.custno == newItem.custno
     }
 }

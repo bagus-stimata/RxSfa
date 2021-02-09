@@ -3,11 +3,11 @@ package com.erp.distribution.sfa.data.repository
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.map
 import com.erp.distribution.sfa.data.di.SortOrder
+import com.erp.distribution.sfa.data.source.entity.*
+import com.erp.distribution.sfa.data.source.entity.toDomain
 import com.erp.distribution.sfa.data.source.remote.service_api.RetrofitServiceFCustomer
 import com.erp.distribution.sfa.data.source.local.database.AppDatabase
 import com.erp.distribution.sfa.domain.repository.FCustomerRepository
-import com.erp.distribution.sfa.data.source.entity.FCustomerEntity
-import com.erp.distribution.sfa.data.source.entity.toDomain
 import com.erp.distribution.sfa.domain.model.FCustomer
 import io.reactivex.Single
 import kotlinx.coroutines.flow.Flow
@@ -53,6 +53,15 @@ class FCustomerRepositoryImpl(
 
     override fun getCacheAllFCustomer(): LiveData<List<FCustomerEntity>> {
         return appDatabase.customerDao.getAllFCustomerEntityLive
+    }
+    override fun getCacheAllFCustomerWithFDivisionLive(): LiveData<List<FCustomerWithFDivision>> {
+        return appDatabase.customerDao.getAllFCustomerWithFDivisionLive()
+    }
+    override fun getCacheAllFCustomerWithGroupLive(): LiveData<List<FCustomerWithGroup>> {
+        return appDatabase.customerDao.getAllFCustomerWithGroupLive()
+    }
+    override fun getCacheAllFCustomerWithFDivisionAndGroupLive(): LiveData<List<FCustomerWithFDivisionAndGroup>> {
+        return appDatabase.customerDao.getAllFCustomerWithFDivisionAndGroupLive()
     }
 
     override fun getCacheAllFCustomer(list: List<Int>): LiveData<List<FCustomerEntity>> {

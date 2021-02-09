@@ -139,7 +139,6 @@ class FDivisionEntity (
 internal fun FDivisionEntity.toDomain(): FDivision {
     return FDivision(
         id = id,
-
         kode1 = kode1,
         description= description,
         fcompanyBean = fcompanyBean,

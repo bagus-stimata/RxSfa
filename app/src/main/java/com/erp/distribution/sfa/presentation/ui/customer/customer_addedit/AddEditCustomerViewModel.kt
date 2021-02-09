@@ -6,7 +6,8 @@ import androidx.hilt.lifecycle.ViewModelInject
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.erp.distribution.sfa.data.source.entity.FCustomerEntity
+import com.erp.distribution.sfa.domain.model.FCustomer
+import com.erp.distribution.sfa.domain.model.toEntity
 import com.erp.distribution.sfa.domain.usecase.GetFCustomerUseCase
 import com.erp.distribution.sfa.presentation.ui.test.mvvm_todo.ADD_TASK_RESULT_OK
 import com.erp.distribution.sfa.presentation.ui.test.mvvm_todo.EDIT_TASK_RESULT_OK
@@ -24,7 +25,7 @@ class AddEditCustomerViewModel @ViewModelInject constructor(
 ) : ViewModel() {
     val TAG = AddEditCustomerViewModel::class.java.simpleName
 
-    val fCustomer = state.get<FCustomerEntity>("fCustomer")
+    val fCustomer = state.get<FCustomer>("fCustomer")
 
     var fCustomerName = state.get<String>("customerName") ?: fCustomer?.custname ?: ""
         set(value) {
@@ -51,16 +52,16 @@ class AddEditCustomerViewModel @ViewModelInject constructor(
             val updatedFCustomer = fCustomer.copy(custname = fCustomerName, isStatusActive = fCustomerImportance )
             updateFCustomer(updatedFCustomer)
         } else {
-            val newFCustomer = FCustomerEntity(custname = fCustomerName, isStatusActive = fCustomerImportance )
+            val newFCustomer = FCustomer(custname = fCustomerName, isStatusActive = fCustomerImportance )
             createFCustomer(newFCustomer)
         }
     }
 
-    private fun createFCustomer(fCustomerEntity: FCustomerEntity) = viewModelScope.launch {
+    private fun createFCustomer(fCustomer: FCustomer) = viewModelScope.launch {
 //        taskDao.insert(task)
 //        getFCustomerUseCase.addCacheFCustomer(fCustomer)
         DisposableManager.add(Observable.fromCallable {
-            getFCustomerUseCase.addCacheFCustomer(fCustomerEntity)
+            getFCustomerUseCase.addCacheFCustomer(fCustomer.toEntity())
         }
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
@@ -80,13 +81,13 @@ class AddEditCustomerViewModel @ViewModelInject constructor(
         addEditCustomerEventChannel.send(AddEditCustomerEvent.NavigateBackWithResult(ADD_TASK_RESULT_OK))
     }
 
-    private fun updateFCustomer(fCustomerEntity: FCustomerEntity) = viewModelScope.launch {
+    private fun updateFCustomer(fCustomer: FCustomer) = viewModelScope.launch {
 //        taskDao.update(task)
 //        getFCustomerUseCase.putCacheFCustomer(task)
 //        addEditTaskEventChannel.send(AddEditTaskEvent.NavigateBackWithResult(EDIT_TASK_RESULT_OK))
 
         DisposableManager.add(Observable.fromCallable {
-            getFCustomerUseCase.putCacheFCustomer(fCustomerEntity)
+            getFCustomerUseCase.putCacheFCustomer(fCustomer.toEntity())
         }
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())

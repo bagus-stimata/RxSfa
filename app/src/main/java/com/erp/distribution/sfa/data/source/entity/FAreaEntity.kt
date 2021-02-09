@@ -21,13 +21,9 @@ data class FAreaEntity (
     var kode2: String,
     var description: String,
 
-    //	@ManyToOne
-    //	@JoinColumn(name="fdivisionBean", referencedColumnName="ID")
     //	private FDivision fdivisionBean;
     var fdivisionBean: Int,
 
-    //	@ManyToOne
-    //	@JoinColumn(name="fregionBean", referencedColumnName="ID")
     //	private FRegion fregionBean;
     var fregionBean: Int,
 

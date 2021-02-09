@@ -7,6 +7,8 @@ import androidx.lifecycle.*
 import com.erp.distribution.sfa.data.di.PreferencesManager
 import com.erp.distribution.sfa.data.di.SortOrder
 import com.erp.distribution.sfa.data.source.entity.*
+import com.erp.distribution.sfa.domain.model.FCustomer
+import com.erp.distribution.sfa.domain.model.toEntity
 import com.erp.distribution.sfa.domain.usecase.*
 import com.erp.distribution.sfa.presentation.ui.test.mvvm_todo.ADD_TASK_RESULT_OK
 import com.erp.distribution.sfa.presentation.ui.test.mvvm_todo.EDIT_TASK_RESULT_OK
@@ -47,8 +49,8 @@ class CustomerViewModel @ViewModelInject constructor(
         return getFCustomerGroupUseCase.getCacheFCustomerGroupById(id)
     }
 
-    fun getListFCustomerWithDivision(list: List<FCustomerEntity>):LiveData<List<FCustomerEntity>> {
-        val newItemLive : MutableLiveData<List<FCustomerEntity>> = MutableLiveData()
+    fun getListFCustomerWithDivision(list: List<FCustomer>):LiveData<List<FCustomer>> {
+        val newItemLive : MutableLiveData<List<FCustomer>> = MutableLiveData()
         /**
          * Your Coding Hre
          */
@@ -63,11 +65,13 @@ class CustomerViewModel @ViewModelInject constructor(
     ) { query, filterPreferences ->
         Pair(query, filterPreferences)
     }.flatMapLatest { (query, filterPreferences) ->
-        getFCustomerUseCase.getCacheAllFCustomerFlow(query, filterPreferences.sortOrder, filterPreferences.hideCompleted)
+        getFCustomerUseCase.getCacheAllFCustomerDomainFlow(query, filterPreferences.sortOrder, filterPreferences.hideCompleted)
     }
 
-    val fCustomerLive = fCustomerFlow.asLiveData()
-//    val tasks = getFCustomerUseCase.getCacheAllFCustomer()
+//    val fCustomerLive = fCustomerFlow.asLiveData()
+//    val fCustomerLive = getFCustomerUseCase.getCacheAllFCustomerWithFDivisionDomainLive()
+//    val fCustomerLive = getFCustomerUseCase.getCacheAllFCustomerWithGroupDomainLive()
+    val fCustomerLive = getFCustomerUseCase.getCacheAllFCustomerWithFDivisionAndGroupDomainLive()
 
     fun onSortOrderSelected(sortOrder: SortOrder) = viewModelScope.launch {
         preferencesManager.updateSortOrder(sortOrder)
@@ -77,13 +81,13 @@ class CustomerViewModel @ViewModelInject constructor(
         preferencesManager.updateHideCompleted(hideCompleted)
     }
 
-    fun onCustomerSelected(fCustomerEntity: FCustomerEntity) = viewModelScope.launch {
-        fCustomerEventChannel.send(CustomerEvent.NavigateToEditCustomerScreen(fCustomerEntity))
+    fun onCustomerSelected(fCustomer: FCustomer) = viewModelScope.launch {
+        fCustomerEventChannel.send(CustomerEvent.NavigateToEditCustomerScreen(fCustomer))
     }
 
-    fun onFCustomerCheckedChanged(fCustomerEntity: FCustomerEntity, isChecked: Boolean) = viewModelScope.launch {
+    fun onFCustomerCheckedChanged(fCustomer: FCustomer, isChecked: Boolean) = viewModelScope.launch {
         DisposableManager.add(Observable.fromCallable {
-            getFCustomerUseCase.putCacheFCustomer(fCustomerEntity.copy(selected = isChecked))
+            getFCustomerUseCase.putCacheFCustomer(fCustomer.toEntity().copy(selected = isChecked))
         }
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
@@ -101,9 +105,9 @@ class CustomerViewModel @ViewModelInject constructor(
 
     }
 
-    fun onCustomerSwiped(fCustomerEntity: FCustomerEntity) = viewModelScope.launch {
+    fun onCustomerSwiped(fCustomer: FCustomer) = viewModelScope.launch {
         DisposableManager.add(Observable.fromCallable {
-            getFCustomerUseCase.deleteCacheFCustomer(fCustomerEntity)
+            getFCustomerUseCase.deleteCacheFCustomer(fCustomer.toEntity())
         }
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
@@ -119,12 +123,12 @@ class CustomerViewModel @ViewModelInject constructor(
                 )
         )
 
-        fCustomerEventChannel.send(CustomerEvent.ShowUndoDeleteCustomerMessage(fCustomerEntity))
+        fCustomerEventChannel.send(CustomerEvent.ShowUndoDeleteCustomerMessage(fCustomer))
     }
 
-    fun onUndoDeleteClick(fCustomerEntity: FCustomerEntity) = viewModelScope.launch {
+    fun onUndoDeleteClick(fCustomer: FCustomer) = viewModelScope.launch {
         DisposableManager.add(Observable.fromCallable {
-            getFCustomerUseCase.addCacheFCustomer(fCustomerEntity)
+            getFCustomerUseCase.addCacheFCustomer(fCustomer.toEntity())
         }
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
@@ -181,8 +185,8 @@ class CustomerViewModel @ViewModelInject constructor(
 
     sealed class CustomerEvent {
         object NavigateToAddCustomerScreen : CustomerEvent()
-        data class NavigateToEditCustomerScreen(val fCustomerEntity: FCustomerEntity) : CustomerEvent()
-        data class ShowUndoDeleteCustomerMessage(val fCustomerEntity: FCustomerEntity) : CustomerEvent()
+        data class NavigateToEditCustomerScreen(val fCustomer: FCustomer) : CustomerEvent()
+        data class ShowUndoDeleteCustomerMessage(val fCustomer: FCustomer) : CustomerEvent()
         data class ShowCustomerSavedConfirmationMessage(val msg: String) : CustomerEvent()
         object NavigateToDeleteAllCompletedScreen : CustomerEvent()
 

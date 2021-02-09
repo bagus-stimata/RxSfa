@@ -1,7 +1,9 @@
 package com.erp.distribution.sfa.data.source.entity
 
+import androidx.room.Embedded
 import androidx.room.Entity
 import androidx.room.PrimaryKey
+import androidx.room.Relation
 import java.util.*
 
 //@Entity(tableName = "fsub_area")
@@ -21,8 +23,6 @@ data class FSubAreaEntity (
     var kode2 : String = "", 
     var description: String = "",
 
-    //	@ManyToOne
-    //	@JoinColumn(name="fareaBean", referencedColumnName="ID")
     //	private FArea fareaBean;
     var fareaBean : Int = 0, 
 
@@ -31,4 +31,14 @@ data class FSubAreaEntity (
     var created : Date = Date(), 
     var modified : Date = Date(), 
     var modifiedBy : String = ""  //User ID
+)
+
+data class FSubAreaWithFArea(
+    @Embedded val fSubAreaEntity: FSubAreaEntity,
+    @Relation(
+        parentColumn = "fareaBean", //id nya division
+        entityColumn = "id" //bagian dari fcustomer
+    )
+    val fAreaEntity: FAreaEntity
+
 )
