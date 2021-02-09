@@ -56,7 +56,7 @@ data class FMaterial  (
     //	@ManyToOne
     //	@JoinColumn(name="ftaxBean", referencedColumnName="ID")
     //	private FTax ftaxBean;
-    var ftaxBean : Int =0,
+    var ftaxBean : Int? =0,
 
 //    @Ignore
 //    var isTaxable : Boolean =false,

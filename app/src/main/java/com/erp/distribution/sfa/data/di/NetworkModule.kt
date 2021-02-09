@@ -1,9 +1,12 @@
 package com.erp.distribution.sfa.data.di
 
 
+import android.Manifest
 import android.content.Context
 import android.net.ConnectivityManager
 import android.net.NetworkInfo
+import androidx.annotation.RequiresPermission
+import com.erp.distribution.sfa.data.di.providers.NetworkChecker
 import com.erp.distribution.sfa.data.source.remote.service_api.*
 import com.erp.distribution.sfa.utils.Constants.BASE_URL
 import com.google.gson.Gson
@@ -28,6 +31,7 @@ class NetworkModule {
 
 
 
+    @RequiresPermission(value = Manifest.permission.INTERNET)
     @Provides
     @Singleton
     fun providesRetrofit(
@@ -103,14 +107,19 @@ class NetworkModule {
         return RxJava2CallAdapterFactory.create()
     }
 
+//    @Provides
+//    @Singleton
+//    fun provideIsNetworkAvailable(@ApplicationContext context: Context): Boolean {
+//        val connectivityManager =
+//            context.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
+//        val activeNetwork: NetworkInfo? = connectivityManager.activeNetworkInfo
+//        return activeNetwork != null && activeNetwork.isConnected
+//    }
+
     @Provides
     @Singleton
-    fun provideIsNetworkAvailable(@ApplicationContext context: Context): Boolean {
-        val connectivityManager =
-            context.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
-        val activeNetwork: NetworkInfo? = connectivityManager.activeNetworkInfo
-        return activeNetwork != null && activeNetwork.isConnected
-    }
+    internal fun provideNetworkChecker(context: Context): NetworkChecker = NetworkChecker(context)
+
 
     @Singleton
     @Provides

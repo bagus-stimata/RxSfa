@@ -48,7 +48,7 @@ class AddEditFMaterialFragment : Fragment(R.layout.fragment_add_edit_fmaterial) 
         }
 
         viewLifecycleOwner.lifecycleScope.launchWhenStarted {
-            viewModelFMaterialViewModel.addEditFMaterialEntityEvent.collect { event ->
+            viewModelFMaterialViewModel.addEditFMaterialEvent.collect { event ->
                 when (event) {
                     is AddEditFMaterialViewModel.AddEditMaterialEvent.ShowInvalidInputMessage -> {
                         Snackbar.make(requireView(), event.msg, Snackbar.LENGTH_LONG).show()

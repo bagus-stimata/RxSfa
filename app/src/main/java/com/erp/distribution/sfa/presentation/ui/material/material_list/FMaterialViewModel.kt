@@ -7,13 +7,14 @@ import androidx.lifecycle.*
 import com.erp.distribution.sfa.data.di.PreferencesManager
 import com.erp.distribution.sfa.data.di.SortOrder
 import com.erp.distribution.sfa.data.source.entity.FDivisionEntity
-import com.erp.distribution.sfa.data.source.entity.FMaterialEntity
 import com.erp.distribution.sfa.data.source.entity.FMaterialGroup3Entity
+import com.erp.distribution.sfa.domain.model.FMaterial
 import com.erp.distribution.sfa.domain.model.FMaterialGroup3
+import com.erp.distribution.sfa.domain.model.toEntity
 import com.erp.distribution.sfa.domain.usecase.GetFMaterialGroup3UseCase
 import com.erp.distribution.sfa.domain.usecase.GetFMaterialUseCase
-import com.erp.distribution.sfa.presentation.ui.test.mvvm_todo.ADD_TASK_RESULT_OK
-import com.erp.distribution.sfa.presentation.ui.test.mvvm_todo.EDIT_TASK_RESULT_OK
+import com.erp.distribution.sfa.presentation.ui.material.ADD_TASK_RESULT_OK
+import com.erp.distribution.sfa.presentation.ui.material.EDIT_TASK_RESULT_OK
 import com.erp.distribution.sfa.utils.DisposableManager
 import io.reactivex.Observable
 import io.reactivex.android.schedulers.AndroidSchedulers
@@ -36,7 +37,7 @@ class FMaterialViewModel @ViewModelInject constructor(
 
     val preferencesFlow = preferencesManager.preferencesFlow
 
-    private val fMaterialEventChannel = Channel<FMaterialEntityEvent>()
+    private val fMaterialEventChannel = Channel<FMaterialEvent>()
     val fMaterialEvent = fMaterialEventChannel.receiveAsFlow()
 
     val fMaterialGroup3Live = getFMaterialGroup3UseCase.getCacheAllFMaterialGroup3()
@@ -54,7 +55,7 @@ class FMaterialViewModel @ViewModelInject constructor(
         Pair(query, filterPreferences)
     }.flatMapLatest { (query, filterPreferences) ->
         getFMaterialUseCase.getCacheAllFMaterialFlow(query, filterPreferences.sortOrder, filterPreferences.hideCompleted)
-//        getFMaterialEntityUseCase.getCacheAllFMaterialEntityDomainFlow(query, filterPreferences.sortOrder, filterPreferences.hideCompleted)
+//        getFMaterialUseCase.getCacheAllFMaterialDomainFlow(query, filterPreferences.sortOrder, filterPreferences.hideCompleted)
     }
 
     val fMaterialLive = fMaterialFlow.asLiveData()
@@ -67,13 +68,13 @@ class FMaterialViewModel @ViewModelInject constructor(
         preferencesManager.updateHideCompleted(hideCompleted)
     }
 
-    fun onItemSelected(fMaterial: FMaterialEntity) = viewModelScope.launch {
-        fMaterialEventChannel.send(FMaterialEntityEvent.NavigateToEditFMaterialEntityScreen(fMaterial))
+    fun onItemSelected(fMaterial: FMaterial) = viewModelScope.launch {
+        fMaterialEventChannel.send(FMaterialEvent.NavigateToEditFMaterialScreen(fMaterial))
     }
 
-    fun onItemCheckedChanged(fMaterial: FMaterialEntity, isChecked: Boolean) = viewModelScope.launch {
+    fun onItemCheckedChanged(fMaterial: FMaterial, isChecked: Boolean) = viewModelScope.launch {
         DisposableManager.add(Observable.fromCallable {
-            getFMaterialUseCase.putCacheFMaterial(fMaterial.copy(selected = isChecked))
+            getFMaterialUseCase.putCacheFMaterial(fMaterial.toEntity().copy(selected = isChecked))
         }
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
@@ -91,9 +92,9 @@ class FMaterialViewModel @ViewModelInject constructor(
 
     }
 
-    fun onItemSwiped(fMaterial: FMaterialEntity) = viewModelScope.launch {
+    fun onItemSwiped(fMaterial: FMaterial) = viewModelScope.launch {
         DisposableManager.add(Observable.fromCallable {
-            getFMaterialUseCase.deleteCacheFMaterial(fMaterial)
+            getFMaterialUseCase.deleteCacheFMaterial(fMaterial.toEntity())
         }
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
@@ -109,12 +110,12 @@ class FMaterialViewModel @ViewModelInject constructor(
                 )
         )
 
-        fMaterialEventChannel.send(FMaterialEntityEvent.ShowUndoDeleteFMaterialEntityMessage(fMaterial))
+        fMaterialEventChannel.send(FMaterialEvent.ShowUndoDeleteFMaterialMessage(fMaterial))
     }
 
-    fun onUndoDeleteClick(fMaterial: FMaterialEntity) = viewModelScope.launch {
+    fun onUndoDeleteClick(fMaterial: FMaterial) = viewModelScope.launch {
         DisposableManager.add(Observable.fromCallable {
-            getFMaterialUseCase.addCacheFMaterial(fMaterial)
+            getFMaterialUseCase.addCacheFMaterial(fMaterial.toEntity())
         }
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
@@ -131,23 +132,23 @@ class FMaterialViewModel @ViewModelInject constructor(
         )
     }
 
-    fun onAddNewFMaterialEntityClick() = viewModelScope.launch {
-        fMaterialEventChannel.send(FMaterialEntityEvent.NavigateToAddFMaterialEntityScreen)
+    fun onAddNewFMaterialClick() = viewModelScope.launch {
+        fMaterialEventChannel.send(FMaterialEvent.NavigateToAddFMaterialScreen)
     }
 
     fun onAddEditResult(result: Int) {
         when (result) {
-            ADD_TASK_RESULT_OK -> showFMaterialEntitySavedConfirmationMessage("Data added")
-            EDIT_TASK_RESULT_OK -> showFMaterialEntitySavedConfirmationMessage("Data updated")
+            ADD_TASK_RESULT_OK -> showFMaterialSavedConfirmationMessage("Data added")
+            EDIT_TASK_RESULT_OK -> showFMaterialSavedConfirmationMessage("Data updated")
         }
     }
 
-    private fun showFMaterialEntitySavedConfirmationMessage(text: String) = viewModelScope.launch {
-        fMaterialEventChannel.send(FMaterialEntityEvent.ShowFMaterialEntitySavedConfirmationMessage(text))
+    private fun showFMaterialSavedConfirmationMessage(text: String) = viewModelScope.launch {
+        fMaterialEventChannel.send(FMaterialEvent.ShowFMaterialSavedConfirmationMessage(text))
     }
 
     fun onDeleteAllCompletedClick() = viewModelScope.launch {
-        fMaterialEventChannel.send(FMaterialEntityEvent.NavigateToDeleteAllCompletedScreen)
+        fMaterialEventChannel.send(FMaterialEvent.NavigateToDeleteAllCompletedScreen)
     }
     fun onConfirmDeleteClick() = viewModelScope.launch {
         DisposableManager.add(Observable.fromCallable {
@@ -168,14 +169,14 @@ class FMaterialViewModel @ViewModelInject constructor(
         )
     }
 
-    sealed class FMaterialEntityEvent {
-        object NavigateToAddFMaterialEntityScreen : FMaterialEntityEvent()
-        data class NavigateToEditFMaterialEntityScreen(val fMaterial: FMaterialEntity) : FMaterialEntityEvent()
-        data class ShowUndoDeleteFMaterialEntityMessage(val fMaterial: FMaterialEntity) : FMaterialEntityEvent()
-        data class ShowFMaterialEntitySavedConfirmationMessage(val msg: String) : FMaterialEntityEvent()
-        object NavigateToDeleteAllCompletedScreen : FMaterialEntityEvent()
+    sealed class FMaterialEvent {
+        object NavigateToAddFMaterialScreen : FMaterialEvent()
+        data class NavigateToEditFMaterialScreen(val fMaterial: FMaterial) : FMaterialEvent()
+        data class ShowUndoDeleteFMaterialMessage(val fMaterial: FMaterial) : FMaterialEvent()
+        data class ShowFMaterialSavedConfirmationMessage(val msg: String) : FMaterialEvent()
+        object NavigateToDeleteAllCompletedScreen : FMaterialEvent()
 
-        data class NavigateBackWithResult(val result: Int) : FMaterialViewModel.FMaterialEntityEvent()
+        data class NavigateBackWithResult(val result: Int) : FMaterialViewModel.FMaterialEvent()
 
     }
 }

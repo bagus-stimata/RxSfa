@@ -1,11 +1,18 @@
 package com.erp.distribution.sfa.data.source.entity
 
+import android.os.Parcelable
 import androidx.room.Entity
 import androidx.room.Ignore
 import androidx.room.PrimaryKey
 import com.erp.distribution.sfa.data.source.entity.modelenum.EnumCurrency
+import com.erp.distribution.sfa.domain.model.FDivision
+import com.erp.distribution.sfa.domain.model.FMaterialGroup2
+import com.erp.distribution.sfa.domain.model.FMaterialGroup3
+import com.erp.distribution.sfa.domain.model.FVendor
+import kotlinx.parcelize.Parcelize
 import java.util.*
 
+@Parcelize
 @Entity(tableName = "fVendor")
 class FVendorEntity (
     @PrimaryKey(autoGenerate = true)
@@ -60,4 +67,40 @@ class FVendorEntity (
     var modified:Date? = Date(),
     var modifiedBy :String? = "" //User ID
 
-)
+): Parcelable
+
+internal fun FVendorEntity.toDomain(): FVendor {
+    return FVendor(
+            id = id,
+            sourceID = sourceID,
+            vcode = vcode,
+            vname = vname,
+
+            fdivisionBean = FDivision(fdivisionBean),
+            isStatusActive = isStatusActive,
+
+            address1 = address1,
+            address2 = address2,
+            city1 = city1,
+            state1 = state1,
+            phone = phone,
+            email = email,
+            joinDate = joinDate,
+            lastTrans = lastTrans,
+            noRekening = noRekening,
+            currency = currency,
+            disc2Margin = disc2Margin,
+
+            disc1PlusMargin = disc1PlusMargin,
+            isPkp = isPkp,
+
+            top = top,
+            isDisc1RegManual = isDisc1RegManual,
+            isDiscPlusRegManual = isDiscPlusRegManual,
+
+            created = created!!,
+            modified = modified!!,
+            modifiedBy = modifiedBy!!
+    )
+}
+

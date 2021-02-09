@@ -33,7 +33,7 @@ interface FCustomerDao {
     @Query("DELETE FROM fCustomer")
     fun deleteAllFCustomer()
 
-
+//
     fun getAllFCustomerFlow(query: String, sortOrder: SortOrder, hideSelected: Boolean?): Flow<List<FCustomerWithFDivisionAndGroup>> =
         when (sortOrder) {
             SortOrder.BY_KODE -> {

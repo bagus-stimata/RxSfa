@@ -14,8 +14,8 @@ import com.erp.distribution.sfa.domain.model.FtSalesh
 import com.erp.distribution.sfa.domain.usecase.GetFCustomerUseCase
 import com.erp.distribution.sfa.domain.usecase.GetFDivisionUseCase
 import com.erp.distribution.sfa.domain.usecase.GetFtSaleshUseCase
-import com.erp.distribution.sfa.presentation.ui.test.mvvm_todo.ADD_TASK_RESULT_OK
-import com.erp.distribution.sfa.presentation.ui.test.mvvm_todo.EDIT_TASK_RESULT_OK
+import com.erp.distribution.sfa.presentation.ui.salesorder.ADD_TASK_RESULT_OK
+import com.erp.distribution.sfa.presentation.ui.salesorder.EDIT_TASK_RESULT_OK
 import com.erp.distribution.sfa.utils.DisposableManager
 import io.reactivex.Observable
 import io.reactivex.android.schedulers.AndroidSchedulers
@@ -115,7 +115,6 @@ class FSaleshViewModel @ViewModelInject constructor(
                     Log.d(TAG, "#result FtSalesh error  ${it.message}")
                 },
                 {
-
                 }
             )
         )
@@ -175,6 +174,11 @@ class FSaleshViewModel @ViewModelInject constructor(
     }
 
 
+    /**
+     * THIS IS THE OTHER WAY
+     * RELATION SHIP WITHOUT TABLE RELATIONSHIP
+     *
+     */
     fun getFtSaleshWithFCustomerLive(): LiveData<List<FtSalesh>> {
         var resultLiveData: LiveData<List<FtSalesh>> = ftSaleshLive
 
@@ -185,13 +189,14 @@ class FSaleshViewModel @ViewModelInject constructor(
         return resultLiveData
     }
 
-
     fun conversionFtSaleshWithFCustomer(list: List<FtSalesh>) : LiveData<List<FtSalesh>> {
         val resultMediatorLiveData: MediatorLiveData<List<FtSalesh>> = MediatorLiveData<List<FtSalesh>>()
         for (data in list) {
             resultMediatorLiveData.addSource(getFCustomerUseCase.getCacheFCustomerById(data.fcustomerBean.id), Observer {
-                    data.fcustomerBean = it.toDomain()
-                    resultMediatorLiveData.postValue(list)
+                    it?.let {
+                        data.fcustomerBean = it.toDomain()
+                        resultMediatorLiveData.postValue(list)
+                    }
                 }
             )
         }

@@ -231,8 +231,9 @@ internal fun FMaterialEntity.toDomain(): FMaterial {
         selected = selected,
         unread = unread,
 
+        fmaterialGroup3Bean = FMaterialGroup3(fmaterialSalesBrandBean!!),
         fmaterialSalesBrandBean = fmaterialSalesBrandBean!!,
-        ftaxBean = ftaxBean!!,
+        ftaxBean = ftaxBean?.let { it!! },
         fvendorBean = FVendor(fvendorBean),
         fdivisionBean = FDivision(fdivisionBean!!),
 
@@ -243,7 +244,7 @@ internal fun FMaterialEntity.toDomain(): FMaterial {
     )
 }
 
-data class FMaterialWithFDivisionAndVendor(
+data class FMaterialWithFDivisionAndVendorAndGroup(
         @Embedded  val fMaterialEntity: FMaterialEntity,
 
         @Relation(
@@ -256,7 +257,14 @@ data class FMaterialWithFDivisionAndVendor(
                 parentColumn = "fvendorBean",
                 entityColumn = "id"
         )
-        val fVendorEntity: FVendorEntity?
+        val fVendorEntity: FVendorEntity?,
+
+        @Relation(
+            parentColumn = "fmaterialGroup3Bean",
+            entityColumn = "id"
+        )
+        val fMaterialGroup3Entity: FMaterialGroup3Entity?
+
 )
 
 

@@ -4,6 +4,7 @@ import androidx.lifecycle.LiveData
 import androidx.room.*
 import com.erp.distribution.sfa.data.di.SortOrder
 import com.erp.distribution.sfa.data.source.entity.FMaterialEntity
+import com.erp.distribution.sfa.data.source.entity.FMaterialWithFDivisionAndVendorAndGroup
 import kotlinx.coroutines.flow.Flow
 
 /**
@@ -31,7 +32,7 @@ interface FMaterialDao {
     fun deleteAllFMaterial()
 
 
-    fun getAllFMaterialFlow(query: String, sortOrder: SortOrder, hideSelected: Boolean?): Flow<List<FMaterialEntity>> =
+    fun getAllFMaterialFlow(query: String, sortOrder: SortOrder, hideSelected: Boolean?): Flow<List<FMaterialWithFDivisionAndVendorAndGroup>> =
             when (sortOrder) {
                 SortOrder.BY_KODE -> {
                     getAllFMaterialSortedByIDFLow(query)
@@ -48,13 +49,19 @@ interface FMaterialDao {
     @Query("SELECT * FROM fMaterial WHERE (selected = :hideSelected OR selected = 0 OR selected = NULL) AND pname LIKE '%' || :searchQuery || '%'  ORDER BY created ")
     fun getAllFMaterialSortedByDateCreated(searchQuery: String, hideSelected: Boolean): Flow<List<FMaterialEntity>>
 
-    @Query("SELECT * FROM fMaterial WHERE  pname LIKE '%' || :searchQuery || '%'  OR pcode LIKE '%' || :searchQuery || '%' ORDER BY pname ")
-    fun getAllFMaterialSortedByNameFLow(searchQuery: String): Flow<List<FMaterialEntity>>
-    @Query("SELECT * FROM fMaterial WHERE  pname LIKE '%' || :searchQuery || '%'  OR pcode LIKE '%' || :searchQuery || '%'  ORDER BY pcode ")
-    fun getAllFMaterialSortedByIDFLow(searchQuery: String): Flow<List<FMaterialEntity>>
+//    @Query("SELECT * FROM fMaterial WHERE  pname LIKE '%' || :searchQuery || '%'  OR pcode LIKE '%' || :searchQuery || '%' ORDER BY pname ")
+//    fun getAllFMaterialSortedByNameFLow(searchQuery: String): Flow<List<FMaterialEntity>>
+//    @Query("SELECT * FROM fMaterial WHERE  pname LIKE '%' || :searchQuery || '%'  OR pcode LIKE '%' || :searchQuery || '%'  ORDER BY pcode ")
+//    fun getAllFMaterialSortedByIDFLow(searchQuery: String): Flow<List<FMaterialEntity>>
+//    @Query("SELECT * FROM fMaterial ")
+//    fun getAllFMaterialFLow(): Flow<List<FMaterialEntity>>
 
+    @Query("SELECT * FROM fMaterial WHERE  pname LIKE '%' || :searchQuery || '%'  OR pcode LIKE '%' || :searchQuery || '%' ORDER BY pname ")
+    fun getAllFMaterialSortedByNameFLow(searchQuery: String): Flow<List<FMaterialWithFDivisionAndVendorAndGroup>>
+    @Query("SELECT * FROM fMaterial WHERE  pname LIKE '%' || :searchQuery || '%'  OR pcode LIKE '%' || :searchQuery || '%'  ORDER BY pcode ")
+    fun getAllFMaterialSortedByIDFLow(searchQuery: String): Flow<List<FMaterialWithFDivisionAndVendorAndGroup>>
     @Query("SELECT * FROM fMaterial ")
-    fun getAllFMaterialFLow(): Flow<List<FMaterialEntity>>
+    fun getAllFMaterialFLow(): Flow<List<FMaterialWithFDivisionAndVendorAndGroup>>
 
 
     @Query("SELECT * FROM fMaterial WHERE id = :id ")
@@ -67,6 +74,8 @@ interface FMaterialDao {
     val getAllFMaterialEntity: List<FMaterialEntity>
     @get:Query("SELECT * FROM fMaterial ")
     val getAllFMaterialEntityLive: LiveData<List<FMaterialEntity>>
+    @get:Query("SELECT * FROM fMaterial ")
+    val getAllFMateriaWithDivisionAndVendorAndGroupLive: LiveData<List<FMaterialWithFDivisionAndVendorAndGroup>>
 
     @Query("SELECT * FROM fMaterial WHERE pcode LIKE :pcode ")
     fun getAllFMaterialByKode(pcode: String): List<FMaterialEntity>

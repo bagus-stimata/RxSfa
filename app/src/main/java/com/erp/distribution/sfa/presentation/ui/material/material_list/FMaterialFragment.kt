@@ -20,8 +20,8 @@ import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.erp.distribution.sfa.data.di.SortOrder
-import com.erp.distribution.sfa.data.source.entity.FMaterialEntity
 import com.erp.distribution.sfa.databinding.FragmentFmaterialBinding
+import com.erp.distribution.sfa.domain.model.FMaterial
 import com.erp.distribution.sfa.presentation.ui.utils.AlertDialogWarning
 import com.erp.distribution.sfa.presentation.ui.utils.onQueryTextChanged
 import com.erp.distribution.sfa.utils.exhaustive
@@ -53,29 +53,29 @@ class FMaterialFragment : Fragment(R.layout.fragment_fmaterial), FMaterialAdapte
             }
 
 
-            ItemTouchHelper(object : ItemTouchHelper.SimpleCallback(
-                0,
-                ItemTouchHelper.LEFT or ItemTouchHelper.RIGHT
-            ) {
-                override fun onMove(
-                    recyclerView: RecyclerView,
-                    viewHolder: RecyclerView.ViewHolder,
-                    target: RecyclerView.ViewHolder
-                ): Boolean {
-                    return false
-                }
-
-                override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
-                    val fMaterial = fMaterialAdapter.currentList[viewHolder.adapterPosition]
-                    viewModelFMaterial.onItemSwiped(fMaterial)
-                }
-
-            }).attachToRecyclerView(recyclerViewFMaterial)
+//            ItemTouchHelper(object : ItemTouchHelper.SimpleCallback(
+//                0,
+//                ItemTouchHelper.LEFT or ItemTouchHelper.RIGHT
+//            ) {
+//                override fun onMove(
+//                    recyclerView: RecyclerView,
+//                    viewHolder: RecyclerView.ViewHolder,
+//                    target: RecyclerView.ViewHolder
+//                ): Boolean {
+//                    return false
+//                }
+//
+//                override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
+//                    val fMaterial = fMaterialAdapter.currentList[viewHolder.adapterPosition]
+//                    viewModelFMaterial.onItemSwiped(fMaterial)
+//                }
+//
+//            }).attachToRecyclerView(recyclerViewFMaterial)
 
 
 
             fabAddFMaterial.setOnClickListener {
-                viewModelFMaterial.onAddNewFMaterialEntityClick()
+                viewModelFMaterial.onAddNewFMaterialClick()
             }
 
 
@@ -94,54 +94,60 @@ class FMaterialFragment : Fragment(R.layout.fragment_fmaterial), FMaterialAdapte
             viewModelFMaterial.onAddEditResult(result)
         }
 
+//        viewModelFMaterial.fMaterialLive
+//                .map {
+//                    it.map { newData ->
+//                        newData.fmaterialGroup3Bean?.let {
+//                            viewModelFMaterial.getFMaterialGroup3EntityLive(newData.fmaterialGroup3Bean).observe(this.viewLifecycleOwner, Observer {
+//                                it?.let {  newData.modifiedBy = it.description}
+//                            })
+//                        }
+//                        newData
+//                    }
+//                }
+//                .observe(viewLifecycleOwner) {
+//                    fMaterialAdapter.submitList(it)
+//                }
+
         viewModelFMaterial.fMaterialLive
-                .map {
-                    it.map { newData ->
-                        newData.fmaterialGroup3Bean?.let {
-                            viewModelFMaterial.getFMaterialGroup3EntityLive(newData.fmaterialGroup3Bean).observe(this.viewLifecycleOwner, Observer {
-                                it?.let {  newData.modifiedBy = it.description}
-                            })
-                        }
-                        newData
-                    }
-                }
                 .observe(viewLifecycleOwner) {
                     fMaterialAdapter.submitList(it)
                 }
 
+
         viewLifecycleOwner.lifecycleScope.launchWhenStarted {
             viewModelFMaterial.fMaterialEvent.collect { event ->
                 when (event) {
-                    is FMaterialViewModel.FMaterialEntityEvent.ShowUndoDeleteFMaterialEntityMessage -> {
+                    is FMaterialViewModel.FMaterialEvent.ShowUndoDeleteFMaterialMessage -> {
                         Snackbar.make(requireView(), "Material deleted", Snackbar.LENGTH_LONG)
                             .setAction("UNDO") {
                                 viewModelFMaterial.onUndoDeleteClick(event.fMaterial)
                             }.show()
                     }
-                    is FMaterialViewModel.FMaterialEntityEvent.NavigateToAddFMaterialEntityScreen -> {
+                    is FMaterialViewModel.FMaterialEvent.NavigateToAddFMaterialScreen -> {
                         val action =
                             FMaterialFragmentDirections.actionMaterialFragmentToMaterialFragmentAddEdit(
                                 null,
                                 "New Material"
                             )
-                        findNavController().navigate(action)
+//                        findNavController().navigate(action)
                     }
-                    is FMaterialViewModel.FMaterialEntityEvent.NavigateToEditFMaterialEntityScreen -> {
+                    is FMaterialViewModel.FMaterialEvent.NavigateToEditFMaterialScreen -> {
                         val action =
                             FMaterialFragmentDirections.actionMaterialFragmentToMaterialFragmentAddEdit(
                                 event.fMaterial,
                                 "Edit Material"
                             )
-                        findNavController().navigate(action)
+//                        findNavController().navigate(action)
                     }
-                    is FMaterialViewModel.FMaterialEntityEvent.ShowFMaterialEntitySavedConfirmationMessage -> {
+                    is FMaterialViewModel.FMaterialEvent.ShowFMaterialSavedConfirmationMessage -> {
                         Snackbar.make(requireView(), event.msg, Snackbar.LENGTH_SHORT).show()
                     }
 
-                    is FMaterialViewModel.FMaterialEntityEvent.NavigateToDeleteAllCompletedScreen -> {
+                    is FMaterialViewModel.FMaterialEvent.NavigateToDeleteAllCompletedScreen -> {
 
 //                        val action =
-//                            FMaterialEntityFragmentDirections.actionGlobalDeleteAllCompletedDialogFragment()
+//                            FMaterialFragmentDirections.actionGlobalDeleteAllCompletedDialogFragment()
 //                        findNavController().navigate(action)
 
                         val alert =
@@ -171,11 +177,11 @@ class FMaterialFragment : Fragment(R.layout.fragment_fmaterial), FMaterialAdapte
         setHasOptionsMenu(true)
     }
 
-    override fun onItemClick(fmaterial: FMaterialEntity) {
+    override fun onItemClick(fmaterial: FMaterial) {
         viewModelFMaterial.onItemSelected(fmaterial)
     }
 
-    override fun onCheckBoxClick(fmaterial: FMaterialEntity, isChecked: Boolean) {
+    override fun onCheckBoxClick(fmaterial: FMaterial, isChecked: Boolean) {
         viewModelFMaterial.onItemCheckedChanged(fmaterial, isChecked)
     }
 

@@ -6,6 +6,7 @@ import com.erp.distribution.sfa.data.source.remote.service_api.RetrofitServiceFM
 import com.erp.distribution.sfa.data.source.local.database.AppDatabase
 import com.erp.distribution.sfa.domain.repository.FMaterialRepository
 import com.erp.distribution.sfa.data.source.entity.FMaterialEntity
+import com.erp.distribution.sfa.data.source.entity.FMaterialWithFDivisionAndVendorAndGroup
 import com.erp.distribution.sfa.data.source.entity.toDomain
 import com.erp.distribution.sfa.domain.model.FMaterial
 import com.erp.distribution.sfa.domain.model.toEntity
@@ -55,18 +56,10 @@ class FMaterialRepositoryImpl(
     override fun getCacheAllFMaterial(): LiveData<List<FMaterialEntity>> {
         return appDatabase.materialDao.getAllFMaterialEntityLive
     }
-    override fun getCacheAllFMaterialFlow(query: String, sortOrder: SortOrder, hideSelected: Boolean): Flow<List<FMaterialEntity>> {
+    override fun getCacheAllFMaterialFlow(query: String, sortOrder: SortOrder, hideSelected: Boolean): Flow<List<FMaterialWithFDivisionAndVendorAndGroup>> {
         return appDatabase.materialDao.getAllFMaterialFlow(query, sortOrder, hideSelected)
     }
 
-    override fun getCacheAllFMaterialDomainFlow(query: String, sortOrder: SortOrder, hideSelected: Boolean): Flow<List<FMaterial>> {
-        return appDatabase.materialDao.getAllFMaterialFlow(query, sortOrder, hideSelected)
-                .map { data ->
-                    data.map {
-                        it.toDomain()
-                    }
-                }
-    }
 
 
     override fun getCacheFMaterialById(id: Int): LiveData<FMaterialEntity> {

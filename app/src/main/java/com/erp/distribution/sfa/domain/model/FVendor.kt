@@ -18,7 +18,7 @@ class FVendor (
     val sourceID :Int = 0,
 
 //    val fdivisionBean : FDivisionEntity? = FDivisionEntity(),
-    val fdivisionBean : Int = 0,
+    val fdivisionBean : FDivision = FDivision(),
     val vcode :String = "",
     val vname :String = "",
     val address1 :String = "",

@@ -6,10 +6,11 @@ import androidx.hilt.lifecycle.ViewModelInject
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.erp.distribution.sfa.data.source.entity.FMaterialEntity
+import com.erp.distribution.sfa.domain.model.FMaterial
+import com.erp.distribution.sfa.domain.model.toEntity
 import com.erp.distribution.sfa.domain.usecase.GetFMaterialUseCase
-import com.erp.distribution.sfa.presentation.ui.test.mvvm_todo.ADD_TASK_RESULT_OK
-import com.erp.distribution.sfa.presentation.ui.test.mvvm_todo.EDIT_TASK_RESULT_OK
+import com.erp.distribution.sfa.presentation.ui.material.ADD_TASK_RESULT_OK
+import com.erp.distribution.sfa.presentation.ui.material.EDIT_TASK_RESULT_OK
 import com.erp.distribution.sfa.utils.DisposableManager
 import io.reactivex.Observable
 import io.reactivex.android.schedulers.AndroidSchedulers
@@ -24,7 +25,7 @@ class AddEditFMaterialViewModel @ViewModelInject constructor(
 ) : ViewModel() {
     val TAG = AddEditFMaterialViewModel::class.java.simpleName
 
-    val fMaterial = state.get<FMaterialEntity>("fMaterial") // Mengikuti nama pada argument yang ada di nav_graph.xml
+    val fMaterial = state.get<FMaterial>("fMaterial") // Mengikuti nama pada argument yang ada di nav_graph.xml
 
     var fMaterialName = state.get<String>("fMaterialName") ?: fMaterial?.pname ?: ""
         set(value) {
@@ -38,8 +39,8 @@ class AddEditFMaterialViewModel @ViewModelInject constructor(
             state.set("statusActive", value)
         }
 
-    private val addEditFMaterialEntityEventChannel = Channel<AddEditMaterialEvent>()
-    val addEditFMaterialEntityEvent = addEditFMaterialEntityEventChannel.receiveAsFlow()
+    private val addEditFMaterialEventChannel = Channel<AddEditMaterialEvent>()
+    val addEditFMaterialEvent = addEditFMaterialEventChannel.receiveAsFlow()
 
     fun onSaveClick() {
         if (fMaterialName.isBlank()) {
@@ -48,17 +49,17 @@ class AddEditFMaterialViewModel @ViewModelInject constructor(
         }
 
         if (fMaterial != null) {
-            val updatedFMaterialEntity = fMaterial.copy(pname = fMaterialName, isStatusActive = fMaterialImportance )
-            updateFMaterialEntity(updatedFMaterialEntity)
+            val updatedFMaterial = fMaterial.copy(pname = fMaterialName, isStatusActive = fMaterialImportance )
+            updateFMaterial(updatedFMaterial)
         } else {
-            val newFMaterialEntity = FMaterialEntity(pname = fMaterialName, isStatusActive = fMaterialImportance )
-            createFMaterialEntity(newFMaterialEntity)
+            val newFMaterial = FMaterial(pname = fMaterialName, isStatusActive = fMaterialImportance )
+            createFMaterial(newFMaterial)
         }
     }
 
-    private fun createFMaterialEntity(fMaterialEntity: FMaterialEntity) = viewModelScope.launch {
+    private fun createFMaterial(fMaterial: FMaterial) = viewModelScope.launch {
         DisposableManager.add(Observable.fromCallable {
-            fMaterialUseCase.addCacheFMaterial(fMaterialEntity)
+            fMaterialUseCase.addCacheFMaterial(fMaterial.toEntity())
         }
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
@@ -75,16 +76,16 @@ class AddEditFMaterialViewModel @ViewModelInject constructor(
             )
         )
 
-        addEditFMaterialEntityEventChannel.send(AddEditMaterialEvent.NavigateBackWithResult(ADD_TASK_RESULT_OK))
+        addEditFMaterialEventChannel.send(AddEditMaterialEvent.NavigateBackWithResult(ADD_TASK_RESULT_OK))
     }
 
-    private fun updateFMaterialEntity(fMaterialEntity: FMaterialEntity) = viewModelScope.launch {
+    private fun updateFMaterial(fMaterial: FMaterial) = viewModelScope.launch {
 //        taskDao.update(task)
-//        fMaterialUseCase.putCacheFMaterialEntity(task)
+//        fMaterialUseCase.putCacheFMaterial(task)
 //        addEditTaskEventChannel.send(AddEditTaskEvent.NavigateBackWithResult(EDIT_TASK_RESULT_OK))
 
         DisposableManager.add(Observable.fromCallable {
-            fMaterialUseCase.putCacheFMaterial(fMaterialEntity)
+            fMaterialUseCase.putCacheFMaterial(fMaterial.toEntity())
         }
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
@@ -100,12 +101,12 @@ class AddEditFMaterialViewModel @ViewModelInject constructor(
                 }
             )
         )
-        addEditFMaterialEntityEventChannel.send(AddEditMaterialEvent.NavigateBackWithResult(EDIT_TASK_RESULT_OK))
+        addEditFMaterialEventChannel.send(AddEditMaterialEvent.NavigateBackWithResult(EDIT_TASK_RESULT_OK))
 
     }
 
     private fun showInvalidInputMessage(text: String) = viewModelScope.launch {
-        addEditFMaterialEntityEventChannel.send(AddEditMaterialEvent.ShowInvalidInputMessage(text))
+        addEditFMaterialEventChannel.send(AddEditMaterialEvent.ShowInvalidInputMessage(text))
     }
 
     sealed class AddEditMaterialEvent {
