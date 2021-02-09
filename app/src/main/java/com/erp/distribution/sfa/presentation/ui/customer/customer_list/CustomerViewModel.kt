@@ -10,6 +10,7 @@ import com.erp.distribution.sfa.data.source.entity.*
 import com.erp.distribution.sfa.domain.model.FCustomer
 import com.erp.distribution.sfa.domain.model.toEntity
 import com.erp.distribution.sfa.domain.usecase.*
+import com.erp.distribution.sfa.presentation.base.BaseViewModel
 import com.erp.distribution.sfa.presentation.ui.customer.ADD_TASK_RESULT_OK
 import com.erp.distribution.sfa.presentation.ui.customer.EDIT_TASK_RESULT_OK
 import com.erp.distribution.sfa.utils.DisposableManager
@@ -29,7 +30,8 @@ class CustomerViewModel @ViewModelInject constructor(
     private val getFCustomerGroupUseCase: GetFCustomerGroupUseCase,
     private val preferencesManager: PreferencesManager,
     @Assisted private val state: SavedStateHandle
-) : ViewModel() {
+) : BaseViewModel() {
+
     private val TAG = CustomerViewModel::class.java.simpleName
 
     val searchQuery = state.getLiveData("searchQuery", "")

@@ -9,6 +9,9 @@ import com.erp.distribution.sfa.data.source.entity.*
 import com.erp.distribution.sfa.domain.usecase.*
 import com.erp.distribution.sfa.presentation.extention.map
 import com.erp.distribution.sfa.data.source.entity_security.FUser
+import com.erp.distribution.sfa.domain.exception.*
+import com.erp.distribution.sfa.presentation.base.BaseViewModel
+import com.erp.distribution.sfa.presentation.ui.utils.SingleLiveData
 import com.erp.distribution.sfa.utils.SecurityUtil
 import io.reactivex.Observable
 import io.reactivex.Single
@@ -26,7 +29,7 @@ class MainViewModel  @ViewModelInject constructor(
         private val getFCompanyUseCase: GetFCompanyUseCase,
         private val getFWarehouseUseCase: GetFWarehouseUseCase,
         private val getFMaterialUseCase: GetFMaterialUseCase
-)  : ViewModel() {
+)  : BaseViewModel() {
     private val TAG = MainViewModel::class.java.simpleName
     var userActive: FUser = FUser()
     var divisionEntityActive: FDivisionEntity = FDivisionEntity()
@@ -49,6 +52,23 @@ class MainViewModel  @ViewModelInject constructor(
 
     var listFUser: List<FUser> = listOf()
 
+
+//    val snackBarMessage = SingleLiveData<String>()
+//    val toastMessage = SingleLiveData<String>()
+//    val inlineException = SingleLiveData<List<Tag>>()
+//    val alertException = SingleLiveData<Pair<String?, String>>()
+//    val dialogException = SingleLiveData<Dialog>()
+//    val redirectException = SingleLiveData<Redirect>()
+//    fun setThrowable(throwable: Throwable) {
+//        when (throwable) {
+//            is SnackBarException -> snackBarMessage.value = throwable.message
+//            is ToastException -> toastMessage.value = throwable.message
+//            is InlineException -> inlineException.value = throwable.tags.toList()
+//            is AlertException -> alertException.value = Pair(throwable.title, throwable.message)
+//            is DialogException -> dialogException.value = throwable.dialog
+//            is RedirectException -> redirectException.value = throwable.redirect
+//        }
+//    }
 
     fun fetchRemoteFUser() {
 

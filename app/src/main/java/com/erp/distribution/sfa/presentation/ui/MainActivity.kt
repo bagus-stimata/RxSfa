@@ -10,6 +10,8 @@ import android.view.Menu
 import android.view.MenuItem
 import android.view.View
 import android.widget.ProgressBar
+import android.widget.TextView
+import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
@@ -22,10 +24,12 @@ import com.erp.distribution.sfa.presentation.ui.customer.CustomerActivity
 import com.erp.distribution.sfa.presentation.ui.material.FMaterialActivity
 import com.erp.distribution.sfa.presentation.ui.salesorder.FtSaleshActivity
 import com.erp.distribution.sfa.utils.DisposableManager
+import com.google.android.material.snackbar.Snackbar
 import dagger.hilt.android.AndroidEntryPoint
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.schedulers.Schedulers
+import timber.log.Timber
 import java.util.*
 
 
@@ -120,7 +124,10 @@ class MainActivity : AppCompatActivity() {
 
                 },
                 {
+
                     Log.d(TAG, "#result salesman error ${it.message}")
+                    Timber.e("Get repo error: $it")
+                    mainViewModel.setThrowable(it)
 
                 },
                 {
@@ -232,8 +239,14 @@ class MainActivity : AppCompatActivity() {
 
                             },
                             {
-                                showLoginView()
+
                                 Log.d(TAG, "#result Error")
+                                Timber.e("Get repo error: $it")
+                                mainViewModel.setThrowable(it)
+
+                                showLoginView()
+
+
 
                             },
                             {
@@ -379,6 +392,8 @@ class MainActivity : AppCompatActivity() {
         val intent = Intent(this@MainActivity, CustomerActivity::class.java)
         startActivity(intent)
     }
+
+
 
     companion object {
         const val RE_LOGIN = 1

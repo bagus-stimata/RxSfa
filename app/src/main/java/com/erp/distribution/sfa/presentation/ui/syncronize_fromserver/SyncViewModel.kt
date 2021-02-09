@@ -8,6 +8,7 @@ import com.erp.distribution.sfa.data.source.entity_security.FUser
 import androidx.lifecycle.*
 import com.erp.distribution.sfa.data.source.entity.*
 import com.erp.distribution.sfa.data.source.entity.modelenum.EnumUom
+import com.erp.distribution.sfa.presentation.base.BaseViewModel
 import com.erp.distribution.sfa.utils.DisposableManager
 import com.erp.distribution.sfa.utils.SecurityUtil
 import io.reactivex.Observable
@@ -28,7 +29,7 @@ class SyncViewModel @ViewModelInject constructor(
         private val getFMaterialGroup3UseCase: GetFMaterialGroup3UseCase,
         private val getFSalesmanUseCase: GetFSalesmanUseCase,
         private val getFWarehouseUseCase: GetFWarehouseUseCase,
-) : ViewModel() {
+) : BaseViewModel() {
 
     private val TAG = SyncViewModel::class.simpleName
     private val compositeDisposable = CompositeDisposable()
