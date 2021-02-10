@@ -4,14 +4,11 @@ import android.util.Log
 import androidx.hilt.lifecycle.ViewModelInject
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
 import com.erp.distribution.sfa.data.source.entity.*
 import com.erp.distribution.sfa.domain.usecase.*
 import com.erp.distribution.sfa.presentation.extention.map
 import com.erp.distribution.sfa.data.source.entity_security.FUser
-import com.erp.distribution.sfa.domain.exception.*
 import com.erp.distribution.sfa.presentation.base.BaseViewModel
-import com.erp.distribution.sfa.presentation.ui.utils.SingleLiveData
 import com.erp.distribution.sfa.utils.SecurityUtil
 import io.reactivex.Observable
 import io.reactivex.Single
@@ -19,6 +16,8 @@ import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.observers.DisposableSingleObserver
 import io.reactivex.schedulers.Schedulers
+import kotlinx.coroutines.channels.Channel
+import kotlinx.coroutines.flow.receiveAsFlow
 import java.util.*
 
 
@@ -31,6 +30,10 @@ class MainViewModel  @ViewModelInject constructor(
         private val getFMaterialUseCase: GetFMaterialUseCase
 )  : BaseViewModel() {
     private val TAG = MainViewModel::class.java.simpleName
+
+    private val mainEventChannel = Channel<MainViewModel.MainEvent>()
+    val mainEvent = mainEventChannel.receiveAsFlow()
+
     var userActive: FUser = FUser()
     var divisionEntityActive: FDivisionEntity = FDivisionEntity()
     var salesmanEntityActive: FSalesmanEntity = FSalesmanEntity()
@@ -263,4 +266,21 @@ class MainViewModel  @ViewModelInject constructor(
 
     val getCacheFMaterialEntity: LiveData<List<FMaterialEntity>>
         get() = getFMaterialUseCase.getCacheAllFMaterial()
+
+
+
+    sealed class MainEvent {
+//        object NavigateToAddCustomerScreen : MainEvent()
+//        data class NavigateToEditCustomerScreen(val fCustomer: FCustomer) : MainEvent()
+//        data class ShowUndoDeleteCustomerMessage(val fCustomer: FCustomer) : MainEvent()
+//        data class ShowCustomerSavedConfirmationMessage(val msg: String) : MainEvent()
+//        object NavigateToDeleteAllCompletedScreen : MainEvent()
+
+        data class NavigateToCustomerScreen(val fUser: FUser) : MainEvent()
+
+        data class NavigateBackWithResult(val result: Int) : MainViewModel.MainEvent()
+    }
+
+
+
 }

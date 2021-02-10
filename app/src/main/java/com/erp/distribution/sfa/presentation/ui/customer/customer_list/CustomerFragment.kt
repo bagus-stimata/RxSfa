@@ -1,34 +1,27 @@
 package com.erp.distribution.sfa.presentation.ui.customer.customer_list
 
-import android.annotation.SuppressLint
 import android.os.Bundle
-import com.erp.distribution.sfa.R
 import android.view.Menu
 import android.view.MenuInflater
 import android.view.MenuItem
 import android.view.View
-import android.widget.TextView
 import android.widget.Toast
+import androidx.activity.OnBackPressedCallback
 import androidx.appcompat.widget.SearchView
+import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.setFragmentResult
 import androidx.fragment.app.setFragmentResultListener
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.Observer
+import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.lifecycleScope
-import androidx.lifecycle.map
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.DividerItemDecoration
-import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
+import com.erp.distribution.sfa.R
 import com.erp.distribution.sfa.data.di.SortOrder
-import com.erp.distribution.sfa.data.source.entity.toDomain
 import com.erp.distribution.sfa.databinding.FragmentCustomerBinding
-import com.erp.distribution.sfa.domain.exception.Action
-import com.erp.distribution.sfa.domain.exception.Redirect
 import com.erp.distribution.sfa.domain.model.FCustomer
-import com.erp.distribution.sfa.presentation.extention.setVisible
-import com.erp.distribution.sfa.presentation.extention.showDialog
 import com.erp.distribution.sfa.presentation.ui.utils.AlertDialogWarning
 import com.erp.distribution.sfa.presentation.ui.utils.onQueryTextChanged
 import com.erp.distribution.sfa.utils.exhaustive
@@ -46,12 +39,31 @@ class CustomerFragment : Fragment(R.layout.fragment_customer), CustomerAdapter.O
 
     private lateinit var searchView: SearchView
 
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+
+    }
+
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
         val binding = FragmentCustomerBinding.bind(view)
 
         val customerAdapter = CustomerAdapter(this)
+
+
+        val callback = object : OnBackPressedCallback(true) {
+
+            override fun handleOnBackPressed() {
+                findNavController().popBackStack()
+
+                Toast.makeText(context, "hello", Toast.LENGTH_LONG).show()
+
+            }
+        }
+        requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner, callback)
+
 
 
         binding.apply {
@@ -88,11 +100,14 @@ class CustomerFragment : Fragment(R.layout.fragment_customer), CustomerAdapter.O
             /**
              * adapter line
              */
-            val dividerItemDecoration = DividerItemDecoration( context, DividerItemDecoration.VERTICAL)
+            val dividerItemDecoration = DividerItemDecoration(
+                context,
+                DividerItemDecoration.VERTICAL
+            )
             dividerItemDecoration.setDrawable(getResources().getDrawable(R.drawable.rv_divider))
             binding.recyclerViewCustomer.addItemDecoration(dividerItemDecoration)
-
         }
+
 
         setFragmentResultListener("add_edit_request") { _, bundle ->
             val result = bundle.getInt("add_edit_result")
@@ -136,7 +151,7 @@ class CustomerFragment : Fragment(R.layout.fragment_customer), CustomerAdapter.O
                     }
                     is CustomerViewModel.CustomerEvent.NavigateToEditCustomerScreen -> {
                         val action =
-                                CustomerFragmentDirections.actionCustomerFragmentToCustomerFragmentAddEdit(
+                            CustomerFragmentDirections.actionCustomerFragmentToCustomerFragmentAddEdit(
                                 event.fCustomer,
                                 "Edit Customer"
                             )
@@ -157,19 +172,32 @@ class CustomerFragment : Fragment(R.layout.fragment_customer), CustomerAdapter.O
                                 context,
                                 "Hapus Seluruh Data?"
                             )
-                        alert.getButtonOke().setOnClickListener(View.OnClickListener { view: View? ->
-                            alert.dismiss()
+                        alert.getButtonOke()
+                            .setOnClickListener(View.OnClickListener { view: View? ->
+                                alert.dismiss()
 
-                            viewModel.onConfirmDeleteClick()
+                                viewModel.onConfirmDeleteClick()
 
-                        })
+                            })
                         alert.getButtonCancel()
-                            .setOnClickListener(View.OnClickListener {view: View? ->
+                            .setOnClickListener(View.OnClickListener { view: View? ->
                                 alert.dismiss()
                             })
                         alert.showDialog()
 
 
+                    }
+
+                    is CustomerViewModel.CustomerEvent.NavigateBackWithResult -> {
+//                        binding.editTextCustomerName.clearFocus()
+
+                        Toast.makeText(context, "hello", Toast.LENGTH_LONG).show()
+
+                        setFragmentResult(
+                            "customer_list_request",
+                            bundleOf("customer_list_request" to event.result)
+                        )
+                        findNavController().popBackStack()
                     }
 
 
@@ -183,10 +211,14 @@ class CustomerFragment : Fragment(R.layout.fragment_customer), CustomerAdapter.O
 //                        findNavController().popBackStack()
 //                    }
 
-                    else -> {}
+                    else -> {
+                        Toast.makeText(context, "Malah masuk else", Toast.LENGTH_LONG).show()
+
+                    }
                 }.exhaustive
             }
         }
+
 
         setHasOptionsMenu(true)
     }
@@ -250,58 +282,9 @@ class CustomerFragment : Fragment(R.layout.fragment_customer), CustomerAdapter.O
         searchView.setOnQueryTextListener(null)
     }
 
-    private var toast: Toast? = null
-    private var snackBar: Snackbar? = null
-    @SuppressLint("ShowToast")
-    private fun subscriberException() {
-        viewModel.run {
-            snackBarMessage.observe(viewLifecycleOwner) { message ->
-                view?.let { snackBar = Snackbar.make(it, message, Snackbar.LENGTH_SHORT) }
-                snackBar?.show()
-            }
-
-            toastMessage.observe(viewLifecycleOwner) { message ->
-                context?.let { toast = Toast.makeText(it, message, Toast.LENGTH_SHORT) }
-                toast?.show()
-            }
-
-            inlineException.observe(viewLifecycleOwner) { tags ->
-                tags.forEach { tag ->
-                    val currentView = view?.findViewWithTag<TextView>(tag.name)
-                    currentView?.run {
-                        tag.message?.let { text = it }
-                        setVisible(true)
-                    }
-                }
-            }
-
-            alertException.observe(viewLifecycleOwner) { pair ->
-                context?.showDialog(title = pair.first, message = pair.second, positiveMessage = getString(android.R.string.ok))
-            }
-
-            dialogException.observe(viewLifecycleOwner) { dialog ->
-                context?.showDialog(
-                    title = dialog.title,
-                    message = dialog.message,
-                    positiveMessage = dialog.positiveMessage,
-                    negativeMessage = dialog.negativeMessage,
-                    positiveAction = { positiveAction(dialog.positiveAction, dialog.positiveObject) },
-                    negativeAction = { negativeAction(dialog.negativeAction, dialog.negativeObject) }
-                )
-            }
-
-//            redirectException.observe(viewLifecycleOwner, Observer<Redirect> { redirect ->
-//                redirectAction(redirect.redirect, redirect.redirectObject)
-//            })
-
-        }
+    fun onBackPressed(): Boolean {
+        Toast.makeText(context, "Malah OKe else", Toast.LENGTH_LONG).show()
+        return false
     }
-
-    open fun positiveAction(@Action action: Int?, data: Any? = null) { }
-
-    open fun negativeAction(@Action action: Int?, data: Any? = null) { }
-
-    open fun redirectAction(@Redirect redirect: Int?, data: Any? = null) { }
-
 
 }

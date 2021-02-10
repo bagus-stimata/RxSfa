@@ -2,10 +2,12 @@
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    tools:context=".presentation.ui.MainActivity_Old">
+    tools:context=".presentation.ui.DashBoardFragment"   >
 
     <data>
-
+        <variable
+            name="mainViewModel"
+            type="com.erp.distribution.sfa.presentation.ui.MainViewModel" />
         <variable
             name="userActive"
             type="com.erp.distribution.sfa.data.source.entity_security.FUser" />
@@ -21,9 +23,10 @@
 
         <variable
             name="activity"
-            type="com.erp.distribution.sfa.presentation.ui.MainActivity_Old" />
+            type="com.erp.distribution.sfa.presentation.ui.DashBoardFragment" />
         <import type="android.view.View"/>
     </data>
+
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -31,17 +34,19 @@
         android:background="#fff"
         android:orientation="vertical">
 
+
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="290dp"
             android:layout_gravity="center">
+
+<!--            SEGMENT HEADER TITLE -->
 
             <ImageView
                 android:id="@+id/greeting_img"
                 android:layout_width="match_parent"
                 android:layout_height="170dp"
                 android:scaleType="fitXY" />
-
 
             <RelativeLayout
                 android:layout_width="match_parent"
@@ -57,7 +62,7 @@
                     android:text="@{userActive.fullName + ` (` + salesmanActive.spcode + `)`}"
                     android:textColor="@color/blue"
                     android:textSize="18sp" />
-    <!--            android:textColor="?android:attr/colorPrimary"-->
+                <!--            android:textColor="?android:attr/colorPrimary"-->
 
                 <TextView
                     android:id="@+id/greeting_text2"
@@ -73,6 +78,10 @@
 
             </RelativeLayout>
 
+
+
+
+<!--            SEGMENT HEADER CONTENT-->
 
             <RelativeLayout
                 android:layout_width="wrap_content"
@@ -198,7 +207,7 @@
                                     android:src="@drawable/ic_pulsa"
                                     android:visibility="@{userActive.username.isEmpty? View.GONE : View.VISIBLE}"
                                     app:tint="@color/lightGray" />
-    <!--                            app:tint="#673AB7" />-->
+                                <!--                            app:tint="#673AB7" />-->
 
                                 <TextView
 
@@ -229,7 +238,7 @@
                                     android:src="@drawable/ic_reward_prize"
                                     android:visibility="@{userActive.username.isEmpty? View.GONE : View.VISIBLE}"
                                     app:tint="@color/lightGray" />
-    <!--                            app:tint="#E91E63" />-->
+                                <!--                            app:tint="#E91E63" />-->
 
                                 <TextView
                                     android:layout_width="match_parent"
@@ -251,6 +260,11 @@
             </RelativeLayout>
 
         </RelativeLayout>
+
+
+
+
+        <!--            SEGMENT BODY CONTENT-->
 
         <ScrollView
             android:layout_width="match_parent"
@@ -329,7 +343,7 @@
                                 android:scaleType="fitCenter"
                                 android:src="@drawable/ic_calender_check"
                                 app:tint="@color/lightGray" />
-    <!--                        app:tint="@color/design_default_color_primary" />-->
+                            <!--                        app:tint="@color/design_default_color_primary" />-->
 
                             <TextView
                                 android:id="@+id/textView3"
@@ -421,7 +435,7 @@
                                 android:scaleType="fitCenter"
                                 android:src="@drawable/ic_baseline_trending_up_24"
                                 app:tint="@color/lightGray" />
-    <!--                        app:tint="@android:color/holo_blue_light" />-->
+                            <!--                        app:tint="@android:color/holo_blue_light" />-->
 
                             <TextView
                                 android:id="@+id/textView6"

@@ -2,7 +2,9 @@ package com.erp.distribution.sfa.presentation.base
 
 import androidx.lifecycle.ViewModel
 import com.erp.distribution.sfa.domain.exception.*
-import com.erp.distribution.sfa.domain.usecase.base.UseCase
+import com.erp.distribution.sfa.domain.exception.annotation.Redirect
+import com.erp.distribution.sfa.domain.exception.model.Dialog
+import com.erp.distribution.sfa.domain.exception.model.Tag
 import com.erp.distribution.sfa.presentation.ui.utils.SingleLiveData
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.disposables.Disposable

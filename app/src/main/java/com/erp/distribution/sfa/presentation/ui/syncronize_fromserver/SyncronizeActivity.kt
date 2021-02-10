@@ -1,11 +1,8 @@
 package com.erp.distribution.sfa.presentation.ui.syncronize_fromserver
 
-import android.annotation.SuppressLint
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
-import android.widget.TextView
-import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
@@ -13,11 +10,6 @@ import com.erp.distribution.sfa.R
 import com.erp.distribution.sfa.data.source.entity.*
 import com.erp.distribution.sfa.databinding.ActivitySyncronizeBinding
 import com.erp.distribution.sfa.data.source.entity_security.FUser
-import com.erp.distribution.sfa.domain.exception.Action
-import com.erp.distribution.sfa.domain.exception.Redirect
-import com.erp.distribution.sfa.presentation.extention.setVisible
-import com.erp.distribution.sfa.presentation.extention.showDialog
-import com.google.android.material.snackbar.Snackbar
 import dagger.hilt.android.AndroidEntryPoint
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable

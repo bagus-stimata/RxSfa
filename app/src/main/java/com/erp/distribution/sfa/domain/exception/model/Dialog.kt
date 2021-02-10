@@ -1,4 +1,6 @@
-package com.erp.distribution.sfa.domain.exception
+package com.erp.distribution.sfa.domain.exception.model
+
+import com.erp.distribution.sfa.domain.exception.annotation.Action
 
 data class Dialog(
     val title: String? = null,

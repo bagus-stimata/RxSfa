@@ -1,12 +1,12 @@
-package com.erp.distribution.sfa.domain.exception
+package com.erp.distribution.sfa.domain.exception.annotation
 
 import androidx.annotation.IntDef
-import com.erp.distribution.sfa.domain.exception.ExceptionType.Companion.ALERT
-import com.erp.distribution.sfa.domain.exception.ExceptionType.Companion.DIALOG
-import com.erp.distribution.sfa.domain.exception.ExceptionType.Companion.INLINE
-import com.erp.distribution.sfa.domain.exception.ExceptionType.Companion.REDIRECT
-import com.erp.distribution.sfa.domain.exception.ExceptionType.Companion.SNACK
-import com.erp.distribution.sfa.domain.exception.ExceptionType.Companion.TOAST
+import com.erp.distribution.sfa.domain.exception.annotation.ExceptionType.Companion.ALERT
+import com.erp.distribution.sfa.domain.exception.annotation.ExceptionType.Companion.DIALOG
+import com.erp.distribution.sfa.domain.exception.annotation.ExceptionType.Companion.INLINE
+import com.erp.distribution.sfa.domain.exception.annotation.ExceptionType.Companion.REDIRECT
+import com.erp.distribution.sfa.domain.exception.annotation.ExceptionType.Companion.SNACK
+import com.erp.distribution.sfa.domain.exception.annotation.ExceptionType.Companion.TOAST
 
 /**
  * Clear exception from Throwable
