@@ -2,13 +2,13 @@ package com.erp.distribution.sfa.presentation.ui
 
 import android.util.Log
 import androidx.hilt.lifecycle.ViewModelInject
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.*
 import com.erp.distribution.sfa.data.source.entity.*
 import com.erp.distribution.sfa.domain.usecase.*
 import com.erp.distribution.sfa.presentation.extention.map
 import com.erp.distribution.sfa.data.source.entity_security.FUser
 import com.erp.distribution.sfa.presentation.base.BaseViewModel
+import com.erp.distribution.sfa.presentation.base.Resource
 import com.erp.distribution.sfa.utils.SecurityUtil
 import io.reactivex.Observable
 import io.reactivex.Single
@@ -16,6 +16,7 @@ import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.observers.DisposableSingleObserver
 import io.reactivex.schedulers.Schedulers
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.flow.receiveAsFlow
 import java.util.*
@@ -56,22 +57,6 @@ class MainViewModel  @ViewModelInject constructor(
     var listFUser: List<FUser> = listOf()
 
 
-//    val snackBarMessage = SingleLiveData<String>()
-//    val toastMessage = SingleLiveData<String>()
-//    val inlineException = SingleLiveData<List<Tag>>()
-//    val alertException = SingleLiveData<Pair<String?, String>>()
-//    val dialogException = SingleLiveData<Dialog>()
-//    val redirectException = SingleLiveData<Redirect>()
-//    fun setThrowable(throwable: Throwable) {
-//        when (throwable) {
-//            is SnackBarException -> snackBarMessage.value = throwable.message
-//            is ToastException -> toastMessage.value = throwable.message
-//            is InlineException -> inlineException.value = throwable.tags.toList()
-//            is AlertException -> alertException.value = Pair(throwable.title, throwable.message)
-//            is DialogException -> dialogException.value = throwable.dialog
-//            is RedirectException -> redirectException.value = throwable.redirect
-//        }
-//    }
 
     fun fetchRemoteFUser() {
 

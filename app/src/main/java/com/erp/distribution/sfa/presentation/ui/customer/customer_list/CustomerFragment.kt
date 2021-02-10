@@ -45,6 +45,7 @@ class CustomerFragment : Fragment(R.layout.fragment_customer), CustomerAdapter.O
     }
 
 
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
@@ -53,16 +54,23 @@ class CustomerFragment : Fragment(R.layout.fragment_customer), CustomerAdapter.O
         val customerAdapter = CustomerAdapter(this)
 
 
-        val callback = object : OnBackPressedCallback(true) {
+        /**
+         * Note: Bukan NavigationUp tapiBack Press
+         */
+//        requireActivity().onBackPressedDispatcher
+//            .addCallback(viewLifecycleOwner, object: OnBackPressedCallback(true) {
+//                override fun handleOnBackPressed() {
+//                    Toast.makeText(context, "Jancok", Toast.LENGTH_LONG).show()
+//                }
+//            })
 
-            override fun handleOnBackPressed() {
-                findNavController().popBackStack()
-
-                Toast.makeText(context, "hello", Toast.LENGTH_LONG).show()
-
-            }
-        }
-        requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner, callback)
+//        val callback = object : OnBackPressedCallback(true) {
+//            override fun handleOnBackPressed() {
+//                findNavController().popBackStack()
+//                Toast.makeText(context, "hello", Toast.LENGTH_LONG).show()
+//            }
+//        }
+//        requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner, callback)
 
 
 
