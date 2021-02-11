@@ -4,7 +4,7 @@ import androidx.lifecycle.LiveData
 import com.erp.distribution.sfa.domain.repository.FtSalesdItemsRepository
 import com.erp.distribution.sfa.domain.usecase.base.SingleUseCase
 import com.erp.distribution.sfa.data.source.entity.FtSalesdItemsEntity
-import io.reactivex.Single
+import io.reactivex.rxjava3.core.Single
 import kotlinx.coroutines.flow.Flow
 import javax.inject.Inject
 

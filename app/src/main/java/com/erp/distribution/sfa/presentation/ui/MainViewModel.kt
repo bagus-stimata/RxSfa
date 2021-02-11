@@ -13,19 +13,17 @@ import com.erp.distribution.sfa.data.source.entity_security.FUser
 import com.erp.distribution.sfa.presentation.base.BaseViewModel
 import com.erp.distribution.sfa.presentation.base.Resource
 import com.erp.distribution.sfa.utils.SecurityUtil
-import io.reactivex.Flowable
-import io.reactivex.Observable
-import io.reactivex.Single
-import io.reactivex.android.schedulers.AndroidSchedulers
-import io.reactivex.disposables.CompositeDisposable
-import io.reactivex.observers.DisposableSingleObserver
-import io.reactivex.schedulers.Schedulers
+import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
+import io.reactivex.rxjava3.core.Single
+import io.reactivex.rxjava3.disposables.CompositeDisposable
+import io.reactivex.rxjava3.observers.DisposableSingleObserver
+import io.reactivex.rxjava3.schedulers.Schedulers
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.flow.receiveAsFlow
 import org.jetbrains.anko.textColor
 import java.util.*
-import java.util.Observer
+import io.reactivex.rxjava3.core.Observable
 
 
 class MainViewModel  @ViewModelInject constructor(
@@ -109,7 +107,7 @@ class MainViewModel  @ViewModelInject constructor(
 
                         //CREATE JIKA SAMA SAJA
                         if (successValue.password == fUser.password) {
-                            disposable.add(Observable.fromCallable {
+                            disposable.add(io.reactivex.rxjava3.core.Observable.fromCallable {
                                 getFUserUseCase.addCacheFUser(returnFUser)
                             }
                                 .subscribeOn(Schedulers.computation())

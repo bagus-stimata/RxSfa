@@ -5,7 +5,7 @@ import com.erp.distribution.sfa.data.source.remote.service_api.RetrofitServiceFC
 import com.erp.distribution.sfa.data.source.local.database.AppDatabase
 import com.erp.distribution.sfa.domain.repository.FCustomerPicRepository
 import com.erp.distribution.sfa.data.source.entity.FCustomerPicEntity
-import io.reactivex.Single
+import io.reactivex.rxjava3.core.Single
 
 
 /**

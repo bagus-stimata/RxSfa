@@ -5,7 +5,7 @@ import com.erp.distribution.sfa.data.source.remote.service_api.RetrofitServiceFt
 import com.erp.distribution.sfa.data.source.local.database.AppDatabase
 import com.erp.distribution.sfa.domain.repository.FtSalesdItemsRepository
 import com.erp.distribution.sfa.data.source.entity.FtSalesdItemsEntity
-import io.reactivex.Single
+import io.reactivex.rxjava3.core.Single
 import kotlinx.coroutines.flow.Flow
 
 

@@ -4,7 +4,7 @@ import androidx.lifecycle.LiveData
 import com.erp.distribution.sfa.data.source.entity.FSalesmanEntity
 import com.erp.distribution.sfa.domain.repository.FSalesmanRepository
 import com.erp.distribution.sfa.domain.usecase.base.SingleUseCase
-import io.reactivex.Single
+import io.reactivex.rxjava3.core.Single
 import javax.inject.Inject
 
 

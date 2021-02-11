@@ -6,8 +6,8 @@ import com.erp.distribution.sfa.domain.exception.annotation.Redirect
 import com.erp.distribution.sfa.domain.exception.model.Dialog
 import com.erp.distribution.sfa.domain.exception.model.Tag
 import com.erp.distribution.sfa.presentation.ui.utils.SingleLiveData
-import io.reactivex.disposables.CompositeDisposable
-import io.reactivex.disposables.Disposable
+import io.reactivex.rxjava3.disposables.CompositeDisposable
+import io.reactivex.rxjava3.disposables.Disposable
 
 abstract class BaseViewModel  : ViewModel() {
 

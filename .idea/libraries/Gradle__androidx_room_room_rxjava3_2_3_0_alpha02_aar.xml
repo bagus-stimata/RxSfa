@@ -1,0 +1,14 @@
+<component name="libraryTable">
+  <library name="Gradle: androidx.room:room-rxjava3:2.3.0-alpha02@aar">
+    <CLASSES>
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/0629a93e515ece4dcb7091e6427d88ac/jetified-room-rxjava3-2.3.0-alpha02/res" />
+      <root url="jar://$USER_HOME$/.gradle/caches/transforms-3/76a4515df7daf64326c4ddc4de7ad21a/transformed/jetified-room-rxjava3-2.3.0-alpha02/jars/classes.jar!/" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-3/76a4515df7daf64326c4ddc4de7ad21a/transformed/jetified-room-rxjava3-2.3.0-alpha02/AndroidManifest.xml" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-3/76a4515df7daf64326c4ddc4de7ad21a/transformed/jetified-room-rxjava3-2.3.0-alpha02/res" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES>
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/androidx.room/room-rxjava3/2.3.0-alpha02/4dff1b0de927d1da1fcb921c12909b171e02a3dd/room-rxjava3-2.3.0-alpha02-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>

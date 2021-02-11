@@ -12,10 +12,10 @@ import com.erp.distribution.sfa.data.source.entity.FAreaEntity
 import com.erp.distribution.sfa.presentation.extention.map
 import com.erp.distribution.sfa.data.source.entity_security.FUser
 import com.erp.distribution.sfa.utils.SecurityUtil
-import io.reactivex.android.schedulers.AndroidSchedulers
-import io.reactivex.disposables.CompositeDisposable
-import io.reactivex.observers.DisposableSingleObserver
-import io.reactivex.schedulers.Schedulers
+import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
+import io.reactivex.rxjava3.disposables.CompositeDisposable
+import io.reactivex.rxjava3.observers.DisposableSingleObserver
+import io.reactivex.rxjava3.schedulers.Schedulers
 import java.util.*
 
 class TestViewModel @ViewModelInject constructor(

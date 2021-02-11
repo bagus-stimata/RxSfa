@@ -12,7 +12,7 @@ import com.erp.distribution.sfa.domain.model.FCustomer
 import com.erp.distribution.sfa.domain.model.FtSalesh
 import com.erp.distribution.sfa.domain.model.toEntity
 import com.erp.distribution.sfa.domain.repository.FCustomerRepository
-import io.reactivex.Single
+import io.reactivex.rxjava3.core.Single
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.map

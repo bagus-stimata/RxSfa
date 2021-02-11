@@ -2,7 +2,7 @@ package com.erp.distribution.sfa.data.source.remote.service_api
 
 import com.erp.distribution.sfa.domain.model.Photo
 import com.erp.distribution.sfa.domain.model.Album
-import io.reactivex.Single
+import io.reactivex.rxjava3.core.Single
 import retrofit2.http.GET
 import retrofit2.http.Path
 

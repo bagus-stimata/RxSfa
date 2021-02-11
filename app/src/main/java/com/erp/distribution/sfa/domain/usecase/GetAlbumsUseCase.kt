@@ -3,7 +3,7 @@ package com.erp.distribution.sfa.domain.usecase
 import com.erp.distribution.sfa.domain.model.Album
 import com.erp.distribution.sfa.domain.repository.AlbumRepository
 import com.erp.distribution.sfa.domain.usecase.base.SingleUseCase
-import io.reactivex.Single
+import io.reactivex.rxjava3.core.Single
 import javax.inject.Inject
 
 

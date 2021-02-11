@@ -6,7 +6,7 @@ import com.erp.distribution.sfa.data.source.remote.service_api.RetrofitServiceSe
 import com.erp.distribution.sfa.data.source.local.database.AppDatabase
 import com.erp.distribution.sfa.domain.repository.FUserRepository
 import com.erp.distribution.sfa.data.source.entity_security.FUser
-import io.reactivex.Single
+import io.reactivex.rxjava3.core.Single
 
 
 /**

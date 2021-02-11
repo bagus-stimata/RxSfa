@@ -5,7 +5,7 @@ import com.erp.distribution.sfa.data.source.remote.service_api.RetrofitServiceFD
 import com.erp.distribution.sfa.data.source.local.database.AppDatabase
 import com.erp.distribution.sfa.domain.repository.FDistributionChannelRepository
 import com.erp.distribution.sfa.data.source.entity.FDistributionChannelEntity
-import io.reactivex.Single
+import io.reactivex.rxjava3.core.Single
 
 
 /**

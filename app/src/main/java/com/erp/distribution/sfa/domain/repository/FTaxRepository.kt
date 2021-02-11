@@ -2,7 +2,7 @@ package com.erp.distribution.sfa.domain.repository
 
 import androidx.lifecycle.LiveData
 import com.erp.distribution.sfa.data.source.entity.FTaxEntity
-import io.reactivex.Single
+import io.reactivex.rxjava3.core.Single
 
 /**
  * To make an interaction between [AlbumRepositoryImp] & [GetAlbumsUseCase]

@@ -4,7 +4,7 @@ import androidx.lifecycle.LiveData
 import com.erp.distribution.sfa.data.di.SortOrder
 import com.erp.distribution.sfa.data.source.entity.FtSaleshEntity
 import com.erp.distribution.sfa.domain.model.FtSalesh
-import io.reactivex.Single
+import io.reactivex.rxjava3.core.Single
 import kotlinx.coroutines.flow.Flow
 
 /**

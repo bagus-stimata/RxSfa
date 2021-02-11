@@ -4,7 +4,7 @@ import androidx.lifecycle.LiveData
 import com.erp.distribution.sfa.domain.repository.FMaterialGroup1Repository
 import com.erp.distribution.sfa.domain.usecase.base.SingleUseCase
 import com.erp.distribution.sfa.data.source.entity.FMaterialGroup1Entity
-import io.reactivex.Single
+import io.reactivex.rxjava3.core.Single
 import javax.inject.Inject
 
 
@@ -13,7 +13,7 @@ import javax.inject.Inject
  * it handles the response that returns data &
  * contains a list of actions, event steps
  */
-class GetFMaterialGroup1Group3UseCase @Inject constructor(private val repository: FMaterialGroup1Repository) : SingleUseCase<List<FMaterialGroup1Entity>>() {
+class GetFMaterialGroup1UseCase @Inject constructor(private val repository: FMaterialGroup1Repository) : SingleUseCase<List<FMaterialGroup1Entity>>() {
 
     override fun buildUseCaseSingle(): Single<List<FMaterialGroup1Entity>> {
         return repository.getRemoteAllFMaterialGroup1("authHeader")

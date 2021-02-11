@@ -1,7 +1,7 @@
 package com.erp.distribution.sfa.data.source.remote.service_api
 
 import com.erp.distribution.sfa.data.source.entity_security.FUser
-import io.reactivex.Single
+import io.reactivex.rxjava3.core.Single
 import retrofit2.http.*
 
 interface RetrofitServiceSecurity {

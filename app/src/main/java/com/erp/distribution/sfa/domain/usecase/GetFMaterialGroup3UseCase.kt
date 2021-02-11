@@ -5,7 +5,7 @@ import com.erp.distribution.sfa.domain.repository.FMaterialGroup3Repository
 import com.erp.distribution.sfa.domain.usecase.base.SingleUseCase
 import com.erp.distribution.sfa.data.source.entity.FMaterialGroup3Entity
 import com.erp.distribution.sfa.domain.model.FMaterialGroup3
-import io.reactivex.Single
+import io.reactivex.rxjava3.core.Single
 import kotlinx.coroutines.flow.Flow
 import javax.inject.Inject
 

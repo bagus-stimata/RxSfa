@@ -7,7 +7,7 @@ import com.erp.distribution.sfa.data.source.entity.FCustomerEntity
 import com.erp.distribution.sfa.data.source.entity.FCustomerWithFDivisionAndGroup
 import com.erp.distribution.sfa.data.source.entity.FCustomerWithGroup
 import com.erp.distribution.sfa.domain.model.FCustomer
-import io.reactivex.Single
+import io.reactivex.rxjava3.core.Single
 import kotlinx.coroutines.flow.Flow
 
 /**

@@ -5,11 +5,12 @@
       <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/faf9708dfdd1adb1283d0831b235cc4f/jetified-anko-appcompat-v7-0.10.8/res" />
       <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/0d1c0cb9a66032f7e1e4e38b6e1d5788/jetified-anko-appcompat-v7-0.10.8/res" />
       <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/1e791c705762a58e8e9e0f91e17b9869/jetified-anko-appcompat-v7-0.10.8/res" />
-      <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/1e791c705762a58e8e9e0f91e17b9869/jetified-anko-appcompat-v7-0.10.8/AndroidManifest.xml" />
-      <root url="jar://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/1e791c705762a58e8e9e0f91e17b9869/jetified-anko-appcompat-v7-0.10.8/jars/classes.jar!/" />
       <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/c637606af2c17043105af87dca28f59a/jetified-anko-appcompat-v7-0.10.8/res" />
       <root url="jar://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/0d1c0cb9a66032f7e1e4e38b6e1d5788/jetified-anko-appcompat-v7-0.10.8/jars/classes.jar!/" />
       <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/0d1c0cb9a66032f7e1e4e38b6e1d5788/jetified-anko-appcompat-v7-0.10.8/AndroidManifest.xml" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-3/04133bf0c0946fb799b40398dab8f6c4/transformed/jetified-anko-appcompat-v7-0.10.8/res" />
+      <root url="jar://$USER_HOME$/.gradle/caches/transforms-3/04133bf0c0946fb799b40398dab8f6c4/transformed/jetified-anko-appcompat-v7-0.10.8/jars/classes.jar!/" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-3/04133bf0c0946fb799b40398dab8f6c4/transformed/jetified-anko-appcompat-v7-0.10.8/AndroidManifest.xml" />
     </CLASSES>
     <JAVADOC />
     <SOURCES>

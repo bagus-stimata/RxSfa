@@ -8,7 +8,7 @@ import com.erp.distribution.sfa.data.source.entity.FMaterialGroup3Entity
 import com.erp.distribution.sfa.data.source.entity.toDomain
 import com.erp.distribution.sfa.domain.model.FMaterialGroup3
 import com.erp.distribution.sfa.domain.model.toEntity
-import io.reactivex.Single
+import io.reactivex.rxjava3.core.Single
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
 

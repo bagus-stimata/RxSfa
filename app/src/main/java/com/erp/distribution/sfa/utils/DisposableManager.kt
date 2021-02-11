@@ -1,8 +1,8 @@
 package com.erp.distribution.sfa.utils
 
 import android.util.Log
-import io.reactivex.disposables.CompositeDisposable
-import io.reactivex.disposables.Disposable
+import io.reactivex.rxjava3.disposables.CompositeDisposable
+import io.reactivex.rxjava3.disposables.Disposable
 
 object DisposableManager {
     private val TAG = DisposableManager::class.java.simpleName

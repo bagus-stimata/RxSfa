@@ -1,7 +1,7 @@
 package com.erp.distribution.sfa.domain.usecase.base
 
-import io.reactivex.disposables.CompositeDisposable
-import io.reactivex.disposables.Disposable
+import io.reactivex.rxjava3.disposables.CompositeDisposable
+import io.reactivex.rxjava3.disposables.Disposable
 
 /**
  * This class is extended by SingleUseCase classes
