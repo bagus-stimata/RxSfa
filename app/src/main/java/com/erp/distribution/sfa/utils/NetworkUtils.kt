@@ -17,6 +17,7 @@ import android.content.Context
 import android.net.ConnectivityManager
 import android.net.Network
 import android.net.NetworkRequest
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 
@@ -31,12 +32,13 @@ internal object NetworkUtils {
             override fun onAvailable(network: Network) {
                 super.onAvailable(network)
                 isAvailableLiveData.postValue(true)
+                Log.e("Koneksi", "Konek")
             }
 
             override fun onLost(network: Network) {
                 super.onLost(network)
                 isAvailableLiveData.postValue(false)
-
+                Log.e("Koneksi", "Putus")
             }
         })
         return isAvailableLiveData

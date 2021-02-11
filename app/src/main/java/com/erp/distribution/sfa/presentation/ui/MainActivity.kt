@@ -1,5 +1,7 @@
 package com.erp.distribution.sfa.presentation.ui
 
+import android.graphics.Color
+import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
 import android.view.View
 import android.widget.Toast
@@ -16,6 +18,7 @@ import com.erp.distribution.sfa.presentation.base.BaseFragment
 import com.erp.distribution.sfa.utils.Constants
 import com.erp.distribution.sfa.utils.NetworkUtils
 import dagger.hilt.android.AndroidEntryPoint
+import org.jetbrains.anko.textColor
 
 
 @AndroidEntryPoint
@@ -41,7 +44,7 @@ internal class MainActivity : BaseActivity() {
         /**
          * Cek Network
          */
-        observeNetworkChanges(Constants.BASE_URL)
+        observeNetworkChanges()
 
     }
 
@@ -75,22 +78,28 @@ internal class MainActivity : BaseActivity() {
 //    }
 
 
-    private fun observeNetworkChanges(characterUrl: String) {
+    private fun observeNetworkChanges() {
         onNetworkChange { isConnected ->
             if (isConnected){
-                Toast.makeText(this, "connected", Toast.LENGTH_SHORT).show()
+                Toast.makeText(this, "connected  ${isConnected}", Toast.LENGTH_SHORT).show()
+                binding.mainErrorTextView.textColor = Color.GREEN
+                binding.mainErrorTextView.text = "connected"
                 binding.mainErrorTextView.visibility = View.GONE
             }else if (!isConnected){
-                Toast.makeText(this, "Terputus", Toast.LENGTH_LONG).show()
+                Toast.makeText(this, "Terputus ${isConnected}", Toast.LENGTH_LONG).show()
+
+                binding.mainErrorTextView.textColor = Color.RED
                 binding.mainErrorTextView.text = "Tidak ada koneksi internet"
                 binding.mainErrorTextView.visibility = View.VISIBLE
             }
+
 //            characterDetailViewModel.detailViewState.value?.let { viewState ->
 //                if (isConnected && viewState.error != null) {
 //                    onErrorResolved()
 //                    characterDetailViewModel.getCharacterDetails(characterUrl, isRetry = true)
 //                }
 //            }
+
 
         }
     }
