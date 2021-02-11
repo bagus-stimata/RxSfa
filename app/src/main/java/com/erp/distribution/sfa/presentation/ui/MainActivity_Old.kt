@@ -80,7 +80,7 @@ class MainActivity_Old : AppCompatActivity() {
                     showLoginView()
                 }
                 else -> {
-                    mainViewModel.userActive = it.get(0)
+//                    mainViewModel.userActive = it.get(0)
 //                    mainViewModel.getRemoteFSalesman(mainViewModel.userActive)
                     if(mainViewModel.userActive.id >0) {
                         /**

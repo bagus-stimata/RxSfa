@@ -3,6 +3,7 @@ package com.erp.distribution.sfa.presentation.ui
 import android.content.Intent
 import androidx.lifecycle.ViewModelProvider
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -16,6 +17,7 @@ import com.erp.distribution.sfa.R
 import com.erp.distribution.sfa.data.source.entity_security.FUser
 import com.erp.distribution.sfa.databinding.DashBoardFragmentBinding
 import com.erp.distribution.sfa.presentation.base.BaseFragment
+import com.erp.distribution.sfa.presentation.base.Resource
 import com.erp.distribution.sfa.presentation.ui.customer.CustomerActivity
 import com.erp.distribution.sfa.presentation.ui.customer.customer_list.CustomerFragmentDirections
 import com.erp.distribution.sfa.presentation.ui.customer.customer_list.CustomerViewModel
@@ -32,6 +34,7 @@ import kotlinx.coroutines.flow.collect
 
 class DashBoardFragment : BaseFragment<DashBoardFragmentBinding, MainViewModel>() {
 
+    private val TAG = DashBoardFragment::class.java.simpleName
 
     override val bindingVariable: Int
         get() = BR.mainViewModel
@@ -60,6 +63,47 @@ class DashBoardFragment : BaseFragment<DashBoardFragmentBinding, MainViewModel>(
 
     }
 
+    fun setupObserver() {
+        viewModel.listUserActiveLive?.observe(this, androidx.lifecycle.Observer  {
+            when (it) {
+                is Resource.Loading -> {
+//                    binding.emptyContainer.root.hide()
+                }
+                null, emptyList<FUser>() -> {
+                    Log.d(TAG, "#result Empty Listen Dipanggil")
+//                    showLoginView()
+                }
+                is Resource.Success -> {
+                    if (it.data!!.isEmpty()) {
+                    }else {
+                        viewModel.userActive = it.data.get(0)
+
+//                        subscribeRemoteFDivision(mainViewModel.userActive)
+//                        subscribeRemoteFSalesman(mainViewModel.userActive)
+//                        subscribeRemoteFWarehouse(mainViewModel.userActive)
+                    }
+
+                }
+                else -> {
+//                    viewModel.userActive = it.get(0)
+//                    mainViewModel.getRemoteFSalesman(mainViewModel.userActive)
+                    if(viewModel.userActive.id >0) {
+                        /**
+                         * Lihat Masih dari Remote
+                         */
+//                        subscribeRemoteFDivision(mainViewModel.userActive)
+//                        subscribeRemoteFSalesman(mainViewModel.userActive)
+//                        subscribeRemoteFWarehouse(mainViewModel.userActive)
+                    }
+                    Log.d(TAG, "#result userActive: ${viewModel.userActive.fdivisionBean}" +
+                            " and ${viewModel.userActive.fsalesmanBean} and ${viewModel.userActive.fwarehouseBean}")
+//                    greeting()
+                }
+            }
+            viewBinding.userActive = viewModel.userActive
+
+        })
+    }
 
 
 

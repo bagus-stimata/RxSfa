@@ -40,7 +40,7 @@ class MainViewModel  @ViewModelInject constructor(
     var salesmanEntityActive: FSalesmanEntity = FSalesmanEntity()
     var warehouseEntityActive: FWarehouseEntity = FWarehouseEntity()
 
-    var listUserActiveLive: LiveData<List<FUser>?>? = MutableLiveData()
+    var listUserActiveLive: LiveData<Resource<List<FUser>?>?> = MutableLiveData()
 
     init {
         subscribeAllFUser()
@@ -228,7 +228,14 @@ class MainViewModel  @ViewModelInject constructor(
 
 
     fun subscribeAllFUser(){
-        listUserActiveLive = getFUserUseCase.getCacheAllFUser().map { it }
+        listUserActiveLive = getFUserUseCase.getCacheAllFUser().map {
+            Resource.Loading<Boolean>()
+            try {
+                Resource.Success(it)
+           }catch (e: Exception){
+               Resource.Failure(e)
+           }
+        }
     }
 
 
