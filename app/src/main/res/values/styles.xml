@@ -20,10 +20,14 @@
         <item name="windowNoTitle">true</item>
     </style>
 
-
-
-
     <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.MaterialComponents.Dark.ActionBar"/>
     <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.MaterialComponents.Light"/>
+
+
+<!--    from TheForce Project-->
+    <style name="TheForce.TextView.Error" parent="TextAppearance.MaterialComponents.Subtitle1">
+        <item name="android:textAlignment">center</item>
+        <item name="android:drawableTop">@drawable/ic_baseline_error_outline_24</item>
+    </style>
 
 </resources>

@@ -50,3 +50,6 @@ fun Context.showToast(message: String, duration: Int = Toast.LENGTH_SHORT) {
 fun Fragment.showToast(message: String, duration: Int = Toast.LENGTH_SHORT) {
     requireContext().showToast(message, duration)
 }
+
+val <T> T.exhaustive: T
+    get() = this

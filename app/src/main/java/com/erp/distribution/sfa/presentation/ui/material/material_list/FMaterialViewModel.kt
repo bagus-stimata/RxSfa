@@ -68,8 +68,13 @@ class FMaterialViewModel @ViewModelInject constructor(
         preferencesManager.updateHideCompleted(hideCompleted)
     }
 
-    fun onItemSelected(fMaterial: FMaterial) = viewModelScope.launch {
-        fMaterialEventChannel.send(FMaterialEvent.NavigateToEditFMaterialScreen(fMaterial))
+//    fun onItemSelected(fMaterial: FMaterial) = viewModelScope.launch {
+//        fMaterialEventChannel.send(FMaterialEvent.NavigateToEditFMaterialScreen(fMaterial))
+//    }
+    fun onItemSelected(fMaterial: FMaterial) {
+        viewModelScope.launch {
+            fMaterialEventChannel.send(FMaterialEvent.NavigateToEditFMaterialScreen(fMaterial))
+        }
     }
 
     fun onItemCheckedChanged(fMaterial: FMaterial, isChecked: Boolean) = viewModelScope.launch {
