@@ -1,6 +1,9 @@
 package com.erp.distribution.sfa.presentation.ui
 
+import android.graphics.Color
 import android.util.Log
+import android.view.View
+import android.widget.Toast
 import androidx.hilt.lifecycle.ViewModelInject
 import androidx.lifecycle.*
 import com.erp.distribution.sfa.data.source.entity.*
@@ -10,6 +13,7 @@ import com.erp.distribution.sfa.data.source.entity_security.FUser
 import com.erp.distribution.sfa.presentation.base.BaseViewModel
 import com.erp.distribution.sfa.presentation.base.Resource
 import com.erp.distribution.sfa.utils.SecurityUtil
+import io.reactivex.Flowable
 import io.reactivex.Observable
 import io.reactivex.Single
 import io.reactivex.android.schedulers.AndroidSchedulers
@@ -19,6 +23,7 @@ import io.reactivex.schedulers.Schedulers
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.flow.receiveAsFlow
+import org.jetbrains.anko.textColor
 import java.util.*
 import java.util.Observer
 
@@ -32,6 +37,7 @@ class MainViewModel  @ViewModelInject constructor(
         private val getFMaterialUseCase: GetFMaterialUseCase
 )  : BaseViewModel() {
     private val TAG = MainViewModel::class.java.simpleName
+    
 
     private val mainEventChannel = Channel<MainViewModel.MainEvent>()
     val mainEvent = mainEventChannel.receiveAsFlow()
@@ -273,8 +279,6 @@ class MainViewModel  @ViewModelInject constructor(
 
         data class NavigateBackWithResult(val result: Int) : MainViewModel.MainEvent()
     }
-
-
 
 
 }

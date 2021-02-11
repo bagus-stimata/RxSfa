@@ -18,7 +18,8 @@ import android.os.Bundle
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
-import com.erp.distribution.sfa.utils.NetworkUtils
+import com.erp.distribution.sfa.utils.network.NetworkChecker
+import com.erp.distribution.sfa.utils.network.NetworkUtils
 import com.erp.distribution.sfa.utils.versionFrom
 
 internal open class BaseActivity : AppCompatActivity() {
@@ -37,7 +38,14 @@ internal open class BaseActivity : AppCompatActivity() {
     protected fun onNetworkChange(block: (Boolean) -> Unit) {
         NetworkUtils.getNetworkStatus(this)
             .observe(this, Observer { isConnected ->
-                block(isConnected)
+
+                var connectionValidation = false;
+                if (isConnected==false){
+                    val netChecker = NetworkChecker(this)
+                    connectionValidation = netChecker.isConnected
+                }
+
+                block(isConnected || connectionValidation)
             })
     }
 

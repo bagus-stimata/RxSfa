@@ -5,8 +5,8 @@ import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
 import android.view.View
 import android.widget.Toast
-import androidx.appcompat.app.AppCompatActivity
-import androidx.lifecycle.Observer
+import androidx.activity.viewModels
+import androidx.lifecycle.LifecycleOwner
 import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.fragment.findNavController
@@ -14,9 +14,7 @@ import androidx.navigation.ui.setupActionBarWithNavController
 import com.erp.distribution.sfa.R
 import com.erp.distribution.sfa.databinding.MainActivityBinding
 import com.erp.distribution.sfa.presentation.base.BaseActivity
-import com.erp.distribution.sfa.presentation.base.BaseFragment
 import com.erp.distribution.sfa.utils.Constants
-import com.erp.distribution.sfa.utils.NetworkUtils
 import dagger.hilt.android.AndroidEntryPoint
 import org.jetbrains.anko.textColor
 
@@ -26,6 +24,8 @@ internal class MainActivity : BaseActivity() {
 
     lateinit var binding: MainActivityBinding
     private lateinit var navControllerOfNavGraphOfMainActivity: NavController
+
+    val viewModel: MainViewModel by viewModels<MainViewModel>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -44,9 +44,11 @@ internal class MainActivity : BaseActivity() {
         /**
          * Cek Network
          */
-        observeNetworkChanges()
+        observeNetworkChange()
 
     }
+
+
 
     /**
      * Teknik on Back Navigation akan berlaku
@@ -78,29 +80,16 @@ internal class MainActivity : BaseActivity() {
 //    }
 
 
-    private fun observeNetworkChanges() {
+    fun observeNetworkChange() {
         onNetworkChange { isConnected ->
-            if (isConnected){
-                Toast.makeText(this, "connected  ${isConnected}", Toast.LENGTH_SHORT).show()
-                binding.mainErrorTextView.textColor = Color.GREEN
-                binding.mainErrorTextView.text = "connected"
+            if (isConnected) {
                 binding.mainErrorTextView.visibility = View.GONE
-            }else if (!isConnected){
-                Toast.makeText(this, "Terputus ${isConnected}", Toast.LENGTH_LONG).show()
-
+            } else if (!isConnected) {
+//                Toast.makeText(this, "Terputus ${isConnected}", Toast.LENGTH_LONG).show()
                 binding.mainErrorTextView.textColor = Color.RED
                 binding.mainErrorTextView.text = "Tidak ada koneksi internet"
                 binding.mainErrorTextView.visibility = View.VISIBLE
             }
-
-//            characterDetailViewModel.detailViewState.value?.let { viewState ->
-//                if (isConnected && viewState.error != null) {
-//                    onErrorResolved()
-//                    characterDetailViewModel.getCharacterDetails(characterUrl, isRetry = true)
-//                }
-//            }
-
-
         }
     }
 

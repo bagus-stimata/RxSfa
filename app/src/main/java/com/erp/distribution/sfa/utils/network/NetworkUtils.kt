@@ -11,7 +11,7 @@
  * the License.
  *
  **/
-package com.erp.distribution.sfa.utils
+package com.erp.distribution.sfa.utils.network
 
 import android.content.Context
 import android.net.ConnectivityManager
@@ -22,7 +22,6 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 
 internal object NetworkUtils {
-
     fun getNetworkStatus(context: Context): LiveData<Boolean> {
         val isAvailableLiveData = MutableLiveData<Boolean>()
         val cm = context.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
@@ -40,6 +39,11 @@ internal object NetworkUtils {
                 isAvailableLiveData.postValue(false)
                 Log.e("Koneksi", "Putus")
             }
+
+            override fun onLosing(network: Network, maxMsToLive: Int) {
+                super.onLosing(network, maxMsToLive)
+            }
+
         })
         return isAvailableLiveData
     }

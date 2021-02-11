@@ -33,6 +33,7 @@ class FMaterialViewModel @ViewModelInject constructor(
 ) : ViewModel() {
     private val TAG = FMaterialViewModel::class.java.simpleName
 
+
     val searchQuery = state.getLiveData("searchQuery", "")
 
     val preferencesFlow = preferencesManager.preferencesFlow
