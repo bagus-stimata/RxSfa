@@ -16,6 +16,9 @@
         <action
             android:id="@+id/action_dashBoardFragment_to_FCustomerFragment"
             app:destination="@id/FCustomerFragment" />
+        <action
+            android:id="@+id/action_dashBoardFragment_to_loginFragment"
+            app:destination="@id/loginFragment" />
     </fragment>
     <fragment
         android:id="@+id/FMaterialFragment"
@@ -24,7 +27,7 @@
         tools:layout="@layout/fragment_fmaterial" >
         <argument
             android:name="fUserActive"
-            app:argType="com.erp.distribution.sfa.data.source.entity_security.FUser"
+            app:argType="com.erp.distribution.sfa.data.source.entity_security.FUserEntity"
             app:nullable="true"
             android:defaultValue="@null" />
     </fragment>
@@ -35,10 +38,14 @@
         tools:layout="@layout/fragment_customer" >
         <argument
             android:name="fUserActive"
-            app:argType="com.erp.distribution.sfa.data.source.entity_security.FUser"
+            app:argType="com.erp.distribution.sfa.data.source.entity_security.FUserEntity"
             app:nullable="true"
             android:defaultValue="@null" />
     </fragment>
+    <fragment
+        android:id="@+id/loginFragment"
+        android:name="com.erp.distribution.sfa.presentation.ui.LoginFragment"
+        android:label="LoginFragment" />
 
 
 </navigation>

@@ -5,25 +5,32 @@
     tools:context=".presentation.ui.DashBoardFragment"   >
 
     <data>
+<!--        <variable-->
+<!--            name="mainViewModel"-->
+<!--            type="com.erp.distribution.sfa.presentation.ui.MainViewModel" />-->
         <variable
-            name="mainViewModel"
-            type="com.erp.distribution.sfa.presentation.ui.MainViewModel" />
-        <variable
-            name="userActive"
-            type="com.erp.distribution.sfa.data.source.entity_security.FUser" />
-        <variable
-            name="divisionActive"
-            type="com.erp.distribution.sfa.data.source.entity.FDivisionEntity" />
-        <variable
-            name="salesmanActive"
-            type="com.erp.distribution.sfa.data.source.entity.FSalesmanEntity" />
-        <variable
-            name="warehouseActive"
-            type="com.erp.distribution.sfa.data.source.entity.FWarehouseEntity" />
+            name="userViewState"
+            type="com.erp.distribution.sfa.presentation.model.UserViewState" />
 
-        <variable
-            name="activity"
-            type="com.erp.distribution.sfa.presentation.ui.DashBoardFragment" />
+
+
+<!--        <variable-->
+<!--            name="userActive"-->
+<!--            type="com.erp.distribution.sfa.data.source.entity_security.FUser" />-->
+<!--        <variable-->
+<!--            name="divisionActive"-->
+<!--            type="com.erp.distribution.sfa.data.source.entity.FDivisionEntity" />-->
+<!--        <variable-->
+<!--            name="salesmanActive"-->
+<!--            type="com.erp.distribution.sfa.data.source.entity.FSalesmanEntity" />-->
+<!--        <variable-->
+<!--            name="warehouseActive"-->
+<!--            type="com.erp.distribution.sfa.data.source.entity.FWarehouseEntity" />-->
+
+            <variable
+                name="actionActivity"
+                type="com.erp.distribution.sfa.presentation.ui.DashBoardFragment" />
+
         <import type="android.view.View"/>
     </data>
 
@@ -55,25 +62,27 @@
 
                 <TextView
                     android:id="@+id/greeting_text1"
+                    android:text="@{userViewState.component3().username + ` (` + userViewState.component5().spcode + `)` }"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="70dp"
                     android:gravity="center"
-                    android:text="@{userActive.fullName + ` (` + salesmanActive.spcode + `)`}"
                     android:textColor="@color/blue"
                     android:textSize="18sp" />
                 <!--            android:textColor="?android:attr/colorPrimary"-->
+<!--                android:text="@{userActive.fullName + ` (` + salesmanActive.spcode + `)`}"-->
 
                 <TextView
                     android:id="@+id/greeting_text2"
+                    android:text="@{userViewState.component4().kode1 + ` | ` + userViewState.component6().kode1}"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_below="@id/greeting_text1"
                     android:fontFamily="monospace"
                     android:gravity="center"
-                    android:text="@{divisionActive.kode1 + ` | ` +  warehouseActive.kode1}"
                     android:textColor="@color/design_default_color_primary_variant"
                     android:textSize="14sp" />
+<!--                android:text="@{divisionActive.kode1 + ` | ` +  warehouseActive.kode1}"-->
 
 
             </RelativeLayout>
@@ -175,9 +184,9 @@
                                     android:layout_height="40dp"
                                     android:layout_centerHorizontal="true"
                                     android:src="@drawable/ic_phone_broadcast"
-                                    android:visibility="@{userActive.username.isEmpty? View.GONE : View.VISIBLE}"
-                                    android:onClick="@{() -> activity.menuSyncronize()}"
                                     app:tint="@color/blue" />
+<!--                                android:visibility="@{userActive.username.isEmpty? View.GONE : View.VISIBLE}"-->
+<!--                                android:onClick="@{() -> activity.menuSyncronize()}"-->
 
                                 <TextView
                                     android:layout_width="match_parent"
@@ -205,9 +214,9 @@
                                     android:layout_height="40dp"
                                     android:layout_centerHorizontal="true"
                                     android:src="@drawable/ic_pulsa"
-                                    android:visibility="@{userActive.username.isEmpty? View.GONE : View.VISIBLE}"
                                     app:tint="@color/lightGray" />
                                 <!--                            app:tint="#673AB7" />-->
+<!--                                android:visibility="@{userActive.username.isEmpty? View.GONE : View.VISIBLE}"-->
 
                                 <TextView
 
@@ -236,9 +245,9 @@
                                     android:layout_height="40dp"
                                     android:layout_centerHorizontal="true"
                                     android:src="@drawable/ic_reward_prize"
-                                    android:visibility="@{userActive.username.isEmpty? View.GONE : View.VISIBLE}"
                                     app:tint="@color/lightGray" />
                                 <!--                            app:tint="#E91E63" />-->
+<!--                                android:visibility="@{userActive.username.isEmpty? View.GONE : View.VISIBLE}"-->
 
                                 <TextView
                                     android:layout_width="match_parent"
@@ -284,7 +293,7 @@
                     android:gravity="center_vertical">
 
                     <TextView
-                        android:id="@+id/txte"
+                        android:id="@+id/txt_semangat"
                         android:layout_width="wrap_content"
                         android:layout_height="20dp"
                         android:layout_marginLeft="10dp"
@@ -298,7 +307,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_below="@+id/txte"
+                        android:layout_below="@+id/txt_have_your"
                         android:layout_marginLeft="10dp"
                         android:layout_marginRight="10dp"
                         android:gravity="center"
@@ -325,8 +334,8 @@
                         android:layout_weight="0.33"
                         android:clickable="true"
                         app:cardCornerRadius="10dp"
-                        android:visibility="@{userActive.username.isEmpty? View.GONE : View.VISIBLE}"
                         app:cardElevation="5dp">
+<!--                        android:visibility="@{userActive.username.isEmpty? View.GONE : View.VISIBLE}"-->
 
                         <RelativeLayout
                             android:layout_width="match_parent"
@@ -371,9 +380,9 @@
                         android:layout_weight="0.33"
                         android:clickable="true"
                         app:cardCornerRadius="10dp"
-                        android:visibility="@{userActive.username.isEmpty? View.GONE : View.VISIBLE}"
-                        android:onClick="@{() -> activity.menuSalesOrder()}"
                         app:cardElevation="5dp">
+<!--                        android:visibility="@{userActive.username.isEmpty? View.GONE : View.VISIBLE}"-->
+<!--                        android:onClick="@{() -> activity.menuSalesOrder()}"-->
 
                         <RelativeLayout
                             android:layout_width="match_parent"
@@ -417,8 +426,8 @@
                         android:layout_weight="0.33"
                         android:clickable="true"
                         app:cardCornerRadius="10dp"
-                        android:visibility="@{userActive.username.isEmpty? View.GONE : View.VISIBLE}"
                         app:cardElevation="5dp">
+<!--                        android:visibility="@{userActive.username.isEmpty? View.GONE : View.VISIBLE}"-->
 
                         <RelativeLayout
                             android:layout_width="match_parent"
@@ -473,9 +482,9 @@
                         android:layout_weight="0.33"
                         android:clickable="true"
                         app:cardCornerRadius="10dp"
-                        android:visibility="@{userActive.username.isEmpty? View.GONE : View.VISIBLE}"
-                        android:onClick="@{() -> activity.menuProduct()}"
                         app:cardElevation="5dp">
+<!--                        android:visibility="@{userActive.username.isEmpty? View.GONE : View.VISIBLE}"-->
+<!--                        android:onClick="@{() -> activity.menuProduct()}"-->
 
                         <RelativeLayout
                             android:layout_width="match_parent"
@@ -519,9 +528,9 @@
                         android:background="?attr/selectableItemBackground"
                         android:clickable="true"
                         app:cardCornerRadius="10dp"
-                        android:visibility="@{userActive.username.isEmpty? View.GONE : View.VISIBLE}"
-                        android:onClick="@{() -> activity.menuCustomer()}"
                         app:cardElevation="5dp">
+<!--                        android:visibility="@{userActive.username.isEmpty? View.GONE : View.VISIBLE}"-->
+<!--                        android:onClick="@{() -> activity.menuCustomer()}"-->
 
                         <RelativeLayout
                             android:layout_width="match_parent"
@@ -566,8 +575,8 @@
                         android:background="?attr/selectableItemBackground"
                         android:clickable="true"
                         app:cardCornerRadius="10dp"
-                        android:visibility="@{userActive.username.isEmpty? View.GONE : View.VISIBLE}"
                         app:cardElevation="5dp">
+<!--                        android:visibility="@{userActive.username.isEmpty? View.GONE : View.VISIBLE}"-->
 
                         <RelativeLayout
                             android:layout_width="match_parent"
@@ -620,8 +629,8 @@
                         android:layout_weight="0.33"
                         android:clickable="true"
                         app:cardCornerRadius="10dp"
-                        android:visibility="@{userActive.username.isEmpty? View.GONE : View.VISIBLE}"
                         app:cardElevation="5dp">
+<!--                        android:visibility="@{userActive.username.isEmpty? View.GONE : View.VISIBLE}"-->
 
                         <RelativeLayout
                             android:layout_width="match_parent"
@@ -663,8 +672,8 @@
                         android:background="?attr/selectableItemBackground"
                         android:clickable="true"
                         app:cardCornerRadius="10dp"
-                        android:visibility="@{userActive.username.isEmpty? View.GONE : View.VISIBLE}"
                         app:cardElevation="5dp">
+<!--                        android:visibility="@{userActive.username.isEmpty? View.GONE : View.VISIBLE}"-->
 
                         <RelativeLayout
                             android:layout_width="match_parent"
@@ -707,8 +716,8 @@
                         android:background="?attr/selectableItemBackground"
                         android:clickable="true"
                         app:cardCornerRadius="10dp"
-                        android:visibility="@{userActive.username.isEmpty? View.GONE : View.VISIBLE}"
                         app:cardElevation="5dp">
+<!--                        android:visibility="@{userActive.username.isEmpty? View.GONE : View.VISIBLE}"-->
 
                         <RelativeLayout
                             android:layout_width="match_parent"

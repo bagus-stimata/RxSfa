@@ -40,7 +40,7 @@ class AddEditCustomerViewModel @ViewModelInject constructor(
         }
 
     private val addEditCustomerEventChannel = Channel<AddEditCustomerEvent>()
-    val addEditCustomerEvent = addEditCustomerEventChannel.receiveAsFlow()
+    val addEditCustomerEventFlow = addEditCustomerEventChannel.receiveAsFlow()
 
     fun onSaveClick() {
         if (fCustomerName.isBlank()) {

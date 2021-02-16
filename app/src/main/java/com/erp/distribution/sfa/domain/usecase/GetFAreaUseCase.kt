@@ -1,9 +1,12 @@
 package com.erp.distribution.sfa.domain.usecase
 
 import androidx.lifecycle.LiveData
+import androidx.lifecycle.map
 import com.erp.distribution.sfa.domain.repository.FAreaRepository
 import com.erp.distribution.sfa.domain.usecase.base.SingleUseCase
 import com.erp.distribution.sfa.data.source.entity.FAreaEntity
+import com.erp.distribution.sfa.data.source.entity.toDomain
+import com.erp.distribution.sfa.domain.model.FArea
 import io.reactivex.rxjava3.core.Single
 import javax.inject.Inject
 
@@ -46,11 +49,30 @@ class GetFAreaUseCase @Inject constructor(private val repository: FAreaRepositor
     fun getCacheAllFArea(): LiveData<List<FAreaEntity>>{
         return repository.getCacheAllFArea()
     }
+    fun getCacheAllFAreaDomainLive(): LiveData<List<FArea>>{
+        return repository.getCacheAllFArea().map {
+            it.map {
+                it.toDomain()
+            }
+        }
+    }
     fun getCacheFAreaById(id: Int): LiveData<FAreaEntity>{
         return repository.getCacheFAreaById(id)
     }
+    fun getCacheFAreaByIdDomainLive(id: Int): LiveData<FArea>{
+        return repository.getCacheFAreaById(id).map {
+            it.toDomain()
+        }
+    }
     fun getCacheAllFAreaByDivision(divisionId: Int): LiveData<List<FAreaEntity>>{
         return repository.getCacheAllFAreaByDivision(divisionId)
+    }
+    fun getCacheAllFAreaByDivisionDomainLIve(divisionId: Int): LiveData<List<FArea>>{
+        return repository.getCacheAllFAreaByDivision(divisionId).map {
+            it.map {
+                it.toDomain()
+            }
+        }
     }
     fun addCacheFArea(fAreaEntity: FAreaEntity){
         repository.addCacheFArea(fAreaEntity)

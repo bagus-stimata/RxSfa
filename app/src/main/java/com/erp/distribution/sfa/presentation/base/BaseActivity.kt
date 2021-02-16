@@ -21,8 +21,11 @@ import androidx.lifecycle.Observer
 import com.erp.distribution.sfa.utils.network.NetworkChecker
 import com.erp.distribution.sfa.utils.network.NetworkUtils
 import com.erp.distribution.sfa.utils.versionFrom
+import io.reactivex.rxjava3.disposables.CompositeDisposable
 
-internal open class BaseActivity : AppCompatActivity() {
+open class BaseActivity : AppCompatActivity() {
+     val compositeDisposable: CompositeDisposable = CompositeDisposable()
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         whiteStatusBar()

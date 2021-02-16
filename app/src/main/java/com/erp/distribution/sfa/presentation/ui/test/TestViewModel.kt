@@ -10,7 +10,7 @@ import com.erp.distribution.sfa.domain.usecase.GetFAreaUseCase
 import com.erp.distribution.sfa.domain.usecase.GetFUserUseCase
 import com.erp.distribution.sfa.data.source.entity.FAreaEntity
 import com.erp.distribution.sfa.presentation.extention.map
-import com.erp.distribution.sfa.data.source.entity_security.FUser
+import com.erp.distribution.sfa.data.source.entity_security.FUserEntity
 import com.erp.distribution.sfa.utils.SecurityUtil
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
 import io.reactivex.rxjava3.disposables.CompositeDisposable
@@ -55,18 +55,18 @@ class TestViewModel @ViewModelInject constructor(
 
 
     private val TAG = TestViewModel::class.java.simpleName
-    val datas = MutableLiveData<FUser>()
+    val datas = MutableLiveData<FUserEntity>()
 
 
 
 
 
-    val domainData = MutableLiveData<List<FUser>>()
+    val domainData = MutableLiveData<List<FUserEntity>>()
     val dataFArea = MutableLiveData<List<FAreaEntity>>()
     val fareaBean = MutableLiveData<FAreaEntity>()
 
-    private lateinit var notesResult: LiveData<List<FUser>>
-    fun listenNotesResult(): LiveData<List<FUser>> {
+    private lateinit var notesResult: LiveData<List<FUserEntity>>
+    fun listenNotesResult(): LiveData<List<FUserEntity>> {
         return notesResult
     }
 
@@ -137,7 +137,7 @@ class TestViewModel @ViewModelInject constructor(
     }
 
 
-    private fun getMappedFUser(): LiveData<List<FUser>>{
+    private fun getMappedFUser(): LiveData<List<FUserEntity>>{
         return getFUserUseCase.getCacheAllFUser().map { it.map {
 //            contributorEntityMapper.mapToDomain(it)
             //rubah rubah disini

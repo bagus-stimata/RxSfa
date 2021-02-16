@@ -7,4 +7,9 @@
     <string name="error_persistence">Persistence data error</string>
     <string name="error_no_connection">No connection</string>
 
+    <!-- Error Strings from TheForce Project-->
+    <string name="error_check_internet_connection">Check Internet Connection</string>
+    <string name="error_oops_error_occured">Oops!! An Error Occurred</string>
+    <string name="error_loading_character_details">Couldn\'t load character details</string>
+
 </resources>

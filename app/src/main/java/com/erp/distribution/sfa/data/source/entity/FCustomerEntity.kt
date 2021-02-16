@@ -254,6 +254,7 @@ data class FCustomerWithFDivision(
     val fDivisionEntity: FDivisionEntity
 
 )
+
 data class FCustomerWithGroup(
     @Embedded  val fCustomerEntity: FCustomerEntity,
     @Relation(

@@ -15,11 +15,11 @@ import com.google.android.material.snackbar.Snackbar
 
 abstract class BaseFragment<T : ViewDataBinding, V : BaseViewModel>: Fragment() {
 
-    abstract val bindingVariable: Int
+//    abstract val bindingVariable: Int
     abstract val viewModel: V
 
-    @get:LayoutRes
-    abstract val layoutId: Int
+//    @get:LayoutRes
+//    abstract val layoutId: Int
 
     var viewDataBinding by autoCleared<T>()
 

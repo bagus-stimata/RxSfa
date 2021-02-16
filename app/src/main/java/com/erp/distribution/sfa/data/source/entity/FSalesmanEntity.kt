@@ -5,6 +5,11 @@ import androidx.room.Entity
 import androidx.room.PrimaryKey
 import com.erp.distribution.sfa.data.source.entity.modelenum.EnumReligion
 import com.erp.distribution.sfa.data.source.entity.modelenum.EnumSalesType
+import com.erp.distribution.sfa.data.source.entity_security.FUserEntity
+import com.erp.distribution.sfa.domain.model.FDivision
+import com.erp.distribution.sfa.domain.model.FSalesman
+import com.erp.distribution.sfa.domain.model.FUser
+import com.erp.distribution.sfa.domain.model.FWarehouse
 import kotlinx.parcelize.Parcelize
 import java.io.Serializable
 import java.util.*
@@ -55,22 +60,54 @@ data class FSalesmanEntity (
     var isStatusActive : Boolean =false,
     var isWebServiceActive : Boolean =false,
 
-    //FOR KASSA
-    var isKassaStatusOpen : Boolean =false,
-    var kassaIp : String ="",
-
     //	@OneToMany(mappedBy="fsalesmanBean", fetch=FetchType.LAZY, cascade=CascadeType.ALL)
     //	@ManyToOne
     //	@JoinColumn(name="ftPriceAlthBean", referencedColumnName="ID", nullable=true)
     //	private FtPriceAlth ftPriceAlthBean;
-    var ftPriceAlthBean : Int =0,
+    var ftPriceAlthBean : Int? =0,
 
     /*
     * ignore/reject promotion rules setting
     */
     var isNoPromotionRules : Boolean = false,
-    var isVendorcovered : Boolean = false,
+
     var created : Date? = Date(),
     var modified : Date? = Date(),
     var modifiedBy : String? ="" //User ID
 ) : Parcelable
+
+internal fun FSalesmanEntity.toDomain(): FSalesman {
+    return FSalesman(
+            id = id,
+
+            sourceID = sourceID,
+            spcode = spcode,
+            spname = spname,
+
+            salesType = salesType,
+
+            fdivisionBean = FDivision(fdivisionBean),
+            address1 = address1,
+            city1 = city1,
+            state1 = state1,
+            phone = phone,
+            mobile = mobile,
+            whatsApp = whatsApp,
+            email = email,
+            joinDate = joinDate,
+            lastTrans = lastTrans,
+            bornPlace = bornPlace,
+            bornDate = bornDate,
+            religion = religion,
+            isStatusActive = isStatusActive,
+            isWebServiceActive = isWebServiceActive,
+
+            ftPriceAlthBean = let { ftPriceAlthBean },
+
+            isNoPromotionRules = isNoPromotionRules,
+
+            created = created,
+            modified = modified,
+            modifiedBy = modifiedBy
+    )
+}

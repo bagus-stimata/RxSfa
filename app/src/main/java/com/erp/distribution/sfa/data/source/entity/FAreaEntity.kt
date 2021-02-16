@@ -59,8 +59,8 @@ internal fun FAreaEntity.toDomain(): FArea {
 data class FAreaWithFDivision(
         @Embedded val fAreaEntity: FAreaEntity,
         @Relation(
-                parentColumn = "fdivisionBean", //id nya division
-                entityColumn = "id" //bagian dari fcustomer
+                parentColumn = "fdivisionBean",
+                entityColumn = "id"
         )
         val fDivisionEntity: FDivisionEntity
 )

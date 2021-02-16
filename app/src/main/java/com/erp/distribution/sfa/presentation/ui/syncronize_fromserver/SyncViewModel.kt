@@ -2,37 +2,46 @@ package com.erp.distribution.sfa.presentation.ui.syncronize_fromserver
 
 import android.util.Log
 import androidx.hilt.lifecycle.ViewModelInject
-import androidx.lifecycle.ViewModel
 import com.erp.distribution.sfa.domain.usecase.*
-import com.erp.distribution.sfa.data.source.entity_security.FUser
+import com.erp.distribution.sfa.data.source.entity_security.FUserEntity
 import androidx.lifecycle.*
 import com.erp.distribution.sfa.data.source.entity.*
 import com.erp.distribution.sfa.data.source.entity.modelenum.EnumUom
+import com.erp.distribution.sfa.domain.exception.ExceptionHandler
 import com.erp.distribution.sfa.presentation.base.BaseViewModel
+import com.erp.distribution.sfa.presentation.base.Resource
+import com.erp.distribution.sfa.presentation.model.UserViewState
 import com.erp.distribution.sfa.utils.DisposableManager
 import com.erp.distribution.sfa.utils.SecurityUtil
 import io.reactivex.rxjava3.core.Observable
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
-import io.reactivex.rxjava3.disposables.CompositeDisposable
 import io.reactivex.rxjava3.schedulers.Schedulers
+import kotlinx.coroutines.CoroutineExceptionHandler
 import java.util.*
 
 
 class SyncViewModel @ViewModelInject constructor(
-        private val getFUserUseCase: GetFUserUseCase,
-        private val getFAreaUseCase: GetFAreaUseCase,
-        private val getFSubAreaUseCase: GetFSubAreaUseCase,
-        private val getFCustomerUseCase: GetFCustomerUseCase,
-        private val getFMaterialUseCase: GetFMaterialUseCase,
-        private val getFCustomerGroupUseCase: GetFCustomerGroupUseCase,
-        private val getFDivisionUseCase: GetFDivisionUseCase,
-        private val getFMaterialGroup3UseCase: GetFMaterialGroup3UseCase,
-        private val getFSalesmanUseCase: GetFSalesmanUseCase,
-        private val getFWarehouseUseCase: GetFWarehouseUseCase,
+    private val getFUserUseCase: GetFUserUseCase,
+    private val getFAreaUseCase: GetFAreaUseCase,
+    private val getFSubAreaUseCase: GetFSubAreaUseCase,
+    private val getFCustomerUseCase: GetFCustomerUseCase,
+    private val getFMaterialUseCase: GetFMaterialUseCase,
+    private val getFCustomerGroupUseCase: GetFCustomerGroupUseCase,
+    private val getFDivisionUseCase: GetFDivisionUseCase,
+    private val getFMaterialGroup3UseCase: GetFMaterialGroup3UseCase,
+    private val getFSalesmanUseCase: GetFSalesmanUseCase,
+    private val getFWarehouseUseCase: GetFWarehouseUseCase
 ) : BaseViewModel() {
 
     private val TAG = SyncViewModel::class.simpleName
-    private val compositeDisposable = CompositeDisposable()
+
+    override val coroutineExceptionHandler = CoroutineExceptionHandler { _, exception ->
+        val message = ExceptionHandler.parse(exception)
+//        _userViewState.value = _userViewState.value?.copy(error = Error(message))
+    }
+    override var userViewState: UserViewState = UserViewState()
+    override val userViewStateLive: LiveData<Resource<UserViewState>> = MutableLiveData<Resource<UserViewState>>()
+
 
     var isLoading = true
     var checkList1 = "trying.. Sync Material"
@@ -40,7 +49,7 @@ class SyncViewModel @ViewModelInject constructor(
     var checkList3 = ""
     var checkList4 = ""
 
-    var userActive: FUser = FUser()
+    var userEntityActive: FUserEntity = FUserEntity()
     var divisionActive: FDivisionEntity = FDivisionEntity()
 
     var listFMaterialEntityMutableLive: MutableLiveData<List<FMaterialEntity>> = MutableLiveData()
@@ -51,7 +60,7 @@ class SyncViewModel @ViewModelInject constructor(
 
     fun fetchFUserFromRepo() {
         compositeDisposable.add(
-            getFUserUseCase.getRemoteAllFUser(SecurityUtil.getAuthHeader(userActive.username, userActive.passwordConfirm))
+            getFUserUseCase.getRemoteAllFUser(SecurityUtil.getAuthHeader(userEntityActive.username, userEntityActive.passwordConfirm))
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribeOn(Schedulers.io())
                 .subscribe(
@@ -72,14 +81,14 @@ class SyncViewModel @ViewModelInject constructor(
 
     fun subscribeFMaterialFromRepo(){
         DisposableManager.add(
-            getFMaterialUseCase.getRemoteAllFMaterialByDivisionAndShareToCompany(SecurityUtil.getAuthHeader(userActive.username, userActive.passwordConfirm), divisionActive.id, divisionActive.fcompanyBean)
+            getFMaterialUseCase.getRemoteAllFMaterialByDivisionAndShareToCompany(SecurityUtil.getAuthHeader(userEntityActive.username, userEntityActive.passwordConfirm), divisionActive.id, divisionActive.fcompanyBean)
                 .toObservable()
                 .map { data ->
                     data.map {
 
                         it.modified = Date()
                         it.created = Date()
-                        it.modifiedBy = userActive.username
+                        it.modifiedBy = userEntityActive.username
 
                         if (it.productionDate==null) it.productionDate = Date()
                         if (it.priceUom==null) it.priceUom = EnumUom.UOM1
@@ -112,20 +121,20 @@ class SyncViewModel @ViewModelInject constructor(
      * oke bos
      */
     fun getFDivisionById_FromRepo(): Observable<FDivisionEntity>  {
-        return   getFDivisionUseCase.getRemoteFDivisionById(SecurityUtil.getAuthHeader(userActive.username, userActive.passwordConfirm), userActive.fdivisionBean).toObservable()
+        return   getFDivisionUseCase.getRemoteFDivisionById(SecurityUtil.getAuthHeader(userEntityActive.username, userEntityActive.passwordConfirm), userEntityActive.fdivisionBean!!).toObservable()
     }
 
 
     fun subscribeListFdivisionByParent_FromRepo(fDivisionEntity: FDivisionEntity){
 //        Log.d(TAG, "#result CompanyID from USER  ${fDivisionEntity.fcompanyBean}")
         DisposableManager.add(
-                getFDivisionUseCase.getRemoteAllFDivisionByCompany(SecurityUtil.getAuthHeader(userActive.username, userActive.passwordConfirm), fDivisionEntity.fcompanyBean)
+                getFDivisionUseCase.getRemoteAllFDivisionByCompany(SecurityUtil.getAuthHeader(userEntityActive.username, userEntityActive.passwordConfirm), fDivisionEntity.fcompanyBean)
                         .toObservable()
                         .map { data ->
                             data.map {
                                 it.modified = Date()
                                 it.created = Date()
-                                it.modifiedBy = userActive.username
+                                it.modifiedBy = userEntityActive.username
                                 it.isStatusActive = false
                                 if (it.id ==  fDivisionEntity.id){
                                     it.isStatusActive = true
@@ -177,17 +186,17 @@ class SyncViewModel @ViewModelInject constructor(
 
 
     fun getFDivisionFromRepo(fCompanyEntity: FCompanyEntity): Observable<List<FDivisionEntity>>  {
-        return   getFDivisionUseCase.getRemoteAllFDivisionByCompany(SecurityUtil.getAuthHeader(userActive.username, userActive.passwordConfirm), fCompanyEntity.id).toObservable()
+        return   getFDivisionUseCase.getRemoteAllFDivisionByCompany(SecurityUtil.getAuthHeader(userEntityActive.username, userEntityActive.passwordConfirm), fCompanyEntity.id).toObservable()
     }
     fun getFAreaFromRepo(): Observable<List<FAreaEntity>>  {
-        return getFAreaUseCase.getRemoteAllFAreaByDivisionAndShareToCompany(SecurityUtil.getAuthHeader(userActive.username, userActive.passwordConfirm), divisionActive.id, divisionActive.fcompanyBean).toObservable()
+        return getFAreaUseCase.getRemoteAllFAreaByDivisionAndShareToCompany(SecurityUtil.getAuthHeader(userEntityActive.username, userEntityActive.passwordConfirm), divisionActive.id, divisionActive.fcompanyBean).toObservable()
     }
 //    fun getFSubAreaFromRepo(fAreaEntity: FAreaEntity): Observable<List<FSubAreaEntity>>  {
 //        return getFSubAreaUseCase.getRemoteAllFSubAreaByParent(SecurityUtil.getAuthHeader(userActive.username, userActive.passwordConfirm), fAreaEntity.id).toObservable()
 //    }
     fun subscribeListFSubAreaByParent_FromRepo(fAreaEntity: FAreaEntity){
         DisposableManager.add(
-                getFSubAreaUseCase.getRemoteAllFSubAreaByParent(SecurityUtil.getAuthHeader(userActive.username, userActive.passwordConfirm), fAreaEntity.id)
+                getFSubAreaUseCase.getRemoteAllFSubAreaByParent(SecurityUtil.getAuthHeader(userEntityActive.username, userEntityActive.passwordConfirm), fAreaEntity.id)
                         .toObservable()
                         .observeOn(AndroidSchedulers.mainThread())
                         .subscribeOn(Schedulers.io())
@@ -206,22 +215,22 @@ class SyncViewModel @ViewModelInject constructor(
     }
 
     fun getFCustomerGroupFromRepo(): Observable<List<FCustomerGroupEntity>>  {
-        return getFCustomerGroupUseCase.getRemoteAllFCustomerGroupByDivisionAndShareToCompany(SecurityUtil.getAuthHeader(userActive.username, userActive.passwordConfirm), divisionActive.id, divisionActive.fcompanyBean).toObservable()
+        return getFCustomerGroupUseCase.getRemoteAllFCustomerGroupByDivisionAndShareToCompany(SecurityUtil.getAuthHeader(userEntityActive.username, userEntityActive.passwordConfirm), divisionActive.id, divisionActive.fcompanyBean).toObservable()
 //        return getFCustomerGroupUseCase.getRemoteAllFCustomerGroup(SecurityUtil.getAuthHeader(userActive.username, userActive.passwordConfirm)).toObservable()
     }
 
 
     fun getFMaterialGroup3FromRepo(): Observable<List<FMaterialGroup3Entity>>  {
-        return   getFMaterialGroup3UseCase.getRemoteAllFMaterialGroup3(SecurityUtil.getAuthHeader(userActive.username, userActive.passwordConfirm)).toObservable()
+        return   getFMaterialGroup3UseCase.getRemoteAllFMaterialGroup3(SecurityUtil.getAuthHeader(userEntityActive.username, userEntityActive.passwordConfirm)).toObservable()
     }
     fun getFMaterialFromRepo(): Observable<List<FMaterialEntity>>  {
 //        Log.d(TAG, "#result GetRepoFMaterial Div: ${divisionActive.id} and Comp: ${divisionActive.fcompanyBean}")
-        return   getFMaterialUseCase.getRemoteAllFMaterialByDivisionAndShareToCompany(SecurityUtil.getAuthHeader(userActive.username, userActive.passwordConfirm), divisionActive.id, divisionActive.fcompanyBean).toObservable()
+        return   getFMaterialUseCase.getRemoteAllFMaterialByDivisionAndShareToCompany(SecurityUtil.getAuthHeader(userEntityActive.username, userEntityActive.passwordConfirm), divisionActive.id, divisionActive.fcompanyBean).toObservable()
     }
 
     fun getFCustomerFromRepo(): Observable<List<FCustomerEntity>>  {
         return   getFCustomerUseCase
-            .getRemoteAllFCustomerByDivisionAndShareToCompany(SecurityUtil.getAuthHeader(userActive.username, userActive.passwordConfirm), divisionActive.id, divisionActive.fcompanyBean).toObservable()
+            .getRemoteAllFCustomerByDivisionAndShareToCompany(SecurityUtil.getAuthHeader(userEntityActive.username, userEntityActive.passwordConfirm), divisionActive.id, divisionActive.fcompanyBean).toObservable()
 //        return   getFCustomerUseCase
 //                .getRemoteAllFCustomerByDivision(SecurityUtil.getAuthHeader(userActive.username, userActive.passwordConfirm), divisionActive.id).toObservable()
     }
@@ -346,7 +355,7 @@ class SyncViewModel @ViewModelInject constructor(
 
 
     fun getCacheFAreaLive(): LiveData<List<FAreaEntity>> {
-        return getFAreaUseCase.getCacheAllFAreaByDivision(userActive.fdivisionBean)
+        return getFAreaUseCase.getCacheAllFAreaByDivision(userEntityActive.fdivisionBean!!)
     }
 
     fun getCacheFMaterialGroup3Live(): LiveData<List<FMaterialGroup3Entity>> {
@@ -364,7 +373,7 @@ class SyncViewModel @ViewModelInject constructor(
 
     fun fetchFAreaFromRepo() {
         DisposableManager.add(
-                getFAreaUseCase.getRemoteAllFAreaByDivision(SecurityUtil.getAuthHeader(userActive.username, userActive.passwordConfirm), 92082)
+                getFAreaUseCase.getRemoteAllFAreaByDivision(SecurityUtil.getAuthHeader(userEntityActive.username, userEntityActive.passwordConfirm), 92082)
                         .toFlowable()
                         .observeOn(AndroidSchedulers.mainThread())
                         .subscribeOn(Schedulers.io())

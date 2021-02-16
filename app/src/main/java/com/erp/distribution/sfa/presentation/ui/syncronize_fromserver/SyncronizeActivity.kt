@@ -9,7 +9,7 @@ import androidx.lifecycle.Observer
 import com.erp.distribution.sfa.R
 import com.erp.distribution.sfa.data.source.entity.*
 import com.erp.distribution.sfa.databinding.ActivitySyncronizeBinding
-import com.erp.distribution.sfa.data.source.entity_security.FUser
+import com.erp.distribution.sfa.data.source.entity_security.FUserEntity
 import dagger.hilt.android.AndroidEntryPoint
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
 import io.reactivex.rxjava3.disposables.CompositeDisposable
@@ -36,7 +36,7 @@ class SyncronizeActivity : AppCompatActivity() {
 
         val intent: Intent = getIntent()
         if (intent.hasExtra(EXTRA_USERACTIVE)) {
-            viewModel.userActive = intent.getParcelableExtra<FUser>(EXTRA_USERACTIVE) as FUser
+            viewModel.userEntityActive = intent.getParcelableExtra<FUserEntity>(EXTRA_USERACTIVE) as FUserEntity
 //            Log.d(TAG, "#result ParcelableExtra  ${viewModel.userActive.username}")
         }
         if (intent.hasExtra(EXTRA_DIVISIONACTIVE)) {
@@ -71,7 +71,7 @@ class SyncronizeActivity : AppCompatActivity() {
             .map {
                 it.modified = Date()
                 it.created = Date()
-                it.modifiedBy = viewModel.userActive.username
+                it.modifiedBy = viewModel.userEntityActive.username
                 it.isStatusActive = false
                 if (it.id==viewModel.divisionActive.id) {
                     it.isStatusActive = true
@@ -104,7 +104,7 @@ class SyncronizeActivity : AppCompatActivity() {
                 data.map {
                     it.modified = Date()
                     it.created = Date()
-                    it.modifiedBy = viewModel.userActive.username
+                    it.modifiedBy = viewModel.userEntityActive.username
                     it.isStatusActive=false
                     it
                 }
@@ -146,7 +146,7 @@ class SyncronizeActivity : AppCompatActivity() {
                 data.map {
                     it.modified = Date()
                     it.created = Date()
-                    it.modifiedBy = viewModel.userActive.username
+                    it.modifiedBy = viewModel.userEntityActive.username
                     it
                 }
             }
@@ -173,7 +173,7 @@ class SyncronizeActivity : AppCompatActivity() {
                     data.map {
                         it.modified = Date()
                         it.created = Date()
-                        it.modifiedBy = viewModel.userActive.username
+                        it.modifiedBy = viewModel.userEntityActive.username
                         it
                     }
                 }
@@ -224,7 +224,7 @@ class SyncronizeActivity : AppCompatActivity() {
                     data.map {
                         it.modified = Date()
                         it.created = Date()
-                        it.modifiedBy = viewModel.userActive.username
+                        it.modifiedBy = viewModel.userEntityActive.username
                         if (it.expiredDate==null) it.expiredDate = Date()
 
                         it
@@ -281,7 +281,7 @@ class SyncronizeActivity : AppCompatActivity() {
                     data.map {
                         it.modified = Date()
                         it.created = Date()
-                        it.modifiedBy = viewModel.userActive.username
+                        it.modifiedBy = viewModel.userEntityActive.username
                         /**
                          * Yang Null
                          */

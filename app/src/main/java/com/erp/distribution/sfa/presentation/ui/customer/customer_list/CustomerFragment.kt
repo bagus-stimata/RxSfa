@@ -54,6 +54,7 @@ class CustomerFragment : Fragment(R.layout.fragment_customer), CustomerAdapter.O
         val customerAdapter = CustomerAdapter(this)
 
 
+
         /**
          * Note: Bukan NavigationUp tapiBack Press
          */
@@ -127,12 +128,6 @@ class CustomerFragment : Fragment(R.layout.fragment_customer), CustomerAdapter.O
          * THIS IS MAIN MODEL
          */
         viewModel.fCustomerLive
-//                .map {
-//                    it.map { newData ->
-//
-//                        newData
-//                    }
-//                }
                 .observe(viewLifecycleOwner) {
                     customerAdapter.submitList(it)
                 }
@@ -164,6 +159,7 @@ class CustomerFragment : Fragment(R.layout.fragment_customer), CustomerAdapter.O
                                 "Edit Customer"
                             )
 //                        findNavController().navigate(action)
+
                     }
 
                     is CustomerViewModel.CustomerEvent.ShowCustomerSavedConfirmationMessage -> {

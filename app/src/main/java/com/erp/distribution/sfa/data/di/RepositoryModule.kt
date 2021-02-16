@@ -39,7 +39,7 @@ class RepositoryModule {
             appDatabase: AppDatabase,
             retrofitService: RetrofitServiceSecurity
     ): FUserRepository {
-        return UserRepositoryImp(appDatabase, retrofitService)
+        return UserRepositoryImpl(appDatabase, retrofitService)
     }
     @Singleton
     @Provides

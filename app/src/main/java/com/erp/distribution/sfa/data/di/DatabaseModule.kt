@@ -6,8 +6,8 @@ import android.app.Application
 import com.erp.distribution.sfa.data.source.local.dao.*
 import com.erp.distribution.sfa.data.source.local.database.AppDatabase
 import com.erp.distribution.sfa.data.source.local.dao.PhotoDao
-import com.erp.distribution.sfa.data.repository_security.FUserDao
-import com.erp.distribution.sfa.data.repository_security.FUserRolesDao
+import com.erp.distribution.sfa.data.source.local.dao_security.FUserDao
+import com.erp.distribution.sfa.data.source.local.dao_security.FUserRolesDao
 import dagger.Module
 import dagger.hilt.InstallIn
 import dagger.hilt.android.components.ApplicationComponent

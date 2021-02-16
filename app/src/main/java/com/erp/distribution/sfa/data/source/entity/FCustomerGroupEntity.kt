@@ -46,7 +46,7 @@ internal fun FCustomerGroupEntity.toDomain(): FCustomerGroup {
         description= description!!,
         isStatusActive = isStatusActive!!,
 
-        fdivisionBean = fdivisionBean!!,
+        fdivisionBean = fdivisionBean?.let { FDivision(fdivisionBean!!) },
         ftPriceAlthBean = ftPriceAlthBean?.let { it }, //pakai !! tidak bisa dilakukan
 
         created = created!!,

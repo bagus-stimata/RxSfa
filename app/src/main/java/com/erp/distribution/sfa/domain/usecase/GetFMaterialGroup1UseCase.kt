@@ -1,9 +1,12 @@
 package com.erp.distribution.sfa.domain.usecase
 
 import androidx.lifecycle.LiveData
+import androidx.lifecycle.map
 import com.erp.distribution.sfa.domain.repository.FMaterialGroup1Repository
 import com.erp.distribution.sfa.domain.usecase.base.SingleUseCase
 import com.erp.distribution.sfa.data.source.entity.FMaterialGroup1Entity
+import com.erp.distribution.sfa.data.source.entity.toDomain
+import com.erp.distribution.sfa.domain.model.FMaterialGroup1
 import io.reactivex.rxjava3.core.Single
 import javax.inject.Inject
 
@@ -46,17 +49,30 @@ class GetFMaterialGroup1UseCase @Inject constructor(private val repository: FMat
     fun getCacheAllFMaterialGroup1(): LiveData<List<FMaterialGroup1Entity>>{
         return repository.getCacheAllFMaterialGroup1()
     }
+    fun getCacheAllFMaterialGroup1DomainLive(): LiveData<List<FMaterialGroup1>>{
+        return repository.getCacheAllFMaterialGroup1().map {
+            it.map {
+                it.toDomain()
+            }
+        }
+    }
 //    fun getCacheAllFMaterialGroup1Flow(query: String, sortOrder: SortOrder, hideSelected: Boolean): Flow<List<FMaterialGroup1Entity>> {
 //        return repository.getCacheAllFMaterialGroup1Flow(query, sortOrder, hideSelected)
 //    }
 //    fun getCacheAllFMaterialGroup1DomainFlow(query: String, sortOrder: SortOrder, hideSelected: Boolean): Flow<List<FMaterialGroup1>> {
 //        return repository.getCacheAllFMaterialGroup1DomainFlow(query, sortOrder, hideSelected)
 //    }
-    fun getCacheFMaterialGroup1ById(id: Int): LiveData<FMaterialGroup1Entity>{
-        return repository.getCacheFMaterialGroup1ById(id)
+    fun getCacheFMaterialGroup1ByIdDomainLive(id: Int): LiveData<FMaterialGroup1>{
+        return repository.getCacheFMaterialGroup1ById(id).map {
+            it.toDomain()
+        }
     }
-    fun getCacheAllFMaterialGroup1ByDivision(divisionId: Int): LiveData<List<FMaterialGroup1Entity>>{
-        return repository.getCacheAllFMaterialGroup1ByDivision(divisionId)
+    fun getCacheAllFMaterialGroup1ByDivisionDomainLive(divisionId: Int): LiveData<List<FMaterialGroup1>>{
+        return repository.getCacheAllFMaterialGroup1ByDivision(divisionId).map {
+            it.map {
+                it.toDomain()
+            }
+        }
     }
     fun addCacheFMaterialGroup1(fMaterialGroup1Entity: FMaterialGroup1Entity){
         repository.addCacheFMaterialGroup1(fMaterialGroup1Entity)

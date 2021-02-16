@@ -4,7 +4,7 @@ import androidx.room.Entity
 import androidx.room.PrimaryKey
 
 @Entity(tableName = "fUserRoles")
-data class FUserRoles (
+data class FUserRolesEntity (
     @PrimaryKey(autoGenerate = true)
     var id: Int,
     var roleID: String = Role.GUEST, //as default

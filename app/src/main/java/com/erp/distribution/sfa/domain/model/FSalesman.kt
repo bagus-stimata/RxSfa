@@ -38,7 +38,7 @@ data class FSalesman (
     //	@ManyToOne
     //	@JoinColumn(name="fdivisionBean", referencedColumnName="ID")
     //	private FDivision fdivisionBean;
-    var fdivisionBean : Int =0,
+    var fdivisionBean : FDivision =FDivision(),
     var address1 : String ="",
     var city1 : String ="",
     var state1 : String ="",
@@ -54,15 +54,11 @@ data class FSalesman (
     var isStatusActive : Boolean =false,
     var isWebServiceActive : Boolean =false,
 
-    //FOR KASSA
-    var isKassaStatusOpen : Boolean =false,
-    var kassaIp : String ="",
-
     //	@OneToMany(mappedBy="fsalesmanBean", fetch=FetchType.LAZY, cascade=CascadeType.ALL)
     //	@ManyToOne
     //	@JoinColumn(name="ftPriceAlthBean", referencedColumnName="ID", nullable=true)
     //	private FtPriceAlth ftPriceAlthBean;
-    var ftPriceAlthBean : Int =0,
+    var ftPriceAlthBean : Int? =0,
 
     var ftSaleshSet : List<FtSalesh> = listOf<FtSalesh>(),
 

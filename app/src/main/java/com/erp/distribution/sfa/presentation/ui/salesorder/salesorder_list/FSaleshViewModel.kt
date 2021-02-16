@@ -36,9 +36,7 @@ class FSaleshViewModel @ViewModelInject constructor(
 ) : ViewModel() {
     private val TAG = FSaleshViewModel::class.java.simpleName
 
-
     var mapFCustomer: MutableMap<Int, FCustomer> = mutableMapOf()
-
 
     val searchQuery = state.getLiveData("searchQuery", "")
 

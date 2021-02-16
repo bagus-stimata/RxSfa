@@ -9,10 +9,10 @@ import com.erp.distribution.sfa.domain.model.Photo
 
 import com.erp.distribution.sfa.data.source.entity.*
 import com.erp.distribution.sfa.data.source.entity.utils.RoomDateConverters
-import com.erp.distribution.sfa.data.source.entity_security.FUser
-import com.erp.distribution.sfa.data.source.entity_security.FUserRoles
-import com.erp.distribution.sfa.data.repository_security.FUserDao
-import com.erp.distribution.sfa.data.repository_security.FUserRolesDao
+import com.erp.distribution.sfa.data.source.entity_security.FUserEntity
+import com.erp.distribution.sfa.data.source.entity_security.FUserRolesEntity
+import com.erp.distribution.sfa.data.source.local.dao_security.FUserDao
+import com.erp.distribution.sfa.data.source.local.dao_security.FUserRolesDao
 
 
 /**
@@ -22,7 +22,7 @@ import com.erp.distribution.sfa.data.repository_security.FUserRolesDao
  * @Created by ZARA
  */
 @Database(entities = [
-    FUser::class, FUserRoles::class,
+    FUserEntity::class, FUserRolesEntity::class,
 
     FAreaEntity::class,
     FCompanyEntity::class,
@@ -79,7 +79,7 @@ import com.erp.distribution.sfa.data.repository_security.FUserRolesDao
 
 
 
-                     ], version = 49, exportSchema = false)
+                     ], version = 52, exportSchema = false)
 @TypeConverters(RoomDateConverters::class) //Karena ada Native Date
 abstract class AppDatabase : RoomDatabase() {
 

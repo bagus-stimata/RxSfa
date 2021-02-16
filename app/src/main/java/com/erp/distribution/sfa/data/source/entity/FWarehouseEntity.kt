@@ -3,6 +3,9 @@ package com.erp.distribution.sfa.data.source.entity
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 import com.erp.distribution.sfa.data.source.entity.modelenum.EnumTipeWarehouse
+import com.erp.distribution.sfa.domain.model.FDivision
+import com.erp.distribution.sfa.domain.model.FSalesman
+import com.erp.distribution.sfa.domain.model.FWarehouse
 import java.io.Serializable
 import java.util.*
 
@@ -49,3 +52,28 @@ class FWarehouseEntity (
     var modified : Date? = Date(),
     var modifiedBy : String? ="", //User ID
 ): Serializable
+
+internal fun FWarehouseEntity.toDomain(): FWarehouse {
+    return FWarehouse(
+            id = id,
+
+            sourceID = sourceID,
+            kode1 = kode1,
+
+            description = description,
+
+            fdivisionBean = FDivision(fdivisionBean),
+            address1 = address1,
+            city1 = city1,
+            state1 = state1,
+            phone = phone,
+            isStatusActive = isStatusActive,
+            tipeWarehouse = tipeWarehouse,
+
+            created = created,
+            modified = modified,
+            modifiedBy = modifiedBy
+    )
+}
+
+

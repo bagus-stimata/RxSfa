@@ -11,7 +11,8 @@ import android.widget.RelativeLayout
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.erp.distribution.sfa.R
-import com.erp.distribution.sfa.data.source.entity_security.FUser
+import com.erp.distribution.sfa.data.source.entity_security.FUserEntity
+import com.erp.distribution.sfa.domain.model.FUser
 import dagger.hilt.android.AndroidEntryPoint
 
 
@@ -24,7 +25,7 @@ class LoginActivity : AppCompatActivity() {
     val rellay1: RelativeLayout by lazy { findViewById(R.id.rellay1) }
     val rellay2: RelativeLayout  by lazy { findViewById(R.id.rellay2) }
 
-        val editTextUsername: EditText by lazy { findViewById(R.id.username) }
+    val editTextUsername: EditText by lazy { findViewById(R.id.username) }
 
     val editTextPassword: EditText by lazy { findViewById(R.id.password) }
 
@@ -67,8 +68,6 @@ class LoginActivity : AppCompatActivity() {
             Toast.makeText(this, "Username atau Password tidak boleh kosong!", Toast.LENGTH_SHORT)
                 .show()
         }else {
-//            Toast.makeText(this, itemHeader.username + " & " + itemHeader.password, Toast.LENGTH_LONG)
-//                .show()
 
             val data = Intent()
             data.putExtra(EXTRA_OBJECT, itemHeader)

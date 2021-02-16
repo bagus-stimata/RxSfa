@@ -21,7 +21,8 @@ class FCustomerGroup (
     var isStatusActive : Boolean = false,
 
     //	private FDivision fdivisionBean;
-    var fdivisionBean : Int? = 0,
+//    var fdivisionBean : Int? = 0,
+    var fdivisionBean: FDivision? = FDivision(),
 
     //	private FtPriceAlth ftPriceAlthBean;
     var ftPriceAlthBean : Int? = 0,

@@ -1,8 +1,8 @@
-package com.erp.distribution.sfa.data.repository_security
+package com.erp.distribution.sfa.data.source.local.dao_security
 
 import androidx.lifecycle.LiveData
 import androidx.room.*
-import com.erp.distribution.sfa.data.source.entity_security.FUserRoles
+import com.erp.distribution.sfa.data.source.entity_security.FUserRolesEntity
 
 /**
  * Dao ini belum di koneksikan dengan database manapun
@@ -10,34 +10,34 @@ import com.erp.distribution.sfa.data.source.entity_security.FUserRoles
 @Dao
 interface FUserRolesDao {
     /**
-     * @param fUserRoles
+     * @param fUserRolesEntity
      * Harus Menggunakan
      * .allowMainThreadQueries() pada Configurasi database utama agar tidak perlu menggunakan AsynT
      */
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    fun insert(fUserRoles: FUserRoles)
+    fun insert(fUserRolesEntity: FUserRolesEntity)
 
     @Update
-    fun update(fUserRoles: FUserRoles)
+    fun update(fUserRolesEntity: FUserRolesEntity)
 
     @Delete
-    fun delete(fUserRoles: FUserRoles)
+    fun delete(fUserRolesEntity: FUserRolesEntity)
 
     @Query("DELETE FROM fUserRoles")
     fun deleteAllFUserRoles()
 
     @get:Query("SELECT * FROM fUserRoles ")
-    val allFUserRolesLive: LiveData<List<FUserRoles>>
+    val allFUserRolesEntityLive: LiveData<List<FUserRolesEntity>>
 
     @get:Query("SELECT * FROM fUserRoles ")
-    val allFUserRoles: List<FUserRoles>
+    val allFUserRoleEntities: List<FUserRolesEntity>
 
     @Query("SELECT * FROM fUserRoles WHERE id = :id ")
-    fun getAllById(id: Int): List<FUserRoles>
+    fun getAllById(id: Int): List<FUserRolesEntity>
 
     @Query("SELECT * FROM fUserRoles WHERE fuserBeanInt = :id ")
-    fun getAllByParentId(id: Int): List<FUserRoles>
+    fun getAllByParentId(id: Int): List<FUserRolesEntity>
 
     @Query("SELECT * FROM fUserRoles WHERE fuserBeanInt = :id ")
-    fun getAllByParentIdLive(id: Int): LiveData<List<FUserRoles>>
+    fun getAllByParentIdLive(id: Int): LiveData<List<FUserRolesEntity>>
 }

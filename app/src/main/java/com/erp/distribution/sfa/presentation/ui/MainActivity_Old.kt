@@ -17,7 +17,7 @@ import com.erp.distribution.sfa.R
 import com.erp.distribution.sfa.databinding.ActivityMainDashboardBinding
 import com.erp.distribution.sfa.presentation.ui.utils.AlertDialogConfirm
 import com.erp.distribution.sfa.presentation.ui.syncronize_fromserver.SyncronizeActivity
-import com.erp.distribution.sfa.data.source.entity_security.FUser
+import com.erp.distribution.sfa.data.source.entity_security.FUserEntity
 import com.erp.distribution.sfa.presentation.ui.customer.CustomerActivity
 import com.erp.distribution.sfa.presentation.ui.material.FMaterialActivity
 import com.erp.distribution.sfa.presentation.ui.salesorder.FtSaleshActivity
@@ -35,7 +35,7 @@ class MainActivity_Old : AppCompatActivity() {
     private val TAG = MainActivity_Old::class.java.simpleName
     private val compositeDisposable = CompositeDisposable()
 
-    val mainViewModel: MainViewModel by viewModels<MainViewModel> ()
+    val mainViewModelOld: MainViewModel_Old by viewModels<MainViewModel_Old> ()
     lateinit var mainBinding: ActivityMainDashboardBinding
 
     var progressBar: ProgressBar? = null
@@ -49,10 +49,10 @@ class MainActivity_Old : AppCompatActivity() {
         mainBinding = DataBindingUtil.setContentView(this, R.layout.activity_main_dashboard)
 
         mainBinding.activity = this
-        mainBinding.userActive = mainViewModel.userActive
-        mainBinding.divisionActive = mainViewModel.divisionEntityActive
-        mainBinding.salesmanActive = mainViewModel.salesmanEntityActive
-        mainBinding.warehouseActive = mainViewModel.warehouseEntityActive
+        mainBinding.userActive = mainViewModelOld.userEntityActive
+        mainBinding.divisionActive = mainViewModelOld.divisionEntityActive
+        mainBinding.salesmanActive = mainViewModelOld.salesmanEntityActive
+        mainBinding.warehouseActive = mainViewModelOld.warehouseEntityActive
 
         setupObserver()
 
@@ -73,30 +73,30 @@ class MainActivity_Old : AppCompatActivity() {
      */
     fun setupObserver() {
 
-        mainViewModel.listUserActiveLive?.observe(this, androidx.lifecycle.Observer  {
+        mainViewModelOld.listUserEntityActiveLive?.observe(this, androidx.lifecycle.Observer  {
             when (it) {
-                null, emptyList<FUser>() -> {
+                null, emptyList<FUserEntity>() -> {
                     Log.d(TAG, "#result Empty Listen Dipanggil")
                     showLoginView()
                 }
                 else -> {
 //                    mainViewModel.userActive = it.get(0)
 //                    mainViewModel.getRemoteFSalesman(mainViewModel.userActive)
-                    if(mainViewModel.userActive.id >0) {
+                    if(mainViewModelOld.userEntityActive.id >0) {
                         /**
                          * Lihat Masih dari Remote
                          */
-                        subscribeRemoteFDivision(mainViewModel.userActive)
-                        subscribeRemoteFSalesman(mainViewModel.userActive)
-                        subscribeRemoteFWarehouse(mainViewModel.userActive)
+                        subscribeRemoteFDivision(mainViewModelOld.userEntityActive)
+                        subscribeRemoteFSalesman(mainViewModelOld.userEntityActive)
+                        subscribeRemoteFWarehouse(mainViewModelOld.userEntityActive)
                     }
-                    Log.d(TAG, "#result userActive: ${mainViewModel.userActive.fdivisionBean}" +
-                            " and ${mainViewModel.userActive.fsalesmanBean} and ${mainViewModel.userActive.fwarehouseBean}")
+                    Log.d(TAG, "#result userActive: ${mainViewModelOld.userEntityActive.fdivisionBean}" +
+                            " and ${mainViewModelOld.userEntityActive.fsalesmanBean} and ${mainViewModelOld.userEntityActive.fwarehouseBean}")
                     greeting()
 //                    Log.d(TAG, "#result Listen Dipanggil ${MainApplication.authHeader}")
                 }
             }
-            mainBinding.userActive = mainViewModel.userActive
+            mainBinding.userActive = mainViewModelOld.userEntityActive
 
         })
 
@@ -104,8 +104,8 @@ class MainActivity_Old : AppCompatActivity() {
 
     }
 
-    fun subscribeRemoteFDivision(fUser: FUser) {
-        DisposableManager.add(mainViewModel.getRemoteFDivision(fUser)
+    fun subscribeRemoteFDivision(fUserEntity: FUserEntity) {
+        DisposableManager.add(mainViewModelOld.getRemoteFDivision(fUserEntity)
             .toObservable()
             .map {
                 it.isStatusActive = true
@@ -115,26 +115,25 @@ class MainActivity_Old : AppCompatActivity() {
             .subscribeOn(Schedulers.io())
             .subscribe(
                 {
-                    mainViewModel.divisionEntityActive = it
-                    mainViewModel.insertCacheFDivision(it)
-                    mainBinding.divisionActive = mainViewModel.divisionEntityActive
+                    mainViewModelOld.divisionEntityActive = it
+                    mainViewModelOld.insertCacheFDivision(it)
+                    mainBinding.divisionActive = mainViewModelOld.divisionEntityActive
 
                 },
                 {
 
                     Log.d(TAG, "#result salesman error ${it.message}")
                     Timber.e("Get repo error: $it")
-                    mainViewModel.setThrowable(it)
+//                    mainViewModel.setThrowable(it)
 
                 },
                 {
-
                 }
             )
         )
     }
-    fun subscribeRemoteFSalesman(fUser: FUser) {
-        DisposableManager.add(mainViewModel.getRemoteFSalesman(fUser)
+    fun subscribeRemoteFSalesman(fUserEntity: FUserEntity) {
+        DisposableManager.add(mainViewModelOld.getRemoteFSalesman(fUserEntity)
             .toObservable()
             .map {
                 it.isStatusActive = true
@@ -144,9 +143,9 @@ class MainActivity_Old : AppCompatActivity() {
             .subscribeOn(Schedulers.io())
             .subscribe(
                 {
-                    mainViewModel.salesmanEntityActive = it
-                    mainViewModel.insertCacheFSalesman(it)
-                    mainBinding.salesmanActive = mainViewModel.salesmanEntityActive
+                    mainViewModelOld.salesmanEntityActive = it
+                    mainViewModelOld.insertCacheFSalesman(it)
+                    mainBinding.salesmanActive = mainViewModelOld.salesmanEntityActive
 
                 },
                 {
@@ -160,8 +159,8 @@ class MainActivity_Old : AppCompatActivity() {
     }
 
 
-    fun subscribeRemoteFWarehouse(fUser: FUser) {
-        DisposableManager.add(mainViewModel.getRemoteFWarehouse(fUser)
+    fun subscribeRemoteFWarehouse(fUserEntity: FUserEntity) {
+        DisposableManager.add(mainViewModelOld.getRemoteFWarehouse(fUserEntity)
             .toObservable()
             .map {
                 it.isStatusActive = true
@@ -171,9 +170,9 @@ class MainActivity_Old : AppCompatActivity() {
             .subscribeOn(Schedulers.io())
             .subscribe(
                 {
-                    mainViewModel.warehouseEntityActive= it
-                    mainViewModel.insertCacheFWarehouse(it)
-                    mainBinding.warehouseActive = mainViewModel.warehouseEntityActive
+                    mainViewModelOld.warehouseEntityActive= it
+                    mainViewModelOld.insertCacheFWarehouse(it)
+                    mainBinding.warehouseActive = mainViewModelOld.warehouseEntityActive
 
                 },
                 {
@@ -194,7 +193,7 @@ class MainActivity_Old : AppCompatActivity() {
 //    }
 
     fun showLoginView() {
-        mainViewModel.userActive = FUser()
+        mainViewModelOld.userEntityActive = FUserEntity()
         val intent = Intent(this@MainActivity_Old, LoginActivity::class.java)
         startActivityForResult(intent, RE_LOGIN)
     }
@@ -204,13 +203,13 @@ class MainActivity_Old : AppCompatActivity() {
 
         if (requestCode == RE_LOGIN && resultCode == Activity.RESULT_OK) {
 //            Log.d(TAG, "#result OKE MASUK ####")
-            val resultObject: FUser = data!!.getParcelableExtra<FUser>(LoginActivity.EXTRA_OBJECT) as FUser
+            val resultObject: FUserEntity = data!!.getParcelableExtra<FUserEntity>(LoginActivity.EXTRA_OBJECT) as FUserEntity
 
 //            Log.d(TAG, "#result OKE >> " + resultObject.username + " >> " + resultObject.password)
             //Password yang dipakai adalah passwordConfirm: Untuk seterusnya
             resultObject.passwordConfirm = resultObject.password
 
-            val observer = mainViewModel.getRemoteFUserByUser(resultObject)
+            val observer = mainViewModelOld.getRemoteFUserByUser(resultObject)
                     .toObservable()
                     .observeOn(AndroidSchedulers.mainThread())
                     .subscribeOn(Schedulers.io())
@@ -232,14 +231,14 @@ class MainActivity_Old : AppCompatActivity() {
                                 newFUser.password = resultObject.password
                                 newFUser.passwordConfirm = resultObject.password
                                 //CREATE JIKA SAMA SAJA
-                                mainViewModel.insertCacheFUser(newFUser)
+                                mainViewModelOld.insertCacheFUser(newFUser)
 
                             },
                             {
 
                                 Log.d(TAG, "#result Error")
                                 Timber.e("Get repo error: $it")
-                                mainViewModel.setThrowable(it)
+//                                mainViewModel.setThrowable(it)
 
                                 showLoginView()
 
@@ -253,7 +252,7 @@ class MainActivity_Old : AppCompatActivity() {
             compositeDisposable.add(observer)
 
 
-            val observerAll = mainViewModel.fetchFUserFromRepo()
+            val observerAll = mainViewModelOld.fetchFUserFromRepo()
                 .toObservable()
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribeOn(Schedulers.io())
@@ -280,7 +279,7 @@ class MainActivity_Old : AppCompatActivity() {
         } else if (requestCode == EDIT_NOTE_REQUEST && resultCode == Activity.RESULT_OK) {
 //            Toast.makeText(this, "Note updated", Toast.LENGTH_SHORT).show();
         } else {
-           if (mainViewModel.userActive.id ==0){
+           if (mainViewModelOld.userEntityActive.id ==0){
                showLoginView()
            }
 //            Toast.makeText(this, "Else not saved", Toast.LENGTH_SHORT).show()
@@ -294,7 +293,7 @@ class MainActivity_Old : AppCompatActivity() {
         val calendar = Calendar.getInstance()
         val timeOfDay = calendar[Calendar.HOUR_OF_DAY]
 //        val namaUser: String = mainViewModel.userActive.fullName
-        if (mainViewModel.userActive.fullName.isEmpty()) mainViewModel.userActive.username
+        if (mainViewModelOld.userEntityActive.fullName.isEmpty()) mainViewModelOld.userEntityActive.username
         if (timeOfDay >= 0 && timeOfDay < 12) {
 //            mainBinding.greetingText1.setText("Selamat Pagi")
             mainBinding.greetingImg.setImageResource(R.drawable.img_default_half_morning)
@@ -344,7 +343,7 @@ class MainActivity_Old : AppCompatActivity() {
         alert.getButtonOke().setOnClickListener(View.OnClickListener { view: View? ->
             alert.dismiss()
 
-            mainViewModel.deleteCacheAllFUser()
+            mainViewModelOld.deleteCacheAllFUser()
 
         })
         alert.getButtonCancel()
@@ -363,8 +362,8 @@ class MainActivity_Old : AppCompatActivity() {
         alert.getButtonOke().setOnClickListener(View.OnClickListener { view: View? ->
             val intent = Intent(this@MainActivity_Old, SyncronizeActivity::class.java)
 
-            intent.putExtra(SyncronizeActivity.EXTRA_USERACTIVE, mainViewModel.userActive)
-            intent.putExtra(SyncronizeActivity.EXTRA_DIVISIONACTIVE, mainViewModel.divisionEntityActive)
+            intent.putExtra(SyncronizeActivity.EXTRA_USERACTIVE, mainViewModelOld.userEntityActive)
+            intent.putExtra(SyncronizeActivity.EXTRA_DIVISIONACTIVE, mainViewModelOld.divisionEntityActive)
 
             startActivity(intent)
             alert.dismiss()

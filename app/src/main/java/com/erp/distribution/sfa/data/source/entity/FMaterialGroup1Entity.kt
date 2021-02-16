@@ -3,6 +3,8 @@ package com.erp.distribution.sfa.data.source.entity
 import android.os.Parcelable
 import androidx.room.Entity
 import androidx.room.PrimaryKey
+import com.erp.distribution.sfa.domain.model.FDivision
+import com.erp.distribution.sfa.domain.model.FMaterialGroup1
 import kotlinx.parcelize.Parcelize
 import java.util.*
 
@@ -31,3 +33,19 @@ data class FMaterialGroup1Entity (
     var modifiedBy: String = "" //User ID
 
 ): Parcelable
+
+internal fun FMaterialGroup1Entity.toDomain(): FMaterialGroup1{
+    return FMaterialGroup1(
+            id = id,
+            sourceID = sourceID,
+            kode1 = kode1,
+
+            description = description,
+            fdivisionBean = FDivision(fdivisionBean),
+            isStatusActive = isStatusActive,
+
+            created = created,
+            modified = modified,
+            modifiedBy = modifiedBy
+    )
+}

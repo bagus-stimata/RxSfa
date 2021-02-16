@@ -1,9 +1,11 @@
 package com.erp.distribution.sfa.domain.usecase
 
 import androidx.lifecycle.LiveData
+import androidx.lifecycle.map
 import com.erp.distribution.sfa.domain.repository.FMaterialGroup3Repository
 import com.erp.distribution.sfa.domain.usecase.base.SingleUseCase
 import com.erp.distribution.sfa.data.source.entity.FMaterialGroup3Entity
+import com.erp.distribution.sfa.data.source.entity.toDomain
 import com.erp.distribution.sfa.domain.model.FMaterialGroup3
 import io.reactivex.rxjava3.core.Single
 import kotlinx.coroutines.flow.Flow
@@ -45,6 +47,13 @@ class GetFMaterialGroup3UseCase @Inject constructor(private val repository: FMat
     fun getCacheAllFMaterialGroup3(): LiveData<List<FMaterialGroup3Entity>>{
         return repository.getCacheAllFMaterialGroup3()
     }
+    fun getCacheAllFMaterialGroup3DomainLive(): LiveData<List<FMaterialGroup3>>{
+        return repository.getCacheAllFMaterialGroup3().map {
+            it.map {
+                it.toDomain()
+            }
+        }
+    }
     fun getCacheAllFMaterialGroup3DomainFlow(): Flow<List<FMaterialGroup3>>{
         return repository.getCacheAllFMaterialGroup3DomainFlow()
     }
@@ -57,8 +66,20 @@ class GetFMaterialGroup3UseCase @Inject constructor(private val repository: FMat
     fun getCacheFMaterialGroup3ById(id: Int): LiveData<FMaterialGroup3Entity>{
         return repository.getCacheFMaterialGroup3ById(id)
     }
+    fun getCacheFMaterialGroup3ByIdDomainLive(id: Int): LiveData<FMaterialGroup3>{
+        return repository.getCacheFMaterialGroup3ById(id).map {
+            it.toDomain()
+        }
+    }
     fun getCacheAllFMaterialGroup3ByDivision(divisionId: Int): LiveData<List<FMaterialGroup3Entity>>{
         return repository.getCacheAllFMaterialGroup3ByParent(divisionId)
+    }
+    fun getCacheAllFMaterialGroup3ByDivisionDomainLive(divisionId: Int): LiveData<List<FMaterialGroup3>>{
+        return repository.getCacheAllFMaterialGroup3ByParent(divisionId).map {
+            it.map {
+                it.toDomain()
+            }
+        }
     }
     fun addCacheFMaterialGroup3(fMaterialGroup3Entity: FMaterialGroup3Entity){
         repository.addCacheFMaterialGroup3(fMaterialGroup3Entity)

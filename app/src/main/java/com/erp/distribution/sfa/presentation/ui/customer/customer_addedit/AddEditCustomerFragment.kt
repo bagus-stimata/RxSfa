@@ -48,7 +48,7 @@ class AddEditCustomerFragment : Fragment(R.layout.fragment_add_edit_customer) {
         }
 
         viewLifecycleOwner.lifecycleScope.launchWhenStarted {
-            viewModelCustomerViewModel.addEditCustomerEvent.collect { event ->
+            viewModelCustomerViewModel.addEditCustomerEventFlow.collect { event ->
                 when (event) {
                     is AddEditCustomerViewModel.AddEditCustomerEvent.ShowInvalidInputMessage -> {
                         Snackbar.make(requireView(), event.msg, Snackbar.LENGTH_LONG).show()

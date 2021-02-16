@@ -14,7 +14,7 @@ import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.erp.distribution.sfa.presentation.ui.MainViewModel
+import com.erp.distribution.sfa.presentation.ui.MainViewModel_Old
 import com.erp.distribution.sfa.data.source.entity.FMaterialEntity
 import com.erp.distribution.sfa.R
 import com.erp.distribution.sfa.presentation.ui.utils.AlertDialogWarning
@@ -29,7 +29,7 @@ class MaterialActivity : AppCompatActivity() {
 
     lateinit var binding: ActiviyTemplate1Binding
 //    private val viewModel: MaterialViewModel by viewModels<MaterialViewModel>()
-    private val mainViewModel: MainViewModel by viewModels<MainViewModel>()
+    private val mainViewModelOld: MainViewModel_Old by viewModels<MainViewModel_Old>()
 
     private val adapter: NoteAdapter by lazy {
         NoteAdapter { position -> doOnLongItemClickListener(position) }
@@ -88,7 +88,7 @@ class MaterialActivity : AppCompatActivity() {
 
     fun inizialize() {
 
-        mainViewModel.getCacheFMaterialEntity
+        mainViewModelOld.getCacheFMaterialEntity
             .map {
                 it.sortedWith(compareBy({it.pname}))
 //                it : tidak jalan akru paia ini bos (pakai atas saja)

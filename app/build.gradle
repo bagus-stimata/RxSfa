@@ -1,10 +1,10 @@
 plugins {
     id 'com.android.application'
     id 'kotlin-android'
-//    id 'kotlin-android-extensions' //sudah menggunakan apply plugin: 'kotlin-parcelize'
     id 'kotlin-kapt'
     id 'dagger.hilt.android.plugin'
     id 'androidx.navigation.safeargs.kotlin'
+//    id 'kotlin-android-extensions' //sudah menggunakan apply plugin: 'kotlin-parcelize'
     id 'kotlin-parcelize'
 }
 
@@ -71,11 +71,11 @@ android {
 //        exclude("META-INF/*.kotlin_module")
     }
 
-    //Mengoptimalkan gradle build
-    dexOptions {
-        incremental true
-        javaMaxHeapSize "7g"
-    }
+    //Mengoptimalkan gradle build: Tidak Efektif
+//    dexOptions {
+//        incremental true
+//        javaMaxHeapSize "7g"
+//    }
 }
 
 dependencies {
