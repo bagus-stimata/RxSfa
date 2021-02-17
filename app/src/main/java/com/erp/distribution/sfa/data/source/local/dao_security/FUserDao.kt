@@ -63,9 +63,11 @@ interface FUserDao {
 //            " LEFT JOIN fWarehouse c ON c.id = u.fwarehouseBean ")
 //    fun getAllFUserFlow(): Flow<List<FUserWithFDivisionAndSalesmanAndWarehouse>>
 
+    @Transaction
     @Query("SELECT * FROM fUser ")
     fun getAllFUserFlow(): Flow<List<FUserWithFDivisionAndSalesmanAndWarehouse>>
 
+    @Transaction
     @Query("SELECT * FROM fUser ")
     fun getAllFUserLiveData(): LiveData<List<FUserWithFDivisionAndSalesmanAndWarehouse>>
 

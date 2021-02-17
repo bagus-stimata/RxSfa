@@ -391,11 +391,69 @@ internal fun FtSaleshEntity.toDomain(): FtSalesh {
     )
 }
 
-data class FSaleshAndFCustomer(
-    @Embedded val ftSaleshEntity: FtSaleshEntity,
-    @Relation(
-        parentColumn = "userId",
-        entityColumn = "userOwnerId"
-    )
-    val fCustomerEntity: FCustomerEntity
+data class FtSaleshWithFDivisionAndFCustomer(
+        @Embedded  val ftSaleshEntity: FtSaleshEntity,
+
+        @Relation(
+                parentColumn = "fdivisionBean",
+                entityColumn = "id"
+        )
+        val fDivisionEntity: FDivisionEntity,
+
+        @Relation(
+                parentColumn = "fcustomerBean",
+                entityColumn = "id"
+        )
+        val fCustomerEntity: FCustomerEntity? //it mean boleh null, tapi jika ada null maka Room otomatis akan meberikan entity kosong
+)
+
+data class FtSaleshWithFDivisionAndFSalesmanAndFCustomer(
+        @Embedded  val ftSaleshEntity: FtSaleshEntity,
+
+        @Relation(
+                parentColumn = "fdivisionBean",
+                entityColumn = "id"
+        )
+        val fDivisionEntity: FDivisionEntity,
+
+        @Relation(
+                parentColumn = "fsalesmanBean",
+                entityColumn = "id"
+        )
+        val fSalesmanEntity: FSalesmanEntity?, //it mean boleh null, tapi jika ada null maka Room otomatis akan meberikan entity kosong
+
+        @Relation(
+                parentColumn = "fcustomerBean",
+                entityColumn = "id"
+        )
+        val fCustomerEntity: FCustomerEntity? //it mean boleh null, tapi jika ada null maka Room otomatis akan meberikan entity kosong
+)
+
+data class FtSaleshWithFDivisionAndFSalesmanAndFCustomerAndItems(
+        @Embedded  val ftSaleshEntity: FtSaleshEntity,
+
+        @Relation(
+                parentColumn = "fdivisionBean",
+                entityColumn = "id"
+        )
+        val fDivisionEntity: FDivisionEntity,
+
+        @Relation(
+                parentColumn = "fsalesmanBean",
+                entityColumn = "id"
+        )
+        val fSalesmanEntity: FSalesmanEntity?, //it mean boleh null, tapi jika ada null maka Room otomatis akan meberikan entity kosong
+
+        @Relation(
+                parentColumn = "fcustomerBean",
+                entityColumn = "id"
+        )
+        val fCustomerEntity: FCustomerEntity?,
+
+        @Relation(
+                parentColumn = "refno",
+                entityColumn = "ftSaleshBean"
+        )
+        val listFtSalesdItems: List<FtSalesdItemsEntity>?
+
 )

@@ -19,8 +19,7 @@ interface FtSaleshRepository {
     fun deleteRemoteFtSalesh(authHeader: String, id: Long): Single<FtSaleshEntity>
 
     fun getCacheAllFtSalesh(): LiveData<List<FtSaleshEntity>>
-    fun getCacheAllFtSaleshFlow(query: String, sortOrder: SortOrder, hideSelected: Boolean): Flow<List<FtSaleshEntity>>
-    fun getCacheAllFtSaleshDomainFlow(query: String, sortOrder: SortOrder, hideSelected: Boolean): Flow<List<FtSalesh>>
+    fun getCacheAllFtSaleshFlow(query: String, sortOrder: SortOrder,  limit: Int, currentOffset: Int, hideSelected: Boolean): Flow<List<FtSaleshEntity>>
     fun getCacheFtSaleshById(id: Long): LiveData<FtSaleshEntity>
     fun getCacheAllFtSaleshByDivision(divisionId: Int): LiveData<List<FtSaleshEntity>>
     fun addCacheFtSalesh(ftSaleshEntity: FtSaleshEntity)

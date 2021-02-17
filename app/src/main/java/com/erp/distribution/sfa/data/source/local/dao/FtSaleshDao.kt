@@ -4,6 +4,9 @@ import androidx.lifecycle.LiveData
 import androidx.room.*
 import com.erp.distribution.sfa.data.di.SortOrder
 import com.erp.distribution.sfa.data.source.entity.FtSaleshEntity
+import com.erp.distribution.sfa.data.source.entity.FtSaleshWithFDivisionAndFCustomer
+import com.erp.distribution.sfa.data.source.entity.FtSaleshWithFDivisionAndFSalesmanAndFCustomer
+import com.erp.distribution.sfa.data.source.entity.FtSaleshWithFDivisionAndFSalesmanAndFCustomerAndItems
 import kotlinx.coroutines.flow.Flow
 
 /**
@@ -36,24 +39,38 @@ interface FtSaleshDao {
     @Query("SELECT * FROM ftSalesh WHERE refno = :id ")
     fun getAllByIdLive(id: Long): LiveData<FtSaleshEntity>
 
-    fun getAllFtSaleshFlow(query: String, sortOrder: SortOrder, hideSelected: Boolean?): Flow<List<FtSaleshEntity>> =
+    fun getAllFtSaleshFlow(query: String, sortOrder: SortOrder, limit: Int, currentOffset: Int, hideSelected: Boolean?): Flow<List<FtSaleshEntity>> =
         when (sortOrder) {
             SortOrder.BY_INVOICE_DATE -> {
-                getAllFtSaleshSortedByInvoiceDateFLow(query)
+                getAllFtSaleshSortedByInvoiceDateFLow(query, limit, currentOffset)
             }
             SortOrder.BY_ORDER_DATE -> {
-                getAllFtSaleshSortedByOrderDateFLow(query)
+                getAllFtSaleshSortedByOrderDateFLow(query, limit, currentOffset)
             }
-                else -> getAllFtSaleshFLow()
+                else -> getAllFtSaleshFLow( limit, currentOffset)
         }
     
-    @Query("SELECT * FROM ftSalesh WHERE  orderno LIKE '%' || :searchQuery || '%'  ORDER BY invoiceDate ")
-    fun getAllFtSaleshSortedByInvoiceDateFLow(searchQuery: String): Flow<List<FtSaleshEntity>>
-    @Query("SELECT * FROM ftSalesh WHERE  orderno LIKE '%' || :searchQuery || '%'  ORDER BY orderDate ")
-    fun getAllFtSaleshSortedByOrderDateFLow(searchQuery: String): Flow<List<FtSaleshEntity>>
+    @Query("SELECT * FROM ftSalesh WHERE  orderno LIKE '%' || :searchQuery || '%'  ORDER BY invoiceDate   LIMIT :limit OFFSET :currentOffset ")
+    fun getAllFtSaleshSortedByInvoiceDateFLow(searchQuery: String, limit: Int, currentOffset: Int): Flow<List<FtSaleshEntity>>
+    @Query("SELECT * FROM ftSalesh WHERE  orderno LIKE '%' || :searchQuery || '%'  ORDER BY orderDate   LIMIT :limit OFFSET :currentOffset ")
+    fun getAllFtSaleshSortedByOrderDateFLow(searchQuery: String, limit: Int, currentOffset: Int): Flow<List<FtSaleshEntity>>
 
-    @Query("SELECT * FROM ftSalesh ")
-    fun getAllFtSaleshFLow(): Flow<List<FtSaleshEntity>>
+    @Query("SELECT * FROM ftSalesh   LIMIT :limit OFFSET :currentOffset ")
+    fun getAllFtSaleshFLow(limit: Int, currentOffset: Int): Flow<List<FtSaleshEntity>>
+
+
+
+    @Transaction
+    @Query("SELECT * FROM ftSalesh   LIMIT :limit OFFSET :currentOffset ")
+    fun getAllFtSaleshFLow1(limit: Int, currentOffset: Int): Flow<List<FtSaleshWithFDivisionAndFCustomer>>
+
+    @Transaction
+    @Query("SELECT * FROM ftSalesh   LIMIT :limit OFFSET :currentOffset ")
+    fun getAllFtSaleshFLow2(limit: Int, currentOffset: Int): Flow<List<FtSaleshWithFDivisionAndFSalesmanAndFCustomer>>
+    @Transaction
+    @Query("SELECT * FROM ftSalesh   LIMIT :limit OFFSET :currentOffset ")
+    fun getAllFtSaleshFLow3(limit: Int, currentOffset: Int): Flow<List<FtSaleshWithFDivisionAndFSalesmanAndFCustomerAndItems>>
+
 
 
     @get:Query("SELECT * FROM ftSalesh ")

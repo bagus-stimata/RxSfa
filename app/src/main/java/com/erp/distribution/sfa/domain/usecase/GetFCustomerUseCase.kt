@@ -72,13 +72,6 @@ class GetFCustomerUseCase @Inject constructor(private val repository: FCustomerR
                 data.fCustomerGroupEntity?.let {
 //                    fcustomerBean.fcustomerGroupBean = it!!.toDomain()
                     fcustomerBean.fcustomerGroupBean = it.toDomain()
-//                    val fCustomerGroup: FCustomerGroup = FCustomerGroup()
-//                    if (it.id ==null || it.kode1==null || it.description==null || it.fdivisionBean==null || it.isStatusActive==null) {
-//                        Log.d("#result", "#result ${data.fCustomerGroupEntity.id} >> ${it.id} : ${it.kode1} :" +
-//                                " ${it.description} : ${it.fdivisionBean} : ${it.isStatusActive}")
-//                    }else {
-//                    }
-//                    fcustomerBean.fcustomerGroupBean = fCustomerGroup
                 }
                 fcustomerBean
             }

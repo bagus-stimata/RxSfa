@@ -3,6 +3,7 @@ package com.erp.distribution.sfa.domain.usecase
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.Observer
+import androidx.lifecycle.map
 import com.erp.distribution.sfa.data.di.SortOrder
 import com.erp.distribution.sfa.domain.repository.FtSaleshRepository
 import com.erp.distribution.sfa.domain.usecase.base.SingleUseCase
@@ -57,21 +58,25 @@ class GetFtSaleshUseCase @Inject constructor(
     fun getCacheAllFtSalesh(): LiveData<List<FtSaleshEntity>>{
         return repository.getCacheAllFtSalesh()
     }
-    fun getCacheAllFtSaleshFlow(query: String, sortOrder: SortOrder, hideSelected: Boolean): Flow<List<FtSaleshEntity>> {
-        return repository.getCacheAllFtSaleshFlow(query, sortOrder, hideSelected)
-    }
 
-    fun getCacheAllFtSaleshDomainFlow(query: String, sortOrder: SortOrder, hideSelected: Boolean): Flow<List<FtSalesh>> {
-        return repository.getCacheAllFtSaleshDomainFlow(query, sortOrder, hideSelected).map {
-            it.map { newData ->
-                //Masih Belum Berhasil Langsung
-//                fCustomerRepository.getCacheFCustomerByIdFlow(newData.fcustomerBean.id).collect {
-//                    newData.fcustomerBean = FCustomer()
+//    fun getCacheAllFtSaleshFlow(query: String, sortOrder: SortOrder, limit: Int, currentOffset: Int,hideSelected: Boolean): Flow<List<FtSaleshEntity>> {
+//        return repository.getCacheAllFtSaleshFlow(query, sortOrder, limit, currentOffset, hideSelected)
+//    }
+
+    fun getCacheAllFtSaleshFlow(query: String, sortOrder: SortOrder,  limit: Int, currentOffset: Int, hideSelected: Boolean): Flow<List<FtSalesh>> {
+        return repository.getCacheAllFtSaleshFlow(query, sortOrder, limit, currentOffset, hideSelected).map {
+            it.map {
+                val ftSaleshBean = it.toDomain()
+//                val division = it.fDivisionEntity.toDomain()
+//                fcustomerBean.fdivisionBean = division
+//                it.fCustomerGroupEntity?.let {
+//                    fcustomerBean.fcustomerGroupBean = it.toDomain()
 //                }
-                newData
+                ftSaleshBean
             }
         }
     }
+
 
 
     fun getCacheFtSaleshById(id: Long): LiveData<FtSaleshEntity>{

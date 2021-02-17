@@ -59,9 +59,9 @@ class FSaleshViewModel @ViewModelInject constructor(
     ) { query, filterPreferences ->
         Pair(query, filterPreferences)
     }.flatMapLatest { (query, filterPreferences) ->
-        getFtSaleshUseCase.getCacheAllFtSaleshDomainFlow(
+        getFtSaleshUseCase.getCacheAllFtSaleshFlow(
             query,
-            filterPreferences.sortOrder,
+            filterPreferences.sortOrder, 75, -1,
             filterPreferences.hideCompleted
         )
     }
