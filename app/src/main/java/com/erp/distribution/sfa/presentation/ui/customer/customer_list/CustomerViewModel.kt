@@ -35,6 +35,7 @@ class CustomerViewModel @ViewModelInject constructor(
     private val getFCustomerGroupUseCase: GetFCustomerGroupUseCase,
     private val preferencesManager: PreferencesManager,
     @Assisted private val state: SavedStateHandle
+
 ) : BaseViewModel() {
 
     private val TAG = CustomerViewModel::class.java.simpleName
@@ -43,15 +44,10 @@ class CustomerViewModel @ViewModelInject constructor(
         val message = ExceptionHandler.parse(exception)
 //        _userViewState.value = _userViewState.value?.copy(error = Error(message))
     }
-    var userViewState: UserViewState = UserViewState()
+    val userViewState = state.get<UserViewState>("userViewStateActive")
     val userViewStateLive: LiveData<Resource<UserViewState>> = MutableLiveData()
 
     val searchQuery = state.getLiveData("searchQuery", "")
-
-    val preferencesFlow = preferencesManager.preferencesFlow
-
-    private val fCustomerEventChannel = Channel<CustomerEvent>()
-    val fCustomerEvent = fCustomerEventChannel.receiveAsFlow()
 
     fun getFDivisionEntityLive(id: Int):LiveData<FDivisionEntity> {
         return getFDivisionUseCase.getCacheFDivisionById(id)
@@ -73,13 +69,14 @@ class CustomerViewModel @ViewModelInject constructor(
     }
 
 
+    val preferencesFlow = preferencesManager.preferencesFlow
     private val fCustomerFlow = combine(
         searchQuery.asFlow(),
         preferencesFlow
     ) { query, filterPreferences ->
         Pair(query, filterPreferences)
     }.flatMapLatest { (query, filterPreferences) ->
-        getFCustomerUseCase.getCacheAllFCustomerDomainFlow(query, filterPreferences.sortOrder, filterPreferences.hideCompleted)
+        getFCustomerUseCase.getCacheAllFCustomerDomainFlow(query, filterPreferences.sortOrder, 50, -1, filterPreferences.hideCompleted)
     }
     val fCustomerLive = fCustomerFlow.asLiveData()
 //    val fCustomerLive = getFCustomerUseCase.getCacheAllFCustomerWithFDivisionDomainLive()
@@ -111,7 +108,6 @@ class CustomerViewModel @ViewModelInject constructor(
                             Log.d(TAG, "#result FCustomer error  ${it.message}")
                         },
                         {
-
                         }
                 )
         )
@@ -195,6 +191,8 @@ class CustomerViewModel @ViewModelInject constructor(
         )
     }
 
+    private val fCustomerEventChannel = Channel<CustomerEvent>()
+    val fCustomerEvent = fCustomerEventChannel.receiveAsFlow()
 
     sealed class CustomerEvent {
         object NavigateToAddCustomerScreen : CustomerEvent()

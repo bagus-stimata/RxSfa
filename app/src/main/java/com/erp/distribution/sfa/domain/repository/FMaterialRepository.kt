@@ -21,7 +21,7 @@ interface FMaterialRepository {
     fun deleteRemoteFMaterial(authHeader: String, id: Int): Single<FMaterialEntity>
 
     fun getCacheAllFMaterial(): LiveData<List<FMaterialEntity>>
-    fun getCacheAllFMaterialFlow(query: String, sortOrder: SortOrder, hideSelected: Boolean): Flow<List<FMaterialWithFDivisionAndVendorAndGroup>>
+    fun getCacheAllFMaterialFlow(query: String, sortOrder: SortOrder, limit: Int, currentOffset: Int, hideSelected: Boolean): Flow<List<FMaterialWithFDivisionAndVendorAndGroup>>
     fun getCacheFMaterialById(id: Int): LiveData<FMaterialEntity>
     fun getCacheAllFMaterialByDivision(divisionId: Int): LiveData<List<FMaterialEntity>>
     fun addCacheFMaterial(fMaterialEntity: FMaterialEntity)

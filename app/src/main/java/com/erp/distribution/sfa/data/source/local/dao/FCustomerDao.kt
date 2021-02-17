@@ -33,16 +33,15 @@ interface FCustomerDao {
     @Query("DELETE FROM fCustomer")
     fun deleteAllFCustomer()
 
-//
-    fun getAllFCustomerFlow(query: String, sortOrder: SortOrder, hideSelected: Boolean?): Flow<List<FCustomerWithFDivisionAndGroup>> =
+    fun getAllFCustomerFlow(query: String, sortOrder: SortOrder, limit: Int, currentOffset: Int, hideSelected: Boolean?): Flow<List<FCustomerWithFDivisionAndGroup>> =
         when (sortOrder) {
             SortOrder.BY_KODE -> {
-                getAllFCustomerSortedByIDFLow(query)
+                getAllFCustomerSortedByIDFLow( query, limit, currentOffset)
             }
             SortOrder.BY_NAME -> {
-                getAllFCustomerSortedByNameFLow(query)
+                getAllFCustomerSortedByNameFLow( query, limit, currentOffset)
             }
-                else -> getAllFCustomerFLow()
+                else -> getAllFCustomerFLow( limit, currentOffset)
         }
 
 
@@ -52,18 +51,16 @@ interface FCustomerDao {
 //    fun getAllFCustomerSortedByIDFLow(searchQuery: String): Flow<List<FCustomerEntity>>
 
     @Transaction
-    @Query("SELECT * FROM fCustomer WHERE  custname LIKE '%' || :searchQuery || '%'  OR custno LIKE '%' || :searchQuery || '%'  ORDER BY custname ")
-    fun getAllFCustomerSortedByNameFLow(searchQuery: String): Flow<List<FCustomerWithFDivisionAndGroup>>
+    @Query("SELECT * FROM fCustomer WHERE  custname LIKE '%' || :searchQuery || '%'  OR custno LIKE '%' || :searchQuery || '%'  ORDER BY custname  LIMIT :limit OFFSET :currentOffset ")
+    fun getAllFCustomerSortedByNameFLow(searchQuery: String, limit: Int, currentOffset: Int): Flow<List<FCustomerWithFDivisionAndGroup>>
     @Transaction
-    @Query("SELECT * FROM fCustomer WHERE  custname LIKE '%' || :searchQuery || '%'  OR custno LIKE '%' || :searchQuery || '%'    ORDER BY custno ")
-    fun getAllFCustomerSortedByIDFLow(searchQuery: String): Flow<List<FCustomerWithFDivisionAndGroup>>
+    @Query("SELECT * FROM fCustomer WHERE  custname LIKE '%' || :searchQuery || '%'  OR custno LIKE '%' || :searchQuery || '%'    ORDER BY custno  LIMIT :limit OFFSET :currentOffset ")
+    fun getAllFCustomerSortedByIDFLow(searchQuery: String, limit: Int, currentOffset: Int): Flow<List<FCustomerWithFDivisionAndGroup>>
 
 
-//    @Query("SELECT * FROM fCustomer ")
-//    fun getAllFCustomerFLow(): Flow<List<FCustomerEntity>>
     @Transaction
-    @Query("SELECT * FROM fCustomer ")
-    fun getAllFCustomerFLow(): Flow<List<FCustomerWithFDivisionAndGroup>>
+    @Query("SELECT * FROM fCustomer LIMIT :limit OFFSET :currentOffset ")
+    fun getAllFCustomerFLow( limit: Int, currentOffset: Int): Flow<List<FCustomerWithFDivisionAndGroup>>
 
     @Transaction
     @Query("SELECT * FROM fCustomer ")

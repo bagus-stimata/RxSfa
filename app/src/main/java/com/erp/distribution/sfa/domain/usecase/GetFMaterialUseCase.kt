@@ -51,8 +51,8 @@ class GetFMaterialUseCase @Inject constructor(private val repository: FMaterialR
     fun getCacheAllFMaterial(): LiveData<List<FMaterialEntity>>{
         return repository.getCacheAllFMaterial()
     }
-    fun getCacheAllFMaterialFlow(query: String, sortOrder: SortOrder, hideSelected: Boolean): Flow<List<FMaterial>> {
-        return repository.getCacheAllFMaterialFlow(query, sortOrder, hideSelected).map {
+    fun getCacheAllFMaterialFlow(query: String, sortOrder: SortOrder,  limit: Int, currentOffset: Int, hideSelected: Boolean): Flow<List<FMaterial>> {
+        return repository.getCacheAllFMaterialFlow(query, sortOrder, limit, currentOffset, hideSelected).map {
             it.map {
                 val fmaterialBean = it.fMaterialEntity.toDomain()
                 val division = it.fDivisionEntity.toDomain()

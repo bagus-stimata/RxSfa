@@ -40,11 +40,7 @@ class CustomerFragment : Fragment(R.layout.fragment_customer), CustomerAdapter.O
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
-
     }
-
-
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -52,8 +48,6 @@ class CustomerFragment : Fragment(R.layout.fragment_customer), CustomerAdapter.O
         val binding = FragmentCustomerBinding.bind(view)
 
         val customerAdapter = CustomerAdapter(this)
-
-
 
         /**
          * Untuk mematikan backStack (PopUp Back Stack dan memaksa untuk menggunakan Home Button)

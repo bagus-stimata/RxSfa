@@ -14,7 +14,6 @@ import io.reactivex.rxjava3.core.Single
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
 
-
 /**
  * This repository is responsible for
  * fetching data[Album] from server or db
@@ -22,6 +21,7 @@ import kotlinx.coroutines.flow.map
 class FMaterialRepositoryImpl(
     private val appDatabase: AppDatabase,
     private val retrofitService: RetrofitServiceFMaterial
+
 ) : FMaterialRepository {
 
     override fun getRemoteAllFMaterial(authHeader: String): Single<List<FMaterialEntity>> {
@@ -56,8 +56,8 @@ class FMaterialRepositoryImpl(
     override fun getCacheAllFMaterial(): LiveData<List<FMaterialEntity>> {
         return appDatabase.materialDao.getAllFMaterialEntityLive
     }
-    override fun getCacheAllFMaterialFlow(query: String, sortOrder: SortOrder, hideSelected: Boolean): Flow<List<FMaterialWithFDivisionAndVendorAndGroup>> {
-        return appDatabase.materialDao.getAllFMaterialFlow(query, sortOrder, hideSelected)
+    override fun getCacheAllFMaterialFlow(query: String, sortOrder: SortOrder,  limit: Int, currentOffset: Int, hideSelected: Boolean): Flow<List<FMaterialWithFDivisionAndVendorAndGroup>> {
+        return appDatabase.materialDao.getAllFMaterialFlow(query, sortOrder, limit, currentOffset, hideSelected)
     }
 
 

@@ -32,39 +32,32 @@ interface FMaterialDao {
     fun deleteAllFMaterial()
 
 
-    fun getAllFMaterialFlow(query: String, sortOrder: SortOrder, hideSelected: Boolean?): Flow<List<FMaterialWithFDivisionAndVendorAndGroup>> =
+    fun getAllFMaterialFlow(query: String, sortOrder: SortOrder, limit: Int, currentOffset: Int, hideSelected: Boolean?): Flow<List<FMaterialWithFDivisionAndVendorAndGroup>> =
             when (sortOrder) {
                 SortOrder.BY_KODE -> {
-                    getAllFMaterialSortedByIDFLow(query)
+                    getAllFMaterialSortedByIDFLow(query, limit, currentOffset)
                 }
                 SortOrder.BY_NAME -> {
-                    getAllFMaterialSortedByNameFLow(query)
+                    getAllFMaterialSortedByNameFLow(query, limit, currentOffset)
                 }
-                else -> getAllFMaterialFLow()
+                else -> getAllFMaterialFLow( limit, currentOffset)
             }
 
-    @Query("SELECT * FROM fMaterial WHERE (selected = :hideSelected OR selected = 0 OR selected = NULL) AND pname LIKE '%' || :searchQuery || '%' ORDER BY pname ")
-    fun getAllFMaterialSortedByName(searchQuery: String, hideSelected: Boolean): Flow<List<FMaterialEntity>>
+    @Query("SELECT * FROM fMaterial WHERE (selected = :hideSelected OR selected = 0 OR selected = NULL) AND pname LIKE '%' || :searchQuery || '%' ORDER BY pname   LIMIT :limit OFFSET :currentOffset ")
+    fun getAllFMaterialSortedByName(searchQuery: String,  limit: Int, currentOffset: Int, hideSelected: Boolean): Flow<List<FMaterialEntity>>
 
-    @Query("SELECT * FROM fMaterial WHERE (selected = :hideSelected OR selected = 0 OR selected = NULL) AND pname LIKE '%' || :searchQuery || '%'  ORDER BY created ")
-    fun getAllFMaterialSortedByDateCreated(searchQuery: String, hideSelected: Boolean): Flow<List<FMaterialEntity>>
-
-//    @Query("SELECT * FROM fMaterial WHERE  pname LIKE '%' || :searchQuery || '%'  OR pcode LIKE '%' || :searchQuery || '%' ORDER BY pname ")
-//    fun getAllFMaterialSortedByNameFLow(searchQuery: String): Flow<List<FMaterialEntity>>
-//    @Query("SELECT * FROM fMaterial WHERE  pname LIKE '%' || :searchQuery || '%'  OR pcode LIKE '%' || :searchQuery || '%'  ORDER BY pcode ")
-//    fun getAllFMaterialSortedByIDFLow(searchQuery: String): Flow<List<FMaterialEntity>>
-//    @Query("SELECT * FROM fMaterial ")
-//    fun getAllFMaterialFLow(): Flow<List<FMaterialEntity>>
+    @Query("SELECT * FROM fMaterial WHERE (selected = :hideSelected OR selected = 0 OR selected = NULL) AND pname LIKE '%' || :searchQuery || '%'  ORDER BY created   LIMIT :limit OFFSET :currentOffset ")
+    fun getAllFMaterialSortedByDateCreated(searchQuery: String, limit: Int, currentOffset: Int,  hideSelected: Boolean): Flow<List<FMaterialEntity>>
 
     @Transaction
-    @Query("SELECT * FROM fMaterial WHERE  pname LIKE '%' || :searchQuery || '%'  OR pcode LIKE '%' || :searchQuery || '%' ORDER BY pname ")
-    fun getAllFMaterialSortedByNameFLow(searchQuery: String): Flow<List<FMaterialWithFDivisionAndVendorAndGroup>>
+    @Query("SELECT * FROM fMaterial WHERE  pname LIKE '%' || :searchQuery || '%'  OR pcode LIKE '%' || :searchQuery || '%' ORDER BY pname   LIMIT :limit OFFSET :currentOffset ")
+    fun getAllFMaterialSortedByNameFLow(searchQuery: String,  limit: Int, currentOffset: Int ): Flow<List<FMaterialWithFDivisionAndVendorAndGroup>>
     @Transaction
-    @Query("SELECT * FROM fMaterial WHERE  pname LIKE '%' || :searchQuery || '%'  OR pcode LIKE '%' || :searchQuery || '%'  ORDER BY pcode ")
-    fun getAllFMaterialSortedByIDFLow(searchQuery: String): Flow<List<FMaterialWithFDivisionAndVendorAndGroup>>
+    @Query("SELECT * FROM fMaterial WHERE  pname LIKE '%' || :searchQuery || '%'  OR pcode LIKE '%' || :searchQuery || '%'  ORDER BY pcode   LIMIT :limit OFFSET :currentOffset ")
+    fun getAllFMaterialSortedByIDFLow(searchQuery: String,  limit: Int, currentOffset: Int ): Flow<List<FMaterialWithFDivisionAndVendorAndGroup>>
     @Transaction
-    @Query("SELECT * FROM fMaterial ")
-    fun getAllFMaterialFLow(): Flow<List<FMaterialWithFDivisionAndVendorAndGroup>>
+    @Query("SELECT * FROM fMaterial   LIMIT :limit OFFSET :currentOffset ")
+    fun getAllFMaterialFLow( limit: Int, currentOffset: Int): Flow<List<FMaterialWithFDivisionAndVendorAndGroup>>
 
 
     @Query("SELECT * FROM fMaterial WHERE id = :id ")

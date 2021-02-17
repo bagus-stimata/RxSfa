@@ -50,6 +50,8 @@ class SyncViewModel @ViewModelInject constructor(
     private val TAG = SyncViewModel::class.simpleName
 
     val userViewState = state.get<UserViewState>("userViewStateActive")
+    val userViewStateLive: LiveData<Resource<UserViewState>> = MutableLiveData<Resource<UserViewState>>()
+
     //if you want to bind  to each field
 //    var fUserName = state.get<String>("userName") ?: fUser?.username ?: ""
 //        set(value) {
@@ -65,7 +67,6 @@ class SyncViewModel @ViewModelInject constructor(
 //        _userViewState.value = _userViewState.value?.copy(error = Error(message))
     }
 //    override var userViewState: UserViewState = UserViewState()
-    val userViewStateLive: LiveData<Resource<UserViewState>> = MutableLiveData<Resource<UserViewState>>()
 
 
     var isLoading = false

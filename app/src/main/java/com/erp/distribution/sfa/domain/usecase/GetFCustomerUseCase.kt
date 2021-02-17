@@ -16,7 +16,6 @@ import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
 import javax.inject.Inject
 
-
 /**
  * An interactor that calls the actual implementation of [AlbumViewModel](which is injected by DI)
  * it handles the response that returns data &
@@ -50,10 +49,6 @@ class GetFCustomerUseCase @Inject constructor(private val repository: FCustomerR
     fun deleteRemoteFCustomer(authHeader: String, id: Int): Single<FCustomerEntity>{
         return repository.deleteRemoteFCustomer(authHeader, id)
     }
-
-    
-
-
     fun getCacheAllFCustomer(): LiveData<List<FCustomerEntity>>{
         return repository.getCacheAllFCustomer()
     }
@@ -110,8 +105,8 @@ class GetFCustomerUseCase @Inject constructor(private val repository: FCustomerR
 //        return repository.getCacheAllFCustomerFlow(query, sortOrder, hideSelected)
 //    }
 
-    fun getCacheAllFCustomerDomainFlow(query: String, sortOrder: SortOrder, hideSelected: Boolean): Flow<List<FCustomer>> {
-        return repository.getCacheAllFCustomerFlow(query, sortOrder, hideSelected).map {
+    fun getCacheAllFCustomerDomainFlow(query: String, sortOrder: SortOrder,  limit: Int, currentOffset: Int, hideSelected: Boolean): Flow<List<FCustomer>> {
+        return repository.getCacheAllFCustomerFlow(query, sortOrder, limit, currentOffset, hideSelected).map {
             it.map {
                 val fcustomerBean = it.fCustomerEntity.toDomain()
                 val division = it.fDivisionEntity.toDomain()

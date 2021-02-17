@@ -55,7 +55,7 @@ class FMaterialViewModel @ViewModelInject constructor(
     ) { query, filterPreferences ->
         Pair(query, filterPreferences)
     }.flatMapLatest { (query, filterPreferences) ->
-        getFMaterialUseCase.getCacheAllFMaterialFlow(query, filterPreferences.sortOrder, filterPreferences.hideCompleted)
+        getFMaterialUseCase.getCacheAllFMaterialFlow(query, filterPreferences.sortOrder, 50, -1, filterPreferences.hideCompleted)
 //        getFMaterialUseCase.getCacheAllFMaterialDomainFlow(query, filterPreferences.sortOrder, filterPreferences.hideCompleted)
     }
 
