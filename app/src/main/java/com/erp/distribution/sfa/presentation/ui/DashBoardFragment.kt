@@ -31,32 +31,19 @@ class DashBoardFragment : Fragment(R.layout.dash_board_fragment) {
 
     private val TAG = DashBoardFragment::class.java.simpleName
 
-//    override val bindingVariable: Int
-//        get() = BR.mainViewModel
-//    override val  viewModel: MainViewModel by viewModels<MainViewModel> ()
     val  mainViewModel: MainViewModel by viewModels<MainViewModel> ()
     val  dashboardViewModel: DashBoardViewModel by viewModels<DashBoardViewModel> ()
-
-//    override val layoutId: Int
-//        get() = R.layout.dash_board_fragment
 
 
     lateinit var viewBinding: DashBoardFragmentBinding
 
-
-//    override fun onCreateView(
-//        inflater: LayoutInflater, container: ViewGroup?,
-//        savedInstanceState: Bundle?
-//    ): View? {
-//        return inflater.inflate(R.layout.dash_board_fragment, container, false)
-//    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
         viewBinding = DashBoardFragmentBinding.bind(view)
 
-//        viewBinding.mainViewModel = this.mainViewModel
+//      viewBinding.mainViewModel = this.mainViewModel
         viewBinding.actionActivity = this
         viewBinding.userViewState = UserViewState()
 
@@ -73,8 +60,8 @@ class DashBoardFragment : Fragment(R.layout.dash_board_fragment) {
             val result = bundle.getParcelable<FUser>("fromLoginFragment_resultKey")
 //            val result = bundle.getParcelable("fromLoginFragment_resultKey")
             result?.let { resultFromLogin(result as FUser) }
-
         }
+
     }
 
     fun observeUserOtenticationToView() {
@@ -84,47 +71,51 @@ class DashBoardFragment : Fragment(R.layout.dash_board_fragment) {
                 is Resource.Loading ->{
                 }
                 is Resource.Success ->{
-
                     val data = userViewState.data
+                    /**
+                     * Masih suka telah loading jadi
+                     */
                     if (data.fUser ==null || data.fSalesman ==null || data.fDivision ==null || data.fWarehouse ==null) {
-
+//                    if (data.fUser ==null) {
+                        showLoginView() //-> jadi di non aktifkan dahulu
                     }else {
-                        viewBinding.userViewState = data
+                        mainViewModel.userViewState = data
+                        viewBinding.userViewState =  mainViewModel.userViewState
                     }
                 }
                 is Resource.Failure ->{
                 }
             }
         })
-
     }
 
 
     fun showLoginView() {
-//        Log.e(TAG, "#result fragment atas \n\n")
-
-        val action =
-                DashBoardFragmentDirections.actionDashBoardFragmentToLoginFragment()
-        findNavController().navigate(action)
-
-//        Log.e(TAG, "#result fragment bawah \n\n")
-
-    }
-
-
-    fun menuSyncronize() {
-    }
-
-    fun menuSalesOrder() {
-    }
-
-    fun menuProduct() {
         /**
          * Sebagai Pendukung jika pada aktiviti main
          * tidak bisa menjalankan fungsinya dengan baik
          */
+        val action =
+                DashBoardFragmentDirections.actionDashBoardFragmentToLoginFragment()
+        findNavController().navigate(action)
+    }
+
+
+    fun menuSyncronize() {
+        val action= DashBoardFragmentDirections.actionDashBoardFragmentToSyncronizeFragment(
+                mainViewModel.userViewState
+        )
+        findNavController().navigate(action)
+    }
+
+    fun menuSalesOrder() {
+//        Log.d(TAG, "#result hello ${mainViewModel.userViewState.fUser!!.username}")
+//        Toast.makeText(context,"#result hello ${mainViewModel.userViewState.fUser!!.username}", Toast.LENGTH_SHORT ).show()
+    }
+
+    fun menuProduct() {
         val action = DashBoardFragmentDirections.actionDashBoardFragmentToFMaterialFragment(
-                FUserEntity()
+               mainViewModel.userViewState
         )
         findNavController().navigate(action)
     }
@@ -132,7 +123,7 @@ class DashBoardFragment : Fragment(R.layout.dash_board_fragment) {
     fun menuCustomer() {
 
         val action = DashBoardFragmentDirections.actionDashBoardFragmentToFCustomerFragment(
-                FUserEntity()
+                mainViewModel.userViewState
         )
         findNavController().navigate(action)
 
@@ -184,11 +175,6 @@ class DashBoardFragment : Fragment(R.layout.dash_board_fragment) {
 
                         },
                         {
-//                                Log.d(TAG, "#result Error")
-//                                Timber.e("Get repo error: $it")
-//                                mainViewModel.setThrowable(it)
-
-                            showLoginView()
                         },
                         {
                         }

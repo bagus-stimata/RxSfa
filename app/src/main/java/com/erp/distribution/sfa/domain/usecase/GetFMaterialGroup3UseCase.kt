@@ -29,8 +29,8 @@ class GetFMaterialGroup3UseCase @Inject constructor(private val repository: FMat
     fun getRemoteFMaterialGroup3ById(authHeader: String, id: Int): Single<FMaterialGroup3Entity>{
         return repository.getRemoteFMaterialGroup3ById(authHeader, id)
     }
-    fun getRemoteAllFMaterialGroup3ByParent(authHeader: String, divisionId: Int): Single<List<FMaterialGroup3Entity>>{
-        return repository.getRemoteAllFMaterialGroup3ByParent(authHeader, divisionId)
+    fun getRemoteAllFMaterialGroup3ByParent(authHeader: String, parentId: Int): Single<List<FMaterialGroup3Entity>>{
+        return repository.getRemoteAllFMaterialGroup3ByParent(authHeader, parentId)
     }
     fun createRemoteFMaterialGroup3(authHeader: String, fMaterialGroup3Entity: FMaterialGroup3Entity): Single<FMaterialGroup3Entity>{
         return repository.createRemoteFMaterialGroup3(authHeader, fMaterialGroup3Entity)

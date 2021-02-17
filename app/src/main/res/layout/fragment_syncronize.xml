@@ -1,0 +1,152 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context=".presentation.ui.syncronize_fromserver.SyncronizeActivity">
+
+    <data>
+        <variable
+            name="syncViewModel"
+            type="com.erp.distribution.sfa.presentation.ui.syncronize_fromserver.SyncViewModel" />
+        <variable
+            name="isLoading"
+            type="Boolean" />
+
+        <variable
+            name="actionFragment"
+            type="com.erp.distribution.sfa.presentation.ui.syncronize_fromserver.SyncronizeFragment" />
+
+        <import type="android.view.View"/>
+
+    </data>
+
+<androidx.constraintlayout.widget.ConstraintLayout
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <RelativeLayout
+        android:layout_width="150dp"
+        android:layout_height="150dp"
+        android:layout_margin="50dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.01999998">
+
+        <ProgressBar
+            android:id="@+id/progress_bar"
+            style="@style/Widget.AppCompat.ProgressBar.Horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@drawable/circle_progressbar_ring"
+            android:indeterminateDrawable="@drawable/circle_pogress_bar_brown_thin"
+            android:progressDrawable="@drawable/circle_pogress_bar"
+            android:max="100"
+            android:textAlignment="center" />
+<!--        android:indeterminate="true"-->
+<!--        android:indeterminateDuration="500"-->
+<!--        android:indeterminateBehavior="repeat"-->
+
+        <TextView
+            android:id="@+id/progress_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentBottom="true"
+            android:gravity="center"
+            android:text="0"
+            android:textSize="30sp" />
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="300dp"
+        android:layout_height="match_parent"
+        android:layout_margin="200dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.050000012">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_margin="10dp"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/checkList1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentTop="true"
+                android:layout_alignParentRight="true"
+                android:layout_alignParentBottom="true"
+                android:layout_margin="5dp"
+                android:gravity="center"
+                android:textSize="15sp" />
+<!--            android:text="@{syncViewModel.checkList1}"-->
+
+            <TextView
+                android:id="@+id/checkList2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentTop="true"
+                android:layout_alignParentRight="true"
+                android:layout_alignParentBottom="true"
+                android:layout_margin="5dp"
+                android:gravity="center"
+                android:textSize="15sp" />
+<!--            android:text="@{syncViewModel.checkList2}"-->
+
+            <TextView
+                android:id="@+id/checkList3"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentTop="true"
+                android:layout_alignParentRight="true"
+                android:layout_alignParentBottom="true"
+                android:layout_margin="5dp"
+                android:gravity="center"
+                android:textSize="15sp" />
+<!--            android:text="@{syncViewModel.checkList3}"-->
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentTop="true"
+                android:layout_alignParentRight="true"
+                android:layout_alignParentBottom="true"
+                android:layout_margin="5dp"
+                android:gravity="center"
+                android:text="@{syncViewModel.checkList4}"
+                android:textSize="15sp" />
+
+            <Button
+                android:id="@+id/buttonStartStopSync"
+                android:onClick="@{() -> actionFragment.startStopSync()}"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:textColor="@color/red"
+                android:enabled="@{ ! isLoading}"
+                android:text="Start Sync" />
+<!--            android:visibility= "@{syncViewModel.isLoading? View.GONE: View.VISIBLE}"-->
+
+        </LinearLayout>
+
+    </RelativeLayout>
+
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>
+
+</layout>

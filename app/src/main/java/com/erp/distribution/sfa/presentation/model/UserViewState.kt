@@ -13,14 +13,17 @@
  **/
 package com.erp.distribution.sfa.presentation.model
 
+import android.os.Parcelable
 import com.erp.distribution.sfa.data.source.entity_security.FUserEntity
 import com.erp.distribution.sfa.domain.model.FDivision
 import com.erp.distribution.sfa.domain.model.FSalesman
 import com.erp.distribution.sfa.domain.model.FUser
 import com.erp.distribution.sfa.domain.model.FWarehouse
 import com.erp.distribution.sfa.domain.model.states.Error
+import kotlinx.parcelize.Parcelize
 
 
+@Parcelize
 data class UserViewState(
         val isComplete: Boolean =false,
         val error: Error? = null,
@@ -28,4 +31,4 @@ data class UserViewState(
         val fDivision: FDivision? = null,
         val fSalesman: FSalesman? = null,
         val fWarehouse: FWarehouse? = null
-)
+): Parcelable

@@ -18,10 +18,12 @@ interface FMaterialGroup2Repository {
     fun getCacheAllFMaterialGroup2(): LiveData<List<FMaterialGroup2Entity>>
     fun getCacheFMaterialGroup2ById(id: Int): LiveData<FMaterialGroup2Entity>
     fun getCacheAllFMaterialGroup2ByParent(divisionId: Int): LiveData<List<FMaterialGroup2Entity>>
+
+    fun addCacheListFMaterialGroup2(list: List<FMaterialGroup2Entity>)
     fun addCacheFMaterialGroup2(fMaterialGroup2Entity: FMaterialGroup2Entity)
+
     fun putCacheFMaterialGroup2(fMaterialGroup2Entity: FMaterialGroup2Entity)
     fun deleteCacheFMaterialGroup2(fMaterialGroup2Entity: FMaterialGroup2Entity)
     fun deleteAllCacheFMaterialGroup2()
-
 
 }

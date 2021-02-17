@@ -19,33 +19,63 @@
         <action
             android:id="@+id/action_dashBoardFragment_to_loginFragment"
             app:destination="@id/loginFragment" />
+        <action
+            android:id="@+id/action_dashBoardFragment_to_syncronizeFragment"
+            app:destination="@id/syncronizeFragment" />
     </fragment>
     <fragment
         android:id="@+id/FMaterialFragment"
         android:name="com.erp.distribution.sfa.presentation.ui.material.material_list.FMaterialFragment"
         android:label="fragment_fmaterial"
         tools:layout="@layout/fragment_fmaterial" >
+<!--        <argument-->
+<!--            android:name="fUserActive"-->
+<!--            app:argType="com.erp.distribution.sfa.domain.model.FUser"-->
+<!--            app:nullable="true"-->
+<!--            android:defaultValue="@null" />-->
         <argument
-            android:name="fUserActive"
-            app:argType="com.erp.distribution.sfa.data.source.entity_security.FUserEntity"
+            android:name="userViewStateActive"
+            app:argType="com.erp.distribution.sfa.presentation.model.UserViewState"
             app:nullable="true"
             android:defaultValue="@null" />
+
     </fragment>
     <fragment
         android:id="@+id/FCustomerFragment"
         android:name="com.erp.distribution.sfa.presentation.ui.customer.customer_list.CustomerFragment"
         android:label="fragment_customer"
         tools:layout="@layout/fragment_customer" >
+<!--        <argument-->
+<!--            android:name="fUserActive"-->
+<!--            app:argType="com.erp.distribution.sfa.domain.model.FUser"-->
+<!--            app:nullable="true"-->
+<!--            android:defaultValue="@null" />-->
         <argument
-            android:name="fUserActive"
-            app:argType="com.erp.distribution.sfa.data.source.entity_security.FUserEntity"
+            android:name="userViewStateActive"
+            app:argType="com.erp.distribution.sfa.presentation.model.UserViewState"
             app:nullable="true"
             android:defaultValue="@null" />
+
     </fragment>
     <fragment
         android:id="@+id/loginFragment"
         android:name="com.erp.distribution.sfa.presentation.ui.LoginFragment"
         android:label="LoginFragment" />
+    <fragment
+        android:id="@+id/syncronizeFragment"
+        android:name="com.erp.distribution.sfa.presentation.ui.syncronize_fromserver.SyncronizeFragment"
+        android:label="SyncronizeFragment" >
+<!--        <argument-->
+<!--            android:name="fUserActive"-->
+<!--            app:argType="com.erp.distribution.sfa.domain.model.FUser"-->
+<!--            app:nullable="true"-->
+<!--            android:defaultValue="@null" />-->
+        <argument
+            android:name="userViewStateActive"
+            app:argType="com.erp.distribution.sfa.presentation.model.UserViewState"
+            app:nullable="true"
+            android:defaultValue="@null" />
+    </fragment>
 
 
 </navigation>

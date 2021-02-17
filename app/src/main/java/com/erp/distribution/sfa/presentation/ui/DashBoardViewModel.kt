@@ -17,7 +17,9 @@ class DashBoardViewModel @ViewModelInject constructor(
         val message = ExceptionHandler.parse(exception)
 //        _userViewStateLive.value = _userViewStateLive.value?.copy(error = Error(message))
     }
-    override var userViewState: UserViewState = UserViewState()
-    override val userViewStateLive: LiveData<Resource<UserViewState>> = MutableLiveData()
+//    var userViewState: UserViewState = UserViewState()
+//    val userViewStateLive: LiveData<Resource<UserViewState>> = MutableLiveData()
+
+
 
 }

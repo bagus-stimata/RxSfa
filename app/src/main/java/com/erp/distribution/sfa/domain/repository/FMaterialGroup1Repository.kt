@@ -2,6 +2,7 @@ package com.erp.distribution.sfa.domain.repository
 
 import androidx.lifecycle.LiveData
 import com.erp.distribution.sfa.data.source.entity.FMaterialGroup1Entity
+import com.erp.distribution.sfa.domain.model.FMaterialGroup1
 import io.reactivex.rxjava3.core.Single
 
 /**
@@ -20,6 +21,7 @@ interface FMaterialGroup1Repository {
     fun getCacheFMaterialGroup1ById(id: Int): LiveData<FMaterialGroup1Entity>
     fun getCacheAllFMaterialGroup1ByDivision(divisionId: Int): LiveData<List<FMaterialGroup1Entity>>
     fun addCacheFMaterialGroup1(fMaterialGroup1Entity: FMaterialGroup1Entity)
+    fun addCacheListFMaterialGroup1(list: List<FMaterialGroup1Entity>)
     fun putCacheFMaterialGroup1(fMaterialGroup1Entity: FMaterialGroup1Entity)
     fun deleteCacheFMaterialGroup1(fMaterialGroup1Entity: FMaterialGroup1Entity)
     fun deleteAllCacheFMaterialGroup1()

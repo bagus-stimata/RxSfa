@@ -62,7 +62,7 @@
 
                 <TextView
                     android:id="@+id/greeting_text1"
-                    android:text="@{userViewState.component3().username + ` (` + userViewState.component5().spcode + `)` }"
+                    android:text="@{userViewState.component3().fullName }"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="70dp"
@@ -74,7 +74,7 @@
 
                 <TextView
                     android:id="@+id/greeting_text2"
-                    android:text="@{userViewState.component4().kode1 + ` | ` + userViewState.component6().kode1}"
+                    android:text="@{userViewState.component4().kode1 + ` | ` +  userViewState.component5().spcode + ` | ` + userViewState.component6().kode1}"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_below="@id/greeting_text1"
@@ -184,6 +184,7 @@
                                     android:layout_height="40dp"
                                     android:layout_centerHorizontal="true"
                                     android:src="@drawable/ic_phone_broadcast"
+                                    android:onClick="@{ ()-> actionActivity.menuSyncronize() }"
                                     app:tint="@color/blue" />
 <!--                                android:visibility="@{userActive.username.isEmpty? View.GONE : View.VISIBLE}"-->
 <!--                                android:onClick="@{() -> activity.menuSyncronize()}"-->
@@ -307,7 +308,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_below="@+id/txt_have_your"
+                        android:layout_below="@+id/txt_semangat"
                         android:layout_marginLeft="10dp"
                         android:layout_marginRight="10dp"
                         android:gravity="center"
@@ -380,6 +381,7 @@
                         android:layout_weight="0.33"
                         android:clickable="true"
                         app:cardCornerRadius="10dp"
+                        android:onClick="@{ ()-> actionActivity.menuSalesOrder() }"
                         app:cardElevation="5dp">
 <!--                        android:visibility="@{userActive.username.isEmpty? View.GONE : View.VISIBLE}"-->
 <!--                        android:onClick="@{() -> activity.menuSalesOrder()}"-->
@@ -482,6 +484,7 @@
                         android:layout_weight="0.33"
                         android:clickable="true"
                         app:cardCornerRadius="10dp"
+                        android:onClick="@{ ()-> actionActivity.menuProduct() }"
                         app:cardElevation="5dp">
 <!--                        android:visibility="@{userActive.username.isEmpty? View.GONE : View.VISIBLE}"-->
 <!--                        android:onClick="@{() -> activity.menuProduct()}"-->
@@ -528,6 +531,7 @@
                         android:background="?attr/selectableItemBackground"
                         android:clickable="true"
                         app:cardCornerRadius="10dp"
+                        android:onClick="@{ ()-> actionActivity.menuCustomer() }"
                         app:cardElevation="5dp">
 <!--                        android:visibility="@{userActive.username.isEmpty? View.GONE : View.VISIBLE}"-->
 <!--                        android:onClick="@{() -> activity.menuCustomer()}"-->

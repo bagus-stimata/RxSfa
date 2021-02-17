@@ -243,8 +243,8 @@
                       <LayoutPositions>
                         <option name="myPosition">
                           <Point>
-                            <option name="x" value="-149" />
-                            <option name="y" value="-14" />
+                            <option name="x" value="-306" />
+                            <option name="y" value="-22" />
                           </Point>
                         </option>
                         <option name="myPositions">
@@ -278,14 +278,17 @@
                             <option name="y" value="-538" />
                           </Point>
                         </option>
-                        <option name="myPositions">
-                          <map>
-                            <entry key="action_loginFragment_to_dashBoardFragment">
-                              <value>
-                                <LayoutPositions />
-                              </value>
-                            </entry>
-                          </map>
+                      </LayoutPositions>
+                    </value>
+                  </entry>
+                  <entry key="syncronizeFragment">
+                    <value>
+                      <LayoutPositions>
+                        <option name="myPosition">
+                          <Point>
+                            <option name="x" value="221" />
+                            <option name="y" value="-462" />
+                          </Point>
                         </option>
                       </LayoutPositions>
                     </value>

@@ -5,6 +5,7 @@ import com.erp.distribution.sfa.data.source.remote.service_api.RetrofitServiceFM
 import com.erp.distribution.sfa.data.source.local.database.AppDatabase
 import com.erp.distribution.sfa.domain.repository.FMaterialGroup1Repository
 import com.erp.distribution.sfa.data.source.entity.FMaterialGroup1Entity
+import com.erp.distribution.sfa.domain.model.FMaterialGroup1
 import io.reactivex.rxjava3.core.Single
 
 
@@ -58,6 +59,9 @@ class FMaterialGroup1RepositoryImpl(
         return appDatabase.materialGroup1Dao.getAllByDivisionLive(divisionId)
     }
 
+    override fun addCacheListFMaterialGroup1(list: List<FMaterialGroup1Entity>) {
+        return appDatabase.materialGroup1Dao.insertAll(list)
+    }
     override fun addCacheFMaterialGroup1(fMaterialGroup1Entity: FMaterialGroup1Entity) {
         return appDatabase.materialGroup1Dao.insert(fMaterialGroup1Entity)
     }

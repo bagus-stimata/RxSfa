@@ -127,10 +127,13 @@ class GetFUserUseCase @Inject constructor(
         return repository.getCacheAllFUserLive().switchMap {
 
             var newData = UserViewState()
-            it.iterator().forEach { data ->
-                val fUserBean: FUser = data.fUserEntity.toDomain()
-                newData = newData.copy(fUser = fUserBean)
 
+            it.iterator().forEach { data ->
+                data.fUserEntity?.let {
+                    if (! data.fUserEntity.username.isNullOrEmpty()) {
+                        newData = newData.copy(fUser = data.fUserEntity.toDomain())
+                    }
+                }
                 data.fDivisionEntity?.let {
                     if (! data.fDivisionEntity.kode1.isNullOrEmpty()) {
                         newData = newData.copy(fDivision = data.fDivisionEntity.toDomain())

@@ -28,8 +28,8 @@ class GetFMaterialGroup2UseCase @Inject constructor(private val repository: FMat
     fun getRemoteFMaterialGroup2ById(authHeader: String, id: Int): Single<FMaterialGroup2Entity>{
         return repository.getRemoteFMaterialGroup2ById(authHeader, id)
     }
-    fun getRemoteAllFMaterialGroup2ByParent(authHeader: String, divisionId: Int): Single<List<FMaterialGroup2Entity>>{
-        return repository.getRemoteAllFMaterialGroup2ByParent(authHeader, divisionId)
+    fun getRemoteAllFMaterialGroup2ByParent(authHeader: String, parentId: Int): Single<List<FMaterialGroup2Entity>>{
+        return repository.getRemoteAllFMaterialGroup2ByParent(authHeader, parentId)
     }
     fun createRemoteFMaterialGroup2(authHeader: String, fMaterialGroup2Entity: FMaterialGroup2Entity): Single<FMaterialGroup2Entity>{
         return repository.createRemoteFMaterialGroup2(authHeader, fMaterialGroup2Entity)
@@ -79,6 +79,9 @@ class GetFMaterialGroup2UseCase @Inject constructor(private val repository: FMat
                 it.toDomain()
             }
         }
+    }
+    fun addCacheListFMaterialGroup2(list: List<FMaterialGroup2Entity>){
+        repository.addCacheListFMaterialGroup2(list)
     }
     fun addCacheFMaterialGroup2(fMaterialGroup2Entity: FMaterialGroup2Entity){
         repository.addCacheFMaterialGroup2(fMaterialGroup2Entity)

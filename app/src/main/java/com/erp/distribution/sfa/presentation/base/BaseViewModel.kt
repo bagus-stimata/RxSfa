@@ -18,8 +18,8 @@ abstract class BaseViewModel  : ViewModel() {
 
     abstract val coroutineExceptionHandler: CoroutineExceptionHandler
     //User OTENTIFICATION
-    abstract var userViewState: UserViewState
-    abstract val userViewStateLive: LiveData<Resource<UserViewState>>
+//    abstract var userViewState: UserViewState
+//    abstract val userViewStateLive: LiveData<Resource<UserViewState>>
 
 
     val snackBarMessage = SingleLiveData<String>()

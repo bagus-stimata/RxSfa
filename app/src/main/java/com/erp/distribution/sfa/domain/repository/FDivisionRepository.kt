@@ -11,6 +11,7 @@ interface FDivisionRepository {
     fun getRemoteAllFDivision(authHeader: String, ): Single<List<FDivisionEntity>>
     fun getRemoteFDivisionById(authHeader: String, id: Int): Single<FDivisionEntity>
     fun getRemoteAllFDivisionByParent(authHeader: String, parentId: Int): Single<List<FDivisionEntity>>
+    fun getAllFDivisionBySameCompany(authHeader: String, divisionId: Int): Single<List<FDivisionEntity>>
     fun createRemoteFDivision(authHeader: String, fDivisionEntity: FDivisionEntity): Single<FDivisionEntity>
     fun putRemoteFDivision(authHeader: String, id: Int, fDivisionEntity: FDivisionEntity): Single<FDivisionEntity>
     fun deleteRemoteFDivision(authHeader: String, id: Int): Single<FDivisionEntity>

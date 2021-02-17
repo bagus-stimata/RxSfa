@@ -17,6 +17,7 @@ import android.os.Build
 import android.os.Bundle
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Observer
 import com.erp.distribution.sfa.utils.network.NetworkChecker
 import com.erp.distribution.sfa.utils.network.NetworkUtils
@@ -47,10 +48,10 @@ open class BaseActivity : AppCompatActivity() {
                     val netChecker = NetworkChecker(this)
                     connectionValidation = netChecker.isConnected
                 }
-
                 block(isConnected || connectionValidation)
             })
     }
+
 
 
 }

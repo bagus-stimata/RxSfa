@@ -42,9 +42,6 @@ class MainViewModel @ViewModelInject constructor(
 
     private val TAG = MainViewModel::class.java.simpleName
 
-    private val mainEventChannel = Channel<MainViewModel.MainEvent>()
-    val mainEventFlow = mainEventChannel.receiveAsFlow()
-
 
     //    override val coroutineExceptionHandler: CoroutineExceptionHandler
 //        get() = TODO("Not yet implemented")
@@ -53,10 +50,10 @@ class MainViewModel @ViewModelInject constructor(
 //        _userViewStateLive.value = _userViewStateLive.value?.copy(error = Error(message))
     }
 
-    override var userViewState: UserViewState = UserViewState()
+    var userViewState: UserViewState = UserViewState()
 //    override val userViewStateLive: LiveData<Resource<UserViewState>>
 //        get() = getWhenChangeCacheFromUserViewStateLive()
-    override val userViewStateLive: LiveData<Resource<UserViewState>>
+    val userViewStateLive: LiveData<Resource<UserViewState>>
         get() = getFUserUseCase.getWhenChangeCacheFromUserViewStateLive()
 
 
@@ -76,6 +73,16 @@ class MainViewModel @ViewModelInject constructor(
                 }
         )
     }
+    fun insertCacheFDivision(list: List<FDivisionEntity>){
+        compositeDisposable.add(Observable.fromCallable {
+            getFDivisionUseCase.addCacheListFDivision(list)
+        }
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribeOn(Schedulers.computation())
+                .subscribe {
+                }
+        )
+    }
     fun insertCacheFDivision(fDivisionEntity: FDivisionEntity){
         compositeDisposable.add(Observable.fromCallable {
             getFDivisionUseCase.addCacheFDivision(fDivisionEntity)
@@ -83,7 +90,6 @@ class MainViewModel @ViewModelInject constructor(
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribeOn(Schedulers.computation())
                 .subscribe {
-
                 }
         )
     }
@@ -109,10 +115,28 @@ class MainViewModel @ViewModelInject constructor(
     }
 
     fun getRemoteFDivisionAndSaveToCache(fUserEntity: FUserEntity) {
-        getFDivisionUseCase
-                .getRemoteFDivisionById(SecurityUtil.getAuthHeader(fUserEntity.username, fUserEntity.password), fUserEntity.fdivisionBean!!)
+//        getFDivisionUseCase
+//                .getRemoteFDivisionById(SecurityUtil.getAuthHeader(fUserEntity.username, fUserEntity.password), fUserEntity.fdivisionBean!!)
+//                .toObservable()
+//                .subscribe{
+//                    insertCacheFDivision(it)
+//                }
+
+        getFDivisionUseCase.getAllFDivisionBySameCompanyUsingDivId(SecurityUtil.getAuthHeader(fUserEntity.username, fUserEntity.password), fUserEntity.fdivisionBean!!)
                 .toObservable()
-                .subscribe{
+                .map {
+                    it.map {
+                        if (it.id == fUserEntity.fdivisionBean){
+                            it.isStatusActive = true
+                        }else {
+                            it.isStatusActive = false
+                        }
+                        it
+                    }
+                }
+//                .observeOn(AndroidSchedulers.mainThread())
+//                .subscribeOn(Schedulers.io())
+                .subscribe {
                     insertCacheFDivision(it)
                 }
     }
@@ -121,7 +145,7 @@ class MainViewModel @ViewModelInject constructor(
                 .getRemoteFSalesmanById(SecurityUtil.getAuthHeader(fUserEntity.username, fUserEntity.password), fUserEntity.fsalesmanBean!!)
                 .toObservable()
                 .subscribe {
-                    Log.d(TAG, "#result Salesman ==== ${fUserEntity.fsalesmanBean} >> ${it}")
+//                    Log.d(TAG, "#result Salesman ==== ${fUserEntity.fsalesmanBean} >> ${it}")
                     insertCacheFSalesman(it)
                 }
     }
@@ -153,6 +177,17 @@ class MainViewModel @ViewModelInject constructor(
     }
 
 
+    /**
+     * Event Flow
+     */
+    private val mainEventChannel = Channel<MainViewModel.MainEvent>()
+    val mainEventFlow = mainEventChannel.receiveAsFlow()
+
+    sealed class MainEvent {
+        data class ShowInvalidInputMessage(val msg: String) : MainEvent()
+        data class NavigateBackWithResult(val result: Int) : MainEvent()
+    }
+
     fun showInvalidInputMessage(text: String) = viewModelScope.launch {
         mainEventChannel.send(MainEvent.ShowInvalidInputMessage(text))
     }
@@ -160,9 +195,5 @@ class MainViewModel @ViewModelInject constructor(
         mainEventChannel.send(MainEvent.NavigateBackWithResult(value))
     }
 
-    sealed class MainEvent {
-        data class ShowInvalidInputMessage(val msg: String) : MainEvent()
-        data class NavigateBackWithResult(val result: Int) : MainEvent()
-    }
 
 }

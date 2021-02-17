@@ -63,12 +63,15 @@ class MainActivity : BaseActivity() {
 
         observeUserOtentication()
 
+
     }
 
 
 
     /**
      * Teknik on Back Navigation akan berlaku
+     * jika dari fragment maka panggil menggunakan
+     * android.R.id.home
      */
 //    override fun onSupportNavigateUp(): Boolean {
 ////        Toast.makeText(this, "Ngene iki " + navControllerOfNavGraphOfMainActivity.currentDestination .toString(), Toast.LENGTH_LONG).show()
@@ -109,23 +112,32 @@ class MainActivity : BaseActivity() {
 
     fun observeUserOtentication() {
         mainViewModel.userViewStateLive.observe(this, Observer { userViewState ->
-//            Log.d(TAG, "#result Oke bos 1 ")
             when(userViewState){
                 is Resource.Loading ->{
                 }
                 is Resource.Success ->{
                     val data = userViewState.data
 
+                    /**
+                     * Karena sering telat maka kriterianya di jadikan dua saja
+                     */
 //                    if (data.fUser ==null || data.fSalesman ==null || data.fDivision ==null || data.fWarehouse ==null){
-                    if (data.fUser ==null ){
+//                    if (
+//                            (data.fUser ==null && data.fDivision ==null) ||
+//                            (data.fUser ==null && data.fSalesman ==null) ||
+//                            (data.fUser ==null && data.fWarehouse ==null)
+//                            ){
+                    if (data.fUser ==null || data.fUser!!.username.isNullOrEmpty() || data.fUser!!.username.isBlank() ){
                         /**
                          * Note: kalau menggunakan semuanya, pasti ada yang telat. sehingga
                          * Show Login pasti di jalankan
                          */
 //                        Log.e(TAG, "#result Bawah: \n${data.fUser} \n  ${data.fSalesman} \n\n")
+
                         showLoginView()
                     }else {
                         mainViewModel.userViewState = data //Sukses dan ada datanya untuk penampilan datanya diserahkan ke fragment
+
                     }
 
                 }
@@ -142,6 +154,11 @@ class MainActivity : BaseActivity() {
         /**
          * Sering error memanggil ini
          * maka pada Fragment di gunakan juga antisipasi cadangan
+         *
+         * Noted: Sebetulnya navigasi itu adalah dari Fragment ke Fragment
+         * untuk dari Activity ke Fragment idealnya cuma sekalai jalan
+         *
+         * Maka navigasi yang lain akan di taruh di DashBoardFragment
          */
         try {
             val action =

@@ -6,19 +6,15 @@ import android.view.Menu
 import android.view.MenuInflater
 import android.view.MenuItem
 import android.view.View
+import androidx.activity.OnBackPressedCallback
 import androidx.appcompat.widget.SearchView
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.setFragmentResultListener
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.Observer
-import androidx.lifecycle.distinctUntilChanged
 import androidx.lifecycle.lifecycleScope
-import androidx.lifecycle.map
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.DividerItemDecoration
-import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
 import com.erp.distribution.sfa.data.di.SortOrder
 import com.erp.distribution.sfa.databinding.FragmentFmaterialBinding
 import com.erp.distribution.sfa.domain.model.FMaterial
@@ -43,9 +39,17 @@ class FMaterialFragment : Fragment(R.layout.fragment_fmaterial), FMaterialAdapte
 
         val binding = FragmentFmaterialBinding.bind(view)
 
+        /**
+         * Agar navigasi BackStage dan tombol android.R.id.hame melewati satu
+         * pintu(method) maka
+         */
+        requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner, object: OnBackPressedCallback(true){
+            override fun handleOnBackPressed() {
+                myPopBackStack()
+            }
+        })
+
         val fMaterialAdapter = FMaterialAdapter(this)
-
-
         binding.apply {
             recyclerViewFMaterial.apply {
                 adapter = fMaterialAdapter
@@ -175,6 +179,9 @@ class FMaterialFragment : Fragment(R.layout.fragment_fmaterial), FMaterialAdapte
             }
         }
 
+        /**
+         * Mangaktifkan Semua Option Menu
+         */
         setHasOptionsMenu(true)
     }
 
@@ -228,10 +235,18 @@ class FMaterialFragment : Fragment(R.layout.fragment_fmaterial), FMaterialAdapte
                 viewModelFMaterial.onDeleteAllCompletedClick()
                 true
             }
+            android.R.id.home ->{
+                myPopBackStack()
+                true
+            }
             else -> super.onOptionsItemSelected(item)
         }
     }
 
+    fun myPopBackStack() {
+        findNavController().popBackStack()
+    }
+    
     override fun onDestroyView() {
         super.onDestroyView()
         searchView.setOnQueryTextListener(null)

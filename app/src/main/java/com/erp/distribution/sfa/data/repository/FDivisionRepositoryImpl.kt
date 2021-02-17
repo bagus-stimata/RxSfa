@@ -28,6 +28,9 @@ class FDivisionRepositoryImpl(
     override fun getRemoteAllFDivisionByParent(authHeader: String, parentId: Int): Single<List<FDivisionEntity>> {
         return retrofitService.getRemoteAllFDivisionByParent(authHeader, parentId)
     }
+    override fun getAllFDivisionBySameCompany(authHeader: String, divisionId: Int): Single<List<FDivisionEntity>> {
+        return retrofitService.getAllFDivisionBySameCompany(authHeader, divisionId)
+    }
 
     override fun createRemoteFDivision(authHeader: String, fDivisionEntity: FDivisionEntity): Single<FDivisionEntity> {
         return retrofitService.createRemoteFDivision(authHeader, fDivisionEntity)

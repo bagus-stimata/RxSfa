@@ -13,7 +13,6 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.setFragmentResult
 import androidx.fragment.app.setFragmentResultListener
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.DividerItemDecoration
@@ -42,6 +41,7 @@ class CustomerFragment : Fragment(R.layout.fragment_customer), CustomerAdapter.O
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
+
     }
 
 
@@ -56,19 +56,21 @@ class CustomerFragment : Fragment(R.layout.fragment_customer), CustomerAdapter.O
 
 
         /**
-         * Note: Bukan NavigationUp tapiBack Press
+         * Untuk mematikan backStack (PopUp Back Stack dan memaksa untuk menggunakan Home Button)
+         * kita arahkankan
          */
-//        requireActivity().onBackPressedDispatcher
-//            .addCallback(viewLifecycleOwner, object: OnBackPressedCallback(true) {
-//                override fun handleOnBackPressed() {
-//                    Toast.makeText(context, "Jancok", Toast.LENGTH_LONG).show()
-//                }
-//            })
+        requireActivity().onBackPressedDispatcher
+            .addCallback(viewLifecycleOwner, object: OnBackPressedCallback(true) {
+                override fun handleOnBackPressed() {
+                    myPopBackStack()
+                }
+            })
 
 //        val callback = object : OnBackPressedCallback(true) {
 //            override fun handleOnBackPressed() {
-//                findNavController().popBackStack()
-//                Toast.makeText(context, "hello", Toast.LENGTH_LONG).show()
+//                myPopBackStage()
+////                findNavController().popBackStack()
+////                Toast.makeText(context, "hello", Toast.LENGTH_LONG).show()
 //            }
 //        }
 //        requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner, callback)
@@ -277,8 +279,17 @@ class CustomerFragment : Fragment(R.layout.fragment_customer), CustomerAdapter.O
                 viewModel.onDeleteAllCompletedClick()
                 true
             }
+            android.R.id.home -> {
+                myPopBackStack()
+                true
+            }
             else -> super.onOptionsItemSelected(item)
         }
+    }
+
+    fun myPopBackStack() {
+        findNavController().popBackStack()
+
     }
 
     override fun onDestroyView() {

@@ -74,6 +74,9 @@ class GetFMaterialGroup1UseCase @Inject constructor(private val repository: FMat
             }
         }
     }
+    fun addCacheListFMaterialGroup1(list: List<FMaterialGroup1Entity>){
+        repository.addCacheListFMaterialGroup1(list)
+    }
     fun addCacheFMaterialGroup1(fMaterialGroup1Entity: FMaterialGroup1Entity){
         repository.addCacheFMaterialGroup1(fMaterialGroup1Entity)
     }

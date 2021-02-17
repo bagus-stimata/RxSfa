@@ -55,6 +55,9 @@ class FMaterialGroup2RepositoryImpl(
         return appDatabase.materialGroup2Dao.getAllByParentLive(divisionId)
     }
 
+    override fun addCacheListFMaterialGroup2(list: List<FMaterialGroup2Entity>) {
+        return appDatabase.materialGroup2Dao.insertAll(list)
+    }
     override fun addCacheFMaterialGroup2(fMaterialGroup2Entity: FMaterialGroup2Entity) {
         return appDatabase.materialGroup2Dao.insert(fMaterialGroup2Entity)
     }

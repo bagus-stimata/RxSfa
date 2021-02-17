@@ -13,9 +13,12 @@
  **/
 package com.erp.distribution.sfa.domain.model.states
 
+import android.os.Parcelable
 import androidx.annotation.StringRes
+import kotlinx.parcelize.Parcelize
 
 /**
  * Represents error states in a given view state
  */
-data class Error(@StringRes val message: Int)
+@Parcelize
+data class Error(@StringRes val message: Int): Parcelable

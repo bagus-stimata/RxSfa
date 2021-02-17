@@ -110,7 +110,28 @@ class LoginFragment : Fragment(R.layout.fragment_login) {
         }
         requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner, callback)
 
+        observeUserOtenticationToView()
+    }
 
+    /**
+     * Pertolongan pertama dan sementara
+     */
+    fun observeUserOtenticationToView() {
+        mainViewModel.userViewStateLive.observe(viewLifecycleOwner, Observer { userViewState ->
+
+            when(userViewState){
+                is Resource.Loading ->{
+                }
+                is Resource.Success ->{
+                    val data = userViewState.data
+                    if (data.fUser != null && data.fSalesman !=null && data.fDivision !=null && data.fWarehouse !=null) {
+                        findNavController().popBackStack()
+                    }
+                }
+                is Resource.Failure ->{
+                }
+            }
+        })
     }
 
     fun initialize() {

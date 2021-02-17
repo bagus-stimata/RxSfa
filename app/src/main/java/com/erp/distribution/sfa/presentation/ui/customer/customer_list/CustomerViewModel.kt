@@ -43,8 +43,8 @@ class CustomerViewModel @ViewModelInject constructor(
         val message = ExceptionHandler.parse(exception)
 //        _userViewState.value = _userViewState.value?.copy(error = Error(message))
     }
-    override var userViewState: UserViewState = UserViewState()
-    override val userViewStateLive: LiveData<Resource<UserViewState>> = MutableLiveData()
+    var userViewState: UserViewState = UserViewState()
+    val userViewStateLive: LiveData<Resource<UserViewState>> = MutableLiveData()
 
     val searchQuery = state.getLiveData("searchQuery", "")
 

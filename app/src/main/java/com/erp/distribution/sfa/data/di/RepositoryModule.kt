@@ -102,6 +102,23 @@ class RepositoryModule {
     ): FMaterialRepository {
         return FMaterialRepositoryImpl(appDatabase, retrofitService)
     }
+
+    @Singleton
+    @Provides
+    fun provideFMaterialGroup1Repository(
+            appDatabase: AppDatabase,
+            retrofitService: RetrofitServiceFMaterialGroup1
+    ): FMaterialGroup1Repository {
+        return FMaterialGroup1RepositoryImpl(appDatabase, retrofitService)
+    }
+    @Singleton
+    @Provides
+    fun provideFMaterialGroup2Repository(
+            appDatabase: AppDatabase,
+            retrofitService: RetrofitServiceFMaterialGroup2
+    ): FMaterialGroup2Repository {
+        return FMaterialGroup2RepositoryImpl(appDatabase, retrofitService)
+    }
     @Singleton
     @Provides
     fun provideFMaterialGroup3Repository(
