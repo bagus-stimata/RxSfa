@@ -3,6 +3,8 @@ package com.erp.distribution.sfa.domain.repository
 import androidx.lifecycle.LiveData
 import com.erp.distribution.sfa.data.di.SortOrder
 import com.erp.distribution.sfa.data.source.entity.FtSaleshEntity
+import com.erp.distribution.sfa.data.source.entity.FtSaleshWithFDivisionAndFCustomer
+import com.erp.distribution.sfa.data.source.entity.FtSaleshWithFDivisionAndFSalesmanAndFCustomerAndItems
 import com.erp.distribution.sfa.domain.model.FtSalesh
 import io.reactivex.rxjava3.core.Single
 import kotlinx.coroutines.flow.Flow
@@ -19,7 +21,8 @@ interface FtSaleshRepository {
     fun deleteRemoteFtSalesh(authHeader: String, id: Long): Single<FtSaleshEntity>
 
     fun getCacheAllFtSalesh(): LiveData<List<FtSaleshEntity>>
-    fun getCacheAllFtSaleshFlow(query: String, sortOrder: SortOrder,  limit: Int, currentOffset: Int, hideSelected: Boolean): Flow<List<FtSaleshEntity>>
+    fun getCacheAllFtSaleshFlow(query: String, sortOrder: SortOrder,  limit: Int, currentOffset: Int, hideSelected: Boolean): Flow<List<FtSaleshWithFDivisionAndFCustomer>>
+    fun getCacheAllFtSaleshWithItemsByIdFlow(id: Long): Flow<FtSaleshWithFDivisionAndFSalesmanAndFCustomerAndItems>
     fun getCacheFtSaleshById(id: Long): LiveData<FtSaleshEntity>
     fun getCacheAllFtSaleshByDivision(divisionId: Int): LiveData<List<FtSaleshEntity>>
     fun addCacheFtSalesh(ftSaleshEntity: FtSaleshEntity)

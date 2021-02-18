@@ -8,8 +8,10 @@ import com.erp.distribution.sfa.data.di.SortOrder
 import com.erp.distribution.sfa.domain.repository.FtSaleshRepository
 import com.erp.distribution.sfa.domain.usecase.base.SingleUseCase
 import com.erp.distribution.sfa.data.source.entity.FtSaleshEntity
+import com.erp.distribution.sfa.data.source.entity.FtSaleshWithFDivisionAndFCustomer
 import com.erp.distribution.sfa.data.source.entity.toDomain
 import com.erp.distribution.sfa.domain.model.FCustomer
+import com.erp.distribution.sfa.domain.model.FtSalesdItems
 import com.erp.distribution.sfa.domain.model.FtSalesh
 import com.erp.distribution.sfa.domain.model.toEntity
 import com.erp.distribution.sfa.domain.repository.FCustomerRepository
@@ -59,24 +61,42 @@ class GetFtSaleshUseCase @Inject constructor(
         return repository.getCacheAllFtSalesh()
     }
 
-//    fun getCacheAllFtSaleshFlow(query: String, sortOrder: SortOrder, limit: Int, currentOffset: Int,hideSelected: Boolean): Flow<List<FtSaleshEntity>> {
-//        return repository.getCacheAllFtSaleshFlow(query, sortOrder, limit, currentOffset, hideSelected)
-//    }
-
     fun getCacheAllFtSaleshFlow(query: String, sortOrder: SortOrder,  limit: Int, currentOffset: Int, hideSelected: Boolean): Flow<List<FtSalesh>> {
         return repository.getCacheAllFtSaleshFlow(query, sortOrder, limit, currentOffset, hideSelected).map {
             it.map {
-                val ftSaleshBean = it.toDomain()
-//                val division = it.fDivisionEntity.toDomain()
-//                fcustomerBean.fdivisionBean = division
-//                it.fCustomerGroupEntity?.let {
-//                    fcustomerBean.fcustomerGroupBean = it.toDomain()
-//                }
+                val ftSaleshBean = it.ftSaleshEntity.toDomain()
+                val division = it.fDivisionEntity.toDomain()
+                ftSaleshBean.fdivisionBean = division
+                it.fCustomerEntity?.let {
+                    ftSaleshBean.fcustomerBean = it.toDomain()
+                }
                 ftSaleshBean
             }
         }
     }
 
+    fun getCacheFtSaleshWithItemsByIdFLow(id: Long): Flow<FtSalesh>{
+        return repository.getCacheAllFtSaleshWithItemsByIdFlow(id).map {
+                val ftSaleshBean = it.ftSaleshEntity.toDomain()
+                val division = it.fDivisionEntity.toDomain()
+                ftSaleshBean.fdivisionBean = division
+                it.fSalesmanEntity?.let {
+                    ftSaleshBean.fsalesmanBean = it.toDomain()
+                }
+                it.fCustomerEntity?.let {
+                    ftSaleshBean.fcustomerBean = it.toDomain()
+                }
+                it.listFtSalesdItems!!.isNotEmpty().apply {
+                    val mapFtSalesdItems = mutableMapOf<Long, FtSalesdItems>()
+                    it.listFtSalesdItems.iterator().forEach {
+                        mapFtSalesdItems.put(it.id, it.toDomain())
+                    }
+                    ftSaleshBean.mapFtSalesdItems = mapFtSalesdItems
+                }
+
+                ftSaleshBean
+        }
+    }
 
 
     fun getCacheFtSaleshById(id: Long): LiveData<FtSaleshEntity>{

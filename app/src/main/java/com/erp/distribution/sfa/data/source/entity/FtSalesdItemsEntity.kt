@@ -6,6 +6,9 @@ import androidx.room.Ignore
 import androidx.room.PrimaryKey
 import com.erp.distribution.sfa.data.base.ModelEntity
 import com.erp.distribution.sfa.data.source.entity.modelenum.EnumUom
+import com.erp.distribution.sfa.domain.model.FMaterial
+import com.erp.distribution.sfa.domain.model.FtSalesdItems
+import com.erp.distribution.sfa.domain.model.FtSalesh
 import kotlinx.parcelize.Parcelize
 import java.io.Serializable
 
@@ -174,7 +177,7 @@ class FtSalesdItemsEntity (
 
 //    @Ignore
 //    var disc1RpAfterPpnUom4 : Double =0.0,
-//    var disc2: Double? = null
+    var disc2: Double = 0.0,
 //
 //    @Ignore
 //    var disc2Rp : Double =0.0,
@@ -381,3 +384,33 @@ class FtSalesdItemsEntity (
     var fmaterialBean : Int =0
 
 ): Serializable, ModelEntity(), Parcelable
+
+internal fun FtSalesdItemsEntity.toDomain(): FtSalesdItems {
+    return FtSalesdItems(
+        id = id,
+        isFreeGood = isFreeGood,
+        noUrut = noUrut,
+        notes = notes,
+        sprice = sprice,
+
+        isTax = isTax,
+        ftaxBean = ftaxBean,
+        taxPercent = taxPercent,
+
+        qty = qty,
+        qtyKembali = qtyKembali,
+
+        qtyReturn = qtyReturn,
+        priceUom = priceUom,
+
+        ftSaleshBean = FtSalesh(ftSaleshBean),
+        fmaterialBean = FMaterial(fmaterialBean),
+
+        disc1 = disc1,
+        disc2 = disc2,
+        disc3 = disc3,
+        disc1Plus = disc1Plus,
+        disc2Plus = disc2Plus
+
+    )
+}

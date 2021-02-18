@@ -292,7 +292,9 @@ data class FtSalesh  (
 
 //    @Ignore
 //    var mapFtSalesdTemp: Map<Long, FtSalesdItems> = HashMap()
-    var mapFtSalesdItems: Map<Long, FtSalesdItems> = HashMap(),
+//    var mapFtSalesdItems: Map<Long, FtSalesdItems> = HashMap(),
+//    var listFtSalesdItems: MutableList<FtSalesdItems> = listOf(),
+    var mapFtSalesdItems: MutableMap<Long, FtSalesdItems> = HashMap(),
 
     //PEGIRIMAN:
     //	@ManyToOne

@@ -36,10 +36,16 @@ interface FtSaleshDao {
 
     @Query("SELECT * FROM ftSalesh WHERE refno = :id ")
     fun getAllById(id: Long): FtSaleshEntity
+
     @Query("SELECT * FROM ftSalesh WHERE refno = :id ")
     fun getAllByIdLive(id: Long): LiveData<FtSaleshEntity>
 
-    fun getAllFtSaleshFlow(query: String, sortOrder: SortOrder, limit: Int, currentOffset: Int, hideSelected: Boolean?): Flow<List<FtSaleshEntity>> =
+    @Transaction
+    @Query("SELECT * FROM ftSalesh WHERE refno = :id ")
+    fun getAllFtSaleshWithItemsByIdFLow(id: Long): Flow<FtSaleshWithFDivisionAndFSalesmanAndFCustomerAndItems>
+
+
+    fun getAllFtSaleshFlow(query: String, sortOrder: SortOrder, limit: Int, currentOffset: Int, hideSelected: Boolean?): Flow<List<FtSaleshWithFDivisionAndFCustomer>> =
         when (sortOrder) {
             SortOrder.BY_INVOICE_DATE -> {
                 getAllFtSaleshSortedByInvoiceDateFLow(query, limit, currentOffset)
@@ -51,25 +57,25 @@ interface FtSaleshDao {
         }
     
     @Query("SELECT * FROM ftSalesh WHERE  orderno LIKE '%' || :searchQuery || '%'  ORDER BY invoiceDate   LIMIT :limit OFFSET :currentOffset ")
-    fun getAllFtSaleshSortedByInvoiceDateFLow(searchQuery: String, limit: Int, currentOffset: Int): Flow<List<FtSaleshEntity>>
+    fun getAllFtSaleshSortedByInvoiceDateFLow(searchQuery: String, limit: Int, currentOffset: Int): Flow<List<FtSaleshWithFDivisionAndFCustomer>>
     @Query("SELECT * FROM ftSalesh WHERE  orderno LIKE '%' || :searchQuery || '%'  ORDER BY orderDate   LIMIT :limit OFFSET :currentOffset ")
-    fun getAllFtSaleshSortedByOrderDateFLow(searchQuery: String, limit: Int, currentOffset: Int): Flow<List<FtSaleshEntity>>
-
+    fun getAllFtSaleshSortedByOrderDateFLow(searchQuery: String, limit: Int, currentOffset: Int): Flow<List<FtSaleshWithFDivisionAndFCustomer>>
     @Query("SELECT * FROM ftSalesh   LIMIT :limit OFFSET :currentOffset ")
-    fun getAllFtSaleshFLow(limit: Int, currentOffset: Int): Flow<List<FtSaleshEntity>>
+    fun getAllFtSaleshFLow(limit: Int, currentOffset: Int): Flow<List<FtSaleshWithFDivisionAndFCustomer>>
 
 
 
     @Transaction
     @Query("SELECT * FROM ftSalesh   LIMIT :limit OFFSET :currentOffset ")
-    fun getAllFtSaleshFLow1(limit: Int, currentOffset: Int): Flow<List<FtSaleshWithFDivisionAndFCustomer>>
+    fun getAllFtSaleshWithDivisionAndFCustomerFLow(limit: Int, currentOffset: Int): Flow<List<FtSaleshWithFDivisionAndFCustomer>>
 
     @Transaction
     @Query("SELECT * FROM ftSalesh   LIMIT :limit OFFSET :currentOffset ")
-    fun getAllFtSaleshFLow2(limit: Int, currentOffset: Int): Flow<List<FtSaleshWithFDivisionAndFSalesmanAndFCustomer>>
+    fun getAllFtSaleshWithFDivisionAndFSalesmanAndFCustomerAndCFLow(limit: Int, currentOffset: Int): Flow<List<FtSaleshWithFDivisionAndFSalesmanAndFCustomer>>
+
     @Transaction
     @Query("SELECT * FROM ftSalesh   LIMIT :limit OFFSET :currentOffset ")
-    fun getAllFtSaleshFLow3(limit: Int, currentOffset: Int): Flow<List<FtSaleshWithFDivisionAndFSalesmanAndFCustomerAndItems>>
+    fun getAllFtSaleshWithFDivisionAndFSalesmanAndFCustomerAndItemsFLow(limit: Int, currentOffset: Int): Flow<List<FtSaleshWithFDivisionAndFSalesmanAndFCustomerAndItems>>
 
 
 
@@ -97,5 +103,6 @@ interface FtSaleshDao {
 
     @Query("SELECT * FROM ftSalesh WHERE fdivisionBean = :id ")
     fun getAllByDivisionLive(id: Int): LiveData<List<FtSaleshEntity>>
+
 
 }
