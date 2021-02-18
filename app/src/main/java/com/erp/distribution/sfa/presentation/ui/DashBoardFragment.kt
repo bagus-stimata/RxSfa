@@ -109,8 +109,10 @@ class DashBoardFragment : Fragment(R.layout.dash_board_fragment) {
     }
 
     fun menuSalesOrder() {
-//        Log.d(TAG, "#result hello ${mainViewModel.userViewState.fUser!!.username}")
-//        Toast.makeText(context,"#result hello ${mainViewModel.userViewState.fUser!!.username}", Toast.LENGTH_SHORT ).show()
+        val action = DashBoardFragmentDirections.actionDashBoardFragmentToFtSaleshFragment(
+                mainViewModel.userViewState
+        )
+        findNavController().navigate(action)
     }
 
     fun menuProduct() {

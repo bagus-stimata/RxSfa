@@ -30,14 +30,10 @@ import kotlinx.coroutines.launch
 
 class CustomerViewModel @ViewModelInject constructor(
     private val getFCustomerUseCase: GetFCustomerUseCase,
-    private val getFDivisionUseCase: GetFDivisionUseCase,
-    private val getFSubAreaUseCase: GetFSubAreaUseCase,
-    private val getFCustomerGroupUseCase: GetFCustomerGroupUseCase,
     private val preferencesManager: PreferencesManager,
     @Assisted private val state: SavedStateHandle
 
 ) : BaseViewModel() {
-
     private val TAG = CustomerViewModel::class.java.simpleName
 
     override val coroutineExceptionHandler = CoroutineExceptionHandler { _, exception ->
@@ -45,29 +41,8 @@ class CustomerViewModel @ViewModelInject constructor(
 //        _userViewState.value = _userViewState.value?.copy(error = Error(message))
     }
     val userViewState = state.get<UserViewState>("userViewStateActive")
-    val userViewStateLive: LiveData<Resource<UserViewState>> = MutableLiveData()
 
     val searchQuery = state.getLiveData("searchQuery", "")
-
-    fun getFDivisionEntityLive(id: Int):LiveData<FDivisionEntity> {
-        return getFDivisionUseCase.getCacheFDivisionById(id)
-    }
-    fun getFSubAreaEntityLive(id: Int):LiveData<FSubAreaEntity> {
-        return getFSubAreaUseCase.getCacheFSubAreaById(id)
-    }
-    fun getFCustomerGroupEntityLive(id: Int):LiveData<FCustomerGroupEntity> {
-        return getFCustomerGroupUseCase.getCacheFCustomerGroupById(id)
-    }
-
-    fun getListFCustomerWithDivision(list: List<FCustomer>):LiveData<List<FCustomer>> {
-        val newItemLive : MutableLiveData<List<FCustomer>> = MutableLiveData()
-        /**
-         * Your Coding Hre
-         */
-
-        return newItemLive
-    }
-
 
     val preferencesFlow = preferencesManager.preferencesFlow
     private val fCustomerFlow = combine(
@@ -125,10 +100,7 @@ class CustomerViewModel @ViewModelInject constructor(
                         },
                         {
                             Log.d(TAG, "#result FCustomer error  ${it.message}")
-                        },
-                        {
-
-                        }
+                        },{}
                 )
         )
 
@@ -146,10 +118,7 @@ class CustomerViewModel @ViewModelInject constructor(
                         },
                         {
                             Log.d(TAG, "#result FCustomer error  ${it.message}")
-                        },
-                        {
-
-                        }
+                        },{}
                 )
         )
     }
@@ -185,12 +154,15 @@ class CustomerViewModel @ViewModelInject constructor(
                     Log.d(TAG, "#result FCustomer error  ${it.message}")
                 },
                 {
-
                 }
             )
         )
     }
 
+
+    /**
+     * Model Events
+     */
     private val fCustomerEventChannel = Channel<CustomerEvent>()
     val fCustomerEvent = fCustomerEventChannel.receiveAsFlow()
 
@@ -201,7 +173,7 @@ class CustomerViewModel @ViewModelInject constructor(
         data class ShowCustomerSavedConfirmationMessage(val msg: String) : CustomerEvent()
         object NavigateToDeleteAllCompletedScreen : CustomerEvent()
 
-        data class NavigateBackWithResult(val result: Int) : CustomerViewModel.CustomerEvent()
+        data class NavigateBackWithResult(val result: Int) : CustomerEvent()
 
     }
 }

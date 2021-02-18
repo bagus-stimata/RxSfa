@@ -2,6 +2,8 @@ package com.erp.distribution.sfa.presentation.ui.salesorder.salesorder_addedit
 
 import android.os.Bundle
 import android.view.View
+import android.widget.Toast
+import androidx.activity.OnBackPressedCallback
 import androidx.core.os.bundleOf
 import androidx.core.view.isVisible
 import androidx.core.widget.addTextChangedListener
@@ -20,41 +22,50 @@ import kotlinx.coroutines.flow.collect
 @AndroidEntryPoint
 class AddEditFtSaleshFragment : Fragment(R.layout.fragment_add_edit_salesorder) {
 
-    private val viewModelFtSaleshViewModel: AddEditFtSaleshViewModel by viewModels()
+    private val viewModelFtSalesh: AddEditFtSaleshViewModel by viewModels()
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
         val binding = FragmentAddEditSalesorderBinding.bind(view)
 
+        requireActivity().onBackPressedDispatcher
+                .addCallback(viewLifecycleOwner, object : OnBackPressedCallback(true){
+                    override fun handleOnBackPressed() {
+                        viewModelFtSalesh.popUpBackStackWithTheResult()
+                        viewModelFtSalesh.showInvalidInputMessage("Aselole Hahaha")
+                    }
+                })
+
         binding.apply {
-            editTextSoName.setText(viewModelFtSaleshViewModel.ftSaleshName)
-            checkBoxImportant.isChecked = viewModelFtSaleshViewModel.ftSaleshImportance
+            editTextSoName.setText(viewModelFtSalesh.ftSaleshName)
+            checkBoxImportant.isChecked = viewModelFtSalesh.ftSaleshImportance
             checkBoxImportant.jumpDrawablesToCurrentState()
-            textViewDateCreated.isVisible = viewModelFtSaleshViewModel.ftSalesh != null
-            textViewDateCreated.text = "Created: ${viewModelFtSaleshViewModel.ftSalesh?.createdDateFormatted}"
+            textViewDateCreated.isVisible = viewModelFtSalesh.ftSalesh != null
+            textViewDateCreated.text = "Created: ${viewModelFtSalesh.ftSalesh?.createdDateFormatted}"
 
             editTextSoName.addTextChangedListener{
-                viewModelFtSaleshViewModel.ftSaleshName = it.toString()
+                viewModelFtSalesh.ftSaleshName = it.toString()
             }
 
             checkBoxImportant.setOnCheckedChangeListener { _, isChecked ->
-                viewModelFtSaleshViewModel.ftSaleshImportance = isChecked
+                viewModelFtSalesh.ftSaleshImportance = isChecked
             }
 
             fabSaveSalesorder.setOnClickListener {
-                viewModelFtSaleshViewModel.onSaveClick()
+                viewModelFtSalesh.onSaveClick()
             }
 
         }
 
         viewLifecycleOwner.lifecycleScope.launchWhenStarted {
-            viewModelFtSaleshViewModel.addEditFtSaleshEvent.collect { event ->
+            viewModelFtSalesh.addEditFtSaleshEvent.collect { event ->
                 when (event) {
-                    is AddEditFtSaleshViewModel.AddEditMaterialEvent.ShowInvalidInputMessage -> {
+                    is AddEditFtSaleshViewModel.AddEditSalesOrderEvent.ShowInvalidInputMessage -> {
                         Snackbar.make(requireView(), event.msg, Snackbar.LENGTH_LONG).show()
                     }
-                    is AddEditFtSaleshViewModel.AddEditMaterialEvent.NavigateBackWithResult -> {
+
+                    is AddEditFtSaleshViewModel.AddEditSalesOrderEvent.NavigateBackWithResult -> {
                         binding.editTextSoName.clearFocus()
                         setFragmentResult(
                             "add_edit_request",
@@ -62,6 +73,10 @@ class AddEditFtSaleshFragment : Fragment(R.layout.fragment_add_edit_salesorder) 
                         )
                         findNavController().popBackStack()
                     }
+                    else -> {
+                        Toast.makeText(context, "Suspend LiveCycle belum di implementasikan", Toast.LENGTH_SHORT).show()
+                    }
+
                 }.exhaustive
             }
         }

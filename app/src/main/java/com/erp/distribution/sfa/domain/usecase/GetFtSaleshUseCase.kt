@@ -65,7 +65,7 @@ class GetFtSaleshUseCase @Inject constructor(
         return repository.getCacheAllFtSaleshFlow(query, sortOrder, limit, currentOffset, hideSelected).map {
             it.map {
                 val ftSaleshBean = it.ftSaleshEntity.toDomain()
-                val division = it.fDivisionEntity.toDomain()
+                val division = it.fDivisionEntity!!.toDomain()
                 ftSaleshBean.fdivisionBean = division
                 it.fCustomerEntity?.let {
                     ftSaleshBean.fcustomerBean = it.toDomain()
@@ -78,8 +78,12 @@ class GetFtSaleshUseCase @Inject constructor(
     fun getCacheFtSaleshWithItemsByIdFLow(id: Long): Flow<FtSalesh>{
         return repository.getCacheAllFtSaleshWithItemsByIdFlow(id).map {
                 val ftSaleshBean = it.ftSaleshEntity.toDomain()
-                val division = it.fDivisionEntity.toDomain()
-                ftSaleshBean.fdivisionBean = division
+
+//                val division = it.fDivisionEntity!!.toDomain()
+//                ftSaleshBean.fdivisionBean = division
+                it.fDivisionEntity?.let {
+                    ftSaleshBean.fdivisionBean = it.toDomain()
+                }
                 it.fSalesmanEntity?.let {
                     ftSaleshBean.fsalesmanBean = it.toDomain()
                 }

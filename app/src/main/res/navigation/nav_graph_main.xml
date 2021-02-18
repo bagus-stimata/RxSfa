@@ -22,6 +22,9 @@
         <action
             android:id="@+id/action_dashBoardFragment_to_syncronizeFragment"
             app:destination="@id/syncronizeFragment" />
+        <action
+            android:id="@+id/action_dashBoardFragment_to_ftSaleshFragment"
+            app:destination="@id/ftSaleshFragment" />
     </fragment>
     <fragment
         android:id="@+id/FMaterialFragment"
@@ -75,6 +78,38 @@
             app:argType="com.erp.distribution.sfa.presentation.model.UserViewState"
             app:nullable="true"
             android:defaultValue="@null" />
+    </fragment>
+    <fragment
+        android:id="@+id/ftSaleshFragment"
+        android:name="com.erp.distribution.sfa.presentation.ui.salesorder.salesorder_list.FtSaleshFragment"
+        android:label="fragment_ftsalesh"
+        tools:layout="@layout/fragment_ftsalesh">
+        <argument
+            android:name="userViewStateActive"
+            app:argType="com.erp.distribution.sfa.presentation.model.UserViewState"
+            app:nullable="true"
+            android:defaultValue="@null" />
+        <action
+            android:id="@+id/action_ftSaleshFragment_to_addEditFtSaleshFragment"
+            app:destination="@id/addEditFtSaleshFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/addEditFtSaleshFragment"
+        android:name="com.erp.distribution.sfa.presentation.ui.salesorder.salesorder_addedit.AddEditFtSaleshFragment"
+        android:label="fragment_add_edit_salesorder"
+        tools:layout="@layout/fragment_add_edit_salesorder" >
+
+        <argument
+            android:name="userViewStateActive"
+            app:argType="com.erp.distribution.sfa.presentation.model.UserViewState"
+            app:nullable="true"
+            android:defaultValue="@null" />
+        <argument
+            android:name="ftSalesh"
+            app:argType="com.erp.distribution.sfa.domain.model.FtSalesh"
+            app:nullable="true"
+            android:defaultValue="@null" />
+
     </fragment>
 
 

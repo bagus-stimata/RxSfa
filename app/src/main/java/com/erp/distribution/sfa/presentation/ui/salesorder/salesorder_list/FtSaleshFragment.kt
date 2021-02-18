@@ -6,11 +6,14 @@ import android.view.Menu
 import android.view.MenuInflater
 import android.view.MenuItem
 import android.view.View
+import androidx.activity.OnBackPressedCallback
 import androidx.appcompat.widget.SearchView
+import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.setFragmentResult
 import androidx.fragment.app.setFragmentResultListener
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.*
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.ItemTouchHelper
@@ -19,11 +22,12 @@ import androidx.recyclerview.widget.RecyclerView
 import com.erp.distribution.sfa.data.di.SortOrder
 import com.erp.distribution.sfa.databinding.FragmentFtsaleshBinding
 import com.erp.distribution.sfa.domain.model.FtSalesh
+import com.erp.distribution.sfa.presentation.ui.DashBoardFragmentDirections
+import com.erp.distribution.sfa.presentation.ui.salesorder.salesorder_addedit.AddEditFtSaleshViewModel
 import com.erp.distribution.sfa.presentation.ui.utils.onQueryTextChanged
 import com.erp.distribution.sfa.utils.exhaustive
 import com.google.android.material.snackbar.Snackbar
 import dagger.hilt.android.AndroidEntryPoint
-import io.reactivex.rxjava3.disposables.CompositeDisposable
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.launch
@@ -34,7 +38,6 @@ class FtSaleshFragment : Fragment(R.layout.fragment_ftsalesh), FtSaleshAdapter.O
     private val TAG = FtSaleshFragment::class.java.simpleName
 
     private val viewModelFSalesh: FSaleshViewModel by viewModels()
-    private val compositeDisposable = CompositeDisposable()
 
     private lateinit var searchView: SearchView
 
@@ -45,6 +48,12 @@ class FtSaleshFragment : Fragment(R.layout.fragment_ftsalesh), FtSaleshAdapter.O
 
         val ftSaleshAdapter = FtSaleshAdapter(this)
 
+        requireActivity().onBackPressedDispatcher
+            .addCallback(viewLifecycleOwner, object : OnBackPressedCallback(true){
+            override fun handleOnBackPressed() {
+                myPopBackStack()
+            }
+        })
 
         binding.apply {
             recyclerViewFtsalesh.apply {
@@ -93,10 +102,19 @@ class FtSaleshFragment : Fragment(R.layout.fragment_ftsalesh), FtSaleshAdapter.O
             viewModelFSalesh.onAddEditResult(result)
         }
 
-        viewModelFSalesh.getFtSaleshWithFCustomerLive()
+//        viewModelFSalesh.ftSaleshLive
+//            .observe(viewLifecycleOwner) {
+//                ftSaleshAdapter.submitList(it)
+//        }
+        /**
+         * THIS IS MAIN MODEL
+         */
+        viewModelFSalesh.ftSaleshLive
             .observe(viewLifecycleOwner) {
                 ftSaleshAdapter.submitList(it)
-        }
+            }
+
+
 
         viewLifecycleOwner.lifecycleScope.launchWhenStarted {
 
@@ -108,19 +126,18 @@ class FtSaleshFragment : Fragment(R.layout.fragment_ftsalesh), FtSaleshAdapter.O
                                 viewModelFSalesh.onUndoDeleteClick(event.ftSalesh)
                             }.show()
                     }
-                    is FSaleshViewModel.FtSaleshEvent.NavigateToAddFtSaleshScreen -> {
+                    is FSaleshViewModel.FtSaleshEvent.NavigateToAddSalesOrderScreen -> {
                         val action =
-                            FtSaleshFragmentDirections.actionFtsaleshFragmentToFtSaleshFragmentAddEdit(
-                                null,
-                                "New SalesOrder"
+                            FtSaleshFragmentDirections.actionFtSaleshFragmentToAddEditFtSaleshFragment(
+                                null
                             )
                         findNavController().navigate(action)
                     }
-                    is FSaleshViewModel.FtSaleshEvent.NavigateToEditFtSaleshScreen -> {
+                    is FSaleshViewModel.FtSaleshEvent.NavigateToEditSalesOrderScreen -> {
                         val action =
-                            FtSaleshFragmentDirections.actionFtsaleshFragmentToFtSaleshFragmentAddEdit(
-                                event.ftSalesh,
-                                "Edit SalesOrder"
+                            FtSaleshFragmentDirections.actionFtSaleshFragmentToAddEditFtSaleshFragment(
+                                    event.userViewState,
+                                    event.ftSalesh
                             )
                         findNavController().navigate(action)
                     }
@@ -128,11 +145,14 @@ class FtSaleshFragment : Fragment(R.layout.fragment_ftsalesh), FtSaleshAdapter.O
                         Snackbar.make(requireView(), event.msg, Snackbar.LENGTH_SHORT).show()
                     }
 
-//                    is MaterialViewModel.MaterialEvent.NavigateToDeleteAllCompletedScreen -> {
-//                        val action =
-//                                MaterialFragmentDirections.actionGlobalDeleteAllCompletedDialogFragment()
-//                        findNavController().navigate(action)
-//                    }
+                    is FSaleshViewModel.FtSaleshEvent.NavigateBackWithResult -> {
+//                        binding.editTextSoName.clearFocus()
+                        setFragmentResult(
+                                "add_edit_request",
+                                bundleOf("add_edit_result" to event.result)
+                        )
+                        findNavController().popBackStack()
+                    }
 
 
                     else -> {}
@@ -193,8 +213,16 @@ class FtSaleshFragment : Fragment(R.layout.fragment_ftsalesh), FtSaleshAdapter.O
 //                viewModel.onDeleteAllCompletedClick()
 //                true
 //            }
+            android.R.id.home -> {
+                myPopBackStack()
+                true
+            }
             else -> super.onOptionsItemSelected(item)
         }
+    }
+
+    fun myPopBackStack() {
+        findNavController().popBackStack()
     }
 
     override fun onDestroyView() {

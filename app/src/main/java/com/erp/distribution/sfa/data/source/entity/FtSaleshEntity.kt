@@ -398,7 +398,7 @@ data class FtSaleshWithFDivisionAndFCustomer(
                 parentColumn = "fdivisionBean",
                 entityColumn = "id"
         )
-        val fDivisionEntity: FDivisionEntity,
+        val fDivisionEntity: FDivisionEntity?,
 
         @Relation(
                 parentColumn = "fcustomerBean",
@@ -414,7 +414,7 @@ data class FtSaleshWithFDivisionAndFSalesmanAndFCustomer(
                 parentColumn = "fdivisionBean",
                 entityColumn = "id"
         )
-        val fDivisionEntity: FDivisionEntity,
+        val fDivisionEntity: FDivisionEntity?,
 
         @Relation(
                 parentColumn = "fsalesmanBean",
@@ -436,7 +436,7 @@ data class FtSaleshWithFDivisionAndFSalesmanAndFCustomerAndItems(
                 parentColumn = "fdivisionBean",
                 entityColumn = "id"
         )
-        val fDivisionEntity: FDivisionEntity,
+        val fDivisionEntity: FDivisionEntity?,
 
         @Relation(
                 parentColumn = "fsalesmanBean",

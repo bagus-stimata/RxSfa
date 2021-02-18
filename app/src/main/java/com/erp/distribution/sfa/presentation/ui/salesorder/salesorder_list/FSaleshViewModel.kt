@@ -6,20 +6,24 @@ import androidx.hilt.lifecycle.ViewModelInject
 import androidx.lifecycle.*
 import com.erp.distribution.sfa.data.di.PreferencesManager
 import com.erp.distribution.sfa.data.di.SortOrder
-import com.erp.distribution.sfa.data.source.entity.FCustomerEntity
 import com.erp.distribution.sfa.data.source.entity.FDivisionEntity
 import com.erp.distribution.sfa.data.source.entity.toDomain
+import com.erp.distribution.sfa.domain.exception.ExceptionHandler
 import com.erp.distribution.sfa.domain.model.FCustomer
 import com.erp.distribution.sfa.domain.model.FtSalesh
 import com.erp.distribution.sfa.domain.usecase.GetFCustomerUseCase
 import com.erp.distribution.sfa.domain.usecase.GetFDivisionUseCase
 import com.erp.distribution.sfa.domain.usecase.GetFtSaleshUseCase
+import com.erp.distribution.sfa.presentation.base.BaseViewModel
+import com.erp.distribution.sfa.presentation.model.UserViewState
 import com.erp.distribution.sfa.presentation.ui.salesorder.ADD_TASK_RESULT_OK
 import com.erp.distribution.sfa.presentation.ui.salesorder.EDIT_TASK_RESULT_OK
+import com.erp.distribution.sfa.presentation.ui.salesorder.salesorder_addedit.AddEditFtSaleshViewModel
 import com.erp.distribution.sfa.utils.DisposableManager
 import io.reactivex.rxjava3.core.Observable
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
 import io.reactivex.rxjava3.schedulers.Schedulers
+import kotlinx.coroutines.CoroutineExceptionHandler
 import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.flatMapLatest
@@ -33,25 +37,20 @@ class FSaleshViewModel @ViewModelInject constructor(
     private val getFCustomerUseCase: GetFCustomerUseCase,
     private val preferencesManager: PreferencesManager,
     @Assisted private val state: SavedStateHandle
-) : ViewModel() {
+
+) : BaseViewModel() {
     private val TAG = FSaleshViewModel::class.java.simpleName
 
-    var mapFCustomer: MutableMap<Int, FCustomer> = mutableMapOf()
+    override val coroutineExceptionHandler = CoroutineExceptionHandler { _, exception ->
+        val message = ExceptionHandler.parse(exception)
+//        _userViewState.value = _userViewState.value?.copy(error = Error(message))
+    }
+    val userViewState = state.get<UserViewState>("userViewStateActive")
 
     val searchQuery = state.getLiveData("searchQuery", "")
 
 
-    fun getFCustomerDomainLive(id: Int):LiveData<FCustomer> {
-        return getFCustomerUseCase.getCacheFCustomerDomainById(id)
-    }
-    fun getAllFDivisionEntityLive():LiveData<List<FDivisionEntity>> {
-        return getFDivisionUseCase.getCacheAllFDivision()
-    }
-
-
     val preferencesFlow = preferencesManager.preferencesFlow
-    private val ftSaleshEventChannel = Channel<FtSaleshEvent>()
-    val ftSaleshEvent = ftSaleshEventChannel.receiveAsFlow()
 
     private val ftSaleshFlow = combine(
         searchQuery.asFlow(),
@@ -77,7 +76,9 @@ class FSaleshViewModel @ViewModelInject constructor(
     }
 
     fun onItemSelected(ftSalesh: FtSalesh) = viewModelScope.launch {
-        ftSaleshEventChannel.send(FtSaleshEvent.NavigateToEditFtSaleshScreen(ftSalesh))
+        userViewState?.let {
+            ftSaleshEventChannel.send(FtSaleshEvent.NavigateToEditSalesOrderScreen(userViewState!!, ftSalesh))
+        }
     }
 
     fun onItemCheckedChanged(ftSalesh: FtSalesh, isChecked: Boolean) = viewModelScope.launch {
@@ -90,11 +91,7 @@ class FSaleshViewModel @ViewModelInject constructor(
                 {
                 },
                 {
-                    Log.d(TAG, "#result FtSalesh error  ${it.message}")
-                },
-                {
-
-                }
+                },{}
             )
         )
 
@@ -110,10 +107,7 @@ class FSaleshViewModel @ViewModelInject constructor(
                 {
                 },
                 {
-                    Log.d(TAG, "#result FtSalesh error  ${it.message}")
-                },
-                {
-                }
+                },{}
             )
         )
 
@@ -121,8 +115,6 @@ class FSaleshViewModel @ViewModelInject constructor(
     }
 
     fun onUndoDeleteClick(ftSalesh: FtSalesh) = viewModelScope.launch {
-//        taskDao.insert(task)
-//        getFtSaleshUseCase.addCacheFtSalesh(task)
         DisposableManager.add(Observable.fromCallable {
             getFtSaleshUseCase.addCacheFtSaleshDomain(ftSalesh)
         }
@@ -133,16 +125,13 @@ class FSaleshViewModel @ViewModelInject constructor(
                 },
                 {
                     Log.d(TAG, "#result MATERIAL error  ${it.message}")
-                },
-                {
-
-                }
+                },{}
             )
         )
     }
 
     fun onAddNewFtSaleshClick() = viewModelScope.launch {
-        ftSaleshEventChannel.send(FtSaleshEvent.NavigateToAddFtSaleshScreen)
+        ftSaleshEventChannel.send(FtSaleshEvent.NavigateToAddSalesOrderScreen)
     }
 
     fun onAddEditResult(result: Int) {
@@ -160,15 +149,26 @@ class FSaleshViewModel @ViewModelInject constructor(
         ftSaleshEventChannel.send(FtSaleshEvent.NavigateToDeleteAllCompletedScreen)
     }
 
+    fun popUpBackStackWithTheResult() = viewModelScope.launch {
+        ftSaleshEventChannel.send(FtSaleshEvent.NavigateBackWithResult(EDIT_TASK_RESULT_OK))
+    }
+
+
+    /**
+     * Model Events
+     */
+    private val ftSaleshEventChannel = Channel<FtSaleshEvent>()
+    val ftSaleshEvent = ftSaleshEventChannel.receiveAsFlow()
+
     sealed class FtSaleshEvent {
-        object NavigateToAddFtSaleshScreen : FtSaleshEvent()
-        data class NavigateToEditFtSaleshScreen(val ftSalesh: FtSalesh) : FtSaleshEvent()
+        object NavigateToAddSalesOrderScreen : FtSaleshEvent()
+        data class NavigateToEditSalesOrderScreen(var userViewState: UserViewState, val ftSalesh: FtSalesh) : FtSaleshEvent()
+
         data class ShowUndoDeleteFtSaleshMessage(val ftSalesh: FtSalesh) : FtSaleshEvent()
         data class ShowFtSaleshSavedConfirmationMessage(val msg: String) : FtSaleshEvent()
         object NavigateToDeleteAllCompletedScreen : FtSaleshEvent()
 
-        data class NavigateBackWithResult(val result: Int) : FSaleshViewModel.FtSaleshEvent()
-
+        data class NavigateBackWithResult(val result: Int) : FtSaleshEvent()
     }
 
 

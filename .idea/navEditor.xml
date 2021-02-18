@@ -238,6 +238,18 @@
                       </LayoutPositions>
                     </value>
                   </entry>
+                  <entry key="addEditFtSaleshFragment">
+                    <value>
+                      <LayoutPositions>
+                        <option name="myPosition">
+                          <Point>
+                            <option name="x" value="9" />
+                            <option name="y" value="1053" />
+                          </Point>
+                        </option>
+                      </LayoutPositions>
+                    </value>
+                  </entry>
                   <entry key="dashBoardFragment">
                     <value>
                       <LayoutPositions>
@@ -259,7 +271,38 @@
                                 <LayoutPositions />
                               </value>
                             </entry>
+                            <entry key="action_dashBoardFragment_to_ftSaleshFragment">
+                              <value>
+                                <LayoutPositions />
+                              </value>
+                            </entry>
                             <entry key="action_dashBoardFragment_to_loginFragment">
+                              <value>
+                                <LayoutPositions />
+                              </value>
+                            </entry>
+                            <entry key="action_dashBoardFragment_to_syncronizeFragment">
+                              <value>
+                                <LayoutPositions />
+                              </value>
+                            </entry>
+                          </map>
+                        </option>
+                      </LayoutPositions>
+                    </value>
+                  </entry>
+                  <entry key="ftSaleshFragment">
+                    <value>
+                      <LayoutPositions>
+                        <option name="myPosition">
+                          <Point>
+                            <option name="x" value="-170" />
+                            <option name="y" value="599" />
+                          </Point>
+                        </option>
+                        <option name="myPositions">
+                          <map>
+                            <entry key="action_ftSaleshFragment_to_addEditFtSaleshFragment">
                               <value>
                                 <LayoutPositions />
                               </value>
