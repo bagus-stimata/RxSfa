@@ -51,7 +51,8 @@ class FtSaleshFragment : Fragment(R.layout.fragment_ftsalesh), FtSaleshAdapter.O
         requireActivity().onBackPressedDispatcher
             .addCallback(viewLifecycleOwner, object : OnBackPressedCallback(true){
             override fun handleOnBackPressed() {
-                myPopBackStack()
+//                myPopBackStack()
+                viewModelFSalesh.popUpBackStackWithTheResult()
             }
         })
 
@@ -148,8 +149,8 @@ class FtSaleshFragment : Fragment(R.layout.fragment_ftsalesh), FtSaleshAdapter.O
                     is FSaleshViewModel.FtSaleshEvent.NavigateBackWithResult -> {
 //                        binding.editTextSoName.clearFocus()
                         setFragmentResult(
-                                "add_edit_request",
-                                bundleOf("add_edit_result" to event.result)
+                                "request_id",
+                                bundleOf("result_id" to event.result)
                         )
                         findNavController().popBackStack()
                     }
@@ -214,15 +215,11 @@ class FtSaleshFragment : Fragment(R.layout.fragment_ftsalesh), FtSaleshAdapter.O
 //                true
 //            }
             android.R.id.home -> {
-                myPopBackStack()
+                viewModelFSalesh.popUpBackStackWithTheResult()
                 true
             }
             else -> super.onOptionsItemSelected(item)
         }
-    }
-
-    fun myPopBackStack() {
-        findNavController().popBackStack()
     }
 
     override fun onDestroyView() {

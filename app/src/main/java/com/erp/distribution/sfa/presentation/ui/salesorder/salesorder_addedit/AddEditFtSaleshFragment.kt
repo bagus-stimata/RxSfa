@@ -1,6 +1,7 @@
 package com.erp.distribution.sfa.presentation.ui.salesorder.salesorder_addedit
 
 import android.os.Bundle
+import android.view.MenuItem
 import android.view.View
 import android.widget.Toast
 import androidx.activity.OnBackPressedCallback
@@ -32,8 +33,7 @@ class AddEditFtSaleshFragment : Fragment(R.layout.fragment_add_edit_salesorder) 
         requireActivity().onBackPressedDispatcher
                 .addCallback(viewLifecycleOwner, object : OnBackPressedCallback(true){
                     override fun handleOnBackPressed() {
-                        viewModelFtSalesh.popUpBackStackWithTheResult()
-                        viewModelFtSalesh.showInvalidInputMessage("Aselole Hahaha")
+//                        viewModelFtSalesh.popUpBackStackWithTheResult()
                     }
                 })
 
@@ -81,9 +81,17 @@ class AddEditFtSaleshFragment : Fragment(R.layout.fragment_add_edit_salesorder) 
             }
         }
 
-
-
-
+        setHasOptionsMenu(true)
     }
 
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        return when (item.itemId){
+            android.R.id.home ->{
+                viewModelFtSalesh.popUpBackStackWithTheResult()
+                true
+            }
+            else -> super.onOptionsItemSelected(item)
+        }
+
+    }
 }
