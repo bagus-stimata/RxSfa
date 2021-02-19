@@ -33,28 +33,28 @@ class AddEditFtSaleshFragment : Fragment(R.layout.fragment_add_edit_salesorder) 
         requireActivity().onBackPressedDispatcher
                 .addCallback(viewLifecycleOwner, object : OnBackPressedCallback(true){
                     override fun handleOnBackPressed() {
-//                        viewModelFtSalesh.popUpBackStackWithTheResult()
+                        viewModelFtSalesh.popUpBackStackWithTheResult()
                     }
                 })
 
         binding.apply {
-            editTextSoName.setText(viewModelFtSalesh.ftSaleshName)
-            checkBoxImportant.isChecked = viewModelFtSalesh.ftSaleshImportance
-            checkBoxImportant.jumpDrawablesToCurrentState()
-            textViewDateCreated.isVisible = viewModelFtSalesh.ftSalesh != null
-            textViewDateCreated.text = "Created: ${viewModelFtSalesh.ftSalesh?.createdDateFormatted}"
-
-            editTextSoName.addTextChangedListener{
-                viewModelFtSalesh.ftSaleshName = it.toString()
-            }
-
-            checkBoxImportant.setOnCheckedChangeListener { _, isChecked ->
-                viewModelFtSalesh.ftSaleshImportance = isChecked
-            }
-
-            fabSaveSalesorder.setOnClickListener {
-                viewModelFtSalesh.onSaveClick()
-            }
+//            editTextSoName.setText(viewModelFtSalesh.ftSaleshName)
+//            checkBoxImportant.isChecked = viewModelFtSalesh.ftSaleshImportance
+//            checkBoxImportant.jumpDrawablesToCurrentState()
+//            textViewDateCreated.isVisible = viewModelFtSalesh.ftSalesh != null
+//            textViewDateCreated.text = "Created: ${viewModelFtSalesh.ftSalesh?.createdDateFormatted}"
+//
+//            editTextSoName.addTextChangedListener{
+//                viewModelFtSalesh.ftSaleshName = it.toString()
+//            }
+//
+//            checkBoxImportant.setOnCheckedChangeListener { _, isChecked ->
+//                viewModelFtSalesh.ftSaleshImportance = isChecked
+//            }
+//
+//            fabSaveSalesorder.setOnClickListener {
+//                viewModelFtSalesh.onSaveClick()
+//            }
 
         }
 
@@ -66,13 +66,14 @@ class AddEditFtSaleshFragment : Fragment(R.layout.fragment_add_edit_salesorder) 
                     }
 
                     is AddEditFtSaleshViewModel.AddEditSalesOrderEvent.NavigateBackWithResult -> {
-                        binding.editTextSoName.clearFocus()
+//                        binding.editTextSoName.clearFocus()
                         setFragmentResult(
                             "add_edit_request",
                             bundleOf("add_edit_result" to event.result)
                         )
                         findNavController().popBackStack()
                     }
+
                     else -> {
                         Toast.makeText(context, "Suspend LiveCycle belum di implementasikan", Toast.LENGTH_SHORT).show()
                     }
