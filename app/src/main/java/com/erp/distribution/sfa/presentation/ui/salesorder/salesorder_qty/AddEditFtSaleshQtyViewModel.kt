@@ -1,4 +1,4 @@
-package com.erp.distribution.sfa.presentation.ui.salesorder.salesorder_addedit
+package com.erp.distribution.sfa.presentation.ui.salesorder.salesorder_qty
 
 import android.util.Log
 import androidx.hilt.Assisted
@@ -6,13 +6,11 @@ import androidx.hilt.lifecycle.ViewModelInject
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.erp.distribution.sfa.domain.model.FtSalesdItems
 import com.erp.distribution.sfa.domain.model.FtSalesh
 import com.erp.distribution.sfa.domain.usecase.GetFtSaleshUseCase
 import com.erp.distribution.sfa.presentation.model.UserViewState
 import com.erp.distribution.sfa.presentation.ui.salesorder.ADD_TASK_RESULT_OK
 import com.erp.distribution.sfa.presentation.ui.salesorder.EDIT_TASK_RESULT_OK
-import com.erp.distribution.sfa.presentation.ui.salesorder.salesorder_list.FSaleshViewModel
 import com.erp.distribution.sfa.utils.DisposableManager
 import io.reactivex.rxjava3.core.Observable
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
@@ -21,11 +19,11 @@ import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.flow.receiveAsFlow
 import kotlinx.coroutines.launch
 
-class AddEditFtSaleshViewModel @ViewModelInject constructor(
+class AddEditFtSaleshQtyViewModel @ViewModelInject constructor(
     private val getFtSaleshUseCase: GetFtSaleshUseCase,
     @Assisted private val state: SavedStateHandle
 ) : ViewModel() {
-    val TAG = AddEditFtSaleshViewModel::class.java.simpleName
+    val TAG = AddEditFtSaleshQtyViewModel::class.java.simpleName
 
     val userViewState = state.get<UserViewState>("userViewStateActive")
     val ftSalesh = state.get<FtSalesh>("ftSalesh")
@@ -80,7 +78,11 @@ class AddEditFtSaleshViewModel @ViewModelInject constructor(
             )
         )
 
-        addEditFtSaleshEventChannel.send(AddEditSalesOrderEvent.NavigateBackWithResult(ADD_TASK_RESULT_OK))
+        addEditFtSaleshEventChannel.send(
+            AddEditSalesOrderEvent.NavigateBackWithResult(
+                ADD_TASK_RESULT_OK
+            )
+        )
     }
 
     private fun updateFtSalesh(ftSalesh: FtSalesh) = viewModelScope.launch {
@@ -103,11 +105,19 @@ class AddEditFtSaleshViewModel @ViewModelInject constructor(
 //            )
 //        )
 
-        addEditFtSaleshEventChannel.send(AddEditSalesOrderEvent.NavigateBackWithResult(EDIT_TASK_RESULT_OK))
+        addEditFtSaleshEventChannel.send(
+            AddEditSalesOrderEvent.NavigateBackWithResult(
+                EDIT_TASK_RESULT_OK
+            )
+        )
     }
 
     fun popUpBackStackWithTheResult() = viewModelScope.launch {
-        addEditFtSaleshEventChannel.send(AddEditSalesOrderEvent.NavigateBackWithResult(EDIT_TASK_RESULT_OK))
+        addEditFtSaleshEventChannel.send(
+            AddEditSalesOrderEvent.NavigateBackWithResult(
+                EDIT_TASK_RESULT_OK
+            )
+        )
     }
 
     fun showInvalidInputMessage(text: String) = viewModelScope.launch {
@@ -117,9 +127,5 @@ class AddEditFtSaleshViewModel @ViewModelInject constructor(
     sealed class AddEditSalesOrderEvent {
         data class ShowInvalidInputMessage(val msg: String) : AddEditSalesOrderEvent()
         data class NavigateBackWithResult(val result: Int) : AddEditSalesOrderEvent()
-
-        data class NavigateToChooseCustomerScreen(var userViewState: UserViewState, val ftSalesh: FtSalesh, val isAddOrEdit: Boolean) : AddEditSalesOrderEvent()
-
-        data class NavigateToChooseMaterialScreen(var userViewState: UserViewState, val ftSalesdItems: FtSalesdItems, val isAddOrEdit: Boolean) : AddEditSalesOrderEvent()
     }
 }

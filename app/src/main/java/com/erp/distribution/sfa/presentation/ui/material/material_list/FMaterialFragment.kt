@@ -129,22 +129,22 @@ class FMaterialFragment : Fragment(R.layout.fragment_fmaterial), FMaterialAdapte
                                 viewModelFMaterial.onUndoDeleteClick(event.fMaterial)
                             }.show()
                     }
-                    is FMaterialViewModel.FMaterialEvent.NavigateToAddFMaterialScreen -> {
-                        val action =
-                            FMaterialFragmentDirections.actionMaterialFragmentToMaterialFragmentAddEdit(
-                                null,
-                                "New Material"
-                            )
-//                        findNavController().navigate(action)
-                    }
-                    is FMaterialViewModel.FMaterialEvent.NavigateToEditFMaterialScreen -> {
-                        val action =
-                            FMaterialFragmentDirections.actionMaterialFragmentToMaterialFragmentAddEdit(
-                                event.fMaterial,
-                                "Edit Material"
-                            )
-//                        findNavController().navigate(action)
-                    }
+//                    is FMaterialViewModel.FMaterialEvent.NavigateToAddFMaterialScreen -> {
+//                        val action =
+//                            FMaterialFragmentDirections.actionMaterialFragmentToMaterialFragmentAddEdit(
+//                                null,
+//                                "New Material"
+//                            )
+////                        findNavController().navigate(action)
+//                    }
+//                    is FMaterialViewModel.FMaterialEvent.NavigateToEditFMaterialScreen -> {
+//                        val action =
+//                            FMaterialFragmentDirections.actionMaterialFragmentToMaterialFragmentAddEdit(
+//                                event.fMaterial,
+//                                "Edit Material"
+//                            )
+////                        findNavController().navigate(action)
+//                    }
                     is FMaterialViewModel.FMaterialEvent.ShowFMaterialSavedConfirmationMessage -> {
                         Snackbar.make(requireView(), event.msg, Snackbar.LENGTH_SHORT).show()
                     }

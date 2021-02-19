@@ -1,4 +1,4 @@
-package com.erp.distribution.sfa.presentation.ui.salesorder.salesorder_addedit
+package com.erp.distribution.sfa.presentation.ui.salesorder.salesorder_qty
 
 import android.os.Bundle
 import android.view.MenuItem
@@ -6,37 +6,32 @@ import android.view.View
 import android.widget.Toast
 import androidx.activity.OnBackPressedCallback
 import androidx.core.os.bundleOf
-import androidx.core.view.isVisible
-import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.setFragmentResult
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import com.erp.distribution.sfa.R
-import com.erp.distribution.sfa.databinding.FragmentAddEditSalesorderBinding
-import com.erp.distribution.sfa.presentation.ui.DashBoardFragmentDirections
-import com.erp.distribution.sfa.presentation.ui.salesorder.salesorder_list.FSaleshViewModel
-import com.erp.distribution.sfa.presentation.ui.salesorder.salesorder_list.FtSaleshFragmentDirections
+import com.erp.distribution.sfa.databinding.FragmentAddEditQtySalesorderBinding
 import com.erp.distribution.sfa.utils.exhaustive
 import com.google.android.material.snackbar.Snackbar
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collect
 
 @AndroidEntryPoint
-class AddEditFtSaleshFragment : Fragment(R.layout.fragment_add_edit_salesorder) {
+class AddEditFtSaleshQtyFragment : Fragment(R.layout.fragment_add_edit_qty_salesorder) {
 
-    private val viewModelFtSalesh: AddEditFtSaleshViewModel by viewModels()
+    private val viewModelFtSaleshQty: AddEditFtSaleshQtyViewModel by viewModels()
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val binding = FragmentAddEditSalesorderBinding.bind(view)
+        val binding = FragmentAddEditQtySalesorderBinding.bind(view)
 
         requireActivity().onBackPressedDispatcher
                 .addCallback(viewLifecycleOwner, object : OnBackPressedCallback(true){
                     override fun handleOnBackPressed() {
-                        viewModelFtSalesh.popUpBackStackWithTheResult()
+                        viewModelFtSaleshQty.popUpBackStackWithTheResult()
                     }
                 })
 
@@ -62,22 +57,13 @@ class AddEditFtSaleshFragment : Fragment(R.layout.fragment_add_edit_salesorder) 
         }
 
         viewLifecycleOwner.lifecycleScope.launchWhenStarted {
-            viewModelFtSalesh.addEditFtSaleshEvent.collect { event ->
+            viewModelFtSaleshQty.addEditFtSaleshEvent.collect { event ->
                 when (event) {
-                    is AddEditFtSaleshViewModel.AddEditSalesOrderEvent.ShowInvalidInputMessage -> {
+                    is AddEditFtSaleshQtyViewModel.AddEditSalesOrderEvent.ShowInvalidInputMessage -> {
                         Snackbar.make(requireView(), event.msg, Snackbar.LENGTH_LONG).show()
                     }
 
-                    is AddEditFtSaleshViewModel.AddEditSalesOrderEvent.NavigateToChooseCustomerScreen -> {
-                        val action = AddEditFtSaleshFragmentDirections.actionAddEditFtSaleshFragmentToFCustomerFragment()
-                        findNavController().navigate(action)
-                    }
-                    is AddEditFtSaleshViewModel.AddEditSalesOrderEvent.NavigateToChooseMaterialScreen -> {
-                        val action = AddEditFtSaleshFragmentDirections.actionAddEditFtSaleshFragmentToFMaterialFragment()
-                        findNavController().navigate(action)
-                    }
-
-                    is AddEditFtSaleshViewModel.AddEditSalesOrderEvent.NavigateBackWithResult -> {
+                    is AddEditFtSaleshQtyViewModel.AddEditSalesOrderEvent.NavigateBackWithResult -> {
 //                        binding.editTextSoName.clearFocus()
                         setFragmentResult(
                             "add_edit_request",
@@ -100,7 +86,7 @@ class AddEditFtSaleshFragment : Fragment(R.layout.fragment_add_edit_salesorder) 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         return when (item.itemId){
             android.R.id.home ->{
-                viewModelFtSalesh.popUpBackStackWithTheResult()
+                viewModelFtSaleshQty.popUpBackStackWithTheResult()
                 true
             }
             else -> super.onOptionsItemSelected(item)

@@ -29,33 +29,37 @@
     <fragment
         android:id="@+id/FMaterialFragment"
         android:name="com.erp.distribution.sfa.presentation.ui.material.material_list.FMaterialFragment"
-        android:label="fragment_fmaterial"
+        android:label="Produk"
         tools:layout="@layout/fragment_fmaterial" >
-<!--        <argument-->
-<!--            android:name="fUserActive"-->
-<!--            app:argType="com.erp.distribution.sfa.domain.model.FUser"-->
-<!--            app:nullable="true"-->
-<!--            android:defaultValue="@null" />-->
         <argument
             android:name="userViewStateActive"
             app:argType="com.erp.distribution.sfa.presentation.model.UserViewState"
             app:nullable="true"
             android:defaultValue="@null" />
+        <argument
+            android:name="ftSalesdItems"
+            app:argType="com.erp.distribution.sfa.domain.model.FtSalesdItems"
+            app:nullable="true"
+            android:defaultValue="@null" />
+
+        <action
+            android:id="@+id/action_FMaterialFragment_to_addEditFtSaleshQtyFragment"
+            app:destination="@id/addEditFtSaleshQtyFragment" />
 
     </fragment>
     <fragment
         android:id="@+id/FCustomerFragment"
         android:name="com.erp.distribution.sfa.presentation.ui.customer.customer_list.CustomerFragment"
-        android:label="fragment_customer"
+        android:label="Customer"
         tools:layout="@layout/fragment_customer" >
-<!--        <argument-->
-<!--            android:name="fUserActive"-->
-<!--            app:argType="com.erp.distribution.sfa.domain.model.FUser"-->
-<!--            app:nullable="true"-->
-<!--            android:defaultValue="@null" />-->
         <argument
             android:name="userViewStateActive"
             app:argType="com.erp.distribution.sfa.presentation.model.UserViewState"
+            app:nullable="true"
+            android:defaultValue="@null" />
+        <argument
+            android:name="ftSalesh"
+            app:argType="com.erp.distribution.sfa.domain.model.FtSalesh"
             app:nullable="true"
             android:defaultValue="@null" />
 
@@ -67,7 +71,7 @@
     <fragment
         android:id="@+id/syncronizeFragment"
         android:name="com.erp.distribution.sfa.presentation.ui.syncronize_fromserver.SyncronizeFragment"
-        android:label="SyncronizeFragment" >
+        android:label="Sync dengan Server" >
 <!--        <argument-->
 <!--            android:name="fUserActive"-->
 <!--            app:argType="com.erp.distribution.sfa.domain.model.FUser"-->
@@ -82,7 +86,7 @@
     <fragment
         android:id="@+id/ftSaleshFragment"
         android:name="com.erp.distribution.sfa.presentation.ui.salesorder.salesorder_list.FtSaleshFragment"
-        android:label="fragment_ftsalesh"
+        android:label="Sales Order"
         tools:layout="@layout/fragment_ftsalesh">
         <argument
             android:name="userViewStateActive"
@@ -96,7 +100,7 @@
     <fragment
         android:id="@+id/addEditFtSaleshFragment"
         android:name="com.erp.distribution.sfa.presentation.ui.salesorder.salesorder_addedit.AddEditFtSaleshFragment"
-        android:label="fragment_add_edit_salesorder"
+        android:label="Customer Order"
         tools:layout="@layout/fragment_add_edit_salesorder" >
 
         <argument
@@ -109,7 +113,41 @@
             app:argType="com.erp.distribution.sfa.domain.model.FtSalesh"
             app:nullable="true"
             android:defaultValue="@null" />
+        <argument
+            android:name="ftSalesdItems"
+            app:argType="com.erp.distribution.sfa.domain.model.FtSalesdItems"
+            app:nullable="true"
+            android:defaultValue="@null" />
 
+        <action
+            android:id="@+id/action_addEditFtSaleshFragment_to_FMaterialFragment"
+            app:destination="@id/FMaterialFragment" />
+        <action
+            android:id="@+id/action_addEditFtSaleshFragment_to_FCustomerFragment"
+            app:destination="@id/FCustomerFragment" />
+
+    </fragment>
+    <fragment
+        android:id="@+id/addEditFtSaleshQtyFragment"
+        android:name="com.erp.distribution.sfa.presentation.ui.salesorder.salesorder_qty.AddEditFtSaleshQtyFragment"
+        android:label="Product Qty" >
+        <argument
+            android:name="userViewStateActive"
+            app:argType="com.erp.distribution.sfa.presentation.model.UserViewState"
+            app:nullable="true"
+            android:defaultValue="@null" />
+        <argument
+            android:name="ftSalesdItems"
+            app:argType="com.erp.distribution.sfa.domain.model.FtSalesdItems"
+            app:nullable="true"
+            android:defaultValue="@null" />
+
+        <action
+            android:id="@+id/action_ftSaleshFragment_to_addEditFtSaleshFragment"
+            app:destination="@id/addEditFtSaleshFragment" />
+        <action
+            android:id="@+id/action_addEditFtSaleshQtyFragment_to_addEditFtSaleshFragment"
+            app:destination="@id/addEditFtSaleshFragment" />
     </fragment>
 
 

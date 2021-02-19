@@ -169,6 +169,7 @@ class CustomerViewModel @ViewModelInject constructor(
     sealed class CustomerEvent {
         object NavigateToAddCustomerScreen : CustomerEvent()
         data class NavigateToEditCustomerScreen(val fCustomer: FCustomer) : CustomerEvent()
+
         data class ShowUndoDeleteCustomerMessage(val fCustomer: FCustomer) : CustomerEvent()
         data class ShowCustomerSavedConfirmationMessage(val msg: String) : CustomerEvent()
         object NavigateToDeleteAllCompletedScreen : CustomerEvent()

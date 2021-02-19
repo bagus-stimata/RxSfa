@@ -219,8 +219,8 @@
                       <LayoutPositions>
                         <option name="myPosition">
                           <Point>
-                            <option name="x" value="150" />
-                            <option name="y" value="327" />
+                            <option name="x" value="416" />
+                            <option name="y" value="596" />
                           </Point>
                         </option>
                       </LayoutPositions>
@@ -231,9 +231,18 @@
                       <LayoutPositions>
                         <option name="myPosition">
                           <Point>
-                            <option name="x" value="215" />
-                            <option name="y" value="-16" />
+                            <option name="x" value="351" />
+                            <option name="y" value="-392" />
                           </Point>
+                        </option>
+                        <option name="myPositions">
+                          <map>
+                            <entry key="action_FMaterialFragment_to_addEditFtSaleshQtyFragment">
+                              <value>
+                                <LayoutPositions />
+                              </value>
+                            </entry>
+                          </map>
                         </option>
                       </LayoutPositions>
                     </value>
@@ -243,9 +252,44 @@
                       <LayoutPositions>
                         <option name="myPosition">
                           <Point>
-                            <option name="x" value="9" />
-                            <option name="y" value="1053" />
+                            <option name="x" value="353" />
+                            <option name="y" value="99" />
                           </Point>
+                        </option>
+                        <option name="myPositions">
+                          <map>
+                            <entry key="action_addEditFtSaleshFragment_to_FCustomerFragment">
+                              <value>
+                                <LayoutPositions />
+                              </value>
+                            </entry>
+                            <entry key="action_addEditFtSaleshFragment_to_FMaterialFragment">
+                              <value>
+                                <LayoutPositions />
+                              </value>
+                            </entry>
+                          </map>
+                        </option>
+                      </LayoutPositions>
+                    </value>
+                  </entry>
+                  <entry key="addEditFtSaleshQtyFragment">
+                    <value>
+                      <LayoutPositions>
+                        <option name="myPosition">
+                          <Point>
+                            <option name="x" value="680" />
+                            <option name="y" value="-479" />
+                          </Point>
+                        </option>
+                        <option name="myPositions">
+                          <map>
+                            <entry key="action_addEditFtSaleshQtyFragment_to_addEditFtSaleshFragment">
+                              <value>
+                                <LayoutPositions />
+                              </value>
+                            </entry>
+                          </map>
                         </option>
                       </LayoutPositions>
                     </value>
@@ -296,8 +340,8 @@
                       <LayoutPositions>
                         <option name="myPosition">
                           <Point>
-                            <option name="x" value="-170" />
-                            <option name="y" value="599" />
+                            <option name="x" value="50" />
+                            <option name="y" value="35" />
                           </Point>
                         </option>
                         <option name="myPositions">
@@ -317,8 +361,8 @@
                       <LayoutPositions>
                         <option name="myPosition">
                           <Point>
-                            <option name="x" value="-177" />
-                            <option name="y" value="-538" />
+                            <option name="x" value="-345" />
+                            <option name="y" value="-419" />
                           </Point>
                         </option>
                       </LayoutPositions>
@@ -329,8 +373,8 @@
                       <LayoutPositions>
                         <option name="myPosition">
                           <Point>
-                            <option name="x" value="221" />
-                            <option name="y" value="-462" />
+                            <option name="x" value="-333" />
+                            <option name="y" value="473" />
                           </Point>
                         </option>
                       </LayoutPositions>
