@@ -18,6 +18,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.erp.distribution.sfa.data.di.SortOrder
 import com.erp.distribution.sfa.databinding.FragmentFmaterialBinding
 import com.erp.distribution.sfa.domain.model.FMaterial
+import com.erp.distribution.sfa.presentation.ui.salesorder.salesorder_qty.AddEditFtSaleshQtyFragment
 import com.erp.distribution.sfa.presentation.ui.utils.AlertDialogWarning
 import com.erp.distribution.sfa.presentation.ui.utils.onQueryTextChanged
 import com.erp.distribution.sfa.utils.exhaustive
@@ -80,7 +81,7 @@ class FMaterialFragment : Fragment(R.layout.fragment_fmaterial), FMaterialAdapte
 
 
             fabAddFMaterial.setOnClickListener {
-                viewModelFMaterial.onAddNewFMaterialClick()
+//                viewModelFMaterial.onAddNewFMaterialClick()
             }
 
 
@@ -129,6 +130,11 @@ class FMaterialFragment : Fragment(R.layout.fragment_fmaterial), FMaterialAdapte
                                 viewModelFMaterial.onUndoDeleteClick(event.fMaterial)
                             }.show()
                     }
+                    is FMaterialViewModel.FMaterialEvent.NavigateToSalesOrderEditQtyScreen -> {
+                        val action = FMaterialFragmentDirections.actionFMaterialFragmentToAddEditFtSaleshQtyFragment()
+                        findNavController().navigate(action)
+                    }
+
 //                    is FMaterialViewModel.FMaterialEvent.NavigateToAddFMaterialScreen -> {
 //                        val action =
 //                            FMaterialFragmentDirections.actionMaterialFragmentToMaterialFragmentAddEdit(

@@ -27,11 +27,12 @@ class AddEditFtSaleshQtyFragment : Fragment(R.layout.fragment_add_edit_qty_sales
         super.onViewCreated(view, savedInstanceState)
 
         val binding = FragmentAddEditQtySalesorderBinding.bind(view)
+        binding.actionFragment = this
 
         requireActivity().onBackPressedDispatcher
                 .addCallback(viewLifecycleOwner, object : OnBackPressedCallback(true){
                     override fun handleOnBackPressed() {
-                        viewModelFtSaleshQty.popUpBackStackWithTheResult()
+                        viewModelFtSaleshQty.onPopUpBackStackWithTheResult()
                     }
                 })
 
@@ -59,11 +60,14 @@ class AddEditFtSaleshQtyFragment : Fragment(R.layout.fragment_add_edit_qty_sales
         viewLifecycleOwner.lifecycleScope.launchWhenStarted {
             viewModelFtSaleshQty.addEditFtSaleshEvent.collect { event ->
                 when (event) {
-                    is AddEditFtSaleshQtyViewModel.AddEditSalesOrderEvent.ShowInvalidInputMessage -> {
+                    is AddEditFtSaleshQtyViewModel.AddEditFtSaleshQtyEvent.ShowInvalidInputMessage -> {
                         Snackbar.make(requireView(), event.msg, Snackbar.LENGTH_LONG).show()
                     }
-
-                    is AddEditFtSaleshQtyViewModel.AddEditSalesOrderEvent.NavigateBackWithResult -> {
+                    is AddEditFtSaleshQtyViewModel.AddEditFtSaleshQtyEvent.NavigateToFtSalesh -> {
+                        val action = AddEditFtSaleshQtyFragmentDirections.actionAddEditFtSaleshQtyFragmentToAddEditFtSaleshFragment()
+                        findNavController().navigate(action)
+                    }
+                    is AddEditFtSaleshQtyViewModel.AddEditFtSaleshQtyEvent.NavigateBackWithResult -> {
 //                        binding.editTextSoName.clearFocus()
                         setFragmentResult(
                             "add_edit_request",
@@ -86,11 +90,14 @@ class AddEditFtSaleshQtyFragment : Fragment(R.layout.fragment_add_edit_qty_sales
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         return when (item.itemId){
             android.R.id.home ->{
-                viewModelFtSaleshQty.popUpBackStackWithTheResult()
+                viewModelFtSaleshQty.onPopUpBackStackWithTheResult()
                 true
             }
             else -> super.onOptionsItemSelected(item)
         }
 
+    }
+    fun updateQtyOke() {
+        viewModelFtSaleshQty.onUpdateQtyOke()
     }
 }

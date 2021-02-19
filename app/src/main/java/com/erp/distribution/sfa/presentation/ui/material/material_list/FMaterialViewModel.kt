@@ -10,9 +10,11 @@ import com.erp.distribution.sfa.data.source.entity.FDivisionEntity
 import com.erp.distribution.sfa.data.source.entity.FMaterialGroup3Entity
 import com.erp.distribution.sfa.domain.model.FMaterial
 import com.erp.distribution.sfa.domain.model.FMaterialGroup3
+import com.erp.distribution.sfa.domain.model.FtSalesdItems
 import com.erp.distribution.sfa.domain.model.toEntity
 import com.erp.distribution.sfa.domain.usecase.GetFMaterialGroup3UseCase
 import com.erp.distribution.sfa.domain.usecase.GetFMaterialUseCase
+import com.erp.distribution.sfa.presentation.model.UserViewState
 import com.erp.distribution.sfa.presentation.ui.material.ADD_TASK_RESULT_OK
 import com.erp.distribution.sfa.presentation.ui.material.EDIT_TASK_RESULT_OK
 import com.erp.distribution.sfa.utils.DisposableManager
@@ -74,7 +76,11 @@ class FMaterialViewModel @ViewModelInject constructor(
 //    }
     fun onItemSelected(fMaterial: FMaterial) {
         viewModelScope.launch {
-            fMaterialEventChannel.send(FMaterialEvent.NavigateToEditFMaterialScreen(fMaterial))
+//            fMaterialEventChannel.send(FMaterialEvent.NavigateToEditFMaterialScreen(fMaterial))
+            val tempUserViewState= UserViewState()
+            val tempFtSalesdItem = FtSalesdItems()
+            fMaterialEventChannel.send(FMaterialEvent.NavigateToSalesOrderEditQtyScreen(tempUserViewState, tempFtSalesdItem, false))
+
         }
     }
 
@@ -89,10 +95,7 @@ class FMaterialViewModel @ViewModelInject constructor(
                         },
                         {
                             Log.d(TAG, "#result MATERIAL error  ${it.message}")
-                        },
-                        {
-
-                        }
+                        },{}
                 )
         )
 
@@ -109,10 +112,7 @@ class FMaterialViewModel @ViewModelInject constructor(
                         },
                         {
                             Log.d(TAG, "#result MATERIAL error  ${it.message}")
-                        },
-                        {
-
-                        }
+                        },{}
                 )
         )
 
@@ -177,7 +177,10 @@ class FMaterialViewModel @ViewModelInject constructor(
 
     sealed class FMaterialEvent {
         object NavigateToAddFMaterialScreen : FMaterialEvent()
+
         data class NavigateToEditFMaterialScreen(val fMaterial: FMaterial) : FMaterialEvent()
+        data class NavigateToSalesOrderEditQtyScreen(val userViewState: UserViewState, val ftSalesdItems: FtSalesdItems, val isAddOrEdit: Boolean) : FMaterialEvent()
+
         data class ShowUndoDeleteFMaterialMessage(val fMaterial: FMaterial) : FMaterialEvent()
         data class ShowFMaterialSavedConfirmationMessage(val msg: String) : FMaterialEvent()
         object NavigateToDeleteAllCompletedScreen : FMaterialEvent()

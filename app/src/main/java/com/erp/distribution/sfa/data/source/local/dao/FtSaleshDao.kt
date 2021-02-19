@@ -55,11 +55,14 @@ interface FtSaleshDao {
             }
                 else -> getAllFtSaleshFLow( limit, currentOffset)
         }
-    
+
+    @Transaction
     @Query("SELECT * FROM ftSalesh WHERE  orderno LIKE '%' || :searchQuery || '%'  ORDER BY invoiceDate   LIMIT :limit OFFSET :currentOffset ")
     fun getAllFtSaleshSortedByInvoiceDateFLow(searchQuery: String, limit: Int, currentOffset: Int): Flow<List<FtSaleshWithFDivisionAndFCustomer>>
+    @Transaction
     @Query("SELECT * FROM ftSalesh WHERE  orderno LIKE '%' || :searchQuery || '%'  ORDER BY orderDate   LIMIT :limit OFFSET :currentOffset ")
     fun getAllFtSaleshSortedByOrderDateFLow(searchQuery: String, limit: Int, currentOffset: Int): Flow<List<FtSaleshWithFDivisionAndFCustomer>>
+    @Transaction
     @Query("SELECT * FROM ftSalesh   LIMIT :limit OFFSET :currentOffset ")
     fun getAllFtSaleshFLow(limit: Int, currentOffset: Int): Flow<List<FtSaleshWithFDivisionAndFCustomer>>
 

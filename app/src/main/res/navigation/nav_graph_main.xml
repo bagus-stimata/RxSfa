@@ -141,13 +141,13 @@
             app:argType="com.erp.distribution.sfa.domain.model.FtSalesdItems"
             app:nullable="true"
             android:defaultValue="@null" />
-
-        <action
-            android:id="@+id/action_ftSaleshFragment_to_addEditFtSaleshFragment"
-            app:destination="@id/addEditFtSaleshFragment" />
         <action
             android:id="@+id/action_addEditFtSaleshQtyFragment_to_addEditFtSaleshFragment"
-            app:destination="@id/addEditFtSaleshFragment" />
+            app:destination="@id/addEditFtSaleshFragment"
+            app:popUpTo="@id/addEditFtSaleshFragment"
+            app:popUpToInclusive="true" />
+
+
     </fragment>
 
 

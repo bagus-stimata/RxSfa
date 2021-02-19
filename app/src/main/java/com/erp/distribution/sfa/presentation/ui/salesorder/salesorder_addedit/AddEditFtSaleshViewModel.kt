@@ -12,7 +12,6 @@ import com.erp.distribution.sfa.domain.usecase.GetFtSaleshUseCase
 import com.erp.distribution.sfa.presentation.model.UserViewState
 import com.erp.distribution.sfa.presentation.ui.salesorder.ADD_TASK_RESULT_OK
 import com.erp.distribution.sfa.presentation.ui.salesorder.EDIT_TASK_RESULT_OK
-import com.erp.distribution.sfa.presentation.ui.salesorder.salesorder_list.FSaleshViewModel
 import com.erp.distribution.sfa.utils.DisposableManager
 import io.reactivex.rxjava3.core.Observable
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
@@ -51,7 +50,7 @@ class AddEditFtSaleshViewModel @ViewModelInject constructor(
             return
         }
 
-        popUpBackStackWithTheResult()
+        onPopUpBackStackWithTheResult()
 
         if (ftSalesh != null) {
             val updatedFtSalesh = ftSalesh.copy(invoiceno = ftSaleshName, isValidOrder = ftSaleshImportance )
@@ -106,8 +105,19 @@ class AddEditFtSaleshViewModel @ViewModelInject constructor(
         addEditFtSaleshEventChannel.send(AddEditSalesOrderEvent.NavigateBackWithResult(EDIT_TASK_RESULT_OK))
     }
 
-    fun popUpBackStackWithTheResult() = viewModelScope.launch {
+    fun onPopUpBackStackWithTheResult() = viewModelScope.launch {
         addEditFtSaleshEventChannel.send(AddEditSalesOrderEvent.NavigateBackWithResult(EDIT_TASK_RESULT_OK))
+    }
+
+    fun onChooseOrEditCustomer() = viewModelScope.launch {
+        val tempUserViewState = UserViewState()
+        val tempFtSalesh = FtSalesh()
+        addEditFtSaleshEventChannel.send(AddEditSalesOrderEvent.NavigateToChooseCustomerScreen(tempUserViewState, tempFtSalesh, true))
+    }
+    fun onChooseOrEditMaterial() = viewModelScope.launch {
+        val tempUserViewState = UserViewState()
+        val tempFtSalesdItems = FtSalesdItems()
+        addEditFtSaleshEventChannel.send(AddEditSalesOrderEvent.NavigateToChooseMaterialScreen(tempUserViewState, tempFtSalesdItems, true))
     }
 
     fun showInvalidInputMessage(text: String) = viewModelScope.launch {
@@ -119,7 +129,6 @@ class AddEditFtSaleshViewModel @ViewModelInject constructor(
         data class NavigateBackWithResult(val result: Int) : AddEditSalesOrderEvent()
 
         data class NavigateToChooseCustomerScreen(var userViewState: UserViewState, val ftSalesh: FtSalesh, val isAddOrEdit: Boolean) : AddEditSalesOrderEvent()
-
         data class NavigateToChooseMaterialScreen(var userViewState: UserViewState, val ftSalesdItems: FtSalesdItems, val isAddOrEdit: Boolean) : AddEditSalesOrderEvent()
     }
 }
