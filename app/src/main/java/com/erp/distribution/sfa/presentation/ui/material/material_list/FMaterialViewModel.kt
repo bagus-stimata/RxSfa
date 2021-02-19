@@ -74,14 +74,11 @@ class FMaterialViewModel @ViewModelInject constructor(
 //    fun onItemSelected(fMaterial: FMaterial) = viewModelScope.launch {
 //        fMaterialEventChannel.send(FMaterialEvent.NavigateToEditFMaterialScreen(fMaterial))
 //    }
-    fun onItemSelected(fMaterial: FMaterial) {
-        viewModelScope.launch {
+    fun onItemSelected(fMaterial: FMaterial) = viewModelScope.launch {
 //            fMaterialEventChannel.send(FMaterialEvent.NavigateToEditFMaterialScreen(fMaterial))
             val tempUserViewState= UserViewState()
             val tempFtSalesdItem = FtSalesdItems()
             fMaterialEventChannel.send(FMaterialEvent.NavigateToSalesOrderEditQtyScreen(tempUserViewState, tempFtSalesdItem, false))
-
-        }
     }
 
     fun onItemCheckedChanged(fMaterial: FMaterial, isChecked: Boolean) = viewModelScope.launch {
@@ -130,10 +127,7 @@ class FMaterialViewModel @ViewModelInject constructor(
                         },
                         {
                             Log.d(TAG, "#result MATERIAL error  ${it.message}")
-                        },
-                        {
-
-                        }
+                        },{}
                 )
         )
     }
@@ -167,10 +161,7 @@ class FMaterialViewModel @ViewModelInject constructor(
                 },
                 {
                     Log.d(TAG, "#result MATERIAL error  ${it.message}")
-                },
-                {
-
-                }
+                },{}
             )
         )
     }

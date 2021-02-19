@@ -134,7 +134,6 @@ class FMaterialFragment : Fragment(R.layout.fragment_fmaterial), FMaterialAdapte
                         val action = FMaterialFragmentDirections.actionFMaterialFragmentToAddEditFtSaleshQtyFragment()
                         findNavController().navigate(action)
                     }
-
 //                    is FMaterialViewModel.FMaterialEvent.NavigateToAddFMaterialScreen -> {
 //                        val action =
 //                            FMaterialFragmentDirections.actionMaterialFragmentToMaterialFragmentAddEdit(

@@ -139,6 +139,13 @@ class CustomerFragment : Fragment(R.layout.fragment_customer), CustomerAdapter.O
                                 viewModel.onUndoDeleteClick(event.fCustomer)
                             }.show()
                     }
+                    is CustomerViewModel.CustomerEvent.NavigateToFtSalesh -> {
+//                        setFragmentResult(
+//                                "customer_list_request",
+//                                bundleOf("customer_list_request" to event.ftSalesdItems)
+//                        )
+                        findNavController().popBackStack()
+                    }
 
                     is CustomerViewModel.CustomerEvent.NavigateToAddCustomerScreen -> {
                         val action =
@@ -190,9 +197,6 @@ class CustomerFragment : Fragment(R.layout.fragment_customer), CustomerAdapter.O
 
                     is CustomerViewModel.CustomerEvent.NavigateBackWithResult -> {
 //                        binding.editTextCustomerName.clearFocus()
-
-                        Toast.makeText(context, "hello", Toast.LENGTH_LONG).show()
-
                         setFragmentResult(
                             "customer_list_request",
                             bundleOf("customer_list_request" to event.result)
@@ -218,7 +222,6 @@ class CustomerFragment : Fragment(R.layout.fragment_customer), CustomerAdapter.O
                 }.exhaustive
             }
         }
-
 
         setHasOptionsMenu(true)
     }
