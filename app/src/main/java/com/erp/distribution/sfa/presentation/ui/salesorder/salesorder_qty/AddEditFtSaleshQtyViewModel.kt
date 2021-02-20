@@ -29,36 +29,36 @@ class AddEditFtSaleshQtyViewModel @ViewModelInject constructor(
     val userViewState = state.get<UserViewState>("userViewStateActive")
     val ftSalesh = state.get<FtSalesh>("ftSalesh")
 
-    var ftSaleshName = state.get<String>("ftSaleshName") ?: ftSalesh?.invoiceno ?: ""
-        set(value) {
-            field = value
-            state.set("ftSaleshName", value)
-        }
-
-    var ftSaleshImportance = state.get<Boolean>("statusActive") ?: ftSalesh?.isValidOrder ?: false
-        set(value) {
-            field = value
-            state.set("statusActive", value)
-        }
+//    var ftSaleshName = state.get<String>("ftSaleshName") ?: ftSalesh?.invoiceno ?: ""
+//        set(value) {
+//            field = value
+//            state.set("ftSaleshName", value)
+//        }
+//
+//    var ftSaleshImportance = state.get<Boolean>("statusActive") ?: ftSalesh?.isValidOrder ?: false
+//        set(value) {
+//            field = value
+//            state.set("statusActive", value)
+//        }
 
     private val addEditFtSaleshEventChannel = Channel<AddEditFtSaleshQtyEvent>()
     val addEditFtSaleshEvent = addEditFtSaleshEventChannel.receiveAsFlow()
 
     fun onSaveClick() {
-        if (ftSaleshName.isBlank()) {
-            showInvalidInputMessage("Name cannot be empty")
-            return
-        }
-
-        onPopUpBackStackWithTheResult()
-
-        if (ftSalesh != null) {
-            val updatedFtSalesh = ftSalesh.copy(invoiceno = ftSaleshName, isValidOrder = ftSaleshImportance )
-//            updateFtSalesh(updatedFtSalesh)
-        } else {
-            val newFtSalesh = FtSalesh(invoiceno = ftSaleshName, isValidOrder = ftSaleshImportance )
-//            createFtSalesh(newFtSalesh)
-        }
+//        if (ftSaleshName.isBlank()) {
+//            showInvalidInputMessage("Name cannot be empty")
+//            return
+//        }
+//
+//        onPopUpBackStackWithTheResult()
+//
+//        if (ftSalesh != null) {
+//            val updatedFtSalesh = ftSalesh.copy(invoiceno = ftSaleshName, isValidOrder = ftSaleshImportance )
+////            updateFtSalesh(updatedFtSalesh)
+//        } else {
+//            val newFtSalesh = FtSalesh(invoiceno = ftSaleshName, isValidOrder = ftSaleshImportance )
+////            createFtSalesh(newFtSalesh)
+//        }
 
     }
 
@@ -88,29 +88,12 @@ class AddEditFtSaleshQtyViewModel @ViewModelInject constructor(
 
     private fun updateFtSalesh(ftSalesh: FtSalesh) = viewModelScope.launch {
 
-//        DisposableManager.add(Observable.fromCallable {
-//            getFtSaleshUseCase.putCacheFtSaleshDomain(ftSalesh)
-//        }
-//            .subscribeOn(Schedulers.io())
-//            .observeOn(AndroidSchedulers.mainThread())
-//            .subscribe (
-//                {
-//                },
-//                {
-//                    Log.d(TAG, "#result MATERIAL error  ${it.message}")
-//
-//                },
-//                {
-//
-//                }
-//            )
-//        )
-
         addEditFtSaleshEventChannel.send(
             AddEditFtSaleshQtyEvent.NavigateBackWithResult(
                 EDIT_TASK_RESULT_OK
             )
         )
+
     }
 
     fun onPopUpBackStackWithTheResult() = viewModelScope.launch {
@@ -138,4 +121,5 @@ class AddEditFtSaleshQtyViewModel @ViewModelInject constructor(
         data class NavigateToFtSalesh(var userViewState: UserViewState, val ftSalesh: FtSalesh, val ftSalesdItems: FtSalesdItems, val isAddOrEdit: Boolean) : AddEditFtSaleshQtyEvent()
         data class NavigateBackWithResult(val result: Int) : AddEditFtSaleshQtyEvent()
     }
+
 }

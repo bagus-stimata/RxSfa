@@ -29,6 +29,23 @@ class AddEditFtSaleshQtyFragment : Fragment(R.layout.fragment_add_edit_qty_sales
         val binding = FragmentAddEditQtySalesorderBinding.bind(view)
         binding.actionFragment = this
 
+//        binding.numberpickerUom1.apply {
+//            maxValue = 50
+//            minValue = 0
+//        }
+//        binding.numberpickerUom2.apply {
+//            maxValue = 50
+//            minValue = 0
+//        }
+//        binding.numberpickerUom3.apply {
+//            maxValue = 50
+//            minValue = 0
+//        }
+//        binding.numberpickerUom4.apply {
+//            maxValue = 50
+//            minValue = 0
+//        }
+
         requireActivity().onBackPressedDispatcher
                 .addCallback(viewLifecycleOwner, object : OnBackPressedCallback(true){
                     override fun handleOnBackPressed() {
@@ -50,7 +67,6 @@ class AddEditFtSaleshQtyFragment : Fragment(R.layout.fragment_add_edit_qty_sales
 //            checkBoxImportant.setOnCheckedChangeListener { _, isChecked ->
 //                viewModelFtSalesh.ftSaleshImportance = isChecked
 //            }
-//
 //            fabSaveSalesorder.setOnClickListener {
 //                viewModelFtSalesh.onSaveClick()
 //            }
@@ -63,10 +79,12 @@ class AddEditFtSaleshQtyFragment : Fragment(R.layout.fragment_add_edit_qty_sales
                     is AddEditFtSaleshQtyViewModel.AddEditFtSaleshQtyEvent.ShowInvalidInputMessage -> {
                         Snackbar.make(requireView(), event.msg, Snackbar.LENGTH_LONG).show()
                     }
-                    is AddEditFtSaleshQtyViewModel.AddEditFtSaleshQtyEvent.NavigateToFtSalesh -> {
-                        val action = AddEditFtSaleshQtyFragmentDirections.actionAddEditFtSaleshQtyFragmentToAddEditFtSaleshFragment()
-                        findNavController().navigate(action)
-                    }
+
+//                    is AddEditFtSaleshQtyViewModel.AddEditFtSaleshQtyEvent.NavigateToFtSalesh -> {
+//                        val action = AddEditFtSaleshQtyFragmentDirections.actionAddEditFtSaleshQtyFragmentToAddEditFtSaleshFragment()
+//                        findNavController().navigate(action)
+//                    }
+
                     is AddEditFtSaleshQtyViewModel.AddEditFtSaleshQtyEvent.NavigateBackWithResult -> {
 //                        binding.editTextSoName.clearFocus()
                         setFragmentResult(
