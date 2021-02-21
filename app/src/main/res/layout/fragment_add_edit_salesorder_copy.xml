@@ -220,7 +220,7 @@
                                         android:textSize="10dp" />
 
                                     <TextView
-                                        android:id="@+id/text_order_no"
+                                        android:id="@+id/textview_orderno"
                                         android:layout_width="match_parent"
                                         android:layout_height="wrap_content"
                                         android:layout_below="@id/text_order_title"
@@ -232,7 +232,7 @@
                                         android:id="@+id/text_order_date"
                                         android:layout_width="match_parent"
                                         android:layout_height="wrap_content"
-                                        android:layout_below="@id/text_order_no"
+                                        android:layout_below="@id/textview_orderno"
                                         android:gravity="center"
                                         android:text="25 Mei 2020"
                                         android:textColor="#000"

@@ -3,14 +3,17 @@ package com.erp.distribution.sfa.presentation.ui.salesorder.salesorder_addedit
 import android.util.Log
 import androidx.hilt.Assisted
 import androidx.hilt.lifecycle.ViewModelInject
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.erp.distribution.sfa.data.source.entity.FtSaleshEntity
+import com.erp.distribution.sfa.domain.model.FCustomer
 import com.erp.distribution.sfa.domain.model.FtSalesdItems
 import com.erp.distribution.sfa.domain.model.FtSalesh
+import com.erp.distribution.sfa.domain.model.toEntity
 import com.erp.distribution.sfa.domain.usecase.GetFtSaleshUseCase
 import com.erp.distribution.sfa.presentation.model.UserViewState
-import com.erp.distribution.sfa.presentation.ui.salesorder.ADD_TASK_RESULT_OK
 import com.erp.distribution.sfa.presentation.ui.salesorder.EDIT_TASK_RESULT_OK
 import com.erp.distribution.sfa.utils.DisposableManager
 import io.reactivex.rxjava3.core.Observable
@@ -21,48 +24,112 @@ import kotlinx.coroutines.flow.receiveAsFlow
 import kotlinx.coroutines.launch
 
 class AddEditFtSaleshViewModel @ViewModelInject constructor(
-    private val getFtSaleshUseCase: GetFtSaleshUseCase,
-    @Assisted private val state: SavedStateHandle
+    private val getFtSaleshUseCase: GetFtSaleshUseCase
+//    ,
+//    @Assisted private val state: SavedStateHandle
 ) : ViewModel() {
     val TAG = AddEditFtSaleshViewModel::class.java.simpleName
 
-    val userViewState = state.get<UserViewState>("userViewStateActive")
-    val ftSalesh = state.get<FtSalesh>("ftSalesh")
+    var userViewState = UserViewState() //Ingat akan sama dengan pemanggilnya -> FtSaleshFragment sehingga tidak ada Add or Update yang ada hanya Edit
+    var isEditMode = false //true-> Edit, false-> Yang hanya membedakan Dao Insert atau Update
 
-    var ftSaleshName = state.get<String>("ftSaleshName") ?: ftSalesh?.invoiceno ?: ""
-        set(value) {
-            field = value
-            state.set("ftSaleshName", value)
-        }
+    var ftSaleshRefno: Long = 0
+    var ftSalesh = FtSalesh() //Ingat akan sama dengan pemanggilnya -> FtSaleshFragment
+    fun getCacheFtSaleshByIdLive(ftSaleshRefno: Long): LiveData<FtSalesh> =
+            getFtSaleshUseCase.getCacheAllFtSaleshWithItemsByIdLive(ftSaleshRefno)
 
-    var ftSaleshImportance = state.get<Boolean>("statusActive") ?: ftSalesh?.isValidOrder ?: false
-        set(value) {
-            field = value
-            state.set("statusActive", value)
-        }
+
+
+//    val userViewState = state.get<UserViewState>("userViewStateActive")
+//    var ftSalesh = state.get<FtSalesh>("ftSalesh")
+    /**
+     * SEMENTARA KITA TIDAK MENGGUNAKAN METODE STATE BINDING tapi Menggunakan Data Binding
+     */
+//    var fieldBinding_Orderno = state.get<String>("orderno") ?: ftSalesh?.orderno ?: "-"
+//        set(value) {
+//            field = value
+//            state.set("orderno", value)
+//        }
+//    var fieldBinding_OrderDate = state.get<String>("orderDate") ?: ftSalesh?.orderDate?: Date()
+//        set(value) {
+//            field = value
+//            state.set("orderDate", value)
+//        }
+//    var fieldBinding_Invoiceno = state.get<String>("invoiceno") ?: ftSalesh?.invoiceno ?: "-"
+//        set(value) {
+//            field = value
+//            state.set("invoiceno", value)
+//        }
+//    var fieldBinding_InvoiceDate = state.get<String>("invoiceDate") ?: ftSalesh?.invoiceDate ?: Date()
+//        set(value) {
+//            field = value
+//            state.set("invoiceDate", value)
+//        }
+//
+//    var fieldBinding_Custname = state.get<String>("custname") ?: ftSalesh?.fcustomerBean ?.custname?: "-"
+//        set(value) {
+//            field = value
+//            state.set("custname", value)
+//        }
+//
+//    var fieldBinding_Custno = state.get<String>("custno") ?: ftSalesh?.fcustomerBean?.custno ?: "ID: -"
+//        set(value) {
+//            field = value
+//            state.set("custno", value)
+//        }
+//
+//    var fieldBinding_Address1 = state.get<String>("address1")
+//            ?: ftSalesh?.fcustomerBean?.address1
+//            ?: "-"
+//        set(value) {
+//            field = value
+//            state.set("address1", value)
+//        }
+//    var fieldBinding_Address2 = state.get<String>("address2")
+//            ?: ftSalesh?.fcustomerBean?.address2
+//            ?: "-"
+//        set(value) {
+//            field = value
+//            state.set("address2", value)
+//        }
+//    var fieldBinding_City1 = state.get<String>("city1")
+//            ?: ftSalesh?.fcustomerBean?.city1
+//            ?: "-"
+//        set(value) {
+//            field = value
+//            state.set("city1", value)
+//        }
+//    var fieldBinding_TotalSales = state.get<Double>("totalSales")
+//            ?: ftSalesh?.amountAfterDiscPlusRpAfterPpn_FG
+//            ?: 0.0
+//        set(value) {
+//            field = value
+//            state.set("totalSales", value)
+//        }
+
+
 
     private val addEditFtSaleshEventChannel = Channel<AddEditSalesOrderEvent>()
     val addEditFtSaleshEvent = addEditFtSaleshEventChannel.receiveAsFlow()
 
     fun onSaveClick() {
-        if (ftSaleshName.isBlank()) {
-            showInvalidInputMessage("Name cannot be empty")
-            return
-        }
+//        if (fieldBinding_Orderno.isBlank()) {
+//            showInvalidInputMessage("Name cannot be empty")
+//            return
+//        }
 
-        onPopUpBackStackWithTheResult()
-
+//        onPopUpBackStackWithTheResult()
         if (ftSalesh != null) {
-            val updatedFtSalesh = ftSalesh.copy(invoiceno = ftSaleshName, isValidOrder = ftSaleshImportance )
+//            val updatedFtSalesh = ftSalesh.copy(invoiceno = ftSaleshName, isValidOrder = ftSaleshImportance )
 //            updateFtSalesh(updatedFtSalesh)
         } else {
-            val newFtSalesh = FtSalesh(invoiceno = ftSaleshName, isValidOrder = ftSaleshImportance )
+//            val newFtSalesh = FtSalesh(invoiceno = ftSaleshName, isValidOrder = ftSaleshImportance )
 //            createFtSalesh(newFtSalesh)
         }
 
     }
 
-    private fun createFtSalesh(ftSalesh: FtSalesh) = viewModelScope.launch {
+    private fun insertFtSalesh(ftSalesh: FtSalesh) = viewModelScope.launch {
         DisposableManager.add(Observable.fromCallable {
             getFtSaleshUseCase.addCacheFtSaleshDomain(ftSalesh)
         }
@@ -72,52 +139,69 @@ class AddEditFtSaleshViewModel @ViewModelInject constructor(
                 {
                 },
                 {
-                    Log.d(TAG, "#result MATERIAL error  ${it.message}")
-                },
-                {
-                }
+                    Log.d(TAG, "#result FtSalesh error  ${it.message}")
+                },{}
             )
         )
-
-        addEditFtSaleshEventChannel.send(AddEditSalesOrderEvent.NavigateBackWithResult(ADD_TASK_RESULT_OK))
-    }
-
+   }
     private fun updateFtSalesh(ftSalesh: FtSalesh) = viewModelScope.launch {
 
-//        DisposableManager.add(Observable.fromCallable {
-//            getFtSaleshUseCase.putCacheFtSaleshDomain(ftSalesh)
-//        }
-//            .subscribeOn(Schedulers.io())
-//            .observeOn(AndroidSchedulers.mainThread())
-//            .subscribe (
-//                {
-//                },
-//                {
-//                    Log.d(TAG, "#result MATERIAL error  ${it.message}")
-//
-//                },
-//                {
-//
-//                }
-//            )
-//        )
-
-        addEditFtSaleshEventChannel.send(AddEditSalesOrderEvent.NavigateBackWithResult(EDIT_TASK_RESULT_OK))
+        DisposableManager.add(Observable.fromCallable {
+            getFtSaleshUseCase.putCacheFtSalesh(ftSalesh.toEntity())
+        }
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe (
+                        {
+                        },{
+                            Log.d(TAG, "#result FtSalesh error  ${it.message}")
+                        },{}
+                )
+        )
     }
 
     fun onPopUpBackStackWithTheResult() = viewModelScope.launch {
-        addEditFtSaleshEventChannel.send(AddEditSalesOrderEvent.NavigateBackWithResult(EDIT_TASK_RESULT_OK))
+            userViewState?.let {
+                ftSalesh?.let {
+                    if (isEditMode) {
+                        updateFtSalesh(ftSalesh)
+                    }else {
+//                    if (! ftSalesh.fcustomerBean.custno.isNullOrEmpty() && ftSalesh.mapFtSalesdItems.size >0) {
+                        ftSalesh.fcustomerBean.custno.isBlank().let {
+                            ftSalesh.fdivisionBean = userViewState.fDivision!!
+                            ftSalesh.fsalesmanBean = userViewState.fSalesman!!
+                            ftSalesh.fwarehouseBean = userViewState.fWarehouse!!
+                            insertFtSalesh(ftSalesh)
+//                            Log.d(TAG, "#result sementara Bos ${ftSalesh.fcustomerBean.custno}")
+                        }
+                    }
+                }
+            }
+        addEditFtSaleshEventChannel.send(AddEditSalesOrderEvent.NavigateBackWithResult(ftSalesh))
     }
 
-    fun onChooseOrEditCustomer() = viewModelScope.launch {
+    fun onSelectOrEditCustomer() = viewModelScope.launch {
         val tempUserViewState = UserViewState()
         val tempFtSalesh = FtSalesh()
-        addEditFtSaleshEventChannel.send(AddEditSalesOrderEvent.NavigateToChooseCustomerScreen(tempUserViewState, tempFtSalesh, true))
+        addEditFtSaleshEventChannel.send(AddEditSalesOrderEvent.NavigateToSelectCustomerScreen(tempUserViewState, tempFtSalesh))
     }
-    fun onChooseOrEditMaterial() = viewModelScope.launch {
-        val tempUserViewState = UserViewState()
+    fun onSelectCustomerResult(fCustomer: FCustomer) = viewModelScope.launch {
+        /**
+         * PERHATIAN DIA LANGSUNG UPDATE KE DATABASE
+         */
+        ftSalesh.fcustomerBean = fCustomer
+        updateFtSalesh(ftSalesh)
+//        Log.d(TAG, "#result Hello: ${fCustomer.custname}   and ${ftSalesh?.fcustomerBean?.custname}")
+
+        addEditFtSaleshEventChannel.send(AddEditSalesOrderEvent.RenderDataBindingUI())
+
+    }
+
+    fun onSelectOrEditMaterial() = viewModelScope.launch {
+//        val tempUserViewState = UserViewState()
+//        val tempFtSalesh = FtSalesh()
         val tempFtSalesdItems = FtSalesdItems()
-        addEditFtSaleshEventChannel.send(AddEditSalesOrderEvent.NavigateToChooseMaterialScreen(tempUserViewState, tempFtSalesdItems, true))
+        addEditFtSaleshEventChannel.send(AddEditSalesOrderEvent.NavigateToSelectMaterialScreen(userViewState, ftSalesh, tempFtSalesdItems))
     }
 
     fun showInvalidInputMessage(text: String) = viewModelScope.launch {
@@ -126,9 +210,13 @@ class AddEditFtSaleshViewModel @ViewModelInject constructor(
 
     sealed class AddEditSalesOrderEvent {
         data class ShowInvalidInputMessage(val msg: String) : AddEditSalesOrderEvent()
-        data class NavigateBackWithResult(val result: Int) : AddEditSalesOrderEvent()
+        data class NavigateBackWithResult(val ftSalesh: FtSalesh) : AddEditSalesOrderEvent()
 
-        data class NavigateToChooseCustomerScreen(var userViewState: UserViewState, val ftSalesh: FtSalesh, val isAddOrEdit: Boolean) : AddEditSalesOrderEvent()
-        data class NavigateToChooseMaterialScreen(var userViewState: UserViewState, val ftSalesdItems: FtSalesdItems, val isAddOrEdit: Boolean) : AddEditSalesOrderEvent()
+        data class NavigateToSelectCustomerScreen(var userViewState: UserViewState, val ftSalesh: FtSalesh) : AddEditSalesOrderEvent()
+        data class NavigateToSelectMaterialScreen(var userViewState: UserViewState, val ftSalesh: FtSalesh, val ftSalesdItems: FtSalesdItems) : AddEditSalesOrderEvent()
+        data class NavigateToSelectFtSalesdItemQtyScreen(var userViewState: UserViewState, val ftSalesh: FtSalesh, val ftSalesdItems: FtSalesdItems) : AddEditSalesOrderEvent()
+
+        class RenderDataBindingUI() : AddEditSalesOrderEvent()
+
     }
 }

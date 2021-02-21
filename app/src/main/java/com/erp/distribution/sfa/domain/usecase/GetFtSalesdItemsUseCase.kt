@@ -4,6 +4,8 @@ import androidx.lifecycle.LiveData
 import com.erp.distribution.sfa.domain.repository.FtSalesdItemsRepository
 import com.erp.distribution.sfa.domain.usecase.base.SingleUseCase
 import com.erp.distribution.sfa.data.source.entity.FtSalesdItemsEntity
+import com.erp.distribution.sfa.data.source.entity.FtSaleshEntity
+import com.erp.distribution.sfa.domain.model.FtSalesh
 import io.reactivex.rxjava3.core.Single
 import kotlinx.coroutines.flow.Flow
 import javax.inject.Inject
@@ -65,4 +67,9 @@ class GetFtSalesdItemsUseCase @Inject constructor(private val repository: FtSale
     fun deleteCacheFtSalesdItems(ftSaleshEntity: FtSalesdItemsEntity){
         repository.deleteCacheFtSalesdItems(ftSaleshEntity)
     }
+    fun deleteAllCacheFtSalesdItemsByFtSalesh(ftSaleshEntity: FtSaleshEntity){
+        repository.deleteAllCacheFtSalesdItemsByFtSalesh(ftSaleshEntity.refno)
+    }
+
+
 }

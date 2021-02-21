@@ -29,6 +29,7 @@ import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.launch
+import java.util.*
 
 
 @AndroidEntryPoint
@@ -140,10 +141,10 @@ class CustomerFragment : Fragment(R.layout.fragment_customer), CustomerAdapter.O
                             }.show()
                     }
                     is CustomerViewModel.CustomerEvent.NavigateToFtSalesh -> {
-//                        setFragmentResult(
-//                                "customer_list_request",
-//                                bundleOf("customer_list_request" to event.ftSalesdItems)
-//                        )
+                        setFragmentResult(
+                                "customer_request",
+                                bundleOf("customer_result" to event.fCustomer)
+                        )
                         findNavController().popBackStack()
                     }
 

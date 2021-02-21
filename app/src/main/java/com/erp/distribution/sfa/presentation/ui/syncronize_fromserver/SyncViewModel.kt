@@ -187,7 +187,6 @@ class SyncViewModel @ViewModelInject constructor(
                 .toObservable()
                 .observeOn(AndroidSchedulers.mainThread())
                 .doOnNext{
-                    getFCustomerGroupUseCase.deleteAllCacheFCustomerGroup()
                     insertCacheFCustomerGroup(it)
                 }
                 .subscribeOn(Schedulers.io())
@@ -364,7 +363,9 @@ class SyncViewModel @ViewModelInject constructor(
     fun insertCacheFCustomerGroup(list: List<FCustomerGroupEntity>){
 
         DisposableManager.add(Observable.fromCallable {
-            getFCustomerGroupUseCase.addCacheListFCustomerGroup(list)
+            getFCustomerGroupUseCase.deleteAllCacheFCustomerGroup().also {
+                getFCustomerGroupUseCase.addCacheListFCustomerGroup(list)
+            }
         }
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())

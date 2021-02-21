@@ -29,22 +29,22 @@ class AddEditFtSaleshQtyFragment : Fragment(R.layout.fragment_add_edit_qty_sales
         val binding = FragmentAddEditQtySalesorderBinding.bind(view)
         binding.actionFragment = this
 
-//        binding.numberpickerUom1.apply {
-//            maxValue = 50
-//            minValue = 0
-//        }
-//        binding.numberpickerUom2.apply {
-//            maxValue = 50
-//            minValue = 0
-//        }
-//        binding.numberpickerUom3.apply {
-//            maxValue = 50
-//            minValue = 0
-//        }
-//        binding.numberpickerUom4.apply {
-//            maxValue = 50
-//            minValue = 0
-//        }
+        binding.numberpickerUom1.apply {
+            maxValue = 500
+            minValue = 0
+        }
+        binding.numberpickerUom2.apply {
+            maxValue = 500
+            minValue = 0
+        }
+        binding.numberpickerUom3.apply {
+            maxValue = 200
+            minValue = 0
+        }
+        binding.numberpickerUom4.apply {
+            maxValue = 200
+            minValue = 0
+        }
 
         requireActivity().onBackPressedDispatcher
                 .addCallback(viewLifecycleOwner, object : OnBackPressedCallback(true){

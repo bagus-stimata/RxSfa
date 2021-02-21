@@ -8,9 +8,15 @@
         <variable
             name="actionFragment"
             type="com.erp.distribution.sfa.presentation.ui.salesorder.salesorder_addedit.AddEditFtSaleshFragment" />
-        
+        <variable
+            name="ftSalesh"
+            type="com.erp.distribution.sfa.domain.model.FtSalesh" />
         <import type="android.view.View"/>
+        <import type="java.text.SimpleDateFormat"/>
+        <import type="java.text.DecimalFormat"/>
+        <import type="java.util.Locale"/>
     </data>
+<!--    <import type="com.erp.distribution.sfa.presentation.ui.utils.NumberConversion"/>-->
 
 
     <androidx.coordinatorlayout.widget.CoordinatorLayout
@@ -50,7 +56,7 @@
                     <!--                    android:fitsSystemWindows="true"-->
 
                     <TextView
-                        android:id="@+id/greeting_text1"
+                        android:id="@+id/textview_custname"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="120dp"
@@ -58,16 +64,17 @@
                         android:layout_marginRight="10dp"
                         android:gravity="center"
                         android:textColor="@color/blue"
-                        android:text="Toko Amanah Jaya"
+                        android:text="@{ftSalesh.fcustomerBean.custname}"
                         android:textSize="20sp" />
 
                     <LinearLayout
                         android:id="@+id/layout_tipe"
                         android:layout_width="match_parent"
                         android:layout_height="14sp"
-                        android:layout_below="@id/greeting_text1"
+                        android:layout_below="@id/textview_custname"
                         android:orientation="horizontal">
                         <TextView
+                            android:id="@+id/textview_custno"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
@@ -75,10 +82,11 @@
                             android:layout_marginRight="20sp"
                             android:fontFamily="monospace"
                             android:gravity="right"
-                            android:text="ID: 3456"
+                            android:text="@{`ID: ` + ftSalesh.fcustomerBean.custno}"
                             android:textStyle="bold"
                             android:textSize="12sp" />
                         <TextView
+                            android:id="@+id/textview_custgroup"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
@@ -86,20 +94,22 @@
                             android:layout_marginRight="10sp"
                             android:fontFamily="monospace"
                             android:gravity="left"
-                            android:text="General Trade"
+                            android:text="@{ftSalesh.fcustomerBean.fcustomerGroupBean.description}"
+                            android:maxWidth="50dp"
                             android:textSize="12sp" />
 
                     </LinearLayout>
 
                     <TextView
-                        android:id="@+id/greeting_text2"
+                        android:id="@+id/textview_address"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:layout_marginHorizontal="20dp"
                         android:layout_below="@id/layout_tipe"
                         android:fontFamily="monospace"
                         android:gravity="center"
                         android:textColor="@color/design_default_color_on_secondary"
-                        android:text="Jln Basuki Rahmat Madiun"
+                        android:text="@{ftSalesh.fcustomerBean.address1 + ` ` + ftSalesh.fcustomerBean.address2 + ` ` + ftSalesh.fcustomerBean.city1}"
                         android:textSize="12sp" />
 
 
@@ -122,7 +132,7 @@
         <androidx.core.widget.NestedScrollView
             app:layout_behavior="@string/appbar_scrolling_view_behavior"
             android:id="@+id/detail_nested_scroll_view"
-            android:layout_marginTop="-60dp"
+            android:layout_marginTop="-30dp"
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
@@ -151,7 +161,6 @@
                         android:gravity="center">
 
                         <TextView
-                            android:id="@+id/topInfo_Omset"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginLeft="15dp"
@@ -166,19 +175,19 @@
                             android:layout_height="wrap_content"
                             android:layout_marginTop="5dp"
                             android:layout_marginRight="2dp"
-                            android:layout_toLeftOf="@id/home_mPayBalance"
+                            android:layout_toLeftOf="@id/textview_totalsales"
                             android:text="RP."
                             android:textColor="#676767"
                             android:textSize="10dp" />
 
                         <TextView
-                            android:id="@+id/home_mPayBalance"
+                            android:id="@+id/textview_totalsales"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_alignParentRight="true"
                             android:layout_marginTop="5dp"
                             android:layout_marginRight="80dp"
-                            android:text="4.000.000"
+                            android:text="@{DecimalFormat.getInstance(Locale.US).format(ftSalesh.amountAfterDiscPlusRpAfterPpn_FG)}"
                             android:textColor="#000"
                             android:textSize="16sp" />
 
@@ -196,7 +205,7 @@
                             android:id="@+id/garis"
                             android:layout_width="match_parent"
                             android:layout_height="1dp"
-                            android:layout_below="@id/home_mPayBalance"
+                            android:layout_below="@id/textview_totalsales"
                             android:layout_marginTop="10dp"
                             android:background="#f0efef"
                             android:orientation="horizontal" />
@@ -227,21 +236,21 @@
                                     android:textSize="10dp" />
 
                                 <TextView
-                                    android:id="@+id/text_order_no"
+                                    android:id="@+id/textview_orderno"
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
                                     android:layout_below="@id/text_order_title"
                                     android:gravity="center"
-                                    android:text="ORD123455"
+                                    android:text="@{ftSalesh.orderno}"
                                     android:textColor="#000"
                                     android:textSize="12dp" />
                                 <TextView
-                                    android:id="@+id/text_order_date"
+                                    android:id="@+id/textview_orderdate"
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
-                                    android:layout_below="@id/text_order_no"
+                                    android:layout_below="@id/textview_orderno"
                                     android:gravity="center"
-                                    android:text="25 Mei 2020"
+                                    android:text="@{SimpleDateFormat.getDateInstance(SimpleDateFormat.MEDIUM , Locale.UK).format(ftSalesh.orderDate)}"
                                     android:textColor="#000"
                                     android:textSize="12dp" />
 
@@ -268,21 +277,22 @@
                                     android:textSize="10dp" />
 
                                 <TextView
-                                    android:id="@+id/text_invoice_no"
+                                    android:id="@+id/textview_invoiceno"
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
                                     android:layout_below="@id/text_invoice_title"
                                     android:gravity="center"
-                                    android:text="SI123455"
+                                    android:text="@{ ftSalesh.invoiceno }"
                                     android:textColor="#000"
                                     android:textSize="12dp" />
+<!--                                android:text="SI-"-->
                                 <TextView
-                                    android:id="@+id/text_invoice_date"
+                                    android:id="@+id/textview_invoicedate"
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
-                                    android:layout_below="@id/text_invoice_no"
+                                    android:layout_below="@id/textview_invoiceno"
                                     android:gravity="center"
-                                    android:text="25 Mei 2020"
+                                    android:text="@{SimpleDateFormat.getDateInstance(SimpleDateFormat.MEDIUM , Locale.UK).format(ftSalesh.invoiceDate)}"
                                     android:textColor="#000"
                                     android:textSize="12dp" />
 
@@ -309,22 +319,22 @@
                                 <!--                                android:visibility="@{userActive.username.isEmpty? View.GONE : View.VISIBLE}"-->
 
                                 <TextView
-                                    android:id="@+id/text_disc"
+                                    android:id="@+id/textview_disc"
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
                                     android:layout_below="@id/img_promotion"
                                     android:gravity="center"
-                                    android:text="2+1"
+                                    android:text= "0"
                                     android:textColor="#000"
                                     android:textSize="12dp" />
                                 <TextView
-                                    android:id="@+id/text_discRp"
+                                    android:id="@+id/textview_disc_rp"
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
-                                    android:layout_below="@id/text_disc"
+                                    android:layout_below="@id/textview_disc"
                                     android:gravity="center"
-                                    android:text="Rp.109.000"
                                     android:textColor="#000"
+                                    android:text="@{`Rp ` + DecimalFormat.getInstance(Locale.US).format(ftSalesh.discPlusRpAfterPpn_FG) }"
                                     android:textSize="12dp" />
 
                             </RelativeLayout>
@@ -339,7 +349,7 @@
 
 <!--                RECYCLER VIEW ITEMS-->
                 <androidx.recyclerview.widget.RecyclerView
-                    android:id="@+id/recycler_view_ftsalesh_add_edit"
+                    android:id="@+id/recycler_view_ftsalesh_ftsalesditems"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent" />
 
@@ -364,6 +374,7 @@
             android:layout_gravity="bottom|end"
             android:layout_margin="16dp"
             android:onClick="@{ ()-> actionFragment.chooseAndEditMaterial() }"
+            android:visibility="@{ftSalesh.fcustomerBean.custno.isEmpty? View.GONE: View.VISIBLE}"
             android:src="@drawable/ic_add" />
 
 

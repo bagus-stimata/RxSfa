@@ -5,6 +5,7 @@ import com.erp.distribution.sfa.data.source.remote.service_api.RetrofitServiceFt
 import com.erp.distribution.sfa.data.source.local.database.AppDatabase
 import com.erp.distribution.sfa.domain.repository.FtSalesdItemsRepository
 import com.erp.distribution.sfa.data.source.entity.FtSalesdItemsEntity
+import com.erp.distribution.sfa.data.source.entity.FtSaleshEntity
 import io.reactivex.rxjava3.core.Single
 import kotlinx.coroutines.flow.Flow
 
@@ -73,6 +74,10 @@ class FtSalesdItemsRepositoryImpl(
     override fun deleteCacheFtSalesdItems(ftSalesdItemsEntity: FtSalesdItemsEntity) {
         return appDatabase.salesdItemsDao.delete(ftSalesdItemsEntity)
     }
+    override fun deleteAllCacheFtSalesdItemsByFtSalesh(ftSaleshBean: Long) {
+        return appDatabase.salesdItemsDao.deleteAllByFtSalesh(ftSaleshBean)
+    }
+
 
     override fun deleteAllCacheFtsalesdItems() {
         return appDatabase.salesdItemsDao.deleteAllFtSalesdItems()

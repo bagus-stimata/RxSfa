@@ -6,6 +6,7 @@ import android.view.Menu
 import android.view.MenuInflater
 import android.view.MenuItem
 import android.view.View
+import android.widget.Toast
 import androidx.activity.OnBackPressedCallback
 import androidx.appcompat.widget.SearchView
 import androidx.core.os.bundleOf
@@ -13,8 +14,10 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.setFragmentResult
 import androidx.fragment.app.setFragmentResultListener
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.Observer
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
+import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -35,7 +38,8 @@ class FtSaleshFragment : Fragment(R.layout.fragment_ftsalesh), FtSaleshAdapter.O
 
     private val TAG = FtSaleshFragment::class.java.simpleName
 
-    private val viewModelFSalesh: FSaleshViewModel by viewModels()
+    private val viewModel: FSaleshViewModel by viewModels()
+    private val args: FtSaleshFragmentArgs by navArgs()
 
     private lateinit var searchView: SearchView
 
@@ -44,13 +48,20 @@ class FtSaleshFragment : Fragment(R.layout.fragment_ftsalesh), FtSaleshAdapter.O
 
         val binding = FragmentFtsaleshBinding.bind(view)
 
+        args.userViewStateActive?.let {
+            viewModel.userViewState =  it
+        }
+
+//                Toast.makeText(context, "isinya arguments ${viewModel.userViewState.fUser!!.username}", Toast.LENGTH_SHORT).show()
+
+
+
         val ftSaleshAdapter = FtSaleshAdapter(this)
 
         requireActivity().onBackPressedDispatcher
             .addCallback(viewLifecycleOwner, object : OnBackPressedCallback(true){
             override fun handleOnBackPressed() {
-//                myPopBackStack()
-                viewModelFSalesh.popUpBackStackWithTheResult()
+                viewModel.popUpBackStackWithTheResult()
             }
         })
 
@@ -75,15 +86,13 @@ class FtSaleshFragment : Fragment(R.layout.fragment_ftsalesh), FtSaleshAdapter.O
 
                 override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
                     val ftSalesh = ftSaleshAdapter.currentList[viewHolder.adapterPosition]
-                    viewModelFSalesh.onItemSwiped(ftSalesh)
+                    viewModel.onItemSwiped(ftSalesh)
                 }
 
             }).attachToRecyclerView(recyclerViewFtsalesh)
 
-
-
             fabAddFtsalesh.setOnClickListener {
-                viewModelFSalesh.onAddNewFtSaleshClick()
+                viewModel.onAddNewFtSaleshClick()
             }
 
             /**
@@ -93,54 +102,59 @@ class FtSaleshFragment : Fragment(R.layout.fragment_ftsalesh), FtSaleshAdapter.O
             dividerItemDecoration.setDrawable(getResources().getDrawable(R.drawable.rv_divider))
             binding.recyclerViewFtsalesh.addItemDecoration(dividerItemDecoration)
 
-
         }
 
-        setFragmentResultListener("add_edit_request") { _, bundle ->
-            val result = bundle.getInt("add_edit_result")
-            viewModelFSalesh.onAddEditResult(result)
-        }
 
-//        viewModelFSalesh.ftSaleshLive
-//            .observe(viewLifecycleOwner) {
-//                ftSaleshAdapter.submitList(it)
-//        }
         /**
-         * THIS IS MAIN MODEL
+         * LOADING LIVE DATA TO VIEW
          */
-        viewModelFSalesh.ftSaleshLive
+        viewModel.ftSaleshLive
             .observe(viewLifecycleOwner) {
                 ftSaleshAdapter.submitList(it)
+
+//                var message = ""
+//                it.iterator().forEach {
+//                    message += it.fcustomerBean.custname + "\n"
+//                }
+//                Toast.makeText(context, "Isinya:\n ${message}", Toast.LENGTH_SHORT).show()
             }
 
 
+        setupLifeCycleScopeEventListener()
+        setupFragmentResultListener()
+
+        setHasOptionsMenu(true)
+    }
+
+    fun setupLifeCycleScopeEventListener() {
 
         viewLifecycleOwner.lifecycleScope.launchWhenStarted {
 
-            viewModelFSalesh.ftSaleshEvent.collect { event ->
+            viewModel.ftSaleshEvent.collect { event ->
                 when (event) {
                     is FSaleshViewModel.FtSaleshEvent.ShowUndoDeleteFtSaleshMessage -> {
                         Snackbar.make(requireView(), "SalesOrder deleted", Snackbar.LENGTH_LONG)
-                            .setAction("UNDO") {
-                                viewModelFSalesh.onUndoDeleteClick(event.ftSalesh)
-                            }.show()
+                                .setAction("UNDO") {
+                                    viewModel.onUndoDeleteClick(event.ftSalesh)
+                                }.show()
                     }
                     is FSaleshViewModel.FtSaleshEvent.NavigateToAddSalesOrderScreen -> {
                         val action =
-                            FtSaleshFragmentDirections.actionFtSaleshFragmentToAddEditFtSaleshFragment(
-                                null
-                            )
+                                FtSaleshFragmentDirections.actionFtSaleshFragmentToAddEditFtSaleshFragment(
+                                        event.userViewState
+                                )
                         findNavController().navigate(action)
                     }
                     is FSaleshViewModel.FtSaleshEvent.NavigateToEditSalesOrderScreen -> {
                         val action =
-                            FtSaleshFragmentDirections.actionFtSaleshFragmentToAddEditFtSaleshFragment(
-                                    event.userViewState,
-                                    event.ftSalesh
-                            )
+                                FtSaleshFragmentDirections.actionFtSaleshFragmentToAddEditFtSaleshFragment(
+                                        event.userViewState,
+                                        event.ftSalesh
+                                )
                         findNavController().navigate(action)
                     }
                     is FSaleshViewModel.FtSaleshEvent.ShowFtSaleshSavedConfirmationMessage -> {
+                        Toast.makeText(requireContext(), event.msg, Toast.LENGTH_SHORT).show()
                         Snackbar.make(requireView(), event.msg, Snackbar.LENGTH_SHORT).show()
                     }
 
@@ -153,21 +167,28 @@ class FtSaleshFragment : Fragment(R.layout.fragment_ftsalesh), FtSaleshAdapter.O
                         findNavController().popBackStack()
                     }
 
-
-                    else -> {}
+                    else -> {
+                        Toast.makeText(requireContext(), "Belum ada Implementasi", Toast.LENGTH_SHORT).show()
+                    }
                 }.exhaustive
             }
         }
 
-        setHasOptionsMenu(true)
+    }
+    fun setupFragmentResultListener() {
+        setFragmentResultListener("add_edit_request") { _, bundle ->
+            val result = bundle.getParcelable<FtSalesh>("add_edit_result")
+            viewModel.onAddEditResult(result!!)
+        }
+
     }
 
     override fun onItemClick(ftSalesh: FtSalesh) {
-        viewModelFSalesh.onItemSelected(ftSalesh)
+        viewModel.onItemSelected(ftSalesh)
     }
 
     override fun onCheckBoxClick(ftSalesh: FtSalesh, isChecked: Boolean) {
-        viewModelFSalesh.onItemCheckedChanged(ftSalesh, isChecked)
+        viewModel.onItemCheckedChanged(ftSalesh, isChecked)
     }
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
@@ -176,19 +197,19 @@ class FtSaleshFragment : Fragment(R.layout.fragment_ftsalesh), FtSaleshAdapter.O
         val searchItem = menu.findItem(R.id.action_search)
         searchView = searchItem.actionView as SearchView
 
-        val pendingQuery = viewModelFSalesh.searchQuery.value
+        val pendingQuery = viewModel.searchQuery.value
         if (pendingQuery != null && pendingQuery.isNotEmpty()) {
             searchItem.expandActionView()
             searchView.setQuery(pendingQuery, false)
         }
 
         searchView.onQueryTextChanged {
-            viewModelFSalesh.searchQuery.value = it
+            viewModel.searchQuery.value = it
         }
 
         viewLifecycleOwner.lifecycleScope.launch {
             menu.findItem(R.id.action_hide_inactive).isChecked =
-                viewModelFSalesh.preferencesFlow.first().hideCompleted
+                viewModel.preferencesFlow.first().hideCompleted
         }
 
     }
@@ -196,16 +217,16 @@ class FtSaleshFragment : Fragment(R.layout.fragment_ftsalesh), FtSaleshAdapter.O
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         return when (item.itemId) {
             R.id.action_sort_by_name -> {
-                viewModelFSalesh.onSortOrderSelected(SortOrder.BY_NAME)
+                viewModel.onSortOrderSelected(SortOrder.BY_NAME)
                 true
             }
             R.id.action_sort_by_kode -> {
-                viewModelFSalesh.onSortOrderSelected(SortOrder.BY_KODE)
+                viewModel.onSortOrderSelected(SortOrder.BY_KODE)
                 true
             }
             R.id.action_hide_inactive -> {
                 item.isChecked = !item.isChecked
-                viewModelFSalesh.onHideCompletedClick(item.isChecked)
+                viewModel.onHideCompletedClick(item.isChecked)
                 true
             }
 //            R.id.action_delete_all_completed_tasks -> {
@@ -213,7 +234,7 @@ class FtSaleshFragment : Fragment(R.layout.fragment_ftsalesh), FtSaleshAdapter.O
 //                true
 //            }
             android.R.id.home -> {
-                viewModelFSalesh.popUpBackStackWithTheResult()
+                viewModel.popUpBackStackWithTheResult()
                 true
             }
             else -> super.onOptionsItemSelected(item)

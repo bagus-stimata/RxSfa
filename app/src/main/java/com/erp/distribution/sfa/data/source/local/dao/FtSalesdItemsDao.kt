@@ -3,6 +3,7 @@ package com.erp.distribution.sfa.data.source.local.dao
 import androidx.lifecycle.LiveData
 import androidx.room.*
 import com.erp.distribution.sfa.data.source.entity.FtSalesdItemsEntity
+import com.erp.distribution.sfa.data.source.entity.FtSaleshEntity
 import kotlinx.coroutines.flow.Flow
 
 /**
@@ -29,6 +30,9 @@ interface FtSalesdItemsDao {
 
     @Query("DELETE FROM ftSalesdItems")
     fun deleteAllFtSalesdItems()
+
+    @Query("DELETE FROM ftSalesdItems WHERE ftSaleshBean = :ftSalesBean ")
+    fun deleteAllByFtSalesh(ftSalesBean: Long)
 
     @Query("SELECT * FROM ftSalesdItems WHERE id = :id ")
     fun getAllById(id: Long): FtSalesdItemsEntity

@@ -37,6 +37,11 @@
             app:nullable="true"
             android:defaultValue="@null" />
         <argument
+            android:name="ftSalesh"
+            app:argType="com.erp.distribution.sfa.domain.model.FtSalesh"
+            app:nullable="true"
+            android:defaultValue="@null" />
+        <argument
             android:name="ftSalesdItems"
             app:argType="com.erp.distribution.sfa.domain.model.FtSalesdItems"
             app:nullable="true"
@@ -113,11 +118,6 @@
             app:argType="com.erp.distribution.sfa.domain.model.FtSalesh"
             app:nullable="true"
             android:defaultValue="@null" />
-        <argument
-            android:name="ftSalesdItems"
-            app:argType="com.erp.distribution.sfa.domain.model.FtSalesdItems"
-            app:nullable="true"
-            android:defaultValue="@null" />
 
         <action
             android:id="@+id/action_addEditFtSaleshFragment_to_FMaterialFragment"
@@ -125,6 +125,9 @@
         <action
             android:id="@+id/action_addEditFtSaleshFragment_to_FCustomerFragment"
             app:destination="@id/FCustomerFragment" />
+        <action
+            android:id="@+id/action_addEditFtSaleshFragment_to_addEditFtSaleshQtyFragment"
+            app:destination="@id/addEditFtSaleshQtyFragment" />
 
     </fragment>
     <fragment
@@ -137,10 +140,16 @@
             app:nullable="true"
             android:defaultValue="@null" />
         <argument
+            android:name="ftSalesh"
+            app:argType="com.erp.distribution.sfa.domain.model.FtSalesh"
+            app:nullable="true"
+            android:defaultValue="@null" />
+        <argument
             android:name="ftSalesdItems"
             app:argType="com.erp.distribution.sfa.domain.model.FtSalesdItems"
             app:nullable="true"
             android:defaultValue="@null" />
+
         <action
             android:id="@+id/action_addEditFtSaleshQtyFragment_to_addEditFtSaleshFragment"
             app:destination="@id/addEditFtSaleshFragment"

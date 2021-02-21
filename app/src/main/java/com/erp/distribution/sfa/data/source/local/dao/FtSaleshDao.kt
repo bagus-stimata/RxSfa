@@ -42,7 +42,12 @@ interface FtSaleshDao {
 
     @Transaction
     @Query("SELECT * FROM ftSalesh WHERE refno = :id ")
-    fun getAllFtSaleshWithItemsByIdFLow(id: Long): Flow<FtSaleshWithFDivisionAndFSalesmanAndFCustomerAndItems>
+    fun getFtSaleshWithItemsByIdFLow(id: Long): Flow<FtSaleshWithFDivisionAndFSalesmanAndFCustomerAndItems>
+
+    @Transaction
+    @Query("SELECT * FROM ftSalesh WHERE refno = :id ")
+    fun getFtSaleshWithItemsByIdLive(id: Long): LiveData<FtSaleshWithFDivisionAndFCustomer>
+
 
 
     fun getAllFtSaleshFlow(query: String, sortOrder: SortOrder, limit: Int, currentOffset: Int, hideSelected: Boolean?): Flow<List<FtSaleshWithFDivisionAndFCustomer>> =
@@ -66,6 +71,9 @@ interface FtSaleshDao {
     @Query("SELECT * FROM ftSalesh   LIMIT :limit OFFSET :currentOffset ")
     fun getAllFtSaleshFLow(limit: Int, currentOffset: Int): Flow<List<FtSaleshWithFDivisionAndFCustomer>>
 
+    @Transaction
+    @Query("SELECT * FROM ftSalesh ")
+    fun getAllFtSaleshLive(): LiveData<List<FtSaleshWithFDivisionAndFCustomer>>
 
 
     @Transaction

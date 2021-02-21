@@ -155,6 +155,7 @@
                     <NumberPicker
                         android:id="@+id/numberpicker_uom1"
                         android:layout_width="70dp"
+                        android:layout_marginTop="20dp"
                         android:layout_marginEnd="10dp"
                         android:layout_height="wrap_content"
                         android:layout_below="@id/text_view_uom1"/>
@@ -180,6 +181,7 @@
                     <NumberPicker
                         android:id="@+id/numberpicker_Uom2"
                         android:layout_width="70dp"
+                        android:layout_marginTop="20dp"
                         android:layout_marginEnd="10dp"
                         android:layout_height="wrap_content"
                         android:layout_below="@id/text_view_uom2"
@@ -206,6 +208,7 @@
                     <NumberPicker
                         android:id="@+id/numberpicker_Uom3"
                         android:layout_width="70dp"
+                        android:layout_marginTop="20dp"
                         android:layout_marginEnd="10dp"
                         android:layout_height="wrap_content"
                         android:layout_below="@id/text_view_uom3"
@@ -232,6 +235,7 @@
                     <NumberPicker
                         android:id="@+id/numberpicker_Uom4"
                         android:layout_width="70dp"
+                        android:layout_marginTop="20dp"
                         android:layout_marginEnd="10dp"
                         android:layout_height="wrap_content"
                         android:layout_below="@id/text_view_uom4"

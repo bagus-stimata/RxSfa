@@ -17,7 +17,7 @@
         app:layout_constraintVertical_bias="0.01999998">
 
         <EditText
-            android:id="@+id/text_order_no"
+            android:id="@+id/textview_orderno"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_centerHorizontal="true"

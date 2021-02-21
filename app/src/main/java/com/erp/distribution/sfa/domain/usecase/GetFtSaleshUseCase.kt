@@ -1,23 +1,18 @@
 package com.erp.distribution.sfa.domain.usecase
 
-import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.LiveData
-import androidx.lifecycle.Observer
 import androidx.lifecycle.map
 import com.erp.distribution.sfa.data.di.SortOrder
 import com.erp.distribution.sfa.domain.repository.FtSaleshRepository
 import com.erp.distribution.sfa.domain.usecase.base.SingleUseCase
 import com.erp.distribution.sfa.data.source.entity.FtSaleshEntity
-import com.erp.distribution.sfa.data.source.entity.FtSaleshWithFDivisionAndFCustomer
 import com.erp.distribution.sfa.data.source.entity.toDomain
-import com.erp.distribution.sfa.domain.model.FCustomer
 import com.erp.distribution.sfa.domain.model.FtSalesdItems
 import com.erp.distribution.sfa.domain.model.FtSalesh
 import com.erp.distribution.sfa.domain.model.toEntity
 import com.erp.distribution.sfa.domain.repository.FCustomerRepository
 import io.reactivex.rxjava3.core.Single
 import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.map
 import javax.inject.Inject
 
@@ -61,12 +56,38 @@ class GetFtSaleshUseCase @Inject constructor(
         return repository.getCacheAllFtSalesh()
     }
 
-    fun getCacheAllFtSaleshFlow(query: String, sortOrder: SortOrder,  limit: Int, currentOffset: Int, hideSelected: Boolean): Flow<List<FtSalesh>> {
-        return repository.getCacheAllFtSaleshFlow(query, sortOrder, limit, currentOffset, hideSelected).map {
-            it.map {
+    fun getCacheAllFtSaleshWithItemsByIdFlow(ftSaleshRefno: Long): Flow<FtSalesh>{
+        return repository.getCacheFtSaleshWithItemsByIdFlow(ftSaleshRefno).map {
                 val ftSaleshBean = it.ftSaleshEntity.toDomain()
                 val division = it.fDivisionEntity!!.toDomain()
                 ftSaleshBean.fdivisionBean = division
+                it.fCustomerEntity?.let {
+                    ftSaleshBean.fcustomerBean = it.toDomain()
+                }
+                ftSaleshBean
+        }
+    }
+    fun getCacheAllFtSaleshWithItemsByIdLive(ftSaleshRefno: Long): LiveData<FtSalesh>{
+        return repository.getCacheFtSaleshWithItemsByIdLive(ftSaleshRefno).map {
+            val ftSaleshBean = it.ftSaleshEntity.toDomain()
+            it.fDivisionEntity?.let {
+                ftSaleshBean.fdivisionBean = it.toDomain()
+            }
+            it.fCustomerEntity?.let {
+                ftSaleshBean.fcustomerBean = it.toDomain()
+            }
+            ftSaleshBean
+        }
+    }
+
+
+    fun getCacheAllFtSaleshLive(): LiveData<List<FtSalesh>>{
+        return repository.getCacheAllFtSaleshLive().map {
+            it.map {
+                val ftSaleshBean = it.ftSaleshEntity.toDomain()
+                it.fDivisionEntity?.let {
+                    ftSaleshBean.fdivisionBean = it.toDomain()
+                }
                 it.fCustomerEntity?.let {
                     ftSaleshBean.fcustomerBean = it.toDomain()
                 }
@@ -75,12 +96,27 @@ class GetFtSaleshUseCase @Inject constructor(
         }
     }
 
-    fun getCacheFtSaleshWithItemsByIdFLow(id: Long): Flow<FtSalesh>{
-        return repository.getCacheAllFtSaleshWithItemsByIdFlow(id).map {
+    fun getCacheAllFtSaleshFlow(query: String, sortOrder: SortOrder,  limit: Int, currentOffset: Int, hideSelected: Boolean): Flow<List<FtSalesh>> {
+        return repository.getCacheAllFtSaleshFlow(query, sortOrder, limit, currentOffset, hideSelected).map {
+            it.map {
                 val ftSaleshBean = it.ftSaleshEntity.toDomain()
+                it.fDivisionEntity?.let {
+                    ftSaleshBean.fdivisionBean = it.toDomain()
+                }
+                it.fCustomerEntity?.let {
+                    ftSaleshBean.fcustomerBean = it.toDomain()
+                }
+                ftSaleshBean
+            }
+        }
+    }
 
-//                val division = it.fDivisionEntity!!.toDomain()
-//                ftSaleshBean.fdivisionBean = division
+    /**
+     * Masih Belum Berhasil digunakan. Kemungkinan ada pada DAO nya
+     */
+    fun getCacheFtSaleshWithItemsByIdFLow(id: Long): Flow<FtSalesh>{
+        return repository.getCacheFtSaleshWithItemsByIdFlow(id).map {
+                val ftSaleshBean = it.ftSaleshEntity.toDomain()
                 it.fDivisionEntity?.let {
                     ftSaleshBean.fdivisionBean = it.toDomain()
                 }
@@ -90,13 +126,14 @@ class GetFtSaleshUseCase @Inject constructor(
                 it.fCustomerEntity?.let {
                     ftSaleshBean.fcustomerBean = it.toDomain()
                 }
-                it.listFtSalesdItems!!.isNotEmpty().apply {
-                    val mapFtSalesdItems = mutableMapOf<Long, FtSalesdItems>()
-                    it.listFtSalesdItems.iterator().forEach {
-                        mapFtSalesdItems.put(it.id, it.toDomain())
-                    }
-                    ftSaleshBean.mapFtSalesdItems = mapFtSalesdItems
-                }
+
+//                it.listFtSalesdItems!!.isNotEmpty().apply {
+//                    val mapFtSalesdItems = mutableMapOf<Long, FtSalesdItems>()
+//                    it.listFtSalesdItems.iterator().forEach {
+//                        mapFtSalesdItems.put(it.id, it.toDomain())
+//                    }
+//                    ftSaleshBean.mapFtSalesdItems = mapFtSalesdItems
+//                }
 
                 ftSaleshBean
         }

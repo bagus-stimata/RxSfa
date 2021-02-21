@@ -6,11 +6,8 @@ import com.erp.distribution.sfa.data.source.entity.*
 import com.erp.distribution.sfa.data.source.remote.service_api.RetrofitServiceFtSalesh
 import com.erp.distribution.sfa.data.source.local.database.AppDatabase
 import com.erp.distribution.sfa.domain.repository.FtSaleshRepository
-import com.erp.distribution.sfa.domain.model.FMaterial
-import com.erp.distribution.sfa.domain.model.FtSalesh
 import io.reactivex.rxjava3.core.Single
 import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.map
 
 
 /**
@@ -73,9 +70,18 @@ class FtSaleshRepositoryImpl(
         return appDatabase.saleshDao.getAllFtSaleshFlow(query, sortOrder, limit, currentOffset, hideSelected)
     }
 
-    override fun getCacheAllFtSaleshWithItemsByIdFlow(id: Long): Flow<FtSaleshWithFDivisionAndFSalesmanAndFCustomerAndItems> {
-        return appDatabase.saleshDao.getAllFtSaleshWithItemsByIdFLow(id)
+    override fun getCacheAllFtSaleshLive(): LiveData<List<FtSaleshWithFDivisionAndFCustomer>> {
+        return appDatabase.saleshDao.getAllFtSaleshLive()
     }
+
+
+    override fun getCacheFtSaleshWithItemsByIdFlow(id: Long): Flow<FtSaleshWithFDivisionAndFSalesmanAndFCustomerAndItems> {
+        return appDatabase.saleshDao.getFtSaleshWithItemsByIdFLow(id)
+    }
+    override fun getCacheFtSaleshWithItemsByIdLive(id: Long): LiveData<FtSaleshWithFDivisionAndFCustomer> {
+        return appDatabase.saleshDao.getFtSaleshWithItemsByIdLive(id)
+    }
+
     override fun getCacheFtSaleshById(id: Long): LiveData<FtSaleshEntity> {
         return appDatabase.saleshDao.getAllByIdLive(id)
     }

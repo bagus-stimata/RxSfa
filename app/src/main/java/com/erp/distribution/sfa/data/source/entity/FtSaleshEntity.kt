@@ -454,6 +454,6 @@ data class FtSaleshWithFDivisionAndFSalesmanAndFCustomerAndItems(
                 parentColumn = "refno",
                 entityColumn = "ftSaleshBean"
         )
-        val listFtSalesdItems: List<FtSalesdItemsEntity>?
+        val listFtSalesdItems: List<FtSalesdItemsEntity>? = listOf()
 
 )

@@ -9,8 +9,10 @@ import com.erp.distribution.sfa.data.di.SortOrder
 import com.erp.distribution.sfa.data.source.entity.toDomain
 import com.erp.distribution.sfa.domain.exception.ExceptionHandler
 import com.erp.distribution.sfa.domain.model.FtSalesh
+import com.erp.distribution.sfa.domain.model.toEntity
 import com.erp.distribution.sfa.domain.usecase.GetFCustomerUseCase
 import com.erp.distribution.sfa.domain.usecase.GetFDivisionUseCase
+import com.erp.distribution.sfa.domain.usecase.GetFtSalesdItemsUseCase
 import com.erp.distribution.sfa.domain.usecase.GetFtSaleshUseCase
 import com.erp.distribution.sfa.presentation.base.BaseViewModel
 import com.erp.distribution.sfa.presentation.model.UserViewState
@@ -30,6 +32,7 @@ import kotlinx.coroutines.launch
 
 class FSaleshViewModel @ViewModelInject constructor(
     private val getFtSaleshUseCase: GetFtSaleshUseCase,
+    private val getFtSalesdItemsUseCase: GetFtSalesdItemsUseCase,
     private val getFDivisionUseCase: GetFDivisionUseCase,
     private val getFCustomerUseCase: GetFCustomerUseCase,
     private val preferencesManager: PreferencesManager,
@@ -42,11 +45,11 @@ class FSaleshViewModel @ViewModelInject constructor(
         val message = ExceptionHandler.parse(exception)
 //        _userViewState.value = _userViewState.value?.copy(error = Error(message))
     }
-    val userViewState = state.get<UserViewState>("userViewStateActive")
+//    val userViewState = state.get<UserViewState>("userViewStateActive")
+    var userViewState = UserViewState()
+//    var ftSalesh = FtSalesh() //Menggunakan langsung dari adapter
 
     val searchQuery = state.getLiveData("searchQuery", "")
-
-
     val preferencesFlow = preferencesManager.preferencesFlow
 
     private val ftSaleshFlow = combine(
@@ -63,6 +66,8 @@ class FSaleshViewModel @ViewModelInject constructor(
     }
 
     val ftSaleshLive = ftSaleshFlow.asLiveData()
+//    val ftSaleshLive = getFtSaleshUseCase.getCacheAllFtSaleshLive()
+
 
     fun onSortOrderSelected(sortOrder: SortOrder) = viewModelScope.launch {
         preferencesManager.updateSortOrder(sortOrder)
@@ -96,7 +101,8 @@ class FSaleshViewModel @ViewModelInject constructor(
 
     fun onItemSwiped(ftSalesh: FtSalesh) = viewModelScope.launch {
         DisposableManager.add(Observable.fromCallable {
-            getFtSaleshUseCase.deleteCacheFtSaleshDomain(ftSalesh)
+            getFtSaleshUseCase.deleteCacheFtSalesh(ftSalesh.toEntity())
+            getFtSalesdItemsUseCase.deleteAllCacheFtSalesdItemsByFtSalesh(ftSalesh.toEntity())
         }
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
@@ -121,21 +127,28 @@ class FSaleshViewModel @ViewModelInject constructor(
                 {
                 },
                 {
-                    Log.d(TAG, "#result MATERIAL error  ${it.message}")
+                    Log.d(TAG, "#result FtSalesh error  ${it.message}")
                 },{}
             )
         )
     }
 
     fun onAddNewFtSaleshClick() = viewModelScope.launch {
-        ftSaleshEventChannel.send(FtSaleshEvent.NavigateToAddSalesOrderScreen)
+//        ftSaleshEventChannel.send(FtSaleshEvent.ShowFtSaleshSavedConfirmationMessage("Isinya: ${userViewState!!}" ))
+        ftSaleshEventChannel.send(FtSaleshEvent.NavigateToAddSalesOrderScreen(userViewState!!))
+//        ftSaleshEventChannel.send(FtSaleshEvent.NavigateToAddSalesOrderScreen(userViewState!!, FtSalesh()))
     }
 
-    fun onAddEditResult(result: Int) {
-        when (result) {
-            ADD_TASK_RESULT_OK -> showFtSaleshSavedConfirmationMessage("Data added")
-            EDIT_TASK_RESULT_OK -> showFtSaleshSavedConfirmationMessage("Data updated")
+    fun onAddEditResult(ftSaleshResult: FtSalesh) {
+        ftSaleshResult?.let {
+//            ftSaleshResult ->  ftSalesh
         }
+
+//        when (result) {
+//            ADD_TASK_RESULT_OK -> showFtSaleshSavedConfirmationMessage("Data added")
+//            EDIT_TASK_RESULT_OK -> showFtSaleshSavedConfirmationMessage("Data updated")
+//        }
+
     }
 
     private fun showFtSaleshSavedConfirmationMessage(text: String) = viewModelScope.launch {
@@ -158,8 +171,14 @@ class FSaleshViewModel @ViewModelInject constructor(
     val ftSaleshEvent = ftSaleshEventChannel.receiveAsFlow()
 
     sealed class FtSaleshEvent {
-        object NavigateToAddSalesOrderScreen : FtSaleshEvent()
-        data class NavigateToEditSalesOrderScreen(var userViewState: UserViewState, val ftSalesh: FtSalesh) : FtSaleshEvent()
+//        object NavigateToAddSalesOrderScreen() : FtSaleshEvent()
+        data class NavigateToAddSalesOrderScreen(val userViewState: UserViewState) : FtSaleshEvent()
+
+        /**
+         * Ingat FtSalesh disini sudah include List FtSalesItems sebab saat dari tarik dari database sudah dalam keadaan berelasi antar tabel
+         */
+        data class NavigateToEditSalesOrderScreen(val userViewState: UserViewState, val ftSalesh: FtSalesh) : FtSaleshEvent()
+//        data class NavigateToEditSalesOrderScreen(val userViewState: UserViewState, val ftSaleshBean: Long) : FtSaleshEvent() //--> Sebaiknya nanti gunakan Via Database Langsung
 
         data class ShowUndoDeleteFtSaleshMessage(val ftSalesh: FtSalesh) : FtSaleshEvent()
         data class ShowFtSaleshSavedConfirmationMessage(val msg: String) : FtSaleshEvent()
@@ -200,8 +219,4 @@ class FSaleshViewModel @ViewModelInject constructor(
         return resultMediatorLiveData
     }
 
-
-
-
-    
 }

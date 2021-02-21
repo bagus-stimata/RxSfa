@@ -85,7 +85,7 @@ class FtSaleshAdapter(private val listener: OnItemClickListener) :
                 txtInvoiceno.text = item.invoiceno
                 txtInvoicedate.text = sdf.format(item.invoiceDate)
 
-                txtItemSum.text = "${item.mapFtSalesdItems.size} items"
+                txtItemSum.text = "${item.listFtSalesdItems.size} items"
                 txtCurrency.text = "IDR "
                 txtTotal.text = "${nf.format(item.amountAfterDiscPlusRpAfterPpn_FG)}"
 
@@ -108,6 +108,9 @@ class FtSaleshAdapter(private val listener: OnItemClickListener) :
             oldItem.refno == newItem.refno
 
         override fun areContentsTheSame(oldItem: FtSalesh, newItem: FtSalesh) =
-            oldItem.orderno == newItem.orderno
+            oldItem.fcustomerBean == newItem.fcustomerBean &&
+                    oldItem.orderno ==newItem.orderno &&
+                    oldItem.invoiceno ==newItem.invoiceno
+
     }
 }

@@ -2,6 +2,7 @@ package com.erp.distribution.sfa.domain.repository
 
 import androidx.lifecycle.LiveData
 import com.erp.distribution.sfa.data.source.entity.FtSalesdItemsEntity
+import com.erp.distribution.sfa.data.source.entity.FtSaleshEntity
 import io.reactivex.rxjava3.core.Single
 import kotlinx.coroutines.flow.Flow
 
@@ -26,6 +27,7 @@ interface FtSalesdItemsRepository {
 
     fun putCacheFtSalesdItems(ftSalesdItemsEntity: FtSalesdItemsEntity)
     fun deleteCacheFtSalesdItems(ftSalesdItemsEntity: FtSalesdItemsEntity)
+    fun deleteAllCacheFtSalesdItemsByFtSalesh(ftSaleshBean: Long)
     fun deleteAllCacheFtsalesdItems()
 
 

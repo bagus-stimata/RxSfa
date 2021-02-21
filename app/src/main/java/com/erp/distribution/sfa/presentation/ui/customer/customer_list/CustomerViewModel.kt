@@ -44,7 +44,9 @@ class CustomerViewModel @ViewModelInject constructor(
         val message = ExceptionHandler.parse(exception)
 //        _userViewState.value = _userViewState.value?.copy(error = Error(message))
     }
-    val userViewState = state.get<UserViewState>("userViewStateActive")
+//    val userViewState = state.get<UserViewState>("userViewStateActive")
+    var userViewState = UserViewState()
+    val ftSalesh = state.get<FtSalesh>("ftSalesh")
 
     val searchQuery = state.getLiveData("searchQuery", "")
 
@@ -72,10 +74,9 @@ class CustomerViewModel @ViewModelInject constructor(
 
     fun onCustomerSelected(fCustomer: FCustomer) = viewModelScope.launch {
 //        fCustomerEventChannel.send(CustomerEvent.NavigateToEditCustomerScreen(fCustomer))
-        val tempUserViewState = UserViewState()
-        val tempFtSalesh = FtSalesh()
-        val tempFtSalesdItems = FtSalesdItems()
-        fCustomerEventChannel.send( CustomerEvent.NavigateToFtSalesh(tempUserViewState, tempFtSalesh, tempFtSalesdItems, true))
+        ftSalesh?.let {
+            fCustomerEventChannel.send( CustomerEvent.NavigateToFtSalesh(userViewState!!, fCustomer))
+        }
     }
 
     fun onFCustomerCheckedChanged(fCustomer: FCustomer, isChecked: Boolean) = viewModelScope.launch {
@@ -178,7 +179,7 @@ class CustomerViewModel @ViewModelInject constructor(
         object NavigateToAddCustomerScreen : CustomerEvent()
         data class NavigateToEditCustomerScreen(val fCustomer: FCustomer) : CustomerEvent()
 
-        data class NavigateToFtSalesh(var userViewState: UserViewState, val ftSalesh: FtSalesh, val ftSalesdItems: FtSalesdItems, val isAddOrEdit: Boolean) : CustomerEvent()
+        data class NavigateToFtSalesh(var userViewState: UserViewState, val fCustomer: FCustomer) : CustomerEvent()
 
         data class ShowUndoDeleteCustomerMessage(val fCustomer: FCustomer) : CustomerEvent()
         data class ShowCustomerSavedConfirmationMessage(val msg: String) : CustomerEvent()
