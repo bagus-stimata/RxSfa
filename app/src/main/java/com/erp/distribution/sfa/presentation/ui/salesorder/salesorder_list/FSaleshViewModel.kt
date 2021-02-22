@@ -214,7 +214,6 @@ class FSaleshViewModel @ViewModelInject constructor(
                 }
             )
         }
-        resultMediatorLiveData
 
         return resultMediatorLiveData
     }

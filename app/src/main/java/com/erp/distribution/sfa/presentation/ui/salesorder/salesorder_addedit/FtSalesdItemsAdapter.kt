@@ -7,7 +7,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import com.erp.distribution.sfa.databinding.AdapterRvItemFmaterialBinding
+import com.erp.distribution.sfa.databinding.AdapterRvItemFtsalesditemsBinding
 import com.erp.distribution.sfa.domain.model.FtSalesdItems
 import com.erp.distribution.sfa.presentation.ui.master.material_lama.adapter.NoteAdapter
 import java.text.NumberFormat
@@ -17,7 +17,7 @@ class FtSalesdItemsAdapter(private val listener: OnItemClickListener) :
     ListAdapter<FtSalesdItems, FtSalesdItemsAdapter.FtSalesdItemsViewHolder>(DiffCallback()) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): FtSalesdItemsViewHolder {
-        val binding = AdapterRvItemFmaterialBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+        val binding = AdapterRvItemFtsalesditemsBinding.inflate(LayoutInflater.from(parent.context), parent, false)
         return FtSalesdItemsViewHolder(binding)
     }
 
@@ -26,7 +26,7 @@ class FtSalesdItemsAdapter(private val listener: OnItemClickListener) :
         holder.bind(currentItem)
     }
 
-    inner class FtSalesdItemsViewHolder(private val binding: AdapterRvItemFmaterialBinding) :
+    inner class FtSalesdItemsViewHolder(private val binding: AdapterRvItemFtsalesditemsBinding) :
         RecyclerView.ViewHolder(binding.root) {
         val sdf = SimpleDateFormat("dd-MMM-yyyy")
         val nf = NumberFormat.getInstance()
@@ -58,25 +58,24 @@ class FtSalesdItemsAdapter(private val listener: OnItemClickListener) :
             binding.apply {
                 nf.maximumFractionDigits = 0
 
-//                val hash = item!!.pname.hashCode()
-//                if (item.pname.length>1) {
-//                    txtIcon.text = item.pname.trim { it <= ' ' }[0].toString()
-//                    txtIcon.background =
-//                            NoteAdapter.oval(Color.rgb(hash, hash / 2, 0), binding.txtIcon)
-//                }
-//                txtPname.text  = item.pname
-//                txtPcode.text = item.pcode
-//
-////                txtMaterialGroup.text = item.fmaterialGroup3Bean.kode1
+                val hash = item.fmaterialBean.pname.hashCode()
+                if (item.fmaterialBean.pname.length>1) {
+                    txtIcon.text = item.fmaterialBean.pname.trim { it <= ' ' }[0].toString()
+                    txtIcon.background =
+                            NoteAdapter.oval(Color.rgb(hash, hash / 2, 0), binding.txtIcon)
+                }
+                txtPname.text  = item.fmaterialBean.pname
+//                txtPcode.text = item.fmaterialBean.pcode
+
+//                txtMaterialGroup.text = item.fmaterialGroup3Bean.kode1
 //                txtMaterialGroup.text = item.fmaterialGroup3Bean!!.description
-//
-//
-//                txtPrice.text = "Rp ${nf.format(item.spriceAfterPpn)}"
-//                txtPrice2.text = "@ ${nf.format(item.sprice2AfterPpn)}"
-//
-//                txtStock.text = item.minQtyStok.toString()
-//
-//                imgStar.visibility = View.GONE
+
+                txtQty.text = "@ ${nf.format(item.tempString)}"
+                txtPrice.text = "Rp ${nf.format(item.spriceAfterPpn)}"
+
+                txtTotal.text = nf.format(item.subtotalAfterDisc2PlusRpAfterPpn)
+
+                imgStar.visibility = View.GONE
 
             }
 

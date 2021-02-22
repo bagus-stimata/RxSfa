@@ -8,9 +8,7 @@ import com.erp.distribution.sfa.data.di.PreferencesManager
 import com.erp.distribution.sfa.data.di.SortOrder
 import com.erp.distribution.sfa.data.source.entity.FDivisionEntity
 import com.erp.distribution.sfa.data.source.entity.FMaterialGroup3Entity
-import com.erp.distribution.sfa.domain.model.FMaterial
-import com.erp.distribution.sfa.domain.model.FMaterialGroup3
-import com.erp.distribution.sfa.domain.model.FtSalesdItems
+import com.erp.distribution.sfa.domain.model.*
 import com.erp.distribution.sfa.domain.model.toEntity
 import com.erp.distribution.sfa.domain.usecase.GetFMaterialGroup3UseCase
 import com.erp.distribution.sfa.domain.usecase.GetFMaterialUseCase
@@ -35,6 +33,10 @@ class FMaterialViewModel @ViewModelInject constructor(
 ) : ViewModel() {
     private val TAG = FMaterialViewModel::class.java.simpleName
 
+    var userViewState = UserViewState()
+
+    var ftSaleshRefno: Long = 0
+    var ftSalesh = FtSalesh() //Ingat akan sama dengan pemanggilnya -> FtSaleshFragment
 
     val searchQuery = state.getLiveData("searchQuery", "")
 
@@ -42,14 +44,6 @@ class FMaterialViewModel @ViewModelInject constructor(
 
     private val fMaterialEventChannel = Channel<FMaterialEvent>()
     val fMaterialEvent = fMaterialEventChannel.receiveAsFlow()
-
-    val fMaterialGroup3Live = getFMaterialGroup3UseCase.getCacheAllFMaterialGroup3()
-    fun getCacheAllFMaterialGroup3Live(id: Int): LiveData<FMaterialGroup3Entity> =
-        getFMaterialGroup3UseCase.getCacheFMaterialGroup3ById(id)
-
-    fun getFMaterialGroup3EntityLive(id: Int):LiveData<FMaterialGroup3Entity> {
-        return getFMaterialGroup3UseCase.getCacheFMaterialGroup3ById(id)
-    }
 
     private val fMaterialFlow = combine(
         searchQuery.asFlow(),
@@ -76,9 +70,14 @@ class FMaterialViewModel @ViewModelInject constructor(
 //    }
     fun onItemSelected(fMaterial: FMaterial) = viewModelScope.launch {
 //            fMaterialEventChannel.send(FMaterialEvent.NavigateToEditFMaterialScreen(fMaterial))
-            val tempUserViewState= UserViewState()
-            val tempFtSalesdItem = FtSalesdItems()
-            fMaterialEventChannel.send(FMaterialEvent.NavigateToSalesOrderEditQtyScreen(tempUserViewState, tempFtSalesdItem, false))
+        fMaterial?.let {
+            if (ftSaleshRefno >0 ) {
+                val ftSalesdItems = FtSalesdItems()
+                ftSalesdItems.ftSaleshBean = ftSalesh
+                ftSalesdItems.fmaterialBean = fMaterial
+                fMaterialEventChannel.send(FMaterialEvent.NavigateToSalesOrderEditQtyScreen(userViewState!!, ftSalesh, ftSalesdItems))
+            }
+        }
     }
 
     fun onItemCheckedChanged(fMaterial: FMaterial, isChecked: Boolean) = viewModelScope.launch {
@@ -170,7 +169,7 @@ class FMaterialViewModel @ViewModelInject constructor(
         object NavigateToAddFMaterialScreen : FMaterialEvent()
 
         data class NavigateToEditFMaterialScreen(val fMaterial: FMaterial) : FMaterialEvent()
-        data class NavigateToSalesOrderEditQtyScreen(val userViewState: UserViewState, val ftSalesdItems: FtSalesdItems, val isAddOrEdit: Boolean) : FMaterialEvent()
+        data class NavigateToSalesOrderEditQtyScreen(val userViewState: UserViewState, val ftSalesh: FtSalesh, val ftSalesdItems: FtSalesdItems) : FMaterialEvent()
 
         data class ShowUndoDeleteFMaterialMessage(val fMaterial: FMaterial) : FMaterialEvent()
         data class ShowFMaterialSavedConfirmationMessage(val msg: String) : FMaterialEvent()

@@ -3,15 +3,15 @@ package com.erp.distribution.sfa.presentation.ui.salesorder.salesorder_addedit
 import android.util.Log
 import androidx.hilt.Assisted
 import androidx.hilt.lifecycle.ViewModelInject
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.SavedStateHandle
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.viewModelScope
+import androidx.lifecycle.*
 import com.erp.distribution.sfa.data.source.entity.FtSaleshEntity
+import com.erp.distribution.sfa.data.source.entity.toDomain
 import com.erp.distribution.sfa.domain.model.FCustomer
 import com.erp.distribution.sfa.domain.model.FtSalesdItems
 import com.erp.distribution.sfa.domain.model.FtSalesh
 import com.erp.distribution.sfa.domain.model.toEntity
+import com.erp.distribution.sfa.domain.usecase.GetFCustomerGroupUseCase
+import com.erp.distribution.sfa.domain.usecase.GetFCustomerUseCase
 import com.erp.distribution.sfa.domain.usecase.GetFtSaleshUseCase
 import com.erp.distribution.sfa.presentation.model.UserViewState
 import com.erp.distribution.sfa.presentation.ui.salesorder.EDIT_TASK_RESULT_OK
@@ -24,7 +24,8 @@ import kotlinx.coroutines.flow.receiveAsFlow
 import kotlinx.coroutines.launch
 
 class AddEditFtSaleshViewModel @ViewModelInject constructor(
-    private val getFtSaleshUseCase: GetFtSaleshUseCase
+    private val getFtSaleshUseCase: GetFtSaleshUseCase,
+    private val getFCustomerGroupUseCase: GetFCustomerGroupUseCase
 //    ,
 //    @Assisted private val state: SavedStateHandle
 ) : ViewModel() {
@@ -35,8 +36,17 @@ class AddEditFtSaleshViewModel @ViewModelInject constructor(
 
     var ftSaleshRefno: Long = 0
     var ftSalesh = FtSalesh() //Ingat akan sama dengan pemanggilnya -> FtSaleshFragment
-    fun getCacheFtSaleshByIdLive(ftSaleshRefno: Long): LiveData<FtSalesh> =
-            getFtSaleshUseCase.getCacheAllFtSaleshWithItemsByIdLive(ftSaleshRefno)
+    fun getCacheFtSaleshByIdLive(ftSaleshRefno: Long): LiveData<FtSalesh> {
+        var resultLiveData: LiveData<FtSalesh> = getFtSaleshUseCase.getCacheAllFtSaleshWithItemsByIdLive(ftSaleshRefno)
+
+//        resultLiveData = Transformations.switchMap(resultLiveData, {
+//            conversionFtSaleshWithFCustomerGroup(it)
+//        })
+
+        return resultLiveData
+
+    }
+
 
 
 
@@ -161,23 +171,34 @@ class AddEditFtSaleshViewModel @ViewModelInject constructor(
     }
 
     fun onPopUpBackStackWithTheResult() = viewModelScope.launch {
-            userViewState?.let {
-                ftSalesh?.let {
-                    if (isEditMode) {
-                        updateFtSalesh(ftSalesh)
-                    }else {
-//                    if (! ftSalesh.fcustomerBean.custno.isNullOrEmpty() && ftSalesh.mapFtSalesdItems.size >0) {
-                        ftSalesh.fcustomerBean.custno.isBlank().let {
-                            ftSalesh.fdivisionBean = userViewState.fDivision!!
-                            ftSalesh.fsalesmanBean = userViewState.fSalesman!!
-                            ftSalesh.fwarehouseBean = userViewState.fWarehouse!!
-                            insertFtSalesh(ftSalesh)
-//                            Log.d(TAG, "#result sementara Bos ${ftSalesh.fcustomerBean.custno}")
-                        }
-                    }
+
+        ftSalesh.fcustomerBean?.let {
+            ftSalesh.fcustomerBean.custno
+        }.isNotEmpty().let {
+            userViewState.fDivision
+        }?.let {
+            userViewState.fSalesman
+        }?.let {
+            userViewState.fWarehouse
+        }?.run {
+            ftSalesh.fdivisionBean = userViewState.fDivision!!
+            ftSalesh.fsalesmanBean = userViewState.fSalesman!!
+            ftSalesh.fwarehouseBean = userViewState.fWarehouse!!
+
+            if (ftSalesh.fcustomerBean.id >0) {
+                if (isEditMode){
+                    Log.d(TAG, "#result Edit Bos>>>>>>>>\n ${ftSalesh.fcustomerBean}")
+                    updateFtSalesh(ftSalesh)
+
+                }else {
+                    Log.d(TAG, "#result insert Bos>>>>>>>>\n ${ftSalesh.fcustomerBean}")
+                    insertFtSalesh(ftSalesh)
                 }
             }
-        addEditFtSaleshEventChannel.send(AddEditSalesOrderEvent.NavigateBackWithResult(ftSalesh))
+            addEditFtSaleshEventChannel.send(AddEditSalesOrderEvent.NavigateBackWithResult(ftSalesh))
+
+        }
+
     }
 
     fun onSelectOrEditCustomer() = viewModelScope.launch {
@@ -200,8 +221,8 @@ class AddEditFtSaleshViewModel @ViewModelInject constructor(
     fun onSelectOrEditMaterial() = viewModelScope.launch {
 //        val tempUserViewState = UserViewState()
 //        val tempFtSalesh = FtSalesh()
-        val tempFtSalesdItems = FtSalesdItems()
-        addEditFtSaleshEventChannel.send(AddEditSalesOrderEvent.NavigateToSelectMaterialScreen(userViewState, ftSalesh, tempFtSalesdItems))
+//        val tempFtSalesdItems = FtSalesdItems()
+        addEditFtSaleshEventChannel.send(AddEditSalesOrderEvent.NavigateToSelectMaterialScreen(userViewState, ftSalesh))
     }
 
     fun showInvalidInputMessage(text: String) = viewModelScope.launch {
@@ -213,10 +234,24 @@ class AddEditFtSaleshViewModel @ViewModelInject constructor(
         data class NavigateBackWithResult(val ftSalesh: FtSalesh) : AddEditSalesOrderEvent()
 
         data class NavigateToSelectCustomerScreen(var userViewState: UserViewState, val ftSalesh: FtSalesh) : AddEditSalesOrderEvent()
-        data class NavigateToSelectMaterialScreen(var userViewState: UserViewState, val ftSalesh: FtSalesh, val ftSalesdItems: FtSalesdItems) : AddEditSalesOrderEvent()
+        data class NavigateToSelectMaterialScreen(var userViewState: UserViewState, val ftSalesh: FtSalesh) : AddEditSalesOrderEvent()
         data class NavigateToSelectFtSalesdItemQtyScreen(var userViewState: UserViewState, val ftSalesh: FtSalesh, val ftSalesdItems: FtSalesdItems) : AddEditSalesOrderEvent()
 
         class RenderDataBindingUI() : AddEditSalesOrderEvent()
 
     }
+
+//    fun conversionFtSaleshWithFCustomerGroup(ftSalesh: FtSalesh) : LiveData<FtSalesh> {
+//        val resultMediatorLiveData: MediatorLiveData<FtSalesh> = MediatorLiveData<FtSalesh>()
+//        resultMediatorLiveData.addSource(getFCustomerGroupUseCase.getCacheFCustomerGroupByIdDomainLive(ftSalesh.fcustomerBean.fcustomerGroupBean!!.id), Observer {
+//            it?.let { fcustomerGroup ->
+//                ftSalesh.fcustomerBean?.let {
+//                    ftSalesh.fcustomerBean.fcustomerGroupBean = fcustomerGroup
+//                    resultMediatorLiveData.postValue(ftSalesh)
+//                }
+//            }
+//
+//        return resultMediatorLiveData
+//    }
+
 }

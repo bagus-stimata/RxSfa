@@ -6,21 +6,15 @@ import androidx.hilt.lifecycle.ViewModelInject
 import androidx.lifecycle.*
 import com.erp.distribution.sfa.data.di.PreferencesManager
 import com.erp.distribution.sfa.data.di.SortOrder
-import com.erp.distribution.sfa.data.source.entity.*
 import com.erp.distribution.sfa.domain.exception.ExceptionHandler
 import com.erp.distribution.sfa.domain.model.FCustomer
-import com.erp.distribution.sfa.domain.model.FtSalesdItems
 import com.erp.distribution.sfa.domain.model.FtSalesh
-import com.erp.distribution.sfa.domain.model.states.Error
 import com.erp.distribution.sfa.domain.model.toEntity
 import com.erp.distribution.sfa.domain.usecase.*
 import com.erp.distribution.sfa.presentation.base.BaseViewModel
-import com.erp.distribution.sfa.presentation.base.Resource
 import com.erp.distribution.sfa.presentation.model.UserViewState
 import com.erp.distribution.sfa.presentation.ui.customer.ADD_TASK_RESULT_OK
 import com.erp.distribution.sfa.presentation.ui.customer.EDIT_TASK_RESULT_OK
-import com.erp.distribution.sfa.presentation.ui.material.material_list.FMaterialViewModel
-import com.erp.distribution.sfa.presentation.ui.salesorder.salesorder_qty.AddEditFtSaleshQtyViewModel
 import com.erp.distribution.sfa.utils.DisposableManager
 import io.reactivex.rxjava3.core.Observable
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
@@ -75,7 +69,7 @@ class CustomerViewModel @ViewModelInject constructor(
     fun onCustomerSelected(fCustomer: FCustomer) = viewModelScope.launch {
 //        fCustomerEventChannel.send(CustomerEvent.NavigateToEditCustomerScreen(fCustomer))
         ftSalesh?.let {
-            fCustomerEventChannel.send( CustomerEvent.NavigateToFtSalesh(userViewState!!, fCustomer))
+            fCustomerEventChannel.send( CustomerEvent.NavigateToFtSaleshCustomerOrder(userViewState!!, fCustomer))
         }
     }
 
@@ -179,7 +173,7 @@ class CustomerViewModel @ViewModelInject constructor(
         object NavigateToAddCustomerScreen : CustomerEvent()
         data class NavigateToEditCustomerScreen(val fCustomer: FCustomer) : CustomerEvent()
 
-        data class NavigateToFtSalesh(var userViewState: UserViewState, val fCustomer: FCustomer) : CustomerEvent()
+        data class NavigateToFtSaleshCustomerOrder(var userViewState: UserViewState, val fCustomer: FCustomer) : CustomerEvent()
 
         data class ShowUndoDeleteCustomerMessage(val fCustomer: FCustomer) : CustomerEvent()
         data class ShowCustomerSavedConfirmationMessage(val msg: String) : CustomerEvent()

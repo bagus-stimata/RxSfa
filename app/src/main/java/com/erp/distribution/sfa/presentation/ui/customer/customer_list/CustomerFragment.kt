@@ -140,7 +140,7 @@ class CustomerFragment : Fragment(R.layout.fragment_customer), CustomerAdapter.O
                                 viewModel.onUndoDeleteClick(event.fCustomer)
                             }.show()
                     }
-                    is CustomerViewModel.CustomerEvent.NavigateToFtSalesh -> {
+                    is CustomerViewModel.CustomerEvent.NavigateToFtSaleshCustomerOrder -> {
                         setFragmentResult(
                                 "customer_request",
                                 bundleOf("customer_result" to event.fCustomer)

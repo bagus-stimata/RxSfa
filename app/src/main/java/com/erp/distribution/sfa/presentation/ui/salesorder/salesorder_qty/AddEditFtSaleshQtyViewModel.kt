@@ -26,8 +26,16 @@ class AddEditFtSaleshQtyViewModel @ViewModelInject constructor(
 ) : ViewModel() {
     val TAG = AddEditFtSaleshQtyViewModel::class.java.simpleName
 
-    val userViewState = state.get<UserViewState>("userViewStateActive")
-    val ftSalesh = state.get<FtSalesh>("ftSalesh")
+    var userViewState = UserViewState()
+
+    var ftSaleshRefno: Long = 0
+    var ftSalesh = FtSalesh()
+    var ftSalesdItemsId: Long = 0
+    var ftSalesdItems = FtSalesdItems()
+
+
+//    val userViewState = state.get<UserViewState>("userViewStateActive")
+//    val ftSalesh = state.get<FtSalesh>("ftSalesh")
 
 //    var ftSaleshName = state.get<String>("ftSaleshName") ?: ftSalesh?.invoiceno ?: ""
 //        set(value) {
@@ -105,10 +113,10 @@ class AddEditFtSaleshQtyViewModel @ViewModelInject constructor(
     }
 
     fun onUpdateQtyOke() = viewModelScope.launch {
-        val tempUserViewState = UserViewState()
-        val tempFtSalesh = FtSalesh()
-        val tempFtSalesdItems = FtSalesdItems()
-        addEditFtSaleshEventChannel.send(AddEditFtSaleshQtyEvent.NavigateToFtSalesh(tempUserViewState, tempFtSalesh, tempFtSalesdItems, true))
+//        val tempUserViewState = UserViewState()
+//        val tempFtSalesh = FtSalesh()
+//        val tempFtSalesdItems = FtSalesdItems()
+        addEditFtSaleshEventChannel.send(AddEditFtSaleshQtyEvent.NavigateToFtSaleshCustomerOrder(userViewState!!, ftSalesh, ftSalesdItems))
     }
 
     fun showInvalidInputMessage(text: String) = viewModelScope.launch {
@@ -118,7 +126,7 @@ class AddEditFtSaleshQtyViewModel @ViewModelInject constructor(
     sealed class AddEditFtSaleshQtyEvent {
         data class ShowInvalidInputMessage(val msg: String) : AddEditFtSaleshQtyEvent()
 
-        data class NavigateToFtSalesh(var userViewState: UserViewState, val ftSalesh: FtSalesh, val ftSalesdItems: FtSalesdItems, val isAddOrEdit: Boolean) : AddEditFtSaleshQtyEvent()
+        data class NavigateToFtSaleshCustomerOrder(var userViewState: UserViewState, val ftSalesh: FtSalesh, val ftSalesdItems: FtSalesdItems) : AddEditFtSaleshQtyEvent()
         data class NavigateBackWithResult(val result: Int) : AddEditFtSaleshQtyEvent()
     }
 

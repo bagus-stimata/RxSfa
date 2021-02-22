@@ -6,6 +6,7 @@ import android.view.Menu
 import android.view.MenuInflater
 import android.view.MenuItem
 import android.view.View
+import android.widget.Toast
 import androidx.activity.OnBackPressedCallback
 import androidx.appcompat.widget.SearchView
 import androidx.fragment.app.Fragment
@@ -13,11 +14,13 @@ import androidx.fragment.app.setFragmentResultListener
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
+import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.erp.distribution.sfa.data.di.SortOrder
 import com.erp.distribution.sfa.databinding.FragmentFmaterialBinding
 import com.erp.distribution.sfa.domain.model.FMaterial
+import com.erp.distribution.sfa.presentation.ui.salesorder.salesorder_addedit.AddEditFtSaleshFragmentArgs
 import com.erp.distribution.sfa.presentation.ui.salesorder.salesorder_qty.AddEditFtSaleshQtyFragment
 import com.erp.distribution.sfa.presentation.ui.utils.AlertDialogWarning
 import com.erp.distribution.sfa.presentation.ui.utils.onQueryTextChanged
@@ -32,6 +35,7 @@ import kotlinx.coroutines.launch
 class FMaterialFragment : Fragment(R.layout.fragment_fmaterial), FMaterialAdapter.OnItemClickListener {
 
     private val viewModelFMaterial: FMaterialViewModel by viewModels()
+    private val args: FMaterialFragmentArgs by navArgs()
 
     private lateinit var searchView: SearchView
 
@@ -39,6 +43,15 @@ class FMaterialFragment : Fragment(R.layout.fragment_fmaterial), FMaterialAdapte
         super.onViewCreated(view, savedInstanceState)
 
         val binding = FragmentFmaterialBinding.bind(view)
+
+        args.userViewStateActive?.let {
+            viewModelFMaterial.userViewState =  it
+        }
+        args.ftSalesh?.let {
+            viewModelFMaterial.ftSalesh = it //Cara ini akan menginvoike pemanggilnya (perequest)
+            viewModelFMaterial.ftSaleshRefno = it.refno
+//            Toast.makeText(context, "Hello bos", Toast.LENGTH_SHORT).show()
+        }
 
         /**
          * Agar navigasi BackStage dan tombol android.R.id.hame melewati satu
@@ -131,7 +144,11 @@ class FMaterialFragment : Fragment(R.layout.fragment_fmaterial), FMaterialAdapte
                             }.show()
                     }
                     is FMaterialViewModel.FMaterialEvent.NavigateToSalesOrderEditQtyScreen -> {
-                        val action = FMaterialFragmentDirections.actionFMaterialFragmentToAddEditFtSaleshQtyFragment()
+                        val action = FMaterialFragmentDirections.actionFMaterialFragmentToAddEditFtSaleshQtyFragment(
+                                event.userViewState,
+                                event.ftSalesh,
+                                event.ftSalesdItems
+                        )
                         findNavController().navigate(action)
                     }
 //                    is FMaterialViewModel.FMaterialEvent.NavigateToAddFMaterialScreen -> {

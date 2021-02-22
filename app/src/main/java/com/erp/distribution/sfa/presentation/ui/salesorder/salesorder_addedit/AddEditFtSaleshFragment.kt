@@ -49,7 +49,6 @@ class AddEditFtSaleshFragment : Fragment(R.layout.fragment_add_edit_salesorder),
         }
         viewModel.isEditMode =false
         args.ftSalesh?.let {
-
 //            viewModel.ftSalesh = it //Cara ini akan menginvoike pemanggilnya (perequest)
             viewModel.ftSaleshRefno = it.refno
             viewModel.isEditMode = true
@@ -147,8 +146,7 @@ class AddEditFtSaleshFragment : Fragment(R.layout.fragment_add_edit_salesorder),
                     is AddEditFtSaleshViewModel.AddEditSalesOrderEvent.NavigateToSelectMaterialScreen -> {
                         val action = AddEditFtSaleshFragmentDirections.actionAddEditFtSaleshFragmentToFMaterialFragment(
                             event.userViewState,
-                            event.ftSalesh,
-                            event.ftSalesdItems
+                            event.ftSalesh
                         )
                         findNavController().navigate(action)
                     }

@@ -67,5 +67,8 @@
     <color name="gradStart">#19AA8B</color>
     <color name="gradStop">#23A7D8</color>
 
+    <color name="qty_uom1">#4f7552</color>
+    <color name="qty_uom2">#a1861b</color>
+    <color name="qty_uom3">#700932</color>
 
 </resources>
