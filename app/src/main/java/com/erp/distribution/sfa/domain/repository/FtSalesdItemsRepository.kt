@@ -18,7 +18,7 @@ interface FtSalesdItemsRepository {
     fun deleteRemoteFtSalesdItems(authHeader: String, id: Long): Single<FtSalesdItemsEntity>
 
     fun getCacheAllFtSalesdItems(): LiveData<List<FtSalesdItemsEntity>>
-    fun getAllByFtSaleshAndMaterialFlow(ftSalesBean: Long, fmaterialBean: Int): Flow<List<FtSalesdItemsEntity>>
+    fun getAllByFtSalesdItemsByParentAndMaterialFlow(ftSalesBean: Long, fmaterialBean: Int): Flow<List<FtSalesdItemsEntity>>
     fun getCacheFtSalesdItemsById(id: Long): LiveData<FtSalesdItemsEntity>
     fun getCacheAllFtSalesdItemsByParent(parentId: Long): LiveData<List<FtSalesdItemsEntity>>
 

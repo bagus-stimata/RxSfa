@@ -84,7 +84,7 @@ data class FMaterialEntity  (
     var ftaxBean : Int? =0,
 
 //    @Ignore
-//    var isTaxable : Boolean? =false,
+    var isTaxable : Boolean? =false,
 
     /*
     * Adalah Vendor Utama Produk Tersebut

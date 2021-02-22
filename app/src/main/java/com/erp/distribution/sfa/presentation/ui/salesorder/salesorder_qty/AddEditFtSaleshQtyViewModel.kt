@@ -8,6 +8,8 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.erp.distribution.sfa.domain.model.FtSalesdItems
 import com.erp.distribution.sfa.domain.model.FtSalesh
+import com.erp.distribution.sfa.domain.model.toEntity
+import com.erp.distribution.sfa.domain.usecase.GetFtSalesdItemsUseCase
 import com.erp.distribution.sfa.domain.usecase.GetFtSaleshUseCase
 import com.erp.distribution.sfa.presentation.model.UserViewState
 import com.erp.distribution.sfa.presentation.ui.salesorder.ADD_TASK_RESULT_OK
@@ -22,6 +24,7 @@ import kotlinx.coroutines.launch
 
 class AddEditFtSaleshQtyViewModel @ViewModelInject constructor(
     private val getFtSaleshUseCase: GetFtSaleshUseCase,
+    private val getFtSalesdItemsUseCase: GetFtSalesdItemsUseCase,
     @Assisted private val state: SavedStateHandle
 ) : ViewModel() {
     val TAG = AddEditFtSaleshQtyViewModel::class.java.simpleName
@@ -70,9 +73,13 @@ class AddEditFtSaleshQtyViewModel @ViewModelInject constructor(
 
     }
 
-    private fun createFtSalesh(ftSalesh: FtSalesh) = viewModelScope.launch {
+    private fun addOrUpdateFtSalesdItems(ftSalesdItems: FtSalesdItems) = viewModelScope.launch {
         DisposableManager.add(Observable.fromCallable {
-            getFtSaleshUseCase.addCacheFtSaleshDomain(ftSalesh)
+            if (ftSalesdItems.id >0){
+                getFtSalesdItemsUseCase.putCacheFtSalesdItems(ftSalesdItems.toEntity())
+            }else {
+                getFtSalesdItemsUseCase.addCacheFtSalesdItems(ftSalesdItems.toEntity())
+            }
         }
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
@@ -81,9 +88,7 @@ class AddEditFtSaleshQtyViewModel @ViewModelInject constructor(
                 },
                 {
                     Log.d(TAG, "#result MATERIAL error  ${it.message}")
-                },
-                {
-                }
+                },{}
             )
         )
 
@@ -112,11 +117,30 @@ class AddEditFtSaleshQtyViewModel @ViewModelInject constructor(
         )
     }
 
-    fun onUpdateQtyOke() = viewModelScope.launch {
-//        val tempUserViewState = UserViewState()
-//        val tempFtSalesh = FtSalesh()
-//        val tempFtSalesdItems = FtSalesdItems()
-        addEditFtSaleshEventChannel.send(AddEditFtSaleshQtyEvent.NavigateToFtSaleshCustomerOrder(userViewState!!, ftSalesh, ftSalesdItems))
+    fun onUpdateQtySave() = viewModelScope.launch {
+        userViewState?.let {
+               ftSalesh
+        }?.let {
+            ftSalesdItems
+        }?.let {
+            ftSalesdItems.fmaterialBean
+        }?.run {
+            if (ftSalesh.refno>0 && ftSalesdItems.fmaterialBean.id >0) {
+                ftSalesdItems.ftSaleshBean = ftSalesh
+                ftSalesdItems.qty = ftSalesdItems.qty1+ftSalesdItems.qty2+ftSalesdItems.qty3+ftSalesdItems.qty4
+
+                if (ftSalesdItems.fmaterialBean.isTaxable) {
+                    ftSalesdItems.isTax = true
+                    ftSalesdItems.taxPercent = 10.0
+                }
+
+                addOrUpdateFtSalesdItems(ftSalesdItems)
+
+                addEditFtSaleshEventChannel.send(AddEditFtSaleshQtyEvent.NavigateToFtSaleshCustomerOrder(userViewState!!, ftSalesh, ftSalesdItems))
+            }
+        }
+//        addEditFtSaleshEventChannel.send(AddEditFtSaleshQtyEvent.NavigateToFtSaleshCustomerOrder(userViewState!!, ftSalesh, ftSalesdItems))
+
     }
 
     fun showInvalidInputMessage(text: String) = viewModelScope.launch {

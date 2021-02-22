@@ -77,7 +77,7 @@ class FtSaleshAdapter(private val listener: OnItemClickListener) :
                 txtCustname.text = item.fcustomerBean.custname
 //                txtCustname.text = "Piye jum"
 
-                txtCustno.text = item.fcustomerBean.custname
+                txtCustno.text = item.fcustomerBean.custno
                 txtTipeCust.text = item.fcustomerBean.fcustomerGroupBean!!.kode1
                 txtAddress.text = "${item.fcustomerBean.address1} ${item.fcustomerBean.address2} ${item.fcustomerBean.city1} "
                 txtOrderno.text = item.orderno

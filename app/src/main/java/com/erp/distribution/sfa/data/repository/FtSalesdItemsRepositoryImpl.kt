@@ -48,7 +48,7 @@ class FtSalesdItemsRepositoryImpl(
     override fun getCacheAllFtSalesdItems(): LiveData<List<FtSalesdItemsEntity>> {
         return appDatabase.salesdItemsDao.getAllFtSalesdItemsEntityLive
     }
-    override fun getAllByFtSaleshAndMaterialFlow(ftSalesBean: Long, fmaterialBean: Int): Flow<List<FtSalesdItemsEntity>> {
+    override fun getAllByFtSalesdItemsByParentAndMaterialFlow(ftSalesBean: Long, fmaterialBean: Int): Flow<List<FtSalesdItemsEntity>> {
         return appDatabase.salesdItemsDao.getAllByFtSaleshAndMaterialFlow(ftSalesBean, fmaterialBean)
     }
 

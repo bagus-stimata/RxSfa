@@ -54,8 +54,6 @@ class FtSaleshFragment : Fragment(R.layout.fragment_ftsalesh), FtSaleshAdapter.O
 
 //                Toast.makeText(context, "isinya arguments ${viewModel.userViewState.fUser!!.username}", Toast.LENGTH_SHORT).show()
 
-
-
         val ftSaleshAdapter = FtSaleshAdapter(this)
 
         requireActivity().onBackPressedDispatcher
@@ -177,8 +175,10 @@ class FtSaleshFragment : Fragment(R.layout.fragment_ftsalesh), FtSaleshAdapter.O
     }
     fun setupFragmentResultListener() {
         setFragmentResultListener("add_edit_request") { _, bundle ->
-            val result = bundle.getParcelable<FtSalesh>("add_edit_result")
-            viewModel.onAddEditResult(result!!)
+            try {
+                val result = bundle.getParcelable<FtSalesh>("add_edit_result") as FtSalesh
+                viewModel.onAddEditResult(result)
+            }catch (e:Exception){}
         }
 
     }

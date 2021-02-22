@@ -59,7 +59,7 @@ data class FMaterial  (
     var ftaxBean : Int? =0,
 
 //    @Ignore
-//    var isTaxable : Boolean =false,
+    var isTaxable : Boolean =false,
 
     /*
     * Adalah Vendor Utama Produk Tersebut
@@ -217,6 +217,7 @@ internal fun FMaterial.toEntity(): FMaterialEntity {
 
             fmaterialSalesBrandBean = fmaterialSalesBrandBean!!,
             ftaxBean = ftaxBean!!,
+            isTaxable = isTaxable!!,
             fvendorBean = fvendorBean!!.id,
             fdivisionBean = fdivisionBean.id,
 

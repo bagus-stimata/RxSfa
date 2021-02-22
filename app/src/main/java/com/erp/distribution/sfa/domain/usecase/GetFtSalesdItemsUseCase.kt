@@ -5,7 +5,6 @@ import com.erp.distribution.sfa.domain.repository.FtSalesdItemsRepository
 import com.erp.distribution.sfa.domain.usecase.base.SingleUseCase
 import com.erp.distribution.sfa.data.source.entity.FtSalesdItemsEntity
 import com.erp.distribution.sfa.data.source.entity.FtSaleshEntity
-import com.erp.distribution.sfa.domain.model.FtSalesh
 import io.reactivex.rxjava3.core.Single
 import kotlinx.coroutines.flow.Flow
 import javax.inject.Inject
@@ -47,14 +46,15 @@ class GetFtSalesdItemsUseCase @Inject constructor(private val repository: FtSale
         return repository.getCacheAllFtSalesdItems()
     }
     fun getAllByFtSaleshAndMaterialFlow(ftSalesBean: Long, fmaterialBean: Int): Flow<List<FtSalesdItemsEntity>> {
-        return repository.getAllByFtSaleshAndMaterialFlow(ftSalesBean, fmaterialBean)
+        return repository.getAllByFtSalesdItemsByParentAndMaterialFlow(ftSalesBean, fmaterialBean)
     }
+    fun getCacheListFtSalesdItemsByFtSaleshBean(ftSalesBean: Long): LiveData<List<FtSalesdItemsEntity>>{
+        return repository.getCacheAllFtSalesdItemsByParent(ftSalesBean)
+    }
+
     fun getCacheFtSalesdItemsById(id: Long): LiveData<FtSalesdItemsEntity>{
         return repository.getCacheFtSalesdItemsById(id)
     }
-//    fun getCacheAllFtSalesdItemsByDivision(divisionId: Int): LiveData<List<FtSalesdItems>>{
-//        return repository.getCacheAllFtSalesdItemsByDivision(divisionId)
-//    }
     fun addCacheFtSalesdItems(ftSaleshEntity: FtSalesdItemsEntity){
         repository.addCacheFtSalesdItems(ftSaleshEntity)
     }

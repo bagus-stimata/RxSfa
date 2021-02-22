@@ -112,6 +112,11 @@
             app:argType="com.erp.distribution.sfa.domain.model.FtSalesh"
             app:nullable="true"
             android:defaultValue="@null" />
+        <argument
+            android:name="ftSalesdItems"
+            app:argType="com.erp.distribution.sfa.domain.model.FtSalesdItems"
+            app:nullable="true"
+            android:defaultValue="@null" />
 
         <action
             android:id="@+id/action_addEditFtSaleshFragment_to_FMaterialFragment"

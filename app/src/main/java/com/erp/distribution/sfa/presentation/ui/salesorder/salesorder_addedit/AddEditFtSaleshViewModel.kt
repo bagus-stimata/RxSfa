@@ -12,6 +12,7 @@ import com.erp.distribution.sfa.domain.model.FtSalesh
 import com.erp.distribution.sfa.domain.model.toEntity
 import com.erp.distribution.sfa.domain.usecase.GetFCustomerGroupUseCase
 import com.erp.distribution.sfa.domain.usecase.GetFCustomerUseCase
+import com.erp.distribution.sfa.domain.usecase.GetFtSalesdItemsUseCase
 import com.erp.distribution.sfa.domain.usecase.GetFtSaleshUseCase
 import com.erp.distribution.sfa.presentation.model.UserViewState
 import com.erp.distribution.sfa.presentation.ui.salesorder.EDIT_TASK_RESULT_OK
@@ -25,7 +26,7 @@ import kotlinx.coroutines.launch
 
 class AddEditFtSaleshViewModel @ViewModelInject constructor(
     private val getFtSaleshUseCase: GetFtSaleshUseCase,
-    private val getFCustomerGroupUseCase: GetFCustomerGroupUseCase
+    private val getFtSalesdItemsUseCase: GetFtSalesdItemsUseCase
 //    ,
 //    @Assisted private val state: SavedStateHandle
 ) : ViewModel() {
@@ -38,13 +39,16 @@ class AddEditFtSaleshViewModel @ViewModelInject constructor(
     var ftSalesh = FtSalesh() //Ingat akan sama dengan pemanggilnya -> FtSaleshFragment
     fun getCacheFtSaleshByIdLive(ftSaleshRefno: Long): LiveData<FtSalesh> {
         var resultLiveData: LiveData<FtSalesh> = getFtSaleshUseCase.getCacheAllFtSaleshWithItemsByIdLive(ftSaleshRefno)
-
-//        resultLiveData = Transformations.switchMap(resultLiveData, {
-//            conversionFtSaleshWithFCustomerGroup(it)
-//        })
-
         return resultLiveData
+    }
 
+    fun getCacheFtSalesdItemsByParentLive(ftSaleshRefno: Long): LiveData<List<FtSalesdItems>> {
+        var resultLiveData: LiveData<List<FtSalesdItems>>  = getFtSalesdItemsUseCase.getCacheListFtSalesdItemsByFtSaleshBean(ftSaleshRefno).map {
+            it.map {
+                it.toDomain()
+            }
+        }
+        return resultLiveData
     }
 
 
@@ -174,7 +178,7 @@ class AddEditFtSaleshViewModel @ViewModelInject constructor(
 
         ftSalesh.fcustomerBean?.let {
             ftSalesh.fcustomerBean.custno
-        }.isNotEmpty().let {
+        }?.let {
             userViewState.fDivision
         }?.let {
             userViewState.fSalesman
@@ -187,11 +191,11 @@ class AddEditFtSaleshViewModel @ViewModelInject constructor(
 
             if (ftSalesh.fcustomerBean.id >0) {
                 if (isEditMode){
-                    Log.d(TAG, "#result Edit Bos>>>>>>>>\n ${ftSalesh.fcustomerBean}")
+//                    Log.d(TAG, "#result Edit Bos>>>>>>>>\n ${ftSalesh.fcustomerBean}")
                     updateFtSalesh(ftSalesh)
 
                 }else {
-                    Log.d(TAG, "#result insert Bos>>>>>>>>\n ${ftSalesh.fcustomerBean}")
+//                    Log.d(TAG, "#result insert Bos>>>>>>>>\n ${ftSalesh.fcustomerBean}")
                     insertFtSalesh(ftSalesh)
                 }
             }
@@ -211,7 +215,11 @@ class AddEditFtSaleshViewModel @ViewModelInject constructor(
          * PERHATIAN DIA LANGSUNG UPDATE KE DATABASE
          */
         ftSalesh.fcustomerBean = fCustomer
-        updateFtSalesh(ftSalesh)
+        if (ftSalesh.refno>0){
+            updateFtSalesh(ftSalesh)
+        }else {
+            insertFtSalesh(ftSalesh)
+        }
 //        Log.d(TAG, "#result Hello: ${fCustomer.custname}   and ${ftSalesh?.fcustomerBean?.custname}")
 
         addEditFtSaleshEventChannel.send(AddEditSalesOrderEvent.RenderDataBindingUI())

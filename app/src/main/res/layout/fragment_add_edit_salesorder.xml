@@ -344,18 +344,15 @@
                     </RelativeLayout>
 
                 </androidx.cardview.widget.CardView>
-
-
-
-<!--                RECYCLER VIEW ITEMS-->
-                <androidx.recyclerview.widget.RecyclerView
-                    android:id="@+id/recycler_view_ftsalesh_ftsalesditems"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent" />
-
             </LinearLayout>
-
         </androidx.core.widget.NestedScrollView>
+
+        <!--                RECYCLER VIEW ITEMS-->
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recycler_view_ftsalesh_ftsalesditems"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+
 
         <com.google.android.material.floatingactionbutton.FloatingActionButton
             android:id="@+id/detail_fab"

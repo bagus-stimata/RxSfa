@@ -15,6 +15,7 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
+import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.erp.distribution.sfa.R
 import com.erp.distribution.sfa.data.source.entity.toDomain
@@ -52,28 +53,23 @@ class AddEditFtSaleshFragment : Fragment(R.layout.fragment_add_edit_salesorder),
 //            viewModel.ftSalesh = it //Cara ini akan menginvoike pemanggilnya (perequest)
             viewModel.ftSaleshRefno = it.refno
             viewModel.isEditMode = true
+
         }
 
-//        Toast.makeText(context, "isis ${viewModel.isEditMode}", Toast.LENGTH_LONG).show()
+        args.ftSalesdItems?.let {
+//            viewModel.ftSalesh = it //Cara ini akan menginvoike pemanggilnya (perequest)
+//            viewModel.ftSalesh = it.refno
+//            viewModel.isEditMode = true
+//            Toast.makeText(context, "isis ${it.fmaterialBean.pname} >>> ${it.qty}", Toast.LENGTH_LONG).show()
+        }
 
-        var ftSalesdItemsAdapter = FtSalesdItemsAdapter(this)
+
+//        Toast.makeText(context, "isis ${viewModel.isEditMode}", Toast.LENGTH_LONG).show()
 
         binding = FragmentAddEditSalesorderBinding.bind(view)
         binding.actionFragment = this
 
-        binding.ftSalesh = viewModel.ftSalesh
-        if (viewModel.isEditMode==true){
-//            Toast.makeText(context, "isine ${viewModel.isEditMode}", Toast.LENGTH_LONG).show()
-            viewModel.getCacheFtSaleshByIdLive(viewModel.ftSaleshRefno).observe(viewLifecycleOwner, Observer {
-                it?.let {
-//                    Toast.makeText(context, "isine ${it.fcustomerBean.custname}", Toast.LENGTH_LONG).show()
-                    viewModel.ftSalesh = it
-                    binding.ftSalesh = viewModel.ftSalesh
-                }
-
-            })
-        }
-
+        val ftSalesdItemsAdapter = FtSalesdItemsAdapter(this)
 
         requireActivity().onBackPressedDispatcher
                 .addCallback(viewLifecycleOwner, object : OnBackPressedCallback(true){
@@ -92,34 +88,46 @@ class AddEditFtSaleshFragment : Fragment(R.layout.fragment_add_edit_salesorder),
                 setHasFixedSize(true)
             }
 
-
-//            textviewCustname.text = viewModel.fieldBinding_Custname
-//            textviewAddress.text = "${viewModel.fieldBinding_Address1} ${viewModel.fieldBinding_Address2} ${viewModel.fieldBinding_City1}"
-//
-//            textviewOrderno.text = viewModel.fieldBinding_Orderno
-//            textviewOrderdate.text = sdf.format( viewModel.fieldBinding_OrderDate )
-//
-//            textviewInvoiceno.text = viewModel.fieldBinding_Invoiceno
-//            textviewInvoicedate.text = sdf.format( viewModel.fieldBinding_InvoiceDate )
-//
-//            textviewTotalsales.text = decFormat.format(viewModel.fieldBinding_TotalSales)
-//            textviewDisc.text = "0"
-//            textviewDiscRp.text = "Rp.0"
-
-//            editTextSoName.addTextChangedListener{
-//                viewModelFtSalesh.ftSaleshName = it.toString()
-//            }
-//
-//            checkBoxImportant.setOnCheckedChangeListener { _, isChecked ->
-//                viewModelFtSalesh.ftSaleshImportance = isChecked
-//            }
-//
-//            fabSaveSalesorder.setOnClickListener {
-//                viewModelFtSalesh.onSaveClick()
-//            }
-
+            /**
+             * adapter line
+             */
+            val dividerItemDecoration = DividerItemDecoration( context, DividerItemDecoration.VERTICAL)
+            dividerItemDecoration.setDrawable(getResources().getDrawable(R.drawable.rv_divider))
+            binding.recyclerViewFtsaleshFtsalesditems.addItemDecoration(dividerItemDecoration)
 
         }
+
+        /**
+         * LOADING LIVE DATA TO VIEW
+         */
+
+        binding.ftSalesh = viewModel.ftSalesh
+        if (viewModel.isEditMode==true){
+//            Toast.makeText(context, "isine ${viewModel.isEditMode}", Toast.LENGTH_LONG).show()
+            viewModel.getCacheFtSaleshByIdLive(viewModel.ftSaleshRefno).observe(viewLifecycleOwner, Observer {
+                it?.let {
+//                    Toast.makeText(context, "isine ${it.fcustomerBean.custname}", Toast.LENGTH_LONG).show()
+                    viewModel.ftSalesh = it
+                    binding.ftSalesh = viewModel.ftSalesh
+                }
+
+            })
+        }
+
+
+        viewModel.getCacheFtSalesdItemsByParentLive(viewModel.ftSaleshRefno)
+                .observe(viewLifecycleOwner) {
+                    it?.let {
+                        ftSalesdItemsAdapter.submitList(it)
+                        Toast.makeText(context, "Jumalah:\n ${it.size}", Toast.LENGTH_SHORT).show()
+                    }
+
+//                var message = ""
+//                it.iterator().forEach {
+//                    message += it.fcustomerBean.custname + "\n"
+//                }
+                }
+
 
         setupLifeCycleScopeEventListener()
         setupFragmentResultListener()
