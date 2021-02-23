@@ -28,106 +28,106 @@ class KonversiProductAndStockHelperImpl : KonversiProductAndStockHelper {
     }
 
     override fun getUom1FromSmallest(): Double {
-        var valueBiggest = 0.0
+        var valueBiggest: Int = 0
         if (fMaterial!!.convfact1 === 1) {
             try {
-                valueBiggest = pcsOrUom4 / fMaterial!!.convfact1 //maka double
+                valueBiggest = pcsOrUom4.toInt() / fMaterial!!.convfact1 //maka double
             } catch (ex: Exception) {
             }
         } else {
             try {
-                valueBiggest = pcsOrUom4.toDouble() / fMaterial!!.convfact1
+                valueBiggest = pcsOrUom4.toInt() / fMaterial!!.convfact1
             } catch (ex: Exception) {
             }
         }
-        return valueBiggest
+        return valueBiggest.toDouble()
     }
 
     override fun getUom2FromSmallest(): Double {
-        var valueUom2 = 0.0
+        var valueUom2: Int = 0
         if (fMaterial!!.convfact1 === 1) { //Asumsi Convfact2,3 pasti 1
-            valueUom2 = 0.0
+            valueUom2 = 0
         } else if (fMaterial!!.convfact2 === 1) { //dan seterusnya pasti satu
             try {
-                val sisaQtyUom1: Double = pcsOrUom4 % fMaterial!!.convfact1
+                val sisaQtyUom1: Int = pcsOrUom4.toInt() % fMaterial!!.convfact1
                 valueUom2 = sisaQtyUom1 / fMaterial!!.convfact2
             } catch (ex: Exception) {
             }
         } else {
             try {
                 val sisaQtyUom1: Int = pcsOrUom4.toInt() % fMaterial!!.convfact1
-                valueUom2 = sisaQtyUom1.toDouble() / fMaterial!!.convfact2
+                valueUom2 = sisaQtyUom1.toInt() / fMaterial!!.convfact2
             } catch (ex: Exception) {
             }
         }
-        return valueUom2
+        return valueUom2.toDouble()
     }//				int sisaQtyUom1 = (int) pcsOrUom4 % fMaterial!!.convfact1;		//				double sisaQtyUom1 = pcsOrUom4 % fMaterial!!.convfact1;		//dan seterusnya pasti satu
 
     //Asumsi Convfact2,3 pasti 1
     val uom2_234FromSmallest: Double
         get() {
-            var valueUom2 = 0.0
+            var valueUom2: Int = 0
             if (fMaterial!!.convfact1 === 1) { //Asumsi Convfact2,3 pasti 1
-                valueUom2 = 0.0
+                valueUom2 = 0
             } else if (fMaterial!!.convfact2 === 1) { //dan seterusnya pasti satu
                 try {
 //				double sisaQtyUom1 = pcsOrUom4 % fMaterial!!.convfact1;		
-                    valueUom2 = pcsOrUom4 / fMaterial!!.convfact2
+                    valueUom2 = pcsOrUom4.toInt() / fMaterial!!.convfact2
                 } catch (ex: Exception) {
                 }
             } else {
                 try {
 //				int sisaQtyUom1 = (int) pcsOrUom4 % fMaterial!!.convfact1;		
-                    valueUom2 = pcsOrUom4.toDouble() / fMaterial!!.convfact2
+                    valueUom2 = pcsOrUom4.toInt() / fMaterial!!.convfact2
                 } catch (ex: Exception) {
                 }
             }
-            return valueUom2
+            return valueUom2.toDouble()
         }
 
     override fun getUom3FromSmallest(): Double {
-        var valueUom3: Double = 0.0
+        var valueUom3: Int = 0
         if (fMaterial?.convfact1 === 1) { //Asumsi Convfact2,3 pasti 1
-            valueUom3 = 0.0
+            valueUom3 = 0
         } else if (fMaterial?.convfact2 === 1) { //Asumsi Convfact 3 pasti 1
-            valueUom3 = 0.0
+            valueUom3 = 0
         } else if (fMaterial?.convfact3 === 1) {
             try {
                 val sisaQtyUom1: Int = pcsOrUom4.toInt() % fMaterial!!.convfact1
                 val sisaQtyUom2: Int = sisaQtyUom1 % fMaterial!!.convfact2
-                valueUom3 = sisaQtyUom2.toDouble() / fMaterial!!.convfact3
+                valueUom3 = sisaQtyUom2.toInt() / fMaterial!!.convfact3
             } catch (ex: Exception) {
             }
         } else {
             try {
                 val sisaQtyUom1: Int = pcsOrUom4.toInt() % fMaterial!!.convfact1
                 val sisaQtyUom2: Int = sisaQtyUom1 % fMaterial!!.convfact2
-                valueUom3 = sisaQtyUom2.toDouble() / fMaterial!!.convfact3
+                valueUom3 = sisaQtyUom2.toInt() / fMaterial!!.convfact3
             } catch (ex: Exception) {
             }
         }
-        return valueUom3
+        return valueUom3.toDouble()
     }
 
     override fun getUom4FromSmallest(): Double {
-        var valueUom4 = 0.0
+        var valueUom4: Int = 0
         if (fMaterial!!.convfact1 === 1) { //Asumsi Convfact2,3 pasti 1
-            valueUom4 = 0.0
+            valueUom4 = 0
         } else if (fMaterial!!.convfact2 === 1) { //Asumsi Convfact 3 pasti 1
-            valueUom4 = 0.0
+            valueUom4 = 0
         } else if (fMaterial!!.convfact3 === 1) {
-            valueUom4 = 0.0
+            valueUom4 = 0
         } else {
 //			System.out.println("Uom4 masuk rule4");
             try {
-                val sisaQtyUom1: Double = pcsOrUom4 % fMaterial!!.convfact1
-                val sisaQtyUom2: Double = sisaQtyUom1 % fMaterial!!.convfact2
-                val sisaQtyUom3: Double = sisaQtyUom2 % fMaterial!!.convfact3
+                val sisaQtyUom1: Int = pcsOrUom4.toInt() % fMaterial!!.convfact1
+                val sisaQtyUom2: Int = sisaQtyUom1.toInt() % fMaterial!!.convfact2
+                val sisaQtyUom3: Int = sisaQtyUom2.toInt() % fMaterial!!.convfact3
                 valueUom4 = sisaQtyUom3
             } catch (ex: Exception) {
             }
         }
-        return valueUom4
+        return valueUom4.toDouble()
     }
 
     override fun getPPriceBeforePpnFromFMaterialBeforePpn(): Double {
@@ -198,11 +198,6 @@ class KonversiProductAndStockHelperImpl : KonversiProductAndStockHelper {
     override fun getUom1234StringUom(): String? {
         val nf_3 = NumberFormat.getInstance()
         nf_3.maximumFractionDigits = 3
-
-//		String strUom1 = String.valueOf(getUom1FromSmallest());
-//		String strUom2 = String.valueOf(getUom2FromSmallest());
-//		String strUom3 = String.valueOf(getUom3FromSmallest());		
-//		String strUom4 = String.valueOf(getUom4FromSmallest());		
         var strUom1 = nf_3.format(getUom1FromSmallest())
         var strUom2 = nf_3.format(getUom2FromSmallest())
         var strUom3 = nf_3.format(getUom3FromSmallest())

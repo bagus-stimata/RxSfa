@@ -9,9 +9,13 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.erp.distribution.sfa.databinding.AdapterRvItemFtsalesditemsBinding
 import com.erp.distribution.sfa.domain.model.FtSalesdItems
+import com.erp.distribution.sfa.domain.utils.KonversiProductAndStockHelper
+import com.erp.distribution.sfa.domain.utils.KonversiProductAndStockHelperImpl
 import com.erp.distribution.sfa.presentation.ui.master.material_lama.adapter.NoteAdapter
+import java.text.DecimalFormat
 import java.text.NumberFormat
 import java.text.SimpleDateFormat
+import java.util.*
 
 class FtSalesdItemsAdapter(private val listener: OnItemClickListener) :
     ListAdapter<FtSalesdItems, FtSalesdItemsAdapter.FtSalesdItemsViewHolder>(DiffCallback()) {
@@ -73,8 +77,10 @@ class FtSalesdItemsAdapter(private val listener: OnItemClickListener) :
 //                txtQty.text = "@ ${nf.format(item.tempString)}"
 //                txtPrice.text = "Rp ${nf.format(item.spriceAfterPpn)}"
 
-                txtQty.text = nf.format(item.qty)
-//                txtTotal.text = nf.format(item.subtotalAfterDisc2PlusRpAfterPpn)
+                val kps : KonversiProductAndStockHelper = KonversiProductAndStockHelperImpl(item.qty, item.fmaterialBean)
+                txtQty.text = kps.getUom1234StringUom()
+                txtPrice.text = DecimalFormat.getNumberInstance(Locale.US).format(item.sprice)
+                txtTotal.text = nf.format(item.qty * item.sprice)
 
                 imgStar.visibility = View.GONE
 
@@ -94,6 +100,6 @@ class FtSalesdItemsAdapter(private val listener: OnItemClickListener) :
             oldItem.id == newItem.id
 
         override fun areContentsTheSame(oldItem: FtSalesdItems, newItem: FtSalesdItems) =
-            oldItem.id == newItem.id
+            oldItem.id == newItem.id && oldItem.fmaterialBean.id==newItem.fmaterialBean.id && oldItem.ftSaleshBean.refno==newItem.ftSaleshBean.refno
     }
 }

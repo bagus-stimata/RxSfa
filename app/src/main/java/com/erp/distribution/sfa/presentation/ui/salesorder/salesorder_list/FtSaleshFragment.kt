@@ -70,6 +70,10 @@ class FtSaleshFragment : Fragment(R.layout.fragment_ftsalesh), FtSaleshAdapter.O
                 setHasFixedSize(true)
             }
 
+
+            /**
+             *  Adapter Listener
+             */
             ItemTouchHelper(object : ItemTouchHelper.SimpleCallback(
                 0,
                 ItemTouchHelper.LEFT or ItemTouchHelper.RIGHT
@@ -88,6 +92,7 @@ class FtSaleshFragment : Fragment(R.layout.fragment_ftsalesh), FtSaleshAdapter.O
                 }
 
             }).attachToRecyclerView(recyclerViewFtsalesh)
+
 
             fabAddFtsalesh.setOnClickListener {
                 viewModel.onAddNewFtSaleshClick()

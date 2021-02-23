@@ -77,28 +77,28 @@ class FSaleshViewModel @ViewModelInject constructor(
         preferencesManager.updateHideCompleted(hideCompleted)
     }
 
+    fun onItemCheckedChanged(ftSalesh: FtSalesh, isChecked: Boolean) = viewModelScope.launch {
+        DisposableManager.add(Observable.fromCallable {
+            getFtSaleshUseCase.putCacheFtSaleshDomain(ftSalesh.copy(selected = isChecked))
+        }
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(
+                        {
+                        },
+                        {
+                        },{}
+                )
+        )
+
+    }
+
+
     fun onItemSelected(ftSalesh: FtSalesh) = viewModelScope.launch {
         userViewState?.let {
             ftSaleshEventChannel.send(FtSaleshEvent.NavigateToEditSalesOrderScreen(userViewState!!, ftSalesh))
         }
     }
-
-    fun onItemCheckedChanged(ftSalesh: FtSalesh, isChecked: Boolean) = viewModelScope.launch {
-        DisposableManager.add(Observable.fromCallable {
-            getFtSaleshUseCase.putCacheFtSaleshDomain(ftSalesh.copy(selected = isChecked))
-        }
-            .subscribeOn(Schedulers.io())
-            .observeOn(AndroidSchedulers.mainThread())
-            .subscribe(
-                {
-                },
-                {
-                },{}
-            )
-        )
-
-    }
-
     fun onItemSwiped(ftSalesh: FtSalesh) = viewModelScope.launch {
         DisposableManager.add(Observable.fromCallable {
             getFtSaleshUseCase.deleteCacheFtSalesh(ftSalesh.toEntity())

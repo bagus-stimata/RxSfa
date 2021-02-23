@@ -10,20 +10,18 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.setFragmentResult
 import androidx.fragment.app.setFragmentResultListener
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.Observer
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.DividerItemDecoration
+import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.erp.distribution.sfa.R
-import com.erp.distribution.sfa.data.source.entity.toDomain
 import com.erp.distribution.sfa.databinding.FragmentAddEditSalesorderBinding
 import com.erp.distribution.sfa.domain.model.FCustomer
 import com.erp.distribution.sfa.domain.model.FtSalesdItems
-import com.erp.distribution.sfa.domain.model.FtSalesh
-import com.erp.distribution.sfa.presentation.ui.salesorder.salesorder_list.FtSaleshAdapter
 import com.erp.distribution.sfa.utils.exhaustive
 import com.google.android.material.snackbar.Snackbar
 import dagger.hilt.android.AndroidEntryPoint
@@ -87,13 +85,37 @@ class AddEditFtSaleshFragment : Fragment(R.layout.fragment_add_edit_salesorder),
                 setHasFixedSize(true)
             }
 
+
+            /**
+             *  Adapter Listener
+             */
+            ItemTouchHelper(object : ItemTouchHelper.SimpleCallback(
+                    0,
+                    ItemTouchHelper.LEFT or ItemTouchHelper.RIGHT
+            ) {
+                override fun onMove(
+                        recyclerView: RecyclerView,
+                        viewHolder: RecyclerView.ViewHolder,
+                        target: RecyclerView.ViewHolder
+                ): Boolean {
+                    return false
+                }
+
+                override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
+                    val ftSalesdItems = ftSalesdItemsAdapter.currentList[viewHolder.adapterPosition]
+                    viewModel.onItemSwiped(ftSalesdItems)
+                }
+
+            }).attachToRecyclerView(recyclerViewFtsaleshFtsalesditems)
+
+
+
             /**
              * adapter line
              */
             val dividerItemDecoration = DividerItemDecoration( context, DividerItemDecoration.VERTICAL)
             dividerItemDecoration.setDrawable(getResources().getDrawable(R.drawable.rv_divider))
-            binding.recyclerViewFtsaleshFtsalesditems.addItemDecoration(dividerItemDecoration)
-
+            recyclerViewFtsaleshFtsalesditems.addItemDecoration(dividerItemDecoration)
         }
 
         /**
@@ -102,7 +124,6 @@ class AddEditFtSaleshFragment : Fragment(R.layout.fragment_add_edit_salesorder),
 
         binding.ftSalesh = viewModel.ftSalesh
         if (viewModel.isEditMode==true){
-//            Toast.makeText(context, "isine ${viewModel.isEditMode}", Toast.LENGTH_LONG).show()
             viewModel.getCacheFtSaleshByIdLive(viewModel.ftSaleshRefno).observe(viewLifecycleOwner, Observer {
                 it?.let {
 //                    Toast.makeText(context, "isine ${it.fcustomerBean.custname}", Toast.LENGTH_LONG).show()
@@ -118,7 +139,7 @@ class AddEditFtSaleshFragment : Fragment(R.layout.fragment_add_edit_salesorder),
                 .observe(viewLifecycleOwner) {
                     it?.let {
                         ftSalesdItemsAdapter.submitList(it)
-                        Toast.makeText(context, "Jumalah:\n ${it.size}", Toast.LENGTH_SHORT).show()
+//                        Toast.makeText(context, "Jumlah:\n ${it.size}", Toast.LENGTH_SHORT).show()
                     }
 
 //                var message = ""
@@ -139,25 +160,25 @@ class AddEditFtSaleshFragment : Fragment(R.layout.fragment_add_edit_salesorder),
         viewLifecycleOwner.lifecycleScope.launchWhenStarted {
             viewModel.addEditFtSaleshEvent.collect { event ->
                 when (event) {
-                    is AddEditFtSaleshViewModel.AddEditSalesOrderEvent.ShowInvalidInputMessage -> {
+                    is AddEditFtSaleshViewModel.AddEditCustomerOrderEvent.ShowInvalidInputMessage -> {
                         Snackbar.make(requireView(), event.msg, Snackbar.LENGTH_LONG).show()
                     }
 
-                    is AddEditFtSaleshViewModel.AddEditSalesOrderEvent.NavigateToSelectCustomerScreen -> {
+                    is AddEditFtSaleshViewModel.AddEditCustomerOrderEvent.NavigateToSelectCustomerScreen -> {
                         val action = AddEditFtSaleshFragmentDirections.actionAddEditFtSaleshFragmentToFCustomerFragment(
                                 event.userViewState,
                                 event.ftSalesh
                         )
                         findNavController().navigate(action)
                     }
-                    is AddEditFtSaleshViewModel.AddEditSalesOrderEvent.NavigateToSelectMaterialScreen -> {
+                    is AddEditFtSaleshViewModel.AddEditCustomerOrderEvent.NavigateToSelectMaterialScreen -> {
                         val action = AddEditFtSaleshFragmentDirections.actionAddEditFtSaleshFragmentToFMaterialFragment(
                             event.userViewState,
                             event.ftSalesh
                         )
                         findNavController().navigate(action)
                     }
-                    is AddEditFtSaleshViewModel.AddEditSalesOrderEvent.NavigateToSelectFtSalesdItemQtyScreen -> {
+                    is AddEditFtSaleshViewModel.AddEditCustomerOrderEvent.NavigateToSelectFtSalesdItemQtyScreen -> {
                         val action = AddEditFtSaleshFragmentDirections.actionAddEditFtSaleshFragmentToAddEditFtSaleshQtyFragment(
                             event.userViewState,
                             event.ftSalesh,
@@ -165,7 +186,7 @@ class AddEditFtSaleshFragment : Fragment(R.layout.fragment_add_edit_salesorder),
                         )
                         findNavController().navigate(action)
                     }
-                    is AddEditFtSaleshViewModel.AddEditSalesOrderEvent.NavigateBackWithResult -> {
+                    is AddEditFtSaleshViewModel.AddEditCustomerOrderEvent.NavigateBackWithResult -> {
 //                        binding.editTextSoName.clearFocus()
                         setFragmentResult(
                                 "add_edit_request",
@@ -173,7 +194,7 @@ class AddEditFtSaleshFragment : Fragment(R.layout.fragment_add_edit_salesorder),
                         )
                         findNavController().popBackStack()
                     }
-                    is AddEditFtSaleshViewModel.AddEditSalesOrderEvent.RenderDataBindingUI -> {
+                    is AddEditFtSaleshViewModel.AddEditCustomerOrderEvent.RenderDataBindingUI -> {
                         //RenderDataBindingUI
                         binding.ftSalesh = viewModel.ftSalesh
 
