@@ -111,15 +111,15 @@ class FtSaleshFragment : Fragment(R.layout.fragment_ftsalesh), FtSaleshAdapter.O
         /**
          * LOADING LIVE DATA TO VIEW
          */
-        viewModel.ftSaleshLive
+        viewModel.getFtSaleshWithTransform()
             .observe(viewLifecycleOwner) {
                 ftSaleshAdapter.submitList(it)
 
-//                var message = ""
-//                it.iterator().forEach {
-//                    message += it.fcustomerBean.custname + "\n"
-//                }
-//                Toast.makeText(context, "Isinya:\n ${message}", Toast.LENGTH_SHORT).show()
+                var message = ""
+                it.iterator().forEach {
+                    message += "${it.listFtSalesdItems.size}  \n"
+                }
+                Toast.makeText(context, "Isinya:\n ${message}", Toast.LENGTH_SHORT).show()
             }
 
 
@@ -197,7 +197,7 @@ class FtSaleshFragment : Fragment(R.layout.fragment_ftsalesh), FtSaleshAdapter.O
     }
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
-        inflater.inflate(R.menu.menu_fragment_simple, menu)
+        inflater.inflate(R.menu.menu_fragment_salesorder, menu)
 
         val searchItem = menu.findItem(R.id.action_search)
         searchView = searchItem.actionView as SearchView
@@ -212,10 +212,10 @@ class FtSaleshFragment : Fragment(R.layout.fragment_ftsalesh), FtSaleshAdapter.O
             viewModel.searchQuery.value = it
         }
 
-        viewLifecycleOwner.lifecycleScope.launch {
-            menu.findItem(R.id.action_hide_inactive).isChecked =
-                viewModel.preferencesFlow.first().hideCompleted
-        }
+//        viewLifecycleOwner.lifecycleScope.launch {
+//            menu.findItem(R.id.action_hide_inactive).isChecked =
+//                viewModel.preferencesFlow.first().hideCompleted
+//        }
 
     }
 
@@ -229,11 +229,11 @@ class FtSaleshFragment : Fragment(R.layout.fragment_ftsalesh), FtSaleshAdapter.O
                 viewModel.onSortOrderSelected(SortOrder.BY_KODE)
                 true
             }
-            R.id.action_hide_inactive -> {
-                item.isChecked = !item.isChecked
-                viewModel.onHideCompletedClick(item.isChecked)
-                true
-            }
+//            R.id.action_hide_inactive -> {
+//                item.isChecked = !item.isChecked
+//                viewModel.onHideCompletedClick(item.isChecked)
+//                true
+//            }
 //            R.id.action_delete_all_completed_tasks -> {
 //                viewModel.onDeleteAllCompletedClick()
 //                true

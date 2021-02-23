@@ -68,6 +68,15 @@ class FSaleshViewModel @ViewModelInject constructor(
     val ftSaleshLive = ftSaleshFlow.asLiveData()
 //    val ftSaleshLive = getFtSaleshUseCase.getCacheAllFtSaleshLive()
 
+    fun getFtSaleshWithTransform(): LiveData<List<FtSalesh>> {
+        var resultLiveData: LiveData<List<FtSalesh>> = ftSaleshLive
+
+        resultLiveData = Transformations.switchMap(resultLiveData, {
+            conversionAddItems(it)
+        })
+        return resultLiveData
+    }
+
 
     fun onSortOrderSelected(sortOrder: SortOrder) = viewModelScope.launch {
         preferencesManager.updateSortOrder(sortOrder)
@@ -214,8 +223,24 @@ class FSaleshViewModel @ViewModelInject constructor(
                 }
             )
         }
-
         return resultMediatorLiveData
     }
+
+    fun conversionAddItems(list: List<FtSalesh>) : LiveData<List<FtSalesh>> {
+        val resultMediatorLiveData: MediatorLiveData<List<FtSalesh>> = MediatorLiveData<List<FtSalesh>>()
+        for (data in list) {
+            resultMediatorLiveData.addSource(getFtSalesdItemsUseCase.getCacheListFtSalesdItemsByFtSaleshLive(data.refno), Observer {
+                it?.let {
+                    data.listFtSalesdItems.addAll(it)
+                    resultMediatorLiveData.postValue(list)
+                    Log.d(TAG, "#result ::>> ${it.size}")
+                }
+            })
+        }
+        return resultMediatorLiveData
+    }
+
+
+
 
 }
