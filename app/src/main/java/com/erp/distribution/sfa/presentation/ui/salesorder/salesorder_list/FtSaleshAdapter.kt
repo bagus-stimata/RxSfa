@@ -86,6 +86,15 @@ class FtSaleshAdapter(private val listener: OnItemClickListener) :
                 txtInvoicedate.text = sdf.format(item.invoiceDate)
 
                 txtItemSum.text = "${item.listFtSalesdItems.size} items"
+                var total = 0.0
+                for (data in item.listFtSalesdItems){
+                    //inget fmaterial pada relasi ini belum ada
+//                    var totalPrice = (data.qty * data.sprice) /data.fmaterialBean.convfact1 *1.1
+                    var totalPrice = (data.qty * data.sprice)*1.1
+                    total += totalPrice
+                }
+
+//                txtTotal.text = "${nf.format(total)}"
                 txtTotal.text = "${nf.format(item.amountAfterDiscPlusRpAfterPpn_FG)}"
 
                 txtDate.text = sdf.format(item.modified)

@@ -139,6 +139,25 @@ class GetFtSaleshUseCase @Inject constructor(
         }
     }
 
+    fun getCacheAllFtSaleshWithItemsLive(): LiveData<List<FtSalesh>> {
+        return repository.getCacheAllFtSaleshWithItemsLive().map {
+            it.map {
+                val ftSaleshBean = it.ftSaleshEntity.toDomain()
+                it.fCustomerEntity?.let {
+                    ftSaleshBean.fcustomerBean = it.toDomain()
+                }
+                it.listFtSalesdItems?.let {
+                    val mutableList = mutableListOf<FtSalesdItems>()
+                    for (data in it) {
+                        mutableList.add(data.toDomain())
+                    }
+                    ftSaleshBean.listFtSalesdItems = mutableList
+                }
+                ftSaleshBean
+            }
+        }
+
+    }
 
     fun getCacheFtSaleshById(id: Long): LiveData<FtSaleshEntity>{
         return repository.getCacheFtSaleshById(id)

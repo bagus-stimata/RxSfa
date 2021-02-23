@@ -33,7 +33,6 @@ import kotlinx.coroutines.launch
 class FSaleshViewModel @ViewModelInject constructor(
         private val getFtSaleshUseCase: GetFtSaleshUseCase,
         private val getFtSalesdItemsUseCase: GetFtSalesdItemsUseCase,
-        private val getFDivisionUseCase: GetFDivisionUseCase,
         private val getFCustomerUseCase: GetFCustomerUseCase,
         private val preferencesManager: PreferencesManager,
         @Assisted private val state: SavedStateHandle
@@ -65,6 +64,7 @@ class FSaleshViewModel @ViewModelInject constructor(
         )
     }
 
+
     val ftSaleshLive = ftSaleshFlow.asLiveData()
 //    val ftSaleshLive = getFtSaleshUseCase.getCacheAllFtSaleshLive()
 
@@ -76,6 +76,9 @@ class FSaleshViewModel @ViewModelInject constructor(
         })
         return resultLiveData
     }
+
+    val ftSaleshWithItemsLive = getFtSaleshUseCase.getCacheAllFtSaleshWithItemsLive()
+
 
 
     fun onSortOrderSelected(sortOrder: SortOrder) = viewModelScope.launch {

@@ -3,10 +3,7 @@ package com.erp.distribution.sfa.data.source.local.dao
 import androidx.lifecycle.LiveData
 import androidx.room.*
 import com.erp.distribution.sfa.data.di.SortOrder
-import com.erp.distribution.sfa.data.source.entity.FtSaleshEntity
-import com.erp.distribution.sfa.data.source.entity.FtSaleshWithFDivisionAndFCustomer
-import com.erp.distribution.sfa.data.source.entity.FtSaleshWithFDivisionAndFSalesmanAndFCustomer
-import com.erp.distribution.sfa.data.source.entity.FtSaleshWithFDivisionAndFSalesmanAndFCustomerAndItems
+import com.erp.distribution.sfa.data.source.entity.*
 import kotlinx.coroutines.flow.Flow
 
 /**
@@ -74,6 +71,10 @@ interface FtSaleshDao {
     @Transaction
     @Query("SELECT * FROM ftSalesh ")
     fun getAllFtSaleshLive(): LiveData<List<FtSaleshWithFDivisionAndFCustomer>>
+
+    @Transaction
+    @Query("SELECT * FROM ftSalesh ")
+    fun getAllFtSaleshWithItemsLive(): LiveData<List<FtSaleshWithFCustomerAndItems>>
 
 
     @Transaction

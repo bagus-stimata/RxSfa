@@ -140,6 +140,17 @@ class AddEditFtSaleshFragment : Fragment(R.layout.fragment_add_edit_salesorder),
                 .observe(viewLifecycleOwner) {
                     it?.let {
                         ftSalesdItemsAdapter.submitList(it)
+
+                        var totalNota = 0.0
+                        for (data in it){
+                            viewModel.mutableMapFtSalesdItems.put(data.id, data)
+
+                            var totalPrice = (data.qty * data.sprice) /data.fmaterialBean.convfact1 *1.1
+                            totalNota += totalPrice
+                            viewModel.ftSalesh = viewModel.ftSalesh.copy(amountAfterDiscPlusRpAfterPpn_FG = totalNota)
+                        }
+
+                        binding.ftSalesh = viewModel.ftSalesh
 //                        Toast.makeText(context, "Jumlah:\n ${it.size}", Toast.LENGTH_SHORT).show()
                     }
 

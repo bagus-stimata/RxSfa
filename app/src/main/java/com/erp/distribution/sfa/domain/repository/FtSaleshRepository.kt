@@ -2,10 +2,7 @@ package com.erp.distribution.sfa.domain.repository
 
 import androidx.lifecycle.LiveData
 import com.erp.distribution.sfa.data.di.SortOrder
-import com.erp.distribution.sfa.data.source.entity.FtSaleshEntity
-import com.erp.distribution.sfa.data.source.entity.FtSaleshWithFDivisionAndFCustomer
-import com.erp.distribution.sfa.data.source.entity.FtSaleshWithFDivisionAndFSalesmanAndFCustomer
-import com.erp.distribution.sfa.data.source.entity.FtSaleshWithFDivisionAndFSalesmanAndFCustomerAndItems
+import com.erp.distribution.sfa.data.source.entity.*
 import com.erp.distribution.sfa.domain.model.FtSalesh
 import io.reactivex.rxjava3.core.Single
 import kotlinx.coroutines.flow.Flow
@@ -25,6 +22,8 @@ interface FtSaleshRepository {
     fun getCacheAllFtSaleshLive(): LiveData<List<FtSaleshWithFDivisionAndFCustomer>>
 
     fun getCacheAllFtSaleshFlow(query: String, sortOrder: SortOrder,  limit: Int, currentOffset: Int, hideSelected: Boolean): Flow<List<FtSaleshWithFDivisionAndFCustomer>>
+
+    fun getCacheAllFtSaleshWithItemsLive(): LiveData<List<FtSaleshWithFCustomerAndItems>>
 
     fun getCacheFtSaleshWithItemsByIdFlow(id: Long): Flow<FtSaleshWithFDivisionAndFSalesmanAndFCustomerAndItems>
     fun getCacheFtSaleshWithItemsByIdLive(id: Long): LiveData<FtSaleshWithFDivisionAndFCustomer>

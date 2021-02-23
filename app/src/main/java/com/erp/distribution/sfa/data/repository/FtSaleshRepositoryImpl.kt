@@ -70,6 +70,17 @@ class FtSaleshRepositoryImpl(
         return appDatabase.saleshDao.getAllFtSaleshFlow(query, sortOrder, limit, currentOffset, hideSelected)
     }
 
+    override fun getCacheAllFtSaleshWithItemsLive(): LiveData<List<FtSaleshWithFCustomerAndItems>> {
+        return appDatabase.saleshDao.getAllFtSaleshWithItemsLive()
+    }
+
+
+
+
+
+
+
+
     override fun getCacheAllFtSaleshLive(): LiveData<List<FtSaleshWithFDivisionAndFCustomer>> {
         return appDatabase.saleshDao.getAllFtSaleshLive()
     }

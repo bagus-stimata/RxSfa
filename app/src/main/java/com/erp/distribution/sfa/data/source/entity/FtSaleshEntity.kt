@@ -454,6 +454,22 @@ data class FtSaleshWithFDivisionAndFSalesmanAndFCustomerAndItems(
                 parentColumn = "refno",
                 entityColumn = "ftSaleshBean"
         )
-        val listFtSalesdItems: List<FtSalesdItemsEntity>? = listOf()
+        val listFtSalesdItems: List<FtSalesdItemsEntity>
+
+)
+data class FtSaleshWithFCustomerAndItems(
+        @Embedded  val ftSaleshEntity: FtSaleshEntity,
+
+        @Relation(
+                parentColumn = "fcustomerBean",
+                entityColumn = "id"
+        )
+        val fCustomerEntity: FCustomerEntity?,
+
+        @Relation(
+                parentColumn = "refno",
+                entityColumn = "ftSaleshBean"
+        )
+        val listFtSalesdItems: List<FtSalesdItemsEntity>
 
 )

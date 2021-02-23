@@ -37,6 +37,8 @@ class AddEditFtSaleshViewModel @ViewModelInject constructor(
         return resultLiveData
     }
 
+    var mutableMapFtSalesdItems = mutableMapOf<Long, FtSalesdItems>()
+
 //    fun getCacheFtSalesdItemsByParentLive(ftSaleshRefno: Long): LiveData<List<FtSalesdItems>> {
 //        var resultLiveData: LiveData<List<FtSalesdItems>>  = getFtSalesdItemsUseCase.getCacheListFtSalesdItemsByFtSaleshBean(ftSaleshRefno).map {
 //            it.map {

@@ -111,15 +111,15 @@ class FtSaleshFragment : Fragment(R.layout.fragment_ftsalesh), FtSaleshAdapter.O
         /**
          * LOADING LIVE DATA TO VIEW
          */
-        viewModel.getFtSaleshWithTransform()
+        viewModel.ftSaleshWithItemsLive
             .observe(viewLifecycleOwner) {
                 ftSaleshAdapter.submitList(it)
 
-                var message = ""
-                it.iterator().forEach {
-                    message += "${it.listFtSalesdItems.size}  \n"
-                }
-                Toast.makeText(context, "Isinya:\n ${message}", Toast.LENGTH_SHORT).show()
+//                var message = ""
+//                it.iterator().forEach {
+//                    message += "${it.listFtSalesdItems.size}  \n"
+//                }
+//                Toast.makeText(context, "Isinya:\n ${message}", Toast.LENGTH_SHORT).show()
             }
 
 
