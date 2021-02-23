@@ -58,21 +58,22 @@ class FtSalesdItemsAdapter(private val listener: OnItemClickListener) :
             binding.apply {
                 nf.maximumFractionDigits = 0
 
-//                val hash = item.fmaterialBean.pname.hashCode()
-//                if (item.fmaterialBean.pname.length>1) {
-//                    txtIcon.text = item.fmaterialBean.pname.trim { it <= ' ' }[0].toString()
-//                    txtIcon.background =
-//                            NoteAdapter.oval(Color.rgb(hash, hash / 2, 0), binding.txtIcon)
-//                }
-//                txtPname.text  = item.fmaterialBean.pname
-                txtPname.text  = "hello bos"
+                val hash = item.fmaterialBean.pname.hashCode()
+                if (item.fmaterialBean.pname.length>1) {
+                    txtIcon.text = item.fmaterialBean.pname.trim { it <= ' ' }[0].toString()
+                    txtIcon.background =
+                            NoteAdapter.oval(Color.rgb(hash, hash / 2, 0), binding.txtIcon)
+                }
+                txtPname.text  = item.fmaterialBean.pname
+//                txtPname.text  = "hello bos"
 
 //                txtMaterialGroup.text = item.fmaterialGroup3Bean.kode1
 //                txtMaterialGroup.text = item.fmaterialGroup3Bean!!.description
 
 //                txtQty.text = "@ ${nf.format(item.tempString)}"
 //                txtPrice.text = "Rp ${nf.format(item.spriceAfterPpn)}"
-//
+
+                txtQty.text = nf.format(item.qty)
 //                txtTotal.text = nf.format(item.subtotalAfterDisc2PlusRpAfterPpn)
 
                 imgStar.visibility = View.GONE

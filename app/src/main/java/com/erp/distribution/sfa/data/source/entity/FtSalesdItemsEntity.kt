@@ -1,9 +1,7 @@
 package com.erp.distribution.sfa.data.source.entity
 
 import android.os.Parcelable
-import androidx.room.Entity
-import androidx.room.Ignore
-import androidx.room.PrimaryKey
+import androidx.room.*
 import com.erp.distribution.sfa.data.base.ModelEntity
 import com.erp.distribution.sfa.data.source.entity.modelenum.EnumUom
 import com.erp.distribution.sfa.domain.model.FMaterial
@@ -414,3 +412,13 @@ internal fun FtSalesdItemsEntity.toDomain(): FtSalesdItems {
 
     )
 }
+
+data class FtSalesdWithFMaterial(
+        @Embedded val ftSalesdItemsEntity: FtSalesdItemsEntity,
+
+        @Relation(
+                parentColumn = "fmaterialBean",
+                entityColumn = "id"
+        )
+        val fMaterialEntity: FMaterialEntity?
+)

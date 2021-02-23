@@ -63,7 +63,6 @@ class AddEditFtSaleshFragment : Fragment(R.layout.fragment_add_edit_salesorder),
 //            Toast.makeText(context, "isis ${it.fmaterialBean.pname} >>> ${it.qty}", Toast.LENGTH_LONG).show()
         }
 
-
 //        Toast.makeText(context, "isis ${viewModel.isEditMode}", Toast.LENGTH_LONG).show()
 
         binding = FragmentAddEditSalesorderBinding.bind(view)

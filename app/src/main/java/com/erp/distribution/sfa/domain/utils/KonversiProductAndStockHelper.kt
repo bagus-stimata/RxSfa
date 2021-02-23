@@ -2,7 +2,7 @@ package com.erp.distribution.sfa.domain.utils
 
 import com.erp.distribution.sfa.domain.model.FMaterial
 
-interface KonversiProductAndStockHelper {
+open interface KonversiProductAndStockHelper {
     fun setValue(pcsOrUom4: Double, fMaterial: FMaterial?)
 
     fun getUom1FromSmallest(): Double

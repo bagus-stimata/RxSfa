@@ -2,6 +2,7 @@ package com.erp.distribution.sfa.domain.repository
 
 import androidx.lifecycle.LiveData
 import com.erp.distribution.sfa.data.source.entity.FtSalesdItemsEntity
+import com.erp.distribution.sfa.data.source.entity.FtSalesdWithFMaterial
 import com.erp.distribution.sfa.data.source.entity.FtSaleshEntity
 import io.reactivex.rxjava3.core.Single
 import kotlinx.coroutines.flow.Flow
@@ -18,10 +19,13 @@ interface FtSalesdItemsRepository {
     fun deleteRemoteFtSalesdItems(authHeader: String, id: Long): Single<FtSalesdItemsEntity>
 
     fun getCacheAllFtSalesdItems(): LiveData<List<FtSalesdItemsEntity>>
-    fun getAllByFtSalesdItemsByParentAndMaterialFlow(ftSalesBean: Long, fmaterialBean: Int): Flow<List<FtSalesdItemsEntity>>
-    fun getCacheFtSalesdItemsById(id: Long): LiveData<FtSalesdItemsEntity>
-    fun getCacheAllFtSalesdItemsByParent(parentId: Long): LiveData<List<FtSalesdItemsEntity>>
 
+    fun getCacheListFtSalesdItemsByFtSaleshAndMaterialFlow(ftSalesBean: Long, fmaterialBean: Int): LiveData<List<FtSalesdWithFMaterial>>
+    fun getCacheListFtSalesdItemsFtSaleshFlow(ftSalesBean: Long): LiveData<List<FtSalesdWithFMaterial>>
+    fun getCacheListFtSalesdItemsByFtSalesdItemsByFMaterialFlow(fmaterialBean: Int): LiveData<List<FtSalesdWithFMaterial>>
+
+    fun getCacheAllFtSalesdItemsByParent(parentId: Long): LiveData<List<FtSalesdItemsEntity>>
+    fun getCacheFtSalesdItemsById(id: Long): LiveData<FtSalesdItemsEntity>
     fun addCacheFtSalesdItems(ftSalesdItemsEntity: FtSalesdItemsEntity)
     fun addCacheListFtSalesdItems(list: List<FtSalesdItemsEntity>)
 

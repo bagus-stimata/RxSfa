@@ -3,6 +3,7 @@ package com.erp.distribution.sfa.data.source.local.dao
 import androidx.lifecycle.LiveData
 import androidx.room.*
 import com.erp.distribution.sfa.data.source.entity.FtSalesdItemsEntity
+import com.erp.distribution.sfa.data.source.entity.FtSalesdWithFMaterial
 import com.erp.distribution.sfa.data.source.entity.FtSaleshEntity
 import kotlinx.coroutines.flow.Flow
 
@@ -40,12 +41,21 @@ interface FtSalesdItemsDao {
     fun getAllByIdLive(id: Long): LiveData<FtSalesdItemsEntity>
 
 
-
+    /**
+     * FMaterial pada Items boleh lebih dari satu
+     */
     @Query("SELECT * FROM ftSalesdItems WHERE ftSaleshBean = :ftSalesBean AND  fmaterialBean = :fmaterialBean ")
-    fun getAllByFtSaleshAndMaterialFlow(ftSalesBean: Long, fmaterialBean: Int): Flow<List<FtSalesdItemsEntity>>
+    fun getAllByFtSaleshAndMaterialFlow(ftSalesBean: Long, fmaterialBean: Int): LiveData<List<FtSalesdWithFMaterial>>
+
+    @Query("SELECT * FROM ftSalesdItems WHERE  ftSaleshBean = :ftSalesBean ")
+    fun getAllFtSalesdItemsByFtSaleshFlow(ftSalesBean: Long): LiveData<List<FtSalesdWithFMaterial>>
+    @Query("SELECT * FROM ftSalesdItems WHERE fmaterialBean = :materialId ")
+    fun getAllFtSalesdItemsByFMaterialFlow(materialId: Int): LiveData<List<FtSalesdWithFMaterial>>
+
+
 
     @Query("SELECT * FROM ftSalesdItems ")
-    fun getAllFtSaleshFLow(): Flow<List<FtSalesdItemsEntity>>
+    fun getAllFtSalesdItemsFLow(): Flow<List<FtSalesdItemsEntity>>
 
 
     @get:Query("SELECT * FROM ftSalesdItems ")
@@ -55,12 +65,12 @@ interface FtSalesdItemsDao {
 
     @Query("SELECT * FROM ftSalesdItems WHERE fmaterialBean = :materialId ")
     fun getAllFtSalesdItemsByMaterial(materialId: Int): List<FtSalesdItemsEntity>
-    @Query("SELECT * FROM ftSalesdItems WHERE fmaterialBean = :materialId ")
-    fun getAllFtSalesdItemsByMaterialLive(materialId: Int): LiveData<List<FtSalesdItemsEntity>>
+
 
 
     @Query("SELECT * FROM ftSalesdItems WHERE ftSaleshBean = :ftSaleshId ")
     fun getAllByFtSalesh(ftSaleshId: Long): List<FtSalesdItemsEntity>
+
     @Query("SELECT * FROM ftSalesdItems WHERE ftSaleshBean = :ftSaleshId ")
     fun getAllByFtSaleshLive(ftSaleshId: Long): LiveData<List<FtSalesdItemsEntity>>
 

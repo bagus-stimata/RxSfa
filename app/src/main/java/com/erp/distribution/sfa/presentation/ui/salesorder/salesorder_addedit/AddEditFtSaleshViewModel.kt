@@ -21,6 +21,7 @@ import io.reactivex.rxjava3.core.Observable
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
 import io.reactivex.rxjava3.schedulers.Schedulers
 import kotlinx.coroutines.channels.Channel
+import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.receiveAsFlow
 import kotlinx.coroutines.launch
 
@@ -42,15 +43,19 @@ class AddEditFtSaleshViewModel @ViewModelInject constructor(
         return resultLiveData
     }
 
+//    fun getCacheFtSalesdItemsByParentLive(ftSaleshRefno: Long): LiveData<List<FtSalesdItems>> {
+//        var resultLiveData: LiveData<List<FtSalesdItems>>  = getFtSalesdItemsUseCase.getCacheListFtSalesdItemsByFtSaleshBean(ftSaleshRefno).map {
+//            it.map {
+//                it.toDomain()
+//            }
+//        }
+//        return resultLiveData
+//    }
+
     fun getCacheFtSalesdItemsByParentLive(ftSaleshRefno: Long): LiveData<List<FtSalesdItems>> {
-        var resultLiveData: LiveData<List<FtSalesdItems>>  = getFtSalesdItemsUseCase.getCacheListFtSalesdItemsByFtSaleshBean(ftSaleshRefno).map {
-            it.map {
-                it.toDomain()
-            }
-        }
+        var resultLiveData: LiveData<List<FtSalesdItems>>  = getFtSalesdItemsUseCase.getCacheListFtSalesdItemsByFtSaleshFlow(ftSaleshRefno)
         return resultLiveData
     }
-
 
 
 
