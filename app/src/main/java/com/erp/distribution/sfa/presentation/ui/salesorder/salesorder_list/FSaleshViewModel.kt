@@ -8,6 +8,7 @@ import com.erp.distribution.sfa.data.di.PreferencesManager
 import com.erp.distribution.sfa.data.di.SortOrder
 import com.erp.distribution.sfa.data.source.entity.toDomain
 import com.erp.distribution.sfa.domain.exception.ExceptionHandler
+import com.erp.distribution.sfa.domain.model.FtSalesdItems
 import com.erp.distribution.sfa.domain.model.FtSalesh
 import com.erp.distribution.sfa.domain.model.toEntity
 import com.erp.distribution.sfa.domain.usecase.GetFCustomerUseCase
@@ -16,11 +17,10 @@ import com.erp.distribution.sfa.domain.usecase.GetFtSalesdItemsUseCase
 import com.erp.distribution.sfa.domain.usecase.GetFtSaleshUseCase
 import com.erp.distribution.sfa.presentation.base.BaseViewModel
 import com.erp.distribution.sfa.presentation.model.UserViewState
-import com.erp.distribution.sfa.presentation.ui.salesorder.ADD_TASK_RESULT_OK
 import com.erp.distribution.sfa.presentation.ui.salesorder.EDIT_TASK_RESULT_OK
 import com.erp.distribution.sfa.utils.DisposableManager
-import io.reactivex.rxjava3.core.Observable
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
+import io.reactivex.rxjava3.core.Observable
 import io.reactivex.rxjava3.schedulers.Schedulers
 import kotlinx.coroutines.CoroutineExceptionHandler
 import kotlinx.coroutines.channels.Channel
@@ -31,12 +31,12 @@ import kotlinx.coroutines.launch
 
 
 class FSaleshViewModel @ViewModelInject constructor(
-    private val getFtSaleshUseCase: GetFtSaleshUseCase,
-    private val getFtSalesdItemsUseCase: GetFtSalesdItemsUseCase,
-    private val getFDivisionUseCase: GetFDivisionUseCase,
-    private val getFCustomerUseCase: GetFCustomerUseCase,
-    private val preferencesManager: PreferencesManager,
-    @Assisted private val state: SavedStateHandle
+        private val getFtSaleshUseCase: GetFtSaleshUseCase,
+        private val getFtSalesdItemsUseCase: GetFtSalesdItemsUseCase,
+        private val getFDivisionUseCase: GetFDivisionUseCase,
+        private val getFCustomerUseCase: GetFCustomerUseCase,
+        private val preferencesManager: PreferencesManager,
+        @Assisted private val state: SavedStateHandle
 
 ) : BaseViewModel() {
     private val TAG = FSaleshViewModel::class.java.simpleName
@@ -53,15 +53,15 @@ class FSaleshViewModel @ViewModelInject constructor(
     val preferencesFlow = preferencesManager.preferencesFlow
 
     private val ftSaleshFlow = combine(
-        searchQuery.asFlow(),
-        preferencesFlow
+            searchQuery.asFlow(),
+            preferencesFlow
     ) { query, filterPreferences ->
         Pair(query, filterPreferences)
     }.flatMapLatest { (query, filterPreferences) ->
         getFtSaleshUseCase.getCacheAllFtSaleshFlow(
-            query,
-            filterPreferences.sortOrder, 75, -1,
-            filterPreferences.hideCompleted
+                query,
+                filterPreferences.sortOrder, 75, -1,
+                filterPreferences.hideCompleted
         )
     }
 
@@ -72,7 +72,7 @@ class FSaleshViewModel @ViewModelInject constructor(
         var resultLiveData: LiveData<List<FtSalesh>> = ftSaleshLive
 
         resultLiveData = Transformations.switchMap(resultLiveData, {
-            conversionAddItems(it)
+            conversionAddItems2(it)
         })
         return resultLiveData
     }
@@ -96,7 +96,7 @@ class FSaleshViewModel @ViewModelInject constructor(
                         {
                         },
                         {
-                        },{}
+                        }, {}
                 )
         )
 
@@ -113,14 +113,14 @@ class FSaleshViewModel @ViewModelInject constructor(
             getFtSaleshUseCase.deleteCacheFtSalesh(ftSalesh.toEntity())
             getFtSalesdItemsUseCase.deleteAllCacheFtSalesdItemsByFtSalesh(ftSalesh.toEntity())
         }
-            .subscribeOn(Schedulers.io())
-            .observeOn(AndroidSchedulers.mainThread())
-            .subscribe(
-                {
-                },
-                {
-                },{}
-            )
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(
+                        {
+                        },
+                        {
+                        }, {}
+                )
         )
 
         ftSaleshEventChannel.send(FtSaleshEvent.ShowUndoDeleteFtSaleshMessage(ftSalesh))
@@ -130,15 +130,15 @@ class FSaleshViewModel @ViewModelInject constructor(
         DisposableManager.add(Observable.fromCallable {
             getFtSaleshUseCase.addCacheFtSaleshDomain(ftSalesh)
         }
-            .subscribeOn(Schedulers.io())
-            .observeOn(AndroidSchedulers.mainThread())
-            .subscribe(
-                {
-                },
-                {
-                    Log.d(TAG, "#result FtSalesh error  ${it.message}")
-                },{}
-            )
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(
+                        {
+                        },
+                        {
+                            Log.d(TAG, "#result FtSalesh error  ${it.message}")
+                        }, {}
+                )
         )
     }
 
@@ -216,11 +216,11 @@ class FSaleshViewModel @ViewModelInject constructor(
         val resultMediatorLiveData: MediatorLiveData<List<FtSalesh>> = MediatorLiveData<List<FtSalesh>>()
         for (data in list) {
             resultMediatorLiveData.addSource(getFCustomerUseCase.getCacheFCustomerById(data.fcustomerBean.id), Observer {
-                    it?.let {
-                        data.fcustomerBean = it.toDomain()
-                        resultMediatorLiveData.postValue(list)
-                    }
+                it?.let {
+                    data.fcustomerBean = it.toDomain()
+                    resultMediatorLiveData.postValue(list)
                 }
+            }
             )
         }
         return resultMediatorLiveData
@@ -240,7 +240,45 @@ class FSaleshViewModel @ViewModelInject constructor(
         return resultMediatorLiveData
     }
 
+    fun conversionAddItems2(list: List<FtSalesh>) : LiveData<List<FtSalesh>> {
+        val resultMediatorLiveData: MediatorLiveData<List<FtSalesh>> = MediatorLiveData<List<FtSalesh>>()
+        resultMediatorLiveData.value = list
+        for (data in list) {
+            resultMediatorLiveData.addSource(getFtSalesdItemsUseCase.getCacheListFtSalesdItemsByFtSaleshLive(data.refno), Observer {
+                it?.let {
+                    data.listFtSalesdItems.addAll(it)
+                    Log.d(TAG, "#result ::>> ${it.size}")
+                    resultMediatorLiveData.postValue(list)
+                }
+            })
+        }
+        return resultMediatorLiveData
+    }
 
 
 
+}
+
+
+class CombinedSubjectReminders(
+        ldSubject: LiveData<List<FtSalesh>>,
+        ldReminder: LiveData<List<FtSalesdItems>>
+) : MediatorLiveData<Pair<List<FtSalesh>, List<FtSalesdItems>>>() {
+
+    private var listSubject: List<FtSalesh> = emptyList()
+    private var listReminder: List<FtSalesdItems> = emptyList()
+
+    init {
+        value = Pair(listSubject, listReminder)
+
+        addSource(ldSubject) {
+            if( it != null ) listSubject = it
+            value = Pair(listSubject, listReminder)
+        }
+
+        addSource(ldReminder) {
+            if( it != null ) listReminder = it
+            value = Pair(listSubject, listReminder)
+        }
+    }
 }
