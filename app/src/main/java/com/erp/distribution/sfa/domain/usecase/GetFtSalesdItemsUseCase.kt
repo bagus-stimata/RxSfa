@@ -62,7 +62,7 @@ class GetFtSalesdItemsUseCase @Inject constructor(private val repository: FtSale
     }
     fun getCacheListFtSalesdItemsByFtSaleshLive(ftSalesBean: Long): LiveData<List<FtSalesdItems>> {
         return repository.getCacheListFtSalesdItemsFtSaleshLive(ftSalesBean).map {
-            it.map {
+            it?.map {
                 val ftSalesdItemsBean = it.ftSalesdItemsEntity.toDomain()
                 it.fMaterialEntity?.let {
                     ftSalesdItemsBean.fmaterialBean = it.toDomain()

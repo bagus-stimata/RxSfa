@@ -10,7 +10,6 @@ import com.erp.distribution.sfa.domain.model.toEntity
 import com.erp.distribution.sfa.domain.usecase.GetFtSalesdItemsUseCase
 import com.erp.distribution.sfa.domain.usecase.GetFtSaleshUseCase
 import com.erp.distribution.sfa.presentation.model.UserViewState
-import com.erp.distribution.sfa.presentation.ui.salesorder.salesorder_list.FSaleshViewModel
 import com.erp.distribution.sfa.utils.DisposableManager
 import io.reactivex.rxjava3.core.Observable
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
@@ -31,7 +30,7 @@ class AddEditFtSaleshViewModel @ViewModelInject constructor(
     var userViewState = UserViewState() //Ingat akan sama dengan pemanggilnya -> FtSaleshFragment sehingga tidak ada Add or Update yang ada hanya Edit
     var isEditMode = false //true-> Edit, false-> Yang hanya membedakan Dao Insert atau Update
 
-    var ftSaleshRefno: Long = 0
+    var ftSaleshRefnoLive: MutableLiveData<Long> = MutableLiveData()
     var ftSalesh = FtSalesh() //Ingat akan sama dengan pemanggilnya -> FtSaleshFragment
     fun getCacheFtSaleshByIdLive(ftSaleshRefno: Long): LiveData<FtSalesh> {
         var resultLiveData: LiveData<FtSalesh> = getFtSaleshUseCase.getCacheAllFtSaleshWithItemsByIdLive(ftSaleshRefno)
@@ -128,7 +127,8 @@ class AddEditFtSaleshViewModel @ViewModelInject constructor(
                         .subscribeWith( object : DisposableSingleObserver<Long>() {
                             override fun onSuccess(newReturnId: Long?) {
                                 newReturnId.let {
-                                    ftSaleshRefno = newReturnId!!
+//                                    ftSaleshRefnoLive = newReturnId!!
+                                    ftSaleshRefnoLive.postValue(newReturnId!!)
                                     ftSalesh.refno = newReturnId!!
                                 }
                             }

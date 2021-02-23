@@ -14,7 +14,6 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.setFragmentResult
 import androidx.fragment.app.setFragmentResultListener
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.Observer
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
@@ -30,8 +29,6 @@ import com.erp.distribution.sfa.utils.exhaustive
 import com.google.android.material.snackbar.Snackbar
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collect
-import kotlinx.coroutines.flow.first
-import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
 class FtSaleshFragment : Fragment(R.layout.fragment_ftsalesh), FtSaleshAdapter.OnItemClickListener {
@@ -143,14 +140,14 @@ class FtSaleshFragment : Fragment(R.layout.fragment_ftsalesh), FtSaleshAdapter.O
                                     viewModel.onUndoDeleteClick(event.ftSalesh)
                                 }.show()
                     }
-                    is FSaleshViewModel.FtSaleshEvent.NavigateToAddSalesOrderScreen -> {
+                    is FSaleshViewModel.FtSaleshEvent.NavigateToAddCustomerOrderScreen -> {
                         val action =
                                 FtSaleshFragmentDirections.actionFtSaleshFragmentToAddEditFtSaleshFragment(
                                         event.userViewState
                                 )
                         findNavController().navigate(action)
                     }
-                    is FSaleshViewModel.FtSaleshEvent.NavigateToEditSalesOrderScreen -> {
+                    is FSaleshViewModel.FtSaleshEvent.NavigateToEditCustomerOrderScreen -> {
                         val action =
                                 FtSaleshFragmentDirections.actionFtSaleshFragmentToAddEditFtSaleshFragment(
                                         event.userViewState,

@@ -44,11 +44,14 @@ interface FtSalesdItemsDao {
     /**
      * FMaterial pada Items boleh lebih dari satu
      */
+    @Transaction
     @Query("SELECT * FROM ftSalesdItems WHERE ftSaleshBean = :ftSalesBean AND  fmaterialBean = :fmaterialBean ")
     fun getAllByFtSaleshAndMaterialLive(ftSalesBean: Long, fmaterialBean: Int): LiveData<List<FtSalesdWithFMaterial>>
 
+    @Transaction
     @Query("SELECT * FROM ftSalesdItems WHERE  ftSaleshBean = :ftSalesBean ")
     fun getAllFtSalesdItemsByFtSaleshLive(ftSalesBean: Long): LiveData<List<FtSalesdWithFMaterial>>
+    @Transaction
     @Query("SELECT * FROM ftSalesdItems WHERE fmaterialBean = :materialId ")
     fun getAllFtSalesdItemsByFMaterialLive(materialId: Int): LiveData<List<FtSalesdWithFMaterial>>
 

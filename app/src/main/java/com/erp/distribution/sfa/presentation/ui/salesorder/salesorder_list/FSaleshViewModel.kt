@@ -12,7 +12,6 @@ import com.erp.distribution.sfa.domain.model.FtSalesdItems
 import com.erp.distribution.sfa.domain.model.FtSalesh
 import com.erp.distribution.sfa.domain.model.toEntity
 import com.erp.distribution.sfa.domain.usecase.GetFCustomerUseCase
-import com.erp.distribution.sfa.domain.usecase.GetFDivisionUseCase
 import com.erp.distribution.sfa.domain.usecase.GetFtSalesdItemsUseCase
 import com.erp.distribution.sfa.domain.usecase.GetFtSaleshUseCase
 import com.erp.distribution.sfa.presentation.base.BaseViewModel
@@ -108,7 +107,7 @@ class FSaleshViewModel @ViewModelInject constructor(
 
     fun onItemSelected(ftSalesh: FtSalesh) = viewModelScope.launch {
         userViewState?.let {
-            ftSaleshEventChannel.send(FtSaleshEvent.NavigateToEditSalesOrderScreen(userViewState!!, ftSalesh))
+            ftSaleshEventChannel.send(FtSaleshEvent.NavigateToEditCustomerOrderScreen(userViewState!!, ftSalesh))
         }
     }
     fun onItemSwiped(ftSalesh: FtSalesh) = viewModelScope.launch {
@@ -146,7 +145,7 @@ class FSaleshViewModel @ViewModelInject constructor(
     }
 
     fun onAddNewFtSaleshClick() = viewModelScope.launch {
-        ftSaleshEventChannel.send(FtSaleshEvent.NavigateToAddSalesOrderScreen(userViewState!!))
+        ftSaleshEventChannel.send(FtSaleshEvent.NavigateToEditCustomerOrderScreen(userViewState!!, FtSalesh() ))
     }
 
     fun onAddEditResult(ftSaleshResult: FtSalesh) {
@@ -182,12 +181,12 @@ class FSaleshViewModel @ViewModelInject constructor(
 
     sealed class FtSaleshEvent {
 //        object NavigateToAddSalesOrderScreen() : FtSaleshEvent()
-        data class NavigateToAddSalesOrderScreen(val userViewState: UserViewState) : FtSaleshEvent()
+        data class NavigateToAddCustomerOrderScreen(val userViewState: UserViewState) : FtSaleshEvent()
 
         /**
          * Ingat FtSalesh disini sudah include List FtSalesItems sebab saat dari tarik dari database sudah dalam keadaan berelasi antar tabel
          */
-        data class NavigateToEditSalesOrderScreen(val userViewState: UserViewState, val ftSalesh: FtSalesh) : FtSaleshEvent()
+        data class NavigateToEditCustomerOrderScreen(val userViewState: UserViewState, val ftSalesh: FtSalesh) : FtSaleshEvent()
 //        data class NavigateToEditSalesOrderScreen(val userViewState: UserViewState, val ftSaleshBean: Long) : FtSaleshEvent() //--> Sebaiknya nanti gunakan Via Database Langsung
 
         data class ShowUndoDeleteFtSaleshMessage(val ftSalesh: FtSalesh) : FtSaleshEvent()

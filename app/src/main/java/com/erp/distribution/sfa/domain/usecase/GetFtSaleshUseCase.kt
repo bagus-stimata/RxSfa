@@ -69,14 +69,20 @@ class GetFtSaleshUseCase @Inject constructor(
     }
     fun getCacheAllFtSaleshWithItemsByIdLive(ftSaleshRefno: Long): LiveData<FtSalesh>{
         return repository.getCacheFtSaleshWithItemsByIdLive(ftSaleshRefno).map {
-            val ftSaleshBean = it.ftSaleshEntity.toDomain()
-            it.fDivisionEntity?.let {
-                ftSaleshBean.fdivisionBean = it.toDomain()
-            }
-            it.fCustomerEntity?.let {
-                ftSaleshBean.fcustomerBean = it.toDomain()
+            var ftSaleshBean = FtSalesh()
+            it?.let {
+                it.ftSaleshEntity?.let {
+                    ftSaleshBean = it.toDomain()
+                }
+                it.fDivisionEntity?.let {
+                    ftSaleshBean.fdivisionBean = it.toDomain()
+                }
+                it.fCustomerEntity?.let {
+                    ftSaleshBean.fcustomerBean = it.toDomain()
+                }
             }
             ftSaleshBean
+
         }
     }
 

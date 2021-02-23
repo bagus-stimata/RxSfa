@@ -1,7 +1,6 @@
 package com.erp.distribution.sfa.presentation.ui.salesorder.salesorder_addedit
 
 import android.os.Bundle
-import android.util.Log
 import android.view.MenuItem
 import android.view.View
 import android.widget.Toast
@@ -23,7 +22,6 @@ import com.erp.distribution.sfa.R
 import com.erp.distribution.sfa.databinding.FragmentAddEditSalesorderBinding
 import com.erp.distribution.sfa.domain.model.FCustomer
 import com.erp.distribution.sfa.domain.model.FtSalesdItems
-import com.erp.distribution.sfa.presentation.ui.salesorder.salesorder_list.FSaleshViewModel
 import com.erp.distribution.sfa.utils.exhaustive
 import com.google.android.material.snackbar.Snackbar
 import dagger.hilt.android.AndroidEntryPoint
@@ -53,7 +51,8 @@ class AddEditFtSaleshFragment : Fragment(R.layout.fragment_add_edit_salesorder),
         viewModel.isEditMode =false
         args.ftSalesh?.let {
 //            viewModel.ftSalesh = it //Cara ini akan menginvoike pemanggilnya (perequest)
-            viewModel.ftSaleshRefno = it.refno
+//            viewModel.ftSaleshRefnoLive = it.refno
+            viewModel.ftSaleshRefnoLive.postValue(it.refno)
             viewModel.isEditMode = true
         }
 
@@ -126,51 +125,77 @@ class AddEditFtSaleshFragment : Fragment(R.layout.fragment_add_edit_salesorder),
          */
 
         binding.ftSalesh = viewModel.ftSalesh
-//        if (viewModel.isEditMode==true){
-            viewModel.getCacheFtSaleshByIdLive(viewModel.ftSaleshRefno).observe(viewLifecycleOwner, Observer {
+//        viewModel.getCacheFtSaleshByIdLive(viewModel.ftSaleshRefnoLive).observe(viewLifecycleOwner, Observer {
+//            it?.let {
+////                    val tempTotal = viewModel.ftSalesh.amountAfterDiscPlusRpAfterPpn_FG
+//                viewModel.ftSalesh = it
+////                    viewModel.ftSalesh.amountAfterDiscPlusRpAfterPpn_FG = tempTotal
+//
+//                var totalNota = 0.0
+//
+//                for ((key, data) in viewModel.mutableMapFtSalesdItems){
+//                    if(data.fmaterialBean.convfact1>0) {
+//                        var totalPrice = (data.qty * data.sprice) / data.fmaterialBean.convfact1 * 1.1
+//                        totalNota += totalPrice
+//                        viewModel.ftSalesh = viewModel.ftSalesh.copy(amountAfterDiscPlusRpAfterPpn_FG = totalNota)
+//                    }
+//                }
+//                binding.ftSalesh = viewModel.ftSalesh
+//
+//            }
+//
+//        })
+
+        viewModel.ftSaleshRefnoLive.observe(viewLifecycleOwner, Observer {
+
+            viewModel.getCacheFtSaleshByIdLive(it).observe(viewLifecycleOwner, Observer {
                 it?.let {
-//                    Toast.makeText(context, "isine ${it.fcustomerBean.custname}", Toast.LENGTH_LONG).show()
-//                    val tempTotal = viewModel.ftSalesh.amountAfterDiscPlusRpAfterPpn_FG
+    //                    val tempTotal = viewModel.ftSalesh.amountAfterDiscPlusRpAfterPpn_FG
                     viewModel.ftSalesh = it
-//                    viewModel.ftSalesh.amountAfterDiscPlusRpAfterPpn_FG = tempTotal
+    //                    viewModel.ftSalesh.amountAfterDiscPlusRpAfterPpn_FG = tempTotal
 
                     var totalNota = 0.0
+
                     for ((key, data) in viewModel.mutableMapFtSalesdItems){
-                        var totalPrice = (data .qty * data.sprice) /data.fmaterialBean.convfact1 *1.1
-                        totalNota += totalPrice
-                        viewModel.ftSalesh = viewModel.ftSalesh.copy(amountAfterDiscPlusRpAfterPpn_FG = totalNota)
+                        if(data.fmaterialBean.convfact1>0) {
+                            var totalPrice = (data.qty * data.sprice) / data.fmaterialBean.convfact1 * 1.1
+                            totalNota += totalPrice
+                            viewModel.ftSalesh = viewModel.ftSalesh.copy(amountAfterDiscPlusRpAfterPpn_FG = totalNota)
+                        }
                     }
                     binding.ftSalesh = viewModel.ftSalesh
                 }
-
             })
 
-//        }
 
+            viewModel.getCacheFtSalesdItemsByParentLive(it)
+                    .observe(viewLifecycleOwner) {
+                        when (it) {
+                            else -> {
+                                viewModel.ftSalesh.amountAfterDiscPlusRpAfterPpn_FG = 0.0 //Karena pada data terachir
+                                it?.let {
+                                    ftSalesdItemsAdapter.submitList(it)
 
-        viewModel.getCacheFtSalesdItemsByParentLive(viewModel.ftSaleshRefno)
-                .observe(viewLifecycleOwner) {
-                    when (it) {
-                        else -> {
-                            viewModel.ftSalesh.amountAfterDiscPlusRpAfterPpn_FG = 0.0 //Karena pada data terachir
-                            it?.let {
-                                ftSalesdItemsAdapter.submitList(it)
-
-                                var totalNota = 0.0
-                                for (data in it){
-                                    viewModel.mutableMapFtSalesdItems.put(data.id, data)
-
-                                    var totalPrice = (data.qty * data.sprice) /data.fmaterialBean.convfact1 *1.1
-                                    totalNota += totalPrice
-                                    viewModel.ftSalesh = viewModel.ftSalesh.copy(amountAfterDiscPlusRpAfterPpn_FG = totalNota)
+                                    var totalNota = 0.0
+                                    for (data in it){
+                                        viewModel.mutableMapFtSalesdItems.put(data.id, data)
+                                        if (data.fmaterialBean.convfact1>0) {
+                                            var totalPrice = (data.qty * data.sprice) / data.fmaterialBean.convfact1 * 1.1
+                                            totalNota += totalPrice
+                                            viewModel.ftSalesh = viewModel.ftSalesh.copy(amountAfterDiscPlusRpAfterPpn_FG = totalNota)
+                                        }
+                                    }
                                 }
-                            }
-                            binding.ftSalesh = viewModel.ftSalesh
+                                binding.ftSalesh = viewModel.ftSalesh
 //                            Log.e(TAG, "#result Detil Dipanggil ${viewModel.ftSalesh.amountAfterDiscPlusRpAfterPpn_FG}")
 
+                            }
                         }
                     }
-                }
+
+
+        })
+
 
 
         setupLifeCycleScopeEventListener()
