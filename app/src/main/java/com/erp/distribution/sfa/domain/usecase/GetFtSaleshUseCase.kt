@@ -168,9 +168,13 @@ class GetFtSaleshUseCase @Inject constructor(
     fun addCacheFtSalesh(ftSaleshEntity: FtSaleshEntity){
         repository.addCacheFtSalesh(ftSaleshEntity)
     }
+    fun insertSingleCacheFtSalesh(ftSaleshEntity: FtSaleshEntity): Single<Long>{
+        return repository.insertSingleCacheFtSalesh(ftSaleshEntity)
+    }
     fun addCacheFtSaleshDomain(ftSalesh: FtSalesh){
         repository.addCacheFtSalesh(ftSalesh.toEntity())
     }
+
     fun addCacheListFtSalesh(list: List<FtSaleshEntity>){
         repository.addCacheListFtSalesh(list)
     }

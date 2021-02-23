@@ -11,6 +11,8 @@ import com.erp.distribution.sfa.domain.model.FtSalesh
 import com.erp.distribution.sfa.domain.model.toEntity
 import com.erp.distribution.sfa.domain.usecase.GetFtSalesdItemsUseCase
 import com.erp.distribution.sfa.domain.usecase.GetFtSaleshUseCase
+import com.erp.distribution.sfa.domain.utils.KonversiProductAndStockHelper
+import com.erp.distribution.sfa.domain.utils.KonversiProductAndStockHelperImpl
 import com.erp.distribution.sfa.presentation.model.UserViewState
 import com.erp.distribution.sfa.presentation.ui.salesorder.ADD_TASK_RESULT_OK
 import com.erp.distribution.sfa.presentation.ui.salesorder.EDIT_TASK_RESULT_OK
@@ -127,7 +129,10 @@ class AddEditFtSaleshQtyViewModel @ViewModelInject constructor(
         }?.run {
             if (ftSalesh.refno>0 && ftSalesdItems.fmaterialBean.id >0) {
                 ftSalesdItems.ftSaleshBean = ftSalesh
-                ftSalesdItems.qty = ftSalesdItems.qty1+ftSalesdItems.qty2+ftSalesdItems.qty3+ftSalesdItems.qty4
+                val kps : KonversiProductAndStockHelper = KonversiProductAndStockHelperImpl()
+                var qtySmallestFromUom1234 = kps.getSmallestFromUom1234(ftSalesdItems.fmaterialBean, ftSalesdItems.qty1, ftSalesdItems.qty2, ftSalesdItems.qty3, ftSalesdItems.qty4)
+//                ftSalesdItems.qty = ftSalesdItems.qty1+ftSalesdItems.qty2+ftSalesdItems.qty3+ftSalesdItems.qty4
+                ftSalesdItems.qty = qtySmallestFromUom1234
 
                 if (ftSalesdItems.fmaterialBean.isTaxable) {
                     ftSalesdItems.isTax = true

@@ -150,10 +150,6 @@ class KonversiProductAndStockHelperImpl : KonversiProductAndStockHelper {
         val nf_3 = NumberFormat.getInstance()
         nf_3.maximumFractionDigits = 3
 
-//		String strUom1 = String.valueOf(getUom1FromSmallest());
-//		String strUom2 = String.valueOf(getUom2FromSmallest());
-//		String strUom3 = String.valueOf(getUom3FromSmallest());		
-//		String strUom4 = String.valueOf(getUom4FromSmallest());		
         val strUom1 = nf_3.format(getUom1FromSmallest())
         var strUom2 = nf_3.format(getUom2FromSmallest())
         var strUom3 = nf_3.format(getUom3FromSmallest())

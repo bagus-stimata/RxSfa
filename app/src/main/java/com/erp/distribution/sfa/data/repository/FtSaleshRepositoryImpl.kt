@@ -8,6 +8,7 @@ import com.erp.distribution.sfa.data.source.local.database.AppDatabase
 import com.erp.distribution.sfa.domain.repository.FtSaleshRepository
 import io.reactivex.rxjava3.core.Single
 import kotlinx.coroutines.flow.Flow
+import java.util.concurrent.Callable
 
 
 /**
@@ -103,6 +104,13 @@ class FtSaleshRepositoryImpl(
 
     override fun addCacheFtSalesh(ftSaleshEntity: FtSaleshEntity) {
         return appDatabase.saleshDao.insert(ftSaleshEntity)
+    }
+    override fun insertSingleCacheFtSalesh(ftSaleshEntity: FtSaleshEntity): Single<Long> {
+        return Single.fromCallable(
+                Callable<Long> {
+                    appDatabase.saleshDao.insertSingle(ftSaleshEntity)
+                }
+        )
     }
 
     override fun addCacheListFtSalesh(list: List<FtSaleshEntity>) {

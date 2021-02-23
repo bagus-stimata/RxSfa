@@ -1,6 +1,7 @@
 package com.erp.distribution.sfa.presentation.ui.salesorder.salesorder_addedit
 
 import android.os.Bundle
+import android.util.Log
 import android.view.MenuItem
 import android.view.View
 import android.widget.Toast
@@ -33,6 +34,8 @@ import java.text.SimpleDateFormat
 @AndroidEntryPoint
 class AddEditFtSaleshFragment : Fragment(R.layout.fragment_add_edit_salesorder), FtSalesdItemsAdapter.OnItemClickListener {
 
+    private val TAG = AddEditFtSaleshFragment::class.java.simpleName
+
     private val viewModel: AddEditFtSaleshViewModel by viewModels()
     private val args: AddEditFtSaleshFragmentArgs by navArgs()
 
@@ -52,7 +55,6 @@ class AddEditFtSaleshFragment : Fragment(R.layout.fragment_add_edit_salesorder),
 //            viewModel.ftSalesh = it //Cara ini akan menginvoike pemanggilnya (perequest)
             viewModel.ftSaleshRefno = it.refno
             viewModel.isEditMode = true
-
         }
 
         args.ftSalesdItems?.let {
@@ -124,40 +126,50 @@ class AddEditFtSaleshFragment : Fragment(R.layout.fragment_add_edit_salesorder),
          */
 
         binding.ftSalesh = viewModel.ftSalesh
-        if (viewModel.isEditMode==true){
+//        if (viewModel.isEditMode==true){
             viewModel.getCacheFtSaleshByIdLive(viewModel.ftSaleshRefno).observe(viewLifecycleOwner, Observer {
                 it?.let {
 //                    Toast.makeText(context, "isine ${it.fcustomerBean.custname}", Toast.LENGTH_LONG).show()
+//                    val tempTotal = viewModel.ftSalesh.amountAfterDiscPlusRpAfterPpn_FG
                     viewModel.ftSalesh = it
+//                    viewModel.ftSalesh.amountAfterDiscPlusRpAfterPpn_FG = tempTotal
+
+                    var totalNota = 0.0
+                    for ((key, data) in viewModel.mutableMapFtSalesdItems){
+                        var totalPrice = (data .qty * data.sprice) /data.fmaterialBean.convfact1 *1.1
+                        totalNota += totalPrice
+                        viewModel.ftSalesh = viewModel.ftSalesh.copy(amountAfterDiscPlusRpAfterPpn_FG = totalNota)
+                    }
                     binding.ftSalesh = viewModel.ftSalesh
                 }
 
             })
-        }
+
+//        }
 
 
         viewModel.getCacheFtSalesdItemsByParentLive(viewModel.ftSaleshRefno)
                 .observe(viewLifecycleOwner) {
-                    it?.let {
-                        ftSalesdItemsAdapter.submitList(it)
+                    when (it) {
+                        else -> {
+                            viewModel.ftSalesh.amountAfterDiscPlusRpAfterPpn_FG = 0.0 //Karena pada data terachir
+                            it?.let {
+                                ftSalesdItemsAdapter.submitList(it)
 
-                        var totalNota = 0.0
-                        for (data in it){
-                            viewModel.mutableMapFtSalesdItems.put(data.id, data)
+                                var totalNota = 0.0
+                                for (data in it){
+                                    viewModel.mutableMapFtSalesdItems.put(data.id, data)
 
-                            var totalPrice = (data.qty * data.sprice) /data.fmaterialBean.convfact1 *1.1
-                            totalNota += totalPrice
-                            viewModel.ftSalesh = viewModel.ftSalesh.copy(amountAfterDiscPlusRpAfterPpn_FG = totalNota)
+                                    var totalPrice = (data.qty * data.sprice) /data.fmaterialBean.convfact1 *1.1
+                                    totalNota += totalPrice
+                                    viewModel.ftSalesh = viewModel.ftSalesh.copy(amountAfterDiscPlusRpAfterPpn_FG = totalNota)
+                                }
+                            }
+                            binding.ftSalesh = viewModel.ftSalesh
+//                            Log.e(TAG, "#result Detil Dipanggil ${viewModel.ftSalesh.amountAfterDiscPlusRpAfterPpn_FG}")
+
                         }
-
-                        binding.ftSalesh = viewModel.ftSalesh
-//                        Toast.makeText(context, "Jumlah:\n ${it.size}", Toast.LENGTH_SHORT).show()
                     }
-
-//                var message = ""
-//                it.iterator().forEach {
-//                    message += it.fcustomerBean.custname + "\n"
-//                }
                 }
 
 
@@ -234,7 +246,7 @@ class AddEditFtSaleshFragment : Fragment(R.layout.fragment_add_edit_salesorder),
         setFragmentResultListener("customer_request") { _, bundle ->
             val result = bundle.getParcelable<FCustomer>("customer_result")
             viewModel.onSelectCustomerResult(result!!)
-//            Toast.makeText(context, "Isinya: " + result.custname, Toast.LENGTH_SHORT).show()
+//            Toast.makeText(context, "Resutl Customer Request: " + result.custname, Toast.LENGTH_SHORT).show()
         }
 
     }
@@ -250,7 +262,7 @@ class AddEditFtSaleshFragment : Fragment(R.layout.fragment_add_edit_salesorder),
     }
 
     override fun onItemClick(ftSalesdItems: FtSalesdItems) {
-//        viewModel.onItemSelected(ftSalesdItems)
+        viewModel.onItemSelected(ftSalesdItems)
     }
 
     fun chooseAndEditCustomer() {

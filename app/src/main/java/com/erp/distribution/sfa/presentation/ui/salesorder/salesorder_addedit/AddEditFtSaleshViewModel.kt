@@ -14,6 +14,7 @@ import com.erp.distribution.sfa.presentation.ui.salesorder.salesorder_list.FSale
 import com.erp.distribution.sfa.utils.DisposableManager
 import io.reactivex.rxjava3.core.Observable
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
+import io.reactivex.rxjava3.observers.DisposableSingleObserver
 import io.reactivex.rxjava3.schedulers.Schedulers
 import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.flow.receiveAsFlow
@@ -57,13 +58,15 @@ class AddEditFtSaleshViewModel @ViewModelInject constructor(
 
 
     fun onItemSelected(ftSalesdItems: FtSalesdItems) = viewModelScope.launch {
-//        userViewState?.let {
-//            addEditFtSaleshEvent.send(FSaleshViewModel.FtSaleshEvent.NavigateToEditSalesOrderScreen(userViewState!!, ftSalesh))
-//        }
+        userViewState?.let {
+            addEditFtSaleshEventChannel.send(AddEditCustomerOrderEvent.NavigateToSelectFtSalesdItemQtyScreen(userViewState!!, ftSalesh, ftSalesdItems))
+        }
     }
     fun onItemSwiped(ftSalesdItems: FtSalesdItems) = viewModelScope.launch {
         DisposableManager.add(Observable.fromCallable {
-            getFtSalesdItemsUseCase.deleteCacheFtSalesdItems(ftSalesdItems.toEntity())
+            getFtSalesdItemsUseCase.deleteCacheFtSalesdItems(ftSalesdItems.toEntity()).also {
+                //Do Something
+            }
         }
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
@@ -106,21 +109,35 @@ class AddEditFtSaleshViewModel @ViewModelInject constructor(
     }
 
     private fun insertFtSalesh(ftSalesh: FtSalesh) = viewModelScope.launch {
-        DisposableManager.add(Observable.fromCallable {
-            getFtSaleshUseCase.addCacheFtSaleshDomain(ftSalesh)
-        }
-            .subscribeOn(Schedulers.io())
-            .observeOn(AndroidSchedulers.mainThread())
-            .subscribe (
-                {
-                },
-                {
-                    Log.d(TAG, "#result FtSalesh error  ${it.message}")
-                },{}
-            )
+//        DisposableManager.add(Observable.fromCallable {
+//            getFtSaleshUseCase.addCacheFtSaleshDomain(ftSalesh)
+//        }
+//            .subscribeOn(Schedulers.io())
+//            .observeOn(AndroidSchedulers.mainThread())
+//            .subscribe (
+//                {},
+//                {
+//                    Log.d(TAG, "#result FtSalesh error  ${it.message}")
+//                },{}
+//            )
+//        )
+        DisposableManager.add(
+                getFtSaleshUseCase.insertSingleCacheFtSalesh(ftSalesh.toEntity())
+                        .observeOn(AndroidSchedulers.mainThread())
+                        .subscribeOn(Schedulers.newThread())
+                        .subscribeWith( object : DisposableSingleObserver<Long>() {
+                            override fun onSuccess(newReturnId: Long?) {
+                                newReturnId.let {
+                                    ftSaleshRefno = newReturnId!!
+                                    ftSalesh.refno = newReturnId!!
+                                }
+                            }
+                            override fun onError(e: Throwable?) {
+                            }
+                        })
         )
-   }
-    private fun updateFtSalesh(ftSalesh: FtSalesh) = viewModelScope.launch {
+    }
+    public fun updateFtSalesh(ftSalesh: FtSalesh) = viewModelScope.launch {
 
         DisposableManager.add(Observable.fromCallable {
             getFtSaleshUseCase.putCacheFtSalesh(ftSalesh.toEntity())
@@ -128,8 +145,7 @@ class AddEditFtSaleshViewModel @ViewModelInject constructor(
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe (
-                        {
-                        },{
+                        {},{
                             Log.d(TAG, "#result FtSalesh error  ${it.message}")
                         },{}
                 )
@@ -183,9 +199,7 @@ class AddEditFtSaleshViewModel @ViewModelInject constructor(
             insertFtSalesh(ftSalesh)
         }
 //        Log.d(TAG, "#result Hello: ${fCustomer.custname}   and ${ftSalesh?.fcustomerBean?.custname}")
-
         addEditFtSaleshEventChannel.send(AddEditCustomerOrderEvent.RenderDataBindingUI())
-
     }
 
     fun onSelectOrEditMaterial() = viewModelScope.launch {

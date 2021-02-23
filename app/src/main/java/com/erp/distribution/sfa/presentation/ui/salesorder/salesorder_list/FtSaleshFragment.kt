@@ -93,7 +93,9 @@ class FtSaleshFragment : Fragment(R.layout.fragment_ftsalesh), FtSaleshAdapter.O
 
             }).attachToRecyclerView(recyclerViewFtsalesh)
 
-
+            /**
+             * Add New
+             */
             fabAddFtsalesh.setOnClickListener {
                 viewModel.onAddNewFtSaleshClick()
             }

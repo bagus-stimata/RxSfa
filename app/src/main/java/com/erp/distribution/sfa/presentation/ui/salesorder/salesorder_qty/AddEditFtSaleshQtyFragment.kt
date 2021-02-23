@@ -16,6 +16,8 @@ import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.erp.distribution.sfa.R
 import com.erp.distribution.sfa.databinding.FragmentAddEditQtySalesorderBinding
+import com.erp.distribution.sfa.domain.utils.KonversiProductAndStockHelper
+import com.erp.distribution.sfa.domain.utils.KonversiProductAndStockHelperImpl
 import com.erp.distribution.sfa.utils.exhaustive
 import com.google.android.material.snackbar.Snackbar
 import dagger.hilt.android.AndroidEntryPoint
@@ -49,14 +51,40 @@ class AddEditFtSaleshQtyFragment : Fragment(R.layout.fragment_add_edit_qty_sales
         args.ftSalesdItems?.let {
             viewModel.ftSalesdItems = it //Cara ini akan menginvoike pemanggilnya (perequest)
             viewModel.ftSalesdItemsId = it.id
+
+            val kps: KonversiProductAndStockHelper = KonversiProductAndStockHelperImpl(it.qty, it.fmaterialBean)
+            binding.apply {
+                val qtyUom1 = kps.getUom1FromSmallest()
+                val qtyUom2 = kps.getUom2FromSmallest()
+                val qtyUom3 = kps.getUom3FromSmallest()
+                val qtyUom4 = kps.getUom4FromSmallest()
+                editTextUom1.text = Editable.Factory.getInstance().newEditable(qtyUom1.toInt().toString())
+                editTextUom2.text = Editable.Factory.getInstance().newEditable(qtyUom2.toInt().toString())
+                editTextUom3.text = Editable.Factory.getInstance().newEditable(qtyUom3.toInt().toString())
+                editTextUom4.text = Editable.Factory.getInstance().newEditable(qtyUom4.toInt().toString())
+
+                viewModel.ftSalesdItems.qty1 = qtyUom1
+                viewModel.ftSalesdItems.qty2 = qtyUom2
+                viewModel.ftSalesdItems.qty3 = qtyUom3
+                viewModel.ftSalesdItems.qty4 = qtyUom4
+
+//                numberpickerUom1.value = qtyUom1.toInt()
+//                numberpickerUom2.value = qtyUom2
+//                numberpickerUom3.value = qtyUom3
+//                numberpickerUom4.value = qtyUom4
+            }
+
             binding.ftSalesdItems = viewModel.ftSalesdItems
-            Toast.makeText(context, "Hello bos : ${viewModel.ftSalesdItems.sprice}", Toast.LENGTH_SHORT).show()
+
+//            Toast.makeText(context, "Hello bos : ${viewModel.ftSalesdItems.qty}", Toast.LENGTH_SHORT).show()
+
         }
 
 
         binding.numberpickerUom1.apply {
             maxValue = 100
             minValue = 0
+            value = viewModel.ftSalesdItems.qty1.toInt()
             setOnValueChangedListener { picker, oldVal, newVal ->
                 //Display the newly selected number to text view
                 binding.editTextUom1.text = Editable.Factory.getInstance().newEditable(newVal.toString())
@@ -65,6 +93,7 @@ class AddEditFtSaleshQtyFragment : Fragment(R.layout.fragment_add_edit_qty_sales
         binding.numberpickerUom2.apply {
             maxValue = 100
             minValue = 0
+            value = viewModel.ftSalesdItems.qty2.toInt()
             setOnValueChangedListener { picker, oldVal, newVal ->
                 //Display the newly selected number to text view
                 binding.editTextUom2.text = Editable.Factory.getInstance().newEditable(newVal.toString())
@@ -73,6 +102,7 @@ class AddEditFtSaleshQtyFragment : Fragment(R.layout.fragment_add_edit_qty_sales
         binding.numberpickerUom3.apply {
             maxValue = 100
             minValue = 0
+            value = viewModel.ftSalesdItems.qty3.toInt()
             setOnValueChangedListener { picker, oldVal, newVal ->
                 //Display the newly selected number to text view
                 binding.editTextUom3.text = Editable.Factory.getInstance().newEditable(newVal.toString())
@@ -81,19 +111,20 @@ class AddEditFtSaleshQtyFragment : Fragment(R.layout.fragment_add_edit_qty_sales
         binding.numberpickerUom4.apply {
             maxValue = 100
             minValue = 0
+            value = viewModel.ftSalesdItems.qty4.toInt()
             setOnValueChangedListener { picker, oldVal, newVal ->
                 //Display the newly selected number to text view
                 binding.editTextUom4.text = Editable.Factory.getInstance().newEditable(newVal.toString())
             }
         }
 
-        binding.editTextUom1.apply {
 
-        }
 
         binding.editTextUom1.addTextChangedListener(object : TextWatcher {
             override fun afterTextChanged(s: Editable) {
-                viewModel.ftSalesdItems.qty1 = s.toString().toDouble()
+                try {
+                    viewModel.ftSalesdItems.qty1 = s.toString().toDouble()
+                }catch (e: Exception){}
             }
             override fun beforeTextChanged(s: CharSequence, start: Int,
                                            count: Int, after: Int) {
@@ -106,7 +137,9 @@ class AddEditFtSaleshQtyFragment : Fragment(R.layout.fragment_add_edit_qty_sales
         })
         binding.editTextUom2.addTextChangedListener(object : TextWatcher {
             override fun afterTextChanged(s: Editable) {
-                viewModel.ftSalesdItems.qty2 = s.toString().toDouble()
+                try {
+                    viewModel.ftSalesdItems.qty2 = s.toString().toDouble()
+                }catch (e: Exception){}
             }
             override fun beforeTextChanged(s: CharSequence, start: Int,
                                            count: Int, after: Int) {
@@ -119,7 +152,9 @@ class AddEditFtSaleshQtyFragment : Fragment(R.layout.fragment_add_edit_qty_sales
         })
         binding.editTextUom3.addTextChangedListener(object : TextWatcher {
             override fun afterTextChanged(s: Editable) {
-                viewModel.ftSalesdItems.qty4 = s.toString().toDouble()
+                try {
+                    viewModel.ftSalesdItems.qty3 = s.toString().toDouble()
+                }catch (e: Exception){}
             }
             override fun beforeTextChanged(s: CharSequence, start: Int,
                                            count: Int, after: Int) {
@@ -132,7 +167,9 @@ class AddEditFtSaleshQtyFragment : Fragment(R.layout.fragment_add_edit_qty_sales
         })
         binding.editTextUom4.addTextChangedListener(object : TextWatcher {
             override fun afterTextChanged(s: Editable) {
-                viewModel.ftSalesdItems.qty4 = s.toString().toDouble()
+                try {
+                    viewModel.ftSalesdItems.qty4 = s.toString().toDouble()
+                }catch (e: Exception){}
             }
             override fun beforeTextChanged(s: CharSequence, start: Int,
                                            count: Int, after: Int) {

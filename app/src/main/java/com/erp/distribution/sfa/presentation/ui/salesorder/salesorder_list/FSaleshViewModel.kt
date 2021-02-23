@@ -68,14 +68,14 @@ class FSaleshViewModel @ViewModelInject constructor(
     val ftSaleshLive = ftSaleshFlow.asLiveData()
 //    val ftSaleshLive = getFtSaleshUseCase.getCacheAllFtSaleshLive()
 
-    fun getFtSaleshWithTransform(): LiveData<List<FtSalesh>> {
-        var resultLiveData: LiveData<List<FtSalesh>> = ftSaleshLive
-
-        resultLiveData = Transformations.switchMap(resultLiveData, {
-            conversionAddItems2(it)
-        })
-        return resultLiveData
-    }
+//    fun getFtSaleshWithTransform(): LiveData<List<FtSalesh>> {
+//        var resultLiveData: LiveData<List<FtSalesh>> = ftSaleshLive
+//
+//        resultLiveData = Transformations.switchMap(resultLiveData, {
+//            conversionAddItems2(it)
+//        })
+//        return resultLiveData
+//    }
 
     val ftSaleshWithItemsLive = getFtSaleshUseCase.getCacheAllFtSaleshWithItemsLive()
 
@@ -146,9 +146,7 @@ class FSaleshViewModel @ViewModelInject constructor(
     }
 
     fun onAddNewFtSaleshClick() = viewModelScope.launch {
-//        ftSaleshEventChannel.send(FtSaleshEvent.ShowFtSaleshSavedConfirmationMessage("Isinya: ${userViewState!!}" ))
         ftSaleshEventChannel.send(FtSaleshEvent.NavigateToAddSalesOrderScreen(userViewState!!))
-//        ftSaleshEventChannel.send(FtSaleshEvent.NavigateToAddSalesOrderScreen(userViewState!!, FtSalesh()))
     }
 
     fun onAddEditResult(ftSaleshResult: FtSalesh) {
