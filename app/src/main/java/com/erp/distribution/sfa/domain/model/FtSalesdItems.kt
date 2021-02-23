@@ -373,6 +373,7 @@ internal fun FtSalesdItems.toEntity(): FtSalesdItemsEntity {
             isFreeGood = isFreeGood,
             noUrut = noUrut,
             notes = notes,
+
             sprice = sprice,
 
             isTax = isTax,

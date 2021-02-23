@@ -168,6 +168,7 @@ data class FMaterialEntity  (
     var ppriceAfterPpn : Double =0.0,
     var pprice2 : Double =0.0,
     var pprice2AfterPpn : Double =0.0,
+
     var sprice : Double =0.0,
     var spriceAfterPpn: Double =0.0,
     var sprice2 : Double =0.0,

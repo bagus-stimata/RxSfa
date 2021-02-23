@@ -86,7 +86,6 @@ class FtSaleshAdapter(private val listener: OnItemClickListener) :
                 txtInvoicedate.text = sdf.format(item.invoiceDate)
 
                 txtItemSum.text = "${item.listFtSalesdItems.size} items"
-                txtCurrency.text = "IDR "
                 txtTotal.text = "${nf.format(item.amountAfterDiscPlusRpAfterPpn_FG)}"
 
                 txtDate.text = sdf.format(item.modified)

@@ -177,27 +177,50 @@
                 android:textColor="@color/black"
                 android:textSize="14sp"
                 tools:text="25 items" />
+
+<!--            <TextView-->
+<!--                android:id="@+id/txt_currency"-->
+<!--                android:layout_width="wrap_content"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:layout_weight="2"-->
+<!--                android:gravity="right"-->
+<!--                android:ellipsize="marquee"-->
+<!--                android:singleLine="true"-->
+<!--                android:textColor="@android:color/secondary_text_dark"-->
+<!--                android:textSize="14dp"-->
+<!--                tools:text="IDR " />-->
+
             <TextView
-                android:id="@+id/txt_currency"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_weight="2"
-                android:gravity="right"
-                android:ellipsize="marquee"
-                android:singleLine="true"
-                android:textColor="@android:color/secondary_text_dark"
-                android:textSize="14dp"
-                tools:text="IDR " />
+                android:layout_marginTop="0dp"
+                android:layout_marginRight="2dp"
+                android:layout_toLeftOf="@id/txt_total"
+                android:text="RP."
+                android:textColor="#676767"
+                android:textSize="10dp" />
+
+<!--            <TextView-->
+<!--                android:id="@+id/txt_total"-->
+<!--                android:layout_width="wrap_content"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:gravity="right"-->
+<!--                android:ellipsize="marquee"-->
+<!--                android:singleLine="true"-->
+<!--                android:textColor="@color/blue"-->
+<!--                android:textSize="18sp"-->
+<!--                tools:text="5.600.000" />-->
+
             <TextView
                 android:id="@+id/txt_total"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:gravity="right"
-                android:ellipsize="marquee"
-                android:singleLine="true"
+                android:layout_alignParentRight="true"
+                android:layout_marginTop="5dp"
+                android:layout_marginRight="5dp"
                 android:textColor="@color/blue"
-                android:textSize="18sp"
-                tools:text="5.600.000" />
+                android:textSize="18sp" />
+
 
         </LinearLayout>
 

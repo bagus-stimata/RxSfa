@@ -75,7 +75,10 @@ class FMaterialViewModel @ViewModelInject constructor(
                 val ftSalesdItems = FtSalesdItems()
                 ftSalesdItems.ftSaleshBean = ftSalesh
                 ftSalesdItems.fmaterialBean = fMaterial
+
                 ftSalesdItems.sprice = fMaterial.sprice
+                ftSalesdItems.spriceAfterPpn = fMaterial.spriceAfterPpn
+
                 fMaterialEventChannel.send(FMaterialEvent.NavigateToSalesOrderEditQtyScreen(userViewState!!, ftSalesh, ftSalesdItems))
             }
         }

@@ -50,7 +50,7 @@ class AddEditFtSaleshQtyFragment : Fragment(R.layout.fragment_add_edit_qty_sales
             viewModel.ftSalesdItems = it //Cara ini akan menginvoike pemanggilnya (perequest)
             viewModel.ftSalesdItemsId = it.id
             binding.ftSalesdItems = viewModel.ftSalesdItems
-//            Toast.makeText(context, "Hello bos : ${viewModel.ftSalesdItems.fmaterialBean.pname}", Toast.LENGTH_SHORT).show()
+            Toast.makeText(context, "Hello bos : ${viewModel.ftSalesdItems.sprice}", Toast.LENGTH_SHORT).show()
         }
 
 

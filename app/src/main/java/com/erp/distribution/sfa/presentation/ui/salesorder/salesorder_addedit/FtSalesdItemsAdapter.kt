@@ -80,7 +80,8 @@ class FtSalesdItemsAdapter(private val listener: OnItemClickListener) :
                 val kps : KonversiProductAndStockHelper = KonversiProductAndStockHelperImpl(item.qty, item.fmaterialBean)
                 txtQty.text = kps.getUom1234StringUom()
                 txtPrice.text = DecimalFormat.getNumberInstance(Locale.US).format(item.sprice)
-                txtTotal.text = nf.format(item.qty * item.sprice)
+                var totalPrice = (item.qty * item.sprice) /item.fmaterialBean.convfact1 *1.1
+                txtTotal.text = nf.format(totalPrice)
 
                 imgStar.visibility = View.GONE
 

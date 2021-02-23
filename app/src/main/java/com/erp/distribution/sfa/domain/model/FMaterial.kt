@@ -201,10 +201,12 @@ internal fun FMaterial.toEntity(): FMaterialEntity {
             convfact1 = convfact1,
             convfact2 = convfact2,
             convfact3 = convfact3,
+
             pprice = pprice,
             pprice2 = pprice2,
             ppriceAfterPpn = ppriceAfterPpn,
             pprice2AfterPpn = pprice2AfterPpn,
+
             sprice = sprice,
             sprice2 = sprice2,
             spriceAfterPpn = spriceAfterPpn,

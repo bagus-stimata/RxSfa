@@ -22,6 +22,7 @@ import com.erp.distribution.sfa.R
 import com.erp.distribution.sfa.databinding.FragmentAddEditSalesorderBinding
 import com.erp.distribution.sfa.domain.model.FCustomer
 import com.erp.distribution.sfa.domain.model.FtSalesdItems
+import com.erp.distribution.sfa.presentation.ui.salesorder.salesorder_list.FSaleshViewModel
 import com.erp.distribution.sfa.utils.exhaustive
 import com.google.android.material.snackbar.Snackbar
 import dagger.hilt.android.AndroidEntryPoint
@@ -160,8 +161,15 @@ class AddEditFtSaleshFragment : Fragment(R.layout.fragment_add_edit_salesorder),
         viewLifecycleOwner.lifecycleScope.launchWhenStarted {
             viewModel.addEditFtSaleshEvent.collect { event ->
                 when (event) {
+
                     is AddEditFtSaleshViewModel.AddEditCustomerOrderEvent.ShowInvalidInputMessage -> {
                         Snackbar.make(requireView(), event.msg, Snackbar.LENGTH_LONG).show()
+                    }
+                    is AddEditFtSaleshViewModel.AddEditCustomerOrderEvent.ShowUndoDeleteFtSaleshMessage -> {
+                        Snackbar.make(requireView(), "Item deleted", Snackbar.LENGTH_LONG)
+                                .setAction("UNDO") {
+                                    viewModel.onUndoDeleteClick(event.ftSalesdItems)
+                                }.show()
                     }
 
                     is AddEditFtSaleshViewModel.AddEditCustomerOrderEvent.NavigateToSelectCustomerScreen -> {
