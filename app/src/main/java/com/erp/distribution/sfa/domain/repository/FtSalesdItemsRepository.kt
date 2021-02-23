@@ -20,9 +20,9 @@ interface FtSalesdItemsRepository {
 
     fun getCacheAllFtSalesdItems(): LiveData<List<FtSalesdItemsEntity>>
 
-    fun getCacheListFtSalesdItemsByFtSaleshAndMaterialFlow(ftSalesBean: Long, fmaterialBean: Int): LiveData<List<FtSalesdWithFMaterial>>
-    fun getCacheListFtSalesdItemsFtSaleshFlow(ftSalesBean: Long): LiveData<List<FtSalesdWithFMaterial>>
-    fun getCacheListFtSalesdItemsByFtSalesdItemsByFMaterialFlow(fmaterialBean: Int): LiveData<List<FtSalesdWithFMaterial>>
+    fun getCacheListFtSalesdItemsByFtSaleshAndMaterialLive(ftSalesBean: Long, fmaterialBean: Int): LiveData<List<FtSalesdWithFMaterial>>
+    fun getCacheListFtSalesdItemsFtSaleshLive(ftSalesBean: Long): LiveData<List<FtSalesdWithFMaterial>>
+    fun getCacheListFtSalesdItemsByFtSalesdItemsByFMaterialLive(fmaterialBean: Int): LiveData<List<FtSalesdWithFMaterial>>
 
     fun getCacheAllFtSalesdItemsByParent(parentId: Long): LiveData<List<FtSalesdItemsEntity>>
     fun getCacheFtSalesdItemsById(id: Long): LiveData<FtSalesdItemsEntity>

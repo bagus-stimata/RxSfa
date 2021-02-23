@@ -9,8 +9,6 @@ import com.erp.distribution.sfa.data.source.entity.FtSaleshEntity
 import com.erp.distribution.sfa.data.source.entity.toDomain
 import com.erp.distribution.sfa.domain.model.FtSalesdItems
 import io.reactivex.rxjava3.core.Single
-import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.map
 import javax.inject.Inject
 
 
@@ -51,8 +49,8 @@ class GetFtSalesdItemsUseCase @Inject constructor(private val repository: FtSale
     }
 
 
-    fun getCacheListFtSalesdItemsByFtSaleshAndFMaterialFlow(ftSalesBean: Long, fmaterialBean: Int): LiveData<List<FtSalesdItems>> {
-        return repository.getCacheListFtSalesdItemsByFtSaleshAndMaterialFlow(ftSalesBean, fmaterialBean).map {
+    fun getCacheListFtSalesdItemsByFtSaleshAndFMaterialLive(ftSalesBean: Long, fmaterialBean: Int): LiveData<List<FtSalesdItems>> {
+        return repository.getCacheListFtSalesdItemsByFtSaleshAndMaterialLive(ftSalesBean, fmaterialBean).map {
             it.map {
                 val ftSalesdItemsBean = it.ftSalesdItemsEntity.toDomain()
                 it.fMaterialEntity?.let {
@@ -62,8 +60,8 @@ class GetFtSalesdItemsUseCase @Inject constructor(private val repository: FtSale
             }
         }
     }
-    fun getCacheListFtSalesdItemsByFtSaleshFlow(ftSalesBean: Long): LiveData<List<FtSalesdItems>> {
-        return repository.getCacheListFtSalesdItemsFtSaleshFlow(ftSalesBean).map {
+    fun getCacheListFtSalesdItemsByFtSaleshLive(ftSalesBean: Long): LiveData<List<FtSalesdItems>> {
+        return repository.getCacheListFtSalesdItemsFtSaleshLive(ftSalesBean).map {
             it.map {
                 val ftSalesdItemsBean = it.ftSalesdItemsEntity.toDomain()
                 it.fMaterialEntity?.let {
@@ -73,8 +71,8 @@ class GetFtSalesdItemsUseCase @Inject constructor(private val repository: FtSale
             }
         }
     }
-    fun getCacheListFtSalesdItemsByFMaterialFlow(fmaterialBean: Int): LiveData<List<FtSalesdItems>> {
-        return repository.getCacheListFtSalesdItemsByFtSalesdItemsByFMaterialFlow(fmaterialBean).map {
+    fun getCacheListFtSalesdItemsByFMaterialLive(fmaterialBean: Int): LiveData<List<FtSalesdItems>> {
+        return repository.getCacheListFtSalesdItemsByFtSalesdItemsByFMaterialLive(fmaterialBean).map {
             it.map {
                 val ftSalesdItemsBean = it.ftSalesdItemsEntity.toDomain()
                 it.fMaterialEntity?.let {

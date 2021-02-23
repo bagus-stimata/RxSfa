@@ -1,27 +1,20 @@
 package com.erp.distribution.sfa.presentation.ui.salesorder.salesorder_addedit
 
 import android.util.Log
-import androidx.hilt.Assisted
 import androidx.hilt.lifecycle.ViewModelInject
 import androidx.lifecycle.*
-import com.erp.distribution.sfa.data.source.entity.FtSaleshEntity
-import com.erp.distribution.sfa.data.source.entity.toDomain
 import com.erp.distribution.sfa.domain.model.FCustomer
 import com.erp.distribution.sfa.domain.model.FtSalesdItems
 import com.erp.distribution.sfa.domain.model.FtSalesh
 import com.erp.distribution.sfa.domain.model.toEntity
-import com.erp.distribution.sfa.domain.usecase.GetFCustomerGroupUseCase
-import com.erp.distribution.sfa.domain.usecase.GetFCustomerUseCase
 import com.erp.distribution.sfa.domain.usecase.GetFtSalesdItemsUseCase
 import com.erp.distribution.sfa.domain.usecase.GetFtSaleshUseCase
 import com.erp.distribution.sfa.presentation.model.UserViewState
-import com.erp.distribution.sfa.presentation.ui.salesorder.EDIT_TASK_RESULT_OK
 import com.erp.distribution.sfa.utils.DisposableManager
 import io.reactivex.rxjava3.core.Observable
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
 import io.reactivex.rxjava3.schedulers.Schedulers
 import kotlinx.coroutines.channels.Channel
-import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.receiveAsFlow
 import kotlinx.coroutines.launch
 
@@ -53,7 +46,7 @@ class AddEditFtSaleshViewModel @ViewModelInject constructor(
 //    }
 
     fun getCacheFtSalesdItemsByParentLive(ftSaleshRefno: Long): LiveData<List<FtSalesdItems>> {
-        var resultLiveData: LiveData<List<FtSalesdItems>>  = getFtSalesdItemsUseCase.getCacheListFtSalesdItemsByFtSaleshFlow(ftSaleshRefno)
+        var resultLiveData: LiveData<List<FtSalesdItems>>  = getFtSalesdItemsUseCase.getCacheListFtSalesdItemsByFtSaleshLive(ftSaleshRefno)
         return resultLiveData
     }
 

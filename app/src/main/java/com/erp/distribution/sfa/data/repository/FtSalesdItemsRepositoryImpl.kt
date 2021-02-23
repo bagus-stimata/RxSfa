@@ -6,9 +6,7 @@ import com.erp.distribution.sfa.data.source.local.database.AppDatabase
 import com.erp.distribution.sfa.domain.repository.FtSalesdItemsRepository
 import com.erp.distribution.sfa.data.source.entity.FtSalesdItemsEntity
 import com.erp.distribution.sfa.data.source.entity.FtSalesdWithFMaterial
-import com.erp.distribution.sfa.data.source.entity.FtSaleshEntity
 import io.reactivex.rxjava3.core.Single
-import kotlinx.coroutines.flow.Flow
 
 
 /**
@@ -54,15 +52,15 @@ class FtSalesdItemsRepositoryImpl(
 
 
 
-    override fun getCacheListFtSalesdItemsByFtSaleshAndMaterialFlow(ftSalesBean: Long, fmaterialBean: Int): LiveData<List<FtSalesdWithFMaterial>> {
-        return appDatabase.salesdItemsDao.getAllByFtSaleshAndMaterialFlow(ftSalesBean, fmaterialBean)
+    override fun getCacheListFtSalesdItemsByFtSaleshAndMaterialLive(ftSalesBean: Long, fmaterialBean: Int): LiveData<List<FtSalesdWithFMaterial>> {
+        return appDatabase.salesdItemsDao.getAllByFtSaleshAndMaterialLive(ftSalesBean, fmaterialBean)
     }
 
-    override fun getCacheListFtSalesdItemsFtSaleshFlow(ftSalesBean: Long): LiveData<List<FtSalesdWithFMaterial>> {
-        return appDatabase.salesdItemsDao.getAllFtSalesdItemsByFtSaleshFlow(ftSalesBean)
+    override fun getCacheListFtSalesdItemsFtSaleshLive(ftSalesBean: Long): LiveData<List<FtSalesdWithFMaterial>> {
+        return appDatabase.salesdItemsDao.getAllFtSalesdItemsByFtSaleshLive(ftSalesBean)
     }
-    override fun getCacheListFtSalesdItemsByFtSalesdItemsByFMaterialFlow(fmaterialBean: Int): LiveData<List<FtSalesdWithFMaterial>> {
-        return appDatabase.salesdItemsDao.getAllFtSalesdItemsByFMaterialFlow(fmaterialBean)
+    override fun getCacheListFtSalesdItemsByFtSalesdItemsByFMaterialLive(fmaterialBean: Int): LiveData<List<FtSalesdWithFMaterial>> {
+        return appDatabase.salesdItemsDao.getAllFtSalesdItemsByFMaterialLive(fmaterialBean)
     }
 
 

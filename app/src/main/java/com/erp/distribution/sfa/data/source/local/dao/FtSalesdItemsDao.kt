@@ -45,12 +45,12 @@ interface FtSalesdItemsDao {
      * FMaterial pada Items boleh lebih dari satu
      */
     @Query("SELECT * FROM ftSalesdItems WHERE ftSaleshBean = :ftSalesBean AND  fmaterialBean = :fmaterialBean ")
-    fun getAllByFtSaleshAndMaterialFlow(ftSalesBean: Long, fmaterialBean: Int): LiveData<List<FtSalesdWithFMaterial>>
+    fun getAllByFtSaleshAndMaterialLive(ftSalesBean: Long, fmaterialBean: Int): LiveData<List<FtSalesdWithFMaterial>>
 
     @Query("SELECT * FROM ftSalesdItems WHERE  ftSaleshBean = :ftSalesBean ")
-    fun getAllFtSalesdItemsByFtSaleshFlow(ftSalesBean: Long): LiveData<List<FtSalesdWithFMaterial>>
+    fun getAllFtSalesdItemsByFtSaleshLive(ftSalesBean: Long): LiveData<List<FtSalesdWithFMaterial>>
     @Query("SELECT * FROM ftSalesdItems WHERE fmaterialBean = :materialId ")
-    fun getAllFtSalesdItemsByFMaterialFlow(materialId: Int): LiveData<List<FtSalesdWithFMaterial>>
+    fun getAllFtSalesdItemsByFMaterialLive(materialId: Int): LiveData<List<FtSalesdWithFMaterial>>
 
 
 
@@ -76,7 +76,5 @@ interface FtSalesdItemsDao {
 
     @Query("SELECT * FROM ftSalesdItems WHERE ftSaleshBean = :ftSaleshBean AND  fmaterialBean = :fmaterialBean ")
     fun getAllByFtSaleshAndMaterial(ftSaleshBean: Long, fmaterialBean: Int): List<FtSalesdItemsEntity>
-    @Query("SELECT * FROM ftSalesdItems WHERE ftSaleshBean = :ftSaleshBean AND  fmaterialBean = :fmaterialBean ")
-    fun getAllByFtSaleshAndMaterialLive(ftSaleshBean: Long, fmaterialBean: Int): LiveData<List<FtSalesdItemsEntity>>
 
 }
