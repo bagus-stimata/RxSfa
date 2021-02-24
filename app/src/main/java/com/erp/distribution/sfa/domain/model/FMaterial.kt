@@ -58,8 +58,7 @@ data class FMaterial  (
     //	private FTax ftaxBean;
     var ftaxBean : Int? =0,
 
-//    @Ignore
-    var isTaxable : Boolean =false,
+    var isTaxable : Boolean =true,
 
     /*
     * Adalah Vendor Utama Produk Tersebut

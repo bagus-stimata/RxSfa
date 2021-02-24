@@ -126,13 +126,6 @@ class SyncViewModel @ViewModelInject constructor(
 
 
 
-
-
-    fun getFAreaFromRepoAndSaveToCacheB(fUserEntity: FUserEntity, fDivisionEntity: FDivisionEntity): Single<List<FAreaEntity>>  {
-        return getFAreaUseCase
-                .getRemoteAllFAreaByDivisionAndShareToCompany(SecurityUtil.getAuthHeader(fUserEntity.username, fUserEntity.passwordConfirm), fDivisionEntity.id, fDivisionEntity.fcompanyBean)
-    }
-
     fun getFAreaFromRepoAndSaveToCache(fUserEntity: FUserEntity, fDivisionEntity: FDivisionEntity) {
         val disposable = getFAreaUseCase
                 .getRemoteAllFAreaByDivisionAndShareToCompany(SecurityUtil.getAuthHeader(fUserEntity.username, fUserEntity.passwordConfirm), fDivisionEntity.id, fDivisionEntity.fcompanyBean)
@@ -264,11 +257,11 @@ class SyncViewModel @ViewModelInject constructor(
                 .subscribeOn(Schedulers.io())
                 .subscribe(
                         {
-                            Log.d(TAG, "#RESULT >>> ${it}  \n")
+//                            Log.d(TAG, "#RESULT >>> ${it}  \n")
 
                         },
                         {
-                            Log.d(TAG, "#RESULT ERROR >>> ${fMaterialGroup2Entity.id} ${fMaterialGroup2Entity.description} ${it.message} \n")
+//                            Log.d(TAG, "#RESULT ERROR >>> ${fMaterialGroup2Entity.id} ${fMaterialGroup2Entity.description} ${it.message} \n")
                             progresPersenLive.postValue(2)
 
                         } ,
@@ -286,7 +279,13 @@ class SyncViewModel @ViewModelInject constructor(
                 .toObservable()
                 .observeOn(AndroidSchedulers.mainThread())
                 .doOnNext{
-                    insertCacheFCustomer(it)
+                    insertCacheFCustomer(it.map {
+                        /**
+                         * Entah kenapa Kolom isStatusSctive tidak bisa ditarik dari Server
+                         */
+                        it.isStatusActive =true
+                        it
+                    })
                 }
                 .subscribe(
                         {
@@ -301,10 +300,19 @@ class SyncViewModel @ViewModelInject constructor(
                 .toObservable()
                 .observeOn(AndroidSchedulers.mainThread())
                 .doOnNext{
-                    insertCacheFMaterial(it)
+                    insertCacheFMaterial(it.map {
+                        /**
+                         * Entah kenapa Kolom isStatusSctive tidak bisa ditarik dari Server
+                         */
+                        it.isStatusActive =true
+                        it
+                    })
                 }
                 .subscribe(
                         {
+
+                            Log.e(TAG, "#result ${it}")
+
                             progresPersen += 35
                             progresPersenLive.postValue(progresPersen)
                         },{},{}

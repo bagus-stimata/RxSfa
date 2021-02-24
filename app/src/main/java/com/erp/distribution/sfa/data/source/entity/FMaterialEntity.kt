@@ -50,7 +50,7 @@ data class FMaterialEntity  (
 
 //    @Ignore
 //    var shortname : String? ="",
-    var isStatusActive : Boolean =false,
+    var isStatusActive : Boolean? =false,
 
     /*
     * KLASIFIKASI: BASIC
@@ -83,8 +83,7 @@ data class FMaterialEntity  (
     //	private FTax ftaxBean;
     var ftaxBean : Int? =0,
 
-//    @Ignore
-    var isTaxable : Boolean? =false,
+    var isTaxable : Boolean? =true, //Karena Default adalah True
 
     /*
     * Adalah Vendor Utama Produk Tersebut
@@ -227,7 +226,7 @@ internal fun FMaterialEntity.toDomain(): FMaterial {
         spriceAfterPpn = spriceAfterPpn,
         sprice2AfterPpn = sprice2AfterPpn,
 
-        isStatusActive = isStatusActive,
+        isStatusActive = isStatusActive!!,
         stared = stared,
         selected = selected,
         unread = unread,
@@ -235,6 +234,7 @@ internal fun FMaterialEntity.toDomain(): FMaterial {
         fmaterialGroup3Bean = FMaterialGroup3(fmaterialSalesBrandBean!!),
         fmaterialSalesBrandBean = fmaterialSalesBrandBean!!,
         ftaxBean = ftaxBean?.let { it!! },
+        isTaxable = isTaxable!!,
         fvendorBean = FVendor(fvendorBean),
         fdivisionBean = FDivision(fdivisionBean!!),
 

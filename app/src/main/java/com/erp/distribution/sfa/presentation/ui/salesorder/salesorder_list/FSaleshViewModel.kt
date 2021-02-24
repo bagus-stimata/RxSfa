@@ -28,6 +28,7 @@ import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.flatMapLatest
 import kotlinx.coroutines.flow.receiveAsFlow
 import kotlinx.coroutines.launch
+import java.time.LocalDateTime
 
 
 class FSaleshViewModel @ViewModelInject constructor(
@@ -179,36 +180,52 @@ class FSaleshViewModel @ViewModelInject constructor(
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribeOn(Schedulers.io())
                 .doOnNext {
-                            for (ftSaleshBean in it){
+                            for (ftSaleshBean in it.filter { it.listFtSalesdItems.size >0 }){
+//                                if (ftSaleshBean.listFtSalesdItems.size > 0 ) {
 
-                                getFtSaleshUseCase
-                                        .createRemoteFtSalesh(SecurityUtil.getAuthHeader(userViewState.fUser!!.username, userViewState.fUser!!.passwordConfirm), ftSaleshBean)
-                                        .toObservable()
-                                        .observeOn(AndroidSchedulers.mainThread())
-                                        .subscribeOn(Schedulers.io())
-                                        .doOnNext {
+                                    ftSaleshBean.orderno = "NewMobile"
+                                    ftSaleshBean.sourceID = System.currentTimeMillis()
+
+                                    getFtSaleshUseCase
+                                            .createRemoteFtSalesh(SecurityUtil.getAuthHeader(userViewState.fUser!!.username, userViewState.fUser!!.passwordConfirm), ftSaleshBean)
+                                            .toObservable()
+                                            .observeOn(AndroidSchedulers.mainThread())
+                                            .subscribeOn(Schedulers.io())
+                                            .doOnNext {
+                                                /**
+                                                 * refno sudah berubah dengan refno dari server
+                                                 */
+                                                
+                                                Log.d(TAG, "#result OnNext:\n ${it.refno} ")
+
+                                                for (ftSalesdItems in ftSaleshBean.listFtSalesdItems) {
+                                                    ftSalesdItems.ftSaleshBean = it!!
+                                                    getFtSalesdItemsUseCase.createRemoteFtSalesdItems(SecurityUtil.getAuthHeader(userViewState.fUser!!.username, userViewState.fUser!!.passwordConfirm), ftSalesdItems)
+                                                            .toObservable()
+                                                            .observeOn(AndroidSchedulers.mainThread())
+                                                            .subscribeOn(Schedulers.io())
+                                                            .subscribe({
+                                                                Log.d(TAG, "#result Items Success ${it}")
+                                                            }, {
+                                                                Log.e(TAG, "#result  Items Error ${it}")
+                                                            }, {})
+                                                }
 
 
-                                            Log.d(TAG, "#result OnNext:\n ${it} ")
+                                            }
+                                            .subscribe({
+                                                /**
+                                                 * Change Status of FtSalesh
+                                                 */
 
+                                                
+                                                Log.d(TAG, "#result OnSubscribe:\n ${it.refno} ")
 
-
-//                                            getFtSalesdItemsUseCase.createRemoteFtSalesdItems(SecurityUtil.getAuthHeader(userViewState.fUser!!.username, userViewState.fUser!!.passwordConfirm), data)
-//                                                    .toObservable()
-//                                                    .observeOn(AndroidSchedulers.mainThread())
-//                                                    .subscribeOn(Schedulers.io())
-//                                                    .subscribe {  }
-
-
-                                        }
-                                        .subscribe({
-                                            Log.d(TAG, "#result OnSubscribe:\n ${it} ")
-
-                                        },{
-                                            Log.e(TAG, "#result Error OnSubscribe:\n ${it} ")
-                                        },{})
-
-                            }
+                                            }, {
+                                                Log.e(TAG, "#result Error OnSubscribe:\n ${it} ")
+                                            }, {})
+//                                }
+                            }//endfor
                 }
                 .subscribe({}, {
                     Log.e(TAG, "#result Error subscribe:\n ${it} ")

@@ -23,24 +23,36 @@ class GetFtSalesdItemsUseCase @Inject constructor(private val repository: FtSale
     override fun buildUseCaseSingle(): Single<List<FtSalesdItemsEntity>> {
         return repository.getRemoteAllFtSalesdItems("authHeader")
     }
-    fun getRemoteAllFtSalesdItems(authHeader: String): Single<List<FtSalesdItemsEntity>>{
-        return repository.getRemoteAllFtSalesdItems(authHeader)
+    fun getRemoteAllFtSalesdItems(authHeader: String): Single<List<FtSalesdItems>>{
+        return repository.getRemoteAllFtSalesdItems(authHeader).map {
+            it.map {
+                it.toDomain()
+            }
+        }
     }
 
-    fun getRemoteFtSalesdItemsById(authHeader: String, id: Long): Single<FtSalesdItemsEntity>{
-        return repository.getRemoteFtSalesdItemsById(authHeader, id)
+    fun getRemoteFtSalesdItemsById(authHeader: String, id: Long): Single<FtSalesdItems>{
+        return repository.getRemoteFtSalesdItemsById(authHeader, id).map {
+            it.toDomain()
+        }
     }
 //    fun getRemoteAllFtSalesdItemsByDivision(authHeader: String, divisionId: Int): Single<List<FtSalesdItems>>{
 //        return repository.getRemoteAllFtSalesdItemsByDivision(authHeader, divisionId)
 //    }
-    fun createRemoteFtSalesdItems(authHeader: String, ftSaleshEntity: FtSalesdItemsEntity): Single<FtSalesdItemsEntity>{
-        return repository.createRemoteFtSalesdItems(authHeader, ftSaleshEntity)
+    fun createRemoteFtSalesdItems(authHeader: String, ftSalesdItems: FtSalesdItems): Single<FtSalesdItems>{
+        return repository.createRemoteFtSalesdItems(authHeader, ftSalesdItems.toEntity()).map {
+            it.toDomain()
+        }
     }
-    fun putRemoteFtSalesdItems(authHeader: String, id: Long, ftSaleshEntity: FtSalesdItemsEntity): Single<FtSalesdItemsEntity>{
-        return repository.putRemoteFtSalesdItems(authHeader, id, ftSaleshEntity)
+    fun putRemoteFtSalesdItems(authHeader: String, id: Long, ftSalesdItems: FtSalesdItems): Single<FtSalesdItems>{
+        return repository.putRemoteFtSalesdItems(authHeader, id, ftSalesdItems.toEntity()).map {
+            it.toDomain()
+        }
     }
-    fun deleteRemoteFtSalesdItems(authHeader: String, id: Long): Single<FtSalesdItemsEntity>{
-        return repository.deleteRemoteFtSalesdItems(authHeader, id)
+    fun deleteRemoteFtSalesdItems(authHeader: String, id: Long): Single<FtSalesdItems>{
+        return repository.deleteRemoteFtSalesdItems(authHeader, id).map {
+            it.toDomain()
+        }
     }
 
 
