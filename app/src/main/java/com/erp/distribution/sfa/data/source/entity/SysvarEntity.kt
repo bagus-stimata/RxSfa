@@ -20,7 +20,7 @@ class SysvarEntity  {
     * 1. Clone Database. karena tidak mungkin menggunakan Kode External yang bisa jadi kemungkinan kembar, tapi harus pakai kode internal
     * 2. 
     */
-    var sourceID = ""
+    var sourceId = ""
     var nomorUrut = 0
     var isVisible = true
     var groupSysvar = ""

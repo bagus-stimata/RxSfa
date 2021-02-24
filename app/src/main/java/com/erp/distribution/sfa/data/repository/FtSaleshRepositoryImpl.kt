@@ -35,6 +35,9 @@ class FtSaleshRepositoryImpl(
     override fun createRemoteFtSalesh(authHeader: String, ftSaleshEntity: FtSaleshEntity): Single<FtSaleshEntity> {
         return retrofitService.createRemoteFtSalesh(authHeader, ftSaleshEntity)
     }
+    override fun createRemoteFtSaleshFromAndroid(authHeader: String, ftSaleshEntity: FtSaleshEntity): Single<FtSaleshEntity> {
+        return retrofitService.createRemoteFtSaleshFromAndroid(authHeader, ftSaleshEntity)
+    }
 
     override fun putRemoteFtSalesh(authHeader: String, id: Long, ftSaleshEntity: FtSaleshEntity): Single<FtSaleshEntity> {
         return retrofitService.putRemoteFtSalesh(authHeader, id, ftSaleshEntity)

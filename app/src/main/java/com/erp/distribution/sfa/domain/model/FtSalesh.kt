@@ -24,7 +24,7 @@ data class FtSalesh  (
     * 1. Clone Database. karena tidak mungkin menggunakan Kode External yang bisa jadi kemungkinan kembar, tapi harus pakai kode internal
     * 2. 
     */
-    var sourceID: Long =0,
+    var sourceId: Long =0,
 
     //ORDERNO=SO
         var orderno : String ="",
@@ -304,8 +304,9 @@ data class FtSalesh  (
 
 //    @Ignore
 //    var isSelected : Boolean =false,
+
         var stared: Boolean? = false,
-        var unread: Boolean? = false,
+        var unread: Boolean? = true, //inget ini un read
         var selected: Boolean? = false,
 
     /*
@@ -332,7 +333,7 @@ data class FtSalesh  (
 internal fun FtSalesh.toEntity(): FtSaleshEntity {
     return FtSaleshEntity(
         refno = refno,
-        sourceID = sourceID,
+        sourceId = sourceId,
         orderno = orderno,
         isValidOrder = isValidOrder,
         invoiceno = invoiceno,

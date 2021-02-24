@@ -23,7 +23,7 @@ data class FMaterial  (
     * 2. 
     */
 //    @Ignore
-//    var sourceID : Int =0,
+    var sourceId : Int =0,
 
 //    @Ignore
 //    var noUrut : Int =0,
@@ -168,7 +168,7 @@ data class FMaterial  (
     var caseWeight : Int =0,
 
     var stared: Boolean? = false,
-    var unread: Boolean? = false,
+    var unread: Boolean? = true,
     var selected: Boolean? = false,
 
 
@@ -191,6 +191,7 @@ data class FMaterial  (
 internal fun FMaterial.toEntity(): FMaterialEntity {
     return FMaterialEntity(
             id = id,
+
             pcode = pcode,
             pname = pname,
             uom1 = uom1,

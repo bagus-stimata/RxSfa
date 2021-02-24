@@ -125,26 +125,7 @@ class AddEditFtSaleshFragment : Fragment(R.layout.fragment_add_edit_salesorder),
          */
 
         binding.ftSalesh = viewModel.ftSalesh
-//        viewModel.getCacheFtSaleshByIdLive(viewModel.ftSaleshRefnoLive).observe(viewLifecycleOwner, Observer {
-//            it?.let {
-////                    val tempTotal = viewModel.ftSalesh.amountAfterDiscPlusRpAfterPpn_FG
-//                viewModel.ftSalesh = it
-////                    viewModel.ftSalesh.amountAfterDiscPlusRpAfterPpn_FG = tempTotal
-//
-//                var totalNota = 0.0
-//
-//                for ((key, data) in viewModel.mutableMapFtSalesdItems){
-//                    if(data.fmaterialBean.convfact1>0) {
-//                        var totalPrice = (data.qty * data.sprice) / data.fmaterialBean.convfact1 * 1.1
-//                        totalNota += totalPrice
-//                        viewModel.ftSalesh = viewModel.ftSalesh.copy(amountAfterDiscPlusRpAfterPpn_FG = totalNota)
-//                    }
-//                }
-//                binding.ftSalesh = viewModel.ftSalesh
-//
-//            }
-//
-//        })
+
 
         viewModel.ftSaleshRefnoLive.observe(viewLifecycleOwner, Observer {
 

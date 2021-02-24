@@ -91,21 +91,25 @@ class FSaleshViewModel @ViewModelInject constructor(
     }
 
     fun onItemCheckedChanged(ftSalesh: FtSalesh, isChecked: Boolean) = viewModelScope.launch {
+        updateCacheFtSalesh(ftSalesh.copy(selected = isChecked))
+    }
+
+    fun updateCacheFtSalesh(ftSalesh: FtSalesh) = viewModelScope.launch {
         DisposableManager.add(Observable.fromCallable {
-            getFtSaleshUseCase.putCacheFtSaleshDomain(ftSalesh.copy(selected = isChecked))
+            getFtSaleshUseCase.putCacheFtSalesh(ftSalesh)
         }
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(
                         {
+//                            Log.e(TAG, "#result Success Update ")
                         },
                         {
+//                            Log.e(TAG, "#result Error Update ${it}")
                         }, {}
                 )
         )
-
     }
-
 
     fun onItemSelected(ftSalesh: FtSalesh) = viewModelScope.launch {
         userViewState?.let {
@@ -184,10 +188,13 @@ class FSaleshViewModel @ViewModelInject constructor(
 //                                if (ftSaleshBean.listFtSalesdItems.size > 0 ) {
 
                                     ftSaleshBean.orderno = "NewMobile"
-                                    ftSaleshBean.sourceID = System.currentTimeMillis()
+                                    ftSaleshBean.sourceId = System.currentTimeMillis()
 
+                                /**
+                                 * Ingat createRemoteFtSaleshFromAndroid Android lho ya
+                                 */
                                     getFtSaleshUseCase
-                                            .createRemoteFtSalesh(SecurityUtil.getAuthHeader(userViewState.fUser!!.username, userViewState.fUser!!.passwordConfirm), ftSaleshBean)
+                                            .createRemoteFtSaleshFromAndroid(SecurityUtil.getAuthHeader(userViewState.fUser!!.username, userViewState.fUser!!.passwordConfirm), ftSaleshBean)
                                             .toObservable()
                                             .observeOn(AndroidSchedulers.mainThread())
                                             .subscribeOn(Schedulers.io())
@@ -195,8 +202,10 @@ class FSaleshViewModel @ViewModelInject constructor(
                                                 /**
                                                  * refno sudah berubah dengan refno dari server
                                                  */
+                                                ftSaleshBean.stared = true
+                                                updateCacheFtSalesh(ftSaleshBean.copy(stared=true))
 
-                                                Log.d(TAG, "#result OnNext:\n ${it.refno} ")
+//                                                Log.d(TAG, "#result OnNext:\n ${it.refno} ")
 
                                                 for (ftSalesdItems in ftSaleshBean.listFtSalesdItems) {
                                                     ftSalesdItems.ftSaleshBean = it!!
@@ -205,9 +214,9 @@ class FSaleshViewModel @ViewModelInject constructor(
                                                             .observeOn(AndroidSchedulers.mainThread())
                                                             .subscribeOn(Schedulers.io())
                                                             .subscribe({
-                                                                Log.d(TAG, "#result Items Success ${it}")
+//                                                                Log.d(TAG, "#result Items Success ${it}")
                                                             }, {
-                                                                Log.e(TAG, "#result  Items Error ${it}")
+//                                                                Log.e(TAG, "#result  Items Error ${it}")
                                                             }, {})
                                                 }
 
@@ -219,16 +228,16 @@ class FSaleshViewModel @ViewModelInject constructor(
                                                  */
 
                                                 
-                                                Log.d(TAG, "#result OnSubscribe:\n ${it.refno} ")
+//                                                Log.d(TAG, "#result OnSubscribe:\n ${it.refno} ")
 
                                             }, {
-                                                Log.e(TAG, "#result Error OnSubscribe:\n ${it} ")
+//                                                Log.e(TAG, "#result Error OnSubscribe:\n ${it} ")
                                             }, {})
 //                                }
                             }//endfor
                 }
                 .subscribe({}, {
-                    Log.e(TAG, "#result Error subscribe:\n ${it} ")
+//                    Log.e(TAG, "#result Error subscribe:\n ${it} ")
                 }, {})
 
 

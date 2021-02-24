@@ -15,7 +15,7 @@ class FVendor (
     * 1. Clone Database. karena tidak mungkin menggunakan Kode External yang bisa jadi kemungkinan kembar, tapi harus pakai kode internal
     * 2. 
     */
-    val sourceID :Int = 0,
+    val sourceId :Int = 0,
 
 //    val fdivisionBean : FDivisionEntity? = FDivisionEntity(),
     val fdivisionBean : FDivision = FDivision(),

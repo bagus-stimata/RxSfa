@@ -20,7 +20,7 @@ data class FMaterialGroup1Entity (
     * 1. Clone Database. karena tidak mungkin menggunakan Kode External yang bisa jadi kemungkinan kembar, tapi harus pakai kode internal
     * 2. 
     */
-    var sourceID: Int = 0,
+    var sourceId: Int = 0,
     var kode1: String = "",
     var kode2: String = "",
     var description: String = "",
@@ -37,7 +37,7 @@ data class FMaterialGroup1Entity (
 internal fun FMaterialGroup1Entity.toDomain(): FMaterialGroup1{
     return FMaterialGroup1(
             id = id,
-            sourceID = sourceID,
+            sourceId = sourceId,
             kode1 = kode1,
 
             description = description,

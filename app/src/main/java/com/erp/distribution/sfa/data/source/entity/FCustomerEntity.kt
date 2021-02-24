@@ -28,7 +28,7 @@ data class FCustomerEntity(
     * 1. Clone Database. karena tidak mungkin menggunakan Kode External yang bisa jadi kemungkinan kembar, tapi harus pakai kode internal
     * 2. 
     */
-    var sourceID: Int? =0,
+    var sourceId: Int? =0,
     var custno: String ="",
     var isOutletActive: Boolean =false,
     var oldKode1: String? ="",
@@ -153,7 +153,7 @@ data class FCustomerEntity(
     var isExclusiveSalesman: Boolean? =false,
 
     var stared: Boolean? = false,
-    var unread: Boolean? = false,
+    var unread: Boolean? = true,
     var selected: Boolean? = false,
 
 //    @Ignore
@@ -180,7 +180,7 @@ data class FCustomerEntity(
 internal fun FCustomerEntity.toDomain(): FCustomer {
     return FCustomer(
         id = id,
-        sourceID = sourceID!!,
+        sourceId = sourceId!!,
         custno = custno,
         isOutletActive = isOutletActive,
         oldKode1 = oldKode1!!,

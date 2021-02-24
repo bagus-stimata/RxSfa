@@ -47,6 +47,12 @@ class GetFtSaleshUseCase @Inject constructor(
             it?.let {  it.toDomain()}
         }
     }
+    fun createRemoteFtSaleshFromAndroid(authHeader: String, ftSalesh: FtSalesh): Single<FtSalesh>{
+        return repository.createRemoteFtSaleshFromAndroid(authHeader, ftSalesh.toEntity()).map {
+            it?.let {  it.toDomain()}
+        }
+    }
+
     fun putRemoteFtSalesh(authHeader: String, id: Long, ftSalesh: FtSalesh): Single<FtSalesh>{
         return repository.putRemoteFtSalesh(authHeader, id, ftSalesh.toEntity()).map {
             it?.let {  it.toDomain()}
@@ -215,10 +221,7 @@ class GetFtSaleshUseCase @Inject constructor(
             it.toEntity()
         })
     }
-    fun putCacheFtSalesh(ftSaleshEntity: FtSaleshEntity){
-        repository.putCacheFtSalesh(ftSaleshEntity)
-    }
-    fun putCacheFtSaleshDomain(ftSalesh: FtSalesh){
+    fun putCacheFtSalesh(ftSalesh: FtSalesh){
         repository.putCacheFtSalesh(ftSalesh.toEntity())
     }
     fun deleteCacheFtSalesh(ftSaleshEntity: FtSaleshEntity){

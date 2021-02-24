@@ -115,7 +115,17 @@ class FtSaleshAdapter(private val listener: OnItemClickListener) :
 
                 txtDate.text = sdf.format(item.modified)
 
-                imgStar.setColorFilter(Color.GRAY)
+                /**
+                 * Star -> Sudah Di Upload
+                 */
+                if (item.stared==true && item.unread==false){
+                    imgStar.setColorFilter(Color.BLUE)
+                }else if (item.stared==true){
+                    imgStar.setColorFilter(Color.GREEN)
+                }else {
+                    imgStar.setColorFilter(Color.GRAY)
+                }
+
             }
 
 

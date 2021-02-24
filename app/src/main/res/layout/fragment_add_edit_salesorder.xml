@@ -368,6 +368,7 @@
             app:srcCompat="@drawable/ic_baseline_person_add_24"
             app:layout_anchor="@id/detail_app_bar_layout"
             android:onClick="@{ () -> actionFragment.chooseAndEditCustomer() }"
+            android:visibility="@{ ftSalesh.amountAfterDiscPlusRpAfterPpn_FG >0? View.GONE: View.VISIBLE }"
             app:layout_anchorGravity="bottom|end"/>
 
         <com.google.android.material.floatingactionbutton.FloatingActionButton

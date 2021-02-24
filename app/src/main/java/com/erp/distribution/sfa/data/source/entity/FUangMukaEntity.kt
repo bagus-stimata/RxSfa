@@ -19,7 +19,7 @@ class FUangMukaEntity : Serializable {
     * 1. Clone Database. karena tidak mungkin menggunakan Kode External yang bisa jadi kemungkinan kembar, tapi harus pakai kode internal
     * 2. xxxx
     */
-    var sourceID = 0
+    var sourceId = 0
     var noRek = ""
     var trDate = Date()
 

@@ -140,7 +140,7 @@ class AddEditFtSaleshViewModel @ViewModelInject constructor(
     public fun updateFtSalesh(ftSalesh: FtSalesh) = viewModelScope.launch {
 
         DisposableManager.add(Observable.fromCallable {
-            getFtSaleshUseCase.putCacheFtSalesh(ftSalesh.toEntity())
+            getFtSaleshUseCase.putCacheFtSalesh(ftSalesh)
         }
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())

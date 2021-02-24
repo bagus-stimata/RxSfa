@@ -24,7 +24,7 @@ class FVendorEntity (
     * 1. Clone Database. karena tidak mungkin menggunakan Kode External yang bisa jadi kemungkinan kembar, tapi harus pakai kode internal
     * 2. 
     */
-    var sourceID :Int = 0,
+    var sourceId :Int = 0,
 
 //    var fdivisionBean : FDivisionEntity? = FDivisionEntity(),
     var fdivisionBean : Int = 0,
@@ -72,7 +72,7 @@ class FVendorEntity (
 internal fun FVendorEntity.toDomain(): FVendor {
     return FVendor(
             id = id,
-            sourceID = sourceID,
+            sourceId = sourceId,
             vcode = vcode,
             vname = vname,
 

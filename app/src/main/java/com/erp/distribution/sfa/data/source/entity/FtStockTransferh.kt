@@ -18,7 +18,7 @@ class FtStockTransferh {
     * 1. Clone Database. karena tidak mungkin menggunakan Kode External yang bisa jadi kemungkinan kembar, tapi harus pakai kode internal
     * 2. 
     */
-    var sourceID: Long = 0
+    var sourceId: Long = 0
     var noRek = ""
     var trDate = Date()
 

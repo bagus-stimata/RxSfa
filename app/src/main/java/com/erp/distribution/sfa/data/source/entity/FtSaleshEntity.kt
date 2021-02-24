@@ -22,7 +22,7 @@ data class FtSaleshEntity  (
     * 1. Clone Database. karena tidak mungkin menggunakan Kode External yang bisa jadi kemungkinan kembar, tapi harus pakai kode internal
     * 2. 
     */
-    val sourceID: Long =0,
+    val sourceId: Long =0,
 
     //ORDERNO=SO
     val orderno : String ="",
@@ -294,7 +294,7 @@ data class FtSaleshEntity  (
 //    @Ignore
 //    val isSelected : Boolean =false,
     val stared: Boolean? = false,
-    val unread: Boolean? = false,
+    val unread: Boolean? = true,
     val selected: Boolean? = false,
 
     /*
@@ -320,7 +320,7 @@ data class FtSaleshEntity  (
 internal fun FtSaleshEntity.toDomain(): FtSalesh {
     return FtSalesh(
         refno = refno,
-        sourceID = sourceID,
+        sourceId = sourceId,
         orderno = orderno,
         isValidOrder = isValidOrder,
         invoiceno = invoiceno,

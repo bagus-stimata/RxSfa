@@ -15,6 +15,7 @@ interface FtSaleshRepository {
     fun getRemoteFtSaleshById(authHeader: String, id: Long): Single<FtSaleshEntity>
     fun getRemoteAllFtSaleshByDivision(authHeader: String, divisionId: Int): Single<List<FtSaleshEntity>>
     fun createRemoteFtSalesh(fauthHeader: String, tSaleshEntity: FtSaleshEntity): Single<FtSaleshEntity>
+    fun createRemoteFtSaleshFromAndroid(fauthHeader: String, tSaleshEntity: FtSaleshEntity): Single<FtSaleshEntity>
     fun putRemoteFtSalesh(authHeader: String, id: Long, ftSaleshEntity: FtSaleshEntity): Single<FtSaleshEntity>
     fun deleteRemoteFtSalesh(authHeader: String, id: Long): Single<FtSaleshEntity>
 

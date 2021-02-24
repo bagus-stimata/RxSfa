@@ -20,6 +20,8 @@ class FCustomerGroup (
     var description: String = "",
     var isStatusActive : Boolean = false,
 
+    var sourceId : Int? = 0,
+
     //	private FDivision fdivisionBean;
 //    var fdivisionBean : Int? = 0,
     var fdivisionBean: FDivision? = FDivision(),

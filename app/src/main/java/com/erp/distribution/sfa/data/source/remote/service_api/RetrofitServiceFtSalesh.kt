@@ -18,6 +18,8 @@ interface RetrofitServiceFtSalesh {
 
     @POST("createFtSalesh")
     fun createRemoteFtSalesh(@Header("Authorization") authHeader: String?, @Body ftSaleshEntityBean: FtSaleshEntity): Single<FtSaleshEntity>
+    @POST("createFtSaleshFromAndroid")
+    fun createRemoteFtSaleshFromAndroid(@Header("Authorization") authHeader: String?, @Body ftSaleshEntityBean: FtSaleshEntity): Single<FtSaleshEntity>
 
     @PUT("updateFtSalesh/{id}")
     fun putRemoteFtSalesh(@Header("Authorization") authHeader: String?, @Path("id") id: Long, @Body ftSaleshEntityBean: FtSaleshEntity): Single<FtSaleshEntity>

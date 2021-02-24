@@ -30,7 +30,7 @@ data class FMaterialEntity  (
     * 2. 
     */
 //    @Ignore
-//    var sourceID : Int? =0,
+    var sourceId : Int? =0,
 
 //    @Ignore
 //    var noUrut : Int? =0,
@@ -189,7 +189,7 @@ data class FMaterialEntity  (
     var caseWeight : Int? =0,
 
     var stared: Boolean? = false,
-    var unread: Boolean? = false,
+    var unread: Boolean? = true,
     var selected: Boolean? = false,
 
 
@@ -208,6 +208,7 @@ data class FMaterialEntity  (
 internal fun FMaterialEntity.toDomain(): FMaterial {
     return FMaterial(
         id = id,
+            sourceId = sourceId!!,
         pcode = pcode,
         pname = pname,
         uom1 = uom1,
