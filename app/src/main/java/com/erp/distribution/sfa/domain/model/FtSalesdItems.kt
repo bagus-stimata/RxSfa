@@ -133,7 +133,7 @@ data class FtSalesdItems (
     var subtotalPpnRp : Double =0.0,
 
 //    @Ignore
-//    var subtotalRpAfterPpn : Double =0.0,
+    var subtotalRpAfterPpn : Double =0.0,
     var disc1 : Double =0.0,
 
 //    @Ignore
@@ -155,7 +155,7 @@ data class FtSalesdItems (
     var disc1RpAfterPpnUom3 : Double =0.0,
 
 //    @Ignore
-//    var disc1RpAfterPpnUom4 : Double =0.0,
+    var disc1RpAfterPpnUom4 : Double =0.0,
     var disc2: Double = 0.0,
 
 //    @Ignore
@@ -177,7 +177,7 @@ data class FtSalesdItems (
     var disc2RpAfterPpnUom3 : Double =0.0,
 
 //    @Ignore
-//    var disc2RpAfterPpnUom4 : Double =0.0,
+    var disc2RpAfterPpnUom4 : Double =0.0,
     var disc3 : Double =0.0,
 
 //    @Ignore
@@ -224,7 +224,7 @@ data class FtSalesdItems (
     var disc1PlusRpAfterPpnUom1 : Double =0.0,
 
 //    @Ignore
-//    var disc1PlusRpAfterPpnUom2 : Double =0.0,
+    var disc1PlusRpAfterPpnUom2 : Double =0.0,
 
 //    @Ignore
     var disc1PlusRpAfterPpnUom3 : Double =0.0,

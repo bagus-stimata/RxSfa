@@ -108,11 +108,11 @@ data class FtSalesh  (
     /*
 	 * AMOUNT: Amount Setelah Disc1, Disc2, Disc3, +Disc1, +Disc2 pada DETIL (Amount Detil Setelah dipotong Diskon) 
 	 */
-    var amountRp : Double =0.0,
+        var amountRp : Double =0.0,
         var amountPpnRp : Double =0.0,
 
         @Ignore
-    var amountRpAfterPpn : Double =0.0,
+        var amountRpAfterPpn : Double =0.0,
 
     /*
     * berhubungan dengan Account -> menjadi apa
@@ -137,53 +137,53 @@ data class FtSalesh  (
         var disc1 : Double =0.0,
 
 //    @Ignore
-//    var disc1Rp : Int =0,
+        var disc1Rp : Double =0.0,
 
 //    @Ignore
-//    var disc1PpnRp : Int =0,
+        var disc1PpnRp : Double =0.0,
 
 //    @Ignore
-//    var disc1RpAfterPpn : Int =0,
+        var disc1RpAfterPpn : Double =0.0,
 
     //###TAMBAHAN
 //    @Ignore
-//    var amountAfterDisc1Rp : Int =0,
+        var amountAfterDisc1Rp : Double =0.0,
 
 //    @Ignore
-//    var amountAfterDisc1PpnRp : Int =0,
+        var amountAfterDisc1PpnRp : Double =0.0,
 
 //    @Ignore
-//    var amountAfterDisc1RpAfterPpn : Int =0,
+        var amountAfterDisc1RpAfterPpn : Double =0.0,
         var disc2 : Double =0.0,
 
 //    @Ignore
-//    var disc2Rp : Int =0,
+        var disc2Rp : Double =0.0,
 
 //    @Ignore
-//    var disc2PpnRp : Int =0,
+        var disc2PpnRp : Double =0.0,
 
 //    @Ignore
-//    var disc2RpAfterPpn : Int =0,
+        var disc2RpAfterPpn : Double =0.0,
 
     //AMOUNT AFTER DISC1 dan DISC2 dan DiscPlus
 //    @Ignore
-//    var amountAfterDisc2Rp : Int =0,
+        var amountAfterDisc2Rp : Double =0.0,
 
 //    @Ignore
-//    var amountAfterDisc2PpnRp : Int =0,
+        var amountAfterDisc2PpnRp : Double =0.0,
 
 //    @Ignore
-//    var amountAfterDisc2RpAfterPpn : Int =0,
+        var amountAfterDisc2RpAfterPpn : Double =0.0,
         var discPlus_FG : Double =0.0,
 
 //    @Ignore
-//    var discPlusRp_FG : Int =0,
+        var discPlusRp_FG : Double =0.0,
 
 //    @Ignore
-//    var discPlusPpnRp_FG : Int =0,
+    var discPlusPpnRp_FG : Double =0.0,
 
 //    @Ignore
-        var discPlusRpAfterPpn_FG : Int =0,
+        var discPlusRpAfterPpn_FG : Double =0.0,
 
     ///Jika yes maka setiap FG yang harganya nol maka akan di hitung akumulasinya, lalu nilainya ditaruh di CashBack
         var isCalcCashBackFg : Boolean =false,
@@ -215,12 +215,12 @@ data class FtSalesh  (
     * F=FAKTUR PENJUALAN STANDART, R= RETURN PENJULAN, FI=PENJUALAN INTERN, 
     * FDN= DEBIT NOTE MANUAL, RCN=RETUR CREDIT NOTE MANUAL
     * */
-    var tipeFaktur: EnumTipeFakturJual = EnumTipeFakturJual.F,
+        var tipeFaktur: EnumTipeFakturJual = EnumTipeFakturJual.F,
 
     /* TIPE JUAL
     * SHOP=SHOPSALE, TO=TAKING ORDER, C=CANVAS, TF=TASK FORCE, D=DENTED, BS=BAD STOCK
     * */
-    var salesType: EnumSalesType = EnumSalesType.TO,
+        var salesType: EnumSalesType = EnumSalesType.TO,
         var printCounter : Int =0,
 
     //ATURAN: update stok dan sumber apakah manual atau tidak
