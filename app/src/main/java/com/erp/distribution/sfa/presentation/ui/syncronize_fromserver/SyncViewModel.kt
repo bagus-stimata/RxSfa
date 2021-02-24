@@ -311,7 +311,7 @@ class SyncViewModel @ViewModelInject constructor(
                 .subscribe(
                         {
 
-                            Log.e(TAG, "#result ${it}")
+//                            Log.e(TAG, "#result ${it}")
 
                             progresPersen += 35
                             progresPersenLive.postValue(progresPersen)

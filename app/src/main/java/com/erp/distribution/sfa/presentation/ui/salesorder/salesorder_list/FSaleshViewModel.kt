@@ -142,7 +142,7 @@ class FSaleshViewModel @ViewModelInject constructor(
                         {
                         },
                         {
-                            Log.d(TAG, "#result FtSalesh error  ${it.message}")
+//                            Log.d(TAG, "#result FtSalesh error  ${it.message}")
                         }, {}
                 )
         )
@@ -195,7 +195,7 @@ class FSaleshViewModel @ViewModelInject constructor(
                                                 /**
                                                  * refno sudah berubah dengan refno dari server
                                                  */
-                                                
+
                                                 Log.d(TAG, "#result OnNext:\n ${it.refno} ")
 
                                                 for (ftSalesdItems in ftSaleshBean.listFtSalesdItems) {
