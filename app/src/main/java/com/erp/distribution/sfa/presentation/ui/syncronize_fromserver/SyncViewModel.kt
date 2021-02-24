@@ -149,7 +149,7 @@ class SyncViewModel @ViewModelInject constructor(
                 .subscribeOn(Schedulers.io())
                 .subscribe(
                         {
-                            progresPersen += 15
+                            progresPersen += 10
                             progresPersenLive.postValue(progresPersen)
                         },
                         {

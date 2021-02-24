@@ -36,7 +36,6 @@
 
     <item
         android:id="@+id/action_sync_or_upload"
-        android:checkable="true"
         android:title="Sync or Upload"
         app:showAsAction="never" />
 

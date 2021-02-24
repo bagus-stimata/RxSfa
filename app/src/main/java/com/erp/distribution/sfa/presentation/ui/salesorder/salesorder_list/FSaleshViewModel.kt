@@ -17,6 +17,7 @@ import com.erp.distribution.sfa.domain.usecase.GetFtSaleshUseCase
 import com.erp.distribution.sfa.presentation.base.BaseViewModel
 import com.erp.distribution.sfa.presentation.model.UserViewState
 import com.erp.distribution.sfa.presentation.ui.salesorder.EDIT_TASK_RESULT_OK
+import com.erp.distribution.sfa.presentation.ui.salesorder.salesorder_addedit.AddEditFtSaleshViewModel
 import com.erp.distribution.sfa.utils.DisposableManager
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
 import io.reactivex.rxjava3.core.Observable
@@ -145,10 +146,10 @@ class FSaleshViewModel @ViewModelInject constructor(
     }
 
     fun onAddNewFtSaleshClick() = viewModelScope.launch {
-        ftSaleshEventChannel.send(FtSaleshEvent.NavigateToEditCustomerOrderScreen(userViewState!!, FtSalesh() ))
+        ftSaleshEventChannel.send(FtSaleshEvent.NavigateToEditCustomerOrderScreen(userViewState!!, FtSalesh()))
     }
 
-    fun onAddEditResult(ftSaleshResult: FtSalesh) {
+    fun onAddEditResult(ftSaleshResult: FtSalesh) = viewModelScope.launch {
         ftSaleshResult?.let {
 //            ftSaleshResult ->  ftSalesh
         }
@@ -158,6 +159,11 @@ class FSaleshViewModel @ViewModelInject constructor(
 //            EDIT_TASK_RESULT_OK -> showFtSaleshSavedConfirmationMessage("Data updated")
 //        }
 
+    }
+    fun onSyncOrUploadToServer(text: String) = viewModelScope.launch {
+
+
+        ftSaleshEventChannel.send(FtSaleshEvent.ShowInfoMessage(text))
     }
 
     private fun showFtSaleshSavedConfirmationMessage(text: String) = viewModelScope.launch {
@@ -181,6 +187,7 @@ class FSaleshViewModel @ViewModelInject constructor(
 
     sealed class FtSaleshEvent {
 //        object NavigateToAddSalesOrderScreen() : FtSaleshEvent()
+
         data class NavigateToAddCustomerOrderScreen(val userViewState: UserViewState) : FtSaleshEvent()
 
         /**
@@ -190,9 +197,10 @@ class FSaleshViewModel @ViewModelInject constructor(
 //        data class NavigateToEditSalesOrderScreen(val userViewState: UserViewState, val ftSaleshBean: Long) : FtSaleshEvent() //--> Sebaiknya nanti gunakan Via Database Langsung
 
         data class ShowUndoDeleteFtSaleshMessage(val ftSalesh: FtSalesh) : FtSaleshEvent()
+        data class ShowInfoMessage(val msg: String) : FtSaleshEvent()
         data class ShowFtSaleshSavedConfirmationMessage(val msg: String) : FtSaleshEvent()
-        object NavigateToDeleteAllCompletedScreen : FtSaleshEvent()
 
+        object NavigateToDeleteAllCompletedScreen : FtSaleshEvent()
         data class NavigateBackWithResult(val result: Int) : FtSaleshEvent()
     }
 

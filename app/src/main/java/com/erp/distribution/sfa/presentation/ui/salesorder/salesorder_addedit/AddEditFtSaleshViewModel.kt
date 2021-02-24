@@ -216,6 +216,7 @@ class AddEditFtSaleshViewModel @ViewModelInject constructor(
     sealed class AddEditCustomerOrderEvent {
         data class ShowInvalidInputMessage(val msg: String) : AddEditCustomerOrderEvent()
         data class ShowUndoDeleteFtSaleshMessage(val ftSalesdItems: FtSalesdItems) : AddEditCustomerOrderEvent()
+
         data class NavigateBackWithResult(val ftSalesh: FtSalesh) : AddEditCustomerOrderEvent()
 
         data class NavigateToSelectCustomerScreen(var userViewState: UserViewState, val ftSalesh: FtSalesh) : AddEditCustomerOrderEvent()

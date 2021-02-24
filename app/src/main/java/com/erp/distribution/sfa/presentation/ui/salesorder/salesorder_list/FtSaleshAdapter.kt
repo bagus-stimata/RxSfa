@@ -3,6 +3,7 @@ package com.erp.distribution.sfa.presentation.ui.salesorder.salesorder_list
 import android.graphics.Color
 import android.util.Log
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
@@ -79,7 +80,14 @@ class FtSaleshAdapter(private val listener: OnItemClickListener) :
 
                 txtCustno.text = item.fcustomerBean.custno
                 txtTipeCust.text = item.fcustomerBean.fcustomerGroupBean!!.kode1
+
                 txtAddress.text = "${item.fcustomerBean.address1} ${item.fcustomerBean.address2} ${item.fcustomerBean.city1} "
+                if (txtAddress.text.trim().equals("")){
+                    txtAddress.visibility = View.GONE
+                }else {
+                    txtAddress.visibility = View.VISIBLE
+                }
+
                 txtOrderno.text = item.orderno
                 txtOrderdate.text = sdf.format(item.orderDate)
                 txtInvoiceno.text = item.invoiceno

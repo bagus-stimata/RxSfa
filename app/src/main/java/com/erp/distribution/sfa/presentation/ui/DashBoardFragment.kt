@@ -1,5 +1,7 @@
 package com.erp.distribution.sfa.presentation.ui
 
+import android.annotation.SuppressLint
+import android.graphics.Color
 import android.os.Bundle
 import android.util.Log
 import androidx.fragment.app.Fragment
@@ -62,7 +64,10 @@ class DashBoardFragment : Fragment(R.layout.dash_board_fragment) {
             result?.let { resultFromLogin(result as FUser) }
         }
 
+        greeting()
+
     }
+
 
     fun observeUserOtenticationToView() {
         mainViewModel.userViewStateLive.observe(viewLifecycleOwner, Observer { userViewState ->
@@ -184,6 +189,30 @@ class DashBoardFragment : Fragment(R.layout.dash_board_fragment) {
 
         compositeDisposable.add(observer)
 
+    }
+
+
+    @SuppressLint("SetTextI18n")
+    private fun greeting() {
+        val calendar = Calendar.getInstance()
+        val timeOfDay = calendar[Calendar.HOUR_OF_DAY]
+//        val namaUser: String = mainViewModel.userActive.fullName
+//        if (mainViewModelOld.userEntityActive.fullName.isEmpty()) mainViewModelOld.userEntityActive.username
+        if (timeOfDay >= 0 && timeOfDay < 12) {
+//            mainBinding.greetingText1.setText("Selamat Pagi")
+            viewBinding.greetingImg.setImageResource(R.drawable.img_default_half_morning)
+        } else if (timeOfDay >= 12 && timeOfDay < 15) {
+//            mainBinding.greetingText1.setText("Selamat Siang")
+            viewBinding.greetingImg.setImageResource(R.drawable.img_default_half_afternoon)
+        } else if (timeOfDay >= 15 && timeOfDay < 18) {
+//            mainBinding.greetingText1.setText("Selamat Sore")
+            viewBinding.greetingImg.setImageResource(R.drawable.img_default_half_without_sun)
+        } else if (timeOfDay >= 18 && timeOfDay < 24) {
+//            mainBinding.greetingText1.setText("Selamat Malam")
+            viewBinding.greetingText1.setTextColor(Color.WHITE)
+            viewBinding.greetingImg.setImageResource(R.drawable.img_default_half_night)
+        }
+//        mainBinding.greetingText2.setText(namaUser)
     }
 
 

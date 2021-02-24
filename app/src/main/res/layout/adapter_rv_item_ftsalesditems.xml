@@ -58,7 +58,7 @@
                 android:ellipsize="marquee"
                 android:singleLine="true"
                 android:textColor="@color/colorPrimaryDark"
-                android:textSize="13dp"
+                android:textSize="14dp"
                 tools:text="3Dus 6Pcs" />
 
             <TextView

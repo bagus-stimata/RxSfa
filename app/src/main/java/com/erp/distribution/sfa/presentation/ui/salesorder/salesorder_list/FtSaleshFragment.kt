@@ -1,5 +1,6 @@
 package com.erp.distribution.sfa.presentation.ui.salesorder.salesorder_list
 
+import android.content.Intent
 import android.os.Bundle
 import com.erp.distribution.sfa.R
 import android.view.Menu
@@ -24,6 +25,9 @@ import androidx.recyclerview.widget.RecyclerView
 import com.erp.distribution.sfa.data.di.SortOrder
 import com.erp.distribution.sfa.databinding.FragmentFtsaleshBinding
 import com.erp.distribution.sfa.domain.model.FtSalesh
+import com.erp.distribution.sfa.presentation.ui.salesorder.salesorder_addedit.AddEditFtSaleshViewModel
+import com.erp.distribution.sfa.presentation.ui.syncronize_fromserver.SyncronizeActivity
+import com.erp.distribution.sfa.presentation.ui.utils.AlertDialogConfirm
 import com.erp.distribution.sfa.presentation.ui.utils.onQueryTextChanged
 import com.erp.distribution.sfa.utils.exhaustive
 import com.google.android.material.snackbar.Snackbar
@@ -134,6 +138,9 @@ class FtSaleshFragment : Fragment(R.layout.fragment_ftsalesh), FtSaleshAdapter.O
 
             viewModel.ftSaleshEvent.collect { event ->
                 when (event) {
+                    is FSaleshViewModel.FtSaleshEvent.ShowInfoMessage -> {
+                        Snackbar.make(requireView(), event.msg, Snackbar.LENGTH_SHORT).show()
+                    }
                     is FSaleshViewModel.FtSaleshEvent.ShowUndoDeleteFtSaleshMessage -> {
                         Snackbar.make(requireView(), "SalesOrder deleted", Snackbar.LENGTH_LONG)
                                 .setAction("UNDO") {
@@ -228,6 +235,10 @@ class FtSaleshFragment : Fragment(R.layout.fragment_ftsalesh), FtSaleshAdapter.O
                 viewModel.onSortOrderSelected(SortOrder.BY_KODE)
                 true
             }
+            R.id.action_sync_or_upload -> {
+                menuSyncOrUploadToServer()
+                true
+            }
 //            R.id.action_hide_inactive -> {
 //                item.isChecked = !item.isChecked
 //                viewModel.onHideCompletedClick(item.isChecked)
@@ -248,6 +259,24 @@ class FtSaleshFragment : Fragment(R.layout.fragment_ftsalesh), FtSaleshAdapter.O
     override fun onDestroyView() {
         super.onDestroyView()
         searchView.setOnQueryTextListener(null)
+    }
+
+
+    fun menuSyncOrUploadToServer() {
+        val alert =
+                AlertDialogConfirm(
+                        context,
+                        "Syncron atau Upload Sales Order ke Server?"
+                )
+        alert.getButtonOke().setOnClickListener(View.OnClickListener { view: View? ->
+
+            viewModel.onSyncOrUploadToServer("Syncronize with Server")
+
+            alert.dismiss()
+        })
+        alert.getButtonCancel()
+                .setOnClickListener(View.OnClickListener { view: View? -> alert.dismiss() })
+        alert.showDialog()
     }
 
 }

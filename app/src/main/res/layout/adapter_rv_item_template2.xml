@@ -36,7 +36,7 @@
             android:layout_toStartOf="@id/txt_date"
             android:layout_toEndOf="@id/txt_icon"
             android:textColor="@color/darkerGray"
-            android:textSize="16sp"
+            android:textSize="15sp"
             tools:text="Toko Harapan Jaya Abadi. Tbk" />
 
         <LinearLayout
@@ -83,21 +83,21 @@
                 android:id="@+id/txt_address"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
                 android:ellipsize="marquee"
                 android:singleLine="false"
                 android:textColor="@color/colorTextSecondary"
                 android:textSize="12sp"
                 tools:text="Jl. Kembang Jepun, Gang 5 RT1/RW2, Kecamatan Kedurus, Surabaya" />
+<!--            android:layout_weight="1"-->
         </LinearLayout>
 
         <LinearLayout
             android:id="@+id/layout_order"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="5dp"
-            android:layout_marginEnd="30dp"
-            android:layout_marginStart="20dp"
+            android:layout_marginTop="3dp"
+            android:layout_marginEnd="90dp"
+            android:layout_marginStart="5dp"
             android:layout_below="@id/layout_address"
             android:layout_alignStart="@id/layout_address"
             android:orientation="horizontal">
@@ -109,7 +109,7 @@
                 android:ellipsize="marquee"
                 android:singleLine="true"
                 android:textColor="@color/darkerGray"
-                android:textSize="14sp"
+                android:textSize="13sp"
                 tools:text="ORD.1234567890" />
             <TextView
                 android:id="@+id/txt_orderdate"
@@ -120,16 +120,16 @@
                 android:ellipsize="marquee"
                 android:singleLine="true"
                 android:textColor="@color/darkerGray"
-                android:textSize="14sp"
+                android:textSize="13sp"
                 tools:text="26 Jan 2021" />
         </LinearLayout>
         <LinearLayout
             android:id="@+id/txt_invoice"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="3dp"
-            android:layout_marginStart="20dp"
-            android:layout_marginEnd="30dp"
+            android:layout_marginTop="1dp"
+            android:layout_marginStart="5dp"
+            android:layout_marginEnd="90dp"
             android:layout_below="@id/layout_order"
             android:layout_alignStart="@id/layout_address"
             android:orientation="horizontal">
@@ -141,7 +141,7 @@
                 android:ellipsize="marquee"
                 android:singleLine="true"
                 android:textColor="@color/blue"
-                android:textSize="14sp"
+                android:textSize="13sp"
                 tools:text="INV.1234567890" />
             <TextView
                 android:id="@+id/txt_invoicedate"
@@ -152,7 +152,7 @@
                 android:ellipsize="marquee"
                 android:singleLine="true"
                 android:textColor="@color/darkerGray"
-                android:textSize="14sp"
+                android:textSize="13sp"
                 tools:text="26 Mei 2019" />
 
         </LinearLayout>
@@ -161,9 +161,9 @@
             android:id="@+id/layout_total"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
+            android:layout_marginTop="0dp"
             android:layout_marginStart="0dp"
-            android:layout_marginEnd="50dp"
+            android:layout_marginEnd="30dp"
             android:layout_below="@id/txt_invoice"
             android:layout_alignStart="@id/layout_address"
             android:orientation="horizontal">
@@ -175,21 +175,8 @@
                 android:ellipsize="marquee"
                 android:singleLine="true"
                 android:textColor="@color/black"
-                android:textSize="14sp"
+                android:textSize="12sp"
                 tools:text="25 items" />
-
-<!--            <TextView-->
-<!--                android:id="@+id/txt_currency"-->
-<!--                android:layout_width="wrap_content"-->
-<!--                android:layout_height="wrap_content"-->
-<!--                android:layout_weight="2"-->
-<!--                android:gravity="right"-->
-<!--                android:ellipsize="marquee"-->
-<!--                android:singleLine="true"-->
-<!--                android:textColor="@android:color/secondary_text_dark"-->
-<!--                android:textSize="14dp"-->
-<!--                tools:text="IDR " />-->
-
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -200,23 +187,12 @@
                 android:textColor="#676767"
                 android:textSize="10dp" />
 
-<!--            <TextView-->
-<!--                android:id="@+id/txt_total"-->
-<!--                android:layout_width="wrap_content"-->
-<!--                android:layout_height="wrap_content"-->
-<!--                android:gravity="right"-->
-<!--                android:ellipsize="marquee"-->
-<!--                android:singleLine="true"-->
-<!--                android:textColor="@color/blue"-->
-<!--                android:textSize="18sp"-->
-<!--                tools:text="5.600.000" />-->
-
             <TextView
                 android:id="@+id/txt_total"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentRight="true"
-                android:layout_marginTop="5dp"
+                android:layout_marginTop="2dp"
                 android:layout_marginRight="5dp"
                 android:textColor="@color/blue"
                 android:textSize="18sp" />
