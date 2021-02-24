@@ -8,6 +8,7 @@ import com.erp.distribution.sfa.data.source.entity.FtSalesdItemsEntity
 import com.erp.distribution.sfa.data.source.entity.FtSaleshEntity
 import com.erp.distribution.sfa.data.source.entity.toDomain
 import com.erp.distribution.sfa.domain.model.FtSalesdItems
+import com.erp.distribution.sfa.domain.model.toEntity
 import io.reactivex.rxjava3.core.Single
 import javax.inject.Inject
 
@@ -95,8 +96,10 @@ class GetFtSalesdItemsUseCase @Inject constructor(private val repository: FtSale
     fun addCacheFtSalesdItems(ftSaleshEntity: FtSalesdItemsEntity){
         repository.addCacheFtSalesdItems(ftSaleshEntity)
     }
-    fun addCacheListFtSalesdItems(list: List<FtSalesdItemsEntity>){
-        repository.addCacheListFtSalesdItems(list)
+    fun addCacheListFtSalesdItems(list: List<FtSalesdItems>){
+        repository.addCacheListFtSalesdItems(list.map {
+            it.toEntity()
+        })
     }
     fun putCacheFtSalesdItems(ftSaleshEntity: FtSalesdItemsEntity){
         repository.putCacheFtSalesdItems(ftSaleshEntity)

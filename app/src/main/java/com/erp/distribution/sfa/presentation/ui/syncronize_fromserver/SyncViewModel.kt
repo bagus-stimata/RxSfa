@@ -153,9 +153,7 @@ class SyncViewModel @ViewModelInject constructor(
                             progresPersenLive.postValue(progresPersen)
                         },
                         {
-                        },
-                        {
-                        }
+                        },{}
                 )
 
         compositeDisposable.add(disposable)

@@ -239,6 +239,7 @@ class FtSaleshFragment : Fragment(R.layout.fragment_ftsalesh), FtSaleshAdapter.O
                 menuSyncOrUploadToServer()
                 true
             }
+
 //            R.id.action_hide_inactive -> {
 //                item.isChecked = !item.isChecked
 //                viewModel.onHideCompletedClick(item.isChecked)
@@ -248,6 +249,7 @@ class FtSaleshFragment : Fragment(R.layout.fragment_ftsalesh), FtSaleshAdapter.O
 //                viewModel.onDeleteAllCompletedClick()
 //                true
 //            }
+
             android.R.id.home -> {
                 viewModel.popUpBackStackWithTheResult()
                 true

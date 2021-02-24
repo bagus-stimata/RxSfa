@@ -80,6 +80,10 @@ interface FtSaleshDao {
     @Query("SELECT * FROM ftSalesh ")
     fun getAllFtSaleshWithItemsLive(): LiveData<List<FtSaleshWithFCustomerAndItems>>
 
+    @Transaction
+    @Query("SELECT * FROM ftSalesh ")
+    fun getAllFtSaleshWithItems(): List<FtSaleshWithFCustomerAndItems>
+
 
     @Transaction
     @Query("SELECT * FROM ftSalesh   LIMIT :limit OFFSET :currentOffset ")

@@ -17,8 +17,8 @@ import com.erp.distribution.sfa.domain.usecase.GetFtSaleshUseCase
 import com.erp.distribution.sfa.presentation.base.BaseViewModel
 import com.erp.distribution.sfa.presentation.model.UserViewState
 import com.erp.distribution.sfa.presentation.ui.salesorder.EDIT_TASK_RESULT_OK
-import com.erp.distribution.sfa.presentation.ui.salesorder.salesorder_addedit.AddEditFtSaleshViewModel
 import com.erp.distribution.sfa.utils.DisposableManager
+import com.erp.distribution.sfa.utils.SecurityUtil
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
 import io.reactivex.rxjava3.core.Observable
 import io.reactivex.rxjava3.schedulers.Schedulers
@@ -131,7 +131,9 @@ class FSaleshViewModel @ViewModelInject constructor(
 
     fun onUndoDeleteClick(ftSalesh: FtSalesh) = viewModelScope.launch {
         DisposableManager.add(Observable.fromCallable {
-            getFtSaleshUseCase.addCacheFtSaleshDomain(ftSalesh)
+            getFtSaleshUseCase.addCacheFtSalesh(ftSalesh).also {
+                getFtSalesdItemsUseCase.addCacheListFtSalesdItems(ftSalesh.listFtSalesdItems)
+            }
         }
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
@@ -160,10 +162,65 @@ class FSaleshViewModel @ViewModelInject constructor(
 //        }
 
     }
+
+
     fun onSyncOrUploadToServer(text: String) = viewModelScope.launch {
+
+        /**
+         * Percobaan ke-1
+         * 1. Upload FtSalesh -> Menghasilkan Refno Baru
+         * 2. Modifikasi List<FtSalesd> dengan Refno baru tersebut
+         * 3. Upload List<FtSalesd> -> Mendapatkan nilai balik Untuk Message Error jika tidak berhasil
+         * 4. Status Uploaded (Active)
+         */
+
+        getFtSaleshUseCase.getCacheAllFtSaleshWithItemsSingle()
+                .toObservable()
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribeOn(Schedulers.io())
+                .doOnNext {
+                            for (ftSaleshBean in it){
+
+                                getFtSaleshUseCase
+                                        .createRemoteFtSalesh(SecurityUtil.getAuthHeader(userViewState.fUser!!.username, userViewState.fUser!!.passwordConfirm), ftSaleshBean)
+                                        .toObservable()
+                                        .observeOn(AndroidSchedulers.mainThread())
+                                        .subscribeOn(Schedulers.io())
+                                        .doOnNext {
+
+
+                                            Log.d(TAG, "#result OnNext:\n ${it} ")
+
+
+
+//                                            getFtSalesdItemsUseCase.createRemoteFtSalesdItems(SecurityUtil.getAuthHeader(userViewState.fUser!!.username, userViewState.fUser!!.passwordConfirm), data)
+//                                                    .toObservable()
+//                                                    .observeOn(AndroidSchedulers.mainThread())
+//                                                    .subscribeOn(Schedulers.io())
+//                                                    .subscribe {  }
+
+
+                                        }
+                                        .subscribe({
+                                            Log.d(TAG, "#result OnSubscribe:\n ${it} ")
+
+                                        },{
+                                            Log.e(TAG, "#result Error OnSubscribe:\n ${it} ")
+                                        },{})
+
+                            }
+                }
+                .subscribe({}, {
+                    Log.e(TAG, "#result Error subscribe:\n ${it} ")
+                }, {})
+
+
 
 
         ftSaleshEventChannel.send(FtSaleshEvent.ShowInfoMessage(text))
+
+
+
     }
 
     private fun showFtSaleshSavedConfirmationMessage(text: String) = viewModelScope.launch {

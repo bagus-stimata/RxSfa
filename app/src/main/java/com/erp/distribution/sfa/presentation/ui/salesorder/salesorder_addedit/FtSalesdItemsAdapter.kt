@@ -12,6 +12,7 @@ import com.erp.distribution.sfa.domain.model.FtSalesdItems
 import com.erp.distribution.sfa.domain.utils.KonversiProductAndStockHelper
 import com.erp.distribution.sfa.domain.utils.KonversiProductAndStockHelperImpl
 import com.erp.distribution.sfa.presentation.ui.master.material_lama.adapter.NoteAdapter
+import java.math.RoundingMode
 import java.text.DecimalFormat
 import java.text.NumberFormat
 import java.text.SimpleDateFormat
@@ -70,6 +71,7 @@ class FtSalesdItemsAdapter(private val listener: OnItemClickListener) :
                 }
                 txtPname.text  = item.fmaterialBean.pname
 //                txtPname.text  = "hello bos"
+
 
 //                txtMaterialGroup.text = item.fmaterialGroup3Bean.kode1
 //                txtMaterialGroup.text = item.fmaterialGroup3Bean!!.description

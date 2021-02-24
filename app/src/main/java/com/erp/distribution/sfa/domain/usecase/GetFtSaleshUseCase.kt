@@ -6,6 +6,7 @@ import com.erp.distribution.sfa.data.di.SortOrder
 import com.erp.distribution.sfa.domain.repository.FtSaleshRepository
 import com.erp.distribution.sfa.domain.usecase.base.SingleUseCase
 import com.erp.distribution.sfa.data.source.entity.FtSaleshEntity
+import com.erp.distribution.sfa.data.source.entity.FtSaleshWithFCustomerAndItems
 import com.erp.distribution.sfa.data.source.entity.toDomain
 import com.erp.distribution.sfa.domain.model.FtSalesdItems
 import com.erp.distribution.sfa.domain.model.FtSalesh
@@ -14,6 +15,7 @@ import com.erp.distribution.sfa.domain.repository.FCustomerRepository
 import io.reactivex.rxjava3.core.Single
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
+import java.util.concurrent.Callable
 import javax.inject.Inject
 
 
@@ -40,11 +42,15 @@ class GetFtSaleshUseCase @Inject constructor(
     fun getRemoteAllFtSaleshByDivision(authHeader: String, divisionId: Int): Single<List<FtSaleshEntity>>{
         return repository.getRemoteAllFtSaleshByDivision(authHeader, divisionId)
     }
-    fun createRemoteFtSalesh(authHeader: String, ftSaleshEntity: FtSaleshEntity): Single<FtSaleshEntity>{
-        return repository.createRemoteFtSalesh(authHeader, ftSaleshEntity)
+    fun createRemoteFtSalesh(authHeader: String, ftSalesh: FtSalesh): Single<FtSalesh>{
+        return repository.createRemoteFtSalesh(authHeader, ftSalesh.toEntity()).map {
+            it?.let {  it.toDomain()}
+        }
     }
-    fun putRemoteFtSalesh(authHeader: String, id: Long, ftSaleshEntity: FtSaleshEntity): Single<FtSaleshEntity>{
-        return repository.putRemoteFtSalesh(authHeader, id, ftSaleshEntity)
+    fun putRemoteFtSalesh(authHeader: String, id: Long, ftSalesh: FtSalesh): Single<FtSalesh>{
+        return repository.putRemoteFtSalesh(authHeader, id, ftSalesh.toEntity()).map {
+            it?.let {  it.toDomain()}
+        }
     }
     fun deleteRemoteFtSalesh(authHeader: String, id: Long): Single<FtSaleshEntity>{
         return repository.deleteRemoteFtSalesh(authHeader, id)
@@ -55,6 +61,29 @@ class GetFtSaleshUseCase @Inject constructor(
     fun getCacheAllFtSalesh(): LiveData<List<FtSaleshEntity>>{
         return repository.getCacheAllFtSalesh()
     }
+
+
+    fun getCacheAllFtSaleshWithItemsSingle(): Single<List<FtSalesh>> {
+        return Single.fromCallable ( Callable {
+            repository.getCacheAllFtSaleshWithItems().map {
+                val ftSaleshBean = it.ftSaleshEntity.toDomain()
+
+                it.fCustomerEntity?.let {
+                    ftSaleshBean.fcustomerBean = it.toDomain()
+                }
+                it.listFtSalesdItems?.let {
+                    val mutableList = mutableListOf<FtSalesdItems>()
+                    for (data in it) {
+                        mutableList.add(data.toDomain())
+                    }
+                    ftSaleshBean.listFtSalesdItems = mutableList
+                }
+                ftSaleshBean
+
+            }
+        })
+    }
+
 
     fun getCacheAllFtSaleshWithItemsByIdFlow(ftSaleshRefno: Long): Flow<FtSalesh>{
         return repository.getCacheFtSaleshWithItemsByIdFlow(ftSaleshRefno).map {
@@ -177,12 +206,14 @@ class GetFtSaleshUseCase @Inject constructor(
     fun insertSingleCacheFtSalesh(ftSaleshEntity: FtSaleshEntity): Single<Long>{
         return repository.insertSingleCacheFtSalesh(ftSaleshEntity)
     }
-    fun addCacheFtSaleshDomain(ftSalesh: FtSalesh){
+    fun addCacheFtSalesh(ftSalesh: FtSalesh){
         repository.addCacheFtSalesh(ftSalesh.toEntity())
     }
 
-    fun addCacheListFtSalesh(list: List<FtSaleshEntity>){
-        repository.addCacheListFtSalesh(list)
+    fun addCacheListFtSalesh(list: List<FtSalesh>){
+        repository.addCacheListFtSalesh(list.map {
+            it.toEntity()
+        })
     }
     fun putCacheFtSalesh(ftSaleshEntity: FtSaleshEntity){
         repository.putCacheFtSalesh(ftSaleshEntity)

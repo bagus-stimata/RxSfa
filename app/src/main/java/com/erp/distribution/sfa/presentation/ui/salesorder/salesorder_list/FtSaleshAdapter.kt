@@ -12,6 +12,7 @@ import com.erp.distribution.sfa.databinding.AdapterRvItemTemplate2Binding
 import com.erp.distribution.sfa.domain.model.FtSalesh
 import com.erp.distribution.sfa.domain.usecase.GetFCustomerUseCase
 import com.erp.distribution.sfa.presentation.ui.master.material_lama.adapter.NoteAdapter
+import org.jetbrains.anko.textColor
 import java.text.NumberFormat
 import java.text.SimpleDateFormat
 import java.util.*
@@ -104,6 +105,13 @@ class FtSaleshAdapter(private val listener: OnItemClickListener) :
 
 //                txtTotal.text = "${nf.format(total)}"
                 txtTotal.text = "${nf.format(item.amountAfterDiscPlusRpAfterPpn_FG)}"
+                if (item.amountAfterDiscPlusRpAfterPpn_FG==0.0){
+                    txtItemSum.textColor = Color.LTGRAY
+                    txtTotal.textColor = Color.LTGRAY
+                }else {
+                    txtItemSum.textColor = Color.BLUE
+                    txtTotal.textColor = Color.BLUE
+                }
 
                 txtDate.text = sdf.format(item.modified)
 

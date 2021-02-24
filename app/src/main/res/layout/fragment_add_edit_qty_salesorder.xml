@@ -132,7 +132,7 @@
                             android:layout_marginHorizontal="10dp"
                             android:layout_marginTop="5dp"
                             android:layout_marginBottom="5dp"
-                            android:text="@{ `Rp. ` + DecimalFormat.getInstance().format(ftSalesdItems.fmaterialBean.spriceAfterPpn) + `  @` + DecimalFormat.getInstance().format(ftSalesdItems.fmaterialBean.sprice2AfterPpn) }"
+                            android:text="@{ `Rp. ` + DecimalFormat.getInstance().format(Math.round(ftSalesdItems.fmaterialBean.spriceAfterPpn) ) + `  @` + DecimalFormat.getInstance().format(Math.round(ftSalesdItems.fmaterialBean.sprice2AfterPpn)) }"
                             android:textColor="@color/black"
                             android:textSize="14sp"/>
 

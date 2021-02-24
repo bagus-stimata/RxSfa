@@ -203,9 +203,6 @@ class AddEditFtSaleshViewModel @ViewModelInject constructor(
     }
 
     fun onSelectOrEditMaterial() = viewModelScope.launch {
-//        val tempUserViewState = UserViewState()
-//        val tempFtSalesh = FtSalesh()
-//        val tempFtSalesdItems = FtSalesdItems()
         addEditFtSaleshEventChannel.send(AddEditCustomerOrderEvent.NavigateToSelectMaterialScreen(userViewState, ftSalesh))
     }
 

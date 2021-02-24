@@ -185,7 +185,7 @@
                             android:layout_alignParentRight="true"
                             android:layout_marginTop="5dp"
                             android:layout_marginRight="80dp"
-                            android:text="@{DecimalFormat.getInstance().format(ftSalesh.amountAfterDiscPlusRpAfterPpn_FG)}"
+                            android:text="@{DecimalFormat.getInstance().format(Math.round(ftSalesh.amountAfterDiscPlusRpAfterPpn_FG))}"
                             android:textColor="#000"
                             android:textSize="16sp" />
 
@@ -332,7 +332,7 @@
                                     android:layout_below="@id/textview_disc"
                                     android:gravity="center"
                                     android:textColor="#000"
-                                    android:text="@{`Rp ` + DecimalFormat.getInstance().format(ftSalesh.discPlusRpAfterPpn_FG) }"
+                                    android:text="@{`Rp ` + DecimalFormat.getInstance().format(Math.round(ftSalesh.discPlusRpAfterPpn_FG)) }"
                                     android:textSize="12dp" />
 
                             </RelativeLayout>

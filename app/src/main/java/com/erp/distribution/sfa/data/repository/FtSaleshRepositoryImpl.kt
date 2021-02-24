@@ -74,6 +74,9 @@ class FtSaleshRepositoryImpl(
     override fun getCacheAllFtSaleshWithItemsLive(): LiveData<List<FtSaleshWithFCustomerAndItems>> {
         return appDatabase.saleshDao.getAllFtSaleshWithItemsLive()
     }
+    override fun getCacheAllFtSaleshWithItems(): List<FtSaleshWithFCustomerAndItems> {
+        return appDatabase.saleshDao.getAllFtSaleshWithItems()
+    }
 
 
 

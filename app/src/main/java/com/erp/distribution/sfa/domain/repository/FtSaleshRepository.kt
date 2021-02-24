@@ -24,6 +24,7 @@ interface FtSaleshRepository {
     fun getCacheAllFtSaleshFlow(query: String, sortOrder: SortOrder,  limit: Int, currentOffset: Int, hideSelected: Boolean): Flow<List<FtSaleshWithFDivisionAndFCustomer>>
 
     fun getCacheAllFtSaleshWithItemsLive(): LiveData<List<FtSaleshWithFCustomerAndItems>>
+    fun getCacheAllFtSaleshWithItems(): List<FtSaleshWithFCustomerAndItems>
 
     fun getCacheFtSaleshWithItemsByIdFlow(id: Long): Flow<FtSaleshWithFDivisionAndFSalesmanAndFCustomerAndItems>
     fun getCacheFtSaleshWithItemsByIdLive(id: Long): LiveData<FtSaleshWithFDivisionAndFCustomer>
