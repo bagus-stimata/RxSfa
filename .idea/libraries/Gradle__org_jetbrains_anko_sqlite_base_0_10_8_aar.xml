@@ -5,8 +5,9 @@
       <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/1b39306425563c4a66dc407fdc6ad2b1/jetified-sqlite-base-0.10.8/res" />
       <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/97ac785f396c4b9e81febc5afde32513/jetified-sqlite-base-0.10.8/res" />
       <root url="file://$USER_HOME$/.gradle/caches/transforms-3/11f2031f16e638b6ae1b0f4af6d03f01/transformed/jetified-sqlite-base-0.10.8/res" />
-      <root url="jar://$USER_HOME$/.gradle/caches/transforms-3/11f2031f16e638b6ae1b0f4af6d03f01/transformed/jetified-sqlite-base-0.10.8/jars/classes.jar!/" />
-      <root url="file://$USER_HOME$/.gradle/caches/transforms-3/11f2031f16e638b6ae1b0f4af6d03f01/transformed/jetified-sqlite-base-0.10.8/AndroidManifest.xml" />
+      <root url="jar://$USER_HOME$/.gradle/caches/transforms-3/fa2e6b32feef85cad76ad880b6d2be0e/transformed/jetified-sqlite-base-0.10.8/jars/classes.jar!/" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-3/fa2e6b32feef85cad76ad880b6d2be0e/transformed/jetified-sqlite-base-0.10.8/res" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-3/fa2e6b32feef85cad76ad880b6d2be0e/transformed/jetified-sqlite-base-0.10.8/AndroidManifest.xml" />
     </CLASSES>
     <JAVADOC />
     <SOURCES>

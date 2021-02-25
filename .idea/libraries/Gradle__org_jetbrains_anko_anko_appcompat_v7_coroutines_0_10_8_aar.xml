@@ -9,9 +9,10 @@
       <root url="jar://$USER_HOME$/.gradle/caches/transforms-3/32fac23c16a3ba9cb43347e82d5b79bc/transformed/jetified-anko-appcompat-v7-coroutines-0.10.8/jars/classes.jar!/" />
       <root url="file://$USER_HOME$/.gradle/caches/transforms-3/32fac23c16a3ba9cb43347e82d5b79bc/transformed/jetified-anko-appcompat-v7-coroutines-0.10.8/res" />
       <root url="file://$USER_HOME$/.gradle/caches/transforms-3/32fac23c16a3ba9cb43347e82d5b79bc/transformed/jetified-anko-appcompat-v7-coroutines-0.10.8/AndroidManifest.xml" />
-      <root url="jar://$USER_HOME$/.gradle/caches/transforms-3/68750512178c4b50f0c36d23268783c7/transformed/jetified-anko-appcompat-v7-coroutines-0.10.8/jars/classes.jar!/" />
       <root url="file://$USER_HOME$/.gradle/caches/transforms-3/68750512178c4b50f0c36d23268783c7/transformed/jetified-anko-appcompat-v7-coroutines-0.10.8/res" />
-      <root url="file://$USER_HOME$/.gradle/caches/transforms-3/68750512178c4b50f0c36d23268783c7/transformed/jetified-anko-appcompat-v7-coroutines-0.10.8/AndroidManifest.xml" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-3/67fc95aeb6caf3e3c3a99390db797876/transformed/jetified-anko-appcompat-v7-coroutines-0.10.8/AndroidManifest.xml" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-3/67fc95aeb6caf3e3c3a99390db797876/transformed/jetified-anko-appcompat-v7-coroutines-0.10.8/res" />
+      <root url="jar://$USER_HOME$/.gradle/caches/transforms-3/67fc95aeb6caf3e3c3a99390db797876/transformed/jetified-anko-appcompat-v7-coroutines-0.10.8/jars/classes.jar!/" />
     </CLASSES>
     <JAVADOC />
     <SOURCES>

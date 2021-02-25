@@ -7,12 +7,12 @@
     <data>
         <variable
             name="actionFragment"
-            type="com.erp.distribution.sfa.presentation.ui.salesorder.salesorder_addedit.AddEditFtSaleshFragment" />
+            type="com.erp.distribution.sfa.presentation.ui.salesorder.salesorder_qty.AddEditFtSaleshQtyFragment" />
         <variable
-            name="ftSalesh"
-            type="com.erp.distribution.sfa.domain.model.FtSalesh" />
+            name="ftSalesdItems"
+            type="com.erp.distribution.sfa.domain.model.FtSalesdItems" />
+
         <import type="android.view.View"/>
-        <import type="java.text.SimpleDateFormat"/>
         <import type="java.text.DecimalFormat"/>
         <import type="java.util.Locale"/>
     </data>
@@ -64,7 +64,6 @@
                         android:layout_marginRight="10dp"
                         android:gravity="center"
                         android:textColor="@color/blue"
-                        android:text="@{ftSalesh.fcustomerBean.custname}"
                         android:textSize="20sp" />
 
                     <LinearLayout
@@ -82,7 +81,6 @@
                             android:layout_marginRight="20sp"
                             android:fontFamily="monospace"
                             android:gravity="right"
-                            android:text="@{`ID: ` + ftSalesh.fcustomerBean.custno}"
                             android:textStyle="bold"
                             android:textSize="12sp" />
                         <TextView
@@ -94,7 +92,6 @@
                             android:layout_marginRight="10sp"
                             android:fontFamily="monospace"
                             android:gravity="left"
-                            android:text="@{ftSalesh.fcustomerBean.fcustomerGroupBean.description}"
                             android:maxWidth="50dp"
                             android:textSize="12sp" />
 
@@ -109,18 +106,17 @@
                         android:fontFamily="monospace"
                         android:gravity="center"
                         android:textColor="@color/design_default_color_on_secondary"
-                        android:text="@{ftSalesh.fcustomerBean.address1 + ` ` + ftSalesh.fcustomerBean.address2 + ` ` + ftSalesh.fcustomerBean.city1}"
                         android:textSize="12sp" />
 
 
                 </RelativeLayout>
 
-<!--                <androidx.appcompat.widget.Toolbar-->
-<!--                    android:id="@+id/detail_toolbar"-->
-<!--                    android:layout_width="match_parent"-->
-<!--                    android:layout_height="?attr/actionBarSize"-->
-<!--                    app:layout_collapseMode="pin"-->
-<!--                    app:popupTheme="@style/ThemeOverlay.AppCompat.Light"/>-->
+                <!--                <androidx.appcompat.widget.Toolbar-->
+                <!--                    android:id="@+id/detail_toolbar"-->
+                <!--                    android:layout_width="match_parent"-->
+                <!--                    android:layout_height="?attr/actionBarSize"-->
+                <!--                    app:layout_collapseMode="pin"-->
+                <!--                    app:popupTheme="@style/ThemeOverlay.AppCompat.Light"/>-->
 
             </com.google.android.material.appbar.CollapsingToolbarLayout>
 
@@ -132,7 +128,7 @@
         <androidx.core.widget.NestedScrollView
             app:layout_behavior="@string/appbar_scrolling_view_behavior"
             android:id="@+id/detail_nested_scroll_view"
-            android:layout_marginTop="-30dp"
+            android:layout_marginTop="-60dp"
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
@@ -146,7 +142,7 @@
                 <androidx.cardview.widget.CardView
                     android:id="@+id/car4"
                     android:layout_width="match_parent"
-                    android:layout_height="140dp"
+                    android:layout_height="130dp"
                     android:layout_margin="11dp"
                     android:background="#fff"
                     app:cardCornerRadius="10dp"
@@ -159,35 +155,18 @@
                         android:gravity="center">
 
                         <TextView
-                            android:layout_width="wrap_content"
+                            android:id="@+id/textview_title1"
+                            android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:layout_marginLeft="15dp"
+                            android:layout_marginLeft="10dp"
+                            android:layout_marginRight="10dp"
                             android:layout_marginTop="5dp"
-                            android:text="Total"
                             android:textColor="#000"
                             android:textSize="16sp"
-                            android:textStyle="bold" />
+                            android:text="Carnation Sigh 60Gr 4x5x7"
+                            android:gravity="center" />
+<!--                        android:text="@{ftSalesdItems.fmaterialBean.pname}"-->
 
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginTop="5dp"
-                            android:layout_marginRight="2dp"
-                            android:layout_toLeftOf="@id/textview_totalsales"
-                            android:text="RP."
-                            android:textColor="#676767"
-                            android:textSize="10dp" />
-
-                        <TextView
-                            android:id="@+id/textview_totalsales"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_alignParentRight="true"
-                            android:layout_marginTop="5dp"
-                            android:layout_marginRight="80dp"
-                            android:text="@{DecimalFormat.getInstance().format(Math.round(ftSalesh.amountAfterDiscPlusRpAfterPpn_FG))}"
-                            android:textColor="#000"
-                            android:textSize="16sp" />
 
                         <ImageView
                             android:layout_width="16dp"
@@ -197,13 +176,50 @@
                             android:layout_marginRight="15dp"
                             android:background="@drawable/ic_saldo_bg"
                             android:src="@drawable/ic_sign_right"
+                            android:visibility="gone"
                             app:tint="#6f6e6e" />
+
+                        <LinearLayout
+                            android:id="@+id/layout_title2"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_below="@id/textview_title1"
+                            android:layout_marginLeft="5dp"
+                            android:layout_marginRight="5dp"
+                            android:orientation="horizontal">
+
+                            <TextView
+                                android:id="@+id/textview_title2_1"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="0.5"
+                                android:layout_marginTop="5dp"
+                                android:layout_marginRight="15dp"
+                                android:textColor="#000"
+                                android:textSize="12sp"
+                                android:text="ID. 3245677"
+                                android:gravity="right" />
+                            <!--                        android:text="@{ftSalesdItems.fmaterialBean.pname}"-->
+                            <TextView
+                                android:id="@+id/textview_title2_2"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="0.5"
+                                android:layout_marginTop="5dp"
+                                android:layout_marginLeft="15dp"
+                                android:textColor="#000"
+                                android:textSize="12sp"
+                                android:text="(3X4X6)"
+                                android:gravity="left" />
+                            <!--                        android:text="@{ftSalesdItems.fmaterialBean.pname}"-->
+                        </LinearLayout>
+
 
                         <LinearLayout
                             android:id="@+id/garis"
                             android:layout_width="match_parent"
                             android:layout_height="1dp"
-                            android:layout_below="@id/textview_totalsales"
+                            android:layout_below="@id/layout_title2"
                             android:layout_marginTop="10dp"
                             android:background="#f0efef"
                             android:orientation="horizontal" />
@@ -212,130 +228,88 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_below="@id/garis"
-                            android:layout_marginTop="10dp"
+                            android:layout_marginTop="5dp"
                             android:orientation="horizontal">
 
                             <RelativeLayout
-                                android:id="@+id/home_mTopSyncronize"
+                                android:id="@+id/layout_title_footer_left"
                                 android:layout_width="match_parent"
-                                android:layout_height="70dp"
+                                android:layout_height="50dp"
+                                android:layout_marginLeft="10dp"
+                                android:layout_marginRight="5dp"
                                 android:layout_weight="0.50"
                                 android:background="?attr/selectableItemBackground"
                                 android:gravity="center">
 
                                 <TextView
-                                    android:id="@+id/text_order_title"
-                                    android:layout_width="match_parent"
+                                    android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
+                                    android:layout_marginRight="2dp"
+                                    android:layout_marginBottom="2dp"
+                                    android:layout_toLeftOf="@id/textview_content1"
+                                    android:text="RP."
+                                    android:gravity="top"
+                                    android:textColor="#676767"
+                                    android:textSize="10dp" />
+                                <TextView
+                                    android:id="@+id/textview_content1"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginBottom="2dp"
                                     android:gravity="center"
-                                    android:text="ORDER"
+                                    android:text="600.000 @50.000"
                                     android:textStyle="bold"
                                     android:textColor="@color/colorTextSecondary"
-                                    android:textSize="10dp" />
+                                    android:textSize="13dp" />
 
                                 <TextView
-                                    android:id="@+id/textview_orderno"
-                                    android:layout_width="match_parent"
+                                    android:id="@+id/textview_saldostok"
+                                    android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
-                                    android:layout_below="@id/text_order_title"
+                                    android:layout_marginTop="2dp"
+                                    android:layout_below="@id/textview_content1"
                                     android:gravity="center"
-                                    android:text="@{ftSalesh.orderno}"
                                     android:textColor="#000"
-                                    android:textSize="12dp" />
-                                <TextView
-                                    android:id="@+id/textview_orderdate"
-                                    android:layout_width="match_parent"
-                                    android:layout_height="wrap_content"
-                                    android:layout_below="@id/textview_orderno"
-                                    android:gravity="center"
-                                    android:text="@{SimpleDateFormat.getDateInstance(SimpleDateFormat.MEDIUM , Locale.UK).format(ftSalesh.orderDate)}"
-                                    android:textColor="#000"
-                                    android:textSize="12dp" />
+                                    android:text="Saldo: 26Krt 5Pcs 6Pak"
+                                    android:textSize="13dp" />
 
                             </RelativeLayout>
 
                             <RelativeLayout
-                                android:id="@+id/home_mTopTopup"
+                                android:id="@+id/layout_title_footer_right"
                                 android:layout_width="match_parent"
-                                android:layout_height="70dp"
-                                android:layout_marginRight="25dp"
+                                android:layout_height="50dp"
+                                android:layout_marginLeft="5dp"
+                                android:layout_marginRight="10dp"
                                 android:layout_weight="0.50"
                                 android:background="?attr/selectableItemBackground"
-                                android:gravity="center">
+                                android:gravity="right|center">
 
 
                                 <TextView
-                                    android:id="@+id/text_invoice_title"
-                                    android:layout_width="match_parent"
+                                    android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
-                                    android:gravity="center"
-                                    android:text="INVOICE"
-                                    android:textStyle="bold"
-                                    android:textColor="@color/colorTextSecondary"
+                                    android:layout_marginTop="5dp"
+                                    android:layout_marginRight="2dp"
+                                    android:layout_toLeftOf="@id/textview_totalsales"
+                                    android:text="RP."
+                                    android:textColor="#676767"
                                     android:textSize="10dp" />
 
                                 <TextView
-                                    android:id="@+id/textview_invoiceno"
-                                    android:layout_width="match_parent"
+                                    android:id="@+id/textview_totalsales"
+                                    android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
-                                    android:layout_below="@id/text_invoice_title"
-                                    android:gravity="center"
-                                    android:text="@{ ftSalesh.invoiceno }"
+                                    android:layout_alignParentRight="true"
+                                    android:layout_marginTop="5dp"
+                                    android:layout_marginRight="10dp"
+                                    android:text="9.400.00"
                                     android:textColor="#000"
-                                    android:textSize="12dp" />
-<!--                                android:text="SI-"-->
-                                <TextView
-                                    android:id="@+id/textview_invoicedate"
-                                    android:layout_width="match_parent"
-                                    android:layout_height="wrap_content"
-                                    android:layout_below="@id/textview_invoiceno"
-                                    android:gravity="center"
-                                    android:text="@{SimpleDateFormat.getDateInstance(SimpleDateFormat.MEDIUM , Locale.UK).format(ftSalesh.invoiceDate)}"
-                                    android:textColor="#000"
-                                    android:textSize="12dp" />
+                                    android:textSize="17sp" />
 
 
                             </RelativeLayout>
 
-                            <RelativeLayout
-                                android:id="@+id/home_mTopPromotion"
-                                android:layout_width="match_parent"
-                                android:layout_height="70dp"
-                                android:layout_marginRight="25dp"
-                                android:layout_weight="0.50"
-                                android:background="?attr/selectableItemBackground"
-                                android:gravity="center">
-
-                                <ImageView
-                                    android:id="@+id/img_promotion"
-                                    android:layout_width="20dp"
-                                    android:layout_height="20dp"
-                                    android:layout_centerHorizontal="true"
-                                    android:src="@drawable/ic_reward_prize"
-                                    app:tint="#f03cd2" />
-                                app:tint="@color/lightGray" />
-                                <!--                                android:visibility="@{userActive.username.isEmpty? View.GONE : View.VISIBLE}"-->
-
-                                <TextView
-                                    android:id="@+id/textview_disc"
-                                    android:layout_width="match_parent"
-                                    android:layout_height="wrap_content"
-                                    android:layout_below="@id/img_promotion"
-                                    android:gravity="center"
-                                    android:text= "0"
-                                    android:textColor="#000"
-                                    android:textSize="12dp" />
-                                <TextView
-                                    android:id="@+id/textview_disc_rp"
-                                    android:layout_width="match_parent"
-                                    android:layout_height="wrap_content"
-                                    android:layout_below="@id/textview_disc"
-                                    android:gravity="center"
-                                    android:textColor="#000"
-                                    android:text="@{`Rp ` + DecimalFormat.getInstance().format(Math.round(ftSalesh.discPlusRpAfterPpn_FG)) }"
-                                    android:textSize="12dp" />
-
-                            </RelativeLayout>
 
                         </LinearLayout>
 
@@ -347,11 +321,139 @@
                     android:layout_height="match_parent"
                     android:orientation="vertical">
 
-                    <!--                RECYCLER VIEW ITEMS-->
-                    <androidx.recyclerview.widget.RecyclerView
-                        android:id="@+id/recycler_view_ftsalesh_ftsalesditems"
+
+
+                    <RelativeLayout
                         android:layout_width="match_parent"
-                        android:layout_height="450dp" />
+                        android:layout_height="wrap_content"
+                        android:layout_margin="5dp"
+                        android:gravity="center">
+                        <EditText
+                            android:id="@+id/edit_text_uom1"
+                            android:inputType="number"
+                            android:layout_width="70dp"
+                            android:layout_marginEnd="10dp"
+                            android:textAlignment="center"
+                            android:textSize="25sp"
+                            android:textColor="@color/qty_uom1"
+                            android:layout_height="wrap_content"/>
+                        <TextView
+                            android:id="@+id/text_view_uom1"
+                            android:layout_width="70dp"
+                            android:layout_marginEnd="10dp"
+                            android:text="@{ftSalesdItems.fmaterialBean.uom1}"
+                            android:textAlignment="center"
+                            android:layout_below="@id/edit_text_uom1"
+                            android:textColor="@color/qty_uom1"
+                            android:layout_height="wrap_content"/>
+                        <NumberPicker
+                            android:id="@+id/numberpicker_uom1"
+                            android:layout_width="70dp"
+                            android:layout_marginTop="20dp"
+                            android:layout_marginEnd="10dp"
+                            android:layout_height="wrap_content"
+                            android:layout_below="@id/text_view_uom1"/>
+
+
+                        <EditText
+                            android:id="@+id/edit_text_uom2"
+                            android:inputType="number"
+                            android:layout_width="70dp"
+                            android:layout_marginEnd="10dp"
+                            android:layout_height="wrap_content"
+                            android:textAlignment="center"
+                            android:textSize="25sp"
+                            android:textColor="@color/qty_uom2"
+                            android:visibility="@{ftSalesdItems.fmaterialBean.convfact1==1?View.GONE: View.VISIBLE}"
+                            android:layout_toRightOf="@id/edit_text_uom1"/>
+                        <TextView
+                            android:id="@+id/text_view_uom2"
+                            android:layout_width="70dp"
+                            android:layout_marginEnd="10dp"
+                            android:text="@{ftSalesdItems.fmaterialBean.uom2}"
+                            android:textAlignment="center"
+                            android:layout_below="@id/edit_text_uom2"
+                            android:layout_toRightOf="@id/text_view_uom1"
+                            android:textColor="@color/qty_uom2"
+                            android:visibility="@{ftSalesdItems.fmaterialBean.convfact1==1?View.GONE: View.VISIBLE}"
+                            android:layout_height="wrap_content"/>
+                        <NumberPicker
+                            android:id="@+id/numberpicker_Uom2"
+                            android:layout_width="70dp"
+                            android:layout_marginTop="20dp"
+                            android:layout_marginEnd="10dp"
+                            android:layout_height="wrap_content"
+                            android:layout_below="@id/text_view_uom2"
+                            android:visibility="@{ftSalesdItems.fmaterialBean.convfact1==1?View.GONE: View.VISIBLE}"
+                            android:layout_toRightOf="@id/numberpicker_uom1"/>
+
+                        <EditText
+                            android:id="@+id/edit_text_uom3"
+                            android:inputType="number"
+                            android:layout_width="70dp"
+                            android:layout_marginEnd="10dp"
+                            android:layout_height="wrap_content"
+                            android:textAlignment="center"
+                            android:textSize="25sp"
+                            android:textColor="@color/qty_uom3"
+                            android:visibility="@{ftSalesdItems.fmaterialBean.convfact2==1?View.GONE: View.VISIBLE}"
+                            android:layout_toRightOf="@id/edit_text_uom2"/>
+                        <TextView
+                            android:id="@+id/text_view_uom3"
+                            android:layout_width="70dp"
+                            android:layout_marginEnd="10dp"
+                            android:text="@{ftSalesdItems.fmaterialBean.uom3}"
+                            android:textAlignment="center"
+                            android:layout_below="@id/edit_text_uom3"
+                            android:layout_toRightOf="@id/text_view_uom2"
+                            android:textColor="@color/qty_uom3"
+                            android:visibility="@{ftSalesdItems.fmaterialBean.convfact2==1?View.GONE: View.VISIBLE}"
+                            android:layout_height="wrap_content"/>
+                        <NumberPicker
+                            android:id="@+id/numberpicker_Uom3"
+                            android:layout_width="70dp"
+                            android:layout_marginTop="20dp"
+                            android:layout_marginEnd="10dp"
+                            android:layout_height="wrap_content"
+                            android:layout_below="@id/text_view_uom3"
+                            android:visibility="@{ftSalesdItems.fmaterialBean.convfact2==1?View.GONE: View.VISIBLE}"
+                            android:layout_toRightOf="@id/numberpicker_Uom2"/>
+
+
+                        <EditText
+                            android:id="@+id/edit_text_uom4"
+                            android:inputType="number"
+                            android:layout_width="70dp"
+                            android:layout_marginEnd="10dp"
+                            android:layout_height="wrap_content"
+                            android:textAlignment="center"
+                            android:textSize="25sp"
+                            android:visibility="@{ftSalesdItems.fmaterialBean.convfact3==1?View.GONE: View.VISIBLE}"
+                            android:layout_toRightOf="@id/edit_text_uom3"/>
+                        <TextView
+                            android:id="@+id/text_view_uom4"
+                            android:layout_width="70dp"
+                            android:layout_marginEnd="10dp"
+                            android:text="@{ftSalesdItems.fmaterialBean.uom4}"
+                            android:textAlignment="center"
+                            android:layout_below="@id/edit_text_uom4"
+                            android:layout_toRightOf="@id/text_view_uom3"
+                            android:visibility="@{ftSalesdItems.fmaterialBean.convfact3==1?View.GONE: View.VISIBLE}"
+                            android:layout_height="wrap_content"/>
+                        <NumberPicker
+                            android:id="@+id/numberpicker_Uom4"
+                            android:layout_width="70dp"
+                            android:layout_marginTop="20dp"
+                            android:layout_marginEnd="10dp"
+                            android:layout_height="wrap_content"
+                            android:layout_below="@id/text_view_uom4"
+                            android:visibility="@{ftSalesdItems.fmaterialBean.convfact3==1?View.GONE: View.VISIBLE}"
+                            android:layout_toRightOf="@id/numberpicker_Uom3"/>
+
+                    </RelativeLayout>
+
+
+
 
                 </LinearLayout>
             </LinearLayout>
@@ -359,16 +461,14 @@
         </androidx.core.widget.NestedScrollView>
 
 
-
         <com.google.android.material.floatingactionbutton.FloatingActionButton
             android:id="@+id/detail_fab"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_margin="16dp"
-            app:srcCompat="@drawable/ic_baseline_person_add_24"
+            app:srcCompat="@drawable/ic_star_empty_white_vector"
             app:layout_anchor="@id/detail_app_bar_layout"
-            android:onClick="@{ () -> actionFragment.chooseAndEditCustomer() }"
-            android:visibility="@{ ftSalesh.amountAfterDiscPlusRpAfterPpn_FG >0? View.GONE: View.VISIBLE }"
+            android:visibility="gone"
             app:layout_anchorGravity="bottom|end"/>
 
         <com.google.android.material.floatingactionbutton.FloatingActionButton
@@ -377,9 +477,8 @@
             android:layout_height="wrap_content"
             android:layout_gravity="bottom|end"
             android:layout_margin="16dp"
-            android:onClick="@{ ()-> actionFragment.chooseAndEditMaterial() }"
-            android:visibility="@{ftSalesh.fcustomerBean.custno.isEmpty? View.GONE: View.VISIBLE}"
-            android:src="@drawable/ic_add" />
+            android:src="@drawable/ic_check_mark" />
+<!--        android:onClick="@{ ()-> actionFragment.updateQtyOke()  }"-->
 
 
     </androidx.coordinatorlayout.widget.CoordinatorLayout>
