@@ -85,7 +85,7 @@ class AddEditFMaterialViewModel @ViewModelInject constructor(
 //        addEditTaskEventChannel.send(AddEditTaskEvent.NavigateBackWithResult(EDIT_TASK_RESULT_OK))
 
         DisposableManager.add(Observable.fromCallable {
-            fMaterialUseCase.putCacheFMaterial(fMaterial.toEntity())
+            fMaterialUseCase.putCacheFMaterial(fMaterial)
         }
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())

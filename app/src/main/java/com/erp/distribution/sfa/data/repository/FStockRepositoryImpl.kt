@@ -29,8 +29,11 @@ class FStockRepositoryImpl(
     override fun getRemoteAllFStockByMaterial(authHeader: String, materialId: Int, stockDateFrom: Date, stockDateTo: Date): Single<List<FStockEntity>> {
         return retrofitService.getRemoteAllFStockByFMaterial(authHeader, materialId, stockDateFrom, stockDateTo)
     }
-    override fun getRemoteAllFStockByWarehouse(authHeader: String, warehouseId: Int, stockDateFrom: Date, stockDateTo: Date): Single<List<FStockEntity>> {
-        return retrofitService.getRemoteAllFStockByFWarehouse(authHeader, warehouseId, stockDateFrom, stockDateTo)
+    override fun getRemoteAllFStockByWarehouse(authHeader: String, fwarehouseBean: Int, stockDateFrom: Date, stockDateTo: Date): Single<List<FStockEntity>> {
+        return retrofitService.getRemoteAllFStockByFWarehouse(authHeader, fwarehouseBean)
+    }
+    override fun getRemoteAllFStockByWarehouseOnly(authHeader: String, fwarehouseBean: Int): Single<List<FStockEntity>> {
+        return retrofitService.getRemoteAllFStockByFWarehouseOnly(authHeader, fwarehouseBean)
     }
 
     override fun createRemoteFStock(authHeader: String, fStockEntity: FStockEntity): Single<FStockEntity> {
@@ -83,7 +86,7 @@ class FStockRepositoryImpl(
         return appDatabase.stockDao.delete(fStockEntity)
     }
 
-    override fun deleteAllCacheData() {
+    override fun deleteAllCacheFStock() {
         return appDatabase.stockDao.deleteAllFStock()
     }
 

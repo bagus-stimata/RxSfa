@@ -12,7 +12,10 @@ interface FStockRepository {
     fun getRemoteAllFStock(authHeader: String): Single<List<FStockEntity>>
     fun getRemoteFStockById(authHeader: String, id: Int): Single<FStockEntity>
     fun getRemoteAllFStockByMaterial(authHeader: String, materialId: Int, stockDateFrom: Date, stockDateTo: Date): Single<List<FStockEntity>>
-    fun getRemoteAllFStockByWarehouse(authHeader: String, warehouseId: Int, stockDateFrom: Date, stockDateTo: Date): Single<List<FStockEntity>>
+
+    fun getRemoteAllFStockByWarehouse(authHeader: String, fwarehouseBean: Int, stockDateFrom: Date, stockDateTo: Date): Single<List<FStockEntity>>
+    fun getRemoteAllFStockByWarehouseOnly(authHeader: String, fwarehouseBean: Int): Single<List<FStockEntity>>
+
     fun createRemoteFStock(authHeader: String, fStockEntity: FStockEntity): Single<FStockEntity>
     fun putRemoteFStock(authHeader: String, id: Int, fStockEntity: FStockEntity): Single<FStockEntity>
     fun deleteRemoteFStock(authHeader: String, id: Int): Single<FStockEntity>
@@ -27,7 +30,7 @@ interface FStockRepository {
     fun addCacheListFStock(list: List<FStockEntity>)
     fun putCacheFStock(fStockEntity: FStockEntity)
     fun deleteCacheFStock(fStockEntity: FStockEntity)
-    fun deleteAllCacheData()
+    fun deleteAllCacheFStock()
 
 
 }

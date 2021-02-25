@@ -16,9 +16,11 @@ interface RetrofitServiceFStock {
     @GET("getAllFStockByFMaterial/{materialId}/{stockDateFrom}/{stockDateTo}")
     fun getRemoteAllFStockByFMaterial(@Header("Authorization") authHeader: String?, @Path("materialId") materialId: Int, @Path("stockDateFrom") stockDateFrom: Date, @Path("stockDateTo") stockDateTo: Date): Single<List<FStockEntity>>
 
-    @GET("getAllFStockByFWarehouse/{warehouseId}/{stockDateFrom}/{stockDateTo}")
-    fun getRemoteAllFStockByFWarehouse(@Header("Authorization") authHeader: String?, @Path("warehouseId") warehouseId: Int, @Path("stockDateFrom") stockDateFrom: Date, @Path("stockDateTo") stockDateTo: Date): Single<List<FStockEntity>>
+    @GET("getAllFStockByFWarehouse/{fwarehouseBean}/{stockDateFrom}/{stockDateTo}")
+    fun getRemoteAllFStockByFWarehouse(@Header("Authorization") authHeader: String?, @Path("fwarehouseBean") fwarehouseBean: Int): Single<List<FStockEntity>>
 
+    @GET("getAllFStockByFWarehouseOnly/{fwarehouseBean}")
+    fun getRemoteAllFStockByFWarehouseOnly(@Header("Authorization") authHeader: String?, @Path("fwarehouseBean") fwarehouseBean: Int): Single<List<FStockEntity>>
 
     @POST("createFStock")
     fun createRemoteFStock(@Header("Authorization") authHeader: String?, @Body fStockEntityBean: FStockEntity): Single<FStockEntity>

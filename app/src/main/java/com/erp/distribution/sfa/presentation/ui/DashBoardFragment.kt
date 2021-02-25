@@ -49,6 +49,8 @@ class DashBoardFragment : Fragment(R.layout.dash_board_fragment) {
         viewBinding.actionActivity = this
         viewBinding.userViewState = UserViewState()
 
+
+
         /**
          * Observer Common
          * 1. User Observer
@@ -85,6 +87,7 @@ class DashBoardFragment : Fragment(R.layout.dash_board_fragment) {
                         showLoginView() //-> jadi di non aktifkan dahulu
                     }else {
                         mainViewModel.userViewState = data
+                        dashboardViewModel.userViewState = data
                         viewBinding.userViewState =  mainViewModel.userViewState
                     }
                 }
@@ -107,6 +110,8 @@ class DashBoardFragment : Fragment(R.layout.dash_board_fragment) {
 
 
     fun menuSyncronize() {
+        dashboardViewModel.subscribeUpdateStock()
+
         val action= DashBoardFragmentDirections.actionDashBoardFragmentToSyncronizeFragment(
                 mainViewModel.userViewState
         )
@@ -114,6 +119,8 @@ class DashBoardFragment : Fragment(R.layout.dash_board_fragment) {
     }
 
     fun menuSalesOrder() {
+        dashboardViewModel.subscribeUpdateStock()
+
         val action = DashBoardFragmentDirections.actionDashBoardFragmentToFtSaleshFragment(
                 mainViewModel.userViewState
         )
@@ -121,6 +128,8 @@ class DashBoardFragment : Fragment(R.layout.dash_board_fragment) {
     }
 
     fun menuProduct() {
+        dashboardViewModel.subscribeUpdateStock()
+
         val action = DashBoardFragmentDirections.actionDashBoardFragmentToFMaterialFragment(
                mainViewModel.userViewState
         )
@@ -135,6 +144,7 @@ class DashBoardFragment : Fragment(R.layout.dash_board_fragment) {
         findNavController().navigate(action)
 
     }
+
 
 
 

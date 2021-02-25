@@ -6,8 +6,8 @@ package com.erp.distribution.sfa.utils
  */
 object Constants {
 
-//     const val BASE_URL = "http://192.168.1.100:8989/rest/"
-     const val BASE_URL = "http://ssperkasa-jatim.ddns.net:8989/rest/"
+     const val BASE_URL = "http://192.168.1.100:8989/rest/"
+//     const val BASE_URL = "http://ssperkasa-jatim.ddns.net:8989/rest/"
 
      //oke tes bos
 

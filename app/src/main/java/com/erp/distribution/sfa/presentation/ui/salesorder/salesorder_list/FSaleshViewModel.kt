@@ -4,14 +4,15 @@ import android.util.Log
 import androidx.hilt.Assisted
 import androidx.hilt.lifecycle.ViewModelInject
 import androidx.lifecycle.*
+import androidx.lifecycle.Observer
 import com.erp.distribution.sfa.data.di.PreferencesManager
 import com.erp.distribution.sfa.data.di.SortOrder
 import com.erp.distribution.sfa.data.source.entity.toDomain
 import com.erp.distribution.sfa.domain.exception.ExceptionHandler
 import com.erp.distribution.sfa.domain.model.FtSalesdItems
 import com.erp.distribution.sfa.domain.model.FtSalesh
-import com.erp.distribution.sfa.domain.model.toEntity
 import com.erp.distribution.sfa.domain.usecase.GetFCustomerUseCase
+import com.erp.distribution.sfa.domain.usecase.GetFMaterialUseCase
 import com.erp.distribution.sfa.domain.usecase.GetFtSalesdItemsUseCase
 import com.erp.distribution.sfa.domain.usecase.GetFtSaleshUseCase
 import com.erp.distribution.sfa.presentation.base.BaseViewModel
@@ -28,12 +29,14 @@ import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.flatMapLatest
 import kotlinx.coroutines.flow.receiveAsFlow
 import kotlinx.coroutines.launch
+import java.util.*
 
 
 class FSaleshViewModel @ViewModelInject constructor(
         private val getFtSaleshUseCase: GetFtSaleshUseCase,
         private val getFtSalesdItemsUseCase: GetFtSalesdItemsUseCase,
         private val getFCustomerUseCase: GetFCustomerUseCase,
+        private val getFMaterialUseCase: GetFMaterialUseCase,
         private val preferencesManager: PreferencesManager,
         @Assisted private val state: SavedStateHandle
 

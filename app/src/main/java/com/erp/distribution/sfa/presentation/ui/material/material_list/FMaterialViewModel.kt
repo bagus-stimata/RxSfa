@@ -91,7 +91,7 @@ class FMaterialViewModel @ViewModelInject constructor(
 
     fun onItemCheckedChanged(fMaterial: FMaterial, isChecked: Boolean) = viewModelScope.launch {
         DisposableManager.add(Observable.fromCallable {
-            getFMaterialUseCase.putCacheFMaterial(fMaterial.toEntity().copy(selected = isChecked))
+            getFMaterialUseCase.putCacheFMaterial(fMaterial.copy(selected = isChecked))
         }
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
@@ -108,7 +108,7 @@ class FMaterialViewModel @ViewModelInject constructor(
 
     fun onItemSwiped(fMaterial: FMaterial) = viewModelScope.launch {
         DisposableManager.add(Observable.fromCallable {
-            getFMaterialUseCase.deleteCacheFMaterial(fMaterial.toEntity())
+            getFMaterialUseCase.deleteCacheFMaterial(fMaterial)
         }
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())

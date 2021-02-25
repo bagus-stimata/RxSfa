@@ -5,11 +5,16 @@ import com.erp.distribution.sfa.data.di.SortOrder
 import com.erp.distribution.sfa.domain.repository.FMaterialRepository
 import com.erp.distribution.sfa.domain.usecase.base.SingleUseCase
 import com.erp.distribution.sfa.data.source.entity.FMaterialEntity
+import com.erp.distribution.sfa.data.source.entity.FStockEntity
 import com.erp.distribution.sfa.data.source.entity.toDomain
 import com.erp.distribution.sfa.domain.model.FMaterial
+import com.erp.distribution.sfa.domain.model.FWarehouse
+import com.erp.distribution.sfa.domain.model.toEntity
+import com.erp.distribution.sfa.domain.repository.FStockRepository
 import io.reactivex.rxjava3.core.Single
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
+import java.util.*
 import javax.inject.Inject
 
 
@@ -18,7 +23,10 @@ import javax.inject.Inject
  * it handles the response that returns data &
  * contains a list of actions, event steps
  */
-class GetFMaterialUseCase @Inject constructor(private val repository: FMaterialRepository) : SingleUseCase<List<FMaterialEntity>>() {
+class GetFMaterialUseCase @Inject constructor(
+        private val repository: FMaterialRepository,
+        private val fStockRepository: FStockRepository
+        ) : SingleUseCase<List<FMaterialEntity>>() {
 
     override fun buildUseCaseSingle(): Single<List<FMaterialEntity>> {
         return repository.getRemoteAllFMaterial("authHeader")
@@ -44,6 +52,14 @@ class GetFMaterialUseCase @Inject constructor(private val repository: FMaterialR
     }
     fun deleteRemoteFMaterial(authHeader: String, id: Int): Single<FMaterialEntity>{
         return repository.deleteRemoteFMaterial(authHeader, id)
+    }
+
+
+    fun getRemoteAllFStockByWarehouseOnly(authHeader: String, fwarehouseBean: Int, dateFrom: Date, dateTo: Date): Single<List<FStockEntity>>{
+        return fStockRepository.getRemoteAllFStockByWarehouse(authHeader, fwarehouseBean, dateFrom, dateTo)
+    }
+    fun getRemoteAllFStockByWarehouseOnly(authHeader: String, fwarehouseBean: Int): Single<List<FStockEntity>>{
+        return fStockRepository.getRemoteAllFStockByWarehouseOnly(authHeader, fwarehouseBean)
     }
 
 
@@ -76,23 +92,14 @@ class GetFMaterialUseCase @Inject constructor(private val repository: FMaterialR
     fun addCacheFMaterial(fMaterialEntity: FMaterialEntity){
         repository.addCacheFMaterial(fMaterialEntity)
     }
-    fun addCacheFMaterialDomain(fMaterial: FMaterial){
-        repository.addCacheFMaterialDomain(fMaterial)
-    }
     fun addCacheListFMaterial(list: List<FMaterialEntity>){
         repository.addCacheListFMaterial(list)
     }
-    fun putCacheFMaterial(fMaterialEntity: FMaterialEntity){
-        repository.putCacheFMaterial(fMaterialEntity)
+    fun putCacheFMaterial(fMaterial: FMaterial){
+        repository.putCacheFMaterial(fMaterial.toEntity())
     }
-    fun putCacheFMaterialDomain(fMaterial: FMaterial){
-        repository.putCacheFMaterialDomain(fMaterial)
-    }
-    fun deleteCacheFMaterial(fMaterialEntity: FMaterialEntity){
-        repository.deleteCacheFMaterial(fMaterialEntity)
-    }
-    fun deleteCacheFMaterialDomain(fMaterial: FMaterial){
-        repository.deleteCacheFMaterialDomain(fMaterial)
+    fun deleteCacheFMaterial(fMaterial: FMaterial){
+        repository.deleteCacheFMaterial(fMaterial.toEntity())
     }
     fun deleteAllCacheFMaterial(){
         repository.deleteAllCacheFMaterial()

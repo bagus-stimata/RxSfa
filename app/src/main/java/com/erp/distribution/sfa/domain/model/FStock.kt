@@ -1,19 +1,26 @@
-package com.erp.distribution.sfa.data.source.entity
+package com.erp.distribution.sfa.domain.model
 
 import android.os.Parcelable
 import androidx.room.Entity
 import androidx.room.PrimaryKey
+import com.erp.distribution.sfa.data.source.entity.FStockEntity
 import com.erp.distribution.sfa.domain.model.FArea
 import com.erp.distribution.sfa.domain.model.FDivision
-import com.erp.distribution.sfa.domain.model.FStock
 import kotlinx.parcelize.Parcelize
 import java.util.*
 
 @Parcelize
-@Entity(tableName = "fStock")
-class FStockEntity (
+class FStock (
     @PrimaryKey
     var refno: Long =0,
+
+    /*
+    * JIKA COPY DARI TEMPAT LAIN: MAKA SEBAGAI LOG TRACK MENINGGALKAN SOURCE_ID = ID sumber asal dia dicopy
+    * keperluan diantaranya:
+    * 1. Clone Database. karena tidak mungkin menggunakan Kode External yang bisa jadi kemungkinan kembar, tapi harus pakai kode internal
+    * 2. 
+    */
+    var sourceID: Long =0,
 
     /*
     * HARI YANG DIPAKAI JUGA PADA HPP
@@ -27,18 +34,19 @@ class FStockEntity (
     /*
     * NEXT AKAN DIBIKIN TRANSIEN
     */
+    //	@Column(name="QTY_IN")
+    //	private Integer qtyIn =0.0;
+    //	@Column(name="QTY_OUT")
+    //	private Integer qtyOut =0.0;
+    var qtyIn : Double = 0.0,
+    var qtyOut : Double =0.0,
 
     //	@Column(name="QTY_ADJUST", length=10)	
     //	private Integer qtyAdjust =0.0;
     //	@Column(name="SALDO_AKHIR")
     //	private Integer saldoAkhir =0.0;
+    var qtyAdjust : Double =0.0,
     var saldoAkhir : Double =0.0,
-
-    /*
-    * HARGA BELI NET TERAKHIR
-    * TAPI HARGA BELI TERAKHIR INI MENGGUNAKAN PPN (after PPN)
-    */
-//    var closingPprice2_AfterPpn : Double =0.0,
 
     //	@ManyToOne
     //	@JoinColumn(name="fwarehouseBean", referencedColumnName="ID")
@@ -51,8 +59,8 @@ class FStockEntity (
     var fmaterialBean : Int =0,
 ): Parcelable
 
-internal fun FStockEntity.toDomain(): FStock {
-    return FStock(
+internal fun FStock.toEntity(): FStockEntity {
+    return FStockEntity(
             refno = refno,
             stockDate = stockDate,
             fmaterialBean = fmaterialBean,
