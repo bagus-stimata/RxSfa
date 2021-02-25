@@ -3,6 +3,7 @@ package com.erp.distribution.sfa.presentation.ui.salesorder.salesorder_qty
 import android.util.Log
 import androidx.hilt.Assisted
 import androidx.hilt.lifecycle.ViewModelInject
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -38,6 +39,7 @@ class AddEditFtSaleshQtyViewModel @ViewModelInject constructor(
     var ftSalesdItemsId: Long = 0
     var ftSalesdItems = FtSalesdItems()
 
+    var mutableLiveFtSalesdItems = MutableLiveData<FtSalesdItems>()
 
 //    val userViewState = state.get<UserViewState>("userViewStateActive")
 //    val ftSalesh = state.get<FtSalesh>("ftSalesh")

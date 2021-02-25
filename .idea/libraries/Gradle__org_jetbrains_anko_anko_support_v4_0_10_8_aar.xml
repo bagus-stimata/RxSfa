@@ -6,13 +6,14 @@
       <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/baede1152929225606232ba3cab9b6d4/jetified-anko-support-v4-0.10.8/res" />
       <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/f9449b5acf7b6135341f359eb7a3a652/jetified-anko-support-v4-0.10.8/res" />
       <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/bac890432fa11188e70d0db657923ad0/jetified-anko-support-v4-0.10.8/res" />
-      <root url="jar://$USER_HOME$/.gradle/caches/transforms-3/ee677e18dd186b5129a2555b982f77b6/transformed/jetified-anko-support-v4-0.10.8/jars/classes.jar!/" />
-      <root url="file://$USER_HOME$/.gradle/caches/transforms-3/ee677e18dd186b5129a2555b982f77b6/transformed/jetified-anko-support-v4-0.10.8/AndroidManifest.xml" />
       <root url="file://$USER_HOME$/.gradle/caches/transforms-3/ee677e18dd186b5129a2555b982f77b6/transformed/jetified-anko-support-v4-0.10.8/res" />
       <root url="file://$USER_HOME$/.gradle/caches/transforms-3/db526376c6d1531e1b15acddb0471c18/transformed/jetified-anko-support-v4-0.10.8/res" />
       <root url="file://$USER_HOME$/.gradle/caches/transforms-3/80ae63317bd5123b53d787cb724c5446/transformed/jetified-anko-support-v4-0.10.8/AndroidManifest.xml" />
       <root url="file://$USER_HOME$/.gradle/caches/transforms-3/80ae63317bd5123b53d787cb724c5446/transformed/jetified-anko-support-v4-0.10.8/res" />
       <root url="jar://$USER_HOME$/.gradle/caches/transforms-3/80ae63317bd5123b53d787cb724c5446/transformed/jetified-anko-support-v4-0.10.8/jars/classes.jar!/" />
+      <root url="jar://$USER_HOME$/.gradle/caches/transforms-3/a957fadcb7b11b8394ed22eba4d1a8cf/transformed/jetified-anko-support-v4-0.10.8/jars/classes.jar!/" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-3/a957fadcb7b11b8394ed22eba4d1a8cf/transformed/jetified-anko-support-v4-0.10.8/AndroidManifest.xml" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-3/a957fadcb7b11b8394ed22eba4d1a8cf/transformed/jetified-anko-support-v4-0.10.8/res" />
     </CLASSES>
     <JAVADOC />
     <SOURCES>

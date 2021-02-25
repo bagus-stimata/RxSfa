@@ -16,6 +16,7 @@ import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.erp.distribution.sfa.R
 import com.erp.distribution.sfa.databinding.FragmentAddEditQtySalesorderBinding
+import com.erp.distribution.sfa.databinding.FragmentAddEditQtySoBinding
 import com.erp.distribution.sfa.domain.utils.HeaderDetilSalesHelper
 import com.erp.distribution.sfa.domain.utils.HeaderDetilSalesHelperImpl
 import com.erp.distribution.sfa.domain.utils.KonversiProductAndStockHelper
@@ -26,17 +27,17 @@ import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collect
 
 @AndroidEntryPoint
-class AddEditFtSaleshQtyFragment : Fragment(R.layout.fragment_add_edit_qty_salesorder) {
+class AddEditFtSaleshQtyFragment : Fragment(R.layout.fragment_add_edit_qty_so) {
 
     private val viewModel: AddEditFtSaleshQtyViewModel by viewModels()
     private val args: AddEditFtSaleshQtyFragmentArgs by navArgs()
 
-    lateinit var binding: FragmentAddEditQtySalesorderBinding
+    lateinit var binding: FragmentAddEditQtySoBinding
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        binding = FragmentAddEditQtySalesorderBinding.bind(view)
+        binding = FragmentAddEditQtySoBinding.bind(view)
         binding.actionFragment = this
         binding.ftSalesdItems = viewModel.ftSalesdItems
 
@@ -64,17 +65,16 @@ class AddEditFtSaleshQtyFragment : Fragment(R.layout.fragment_add_edit_qty_sales
                 editTextUom3.text = Editable.Factory.getInstance().newEditable(qtyUom3.toInt().toString())
                 editTextUom4.text = Editable.Factory.getInstance().newEditable(qtyUom4.toInt().toString())
 
-                viewModel.ftSalesdItems.qty1 = qtyUom1
-                viewModel.ftSalesdItems.qty2 = qtyUom2
-                viewModel.ftSalesdItems.qty3 = qtyUom3
-                viewModel.ftSalesdItems.qty4 = qtyUom4
-
-//                val hds: HeaderDetilSalesHelper = HeaderDetilSalesHelperImpl(viewModel.ftSalesh, viewModel.ftSalesdItems)
-//                viewModel.ftSalesdItems = hds.fillFtSalesd
+//                viewModel.ftSalesdItems.qty1 = qtyUom1
+//                viewModel.ftSalesdItems.qty2 = qtyUom2
+//                viewModel.ftSalesdItems.qty3 = qtyUom3
+//                viewModel.ftSalesdItems.qty4 = qtyUom4
+                val hds: HeaderDetilSalesHelper = HeaderDetilSalesHelperImpl(viewModel.ftSalesh, viewModel.ftSalesdItems)
+                viewModel.ftSalesdItems = hds.fillFtSalesd
             }
 
 
-            viewModel.ftSalesdItems.subtotalAfterDisc2PlusRpAfterPpn = 43000.0
+//            viewModel.ftSalesdItems.subtotalAfterDisc2PlusRpAfterPpn = 43000.0
             binding.ftSalesdItems = viewModel.ftSalesdItems
 
 //            Toast.makeText(context, "Hello bos : ${viewModel.ftSalesdItems.qty}", Toast.LENGTH_SHORT).show()
@@ -125,6 +125,15 @@ class AddEditFtSaleshQtyFragment : Fragment(R.layout.fragment_add_edit_qty_sales
             override fun afterTextChanged(s: Editable) {
                 try {
                     viewModel.ftSalesdItems.qty1 = s.toString().toDouble()
+
+                    val kps : KonversiProductAndStockHelper = KonversiProductAndStockHelperImpl()
+                    val qtySmallestFromUom1234 = kps.getSmallestFromUom1234(viewModel.ftSalesdItems.fmaterialBean, viewModel.ftSalesdItems.qty1, viewModel.ftSalesdItems.qty2, viewModel.ftSalesdItems.qty3, viewModel.ftSalesdItems.qty4)
+                    viewModel.ftSalesdItems.qty = qtySmallestFromUom1234
+
+                    val hds: HeaderDetilSalesHelper = HeaderDetilSalesHelperImpl(viewModel.ftSalesh, viewModel.ftSalesdItems)
+                    viewModel.ftSalesdItems = hds.fillFtSalesd
+
+                    binding.ftSalesdItems = viewModel.ftSalesdItems
                 }catch (e: Exception){}
             }
             override fun beforeTextChanged(s: CharSequence, start: Int,
@@ -140,6 +149,15 @@ class AddEditFtSaleshQtyFragment : Fragment(R.layout.fragment_add_edit_qty_sales
             override fun afterTextChanged(s: Editable) {
                 try {
                     viewModel.ftSalesdItems.qty2 = s.toString().toDouble()
+
+                    val kps : KonversiProductAndStockHelper = KonversiProductAndStockHelperImpl()
+                    val qtySmallestFromUom1234 = kps.getSmallestFromUom1234(viewModel.ftSalesdItems.fmaterialBean, viewModel.ftSalesdItems.qty1, viewModel.ftSalesdItems.qty2, viewModel.ftSalesdItems.qty3, viewModel.ftSalesdItems.qty4)
+                    viewModel.ftSalesdItems.qty = qtySmallestFromUom1234
+
+                    val hds: HeaderDetilSalesHelper = HeaderDetilSalesHelperImpl(viewModel.ftSalesh, viewModel.ftSalesdItems)
+                    viewModel.ftSalesdItems = hds.fillFtSalesd
+
+                    binding.ftSalesdItems = viewModel.ftSalesdItems
                 }catch (e: Exception){}
             }
             override fun beforeTextChanged(s: CharSequence, start: Int,
@@ -155,6 +173,15 @@ class AddEditFtSaleshQtyFragment : Fragment(R.layout.fragment_add_edit_qty_sales
             override fun afterTextChanged(s: Editable) {
                 try {
                     viewModel.ftSalesdItems.qty3 = s.toString().toDouble()
+
+                    val kps : KonversiProductAndStockHelper = KonversiProductAndStockHelperImpl()
+                    val qtySmallestFromUom1234 = kps.getSmallestFromUom1234(viewModel.ftSalesdItems.fmaterialBean, viewModel.ftSalesdItems.qty1, viewModel.ftSalesdItems.qty2, viewModel.ftSalesdItems.qty3, viewModel.ftSalesdItems.qty4)
+                    viewModel.ftSalesdItems.qty = qtySmallestFromUom1234
+
+                    val hds: HeaderDetilSalesHelper = HeaderDetilSalesHelperImpl(viewModel.ftSalesh, viewModel.ftSalesdItems)
+                    viewModel.ftSalesdItems = hds.fillFtSalesd
+
+                    binding.ftSalesdItems = viewModel.ftSalesdItems
                 }catch (e: Exception){}
             }
             override fun beforeTextChanged(s: CharSequence, start: Int,
@@ -170,6 +197,15 @@ class AddEditFtSaleshQtyFragment : Fragment(R.layout.fragment_add_edit_qty_sales
             override fun afterTextChanged(s: Editable) {
                 try {
                     viewModel.ftSalesdItems.qty4 = s.toString().toDouble()
+
+                    val kps : KonversiProductAndStockHelper = KonversiProductAndStockHelperImpl()
+                    val qtySmallestFromUom1234 = kps.getSmallestFromUom1234(viewModel.ftSalesdItems.fmaterialBean, viewModel.ftSalesdItems.qty1, viewModel.ftSalesdItems.qty2, viewModel.ftSalesdItems.qty3, viewModel.ftSalesdItems.qty4)
+                    viewModel.ftSalesdItems.qty = qtySmallestFromUom1234
+
+                    val hds: HeaderDetilSalesHelper = HeaderDetilSalesHelperImpl(viewModel.ftSalesh, viewModel.ftSalesdItems)
+                    viewModel.ftSalesdItems = hds.fillFtSalesd
+
+                    binding.ftSalesdItems = viewModel.ftSalesdItems
                 }catch (e: Exception){}
             }
             override fun beforeTextChanged(s: CharSequence, start: Int,

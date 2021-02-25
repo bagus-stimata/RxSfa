@@ -136,17 +136,19 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:descendantFocusability="blocksDescendants"
                 android:orientation="vertical">
+<!--                Ini yang bikin tidak bisa di ketik-->
+<!--                android:descendantFocusability="blocksDescendants"-->
 
                 <androidx.cardview.widget.CardView
                     android:id="@+id/car4"
                     android:layout_width="match_parent"
-                    android:layout_height="130dp"
+                    android:layout_height="wrap_content"
                     android:layout_margin="11dp"
                     android:background="#fff"
                     app:cardCornerRadius="10dp"
                     app:cardElevation="5dp">
+<!--                    android:layout_height="130dp"-->
 
                     <RelativeLayout
                         android:layout_width="match_parent"
@@ -163,9 +165,9 @@
                             android:layout_marginTop="5dp"
                             android:textColor="#000"
                             android:textSize="16sp"
-                            android:text="Carnation Sigh 60Gr 4x5x7"
+                            android:text="@{ftSalesdItems.fmaterialBean.pname}"
                             android:gravity="center" />
-<!--                        android:text="@{ftSalesdItems.fmaterialBean.pname}"-->
+<!--                        android:text="Carnation Sigh 60Gr 4x5x7"-->
 
 
                         <ImageView
@@ -195,11 +197,11 @@
                                 android:layout_weight="0.5"
                                 android:layout_marginTop="5dp"
                                 android:layout_marginRight="15dp"
-                                android:textColor="#000"
+                                android:textColor="@color/colorTextSecondary"
                                 android:textSize="12sp"
-                                android:text="ID. 3245677"
+                                android:text="@{` ID: ` + ftSalesdItems.fmaterialBean.pcode}"
                                 android:gravity="right" />
-                            <!--                        android:text="@{ftSalesdItems.fmaterialBean.pname}"-->
+<!--                            android:text="ID. 3245677"-->
                             <TextView
                                 android:id="@+id/textview_title2_2"
                                 android:layout_width="match_parent"
@@ -207,11 +209,11 @@
                                 android:layout_weight="0.5"
                                 android:layout_marginTop="5dp"
                                 android:layout_marginLeft="15dp"
-                                android:textColor="#000"
+                                android:textColor="@color/colorTextSecondary"
                                 android:textSize="12sp"
-                                android:text="(3X4X6)"
+                                android:text="@{`(` +ftSalesdItems.fmaterialBean.convfact1 + `x` +  ftSalesdItems.fmaterialBean.convfact2 + `x` +  ftSalesdItems.fmaterialBean.convfact3 + `) ` }"
                                 android:gravity="left" />
-                            <!--                        android:text="@{ftSalesdItems.fmaterialBean.pname}"-->
+<!--                            android:text="(3X4X6)"-->
                         </LinearLayout>
 
 
@@ -237,6 +239,7 @@
                                 android:layout_height="50dp"
                                 android:layout_marginLeft="10dp"
                                 android:layout_marginRight="5dp"
+                                android:layout_marginBottom="10dp"
                                 android:layout_weight="0.50"
                                 android:background="?attr/selectableItemBackground"
                                 android:gravity="center">
@@ -257,20 +260,33 @@
                                     android:layout_height="wrap_content"
                                     android:layout_marginBottom="2dp"
                                     android:gravity="center"
-                                    android:text="600.000 @50.000"
+                                    android:text="@{ DecimalFormat.getInstance().format(Math.round(ftSalesdItems.fmaterialBean.spriceAfterPpn) ) + `  @` + DecimalFormat.getInstance().format(Math.round(ftSalesdItems.fmaterialBean.sprice2AfterPpn)) }"
                                     android:textStyle="bold"
                                     android:textColor="@color/colorTextSecondary"
                                     android:textSize="13dp" />
+<!--                                android:text="600.000 @50.000"-->
 
                                 <TextView
-                                    android:id="@+id/textview_saldostok"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginRight="2dp"
+                                    android:layout_marginBottom="2dp"
+                                    android:layout_toLeftOf="@id/textview_content2"
+                                    android:layout_below="@id/textview_content1"
+                                    android:text="SALDO."
+                                    android:gravity="top"
+                                    android:textColor="#676767"
+                                    android:textSize="10dp" />
+                                <TextView
+                                    android:id="@+id/textview_content2"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:layout_marginTop="2dp"
+                                    android:layout_marginBottom="5dp"
                                     android:layout_below="@id/textview_content1"
                                     android:gravity="center"
                                     android:textColor="#000"
-                                    android:text="Saldo: 26Krt 5Pcs 6Pak"
+                                    android:text="0krt 0pak 0pcs"
                                     android:textSize="13dp" />
 
                             </RelativeLayout>
@@ -292,7 +308,7 @@
                                     android:layout_marginTop="5dp"
                                     android:layout_marginRight="2dp"
                                     android:layout_toLeftOf="@id/textview_totalsales"
-                                    android:text="RP."
+                                    android:text="TOTAL RP."
                                     android:textColor="#676767"
                                     android:textSize="10dp" />
 
@@ -303,9 +319,10 @@
                                     android:layout_alignParentRight="true"
                                     android:layout_marginTop="5dp"
                                     android:layout_marginRight="10dp"
-                                    android:text="9.400.00"
                                     android:textColor="#000"
+                                    android:text="@{ DecimalFormat.getInstance().format(Math.round(ftSalesdItems.getSubtotalAfterDisc2PlusRpAfterPpn()) ) }"
                                     android:textSize="17sp" />
+<!--                                android:text="9.400.00"-->
 
 
                             </RelativeLayout>
@@ -477,8 +494,8 @@
             android:layout_height="wrap_content"
             android:layout_gravity="bottom|end"
             android:layout_margin="16dp"
+            android:onClick="@{ ()-> actionFragment.updateQtyOke()  }"
             android:src="@drawable/ic_check_mark" />
-<!--        android:onClick="@{ ()-> actionFragment.updateQtyOke()  }"-->
 
 
     </androidx.coordinatorlayout.widget.CoordinatorLayout>
