@@ -70,11 +70,19 @@ class FtSaleshAdapter(private val listener: OnItemClickListener) :
 
 
                 nf.maximumFractionDigits = 0
-                val hash = item!!.invoiceno.hashCode()
+                val hash = item!!.fcustomerBean.custname.hashCode()
                 if (item.fcustomerBean.custname.length >1) {
                     txtIcon.text = item.fcustomerBean.custname.trim { it <= ' ' }[0].toString()
                     txtIcon.background = NoteAdapter.oval(Color.rgb(hash, hash / 2, 0), binding.txtIcon)
                 }
+
+//                val hash = item.fmaterialBean.pname.hashCode()
+//                if (item.fmaterialBean.pname.length>1) {
+//                    txtIcon.text = item.fmaterialBean.pname.trim { it <= ' ' }[0].toString()
+//                    txtIcon.background =
+//                            NoteAdapter.oval(Color.rgb(hash, hash / 2, 0), binding.txtIcon)
+//                }
+
 
                 txtCustname.text = item.fcustomerBean.custname
 //                txtCustname.text = "Piye jum"

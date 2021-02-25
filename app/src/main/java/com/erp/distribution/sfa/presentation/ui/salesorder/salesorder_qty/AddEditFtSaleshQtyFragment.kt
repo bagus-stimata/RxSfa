@@ -16,6 +16,8 @@ import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.erp.distribution.sfa.R
 import com.erp.distribution.sfa.databinding.FragmentAddEditQtySalesorderBinding
+import com.erp.distribution.sfa.domain.utils.HeaderDetilSalesHelper
+import com.erp.distribution.sfa.domain.utils.HeaderDetilSalesHelperImpl
 import com.erp.distribution.sfa.domain.utils.KonversiProductAndStockHelper
 import com.erp.distribution.sfa.domain.utils.KonversiProductAndStockHelperImpl
 import com.erp.distribution.sfa.utils.exhaustive
@@ -67,12 +69,12 @@ class AddEditFtSaleshQtyFragment : Fragment(R.layout.fragment_add_edit_qty_sales
                 viewModel.ftSalesdItems.qty3 = qtyUom3
                 viewModel.ftSalesdItems.qty4 = qtyUom4
 
-//                numberpickerUom1.value = qtyUom1.toInt()
-//                numberpickerUom2.value = qtyUom2
-//                numberpickerUom3.value = qtyUom3
-//                numberpickerUom4.value = qtyUom4
+//                val hds: HeaderDetilSalesHelper = HeaderDetilSalesHelperImpl(viewModel.ftSalesh, viewModel.ftSalesdItems)
+//                viewModel.ftSalesdItems = hds.fillFtSalesd
             }
 
+
+            viewModel.ftSalesdItems.subtotalAfterDisc2PlusRpAfterPpn = 43000.0
             binding.ftSalesdItems = viewModel.ftSalesdItems
 
 //            Toast.makeText(context, "Hello bos : ${viewModel.ftSalesdItems.qty}", Toast.LENGTH_SHORT).show()

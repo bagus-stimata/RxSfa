@@ -77,23 +77,26 @@
             android:layout_marginTop="-50dp">
 
 
-            <LinearLayout
+            <RelativeLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:orientation="vertical">
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:gravity="center">
 <!--                android:descendantFocusability="blocksDescendants"-->
 
 
                 <!--Description-->
                 <androidx.cardview.widget.CardView
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="8dp"
-                    android:elevation="2dp"
-                    app:cardCornerRadius="5dp"
-                    app:cardPreventCornerOverlap="false"
-                    app:cardUseCompatPadding="true"
-                    tools:ignore="RtlCompat">
+                    android:layout_height="160dp"
+                    android:background="#fff"
+                    app:cardCornerRadius="10dp"
+                    app:cardElevation="5dp">
+<!--                    android:elevation="2dp"-->
+<!--                    app:cardCornerRadius="5dp"-->
+<!--                    app:cardPreventCornerOverlap="false"-->
+<!--                    app:cardUseCompatPadding="true"-->
+<!--                    tools:ignore="RtlCompat">-->
 
                     <LinearLayout
                         android:layout_width="match_parent"
@@ -131,22 +134,57 @@
                             android:gravity="center"
                             android:layout_marginHorizontal="10dp"
                             android:layout_marginTop="5dp"
-                            android:layout_marginBottom="5dp"
+                            android:layout_marginBottom="0dp"
                             android:text="@{ `Rp. ` + DecimalFormat.getInstance().format(Math.round(ftSalesdItems.fmaterialBean.spriceAfterPpn) ) + `  @` + DecimalFormat.getInstance().format(Math.round(ftSalesdItems.fmaterialBean.sprice2AfterPpn)) }"
                             android:textColor="@color/black"
                             android:textSize="14sp"/>
 
-                        <TextView
-                            android:id="@+id/textview_content2"
+                        <LinearLayout
+                            android:id="@+id/layout_total"
                             android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            android:gravity="center"
-                            android:layout_marginHorizontal="10dp"
-                            android:layout_marginTop="2dp"
-                            android:layout_marginBottom="15dp"
-                            android:text="@{ `Saldo: ` + ftSalesdItems.tempString}"
-                            android:textColor="@color/colorTextSecondary"
-                            android:textSize="14sp"/>
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="0dp"
+                            android:layout_marginStart="0dp"
+                            android:layout_marginEnd="0dp"
+                            android:orientation="horizontal">
+<!--                            android:layout_below="@id/txt_invoice"-->
+<!--                            android:layout_alignStart="@id/layout_address"-->
+
+                            <TextView
+                                android:id="@+id/textview_content2"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:gravity="left"
+                                android:layout_marginLeft="10dp"
+                                android:layout_marginRight="10dp"
+                                android:layout_marginTop="2dp"
+                                android:layout_marginBottom="5dp"
+                                android:text="@{ `Saldo: ` + ftSalesdItems.tempString}"
+                                android:textColor="@color/colorTextSecondary"
+                                android:textSize="14sp"/>
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="0dp"
+                                android:layout_marginRight="2dp"
+                                android:layout_toLeftOf="@id/txt_sub_total"
+                                android:text="RP."
+                                android:textColor="#676767"
+                                android:textSize="10sp" />
+
+                            <TextView
+                                android:id="@+id/txt_sub_total"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_alignParentRight="true"
+                                android:layout_marginTop="2dp"
+                                android:layout_marginRight="5dp"
+                                android:textColor="@color/black"
+                                android:text="4999.9"
+                                android:textSize="14sp" />
+<!--                            android:text="@{ DecimalFormat.getInstance().format(Math.round(ftSalesdItems.subtotalAfterDisc2PlusRpAfterPpn) )  }"-->
+                        </LinearLayout>
+
 
                     </LinearLayout>
 
@@ -282,7 +320,7 @@
 
                 </RelativeLayout>
 
-            </LinearLayout>
+            </RelativeLayout>
 
         </androidx.core.widget.NestedScrollView>
 

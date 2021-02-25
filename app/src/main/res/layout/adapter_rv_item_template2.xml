@@ -196,8 +196,6 @@
                 android:layout_marginRight="5dp"
                 android:textColor="@color/blue"
                 android:textSize="18sp" />
-
-
         </LinearLayout>
 
 
