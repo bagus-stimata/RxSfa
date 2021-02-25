@@ -26,8 +26,8 @@ class FtSalesdItemsRepositoryImpl(
         return retrofitService.getRemoteFtSalesdItemsById(authHeader, id)
     }
 
-    override fun getRemoteAllFtSalesdItemsByParent(authHeader: String, parentId: Long): Single<List<FtSalesdItemsEntity>> {
-        return retrofitService.getRemoteAllFtSalesdItemsByParent(authHeader, parentId)
+    override fun getRemoteAllFtSalesdItemsByFtSalesh(authHeader: String, ftSaleshBean: Long): Single<List<FtSalesdItemsEntity>> {
+        return retrofitService.getRemoteAllFtSalesdItemsByFtSalesh(authHeader, ftSaleshBean)
     }
 
     override fun createRemoteFtSalesdItems(authHeader: String, ftSalesdItemsEntity: FtSalesdItemsEntity): Single<FtSalesdItemsEntity> {

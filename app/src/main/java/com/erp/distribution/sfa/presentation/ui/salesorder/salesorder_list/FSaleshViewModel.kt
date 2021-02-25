@@ -100,15 +100,34 @@ class FSaleshViewModel @ViewModelInject constructor(
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(
-                        {
-//                            Log.e(TAG, "#result Success Update ")
-                        },
+                        {},
                         {
 //                            Log.e(TAG, "#result Error Update ${it}")
                         }, {}
                 )
         )
     }
+
+    fun updateCacheFtSalesd_FromRepo(ftSalesh: FtSalesh, list: List<FtSalesdItems>) = viewModelScope.launch {
+        DisposableManager.add(Observable.fromCallable {
+            getFtSalesdItemsUseCase.deleteAllCacheFtSalesdItemsByFtSalesh(ftSalesh).also {
+                for (data in list){
+                    data.ftSaleshBean = ftSalesh
+                    getFtSalesdItemsUseCase.addCacheFtSalesdItems(data)
+                }
+            }
+        }
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(
+                        {},
+                        {
+//                            Log.e(TAG, "#result Error Update ${it}")
+                        }, {}
+                )
+        )
+    }
+
 
     fun onItemSelected(ftSalesh: FtSalesh) = viewModelScope.launch {
         userViewState?.let {
@@ -117,8 +136,8 @@ class FSaleshViewModel @ViewModelInject constructor(
     }
     fun onItemSwiped(ftSalesh: FtSalesh) = viewModelScope.launch {
         DisposableManager.add(Observable.fromCallable {
-            getFtSaleshUseCase.deleteCacheFtSalesh(ftSalesh.toEntity())
-            getFtSalesdItemsUseCase.deleteAllCacheFtSalesdItemsByFtSalesh(ftSalesh.toEntity())
+            getFtSaleshUseCase.deleteCacheFtSalesh(ftSalesh)
+            getFtSalesdItemsUseCase.deleteAllCacheFtSalesdItemsByFtSalesh(ftSalesh)
         }
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
@@ -196,21 +215,38 @@ class FSaleshViewModel @ViewModelInject constructor(
                                 /**
                                  * Ingat createRemoteFtSaleshFromAndroid Android lho ya
                                  */
+                                val authHeader = SecurityUtil.getAuthHeader(userViewState.fUser!!.username, userViewState.fUser!!.passwordConfirm)
                                     getFtSaleshUseCase
-                                            .addOrUpdateRemoteFtSaleshFromAndroid(SecurityUtil.getAuthHeader(userViewState.fUser!!.username, userViewState.fUser!!.passwordConfirm), ftSaleshBean)
+                                            .addOrUpdateRemoteFtSaleshFromAndroid(authHeader, ftSaleshBean)
                                             .toObservable()
                                             .observeOn(AndroidSchedulers.mainThread())
                                             .subscribeOn(Schedulers.io())
-                                            .doOnNext {
+                                            .doOnNext { ftSaleshRepo ->
                                                 /**
                                                  * refno sudah berubah dengan refno dari server
                                                  */
                                                 ftSaleshBean.stared = true
-                                                if (! it.orderno.trim().toLowerCase().contains("new") && ! it.orderno.trim().equals(""))  {
+                                                if (! ftSaleshRepo.orderno.trim().toLowerCase().contains("new") && ! ftSaleshRepo.orderno.trim().equals(""))  {
+                                                    val ftSalesh = ftSaleshBean.copy(stared=true, unread = false, orderno = ftSaleshRepo.orderno,
+                                                            orderDate = ftSaleshRepo.orderDate, invoiceDate = ftSaleshRepo.invoiceDate, dueDate = ftSaleshRepo.dueDate,
+                                                            sjPengirimanDate = ftSaleshRepo.sjPengirimanDate, sjPenagihanDate = ftSaleshRepo.sjPenagihanDate,
+                                                            disc1 = ftSaleshRepo.disc1, disc2 = ftSaleshRepo.disc2, discPlus_FG = ftSaleshRepo.discPlus_FG,
 
-                                                    updateCacheFtSalesh(ftSaleshBean.copy(stared=true, unread = false, orderno = it.orderno,
-                                                            invoiceno = it.invoiceno, amountAfterDiscPlusRpAfterPpn_FG = it.amountAfterDiscPlusRpAfterPpn_FG))
 
+                                                            invoiceno = ftSaleshRepo.invoiceno, amountAfterDiscPlusRpAfterPpn_FG = ftSaleshRepo.amountAfterDiscPlusRpAfterPpn_FG)
+                                                    //LANJUTKAN DIATAS NANTI YA
+                                                    updateCacheFtSalesh(ftSalesh)
+
+                                                    getFtSalesdItemsUseCase.getRemoteAllFtSalesdItemsByFtSalesh(authHeader, ftSaleshRepo.refno)
+                                                            .toObservable()
+                                                            .observeOn(AndroidSchedulers.mainThread())
+                                                            .subscribeOn(Schedulers.io())
+                                                            .subscribe (
+                                                                { listFtSalesdItems ->
+                                                                    updateCacheFtSalesd_FromRepo(ftSalesh, listFtSalesdItems)
+                                                                },
+                                                                    { Log.e(TAG, "#result Error Update FtSalesd")}, {}
+                                                            )
 
                                                 }else {
                                                     updateCacheFtSalesh(ftSaleshBean.copy(stared=true))
@@ -218,7 +254,7 @@ class FSaleshViewModel @ViewModelInject constructor(
 //                                                Log.d(TAG, "#result OnNext:\n ${it.refno} ")
 
                                                     for (ftSalesdItems in ftSaleshBean.listFtSalesdItems) {
-                                                        ftSalesdItems.ftSaleshBean = it!!
+                                                        ftSalesdItems.ftSaleshBean = ftSaleshRepo!!
                                                         getFtSalesdItemsUseCase.createRemoteFtSalesdItems(SecurityUtil.getAuthHeader(userViewState.fUser!!.username, userViewState.fUser!!.passwordConfirm), ftSalesdItems)
                                                                 .toObservable()
                                                                 .observeOn(AndroidSchedulers.mainThread())
@@ -252,11 +288,7 @@ class FSaleshViewModel @ViewModelInject constructor(
                 }, {})
 
 
-
-
         ftSaleshEventChannel.send(FtSaleshEvent.ShowInfoMessage(text))
-
-
 
     }
 

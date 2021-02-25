@@ -80,9 +80,9 @@ class AddEditFtSaleshQtyViewModel @ViewModelInject constructor(
     private fun addOrUpdateFtSalesdItems(ftSalesdItems: FtSalesdItems) = viewModelScope.launch {
         DisposableManager.add(Observable.fromCallable {
             if (ftSalesdItems.id >0){
-                getFtSalesdItemsUseCase.putCacheFtSalesdItems(ftSalesdItems.toEntity())
+                getFtSalesdItemsUseCase.putCacheFtSalesdItems(ftSalesdItems)
             }else {
-                getFtSalesdItemsUseCase.addCacheFtSalesdItems(ftSalesdItems.toEntity())
+                getFtSalesdItemsUseCase.addCacheFtSalesdItems(ftSalesdItems)
             }
         }
             .subscribeOn(Schedulers.io())

@@ -206,16 +206,12 @@ class GetFtSaleshUseCase @Inject constructor(
     fun getCacheAllFtSaleshByDivision(divisionId: Int): LiveData<List<FtSaleshEntity>>{
         return repository.getCacheAllFtSaleshByDivision(divisionId)
     }
-    fun addCacheFtSalesh(ftSaleshEntity: FtSaleshEntity){
-        repository.addCacheFtSalesh(ftSaleshEntity)
+    fun addCacheFtSalesh(ftSalesh: FtSalesh){
+        repository.addCacheFtSalesh(ftSalesh.toEntity())
     }
     fun insertSingleCacheFtSalesh(ftSaleshEntity: FtSaleshEntity): Single<Long>{
         return repository.insertSingleCacheFtSalesh(ftSaleshEntity)
     }
-    fun addCacheFtSalesh(ftSalesh: FtSalesh){
-        repository.addCacheFtSalesh(ftSalesh.toEntity())
-    }
-
     fun addCacheListFtSalesh(list: List<FtSalesh>){
         repository.addCacheListFtSalesh(list.map {
             it.toEntity()
@@ -224,8 +220,8 @@ class GetFtSaleshUseCase @Inject constructor(
     fun putCacheFtSalesh(ftSalesh: FtSalesh){
         repository.putCacheFtSalesh(ftSalesh.toEntity())
     }
-    fun deleteCacheFtSalesh(ftSaleshEntity: FtSaleshEntity){
-        repository.deleteCacheFtSalesh(ftSaleshEntity)
+    fun deleteCacheFtSalesh(ftSalesh: FtSalesh){
+        repository.deleteCacheFtSalesh(ftSalesh.toEntity())
     }
     fun deleteCacheFtSaleshDomain(ftSalesh: FtSalesh){
         repository.deleteCacheFtSalesh(ftSalesh.toEntity())

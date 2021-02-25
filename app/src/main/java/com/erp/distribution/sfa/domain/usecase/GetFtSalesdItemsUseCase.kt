@@ -8,6 +8,7 @@ import com.erp.distribution.sfa.data.source.entity.FtSalesdItemsEntity
 import com.erp.distribution.sfa.data.source.entity.FtSaleshEntity
 import com.erp.distribution.sfa.data.source.entity.toDomain
 import com.erp.distribution.sfa.domain.model.FtSalesdItems
+import com.erp.distribution.sfa.domain.model.FtSalesh
 import com.erp.distribution.sfa.domain.model.toEntity
 import io.reactivex.rxjava3.core.Single
 import javax.inject.Inject
@@ -36,9 +37,13 @@ class GetFtSalesdItemsUseCase @Inject constructor(private val repository: FtSale
             it.toDomain()
         }
     }
-//    fun getRemoteAllFtSalesdItemsByDivision(authHeader: String, divisionId: Int): Single<List<FtSalesdItems>>{
-//        return repository.getRemoteAllFtSalesdItemsByDivision(authHeader, divisionId)
-//    }
+    fun getRemoteAllFtSalesdItemsByFtSalesh(authHeader: String, ftSalesBean: Long): Single<List<FtSalesdItems>>{
+        return repository.getRemoteAllFtSalesdItemsByFtSalesh(authHeader, ftSalesBean).map {
+            it.map {
+                it.toDomain()
+            }
+        }
+    }
     fun createRemoteFtSalesdItems(authHeader: String, ftSalesdItems: FtSalesdItems): Single<FtSalesdItems>{
         return repository.createRemoteFtSalesdItems(authHeader, ftSalesdItems.toEntity()).map {
             it.toDomain()
@@ -102,25 +107,27 @@ class GetFtSalesdItemsUseCase @Inject constructor(private val repository: FtSale
         return repository.getCacheAllFtSalesdItemsByParent(ftSalesBean)
     }
 
-    fun getCacheFtSalesdItemsById(id: Long): LiveData<FtSalesdItemsEntity>{
-        return repository.getCacheFtSalesdItemsById(id)
+    fun getCacheFtSalesdItemsById(id: Long): LiveData<FtSalesdItems>{
+        return repository.getCacheFtSalesdItemsById(id).map {
+            it.toDomain()
+        }
     }
-    fun addCacheFtSalesdItems(ftSaleshEntity: FtSalesdItemsEntity){
-        repository.addCacheFtSalesdItems(ftSaleshEntity)
+    fun addCacheFtSalesdItems(ftSalesdItems: FtSalesdItems){
+        repository.addCacheFtSalesdItems(ftSalesdItems.toEntity())
     }
     fun addCacheListFtSalesdItems(list: List<FtSalesdItems>){
         repository.addCacheListFtSalesdItems(list.map {
             it.toEntity()
         })
     }
-    fun putCacheFtSalesdItems(ftSaleshEntity: FtSalesdItemsEntity){
-        repository.putCacheFtSalesdItems(ftSaleshEntity)
+    fun putCacheFtSalesdItems(ftSalesdItems: FtSalesdItems){
+        repository.putCacheFtSalesdItems(ftSalesdItems.toEntity())
     }
-    fun deleteCacheFtSalesdItems(ftSaleshEntity: FtSalesdItemsEntity){
-        repository.deleteCacheFtSalesdItems(ftSaleshEntity)
+    fun deleteCacheFtSalesdItems(ftSalesdItems: FtSalesdItems){
+        repository.deleteCacheFtSalesdItems(ftSalesdItems.toEntity())
     }
-    fun deleteAllCacheFtSalesdItemsByFtSalesh(ftSaleshEntity: FtSaleshEntity){
-        repository.deleteAllCacheFtSalesdItemsByFtSalesh(ftSaleshEntity.refno)
+    fun deleteAllCacheFtSalesdItemsByFtSalesh(ftSalesh: FtSalesh){
+        repository.deleteAllCacheFtSalesdItemsByFtSalesh(ftSalesh.refno)
     }
 
 

@@ -12,8 +12,8 @@ interface RetrofitServiceFtSalesdItems {
     @GET("getFtSalesdItemsById/{id}")
     fun getRemoteFtSalesdItemsById(@Header("Authorization") authHeader: String?, @Path("id") id: Long): Single<FtSalesdItemsEntity>
 
-    @GET("getAllFtSalesdItemsByParent/{parentId}")
-    fun getRemoteAllFtSalesdItemsByParent(@Header("Authorization") authHeader: String?, @Path("parentId") parentId: Long): Single<List<FtSalesdItemsEntity>>
+    @GET("getAllFtSalesdItemsByFtSalesh/{ftSaleshBean}")
+    fun getRemoteAllFtSalesdItemsByFtSalesh(@Header("Authorization") authHeader: String?, @Path("ftSaleshBean") ftSaleshBean: Long): Single<List<FtSalesdItemsEntity>>
 
 
     @POST("createFtSalesdItems")

@@ -13,7 +13,8 @@ import kotlinx.coroutines.flow.Flow
 interface FtSalesdItemsRepository {
     fun getRemoteAllFtSalesdItems(authHeader: String): Single<List<FtSalesdItemsEntity>>
     fun getRemoteFtSalesdItemsById(authHeader: String, id: Long): Single<FtSalesdItemsEntity>
-    fun getRemoteAllFtSalesdItemsByParent(authHeader: String, parentId: Long): Single<List<FtSalesdItemsEntity>>
+    fun getRemoteAllFtSalesdItemsByFtSalesh(authHeader: String, parentId: Long): Single<List<FtSalesdItemsEntity>>
+
     fun createRemoteFtSalesdItems(authHeader: String, ftSalesdItemsEntity: FtSalesdItemsEntity): Single<FtSalesdItemsEntity>
     fun putRemoteFtSalesdItems(authHeader: String, id: Long, ftSalesdItemsEntity: FtSalesdItemsEntity): Single<FtSalesdItemsEntity>
     fun deleteRemoteFtSalesdItems(authHeader: String, id: Long): Single<FtSalesdItemsEntity>

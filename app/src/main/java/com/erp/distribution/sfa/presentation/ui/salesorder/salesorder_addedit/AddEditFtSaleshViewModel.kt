@@ -67,7 +67,7 @@ class AddEditFtSaleshViewModel @ViewModelInject constructor(
     }
     fun onItemSwiped(ftSalesdItems: FtSalesdItems) = viewModelScope.launch {
         DisposableManager.add(Observable.fromCallable {
-            getFtSalesdItemsUseCase.deleteCacheFtSalesdItems(ftSalesdItems.toEntity()).also {
+            getFtSalesdItemsUseCase.deleteCacheFtSalesdItems(ftSalesdItems).also {
                 //Do Something
             }
         }
@@ -83,7 +83,7 @@ class AddEditFtSaleshViewModel @ViewModelInject constructor(
 
     fun onUndoDeleteClick(ftSalesdItems: FtSalesdItems) = viewModelScope.launch {
         DisposableManager.add(Observable.fromCallable {
-            getFtSalesdItemsUseCase.addCacheFtSalesdItems(ftSalesdItems.toEntity())
+            getFtSalesdItemsUseCase.addCacheFtSalesdItems(ftSalesdItems)
         }
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())

@@ -91,6 +91,7 @@ class AddEditFtSaleshFragment : Fragment(R.layout.fragment_add_edit_salesorder),
             /**
              *  Adapter Listener
              */
+
             ItemTouchHelper(object : ItemTouchHelper.SimpleCallback(
                     0,
                     ItemTouchHelper.LEFT or ItemTouchHelper.RIGHT
@@ -104,8 +105,13 @@ class AddEditFtSaleshFragment : Fragment(R.layout.fragment_add_edit_salesorder),
                 }
 
                 override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
-                    val ftSalesdItems = ftSalesdItemsAdapter.currentList[viewHolder.adapterPosition]
-                    viewModel.onItemSwiped(ftSalesdItems)
+                    /**
+                     * Jika Belum dibaca bisa dihapus
+                     */
+                    if (viewModel.ftSalesh.unread==true) {
+                        val ftSalesdItems = ftSalesdItemsAdapter.currentList[viewHolder.adapterPosition]
+                        viewModel.onItemSwiped(ftSalesdItems)
+                    }
                 }
 
             }).attachToRecyclerView(recyclerViewFtsaleshFtsalesditems)
