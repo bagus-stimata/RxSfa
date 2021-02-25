@@ -1,0 +1,351 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context=".presentation.ui.salesorder.salesorder_addedit.AddEditFtSaleshFragment">
+
+    <data>
+        <variable
+            name="actionFragment"
+            type="com.erp.distribution.sfa.presentation.ui.salesorder.salesorder_qty.AddEditFtSaleshQtyFragment" />
+        <variable
+            name="ftSalesdItems"
+            type="com.erp.distribution.sfa.domain.model.FtSalesdItems" />
+
+        <import type="android.view.View"/>
+        <import type="java.text.DecimalFormat"/>
+        <import type="java.util.Locale"/>
+    </data>
+
+    <androidx.coordinatorlayout.widget.CoordinatorLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <!--        android:fitsSystemWindows="true"-->
+
+        <!--        HEADER-->
+        <com.google.android.material.appbar.AppBarLayout
+            android:id="@+id/detail_app_bar_layout"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/detail_image_height_size"
+            android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
+
+            <com.google.android.material.appbar.CollapsingToolbarLayout
+                android:id="@+id/detail_collapsing_toolbar_layout"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                app:contentScrim="?attr/colorPrimary"
+                app:expandedTitleMarginEnd="64dp"
+                app:expandedTitleMarginStart="48dp"
+                app:layout_scrollFlags="scroll|exitUntilCollapsed">
+                <!--                android:fitsSystemWindows="true"-->
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+<!--                    <ImageView-->
+<!--                        android:id="@+id/detail_toolbar_image_view"-->
+<!--                        android:transitionName="image"-->
+<!--                        android:layout_width="match_parent"-->
+<!--                        android:layout_height="match_parent"-->
+<!--                        android:scaleType="centerCrop"-->
+<!--                        app:layout_collapseMode="parallax"/>-->
+
+                    <!--                    android:fitsSystemWindows="true"-->
+
+                </RelativeLayout>
+
+                <androidx.appcompat.widget.Toolbar
+                    android:id="@+id/detail_toolbar"
+                    android:layout_width="match_parent"
+                    android:layout_height="?attr/actionBarSize"
+                    app:layout_collapseMode="pin"
+                    app:popupTheme="@style/ThemeOverlay.AppCompat.Light"/>
+
+            </com.google.android.material.appbar.CollapsingToolbarLayout>
+
+        </com.google.android.material.appbar.AppBarLayout>
+
+
+        <!--        CONTENT-->
+        <androidx.core.widget.NestedScrollView
+            app:layout_behavior="@string/appbar_scrolling_view_behavior"
+            android:id="@+id/detail_nested_scroll_view"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="-50dp">
+
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:gravity="center">
+<!--                android:descendantFocusability="blocksDescendants"-->
+
+
+                <!--Description-->
+                <androidx.cardview.widget.CardView
+                    android:layout_width="match_parent"
+                    android:layout_height="160dp"
+                    android:background="#fff"
+                    app:cardCornerRadius="10dp"
+                    app:cardElevation="5dp">
+<!--                    android:elevation="2dp"-->
+<!--                    app:cardCornerRadius="5dp"-->
+<!--                    app:cardPreventCornerOverlap="false"-->
+<!--                    app:cardUseCompatPadding="true"-->
+<!--                    tools:ignore="RtlCompat">-->
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:id="@+id/textview_title1"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:gravity="center"
+                            android:layout_marginHorizontal="10dp"
+                            android:layout_marginTop="10dp"
+                            android:layout_marginBottom="2dp"
+                            android:textColor="@color/blue"
+                            android:text="@{ftSalesdItems.fmaterialBean.pname}"
+                            android:textSize="@dimen/subheading1"/>
+<!--                        android:text="Danco Batita Acti Go 70Gram"-->
+                        <TextView
+                            android:id="@+id/textview_title2"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:gravity="center"
+                            android:layout_marginHorizontal="10dp"
+                            android:layout_marginTop="2dp"
+                            android:layout_marginBottom="2dp"
+                            android:textColor="@color/colorTextSecondary"
+                            android:text="@{`(` +ftSalesdItems.fmaterialBean.convfact1 + `x` +  ftSalesdItems.fmaterialBean.convfact2 + `x` +  ftSalesdItems.fmaterialBean.convfact3 + `)  `+ ` ID: ` + ftSalesdItems.fmaterialBean.pcode}"
+                            android:textSize="13sp"/>
+
+                        <TextView
+                            android:id="@+id/textview_content1"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:gravity="center"
+                            android:layout_marginHorizontal="10dp"
+                            android:layout_marginTop="5dp"
+                            android:layout_marginBottom="0dp"
+                            android:text="@{ `Rp. ` + DecimalFormat.getInstance().format(Math.round(ftSalesdItems.fmaterialBean.spriceAfterPpn) ) + `  @` + DecimalFormat.getInstance().format(Math.round(ftSalesdItems.fmaterialBean.sprice2AfterPpn)) }"
+                            android:textColor="@color/black"
+                            android:textSize="14sp"/>
+
+                        <LinearLayout
+                            android:id="@+id/layout_total"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="0dp"
+                            android:layout_marginStart="0dp"
+                            android:layout_marginEnd="0dp"
+                            android:orientation="horizontal">
+<!--                            android:layout_below="@id/txt_invoice"-->
+<!--                            android:layout_alignStart="@id/layout_address"-->
+
+                            <TextView
+                                android:id="@+id/textview_content2"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:gravity="left"
+                                android:layout_marginLeft="10dp"
+                                android:layout_marginRight="10dp"
+                                android:layout_marginTop="2dp"
+                                android:layout_marginBottom="5dp"
+                                android:text="@{ `Saldo: ` + ftSalesdItems.tempString}"
+                                android:textColor="@color/colorTextSecondary"
+                                android:textSize="14sp"/>
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="0dp"
+                                android:layout_marginRight="2dp"
+                                android:layout_toLeftOf="@id/txt_sub_total"
+                                android:text="RP."
+                                android:textColor="#676767"
+                                android:textSize="10sp" />
+
+                            <TextView
+                                android:id="@+id/txt_sub_total"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_alignParentRight="true"
+                                android:layout_marginTop="2dp"
+                                android:layout_marginRight="5dp"
+                                android:textColor="@color/black"
+                                android:text="4999.9"
+                                android:textSize="14sp" />
+<!--                            android:text="@{ DecimalFormat.getInstance().format(Math.round(ftSalesdItems.subtotalAfterDisc2PlusRpAfterPpn) )  }"-->
+                        </LinearLayout>
+
+
+                    </LinearLayout>
+
+                </androidx.cardview.widget.CardView>
+
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="5dp"
+                    android:gravity="center">
+                    <EditText
+                        android:id="@+id/edit_text_uom1"
+                        android:inputType="number"
+                        android:layout_width="70dp"
+                        android:layout_marginEnd="10dp"
+                        android:textAlignment="center"
+                        android:textSize="25sp"
+                        android:textColor="@color/qty_uom1"
+                        android:layout_height="wrap_content"/>
+                    <TextView
+                        android:id="@+id/text_view_uom1"
+                        android:layout_width="70dp"
+                        android:layout_marginEnd="10dp"
+                        android:text="@{ftSalesdItems.fmaterialBean.uom1}"
+                        android:textAlignment="center"
+                        android:layout_below="@id/edit_text_uom1"
+                        android:textColor="@color/qty_uom1"
+                        android:layout_height="wrap_content"/>
+                    <NumberPicker
+                        android:id="@+id/numberpicker_uom1"
+                        android:layout_width="70dp"
+                        android:layout_marginTop="20dp"
+                        android:layout_marginEnd="10dp"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@id/text_view_uom1"/>
+
+
+                    <EditText
+                        android:id="@+id/edit_text_uom2"
+                        android:inputType="number"
+                        android:layout_width="70dp"
+                        android:layout_marginEnd="10dp"
+                        android:layout_height="wrap_content"
+                        android:textAlignment="center"
+                        android:textSize="25sp"
+                        android:textColor="@color/qty_uom2"
+                        android:visibility="@{ftSalesdItems.fmaterialBean.convfact1==1?View.GONE: View.VISIBLE}"
+                        android:layout_toRightOf="@id/edit_text_uom1"/>
+                    <TextView
+                        android:id="@+id/text_view_uom2"
+                        android:layout_width="70dp"
+                        android:layout_marginEnd="10dp"
+                        android:text="@{ftSalesdItems.fmaterialBean.uom2}"
+                        android:textAlignment="center"
+                        android:layout_below="@id/edit_text_uom2"
+                        android:layout_toRightOf="@id/text_view_uom1"
+                        android:textColor="@color/qty_uom2"
+                        android:visibility="@{ftSalesdItems.fmaterialBean.convfact1==1?View.GONE: View.VISIBLE}"
+                        android:layout_height="wrap_content"/>
+                    <NumberPicker
+                        android:id="@+id/numberpicker_Uom2"
+                        android:layout_width="70dp"
+                        android:layout_marginTop="20dp"
+                        android:layout_marginEnd="10dp"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@id/text_view_uom2"
+                        android:visibility="@{ftSalesdItems.fmaterialBean.convfact1==1?View.GONE: View.VISIBLE}"
+                        android:layout_toRightOf="@id/numberpicker_uom1"/>
+
+                    <EditText
+                        android:id="@+id/edit_text_uom3"
+                        android:inputType="number"
+                        android:layout_width="70dp"
+                        android:layout_marginEnd="10dp"
+                        android:layout_height="wrap_content"
+                        android:textAlignment="center"
+                        android:textSize="25sp"
+                        android:textColor="@color/qty_uom3"
+                        android:visibility="@{ftSalesdItems.fmaterialBean.convfact2==1?View.GONE: View.VISIBLE}"
+                        android:layout_toRightOf="@id/edit_text_uom2"/>
+                    <TextView
+                        android:id="@+id/text_view_uom3"
+                        android:layout_width="70dp"
+                        android:layout_marginEnd="10dp"
+                        android:text="@{ftSalesdItems.fmaterialBean.uom3}"
+                        android:textAlignment="center"
+                        android:layout_below="@id/edit_text_uom3"
+                        android:layout_toRightOf="@id/text_view_uom2"
+                        android:textColor="@color/qty_uom3"
+                        android:visibility="@{ftSalesdItems.fmaterialBean.convfact2==1?View.GONE: View.VISIBLE}"
+                        android:layout_height="wrap_content"/>
+                    <NumberPicker
+                        android:id="@+id/numberpicker_Uom3"
+                        android:layout_width="70dp"
+                        android:layout_marginTop="20dp"
+                        android:layout_marginEnd="10dp"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@id/text_view_uom3"
+                        android:visibility="@{ftSalesdItems.fmaterialBean.convfact2==1?View.GONE: View.VISIBLE}"
+                        android:layout_toRightOf="@id/numberpicker_Uom2"/>
+
+
+                    <EditText
+                        android:id="@+id/edit_text_uom4"
+                        android:inputType="number"
+                        android:layout_width="70dp"
+                        android:layout_marginEnd="10dp"
+                        android:layout_height="wrap_content"
+                        android:textAlignment="center"
+                        android:textSize="25sp"
+                        android:visibility="@{ftSalesdItems.fmaterialBean.convfact3==1?View.GONE: View.VISIBLE}"
+                        android:layout_toRightOf="@id/edit_text_uom3"/>
+                    <TextView
+                        android:id="@+id/text_view_uom4"
+                        android:layout_width="70dp"
+                        android:layout_marginEnd="10dp"
+                        android:text="@{ftSalesdItems.fmaterialBean.uom4}"
+                        android:textAlignment="center"
+                        android:layout_below="@id/edit_text_uom4"
+                        android:layout_toRightOf="@id/text_view_uom3"
+                        android:visibility="@{ftSalesdItems.fmaterialBean.convfact3==1?View.GONE: View.VISIBLE}"
+                        android:layout_height="wrap_content"/>
+                    <NumberPicker
+                        android:id="@+id/numberpicker_Uom4"
+                        android:layout_width="70dp"
+                        android:layout_marginTop="20dp"
+                        android:layout_marginEnd="10dp"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@id/text_view_uom4"
+                        android:visibility="@{ftSalesdItems.fmaterialBean.convfact3==1?View.GONE: View.VISIBLE}"
+                        android:layout_toRightOf="@id/numberpicker_Uom3"/>
+
+                </RelativeLayout>
+
+            </RelativeLayout>
+
+        </androidx.core.widget.NestedScrollView>
+
+
+
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/detail_fab"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="16dp"
+            app:srcCompat="@drawable/ic_star_empty_white_vector"
+            app:layout_anchor="@id/detail_app_bar_layout"
+            android:visibility="gone"
+            app:layout_anchorGravity="bottom|end"/>
+
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/fab_add_ftsalesd_qty_oke"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom|end"
+            android:layout_margin="16dp"
+            android:onClick="@{ ()-> actionFragment.updateQtyOke()  }"
+            android:src="@drawable/ic_check_mark" />
+
+
+    </androidx.coordinatorlayout.widget.CoordinatorLayout>
+
+</layout>
