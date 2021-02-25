@@ -192,7 +192,7 @@ class AddEditFtSaleshFragment : Fragment(R.layout.fragment_add_edit_salesorder),
                 when (event) {
 
                     is AddEditFtSaleshViewModel.AddEditCustomerOrderEvent.ShowInvalidInputMessage -> {
-                        Snackbar.make(requireView(), event.msg, Snackbar.LENGTH_LONG).show()
+                        Snackbar.make(requireView(), event.msg, Snackbar.LENGTH_SHORT).show()
                     }
                     is AddEditFtSaleshViewModel.AddEditCustomerOrderEvent.ShowUndoDeleteFtSaleshMessage -> {
                         Snackbar.make(requireView(), "Item deleted", Snackbar.LENGTH_LONG)

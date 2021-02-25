@@ -58,7 +58,11 @@ class AddEditFtSaleshViewModel @ViewModelInject constructor(
 
     fun onItemSelected(ftSalesdItems: FtSalesdItems) = viewModelScope.launch {
         userViewState?.let {
-            addEditFtSaleshEventChannel.send(AddEditCustomerOrderEvent.NavigateToSelectFtSalesdItemQtyScreen(userViewState!!, ftSalesh, ftSalesdItems))
+            if (ftSalesh.unread ==true) {
+                addEditFtSaleshEventChannel.send(AddEditCustomerOrderEvent.NavigateToSelectFtSalesdItemQtyScreen(userViewState!!, ftSalesh, ftSalesdItems))
+            }else {
+                addEditFtSaleshEventChannel.send(AddEditCustomerOrderEvent.ShowInvalidInputMessage("Sudah diterbitkan Nomor Order oleh Admin"))
+            }
         }
     }
     fun onItemSwiped(ftSalesdItems: FtSalesdItems) = viewModelScope.launch {
