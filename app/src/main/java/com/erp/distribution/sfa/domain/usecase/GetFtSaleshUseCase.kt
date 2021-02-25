@@ -47,7 +47,7 @@ class GetFtSaleshUseCase @Inject constructor(
             it?.let {  it.toDomain()}
         }
     }
-    fun createRemoteFtSaleshFromAndroid(authHeader: String, ftSalesh: FtSalesh): Single<FtSalesh>{
+    fun addOrUpdateRemoteFtSaleshFromAndroid(authHeader: String, ftSalesh: FtSalesh): Single<FtSalesh>{
         return repository.createRemoteFtSaleshFromAndroid(authHeader, ftSalesh.toEntity()).map {
             it?.let {  it.toDomain()}
         }

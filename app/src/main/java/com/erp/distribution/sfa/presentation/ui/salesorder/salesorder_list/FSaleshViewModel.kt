@@ -28,7 +28,6 @@ import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.flatMapLatest
 import kotlinx.coroutines.flow.receiveAsFlow
 import kotlinx.coroutines.launch
-import java.time.LocalDateTime
 
 
 class FSaleshViewModel @ViewModelInject constructor(
@@ -184,17 +183,21 @@ class FSaleshViewModel @ViewModelInject constructor(
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribeOn(Schedulers.io())
                 .doOnNext {
-                            for (ftSaleshBean in it.filter { it.listFtSalesdItems.size >0 }){
+                            for (ftSaleshBean in it.filter { it.listFtSalesdItems.size >0  }){
 //                                if (ftSaleshBean.listFtSalesdItems.size > 0 ) {
 
+                                if (ftSaleshBean.orderno.equals(""))
                                     ftSaleshBean.orderno = "NewMobile"
+
+                                if (ftSaleshBean.sourceId == 0.toLong())
                                     ftSaleshBean.sourceId = System.currentTimeMillis()
+
 
                                 /**
                                  * Ingat createRemoteFtSaleshFromAndroid Android lho ya
                                  */
                                     getFtSaleshUseCase
-                                            .createRemoteFtSaleshFromAndroid(SecurityUtil.getAuthHeader(userViewState.fUser!!.username, userViewState.fUser!!.passwordConfirm), ftSaleshBean)
+                                            .addOrUpdateRemoteFtSaleshFromAndroid(SecurityUtil.getAuthHeader(userViewState.fUser!!.username, userViewState.fUser!!.passwordConfirm), ftSaleshBean)
                                             .toObservable()
                                             .observeOn(AndroidSchedulers.mainThread())
                                             .subscribeOn(Schedulers.io())
@@ -203,21 +206,29 @@ class FSaleshViewModel @ViewModelInject constructor(
                                                  * refno sudah berubah dengan refno dari server
                                                  */
                                                 ftSaleshBean.stared = true
-                                                updateCacheFtSalesh(ftSaleshBean.copy(stared=true))
+                                                if (! it.orderno.trim().toLowerCase().contains("new") && ! it.orderno.trim().equals(""))  {
+
+                                                    updateCacheFtSalesh(ftSaleshBean.copy(stared=true, unread = false, orderno = it.orderno,
+                                                            invoiceno = it.invoiceno, amountAfterDiscPlusRpAfterPpn_FG = it.amountAfterDiscPlusRpAfterPpn_FG))
+
+
+                                                }else {
+                                                    updateCacheFtSalesh(ftSaleshBean.copy(stared=true))
 
 //                                                Log.d(TAG, "#result OnNext:\n ${it.refno} ")
 
-                                                for (ftSalesdItems in ftSaleshBean.listFtSalesdItems) {
-                                                    ftSalesdItems.ftSaleshBean = it!!
-                                                    getFtSalesdItemsUseCase.createRemoteFtSalesdItems(SecurityUtil.getAuthHeader(userViewState.fUser!!.username, userViewState.fUser!!.passwordConfirm), ftSalesdItems)
-                                                            .toObservable()
-                                                            .observeOn(AndroidSchedulers.mainThread())
-                                                            .subscribeOn(Schedulers.io())
-                                                            .subscribe({
+                                                    for (ftSalesdItems in ftSaleshBean.listFtSalesdItems) {
+                                                        ftSalesdItems.ftSaleshBean = it!!
+                                                        getFtSalesdItemsUseCase.createRemoteFtSalesdItems(SecurityUtil.getAuthHeader(userViewState.fUser!!.username, userViewState.fUser!!.passwordConfirm), ftSalesdItems)
+                                                                .toObservable()
+                                                                .observeOn(AndroidSchedulers.mainThread())
+                                                                .subscribeOn(Schedulers.io())
+                                                                .subscribe({
 //                                                                Log.d(TAG, "#result Items Success ${it}")
-                                                            }, {
+                                                                }, {
 //                                                                Log.e(TAG, "#result  Items Error ${it}")
-                                                            }, {})
+                                                                }, {})
+                                                    }
                                                 }
 
 
