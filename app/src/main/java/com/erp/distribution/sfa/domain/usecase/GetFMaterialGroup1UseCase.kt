@@ -31,6 +31,16 @@ class GetFMaterialGroup1UseCase @Inject constructor(private val repository: FMat
     fun getRemoteAllFMaterialGroup1ByDivision(authHeader: String, divisionId: Int): Single<List<FMaterialGroup1Entity>>{
         return repository.getRemoteAllFMaterialGroup1ByDivision(authHeader, divisionId)
     }
+//    fun getRemoteAllFMaterialGroup1ByCompany(authHeader: String, companyId: Int): Single<List<FMaterialGroup1>>{
+//        return repository.getRemoteAllFMaterialGroup1ByCompany(authHeader, companyId).map {
+//            it.map {
+//                it.toDomain()
+//            }
+//        }
+//    }
+    fun getRemoteAllFMaterialGroup1ByCompany(authHeader: String, companyId: Int): Single<List<FMaterialGroup1Entity>>{
+        return repository.getRemoteAllFMaterialGroup1ByCompany(authHeader, companyId)
+    }
     fun getRemoteAllFMaterialGroup1ByDivisionAndShareToCompany(authHeader: String, divisionId: Int, companyId: Int): Single<List<FMaterialGroup1Entity>>{
         return repository.getRemoteAllFMaterialGroup1ByDivisionAndShareToCompany(authHeader, divisionId, companyId)
     }

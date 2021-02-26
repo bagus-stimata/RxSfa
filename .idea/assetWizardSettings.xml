@@ -301,7 +301,7 @@
                                 <PersistentState>
                                   <option name="values">
                                     <map>
-                                      <entry key="url" value="file:$USER_HOME$/Library/Android/sdk/icons/material/materialicons/person_add/baseline_person_add_24.xml" />
+                                      <entry key="url" value="file:$USER_HOME$/Library/Android/sdk/icons/material/materialicons/sync_alt/baseline_sync_alt_24.xml" />
                                     </map>
                                   </option>
                                 </PersistentState>
@@ -311,7 +311,7 @@
                         </option>
                         <option name="values">
                           <map>
-                            <entry key="outputName" value="ic_baseline_person_add_24" />
+                            <entry key="outputName" value="ic_baseline_sync_alt_24" />
                           </map>
                         </option>
                       </PersistentState>

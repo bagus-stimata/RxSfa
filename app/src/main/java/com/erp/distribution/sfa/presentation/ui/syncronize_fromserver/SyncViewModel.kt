@@ -74,13 +74,16 @@ class SyncViewModel @ViewModelInject constructor(
     var progresPersen = 0
     val progresPersenLive = MutableLiveData<Int>()
 
-    var checkList1 = "trying.. Sync Material"
-    var checkList2 = "trying.. Sync Customer"
+    var progresMessageSuccess = ""
+    val progresMessageSuccessLive = MutableLiveData<String>()
+
+    var progresMessageError = ""
+    val progresMessageErrorLive = MutableLiveData<String>()
+
+    var checkList1 = ""
+    var checkList2 = ""
     var checkList3 = ""
     var checkList4 = ""
-
-//    var fUserEntity: FUserEntity = FUserEntity()
-//    var fDivisionEntity: FDivisionEntity = FDivisionEntity()
 
     var listFMaterialEntityMutableLive: MutableLiveData<List<FMaterial>> = MutableLiveData()
     var listFCustomerEntityMutableLive: MutableLiveData<List<FCustomerEntity>> = MutableLiveData()
@@ -145,8 +148,12 @@ class SyncViewModel @ViewModelInject constructor(
                         {
                             progresPersen += 10
                             progresPersenLive.postValue(progresPersen)
+                            progresMessageSuccess += "\n FArea Success"
+                            progresMessageSuccessLive.postValue(progresMessageSuccess)
                         },
                         {
+                            progresMessageError += "\n FArea Success"
+                            progresMessageErrorLive.postValue(progresMessageError)
                         },{}
                 )
 
@@ -186,8 +193,12 @@ class SyncViewModel @ViewModelInject constructor(
                         {
                             progresPersen += 5
                             progresPersenLive.postValue(progresPersen)
-
-                        },{},{}
+                            progresMessageSuccess += "\n FCustomerGroup Success"
+                            progresMessageSuccessLive.postValue(progresMessageSuccess)
+                        },{
+                            progresMessageError += "\n FCustomerGroup Error"
+                            progresMessageErrorLive.postValue(progresMessageError)
+                        },{}
                 )
     }
 
@@ -195,7 +206,8 @@ class SyncViewModel @ViewModelInject constructor(
 
     fun getFMaterialGroup123FromRepoAndSaveToCache(fUserEntity: FUserEntity, fDivisionEntity: FDivisionEntity) {
         val disposable = getFMaterialGroup1UseCase
-                .getRemoteAllFMaterialGroup1ByDivisionAndShareToCompany(SecurityUtil.getAuthHeader(fUserEntity.username, fUserEntity.passwordConfirm), fDivisionEntity.id, fDivisionEntity.fcompanyBean)
+//                .getRemoteAllFMaterialGroup1ByDivisionAndShareToCompany(SecurityUtil.getAuthHeader(fUserEntity.username, fUserEntity.passwordConfirm), fDivisionEntity.id, fDivisionEntity.fcompanyBean)
+                .getRemoteAllFMaterialGroup1ByCompany(SecurityUtil.getAuthHeader(fUserEntity.username, fUserEntity.passwordConfirm), fDivisionEntity.fcompanyBean)
                 .toObservable()
                 .observeOn(AndroidSchedulers.mainThread())
                 .doOnNext {
@@ -203,7 +215,8 @@ class SyncViewModel @ViewModelInject constructor(
                 }
                 .doAfterNext{
                     it.iterator().forEach {  fMaterialGroup1Entity ->
-                        subscribeListFMaterialGrup2ByParent_FromRepo(fUserEntity, fMaterialGroup1Entity)
+//                        subscribeListFMaterialGrup2ByParent_FromRepo(fUserEntity, fMaterialGroup1Entity)
+//                        Log.d(">>>>> ", "#result ${fMaterialGroup1Entity.kode1} | ${fMaterialGroup1Entity.description} ")
                     }
                 }
                 .subscribeOn(Schedulers.io())
@@ -211,11 +224,13 @@ class SyncViewModel @ViewModelInject constructor(
                         {
                             progresPersen += 15
                             progresPersenLive.postValue(progresPersen)
+                            progresMessageSuccess += "\n FMaterialGroup123 Success"
+                            progresMessageSuccessLive.postValue(progresMessageSuccess)
                         },
                         {
-                        },
-                        {
-                        }
+                            progresMessageError += "\n FMaterialGroup123 Error"
+                            progresMessageErrorLive.postValue(progresMessageError)
+                        },{}
                 )
 
         compositeDisposable.add(disposable)
@@ -292,31 +307,54 @@ class SyncViewModel @ViewModelInject constructor(
                         {
                             progresPersen += 35
                             progresPersenLive.postValue(progresPersen)
-                        },{},{}
+                            progresMessageSuccess += "\n FCustomer Success"
+                            progresMessageSuccessLive.postValue(progresMessageSuccess)
+
+                        },{
+                            progresMessageError += "\n FCustomer Error"
+                            progresMessageErrorLive.postValue(progresMessageError)
+                        },{}
                 )
     }
-    fun getFMaterialromRepoAndSaveToCache(fUserEntity: FUserEntity, fDivisionEntity: FDivisionEntity)  {
+    fun getFMaterialFromRepoAndSaveToCache(fUserEntity: FUserEntity, fDivisionEntity: FDivisionEntity)  {
         getFMaterialUseCase
-                .getRemoteAllFMaterialByDivisionAndShareToCompany(SecurityUtil.getAuthHeader(fUserEntity.username, fUserEntity.passwordConfirm), fDivisionEntity.id, fDivisionEntity.fcompanyBean)
+                .getRemoteAllFMaterialEntityByDivisionAndShareToCompany(SecurityUtil.getAuthHeader(fUserEntity.username, fUserEntity.passwordConfirm), fDivisionEntity.id, fDivisionEntity.fcompanyBean)
                 .toObservable()
                 .observeOn(AndroidSchedulers.mainThread())
                 .doOnNext{
+
+                    for (data in it){
+//                        Log.d(TAG, "#result >> ${data.fvendorBean!!.id} | ${data.fmaterialGroup3Bean.id} | ${data.fdivisionBean.id} | ${data.fmaterialSalesBrandBean} | ${data.ftaxBean}" )
+//                        Log.d(TAG, "#result >>  ${data.fmaterialGroup3Bean.id} | ${data.fmaterialSalesBrandBean} " )
+                    }
+
                     insertCacheFMaterial(it.map {
                         /**
                          * Entah kenapa Kolom isStatusSctive tidak bisa ditarik dari Server
                          */
+
                         it.isStatusActive =true
                         it
                     })
+
+//                    Log.d(TAG, "#result Insert FMaterial Success Database Suscess ${it}")
+
                 }
                 .subscribe(
                         {
 
-//                            Log.e(TAG, "#result ${it}")
+//                            Log.d(TAG, "#result Insert FMaterial Success Database Suscess ${it}")
 
                             progresPersen += 35
                             progresPersenLive.postValue(progresPersen)
-                        },{},{}
+                            progresMessageSuccess += "\n FMaterial Success"
+                            progresMessageSuccessLive.postValue(progresMessageSuccess)
+
+                        },{
+                            progresMessageError += "\n FMaterial Error"
+                            progresMessageErrorLive.postValue(progresMessageError)
+
+                        },{}
                 )
     }
 
@@ -445,28 +483,46 @@ class SyncViewModel @ViewModelInject constructor(
     }
 
 
-    fun insertCacheFMaterial(listFMaterial:  List<FMaterial>){
+    fun insertCacheFMaterial(listFMaterial:  List<FMaterialEntity>){
 
         DisposableManager.add(Observable.fromCallable {
-            getFMaterialUseCase.deleteAllCacheFMaterial().also {
-                getFMaterialUseCase.addCacheListFMaterial(listFMaterial)
-            }
+            getFMaterialUseCase.addCacheListFMaterialEntity(listFMaterial)
+//            getFMaterialUseCase.deleteAllCacheFMaterial().also {
+//                getFMaterialUseCase.addCacheListFMaterial(listFMaterial)
+//            }
         }
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe (
                     {
-//                        Log.d(TAG, "#result Insert FMaterial Tod Database Suscess ${it}")
+//                        Log.d(TAG, "#result Insert FMaterial Success Database Suscess ${it}")
                     },
                     {
-//                        Log.d(TAG, "#result Insert FMaterial error To Database ${it.message}")
-                    },
-                    {
-
-                    }
+//                        Log.e(TAG, "#result Insert FMaterial ERROR To Database ${it.message}")
+                    },{}
                 )
         )
     }
+
+    fun insertCacheFMaterial(fMaterial: FMaterial){
+
+        DisposableManager.add(Observable.fromCallable {
+            getFMaterialUseCase.addCacheFMaterial(fMaterial)
+        }
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe (
+                        {
+                            Log.d(TAG, "#result Insert FMaterial Success Database Suscess ${it}")
+                        },
+                        {
+                            Log.e(TAG, "#result Insert FMaterial ERROR To Database ${it.message}")
+                        },{}
+                )
+        )
+    }
+
+
     fun insertCacheFCustomer(listFCustomerEntity: List<FCustomerEntity>){
         DisposableManager.add(Observable.fromCallable {
             getFCustomerUseCase.deleteAllCacheFCustomer().also {

@@ -110,8 +110,6 @@ class DashBoardFragment : Fragment(R.layout.dash_board_fragment) {
 
 
     fun menuSyncronize() {
-        dashboardViewModel.subscribeUpdateStock()
-
         val action= DashBoardFragmentDirections.actionDashBoardFragmentToSyncronizeFragment(
                 mainViewModel.userViewState
         )

@@ -194,9 +194,7 @@ data class FMaterialEntity  (
 
 
     var created : Date? = Date(),
-     
     var modified : Date? = Date(),
-
     var modifiedBy : String? ="" //User ID
 
 ): ModelEntity(), Parcelable {

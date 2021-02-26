@@ -17,7 +17,8 @@
         android:theme="@style/Theme.RxSfa">
 <!--        <activity android:name="com.erp.distribution.sfa.presentation.ui.test.gallery.GalleryActivity">-->
 <!--        <activity android:name=".presentation.ui.MainActivity">-->
-        <activity android:name="com.erp.distribution.sfa.presentation.ui.MainActivity">
+        <activity android:name="com.erp.distribution.sfa.presentation.ui.MainActivity"
+            android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -28,9 +29,12 @@
         <activity android:name="com.erp.distribution.sfa.presentation.ui.test.detailphoto.PhotoDetailActivity"
             android:theme="@style/AppTheme.NoActionBar"/>
 
-        <activity android:name=".presentation.ui.LoginActivity"/>
-        <activity android:name="com.erp.distribution.sfa.presentation.ui.syncronize_fromserver.SyncronizeActivity"/>
-        <activity android:name="com.erp.distribution.sfa.presentation.ui.master.material_lama.MaterialActivity"/>
+        <activity android:name=".presentation.ui.LoginActivity"
+            android:screenOrientation="portrait"/>
+        <activity android:name="com.erp.distribution.sfa.presentation.ui.syncronize_fromserver.SyncronizeActivity"
+            android:screenOrientation="portrait"/>
+        <activity android:name="com.erp.distribution.sfa.presentation.ui.master.material_lama.MaterialActivity"
+            android:screenOrientation="portrait"/>
         <activity android:name="com.erp.distribution.sfa.presentation.ui.material.FMaterialActivity" android:parentActivityName=".presentation.ui.MainActivity_Old"/>
         <activity android:name="com.erp.distribution.sfa.presentation.ui.customer.CustomerActivity" android:parentActivityName=".presentation.ui.MainActivity_Old"/>
         <activity android:name="com.erp.distribution.sfa.presentation.ui.salesorder.FtSaleshActivity" android:parentActivityName=".presentation.ui.MainActivity_Old"/>

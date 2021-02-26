@@ -1,5 +1,6 @@
 package com.erp.distribution.sfa.domain.usecase
 
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.map
 import com.erp.distribution.sfa.data.di.SortOrder
@@ -44,9 +45,16 @@ class GetFMaterialUseCase @Inject constructor(
     }
     fun getRemoteAllFMaterialByDivisionAndShareToCompany(authHeader: String, divisionId: Int, companyId: Int): Single<List<FMaterial>>{
         return repository.getRemoteAllFMaterialByDivisionAndShareToCompany(authHeader, divisionId, companyId).map {
-            it.map { it.toDomain() }
+            it.map {
+                Log.d("##### MatUseCase", "#result >>  ${it.fmaterialGroup3Bean} | ${it.fmaterialSalesBrandBean} " )
+                it.toDomain()
+            }
         }
     }
+    fun getRemoteAllFMaterialEntityByDivisionAndShareToCompany(authHeader: String, divisionId: Int, companyId: Int): Single<List<FMaterialEntity>>{
+        return repository.getRemoteAllFMaterialByDivisionAndShareToCompany(authHeader, divisionId, companyId)
+    }
+
     fun createRemoteFMaterial(authHeader: String, fMaterialEntity: FMaterialEntity): Single<FMaterialEntity>{
         return repository.createRemoteFMaterial(authHeader, fMaterialEntity)
     }
@@ -105,6 +113,10 @@ class GetFMaterialUseCase @Inject constructor(
     fun addCacheListFMaterial(list: List<FMaterial>){
         repository.addCacheListFMaterial(list.map { it.toEntity() })
     }
+    fun addCacheListFMaterialEntity(list: List<FMaterialEntity>){
+        repository.addCacheListFMaterial(list.map { it })
+    }
+
     fun putCacheFMaterial(fMaterial: FMaterial){
         repository.putCacheFMaterial(fMaterial.toEntity())
     }

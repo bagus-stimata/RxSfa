@@ -23,7 +23,7 @@ data class FMaterial  (
     * 2. 
     */
 //    @Ignore
-    var sourceId : Int =0,
+    var sourceId : Int? =0,
 
 //    @Ignore
 //    var noUrut : Int =0,
@@ -74,6 +74,7 @@ data class FMaterial  (
     //	@JoinColumn(name="fvendorBean", referencedColumnName="ID")
     //	private FVendor fvendorBean;
 //    var fvendorBean : Int =0,
+
     var fvendorBean : FVendor? = FVendor(),
 
     //	@ManyToOne
@@ -196,8 +197,10 @@ internal fun FMaterial.toEntity(): FMaterialEntity {
     return FMaterialEntity(
             id = id,
 
+            sourceId = sourceId,
             pcode = pcode,
             pname = pname,
+
             uom1 = uom1,
             uom2 = uom2,
             uom3 = uom3,
@@ -221,11 +224,16 @@ internal fun FMaterial.toEntity(): FMaterialEntity {
             selected = selected,
             unread = unread,
 
-            fmaterialSalesBrandBean = fmaterialSalesBrandBean!!,
             ftaxBean = ftaxBean!!,
             isTaxable = isTaxable!!,
             fvendorBean = fvendorBean!!.id,
             fdivisionBean = fdivisionBean.id,
+
+            fmaterialSalesBrandBean = fmaterialSalesBrandBean!!,
+            fmaterialGroup3Bean = fmaterialGroup3Bean.id,
+
+            productionDate = productionDate,
+            expiredDate = expiredDate,
 
             created = created!!,
             modified = modified!!,

@@ -52,9 +52,15 @@ class SyncronizeFragment : Fragment(R.layout.fragment_syncronize) {
             viewBinding.progressText.text = it.toString()
             if (it >=100) {
                 viewBinding.isLoading = false
-                viewBinding.buttonStartStopSync.text = "Start Sync"
+                viewBinding.textView3.text = "Start Sync"
             }
+        })
 
+        syncViewModel.progresMessageSuccessLive.observe(viewLifecycleOwner, Observer {
+            it?.let { viewBinding.checkList1.text = it }
+        })
+        syncViewModel.progresMessageErrorLive.observe(viewLifecycleOwner, Observer {
+            it?.let {  viewBinding.checkList2.text = it }
         })
 
         viewLifecycleOwner.lifecycleScope.launchWhenStarted {
@@ -69,12 +75,13 @@ class SyncronizeFragment : Fragment(R.layout.fragment_syncronize) {
 
                         syncViewModel.progresPersenLive.postValue(0)
 
+                        syncViewModel.getFMaterialGroup123FromRepoAndSaveToCache(fUserEntity, fDivisionEntity)
+
                         syncViewModel.getFAreaFromRepoAndSaveToCache(fUserEntity, fDivisionEntity)
                         syncViewModel.getFCustomerGroupFromRepoAndSaveToCache(fUserEntity, fDivisionEntity)
                         syncViewModel.getFCustomerFromRepoAndSaveToCache(fUserEntity, fDivisionEntity)
 
-                        syncViewModel.getFMaterialGroup123FromRepoAndSaveToCache(fUserEntity, fDivisionEntity)
-                        syncViewModel.getFMaterialromRepoAndSaveToCache(fUserEntity, fDivisionEntity)
+                        syncViewModel.getFMaterialFromRepoAndSaveToCache(fUserEntity, fDivisionEntity)
 
                     }
                     is SyncViewModel.SyncFragmentEvent.NavigateBackWithResult -> {
@@ -118,7 +125,7 @@ class SyncronizeFragment : Fragment(R.layout.fragment_syncronize) {
     }
 
     fun startStopSync() {
-        viewBinding.buttonStartStopSync.text = "Proses.."
+        viewBinding.textView3.text = "Proses.."
         viewBinding.isLoading = true
 
         syncViewModel.startSync(syncViewModel.userViewState!!)

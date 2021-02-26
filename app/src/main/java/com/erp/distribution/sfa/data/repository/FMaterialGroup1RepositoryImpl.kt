@@ -29,6 +29,10 @@ class FMaterialGroup1RepositoryImpl(
     override fun getRemoteAllFMaterialGroup1ByDivision(authHeader: String, divisionId: Int): Single<List<FMaterialGroup1Entity>> {
         return retrofitService.getRemoteAllFMaterialGroup1ByDivision(authHeader, divisionId)
     }
+    override fun getRemoteAllFMaterialGroup1ByCompany(authHeader: String, companyId: Int): Single<List<FMaterialGroup1Entity>> {
+        return retrofitService.getRemoteAllFMaterialGroup1ByCompany(authHeader, companyId)
+    }
+
     override fun getRemoteAllFMaterialGroup1ByDivisionAndShareToCompany(authHeader: String, divisionId: Int, companyId: Int): Single<List<FMaterialGroup1Entity>> {
         return retrofitService.getRemoteAllFMaterialGroup1ByDivisionAndShareToCompany(authHeader, divisionId, companyId)
     }
