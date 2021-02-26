@@ -104,7 +104,7 @@ data class FMaterial  (
     //	@ManyToOne
     //	@JoinColumn(name="fmaterialSalesBrandBean", referencedColumnName="ID")
     //	private FMaterialSalesBrand fmaterialSalesBrandBean;
-    var fmaterialSalesBrandBean : Int =0,
+    var fmaterialSalesBrandBean : Int? =0,
 
     var ftSaleshdItemsSet : List<FtSalesdItems> = listOf<FtSalesdItems>(),
 

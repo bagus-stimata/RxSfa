@@ -206,7 +206,7 @@ class SyncViewModel @ViewModelInject constructor(
 
     fun getFMaterialGroup123FromRepoAndSaveToCache(fUserEntity: FUserEntity, fDivisionEntity: FDivisionEntity) {
         val disposable = getFMaterialGroup1UseCase
-//                .getRemoteAllFMaterialGroup1ByDivisionAndShareToCompany(SecurityUtil.getAuthHeader(fUserEntity.username, fUserEntity.passwordConfirm), fDivisionEntity.id, fDivisionEntity.fcompanyBean)
+//           .getRemoteAllFMaterialGroup1ByDivisionAndShareToCompany(SecurityUtil.getAuthHeader(fUserEntity.username, fUserEntity.passwordConfirm), fDivisionEntity.id, fDivisionEntity.fcompanyBean)
                 .getRemoteAllFMaterialGroup1ByCompany(SecurityUtil.getAuthHeader(fUserEntity.username, fUserEntity.passwordConfirm), fDivisionEntity.fcompanyBean)
                 .toObservable()
                 .observeOn(AndroidSchedulers.mainThread())
@@ -215,7 +215,7 @@ class SyncViewModel @ViewModelInject constructor(
                 }
                 .doAfterNext{
                     it.iterator().forEach {  fMaterialGroup1Entity ->
-//                        subscribeListFMaterialGrup2ByParent_FromRepo(fUserEntity, fMaterialGroup1Entity)
+                        subscribeListFMaterialGrup2ByParent_FromRepo(fUserEntity, fMaterialGroup1Entity)
 //                        Log.d(">>>>> ", "#result ${fMaterialGroup1Entity.kode1} | ${fMaterialGroup1Entity.description} ")
                     }
                 }
@@ -486,10 +486,13 @@ class SyncViewModel @ViewModelInject constructor(
     fun insertCacheFMaterial(listFMaterial:  List<FMaterialEntity>){
 
         DisposableManager.add(Observable.fromCallable {
-            getFMaterialUseCase.addCacheListFMaterialEntity(listFMaterial)
 //            getFMaterialUseCase.deleteAllCacheFMaterial().also {
 //                getFMaterialUseCase.addCacheListFMaterial(listFMaterial)
 //            }
+            getFMaterialUseCase.deleteAllCacheFMaterial().also {
+                getFMaterialUseCase.addCacheListFMaterialEntity(listFMaterial)
+            }
+
         }
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
@@ -513,10 +516,10 @@ class SyncViewModel @ViewModelInject constructor(
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe (
                         {
-                            Log.d(TAG, "#result Insert FMaterial Success Database Suscess ${it}")
+//                            Log.d(TAG, "#result Insert FMaterial Success Database Suscess ${it}")
                         },
                         {
-                            Log.e(TAG, "#result Insert FMaterial ERROR To Database ${it.message}")
+//                            Log.e(TAG, "#result Insert FMaterial ERROR To Database ${it.message}")
                         },{}
                 )
         )

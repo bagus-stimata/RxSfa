@@ -46,7 +46,7 @@ class GetFMaterialUseCase @Inject constructor(
     fun getRemoteAllFMaterialByDivisionAndShareToCompany(authHeader: String, divisionId: Int, companyId: Int): Single<List<FMaterial>>{
         return repository.getRemoteAllFMaterialByDivisionAndShareToCompany(authHeader, divisionId, companyId).map {
             it.map {
-                Log.d("##### MatUseCase", "#result >>  ${it.fmaterialGroup3Bean} | ${it.fmaterialSalesBrandBean} " )
+//                Log.d("##### MatUseCase", "#result >>  ${it.fmaterialGroup3Bean} | ${it.fmaterialSalesBrandBean} " )
                 it.toDomain()
             }
         }

@@ -126,7 +126,7 @@ data class FMaterialEntity  (
     //	@ManyToOne
     //	@JoinColumn(name="fmaterialSalesBrandBean", referencedColumnName="ID")
     //	private FMaterialSalesBrand fmaterialSalesBrandBean;
-    var fmaterialSalesBrandBean : Int =0,
+    var fmaterialSalesBrandBean : Int? =0,
 
     //BATCH CODE --> Berhubungan dengan Stockist atau Gudang
     //PRODUCTION CODE --> Berhubungan dengan TANGGAL DIPRODUKSI DAN EXP.DATE
@@ -206,7 +206,7 @@ data class FMaterialEntity  (
 internal fun FMaterialEntity.toDomain(): FMaterial {
     return FMaterial(
         id = id,
-            sourceId = sourceId!!,
+            sourceId = sourceId,
         pcode = pcode,
         pname = pname,
         uom1 = uom1,
@@ -230,9 +230,9 @@ internal fun FMaterialEntity.toDomain(): FMaterial {
         selected = selected,
         unread = unread,
 
-        fmaterialGroup3Bean = FMaterialGroup3(fmaterialSalesBrandBean!!),
-        fmaterialSalesBrandBean = fmaterialSalesBrandBean!!,
-        ftaxBean = ftaxBean?.let { it!! },
+        fmaterialGroup3Bean = FMaterialGroup3(fmaterialGroup3Bean),
+        fmaterialSalesBrandBean = fmaterialSalesBrandBean?.let { it },
+        ftaxBean = ftaxBean?.let { it },
         isTaxable = isTaxable!!,
         fvendorBean = FVendor(fvendorBean),
         fdivisionBean = FDivision(fdivisionBean!!),
