@@ -46,7 +46,7 @@ class DashBoardViewModel @ViewModelInject constructor(
                 .subscribeOn(Schedulers.io())
                 .subscribe(
                         {
-                            Log.d(TAG, "#result success get stock: >>  ${it}")
+                            Log.d(TAG, "#result success get stock: >>  Oke Update")
                             updateCacheFStock_FromRepo(it)
                         },
                         {

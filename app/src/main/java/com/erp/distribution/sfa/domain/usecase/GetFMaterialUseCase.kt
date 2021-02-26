@@ -1,6 +1,7 @@
 package com.erp.distribution.sfa.domain.usecase
 
 import androidx.lifecycle.LiveData
+import androidx.lifecycle.map
 import com.erp.distribution.sfa.data.di.SortOrder
 import com.erp.distribution.sfa.domain.repository.FMaterialRepository
 import com.erp.distribution.sfa.domain.usecase.base.SingleUseCase
@@ -41,8 +42,10 @@ class GetFMaterialUseCase @Inject constructor(
     fun getRemoteAllFMaterialByDivision(authHeader: String, divisionId: Int): Single<List<FMaterialEntity>>{
         return repository.getRemoteAllFMaterialByDivision(authHeader, divisionId)
     }
-    fun getRemoteAllFMaterialByDivisionAndShareToCompany(authHeader: String, divisionId: Int, companyId: Int): Single<List<FMaterialEntity>>{
-        return repository.getRemoteAllFMaterialByDivisionAndShareToCompany(authHeader, divisionId, companyId)
+    fun getRemoteAllFMaterialByDivisionAndShareToCompany(authHeader: String, divisionId: Int, companyId: Int): Single<List<FMaterial>>{
+        return repository.getRemoteAllFMaterialByDivisionAndShareToCompany(authHeader, divisionId, companyId).map {
+            it.map { it.toDomain() }
+        }
     }
     fun createRemoteFMaterial(authHeader: String, fMaterialEntity: FMaterialEntity): Single<FMaterialEntity>{
         return repository.createRemoteFMaterial(authHeader, fMaterialEntity)
@@ -64,8 +67,10 @@ class GetFMaterialUseCase @Inject constructor(
 
 
 
-    fun getCacheAllFMaterial(): LiveData<List<FMaterialEntity>>{
-        return repository.getCacheAllFMaterial()
+    fun getCacheAllFMaterial(): LiveData<List<FMaterial>>{
+        return repository.getCacheAllFMaterial().map {
+            it.map { it.toDomain() }
+        }
     }
     fun getCacheAllFMaterialFlow(query: String, sortOrder: SortOrder,  limit: Int, currentOffset: Int, hideSelected: Boolean): Flow<List<FMaterial>> {
         return repository.getCacheAllFMaterialFlow(query, sortOrder, limit, currentOffset, hideSelected).map {
@@ -79,21 +84,26 @@ class GetFMaterialUseCase @Inject constructor(
                 it.fVendorEntity?.let {
                     fmaterialBean.fvendorBean = it.toDomain()
                 }
+                it.fStockEntity?.let {
+                    fmaterialBean.saldoStock = it.saldoAkhir
+                }
                 fmaterialBean
             }
         }
     }
-    fun getCacheFMaterialById(id: Int): LiveData<FMaterialEntity>{
-        return repository.getCacheFMaterialById(id)
+    fun getCacheFMaterialById(id: Int): LiveData<FMaterial>{
+        return repository.getCacheFMaterialById(id).map { it.toDomain() }
     }
-    fun getCacheAllFMaterialByDivision(divisionId: Int): LiveData<List<FMaterialEntity>>{
-        return repository.getCacheAllFMaterialByDivision(divisionId)
+    fun getCacheAllFMaterialByDivision(divisionId: Int): LiveData<List<FMaterial>>{
+        return repository.getCacheAllFMaterialByDivision(divisionId).map {
+            it.map { it.toDomain() }
+        }
     }
-    fun addCacheFMaterial(fMaterialEntity: FMaterialEntity){
-        repository.addCacheFMaterial(fMaterialEntity)
+    fun addCacheFMaterial(fMaterial: FMaterial){
+        repository.addCacheFMaterial(fMaterial.toEntity())
     }
-    fun addCacheListFMaterial(list: List<FMaterialEntity>){
-        repository.addCacheListFMaterial(list)
+    fun addCacheListFMaterial(list: List<FMaterial>){
+        repository.addCacheListFMaterial(list.map { it.toEntity() })
     }
     fun putCacheFMaterial(fMaterial: FMaterial){
         repository.putCacheFMaterial(fMaterial.toEntity())

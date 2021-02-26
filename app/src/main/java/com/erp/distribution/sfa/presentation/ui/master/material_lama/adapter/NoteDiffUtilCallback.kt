@@ -2,12 +2,13 @@ package com.erp.distribution.sfa.presentation.ui.master.material_lama.adapter
 
 import androidx.recyclerview.widget.DiffUtil
 import com.erp.distribution.sfa.data.source.entity.FMaterialEntity
+import com.erp.distribution.sfa.domain.model.FMaterial
 
 /**
  * Created by wisnu on 8/7/18
  */
-class NoteDiffUtilCallback(private val oldData: MutableList<FMaterialEntity>,
-                           private val newData: MutableList<FMaterialEntity>) : DiffUtil.Callback() {
+class NoteDiffUtilCallback(private val oldData: MutableList<FMaterial>,
+                           private val newData: MutableList<FMaterial>) : DiffUtil.Callback() {
 
     override fun areItemsTheSame(oldItemPosition: Int,
                                  newItemPosition: Int): Boolean {

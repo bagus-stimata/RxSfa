@@ -15,6 +15,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.setFragmentResult
 import androidx.fragment.app.setFragmentResultListener
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.Observer
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
@@ -30,6 +31,8 @@ import com.erp.distribution.sfa.presentation.ui.syncronize_fromserver.Syncronize
 import com.erp.distribution.sfa.presentation.ui.utils.AlertDialogConfirm
 import com.erp.distribution.sfa.presentation.ui.utils.onQueryTextChanged
 import com.erp.distribution.sfa.utils.exhaustive
+import com.erp.distribution.sfa.utils.network.NetworkChecker
+import com.erp.distribution.sfa.utils.network.NetworkUtils
 import com.google.android.material.snackbar.Snackbar
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collect
@@ -265,6 +268,7 @@ class FtSaleshFragment : Fragment(R.layout.fragment_ftsalesh), FtSaleshAdapter.O
 
 
     fun menuSyncOrUploadToServer() {
+
         val alert =
                 AlertDialogConfirm(
                         context,

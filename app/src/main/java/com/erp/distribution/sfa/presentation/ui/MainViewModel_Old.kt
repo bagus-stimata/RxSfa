@@ -7,6 +7,7 @@ import com.erp.distribution.sfa.data.source.entity.*
 import com.erp.distribution.sfa.domain.usecase.*
 import com.erp.distribution.sfa.presentation.extention.map
 import com.erp.distribution.sfa.data.source.entity_security.FUserEntity
+import com.erp.distribution.sfa.domain.model.FMaterial
 import com.erp.distribution.sfa.presentation.base.Resource
 import com.erp.distribution.sfa.presentation.model.UserViewState
 import com.erp.distribution.sfa.utils.SecurityUtil
@@ -288,7 +289,7 @@ class MainViewModel_Old  @ViewModelInject constructor(
     }
 
 
-    val getCacheFMaterialEntity: LiveData<List<FMaterialEntity>>
+    val getCacheFMaterialEntity: LiveData<List<FMaterial>>
         get() = getFMaterialUseCase.getCacheAllFMaterial()
 
 

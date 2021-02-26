@@ -159,7 +159,11 @@ data class FMaterial  (
     * Melihat History Penjualan Vs Jumalh Stok hasilnya adalah = Jumlah hari stok akan habis
     */
     var minQtyStok : Int =0,
-        
+
+    /**
+     * TAMBAHAN BOS OKE
+     */
+    var saldoStock: Double =0.0,
 
     //Dalam Grams
     var weightSmalest : Int =0,

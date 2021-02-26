@@ -86,6 +86,7 @@ class FtSalesdItemsAdapter(private val listener: OnItemClickListener) :
                 var totalPrice = (item.qty * item.sprice) /item.fmaterialBean.convfact1 *1.1
                 txtTotal.text = nf.format(totalPrice)
 
+                txtInfoStockkosong.visibility = View.GONE
                 imgStar.visibility = View.GONE
 
             }

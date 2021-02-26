@@ -1,5 +1,6 @@
 package com.erp.distribution.sfa.presentation.ui.salesorder.salesorder_qty
 
+import android.graphics.Color
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
@@ -11,12 +12,14 @@ import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.setFragmentResult
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.Observer
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.erp.distribution.sfa.R
 import com.erp.distribution.sfa.databinding.FragmentAddEditQtySalesorderBinding
 import com.erp.distribution.sfa.databinding.FragmentAddEditQtySoBinding
+import com.erp.distribution.sfa.domain.model.FStock
 import com.erp.distribution.sfa.domain.utils.HeaderDetilSalesHelper
 import com.erp.distribution.sfa.domain.utils.HeaderDetilSalesHelperImpl
 import com.erp.distribution.sfa.domain.utils.KonversiProductAndStockHelper
@@ -25,6 +28,7 @@ import com.erp.distribution.sfa.utils.exhaustive
 import com.google.android.material.snackbar.Snackbar
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collect
+import org.jetbrains.anko.textColor
 
 @AndroidEntryPoint
 class AddEditFtSaleshQtyFragment : Fragment(R.layout.fragment_add_edit_qty_so) {
@@ -71,6 +75,42 @@ class AddEditFtSaleshQtyFragment : Fragment(R.layout.fragment_add_edit_qty_so) {
 //                viewModel.ftSalesdItems.qty4 = qtyUom4
                 val hds: HeaderDetilSalesHelper = HeaderDetilSalesHelperImpl(viewModel.ftSalesh, viewModel.ftSalesdItems)
                 viewModel.ftSalesdItems = hds.fillFtSalesd
+
+                /**
+                 * Cek LastStock
+                 */
+
+                viewModel.ftSalesdItems.fmaterialBean?.let {
+                    viewModel.getStockFromRepoAndUpdateToCache(viewModel.ftSalesdItems.fmaterialBean).observe(viewLifecycleOwner, Observer {
+                        it?.let {
+                            binding.textviewContent2.text = "KOSONG"
+                            binding.textviewContent2.textColor = Color.RED
+                            when (it) {
+                                else ->{
+                                    try {
+                                        for (data in it) {
+                                            val kps: KonversiProductAndStockHelper = KonversiProductAndStockHelperImpl(data.saldoAkhir, viewModel.ftSalesdItems.fmaterialBean)
+                                            binding.textviewContent2.text = kps.getUom1234StringUom()
+                                            binding.textviewContent2.textColor = Color.BLUE
+                                        }
+                                    }catch (e: java.lang.Exception){}
+                                }
+//                                checkNotNull(it) ->{
+//                                    if (it.saldoAkhir >0) {
+//                                        val kps: KonversiProductAndStockHelper = KonversiProductAndStockHelperImpl(it.saldoAkhir, viewModel.ftSalesdItems.fmaterialBean)
+//                                        binding.textviewContent2.text = kps.getUom1234StringUom()
+//                                    }
+//                                }
+
+                            }
+
+                        }
+                    })
+                }
+
+
+
+
             }
 
 

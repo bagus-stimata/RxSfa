@@ -145,9 +145,6 @@ class DashBoardFragment : Fragment(R.layout.dash_board_fragment) {
 
     }
 
-
-
-
     override fun onDestroyView() {
         super.onDestroyView()
 //        searchView.setOnQueryTextListener(null)

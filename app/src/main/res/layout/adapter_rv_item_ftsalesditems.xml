@@ -52,28 +52,41 @@
 
             <TextView
                 android:id="@+id/txt_qty"
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_weight="25"
                 android:ellipsize="marquee"
                 android:singleLine="true"
                 android:textColor="@color/colorPrimaryDark"
                 android:textSize="14dp"
                 tools:text="3Dus 6Pcs" />
+<!--            android:layout_weight="25"-->
+            <TextView
+                android:id="@+id/txt_info_stockkosong"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="0dp"
+                android:layout_marginRight="2dp"
+                android:layout_toRightOf="@id/txt_qty"
+                android:text=" KOSONG"
+                android:textColor="@color/red"
+                android:textSize="10dp" />
+<!--            android:textColor="#676767"-->
 
             <TextView
                 android:id="@+id/txt_price"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="30"
+                android:layout_toLeftOf="@id/txt_rp_of_total"
                 android:ellipsize="marquee"
                 android:singleLine="true"
                 android:textColor="@color/black"
                 android:textSize="12dp"
-                android:gravity="left"
+                android:gravity="center"
                 tools:text="7.5000" />
 
             <TextView
+                android:id="@+id/txt_rp_of_total"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="0dp"

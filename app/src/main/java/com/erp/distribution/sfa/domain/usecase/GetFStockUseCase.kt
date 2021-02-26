@@ -6,6 +6,7 @@ import com.erp.distribution.sfa.domain.repository.FStockRepository
 import com.erp.distribution.sfa.domain.usecase.base.SingleUseCase
 import com.erp.distribution.sfa.data.source.entity.FStockEntity
 import com.erp.distribution.sfa.data.source.entity.toDomain
+import com.erp.distribution.sfa.domain.model.FMaterial
 import com.erp.distribution.sfa.domain.model.FStock
 import com.erp.distribution.sfa.domain.model.toEntity
 import io.reactivex.rxjava3.core.Single
@@ -51,6 +52,14 @@ class GetFStockUseCase @Inject constructor(private val repository: FStockReposit
             it.toDomain()
         }
     }
+    fun getCacheFStockByFMaterial(fmaterialBean: Int): LiveData<List<FStock>>{
+        return repository.getCacheAllFStockByMaterial(fmaterialBean).map {
+            it.map {
+                it.toDomain()
+            }
+        }
+    }
+
     fun addCacheFStock(fStock: FStock){
         repository.addCacheFStock(fStock.toEntity())
     }

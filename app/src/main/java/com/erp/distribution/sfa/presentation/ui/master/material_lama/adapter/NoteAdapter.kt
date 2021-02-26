@@ -10,7 +10,7 @@ import androidx.annotation.ColorInt
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.erp.distribution.sfa.databinding.AdapterRvItemTemplate1Binding
-import com.erp.distribution.sfa.data.source.entity.FMaterialEntity
+import com.erp.distribution.sfa.domain.model.FMaterial
 import java.text.NumberFormat
 import java.text.SimpleDateFormat
 
@@ -19,7 +19,7 @@ import java.text.SimpleDateFormat
  */
 class NoteAdapter(private val itemLongClickListener: (Int) -> Unit) : RecyclerView.Adapter<NoteViewHolder>() {
 
-    private var data: MutableList<FMaterialEntity> = mutableListOf()
+    private var data: MutableList<FMaterial> = mutableListOf()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): NoteViewHolder {
 //        val itemView = LayoutInflater
@@ -37,9 +37,9 @@ class NoteAdapter(private val itemLongClickListener: (Int) -> Unit) : RecyclerVi
     }
     override fun getItemCount(): Int = data.size
 
-    fun getDataAtPosition(position: Int): FMaterialEntity = data[position]
+    fun getDataAtPosition(position: Int): FMaterial = data[position]
 
-    fun setData(data: MutableList<FMaterialEntity>) {
+    fun setData(data: MutableList<FMaterial>) {
         val diffResult = DiffUtil.calculateDiff(
             NoteDiffUtilCallback(this.data, data)
         )
@@ -48,7 +48,7 @@ class NoteAdapter(private val itemLongClickListener: (Int) -> Unit) : RecyclerVi
         diffResult.dispatchUpdatesTo(this)
     }
 
-    fun updateData(data: MutableList<FMaterialEntity>) {
+    fun updateData(data: MutableList<FMaterial>) {
         val diffResult = DiffUtil.calculateDiff(
             NoteDiffUtilCallback(this.data, data)
         )
@@ -59,13 +59,13 @@ class NoteAdapter(private val itemLongClickListener: (Int) -> Unit) : RecyclerVi
     }
 
     companion object {
-        val DIFF_CALLBACK: DiffUtil.ItemCallback<FMaterialEntity> =
-            object : DiffUtil.ItemCallback<FMaterialEntity>() {
-                override fun areItemsTheSame(oldItem: FMaterialEntity, newItem: FMaterialEntity): Boolean {
+        val DIFF_CALLBACK: DiffUtil.ItemCallback<FMaterial> =
+            object : DiffUtil.ItemCallback<FMaterial>() {
+                override fun areItemsTheSame(oldItem: FMaterial, newItem: FMaterial): Boolean {
                     return oldItem.id == newItem.id
                 }
 
-                override fun areContentsTheSame(oldItem: FMaterialEntity, newItem: FMaterialEntity): Boolean {
+                override fun areContentsTheSame(oldItem: FMaterial, newItem: FMaterial): Boolean {
                     return oldItem.pcode == newItem.pcode && oldItem.pname == newItem.pname
                 }
             }
@@ -96,8 +96,8 @@ class NoteViewHolder(private val itemBinding: AdapterRvItemTemplate1Binding,
             return@setOnLongClickListener true
         }
     }
-    private lateinit var fMaterialEntityBean: FMaterialEntity
-    fun bindData(item: FMaterialEntity) {
+    private lateinit var fMaterialEntityBean: FMaterial
+    fun bindData(item: FMaterial) {
 
 
         nf.maximumFractionDigits = 0

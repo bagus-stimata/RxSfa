@@ -11,6 +11,7 @@ import com.erp.distribution.sfa.data.source.entity.*
 import com.erp.distribution.sfa.data.source.entity.modelenum.EnumUom
 import com.erp.distribution.sfa.domain.exception.ExceptionHandler
 import com.erp.distribution.sfa.domain.model.FCustomer
+import com.erp.distribution.sfa.domain.model.FMaterial
 import com.erp.distribution.sfa.domain.model.FUser
 import com.erp.distribution.sfa.presentation.base.BaseViewModel
 import com.erp.distribution.sfa.presentation.base.Resource
@@ -81,7 +82,7 @@ class SyncViewModel @ViewModelInject constructor(
 //    var fUserEntity: FUserEntity = FUserEntity()
 //    var fDivisionEntity: FDivisionEntity = FDivisionEntity()
 
-    var listFMaterialEntityMutableLive: MutableLiveData<List<FMaterialEntity>> = MutableLiveData()
+    var listFMaterialEntityMutableLive: MutableLiveData<List<FMaterial>> = MutableLiveData()
     var listFCustomerEntityMutableLive: MutableLiveData<List<FCustomerEntity>> = MutableLiveData()
 
     init {
@@ -444,11 +445,11 @@ class SyncViewModel @ViewModelInject constructor(
     }
 
 
-    fun insertCacheFMaterial(listFMaterialEntity:  List<FMaterialEntity>){
+    fun insertCacheFMaterial(listFMaterial:  List<FMaterial>){
 
         DisposableManager.add(Observable.fromCallable {
             getFMaterialUseCase.deleteAllCacheFMaterial().also {
-                getFMaterialUseCase.addCacheListFMaterial(listFMaterialEntity)
+                getFMaterialUseCase.addCacheListFMaterial(listFMaterial)
             }
         }
                 .subscribeOn(Schedulers.io())

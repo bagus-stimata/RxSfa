@@ -59,7 +59,7 @@ class AddEditFMaterialViewModel @ViewModelInject constructor(
 
     private fun createFMaterial(fMaterial: FMaterial) = viewModelScope.launch {
         DisposableManager.add(Observable.fromCallable {
-            fMaterialUseCase.addCacheFMaterial(fMaterial.toEntity())
+            fMaterialUseCase.addCacheFMaterial(fMaterial)
         }
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())

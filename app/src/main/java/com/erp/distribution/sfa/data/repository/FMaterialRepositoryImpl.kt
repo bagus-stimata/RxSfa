@@ -7,6 +7,7 @@ import com.erp.distribution.sfa.data.source.local.database.AppDatabase
 import com.erp.distribution.sfa.domain.repository.FMaterialRepository
 import com.erp.distribution.sfa.data.source.entity.FMaterialEntity
 import com.erp.distribution.sfa.data.source.entity.FMaterialWithFDivisionAndVendorAndGroup
+import com.erp.distribution.sfa.data.source.entity.FMaterialWithFDivisionAndVendorAndGroupAndStock
 import com.erp.distribution.sfa.data.source.entity.toDomain
 import com.erp.distribution.sfa.domain.model.FMaterial
 import com.erp.distribution.sfa.domain.model.toEntity
@@ -56,7 +57,7 @@ class FMaterialRepositoryImpl(
     override fun getCacheAllFMaterial(): LiveData<List<FMaterialEntity>> {
         return appDatabase.materialDao.getAllFMaterialEntityLive
     }
-    override fun getCacheAllFMaterialFlow(query: String, sortOrder: SortOrder,  limit: Int, currentOffset: Int, hideSelected: Boolean): Flow<List<FMaterialWithFDivisionAndVendorAndGroup>> {
+    override fun getCacheAllFMaterialFlow(query: String, sortOrder: SortOrder,  limit: Int, currentOffset: Int, hideSelected: Boolean): Flow<List<FMaterialWithFDivisionAndVendorAndGroupAndStock>> {
         return appDatabase.materialDao.getAllFMaterialFlow(query, sortOrder, limit, currentOffset, hideSelected)
     }
 

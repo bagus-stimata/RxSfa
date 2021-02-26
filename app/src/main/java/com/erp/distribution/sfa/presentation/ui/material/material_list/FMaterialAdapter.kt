@@ -9,6 +9,8 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.erp.distribution.sfa.databinding.AdapterRvItemFmaterialBinding
 import com.erp.distribution.sfa.domain.model.FMaterial
+import com.erp.distribution.sfa.domain.utils.KonversiProductAndStockHelper
+import com.erp.distribution.sfa.domain.utils.KonversiProductAndStockHelperImpl
 import com.erp.distribution.sfa.presentation.ui.master.material_lama.adapter.NoteAdapter
 import java.text.NumberFormat
 import java.text.SimpleDateFormat
@@ -72,10 +74,14 @@ class FMaterialAdapter(private val listener: OnItemClickListener) :
                 txtMaterialGroup.text = item.fmaterialGroup3Bean!!.description
 
 
-                txtPrice.text = "Rp ${nf.format(item.spriceAfterPpn)}"
-                txtPrice2.text = "@ ${nf.format(item.sprice2AfterPpn)}"
+                txtPrice.text = "${nf.format(item.spriceAfterPpn)} @${nf.format(item.sprice2AfterPpn)}"
+//                txtPrice2.text = "@ ${nf.format(item.sprice2AfterPpn)}"
 
-                txtStock.text = item.minQtyStok.toString()
+//                txtStock.text = item.minQtyStok.toString()
+                if (item.saldoStock > 0.0){
+                    val kps: KonversiProductAndStockHelper = KonversiProductAndStockHelperImpl(item.saldoStock, item)
+                    txtStock.text = kps.getUom1234StringUom()
+                }
 
                 imgStar.visibility = View.GONE
             }

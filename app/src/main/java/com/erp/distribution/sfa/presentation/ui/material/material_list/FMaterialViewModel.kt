@@ -126,7 +126,7 @@ class FMaterialViewModel @ViewModelInject constructor(
 
     fun onUndoDeleteClick(fMaterial: FMaterial) = viewModelScope.launch {
         DisposableManager.add(Observable.fromCallable {
-            getFMaterialUseCase.addCacheFMaterial(fMaterial.toEntity())
+            getFMaterialUseCase.addCacheFMaterial(fMaterial)
         }
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())

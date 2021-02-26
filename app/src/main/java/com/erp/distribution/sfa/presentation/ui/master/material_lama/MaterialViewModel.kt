@@ -6,7 +6,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.erp.distribution.sfa.domain.usecase.GetFMaterialUseCase
 import com.erp.distribution.sfa.domain.usecase.GetFUserUseCase
-import com.erp.distribution.sfa.data.source.entity.FMaterialEntity
+import com.erp.distribution.sfa.domain.model.FMaterial
 import java.util.*
 
 class MaterialViewModel @ViewModelInject constructor(
@@ -14,21 +14,21 @@ class MaterialViewModel @ViewModelInject constructor(
     private val getFMaterialUseCase: GetFMaterialUseCase
 ) : ViewModel() {
     //    private FMaterialRepository repository;
-    val allFMaterialEntityLive: LiveData<List<FMaterialEntity>>? = null
-    private val listFMaterialEntity: List<FMaterialEntity> = ArrayList()
-    protected var itemHeader: MutableLiveData<FMaterialEntity>? = null
+    val allFMaterialLive: LiveData<List<FMaterial>>? = null
+    private val listFMaterial: List<FMaterial> = ArrayList()
+    protected var itemHeader: MutableLiveData<FMaterial>? = null
 
-    fun insert(fMaterialEntity: FMaterialEntity): FMaterialEntity {
+    fun insert(fMaterialEntity: FMaterial): FMaterial {
 //        repository.insert(fMaterial);
         return fMaterialEntity
     }
 
-    fun update(fMaterialEntity: FMaterialEntity): FMaterialEntity {
+    fun update(fMaterialEntity: FMaterial): FMaterial {
 //        repository.update(fMaterial);
         return fMaterialEntity
     }
 
-    fun delete(fMaterialEntity: FMaterialEntity): FMaterialEntity {
+    fun delete(fMaterialEntity: FMaterial): FMaterial {
 //        repository.delete(fMaterial);
         return fMaterialEntity
     }
@@ -37,10 +37,10 @@ class MaterialViewModel @ViewModelInject constructor(
 //        repository.deleteAllFMaterial();
     }
 
-    val allFMaterialEntity: LiveData<List<FMaterialEntity>>
+    val allFMaterial: LiveData<List<FMaterial>>
         get() = getFMaterialUseCase.getCacheAllFMaterial()
 
-    fun getItemHeader(): LiveData<FMaterialEntity>? {
+    fun getItemHeader(): LiveData<FMaterial>? {
         return itemHeader
     }
 }

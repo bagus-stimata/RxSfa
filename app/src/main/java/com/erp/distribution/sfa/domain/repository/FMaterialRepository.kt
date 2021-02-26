@@ -4,6 +4,7 @@ import androidx.lifecycle.LiveData
 import com.erp.distribution.sfa.data.di.SortOrder
 import com.erp.distribution.sfa.data.source.entity.FMaterialEntity
 import com.erp.distribution.sfa.data.source.entity.FMaterialWithFDivisionAndVendorAndGroup
+import com.erp.distribution.sfa.data.source.entity.FMaterialWithFDivisionAndVendorAndGroupAndStock
 import com.erp.distribution.sfa.domain.model.FMaterial
 import io.reactivex.rxjava3.core.Single
 import kotlinx.coroutines.flow.Flow
@@ -21,7 +22,7 @@ interface FMaterialRepository {
     fun deleteRemoteFMaterial(authHeader: String, id: Int): Single<FMaterialEntity>
 
     fun getCacheAllFMaterial(): LiveData<List<FMaterialEntity>>
-    fun getCacheAllFMaterialFlow(query: String, sortOrder: SortOrder, limit: Int, currentOffset: Int, hideSelected: Boolean): Flow<List<FMaterialWithFDivisionAndVendorAndGroup>>
+    fun getCacheAllFMaterialFlow(query: String, sortOrder: SortOrder, limit: Int, currentOffset: Int, hideSelected: Boolean): Flow<List<FMaterialWithFDivisionAndVendorAndGroupAndStock>>
     fun getCacheFMaterialById(id: Int): LiveData<FMaterialEntity>
     fun getCacheAllFMaterialByDivision(divisionId: Int): LiveData<List<FMaterialEntity>>
     fun addCacheFMaterial(fMaterialEntity: FMaterialEntity)

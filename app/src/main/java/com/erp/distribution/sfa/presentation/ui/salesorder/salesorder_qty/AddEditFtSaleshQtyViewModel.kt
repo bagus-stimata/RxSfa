@@ -3,13 +3,9 @@ package com.erp.distribution.sfa.presentation.ui.salesorder.salesorder_qty
 import android.util.Log
 import androidx.hilt.Assisted
 import androidx.hilt.lifecycle.ViewModelInject
-import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.SavedStateHandle
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.viewModelScope
-import com.erp.distribution.sfa.domain.model.FtSalesdItems
-import com.erp.distribution.sfa.domain.model.FtSalesh
-import com.erp.distribution.sfa.domain.model.toEntity
+import androidx.lifecycle.*
+import com.erp.distribution.sfa.domain.model.*
+import com.erp.distribution.sfa.domain.usecase.GetFStockUseCase
 import com.erp.distribution.sfa.domain.usecase.GetFtSalesdItemsUseCase
 import com.erp.distribution.sfa.domain.usecase.GetFtSaleshUseCase
 import com.erp.distribution.sfa.domain.utils.KonversiProductAndStockHelper
@@ -28,6 +24,7 @@ import kotlinx.coroutines.launch
 class AddEditFtSaleshQtyViewModel @ViewModelInject constructor(
     private val getFtSaleshUseCase: GetFtSaleshUseCase,
     private val getFtSalesdItemsUseCase: GetFtSalesdItemsUseCase,
+    private val getFStockUseCase: GetFStockUseCase,
     @Assisted private val state: SavedStateHandle
 ) : ViewModel() {
     val TAG = AddEditFtSaleshQtyViewModel::class.java.simpleName
@@ -39,7 +36,13 @@ class AddEditFtSaleshQtyViewModel @ViewModelInject constructor(
     var ftSalesdItemsId: Long = 0
     var ftSalesdItems = FtSalesdItems()
 
-    var mutableLiveFtSalesdItems = MutableLiveData<FtSalesdItems>()
+    fun getStockFromRepoAndUpdateToCache(fMaterial: FMaterial): LiveData<List<FStock>> {
+        //Sementara From Cache Dahulu
+        return getFStockUseCase.getCacheFStockByFMaterial(fMaterial.id)
+//        return getFStockUseCase.getCacheFStockByFMaterial(fMaterial.id)
+
+    }
+//    var mutableLiveFtSalesdItems = MutableLiveData<FtSalesdItems>()
 
 //    val userViewState = state.get<UserViewState>("userViewStateActive")
 //    val ftSalesh = state.get<FtSalesh>("ftSalesh")

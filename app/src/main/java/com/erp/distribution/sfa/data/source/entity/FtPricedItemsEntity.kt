@@ -1,36 +1,32 @@
 package com.erp.distribution.sfa.data.source.entity
 
+import android.os.Parcelable
 import androidx.room.Entity
 import androidx.room.PrimaryKey
+import kotlinx.parcelize.Parcelize
 
-//@Entity(tableName = "ftpriced_items")
+@Parcelize
 @Entity(tableName = "FtPricedItems")
-class FtPricedItemsEntity {
+data class FtPricedItemsEntity (
     @PrimaryKey(autoGenerate = true)
-    var id: Long = 0
-    var noUrut = 0
-    var pprice = 0.0
-    var ppriceAfterPpn = 0.0
-    var oldPprice = 0.0
-    var sprice = 0.0
-    var spriceAfterPpn = 0.0
-    var oldSprice = 0.0
-    var oldSpriceAfterPpn = 0.0
-    var pprice2 = 0.0
-    var pprice2AfterPpn = 0.0
-    var oldPprice2 = 0.0
-    var sprice2 = 0.0
-    var sprice2AfterPpn: Double? = null
-    var oldSprice2 = 0.0
-    var oldSprice2AfterPpn = 0.0
+    var id: Int =0,
+    var pprice : Double=0.0,
+    var ppriceAfterPpn : Double=0.0,
+    var sprice : Double=0.0,
+    var spriceAfterPpn : Double=0.0,
+    var pprice2 : Double=0.0,
+    var pprice2AfterPpn : Double=0.0,
+    var sprice2 : Double=0.0,
+    var sprice2AfterPpn: Double = 0.0,
 
     //	@ManyToOne
     //	@JoinColumn(name="ftPricehBean", referencedColumnName="refno", insertable=true, updatable=true)
     //	private FtPriceh  ftPricehBean;
-    var ftPricehBean = 0
+    var ftPricehBean : Int=0,
 
     //	@ManyToOne
     //	@JoinColumn(name="fmaterialBean", referencedColumnName="ID", insertable=true, updatable=true)
     //	private FMaterial fmaterialBean;
-    var fmaterialBean = 0
-}
+    var fmaterialBean : Int=0,
+
+): Parcelable

@@ -269,6 +269,36 @@ data class FMaterialWithFDivisionAndVendorAndGroup(
 
 )
 
+data class FMaterialWithFDivisionAndVendorAndGroupAndStock(
+        @Embedded  val fMaterialEntity: FMaterialEntity,
+
+        @Relation(
+                parentColumn = "fdivisionBean",
+                entityColumn = "id"
+        )
+        val fDivisionEntity: FDivisionEntity,
+
+        @Relation(
+                parentColumn = "fvendorBean",
+                entityColumn = "id"
+        )
+        val fVendorEntity: FVendorEntity?,
+
+        @Relation(
+                parentColumn = "fmaterialGroup3Bean",
+                entityColumn = "id"
+        )
+        val fMaterialGroup3Entity: FMaterialGroup3Entity?,
+
+
+        @Relation(
+        parentColumn = "id", //id -> dari fMaterial
+        entityColumn = "fmaterialBean" //fmaterialBean - > dari FStock
+        )
+        val fStockEntity: FStockEntity?
+
+
+)
 
 
 
