@@ -221,6 +221,7 @@ class FtSaleshFragment : Fragment(R.layout.fragment_ftsalesh), FtSaleshAdapter.O
             viewModel.searchQuery.value = it
         }
 
+
 //        viewLifecycleOwner.lifecycleScope.launch {
 //            menu.findItem(R.id.action_hide_inactive).isChecked =
 //                viewModel.preferencesFlow.first().hideCompleted

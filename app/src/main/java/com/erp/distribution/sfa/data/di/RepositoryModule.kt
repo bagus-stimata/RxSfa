@@ -164,6 +164,24 @@ class RepositoryModule {
 
     @Singleton
     @Provides
+    fun provideFtPriceAlthRepository(
+            appDatabase: AppDatabase,
+            retrofitService: RetrofitServiceFtPriceAlth
+    ): FtPriceAlthRepository {
+        return FtPriceAlthImpl(appDatabase, retrofitService)
+    }
+    @Singleton
+    @Provides
+    fun provideFtPriceAltdItemsRepository(
+            appDatabase: AppDatabase,
+            retrofitService: RetrofitServiceFtPriceAltdItems
+    ): FtPriceAltdItemsRepository {
+        return FtPriceAltdItemsImpl(appDatabase, retrofitService)
+    }
+
+
+    @Singleton
+    @Provides
     fun provideFtSaleshRepository(
         appDatabase: AppDatabase,
         retrofitService: RetrofitServiceFtSalesh

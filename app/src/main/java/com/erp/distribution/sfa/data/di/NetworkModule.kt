@@ -208,6 +208,17 @@ class NetworkModule {
 
     @Singleton
     @Provides
+    fun provideServiceFtPriceAltdItems(retrofit: Retrofit): RetrofitServiceFtPriceAltdItems = retrofit.create(
+            RetrofitServiceFtPriceAltdItems::class.java
+    )
+    @Singleton
+    @Provides
+    fun provideServiceFtPriceAlth(retrofit: Retrofit): RetrofitServiceFtPriceAlth = retrofit.create(
+            RetrofitServiceFtPriceAlth::class.java
+    )
+
+    @Singleton
+    @Provides
     fun provideServiceFtSalesdItems(retrofit: Retrofit): RetrofitServiceFtSalesdItems = retrofit.create(
         RetrofitServiceFtSalesdItems::class.java
     )

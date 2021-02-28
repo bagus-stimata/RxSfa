@@ -59,8 +59,8 @@ import com.erp.distribution.sfa.data.source.local.dao_security.FUserRolesDao
     FTaxEntity::class,
 //    FtOpnamedItems::class,
 //    FtOpnameh::class,
-//    FtPriceAltdItems::class,
-//    FtPriceAlth::class,
+    FtPriceAltdItemsEntity::class,
+    FtPriceAlthEntity::class,
 //    FtPricedItems::class,
 //    FtPriceh::class,
 //    FtPurchasedItems::class,
@@ -79,7 +79,7 @@ import com.erp.distribution.sfa.data.source.local.dao_security.FUserRolesDao
 
 
 
-                     ], version = 60, exportSchema = false)
+                     ], version = 62, exportSchema = false)
 @TypeConverters(RoomDateConverters::class) //Karena ada Native Date
 abstract class AppDatabase : RoomDatabase() {
 
@@ -123,8 +123,8 @@ abstract class AppDatabase : RoomDatabase() {
     abstract val taxDao: FTaxDao
 //    abstract val opnamedItemsDao: FtOpnamedItemsDao
 //    abstract val opnamehDao: FtOpnamehDao
-//    abstract val priceAltdItemsDao: FtPriceAltdItemsDao
-//    abstract val priceAlthDao: FtPriceAlthDao
+    abstract val priceAltdItemsDao: FtPriceAltdItemsDao
+    abstract val priceAlthDao: FtPriceAlthDao
 //    abstract val pricedItemsDao: FtPricedItemsDao
 //    abstract val pricehDao: FtPricehDao
 //    abstract val purchasedItemsDao: FtPurchasedItemsDao

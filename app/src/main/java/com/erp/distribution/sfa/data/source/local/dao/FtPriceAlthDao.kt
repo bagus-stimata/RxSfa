@@ -15,7 +15,7 @@ interface FtPriceAlthDao {
      * .allowMainThreadQueries() pada Configurasi database utama agar tidak perlu menggunakan AsynT
      */
     @Insert
-    fun insert(ftPriceAlthEntity: FtPriceAlthEntity?)
+    fun insert(ftPriceAlthEntity: FtPriceAlthEntity)
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun insertAll(listFtPriceAlthEntity: List<FtPriceAlthEntity>)
 
@@ -30,14 +30,8 @@ interface FtPriceAlthDao {
     fun deleteAllFtPriceAlth()
 
     @get:Query("SELECT * FROM ftPriceAlth ")
-    val allFtPriceAlthEntityLive: LiveData<List<FtPriceAlthEntity?>?>?
+    val getAllFtPriceAlthLive: LiveData<List<FtPriceAlthEntity>>
 
-    @get:Query("SELECT * FROM ftPriceAlth ")
-    val allFtPriceAlthEntity: List<FtPriceAlthEntity?>?
-
-    @Query("SELECT * FROM ftPriceAlth WHERE id = :id ")
-    fun getAllById(id: Long?): List<FtPriceAlthEntity?>?
-
-    @Query("SELECT * FROM ftPriceAlth WHERE fdivisionBean = :id ")
-    fun getAllByDivision(id: Int?): List<FtPriceAlthEntity?>?
+    @Query("SELECT * FROM ftPriceAlth WHERE fdivisionBean = :fdivisionBean ")
+    fun getAllByDivisionLive(fdivisionBean: Int): LiveData<List<FtPriceAlthEntity>>
 }

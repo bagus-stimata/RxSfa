@@ -118,6 +118,7 @@ class DashBoardFragment : Fragment(R.layout.dash_board_fragment) {
 
     fun menuSalesOrder() {
         dashboardViewModel.subscribeUpdateStock()
+        dashboardViewModel.subscribeUpdatePriceAlth()
 
         val action = DashBoardFragmentDirections.actionDashBoardFragmentToFtSaleshFragment(
                 mainViewModel.userViewState

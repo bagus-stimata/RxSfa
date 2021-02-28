@@ -121,10 +121,10 @@ class DatabaseModule {
 //    internal fun provideFtOpnamedItemsDao(appDatabase: AppDatabase): FtOpnamedItemsDao = appDatabase.opnamedItemsDao
 //    @Provides
 //    internal fun provideFtOpnamehDao(appDatabase: AppDatabase): FtOpnamehDao = appDatabase.opnamehDao
-//    @Provides
-//    internal fun provideFtPriceAltdItemsDao(appDatabase: AppDatabase): FtPriceAltdItemsDao = appDatabase.priceAltdItemsDao
-//    @Provides
-//    internal fun provideFtPriceAlthDao(appDatabase: AppDatabase): FtPriceAlthDao = appDatabase.priceAlthDao
+    @Provides
+    internal fun provideFtPriceAltdItemsDao(appDatabase: AppDatabase): FtPriceAltdItemsDao = appDatabase.priceAltdItemsDao
+    @Provides
+    internal fun provideFtPriceAlthDao(appDatabase: AppDatabase): FtPriceAlthDao = appDatabase.priceAlthDao
 //    @Provides
 //    internal fun provideFtPricedItemsDao(appDatabase: AppDatabase): FtPricedItemsDao = appDatabase.pricedItemsDao
 //    @Provides

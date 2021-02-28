@@ -322,8 +322,8 @@
                                     android:layout_height="wrap_content"
                                     android:layout_below="@id/img_promotion"
                                     android:gravity="center"
-                                    android:text= "0"
                                     android:textColor="#000"
+                                    android:text="@{DecimalFormat.getInstance().format(ftSalesh.disc1+ftSalesh.disc2) + `+`  + DecimalFormat.getInstance().format(ftSalesh.disc1+ftSalesh.discPlus_FG) }"
                                     android:textSize="12dp" />
                                 <TextView
                                     android:id="@+id/textview_disc_rp"
@@ -332,7 +332,7 @@
                                     android:layout_below="@id/textview_disc"
                                     android:gravity="center"
                                     android:textColor="#000"
-                                    android:text="@{`Rp ` + DecimalFormat.getInstance().format(Math.round(ftSalesh.discPlusRpAfterPpn_FG)) }"
+                                    android:text="@{`RP. ` + DecimalFormat.getInstance().format(Math.round(ftSalesh.disc1RpAfterPpn+ftSalesh.disc2RpAfterPpn+ftSalesh.discPlusRpAfterPpn_FG)) }"
                                     android:textSize="12dp" />
 
                             </RelativeLayout>

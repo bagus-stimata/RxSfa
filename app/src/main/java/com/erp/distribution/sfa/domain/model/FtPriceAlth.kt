@@ -1,19 +1,16 @@
-package com.erp.distribution.sfa.data.source.entity
+package com.erp.distribution.sfa.domain.model
 
 import android.os.Parcelable
 import androidx.room.Entity
 import androidx.room.PrimaryKey
-import com.erp.distribution.sfa.domain.model.FArea
-import com.erp.distribution.sfa.domain.model.FDivision
-import com.erp.distribution.sfa.domain.model.FtPriceAlth
+import com.erp.distribution.sfa.data.source.entity.FAreaEntity
+import com.erp.distribution.sfa.data.source.entity.FtPriceAlthEntity
 import kotlinx.parcelize.Parcelize
 import java.util.*
 
 @Parcelize
-@Entity(tableName = "FtPriceAlth")
-data class FtPriceAlthEntity (
-    @PrimaryKey(autoGenerate = true)
-    var id : Int =0,
+data class FtPriceAlth (
+        var id : Int =0,
 
     /*
     * JIKA COPY DARI TEMPAT LAIN: MAKA SEBAGAI LOG TRACK MENINGGALKAN SOURCE_ID = ID sumber asal dia dicopy
@@ -22,28 +19,27 @@ data class FtPriceAlthEntity (
     * 2. 
     */
     var noRek : String ="",
-    var description : String ="",
+        var description : String ="",
 
     //	@ManyToOne
     //	@JoinColumn(name="fdivisionBean", referencedColumnName="ID", nullable=false)
     //	private FDivision fdivisionBean;
-    var fdivisionBean : Int =0,
-    var trDate: Date = Date(),
-    var isStatusActive: Boolean = true, //yang ditarik pasti yang aktif
+        var fdivisionBean : FDivision = FDivision(),
+        var trDate: Date = Date(),
+        var isStatusActive: Boolean = true, //yang ditarik pasti yang aktif
 
-    var created: Date = Date(),
-    var modified: Date = Date(),
-    var modifiedBy : String =""
+        var created: Date = Date(),
+        var modified: Date = Date(),
+        var modifiedBy : String =""
 ): Parcelable
 
-
-internal fun FtPriceAlthEntity.toDomain(): FtPriceAlth {
-    return FtPriceAlth(
+internal fun FtPriceAlth.toEntity(): FtPriceAlthEntity {
+    return FtPriceAlthEntity(
             id = id,
             noRek = noRek,
             description= description,
 
-            fdivisionBean = FDivision(fdivisionBean),
+            fdivisionBean = fdivisionBean.id,
             trDate = trDate,
             isStatusActive = isStatusActive,
 
@@ -52,3 +48,6 @@ internal fun FtPriceAlthEntity.toDomain(): FtPriceAlth {
             modifiedBy = modifiedBy!!
     )
 }
+
+
+

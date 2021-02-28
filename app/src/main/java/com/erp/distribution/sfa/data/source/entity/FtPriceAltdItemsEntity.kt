@@ -1,30 +1,44 @@
 package com.erp.distribution.sfa.data.source.entity
 
+import android.os.Parcelable
 import androidx.room.Entity
 import androidx.room.PrimaryKey
+import com.erp.distribution.sfa.domain.model.FDivision
+import com.erp.distribution.sfa.domain.model.FMaterial
+import com.erp.distribution.sfa.domain.model.FtPriceAltdItems
+import com.erp.distribution.sfa.domain.model.FtPriceAlth
+import kotlinx.parcelize.Parcelize
 
-//@Entity(tableName = "ftpricealtditems")
+@Parcelize
 @Entity(tableName = "FtPriceAltdItems")
-class FtPriceAltdItemsEntity {
+data class FtPriceAltdItemsEntity (
     @PrimaryKey(autoGenerate = true)
-    var id = 0
-    var noUrut = 0
-    var pprice = 0.0
-    var ppriceAfterPpn: Double? = null
-    var pprice2 = 0.0
-    var pprice2AfterPpn = 0.0
-    var sprice = 0.0
-    var spriceAfterPpn: Double? = null
-    var sprice2 = 0.0
-    var sprice2AfterPpn = 0.0
+    var id: Int =0,
+    var sprice: Double =0.0,
+    var spriceAfterPpn: Double =0.0,
+    var sprice2: Double =0.0,
+    var sprice2AfterPpn: Double =0.0,
 
     //	@ManyToOne
     //	@JoinColumn(name="ftPriceAlthBean", referencedColumnName="ID")
     //	private FtPriceAlth  ftPriceAlthBean;
-    var ftPriceAlthBean = 0
+    var ftPriceAlthBean: Int =0,
 
     //	@ManyToOne
     //	@JoinColumn(name="fmaterialBean", referencedColumnName="ID")
     //	private FMaterial fmaterialBean;
-    var fmaterialBean = 0
+    var fmaterialBean: Int =0,
+): Parcelable
+
+internal fun FtPriceAltdItemsEntity.toDomain(): FtPriceAltdItems {
+    return FtPriceAltdItems(
+            id = id,
+            sprice = sprice,
+            spriceAfterPpn = sprice2AfterPpn,
+            sprice2 = sprice2,
+            sprice2AfterPpn = sprice2AfterPpn,
+
+            ftPriceAlthBean = FtPriceAlth(ftPriceAlthBean),
+            fmaterialBean = FMaterial(fmaterialBean)
+    )
 }

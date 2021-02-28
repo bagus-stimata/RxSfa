@@ -9,6 +9,6 @@ interface RetrofitServiceFtPriceAltdItems {
 
 
     @GET("getAllFtPriceAltdItemsByParent/{ftPricehAlthBean}")
-    fun getAllFtPriceAltdItemsByParent(@Header("Authorization") authHeader: String?, @Path("ftPricehAlthBean") ftPricehAlthBean: Int): Single<List<FtPriceAltdItemsEntity>>
+    fun getRemoteAllFtPriceAltdItemsByFtPriceAlth(@Header("Authorization") authHeader: String?, @Path("ftPricehAlthBean") ftPricehAlthBean: Int): Single<List<FtPriceAltdItemsEntity>>
 
 }
