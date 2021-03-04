@@ -35,8 +35,7 @@ class DashBoardFragment : Fragment(R.layout.dash_board_fragment) {
 
     val  mainViewModel: MainViewModel by viewModels<MainViewModel> ()
     val  dashboardViewModel: DashBoardViewModel by viewModels<DashBoardViewModel> ()
-
-
+    
     lateinit var viewBinding: DashBoardFragmentBinding
 
 
