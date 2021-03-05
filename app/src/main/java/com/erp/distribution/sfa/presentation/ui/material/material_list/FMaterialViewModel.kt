@@ -12,6 +12,9 @@ import com.erp.distribution.sfa.domain.model.*
 import com.erp.distribution.sfa.domain.model.toEntity
 import com.erp.distribution.sfa.domain.usecase.GetFMaterialGroup3UseCase
 import com.erp.distribution.sfa.domain.usecase.GetFMaterialUseCase
+import com.erp.distribution.sfa.domain.usecase.GetFtPriceAltdItemsUseCase
+import com.erp.distribution.sfa.domain.utils.HeaderDetilSalesHelper
+import com.erp.distribution.sfa.domain.utils.HeaderDetilSalesHelperImpl
 import com.erp.distribution.sfa.presentation.model.UserViewState
 import com.erp.distribution.sfa.presentation.ui.material.ADD_TASK_RESULT_OK
 import com.erp.distribution.sfa.presentation.ui.material.EDIT_TASK_RESULT_OK
@@ -28,6 +31,7 @@ import kotlinx.coroutines.launch
 class FMaterialViewModel @ViewModelInject constructor(
         private val getFMaterialUseCase: GetFMaterialUseCase,
         private val getFMaterialGroup3UseCase: GetFMaterialGroup3UseCase,
+        private val getFtPriceAltdItemsUseCase: GetFtPriceAltdItemsUseCase,
         private val preferencesManager: PreferencesManager,
         @Assisted private val state: SavedStateHandle
 ) : ViewModel() {
@@ -57,6 +61,17 @@ class FMaterialViewModel @ViewModelInject constructor(
 
     val fMaterialLive = fMaterialFlow.asLiveData()
 
+    /**
+     * Harga alternatif sementara ditaruh ditempat Qty
+     */
+//    fun fMaterialLive() = Transformations.map(fMaterialFlow.asLiveData(), {
+//            Log.d(TAG, "#result >> hasilnya adalah >> ${ftSalesh.fcustomerBean.id} ${ftSalesh.fcustomerBean.custname} >> ${ftSalesh.fcustomerBean.ftPriceAlthBean}")
+//                    it.map {
+////                        getFtPriceAltdItemsUseCase.getCacheAllFtPriceAltdItemsByFtPriceAlthAndFMaterial(it.)
+//                        it
+//                    }
+//        })
+
     fun onSortOrderSelected(sortOrder: SortOrder) = viewModelScope.launch {
         preferencesManager.updateSortOrder(sortOrder)
     }
@@ -72,18 +87,24 @@ class FMaterialViewModel @ViewModelInject constructor(
 //            fMaterialEventChannel.send(FMaterialEvent.NavigateToEditFMaterialScreen(fMaterial))
         fMaterial?.let {
             if (ftSaleshRefno >0 ) {
-                val ftSalesdItems = FtSalesdItems()
+                var ftSalesdItems = FtSalesdItems()
                 ftSalesdItems.ftSaleshBean = ftSalesh
                 ftSalesdItems.fmaterialBean = fMaterial
-                ftSalesdItems.isTax = fMaterial.isTaxable
-                ftSalesdItems.ftaxBean = fMaterial.ftaxBean!!
+                if (fMaterial.isTaxable) {
+                    ftSalesdItems.isTax = true
+                    ftSalesdItems.ftaxBean = fMaterial.ftaxBean!!
+                    ftSalesdItems.taxPercent =10.0
+                }
 
                 ftSalesdItems.isFreeGood = false
 
                 ftSalesdItems.sprice = fMaterial.sprice
-                ftSalesdItems.spriceAfterPpn = fMaterial.spriceAfterPpn
 
-                fMaterialEventChannel.send(FMaterialEvent.NavigateToSalesOrderEditQtyScreen(userViewState!!, ftSalesh, ftSalesdItems))
+//                val hds: HeaderDetilSalesHelper = HeaderDetilSalesHelperImpl(ftSalesh, ftSalesdItems)
+//                ftSalesdItems = hds.fillFtSalesd
+
+
+                fMaterialEventChannel.send(FMaterialEvent.NavigateToSalesOrderEditQtyScreen(userViewState!!, ftSalesh, ftSalesdItems ))
 
             }
         }

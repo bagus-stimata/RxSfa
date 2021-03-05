@@ -6,6 +6,7 @@ import com.erp.distribution.sfa.domain.repository.FtPriceAltdItemsRepository
 import com.erp.distribution.sfa.domain.usecase.base.SingleUseCase
 import com.erp.distribution.sfa.data.source.entity.FtPriceAltdItemsEntity
 import com.erp.distribution.sfa.data.source.entity.toDomain
+import com.erp.distribution.sfa.domain.model.FMaterial
 import com.erp.distribution.sfa.domain.model.FtPriceAltdItems
 import io.reactivex.rxjava3.core.Single
 import javax.inject.Inject
@@ -36,13 +37,21 @@ class GetFtPriceAltdItemsUseCase @Inject constructor(private val repository: FtP
             }
         }
     }
-    fun getCacheAllFtPriceAltdItemsByParent(ftPriceAlthBean: Int): LiveData<List<FtPriceAltdItems>>{
+    fun getCacheAllFtPriceAltdItemsByParent( ftPriceAlthBean: Int): LiveData<List<FtPriceAltdItems>>{
         return repository.getCacheAllFtPriceAltdItemsByParent(ftPriceAlthBean).map {
             it.map {
                 it.toDomain()
             }
         }
     }
+    fun getCacheAllFtPriceAltdItemsByFtPriceAlthAndFMaterial( ftPriceAlthBean: Int, fMaterialBean: Int ): LiveData<List<FtPriceAltdItems>>{
+        return repository.getCacheAllFtPriceAltdItemsByFtPriceAlthAndFMaterial(ftPriceAlthBean, fMaterialBean).map {
+            it.map {
+                it.toDomain()
+            }
+        }
+    }
+
     fun addCacheFtPriceAltdItems(ftPriceAltdItemsEntity: FtPriceAltdItemsEntity){
         repository.addCacheFtPriceAltdItems(ftPriceAltdItemsEntity)
     }

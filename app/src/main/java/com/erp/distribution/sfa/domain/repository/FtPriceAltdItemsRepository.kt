@@ -18,6 +18,7 @@ interface FtPriceAltdItemsRepository {
 //
     fun getCacheAllFtPriceAltdItems(): LiveData<List<FtPriceAltdItemsEntity>>
     fun getCacheAllFtPriceAltdItemsByParent(ftPriceAlthBean: Int): LiveData<List<FtPriceAltdItemsEntity>>
+    fun getCacheAllFtPriceAltdItemsByFtPriceAlthAndFMaterial(ftPriceAlthBean: Int, fMaterialBean: Int): LiveData<List<FtPriceAltdItemsEntity>>
     fun addCacheFtPriceAltdItems(ftPriceAltdItemsEntity: FtPriceAltdItemsEntity)
     fun addCacheListFtPriceAltdItems(list: List<FtPriceAltdItemsEntity>)
     fun putCacheFtPriceAltdItems(ftPriceAltdItemsEntity: FtPriceAltdItemsEntity)

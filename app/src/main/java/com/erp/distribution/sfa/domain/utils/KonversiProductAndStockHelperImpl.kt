@@ -375,9 +375,9 @@ class KonversiProductAndStockHelperImpl : KonversiProductAndStockHelper {
 //        qtyPcs = uom1 * fMaterialBean.convfact1 + uom2 * fMaterialBean.convfact2 + uom3 * fMaterialBean.convfact3 + uom4
 //        return qtyPcs.toDouble()
 //    }
-    override fun getSmallestFromUom1234(fMaterialBean: FMaterial?, uom1: Double, uom2: Double, uom3: Double, uom4: Double): Double {
+    override fun getSmallestFromUom1234(fMaterialBean: FMaterial, uom1: Double, uom2: Double, uom3: Double, uom4: Double): Double {
         var qtyPcs = 0.0
-        qtyPcs = uom1 * fMaterialBean!!.convfact1 + uom2 * fMaterialBean!!.convfact2 + uom3 * fMaterialBean!!.convfact3 + uom4
+        qtyPcs = uom1 * fMaterialBean.convfact1 + uom2 * fMaterialBean.convfact2 + uom3 * fMaterialBean.convfact3 + uom4
 
         return qtyPcs
     }

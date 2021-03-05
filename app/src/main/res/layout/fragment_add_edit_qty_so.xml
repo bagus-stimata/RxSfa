@@ -186,8 +186,8 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_below="@id/textview_title1"
-                            android:layout_marginLeft="5dp"
-                            android:layout_marginRight="5dp"
+                            android:layout_marginLeft="15dp"
+                            android:layout_marginRight="15dp"
                             android:orientation="horizontal">
 
                             <TextView
@@ -196,11 +196,11 @@
                                 android:layout_height="wrap_content"
                                 android:layout_weight="0.5"
                                 android:layout_marginTop="5dp"
-                                android:layout_marginRight="15dp"
+                                android:layout_marginRight="5dp"
                                 android:textColor="@color/colorTextSecondary"
                                 android:textSize="12sp"
                                 android:text="@{` ID: ` + ftSalesdItems.fmaterialBean.pcode}"
-                                android:gravity="right" />
+                                android:gravity="center" />
 <!--                            android:text="ID. 3245677"-->
                             <TextView
                                 android:id="@+id/textview_title2_2"
@@ -208,12 +208,24 @@
                                 android:layout_height="wrap_content"
                                 android:layout_weight="0.5"
                                 android:layout_marginTop="5dp"
-                                android:layout_marginLeft="15dp"
                                 android:textColor="@color/colorTextSecondary"
                                 android:textSize="12sp"
                                 android:text="@{`(` +ftSalesdItems.fmaterialBean.convfact1 + `x` +  ftSalesdItems.fmaterialBean.convfact2 + `x` +  ftSalesdItems.fmaterialBean.convfact3 + `) ` }"
-                                android:gravity="left" />
+                                android:gravity="center" />
 <!--                            android:text="(3X4X6)"-->
+                            <TextView
+                                android:id="@+id/textview_title2_3"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="0.43"
+                                android:layout_marginTop="5dp"
+                                android:layout_marginLeft="5dp"
+                                android:textColor="@color/colorTextSecondary"
+                                android:textSize="12sp"
+                                android:text="@{ DecimalFormat.getInstance().format(Math.round(ftSalesdItems.fmaterialBean.spriceAfterPpn) ) + `  @` + DecimalFormat.getInstance().format(Math.round(ftSalesdItems.fmaterialBean.sprice2AfterPpn)) }"
+                                android:gravity="center" />
+<!--                            android:text="@{`(` +ftSalesdItems.fmaterialBean.convfact1 + `x` +  ftSalesdItems.fmaterialBean.convfact2 + `x` +  ftSalesdItems.fmaterialBean.convfact3 + `) ` }"-->
+
                         </LinearLayout>
 
 
@@ -245,26 +257,40 @@
                                 android:gravity="center">
 
                                 <TextView
+                                    android:id="@+id/textview_content1_rp"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:layout_marginRight="2dp"
                                     android:layout_marginBottom="2dp"
                                     android:layout_toLeftOf="@id/textview_content1"
                                     android:text="RP."
-                                    android:gravity="top"
                                     android:textColor="#676767"
+                                    android:gravity="top"
                                     android:textSize="10dp" />
+
                                 <TextView
                                     android:id="@+id/textview_content1"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:layout_marginBottom="2dp"
                                     android:gravity="center"
-                                    android:text="@{ DecimalFormat.getInstance().format(Math.round(ftSalesdItems.fmaterialBean.spriceAfterPpn) ) + `  @` + DecimalFormat.getInstance().format(Math.round(ftSalesdItems.fmaterialBean.sprice2AfterPpn)) }"
+                                    android:text="@{ DecimalFormat.getInstance().format(Math.round(ftSalesdItems.spriceAfterPpn) ) + `  @` + DecimalFormat.getInstance().format(Math.round(ftSalesdItems.spriceUom4AfterPpn)) }"
                                     android:textStyle="bold"
                                     android:textColor="@color/colorTextSecondary"
                                     android:textSize="13dp" />
-<!--                                android:text="600.000 @50.000"-->
+
+                                <TextView
+                                    android:id="@+id/textview_content1_sub"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginRight="2dp"
+                                    android:layout_marginBottom="2dp"
+                                    android:layout_toRightOf="@id/textview_content1"
+                                    android:text=" SPEC"
+                                    android:textColor="@color/blue"
+                                    android:gravity="top"
+                                    android:visibility="@{ftSalesdItems.tempDouble2>1? View.VISIBLE: View.GONE}"
+                                    android:textSize="10dp" />
 
                                 <TextView
                                     android:layout_width="wrap_content"

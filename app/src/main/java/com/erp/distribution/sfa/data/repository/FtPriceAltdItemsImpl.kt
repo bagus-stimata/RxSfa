@@ -55,6 +55,9 @@ class FtPriceAltdItemsImpl(
     override fun getCacheAllFtPriceAltdItemsByParent(ftPriceAlthBean: Int): LiveData<List<FtPriceAltdItemsEntity>> {
         return appDatabase.priceAltdItemsDao.getAllByParentLive(ftPriceAlthBean)
     }
+    override fun getCacheAllFtPriceAltdItemsByFtPriceAlthAndFMaterial(ftPriceAlthBean: Int, fMaterialBean: Int): LiveData<List<FtPriceAltdItemsEntity>> {
+        return appDatabase.priceAltdItemsDao.getCacheAllFtPriceAltdItemsByFtPriceAlthAndFMaterial(ftPriceAlthBean, fMaterialBean)
+    }
 
     override fun addCacheFtPriceAltdItems(ftPriceAltdItemsEntity: FtPriceAltdItemsEntity) {
         return appDatabase.priceAltdItemsDao.insert(ftPriceAltdItemsEntity)

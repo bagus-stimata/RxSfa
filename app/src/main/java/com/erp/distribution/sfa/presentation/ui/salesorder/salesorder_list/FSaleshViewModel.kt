@@ -248,7 +248,9 @@ class FSaleshViewModel @ViewModelInject constructor(
                                                                 { listFtSalesdItems ->
                                                                     updateCacheFtSalesd_FromRepo(ftSalesh, listFtSalesdItems)
                                                                 },
-                                                                    { Log.e(TAG, "#result Error Update FtSalesd")}, {}
+                                                                    {
+//                                                                        Log.e(TAG, "#result Error Update FtSalesd")
+                                                                    }, {}
                                                             )
 
                                                 }else {
@@ -354,7 +356,7 @@ class FSaleshViewModel @ViewModelInject constructor(
         for (data in list) {
             resultMediatorLiveData.addSource(getFCustomerUseCase.getCacheFCustomerById(data.fcustomerBean.id), Observer {
                 it?.let {
-                    data.fcustomerBean = it.toDomain()
+                    data.fcustomerBean = it
                     resultMediatorLiveData.postValue(list)
                 }
             }
@@ -370,7 +372,7 @@ class FSaleshViewModel @ViewModelInject constructor(
                 it?.let {
                     data.listFtSalesdItems.addAll(it)
                     resultMediatorLiveData.postValue(list)
-                    Log.d(TAG, "#result ::>> ${it.size}")
+//                    Log.d(TAG, "#result ::>> ${it.size}")
                 }
             })
         }
@@ -384,7 +386,7 @@ class FSaleshViewModel @ViewModelInject constructor(
             resultMediatorLiveData.addSource(getFtSalesdItemsUseCase.getCacheListFtSalesdItemsByFtSaleshLive(data.refno), Observer {
                 it?.let {
                     data.listFtSalesdItems.addAll(it)
-                    Log.d(TAG, "#result ::>> ${it.size}")
+//                    Log.d(TAG, "#result ::>> ${it.size}")
                     resultMediatorLiveData.postValue(list)
                 }
             })

@@ -28,9 +28,9 @@ interface FCustomerRepository {
     fun getCacheAllFCustomerWithFDivisionAndGroupLive(): LiveData<List<FCustomerWithFDivisionAndGroup>>
     fun getCacheAllFCustomer(list: List<Int>): LiveData<List<FCustomerEntity>>
     fun getCacheAllFCustomerFlow(query: String, sortOrder: SortOrder, limit: Int, currentOffset: Int, hideSelected: Boolean): Flow<List<FCustomerWithFDivisionAndGroup>>
-    fun getCacheFCustomerById(id: Int): LiveData<FCustomerEntity>
-    fun getCacheFCustomerDomainById(id: Int): LiveData<FCustomer>
-    fun getCacheFCustomerByIdFlow(id: Int): Flow<FCustomerEntity>
+
+    fun getCacheFCustomerById(id: Int): LiveData<FCustomerWithFDivisionAndGroup>
+    fun getCacheFCustomerByIdFlow(id: Int): Flow<FCustomerWithFDivisionAndGroup>
     fun getCacheAllFCustomerByDivision(divisionId: Int): LiveData<List<FCustomerEntity>>
     fun addCacheFCustomer(fCustomerEntity: FCustomerEntity)
     fun addCacheListFCustomer(list: List<FCustomerEntity>)

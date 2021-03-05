@@ -80,6 +80,7 @@ class GetFMaterialUseCase @Inject constructor(
             it.map { it.toDomain() }
         }
     }
+
     fun getCacheAllFMaterialFlow(query: String, sortOrder: SortOrder,  limit: Int, currentOffset: Int, hideSelected: Boolean): Flow<List<FMaterial>> {
         return repository.getCacheAllFMaterialFlow(query, sortOrder, limit, currentOffset, hideSelected).map {
             it.map {
@@ -99,6 +100,7 @@ class GetFMaterialUseCase @Inject constructor(
             }
         }
     }
+
     fun getCacheFMaterialById(id: Int): LiveData<FMaterial>{
         return repository.getCacheFMaterialById(id).map { it.toDomain() }
     }

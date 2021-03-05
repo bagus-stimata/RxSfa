@@ -36,4 +36,7 @@ interface FtPriceAltdItemsDao {
     @Query("SELECT * FROM ftPriceAltdItems WHERE ftPriceAlthBean = :ftPriceAlthBean ")
     fun getAllByParentLive(ftPriceAlthBean: Int): LiveData<List<FtPriceAltdItemsEntity>>
 
+    @Query("SELECT * FROM ftPriceAltdItems WHERE ftPriceAlthBean = :ftPriceAlthBean AND fmaterialBean = :fMaterialBean ")
+    fun getCacheAllFtPriceAltdItemsByFtPriceAlthAndFMaterial(ftPriceAlthBean: Int, fMaterialBean: Int): LiveData<List<FtPriceAltdItemsEntity>>
+
 }

@@ -50,6 +50,7 @@ class CustomerFragment : Fragment(R.layout.fragment_customer), CustomerAdapter.O
 
         val customerAdapter = CustomerAdapter(this)
 
+
         /**
          * Untuk mematikan backStack (PopUp Back Stack dan memaksa untuk menggunakan Home Button)
          * kita arahkankan
@@ -241,6 +242,8 @@ class CustomerFragment : Fragment(R.layout.fragment_customer), CustomerAdapter.O
         val searchItem = menu.findItem(R.id.action_search)
         searchView = searchItem.actionView as SearchView
 
+
+
         val pendingQuery = viewModel.searchQuery.value
         if (pendingQuery != null && pendingQuery.isNotEmpty()) {
             searchItem.expandActionView()
@@ -255,6 +258,8 @@ class CustomerFragment : Fragment(R.layout.fragment_customer), CustomerAdapter.O
             menu.findItem(R.id.action_hide_inactive).isChecked =
                 viewModel.preferencesFlow.first().hideCompleted
         }
+
+
 
     }
 

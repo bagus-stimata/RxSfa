@@ -97,7 +97,7 @@ class DashBoardViewModel @ViewModelInject constructor(
                 .doAfterNext{
                     it.iterator().forEach {  ftPriceAlthEntity ->
                         subscribeListFtPriceAlthItemsByParent_FromRepo(ftPriceAlthEntity)
-                            Log.d(TAG, "#result success get FtPriceAlth: >>  ${ftPriceAlthEntity.id}")
+//                            Log.d(TAG, "#result success get FtPriceAlth: >>  ${ftPriceAlthEntity.id}")
                     }
                 }
                 .subscribe(
@@ -123,10 +123,10 @@ class DashBoardViewModel @ViewModelInject constructor(
                 .subscribeOn(Schedulers.io())
                 .subscribe(
                         {
-                            Log.d(TAG, "#result success FtPriceAlthdItems ${it}")
+//                            Log.d(TAG, "#result success FtPriceAlthdItems ${it}")
                         },
                         {
-                            Log.e(TAG, "#result error FtPriceAlthdItems ${it.printStackTrace()}")
+//                            Log.e(TAG, "#result error FtPriceAlthdItems ${it.printStackTrace()}")
                         } ,{}
 
                 )

@@ -27,6 +27,6 @@ open interface KonversiProductAndStockHelper {
     fun getUom_234StringUom(): String?
     fun getUom_234StringUomHurufBesar(): String?
 
-    fun getSmallestFromUom1234(fMaterialBean: FMaterial?, uom1: Double, uom2: Double, uom3: Double, uom4: Double): Double
+    fun getSmallestFromUom1234(fMaterialBean: FMaterial, uom1: Double, uom2: Double, uom3: Double, uom4: Double): Double
 
 }

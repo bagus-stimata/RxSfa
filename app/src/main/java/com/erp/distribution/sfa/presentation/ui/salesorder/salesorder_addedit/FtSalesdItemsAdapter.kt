@@ -9,6 +9,8 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.erp.distribution.sfa.databinding.AdapterRvItemFtsalesditemsBinding
 import com.erp.distribution.sfa.domain.model.FtSalesdItems
+import com.erp.distribution.sfa.domain.utils.HeaderDetilSalesHelper
+import com.erp.distribution.sfa.domain.utils.HeaderDetilSalesHelperImpl
 import com.erp.distribution.sfa.domain.utils.KonversiProductAndStockHelper
 import com.erp.distribution.sfa.domain.utils.KonversiProductAndStockHelperImpl
 import com.erp.distribution.sfa.presentation.ui.master.material_lama.adapter.NoteAdapter
@@ -81,10 +83,13 @@ class FtSalesdItemsAdapter(private val listener: OnItemClickListener) :
 
                 val kps : KonversiProductAndStockHelper = KonversiProductAndStockHelperImpl(item.qty, item.fmaterialBean)
                 txtQty.text = kps.getUom1234StringUom()
-                txtPrice.text = DecimalFormat.getNumberInstance().format(Math.round(item.sprice))
 
-                var totalPrice = (item.qty * item.sprice) /item.fmaterialBean.convfact1 *1.1
-                txtTotal.text = nf.format(totalPrice)
+
+                val hds : HeaderDetilSalesHelper = HeaderDetilSalesHelperImpl(item.ftSaleshBean, item)
+                txtPrice.text = DecimalFormat.getNumberInstance().format(Math.round(hds.fillFtSalesd.spriceAfterPpn))
+
+//                var totalPrice = (item.qty * item.sprice) /item.fmaterialBean.convfact1 *1.1
+                txtTotal.text = nf.format(hds.fillFtSalesd.subtotalAfterDiscNotaPlusRpAfterPpn_FG)
 
                 txtInfoStockkosong.visibility = View.GONE
                 imgStar.visibility = View.GONE

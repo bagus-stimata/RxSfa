@@ -112,15 +112,28 @@ class GetFCustomerUseCase @Inject constructor(private val repository: FCustomerR
         }
     }
 
-    fun getCacheFCustomerById(id: Int): LiveData<FCustomerEntity>{
-        return repository.getCacheFCustomerById(id)
-    }
-    fun getCacheFCustomerDomainById(id: Int): LiveData<FCustomer>{
-        return repository.getCacheFCustomerDomainById(id)
+    fun getCacheFCustomerById(id: Int): LiveData<FCustomer>{
+        return repository.getCacheFCustomerById(id).map {
+
+            var fcustomerBean = FCustomer()
+
+            it.fCustomerEntity?.let {
+                fcustomerBean = it.toDomain()
+            }
+            it.fDivisionEntity?.let {
+                fcustomerBean.fdivisionBean = it.toDomain()
+            }
+            it.fCustomerGroupEntity?.let {
+                fcustomerBean.fcustomerGroupBean = it.toDomain()
+            }
+            fcustomerBean
+
+        }
     }
     fun getCacheAllFCustomerByDivision(divisionId: Int): LiveData<List<FCustomerEntity>>{
         return repository.getCacheAllFCustomerByDivision(divisionId)
     }
+
     fun addCacheFCustomer(fCustomerEntity: FCustomerEntity){
         repository.addCacheFCustomer(fCustomerEntity)
     }

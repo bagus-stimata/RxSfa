@@ -78,10 +78,14 @@ interface FCustomerDao {
 
     @Query("SELECT * FROM fCustomer WHERE id = :id ")
     fun getAllById(id: Int): FCustomerEntity
+
+    @Transaction
     @Query("SELECT * FROM fCustomer WHERE id = :id ")
-    fun getAllByIdLive(id: Int): LiveData<FCustomerEntity>
+    fun getAllByIdLive(id: Int): LiveData<FCustomerWithFDivisionAndGroup>
+
+    @Transaction
     @Query("SELECT * FROM fCustomer WHERE id = :id ")
-    fun getAllByIdFlow(id: Int): Flow<FCustomerEntity>
+    fun getAllByIdFlow(id: Int): Flow<FCustomerWithFDivisionAndGroup>
 
 
     @get:Query("SELECT * FROM fCustomer ")

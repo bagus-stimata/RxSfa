@@ -51,10 +51,10 @@ interface FMaterialDao {
     fun getAllFMaterialSortedByDateCreated(searchQuery: String, limit: Int, currentOffset: Int,  hideSelected: Boolean): Flow<List<FMaterialEntity>>
 
     @Transaction
-    @Query("SELECT * FROM fMaterial WHERE  pname LIKE '%' || :searchQuery || '%'  OR pcode LIKE '%' || :searchQuery || '%' ORDER BY pname   LIMIT :limit OFFSET :currentOffset ")
+    @Query("SELECT * FROM fMaterial WHERE pname LIKE '%' || :searchQuery || '%'  OR pcode LIKE '%' || :searchQuery || '%' ORDER BY pname   LIMIT :limit OFFSET :currentOffset ")
     fun getAllFMaterialSortedByNameFLow(searchQuery: String,  limit: Int, currentOffset: Int ): Flow<List<FMaterialWithFDivisionAndVendorAndGroupAndStock>>
     @Transaction
-    @Query("SELECT * FROM fMaterial WHERE  pname LIKE '%' || :searchQuery || '%'  OR pcode LIKE '%' || :searchQuery || '%'  ORDER BY pcode   LIMIT :limit OFFSET :currentOffset ")
+    @Query("SELECT * FROM fMaterial WHERE pname LIKE '%' || :searchQuery || '%'  OR pcode LIKE '%' || :searchQuery || '%'  ORDER BY pcode   LIMIT :limit OFFSET :currentOffset ")
     fun getAllFMaterialSortedByIDFLow(searchQuery: String,  limit: Int, currentOffset: Int ): Flow<List<FMaterialWithFDivisionAndVendorAndGroupAndStock>>
     @Transaction
     @Query("SELECT * FROM fMaterial   LIMIT :limit OFFSET :currentOffset ")

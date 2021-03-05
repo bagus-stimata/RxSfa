@@ -5,9 +5,7 @@ import androidx.hilt.Assisted
 import androidx.hilt.lifecycle.ViewModelInject
 import androidx.lifecycle.*
 import com.erp.distribution.sfa.domain.model.*
-import com.erp.distribution.sfa.domain.usecase.GetFStockUseCase
-import com.erp.distribution.sfa.domain.usecase.GetFtSalesdItemsUseCase
-import com.erp.distribution.sfa.domain.usecase.GetFtSaleshUseCase
+import com.erp.distribution.sfa.domain.usecase.*
 import com.erp.distribution.sfa.domain.utils.KonversiProductAndStockHelper
 import com.erp.distribution.sfa.domain.utils.KonversiProductAndStockHelperImpl
 import com.erp.distribution.sfa.presentation.model.UserViewState
@@ -25,6 +23,8 @@ class AddEditFtSaleshQtyViewModel @ViewModelInject constructor(
     private val getFtSaleshUseCase: GetFtSaleshUseCase,
     private val getFtSalesdItemsUseCase: GetFtSalesdItemsUseCase,
     private val getFStockUseCase: GetFStockUseCase,
+    private val getFtPriceAltdItemsUseCase: GetFtPriceAltdItemsUseCase,
+    private val getFCustomerUseCase: GetFCustomerUseCase,
     @Assisted private val state: SavedStateHandle
 ) : ViewModel() {
     val TAG = AddEditFtSaleshQtyViewModel::class.java.simpleName
@@ -63,21 +63,6 @@ class AddEditFtSaleshQtyViewModel @ViewModelInject constructor(
     val addEditFtSaleshEvent = addEditFtSaleshEventChannel.receiveAsFlow()
 
     fun onSaveClick() {
-//        if (ftSaleshName.isBlank()) {
-//            showInvalidInputMessage("Name cannot be empty")
-//            return
-//        }
-//
-//        onPopUpBackStackWithTheResult()
-//
-//        if (ftSalesh != null) {
-//            val updatedFtSalesh = ftSalesh.copy(invoiceno = ftSaleshName, isValidOrder = ftSaleshImportance )
-////            updateFtSalesh(updatedFtSalesh)
-//        } else {
-//            val newFtSalesh = FtSalesh(invoiceno = ftSaleshName, isValidOrder = ftSaleshImportance )
-////            createFtSalesh(newFtSalesh)
-//        }
-
     }
 
     private fun addOrUpdateFtSalesdItems(ftSalesdItems: FtSalesdItems) = viewModelScope.launch {
@@ -122,6 +107,13 @@ class AddEditFtSaleshQtyViewModel @ViewModelInject constructor(
                 EDIT_TASK_RESULT_OK
             )
         )
+    }
+
+    fun getHargaAlternatif_FromCacheLive(ftPricehAlthBean: Int): LiveData<List<FtPriceAltdItems>> {
+        return  getFtPriceAltdItemsUseCase.getCacheAllFtPriceAltdItemsByFtPriceAlthAndFMaterial(ftPricehAlthBean, ftSalesdItems.fmaterialBean.id)
+    }
+    fun getFCustomerWithGroup_FromCacheLive(fcustomerBean: Int): LiveData<FCustomer> {
+        return getFCustomerUseCase.getCacheFCustomerById(fcustomerBean)
     }
 
     fun onUpdateQtySave() = viewModelScope.launch {
