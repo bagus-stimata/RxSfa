@@ -287,7 +287,7 @@
                                     android:layout_marginBottom="2dp"
                                     android:layout_toRightOf="@id/textview_content1"
                                     android:text=" SPEC"
-                                    android:textColor="@color/blue"
+                                    android:textColor="@color/colorPrimaryDark"
                                     android:gravity="top"
                                     android:visibility="@{ftSalesdItems.tempDouble2>1? View.VISIBLE: View.GONE}"
                                     android:textSize="10dp" />

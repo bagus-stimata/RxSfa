@@ -54,7 +54,11 @@ class CustomerViewModel @ViewModelInject constructor(
         getFCustomerUseCase.getCacheAllFCustomerDomainFlow(query, filterPreferences.sortOrder, 50, -1, filterPreferences.hideCompleted)
     }
     val fCustomerLive = fCustomerFlow.asLiveData()
-//    val fCustomerLive = getFCustomerUseCase.getCacheAllFCustomerWithFDivisionDomainLive()
+//    val fCustomerLive = MutableLiveData<List<FCustomer>>()
+//    val fCustomerLive = getFCustomerUseCase.getCacheAllFCustomerOnlyLive()
+
+//    val fCustomerLive = getFCustomerUseCase.getCacheAllFCustomerOnlyLive()
+//    val fCustomerLive = getFCustomerUseCase.getCacheAllFCustomerWithFDivisionLive()
 //    val fCustomerLive = getFCustomerUseCase.getCacheAllFCustomerWithGroupDomainLive()
 //    val fCustomerLive = getFCustomerUseCase.getCacheAllFCustomerWithFDivisionAndGroupDomainLive()
 

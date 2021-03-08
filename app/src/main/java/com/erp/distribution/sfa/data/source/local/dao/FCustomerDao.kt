@@ -37,30 +37,37 @@ interface FCustomerDao {
         when (sortOrder) {
             SortOrder.BY_KODE -> {
                 getAllFCustomerSortedByIDFLow( query, limit, currentOffset)
+//                getAllFCustomerFLow( limit, currentOffset)
             }
             SortOrder.BY_NAME -> {
                 getAllFCustomerSortedByNameFLow( query, limit, currentOffset)
+//                getAllFCustomerFLow( limit, currentOffset)
             }
                 else -> getAllFCustomerFLow( limit, currentOffset)
         }
 
 
-//    @Query("SELECT * FROM fCustomer WHERE  custname LIKE '%' || :searchQuery || '%'  OR custno LIKE '%' || :searchQuery || '%'  ORDER BY custname ")
-//    fun getAllFCustomerSortedByNameFLow(searchQuery: String): Flow<List<FCustomerEntity>>
-//    @Query("SELECT * FROM fCustomer WHERE  custname LIKE '%' || :searchQuery || '%'  OR custno LIKE '%' || :searchQuery || '%'    ORDER BY custno ")
-//    fun getAllFCustomerSortedByIDFLow(searchQuery: String): Flow<List<FCustomerEntity>>
-
     @Transaction
     @Query("SELECT * FROM fCustomer WHERE  custname LIKE '%' || :searchQuery || '%'  OR custno LIKE '%' || :searchQuery || '%'  ORDER BY custname  LIMIT :limit OFFSET :currentOffset ")
     fun getAllFCustomerSortedByNameFLow(searchQuery: String, limit: Int, currentOffset: Int): Flow<List<FCustomerWithFDivisionAndGroup>>
-    @Transaction
-    @Query("SELECT * FROM fCustomer WHERE  custname LIKE '%' || :searchQuery || '%'  OR custno LIKE '%' || :searchQuery || '%'    ORDER BY custno  LIMIT :limit OFFSET :currentOffset ")
-    fun getAllFCustomerSortedByIDFLow(searchQuery: String, limit: Int, currentOffset: Int): Flow<List<FCustomerWithFDivisionAndGroup>>
+//    @Transaction
+//    @Query("SELECT * FROM fCustomer WHERE custname LIKE '%' || :searchQuery || '%'  OR custno LIKE '%' || :searchQuery || '%'  LIMIT :limit OFFSET :currentOffset ")
+//    fun getAllFCustomerSortedByNameFLow(searchQuery: String, limit: Int, currentOffset: Int): Flow<List<FCustomerEntity>>
 
+    @Transaction
+    @Query("SELECT * FROM fCustomer WHERE custname LIKE '%' || :searchQuery || '%'  OR custno LIKE '%' || :searchQuery || '%'   ORDER BY custno LIMIT :limit OFFSET :currentOffset ")
+    fun getAllFCustomerSortedByIDFLow(searchQuery: String, limit: Int, currentOffset: Int): Flow<List<FCustomerWithFDivisionAndGroup>>
+//    @Transaction
+//    @Query("SELECT * FROM fCustomer WHERE custname != '' AND custname LIKE '%' || :searchQuery || '%'  OR custno LIKE '%' || :searchQuery || '%'   LIMIT :limit OFFSET :currentOffset ")
+//    fun getAllFCustomerSortedByIDFLow(searchQuery: String, limit: Int, currentOffset: Int): Flow<List<FCustomerWithFDivisionAndGroup>>
 
     @Transaction
     @Query("SELECT * FROM fCustomer LIMIT :limit OFFSET :currentOffset ")
     fun getAllFCustomerFLow( limit: Int, currentOffset: Int): Flow<List<FCustomerWithFDivisionAndGroup>>
+
+//    @Query("SELECT * FROM fCustomer LIMIT 10 OFFSET -1 ")
+//    fun getAllFCustomerNoLimitFLow(): Flow<List<FCustomerEntity>>
+
 
     @Transaction
     @Query("SELECT * FROM fCustomer ")
@@ -90,6 +97,7 @@ interface FCustomerDao {
 
     @get:Query("SELECT * FROM fCustomer ")
     val getAllFCustomerEntity: List<FCustomerEntity>
+
     @get:Query("SELECT * FROM fCustomer ")
     val getAllFCustomerEntityLive: LiveData<List<FCustomerEntity>>
 

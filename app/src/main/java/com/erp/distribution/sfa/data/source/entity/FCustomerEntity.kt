@@ -28,10 +28,8 @@ data class FCustomerEntity(
     * 1. Clone Database. karena tidak mungkin menggunakan Kode External yang bisa jadi kemungkinan kembar, tapi harus pakai kode internal
     * 2. 
     */
-    var sourceId: Int? =0,
     var custno: String ="",
     var isOutletActive: Boolean =false,
-    var oldKode1: String? ="",
     var isFlagNewItem: Boolean? =false,
 
     //	@ManyToOne
@@ -44,20 +42,12 @@ data class FCustomerEntity(
     * Maka akan di konversikan menjadi kode pada sistem
     * Pada import data: ada opsi pilih mapping customer yang mana
     */
-    var mappingInCode1: String? ="",
-    var mappingInCode2: String? ="",
-    var mappingInCode3: String? ="",
 
     /*
     * Digunanakan untuk menghasilkan kode yang berbeda jika di extract
     * Fungsinya: Untuk Integrasi dengan Sistem Lain jika ternyata kode customer berbeda
     */
-    var mappingOutCode1: String? ="",
-    var mappingOutCode2: String? ="",
-    var custGroupPromo1: Int? =0, //GROUP PROMO
-    var custGroupPromo2: Int? =0, //GROUP PROMO
     var custname: String ="",
-    var currency: EnumCurrency? = EnumCurrency.IDR,
 
     /*
     * PERPAJAKAN / TAX
@@ -65,11 +55,8 @@ data class FCustomerEntity(
     var isPkp: Boolean? =false,
     var namaPrshFakturPajak: String? ="",
     var alamatPrshFakturPajak: String? ="",
-    var namaPengusahaKenaPajak: String? ="",
-    var nikPajak: String? ="",
     var npwp: String? ="",
     var tanggalPengukuhanPkp : Date? = Date(),
-    var tipePajakCustomer: EnumTipePajakCustomer? = EnumTipePajakCustomer.REG_01,
     var tunaikredit: EnumTunaiKredit? = EnumTunaiKredit.T,
     var lamaCredit: Int =0,
     var creditlimit: Int =0,
@@ -77,20 +64,14 @@ data class FCustomerEntity(
     var namaPemilik: String? ="",
     var address1: String ="",
     var address2: String ="",
-    var address3: String? ="",
     var city1: String ="",
-    var city2: String? ="",
     var state1: String ="",
     var phone1: String? ="",
-    var phone2: String? ="",
     var postcode: String? ="",
     var email: String? ="",
     var whatsApp: String? ="",
     var isStatusActive: Boolean? =false,
 
-    //Tidak akan dipkai: 
-    var harikunjungan: Int? =0,
-    var pekankunjungan: Int? =0,
     var isNoeffcall: Boolean? =false,
     var latitude: Int? =0,
     var longitude: Int? =0,
@@ -114,7 +95,7 @@ data class FCustomerEntity(
     * 2? = Menggunakan harga Grosir A
     * 3? = Menggunakan harga Grosir B
     */
-    var priceAltSwalayan: Int? =0,
+//    var priceAltSwalayan: Int?,
 
     //	@ManyToOne
     //	@JoinColumn(name="fcustomerGroupBean", referencedColumnName="ID")
@@ -180,23 +161,17 @@ data class FCustomerEntity(
 internal fun FCustomerEntity.toDomain(): FCustomer {
     return FCustomer(
         id = id,
-        sourceId = sourceId!!,
         custno = custno,
         isOutletActive = isOutletActive,
-        oldKode1 = oldKode1!!,
         isFlagNewItem = isFlagNewItem!!,
 
-        fdivisionBean = FDivision(fdivisionBean),
+        fdivisionBean = fdivisionBean?.let { FDivision(fdivisionBean) },
         custname = custname,
-        currency = currency!!,
         isPkp = isPkp!!,
         namaPrshFakturPajak = namaPrshFakturPajak!!,
         alamatPrshFakturPajak = alamatPrshFakturPajak!!,
-        namaPengusahaKenaPajak = namaPengusahaKenaPajak!!,
-        nikPajak = nikPajak!!,
         npwp = npwp!!,
         tanggalPengukuhanPkp = tanggalPengukuhanPkp,
-        tipePajakCustomer = tipePajakCustomer!!,
         tunaikredit = tunaikredit!!,
         lamaCredit = lamaCredit,
         creditlimit = creditlimit,
@@ -204,18 +179,13 @@ internal fun FCustomerEntity.toDomain(): FCustomer {
         namaPemilik = namaPemilik!!,
         address1 = address1,
         address2 = address2,
-        address3 = address3!!,
         city1 = city1,
-        city2 = city2!!,
         state1 = state1,
         phone1 = phone1!!,
-        phone2 = phone2!!,
         postcode = postcode!!,
         email = email!!,
         whatsApp = whatsApp!!,
         isStatusActive = isStatusActive!!,
-        harikunjungan = harikunjungan!!,
-        pekankunjungan = pekankunjungan!!,
         isNoeffcall = isNoeffcall!!,
         latitude = latitude!!,
         longitude = longitude!!,
@@ -223,8 +193,8 @@ internal fun FCustomerEntity.toDomain(): FCustomer {
         basicDisc1PlusBarang = basicDisc1PlusBarang!!,
         isDisc1RegManual = isDisc1RegManual!!,
         isDiscPlusRegManual = isDiscPlusRegManual!!,
-        fcustomerGroupBean = FCustomerGroup(fcustomerGroupBean!!),
-        fsubAreaBean = FSubArea(fsubAreaBean!!),
+        fcustomerGroupBean = fcustomerGroupBean?.let { FCustomerGroup(fcustomerGroupBean!!) },
+        fsubAreaBean = fsubAreaBean?.let { FSubArea(fsubAreaBean!!) },
 
         fdistributionChannelBean = fdistributionChannelBean,
         ftPriceAlthBean = ftPriceAlthBean,
@@ -251,7 +221,7 @@ data class FCustomerWithFDivision(
         parentColumn = "fdivisionBean",
         entityColumn = "id"
     )
-    val fDivisionEntity: FDivisionEntity
+    val fDivisionEntity: FDivisionEntity?
 
 )
 
@@ -271,7 +241,7 @@ data class FCustomerWithFDivisionAndGroup(
         parentColumn = "fdivisionBean",
         entityColumn = "id"
     )
-    val fDivisionEntity: FDivisionEntity,
+    val fDivisionEntity: FDivisionEntity?,
 
     @Relation(
         parentColumn = "fcustomerGroupBean",

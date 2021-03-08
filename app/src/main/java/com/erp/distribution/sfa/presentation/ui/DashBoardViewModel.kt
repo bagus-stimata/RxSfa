@@ -140,6 +140,7 @@ class DashBoardViewModel @ViewModelInject constructor(
             /**
              * Pada Root Harus Hapus Semua dulu semua cabangnya baru Insert
              */
+            getFtPriceAltdItemsUseCase.deleteAllCacheFtPriceAltdItems()
               getFtPriceAlthUseCase.deleteAllCacheFtPriceAlth().also {
                   getFtPriceAlthUseCase.addCacheListFtPriceAlth(list)
               }
@@ -161,9 +162,13 @@ class DashBoardViewModel @ViewModelInject constructor(
             /**
              * Pada Root Harus Hapus Semua dulu semua cabangnya baru Insert
              */
-            getFtPriceAltdItemsUseCase.deleteAllCacheFtPriceAltdItems().also {
-                getFtPriceAltdItemsUseCase.addCacheListFtPriceAltdItems(list)
-            }
+            getFtPriceAltdItemsUseCase.addCacheListFtPriceAltdItems(list)
+            /**
+             * HAPUSNYA DI FtPurchaseh yabos: haahah
+             */
+//            getFtPriceAltdItemsUseCase.deleteAllCacheFtPriceAltdItems().also {
+//                getFtPriceAltdItemsUseCase.addCacheListFtPriceAltdItems(list)
+//            }
         }
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())

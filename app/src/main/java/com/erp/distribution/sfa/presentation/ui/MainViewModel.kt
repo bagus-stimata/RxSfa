@@ -161,16 +161,18 @@ class MainViewModel @ViewModelInject constructor(
 
     fun deleteCacheAllFUserAndAllParentRelationship() {
         compositeDisposable.add(Observable.fromCallable {
-            getFUserUseCase.deleteAllCacheFUser()
-
-            getFDivisionUseCase.deleteAllCacheFDivision()
-            getFWarehouseUseCase.deleteAllCacheFWarehouse()
-            getFSalesmanUseCase.deleteAllCacheFSalesman()
+            getFUserUseCase.deleteAllCacheFUser().also {
+                getFDivisionUseCase.deleteAllCacheFDivision().also {
+                    getFWarehouseUseCase.deleteAllCacheFWarehouse().also {
+                        getFSalesmanUseCase.deleteAllCacheFSalesman()
+                    }
+                }
+            }
         }
                 .subscribeOn(Schedulers.computation())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe {
-                    userViewStateLive
+//                    userViewStateLive
                 }
         )
 

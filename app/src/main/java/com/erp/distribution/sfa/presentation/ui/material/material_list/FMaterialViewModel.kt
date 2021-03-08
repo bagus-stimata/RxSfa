@@ -6,15 +6,10 @@ import androidx.hilt.lifecycle.ViewModelInject
 import androidx.lifecycle.*
 import com.erp.distribution.sfa.data.di.PreferencesManager
 import com.erp.distribution.sfa.data.di.SortOrder
-import com.erp.distribution.sfa.data.source.entity.FDivisionEntity
-import com.erp.distribution.sfa.data.source.entity.FMaterialGroup3Entity
 import com.erp.distribution.sfa.domain.model.*
-import com.erp.distribution.sfa.domain.model.toEntity
 import com.erp.distribution.sfa.domain.usecase.GetFMaterialGroup3UseCase
 import com.erp.distribution.sfa.domain.usecase.GetFMaterialUseCase
 import com.erp.distribution.sfa.domain.usecase.GetFtPriceAltdItemsUseCase
-import com.erp.distribution.sfa.domain.utils.HeaderDetilSalesHelper
-import com.erp.distribution.sfa.domain.utils.HeaderDetilSalesHelperImpl
 import com.erp.distribution.sfa.presentation.model.UserViewState
 import com.erp.distribution.sfa.presentation.ui.material.ADD_TASK_RESULT_OK
 import com.erp.distribution.sfa.presentation.ui.material.EDIT_TASK_RESULT_OK
@@ -84,25 +79,28 @@ class FMaterialViewModel @ViewModelInject constructor(
 //        fMaterialEventChannel.send(FMaterialEvent.NavigateToEditFMaterialScreen(fMaterial))
 //    }
     fun onItemSelected(fMaterial: FMaterial) = viewModelScope.launch {
-//            fMaterialEventChannel.send(FMaterialEvent.NavigateToEditFMaterialScreen(fMaterial))
         fMaterial?.let {
             if (ftSaleshRefno >0 ) {
                 var ftSalesdItems = FtSalesdItems()
                 ftSalesdItems.ftSaleshBean = ftSalesh
                 ftSalesdItems.fmaterialBean = fMaterial
-                if (fMaterial.isTaxable) {
-                    ftSalesdItems.isTax = true
-                    ftSalesdItems.ftaxBean = fMaterial.ftaxBean!!
-                    ftSalesdItems.taxPercent =10.0
+
+                ftSalesdItems.taxPercent =0.0
+                fMaterial.taxable?.let {
+                    if (fMaterial.taxable) {
+                        ftSalesdItems.isTax = true
+                        fMaterial.ftaxBean?.let {
+                            ftSalesdItems.ftaxBean = fMaterial.ftaxBean!!
+                            ftSalesdItems.taxPercent = 10.0
+                        }
+                    }
                 }
 
                 ftSalesdItems.isFreeGood = false
-
                 ftSalesdItems.sprice = fMaterial.sprice
 
 //                val hds: HeaderDetilSalesHelper = HeaderDetilSalesHelperImpl(ftSalesh, ftSalesdItems)
 //                ftSalesdItems = hds.fillFtSalesd
-
 
                 fMaterialEventChannel.send(FMaterialEvent.NavigateToSalesOrderEditQtyScreen(userViewState!!, ftSalesh, ftSalesdItems ))
 

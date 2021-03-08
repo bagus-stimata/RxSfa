@@ -1,9 +1,6 @@
 package com.erp.distribution.sfa.domain.model
 
 import android.os.Parcelable
-import androidx.room.Entity
-import androidx.room.PrimaryKey
-import com.erp.distribution.sfa.data.base.ModelEntity
 import com.erp.distribution.sfa.data.source.entity.FMaterialEntity
 import com.erp.distribution.sfa.data.source.entity.modelenum.EnumUom
 import com.erp.distribution.sfa.domain.base.Model
@@ -14,7 +11,7 @@ import java.util.*
 
 @Parcelize
 data class FMaterial  (
-    var id : Int =0,
+        var id : Int =0,
 
     /*
     * JIKA COPY DARI TEMPAT LAIN: MAKA SEBAGAI LOG TRACK MENINGGALKAN SOURCE_ID = ID sumber asal dia dicopy
@@ -23,16 +20,16 @@ data class FMaterial  (
     * 2. 
     */
 //    @Ignore
-    var sourceId : Int? =0,
+        var sourceId : Int? =0,
 
 //    @Ignore
 //    var noUrut : Int =0,
 
-    var pcode : String ="",
-    var barcode : String ="",
-    var pname : String ="",
+        var pcode : String ="",
+        var barcode : String ="",
+        var pname : String ="",
 
-    var isStatusActive : Boolean =false,
+        var isStatusActive : Boolean =false,
 
     /*
     * KLASIFIKASI: BASIC
@@ -48,7 +45,7 @@ data class FMaterial  (
 	 */
     //	private FDivision fdivisionBean;
 //    var fdivisionBean : Int =0,
-    var fdivisionBean : FDivision = FDivision(),
+        var fdivisionBean : FDivision = FDivision(),
 
     /*
     * TAX
@@ -56,9 +53,9 @@ data class FMaterial  (
     //	@ManyToOne
     //	@JoinColumn(name="ftaxBean", referencedColumnName="ID")
     //	private FTax ftaxBean;
-    var ftaxBean : Int? =0,
+        var ftaxBean : Int? =0,
 
-    var isTaxable : Boolean =true,
+        var taxable : Boolean =false,
 
     /*
     * Adalah Vendor Utama Produk Tersebut
@@ -75,7 +72,7 @@ data class FMaterial  (
     //	private FVendor fvendorBean;
 //    var fvendorBean : Int =0,
 
-    var fvendorBean : FVendor? = FVendor(),
+        var fvendorBean : FVendor? = FVendor(),
 
     //	@ManyToOne
     //	@JoinColumn(name="fwarehouseBean_Utm", referencedColumnName="ID")
@@ -96,7 +93,7 @@ data class FMaterial  (
     //	@JoinColumn(name="fmaterialGroup3Bean", referencedColumnName="ID")
 //    var FMaterialGroup3 fmaterialGroup3Bean;
 //    var fmaterialGroup3Bean : Int =0,
-    var fmaterialGroup3Bean : FMaterialGroup3 = FMaterialGroup3(),
+        var fmaterialGroup3Bean : FMaterialGroup3 = FMaterialGroup3(),
 
     /*
     * KLASIFIKASI: SALES
@@ -104,9 +101,9 @@ data class FMaterial  (
     //	@ManyToOne
     //	@JoinColumn(name="fmaterialSalesBrandBean", referencedColumnName="ID")
     //	private FMaterialSalesBrand fmaterialSalesBrandBean;
-    var fmaterialSalesBrandBean : Int? =0,
+        var fmaterialSalesBrandBean : Int? =0,
 
-    var ftSaleshdItemsSet : List<FtSalesdItems> = listOf<FtSalesdItems>(),
+        var ftSaleshdItemsSet : List<FtSalesdItems> = listOf<FtSalesdItems>(),
 
 
         //BATCH CODE --> Berhubungan dengan Stockist atau Gudang
@@ -119,18 +116,18 @@ data class FMaterial  (
 
 //    @Ignore
 //    var productionCode : String ="",
-    var productionDate : Date? = Date(),
-    var expiredDate : Date = Date(),
+        var productionDate : Date? = Date(),
+        var expiredDate : Date = Date(),
 
 //    @Ignore
 //    var prodclass : Int =0,
-    var uom1 : String ="",
-    var uom2 : String ="",
-    var uom3 : String ="",
-    var uom4 : String ="",
-    var convfact1 : Int =0, //uom1 to uom4
-    var convfact2 : Int =0, //uom2 to uom4
-    var convfact3  : Int =0, //uom3 to uom4
+        var uom1 : String ="",
+        var uom2 : String ="",
+        var uom3 : String ="",
+        var uom4 : String ="",
+        var convfact1 : Int =0, //uom1 to uom4
+        var convfact2 : Int =0, //uom2 to uom4
+        var convfact3  : Int =0, //uom3 to uom4
 
     /*
     * PRICE yang muncul pada faktur dengan menggunakan UOM
@@ -144,14 +141,14 @@ data class FMaterial  (
 
 
     //PPRICE:: Disimpan dalam satuan Terbesar dan Terkecil. Setelah dan sebelum PPN
-    var pprice : Double =0.0,
-    var ppriceAfterPpn : Double =0.0,
-    var pprice2 : Double =0.0,
-    var pprice2AfterPpn : Double =0.0,
-    var sprice : Double =0.0,
-    var spriceAfterPpn: Double =0.0,
-    var sprice2 : Double =0.0,
-    var sprice2AfterPpn : Double =0.0,
+        var pprice : Double =0.0,
+        var ppriceAfterPpn : Double =0.0,
+        var pprice2 : Double =0.0,
+        var pprice2AfterPpn : Double =0.0,
+        var sprice : Double =0.0,
+        var spriceAfterPpn: Double =0.0,
+        var sprice2 : Double =0.0,
+        var sprice2AfterPpn : Double =0.0,
 
     /*
     * Min Stok: sama dengan Buffer Stock
@@ -161,27 +158,27 @@ data class FMaterial  (
     */
     var minQtyStok : Int =0,
 
-    /**
+        /**
      * TAMBAHAN BOS OKE
      */
     var saldoStock: Double =0.0,
 
     //Dalam Grams
-    var weightSmalest : Int =0,
+        var weightSmalest : Int =0,
 
     //Dalam Grams
-    var caseWeight : Int =0,
+        var caseWeight : Int =0,
 
-    var stared: Boolean? = false,
-    var unread: Boolean? = true,
-    var selected: Boolean? = false,
+        var stared: Boolean? = false,
+        var unread: Boolean? = true,
+        var selected: Boolean? = false,
 
 
-    var created : Date = Date(),
-     
-    var modified : Date = Date(),
+        var created : Date = Date(),
 
-    var modifiedBy : String ="" //User ID
+        var modified : Date = Date(),
+
+        var modifiedBy : String ="" //User ID
 
 ): Model(), Parcelable, Serializable {
     constructor(theId: Int): this(id = theId)
@@ -225,7 +222,7 @@ internal fun FMaterial.toEntity(): FMaterialEntity {
             unread = unread,
 
             ftaxBean = ftaxBean!!,
-            isTaxable = isTaxable!!,
+            taxable = taxable!!,
             fvendorBean = fvendorBean!!.id,
             fdivisionBean = fdivisionBean.id,
 

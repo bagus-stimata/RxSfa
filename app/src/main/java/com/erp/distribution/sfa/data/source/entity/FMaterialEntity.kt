@@ -5,7 +5,6 @@ import androidx.room.Embedded
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 import androidx.room.Relation
-import com.erp.distribution.sfa.data.base.EntityMapper
 import com.erp.distribution.sfa.data.base.ModelEntity
 import com.erp.distribution.sfa.data.source.entity.modelenum.EnumUom
 import com.erp.distribution.sfa.domain.model.FDivision
@@ -15,12 +14,11 @@ import com.erp.distribution.sfa.domain.model.FVendor
 import kotlinx.android.parcel.Parcelize
 import java.text.DateFormat
 import java.util.*
-import javax.inject.Inject
 
 @Parcelize
 @Entity(tableName = "fMaterial")
 data class FMaterialEntity  (
-    @PrimaryKey
+        @PrimaryKey
     var id : Int =0,
 
     /*
@@ -30,14 +28,14 @@ data class FMaterialEntity  (
     * 2. 
     */
 //    @Ignore
-    var sourceId : Int? =0,
+        var sourceId : Int? =0,
 
 //    @Ignore
 //    var noUrut : Int? =0,
 
-    var pcode : String ="",
-    var barcode : String? ="",
-    var pname : String ="",
+        var pcode : String ="",
+        var barcode : String? ="",
+        var pname : String ="",
 
 //    @Ignore
 //    var oldKode1 : String? ="",
@@ -50,7 +48,7 @@ data class FMaterialEntity  (
 
 //    @Ignore
 //    var shortname : String? ="",
-    var isStatusActive : Boolean? =false,
+        var isStatusActive : Boolean? =false,
 
     /*
     * KLASIFIKASI: BASIC
@@ -73,7 +71,7 @@ data class FMaterialEntity  (
     //	@ManyToOne
     //	@JoinColumn(name="fdivisionBean", referencedColumnName="ID")
     //	private FDivision fdivisionBean;
-    var fdivisionBean : Int? =0,
+        var fdivisionBean : Int? =0,
 
     /*
     * TAX
@@ -81,9 +79,9 @@ data class FMaterialEntity  (
     //	@ManyToOne
     //	@JoinColumn(name="ftaxBean", referencedColumnName="ID")
     //	private FTax ftaxBean;
-    var ftaxBean : Int? =0,
+        var ftaxBean : Int? =0,
 
-    var isTaxable : Boolean? =true, //Karena Default adalah True
+        var taxable : Boolean? =false, //Karena Default adalah True
 
     /*
     * Adalah Vendor Utama Produk Tersebut
@@ -98,7 +96,7 @@ data class FMaterialEntity  (
     //	@ManyToOne
     //	@JoinColumn(name="fvendorBean", referencedColumnName="ID")
     //	private FVendor fvendorBean;
-    var fvendorBean : Int =0,
+        var fvendorBean : Int =0,
 
     //	@ManyToOne
     //	@JoinColumn(name="fwarehouseBean_Utm", referencedColumnName="ID")
@@ -118,7 +116,7 @@ data class FMaterialEntity  (
     //	@ManyToOne
     //	@JoinColumn(name="fmaterialGroup3Bean", referencedColumnName="ID")
     //	private FMaterialGroup3 fmaterialGroup3Bean;
-    var fmaterialGroup3Bean : Int =0,
+        var fmaterialGroup3Bean : Int =0,
 
     /*
     * KLASIFIKASI: SALES
@@ -126,7 +124,7 @@ data class FMaterialEntity  (
     //	@ManyToOne
     //	@JoinColumn(name="fmaterialSalesBrandBean", referencedColumnName="ID")
     //	private FMaterialSalesBrand fmaterialSalesBrandBean;
-    var fmaterialSalesBrandBean : Int? =0,
+        var fmaterialSalesBrandBean : Int? =0,
 
     //BATCH CODE --> Berhubungan dengan Stockist atau Gudang
     //PRODUCTION CODE --> Berhubungan dengan TANGGAL DIPRODUKSI DAN EXP.DATE
@@ -138,18 +136,18 @@ data class FMaterialEntity  (
 
 //    @Ignore
 //    var productionCode : String? ="",
-    var productionDate : Date? = Date(),
-    var expiredDate : Date? = Date(),
+        var productionDate : Date? = Date(),
+        var expiredDate : Date? = Date(),
 
 //    @Ignore
 //    var prodclass : Int? =0,
-    var uom1 : String ="",
-    var uom2 : String ="",
-    var uom3 : String ="",
-    var uom4 : String ="",
-    var convfact1 : Int =0, //uom1 to uom4
-    var convfact2 : Int =0, //uom2 to uom4
-    var convfact3  : Int =0, //uom3 to uom4
+        var uom1 : String ="",
+        var uom2 : String ="",
+        var uom3 : String ="",
+        var uom4 : String ="",
+        var convfact1 : Int =0, //uom1 to uom4
+        var convfact2 : Int =0, //uom2 to uom4
+        var convfact3  : Int =0, //uom3 to uom4
 
     /*
     * PRICE yang muncul pada faktur dengan menggunakan UOM
@@ -163,15 +161,15 @@ data class FMaterialEntity  (
 
 
     //PPRICE:: Disimpan dalam satuan Terbesar dan Terkecil. Setelah dan sebelum PPN
-    var pprice : Double =0.0,
-    var ppriceAfterPpn : Double =0.0,
-    var pprice2 : Double =0.0,
-    var pprice2AfterPpn : Double =0.0,
+        var pprice : Double =0.0,
+        var ppriceAfterPpn : Double =0.0,
+        var pprice2 : Double =0.0,
+        var pprice2AfterPpn : Double =0.0,
 
-    var sprice : Double =0.0,
-    var spriceAfterPpn: Double =0.0,
-    var sprice2 : Double =0.0,
-    var sprice2AfterPpn : Double =0.0,
+        var sprice : Double =0.0,
+        var spriceAfterPpn: Double =0.0,
+        var sprice2 : Double =0.0,
+        var sprice2AfterPpn : Double =0.0,
 
     /*
     * Min Stok: sama dengan Buffer Stock
@@ -183,19 +181,19 @@ data class FMaterialEntity  (
         
 
     //Dalam Grams
-    var weightSmalest : Int? =0,
+        var weightSmalest : Int? =0,
 
     //Dalam Grams
-    var caseWeight : Int? =0,
+        var caseWeight : Int? =0,
 
-    var stared: Boolean? = false,
-    var unread: Boolean? = true,
-    var selected: Boolean? = false,
+        var stared: Boolean? = false,
+        var unread: Boolean? = true,
+        var selected: Boolean? = false,
 
 
-    var created : Date? = Date(),
-    var modified : Date? = Date(),
-    var modifiedBy : String? ="" //User ID
+        var created : Date? = Date(),
+        var modified : Date? = Date(),
+        var modifiedBy : String? ="" //User ID
 
 ): ModelEntity(), Parcelable {
     val createdDateFormatted: String
@@ -233,7 +231,7 @@ internal fun FMaterialEntity.toDomain(): FMaterial {
         fmaterialGroup3Bean = FMaterialGroup3(fmaterialGroup3Bean),
         fmaterialSalesBrandBean = fmaterialSalesBrandBean?.let { it },
         ftaxBean = ftaxBean?.let { it },
-        isTaxable = isTaxable!!,
+        taxable = taxable!!,
         fvendorBean = FVendor(fvendorBean),
         fdivisionBean = FDivision(fdivisionBean!!),
 
@@ -251,7 +249,7 @@ data class FMaterialWithFDivisionAndVendorAndGroup(
                 parentColumn = "fdivisionBean",
                 entityColumn = "id"
         )
-        val fDivisionEntity: FDivisionEntity,
+        val fDivisionEntity: FDivisionEntity?,
 
         @Relation(
                 parentColumn = "fvendorBean",
@@ -274,7 +272,7 @@ data class FMaterialWithFDivisionAndVendorAndGroupAndStock(
                 parentColumn = "fdivisionBean",
                 entityColumn = "id"
         )
-        val fDivisionEntity: FDivisionEntity,
+        val fDivisionEntity: FDivisionEntity?,
 
         @Relation(
                 parentColumn = "fvendorBean",

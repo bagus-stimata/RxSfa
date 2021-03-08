@@ -85,8 +85,12 @@ class GetFMaterialUseCase @Inject constructor(
         return repository.getCacheAllFMaterialFlow(query, sortOrder, limit, currentOffset, hideSelected).map {
             it.map {
                 val fmaterialBean = it.fMaterialEntity.toDomain()
-                val division = it.fDivisionEntity.toDomain()
-                fmaterialBean.fdivisionBean = division
+
+//                val division = it.fDivisionEntity.toDomain()
+//                fmaterialBean.fdivisionBean = division
+                it.fDivisionEntity?.let {
+                    fmaterialBean.fdivisionBean = it.toDomain()
+                }
                 it.fMaterialGroup3Entity?.let {
                     fmaterialBean.fmaterialGroup3Bean = it.toDomain()
                 }

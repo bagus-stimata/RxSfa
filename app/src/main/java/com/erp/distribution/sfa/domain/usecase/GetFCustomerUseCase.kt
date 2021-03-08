@@ -52,15 +52,21 @@ class GetFCustomerUseCase @Inject constructor(private val repository: FCustomerR
     fun getCacheAllFCustomer(): LiveData<List<FCustomerEntity>>{
         return repository.getCacheAllFCustomer()
     }
-    fun getCacheAllFCustomerWithFDivisionLive(): LiveData<List<FCustomerWithFDivision>>{
-        return repository.getCacheAllFCustomerWithFDivisionLive()
+    fun getCacheAllFCustomerOnlyLive(): LiveData<List<FCustomer>>{
+        return repository.getCacheAllFCustomer().map {
+            it.map {
+                it.toDomain()
+            }
+        }
     }
-    fun getCacheAllFCustomerWithFDivisionDomainLive(): LiveData<List<FCustomer>>{
+    fun getCacheAllFCustomerWithFDivisionLive(): LiveData<List<FCustomer>>{
         return repository.getCacheAllFCustomerWithFDivisionLive().map {
             it.map {
                 val fcustomerBean = it.fCustomerEntity.toDomain()
-                val division = it.fDivisionEntity.toDomain()
-                fcustomerBean.fdivisionBean = division
+                it.fDivisionEntity?.let {
+                    fcustomerBean.fdivisionBean = it.toDomain()
+                }
+
                 fcustomerBean
             }
         }
@@ -81,8 +87,12 @@ class GetFCustomerUseCase @Inject constructor(private val repository: FCustomerR
         return repository.getCacheAllFCustomerWithFDivisionAndGroupLive().map {
             it.map {
                 val fcustomerBean = it.fCustomerEntity.toDomain()
-                val division = it.fDivisionEntity.toDomain()
-                fcustomerBean.fdivisionBean = division
+
+//                val division = it.fDivisionEntity.toDomain()
+//                fcustomerBean.fdivisionBean = division
+                it.fDivisionEntity?.let {
+                    fcustomerBean.fdivisionBean = it.toDomain()
+                }
                 it.fCustomerGroupEntity?.let {
                     fcustomerBean.fcustomerGroupBean = it.toDomain()
                 }
@@ -102,15 +112,28 @@ class GetFCustomerUseCase @Inject constructor(private val repository: FCustomerR
         return repository.getCacheAllFCustomerFlow(query, sortOrder, limit, currentOffset, hideSelected).map {
             it.map {
                 val fcustomerBean = it.fCustomerEntity.toDomain()
-                val division = it.fDivisionEntity.toDomain()
-                fcustomerBean.fdivisionBean = division
+
+                it.fDivisionEntity?.let {
+                    fcustomerBean.fdivisionBean = it.toDomain()
+                }
                 it.fCustomerGroupEntity?.let {
                     fcustomerBean.fcustomerGroupBean = it.toDomain()
                 }
+
                 fcustomerBean
             }
         }
     }
+
+//    fun getCacheAllFCustomerDomainFlow(query: String, sortOrder: SortOrder,  limit: Int, currentOffset: Int, hideSelected: Boolean): Flow<List<FCustomer>> {
+//        return repository.getCacheAllFCustomerFlow(query, sortOrder, limit, currentOffset, hideSelected).map {
+//            it.map {
+//                val fcustomerBean = it.toDomain()
+//                fcustomerBean
+//            }
+//        }
+//    }
+
 
     fun getCacheFCustomerById(id: Int): LiveData<FCustomer>{
         return repository.getCacheFCustomerById(id).map {

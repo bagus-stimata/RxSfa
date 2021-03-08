@@ -57,7 +57,6 @@ class CustomerAdapter(private val listener: OnItemClickListener) :
 
         fun bind(item: FCustomer) {
             binding.apply {
-////                checkBoxCompleted.isChecked = item.selected!!
                 nf.maximumFractionDigits = 0
                 val hash = item!!.custname.hashCode()
                 txtIcon.text = item.custname!!.trim { it <= ' ' }[0].toString()
@@ -68,9 +67,7 @@ class CustomerAdapter(private val listener: OnItemClickListener) :
                 txtCustname.text = item.custname
                 txtCustno.text = item.custno
                 txtCustGroup.text = item.fcustomerGroupBean!!.kode1
-//                txtCustGroup.text = item.mappingOutCode2
                 txtDivision.text = item.fdivisionBean!!.kode1
-//                txtDivision.text = item.mappingOutCode1
 
                 txtAddress.text = "${item.address1} ${item.address2} ${item.city1}"
 

@@ -1,6 +1,7 @@
 package com.erp.distribution.sfa.presentation.ui.syncronize_fromserver
 
 import android.os.Bundle
+import android.util.Log
 import android.view.Menu
 import android.view.MenuInflater
 import android.view.MenuItem
@@ -39,6 +40,9 @@ class SyncronizeFragment : Fragment(R.layout.fragment_syncronize) {
         viewBinding.actionFragment = this
         viewBinding.syncViewModel = syncViewModel
         viewBinding.isLoading = false
+
+
+        Log.d(TAG, "#result ${syncViewModel.userViewState?.fUser?.username} >> ${syncViewModel.userViewState?.fSalesman?.spname} >> ${syncViewModel.userViewState?.fDivision?.description} >> ${syncViewModel.userViewState?.fWarehouse?.description}")
 
         viewBinding.apply {
 //             checkList1.text = syncViewModel!!.fUser!!.username

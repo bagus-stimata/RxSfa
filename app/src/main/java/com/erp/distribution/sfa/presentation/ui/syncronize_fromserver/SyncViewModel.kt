@@ -486,9 +486,6 @@ class SyncViewModel @ViewModelInject constructor(
     fun insertCacheFMaterial(listFMaterial:  List<FMaterialEntity>){
 
         DisposableManager.add(Observable.fromCallable {
-//            getFMaterialUseCase.deleteAllCacheFMaterial().also {
-//                getFMaterialUseCase.addCacheListFMaterial(listFMaterial)
-//            }
             getFMaterialUseCase.deleteAllCacheFMaterial().also {
                 getFMaterialUseCase.addCacheListFMaterialEntity(listFMaterial)
             }
@@ -503,24 +500,6 @@ class SyncViewModel @ViewModelInject constructor(
                     {
 //                        Log.e(TAG, "#result Insert FMaterial ERROR To Database ${it.message}")
                     },{}
-                )
-        )
-    }
-
-    fun insertCacheFMaterial(fMaterial: FMaterial){
-
-        DisposableManager.add(Observable.fromCallable {
-            getFMaterialUseCase.addCacheFMaterial(fMaterial)
-        }
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe (
-                        {
-//                            Log.d(TAG, "#result Insert FMaterial Success Database Suscess ${it}")
-                        },
-                        {
-//                            Log.e(TAG, "#result Insert FMaterial ERROR To Database ${it.message}")
-                        },{}
                 )
         )
     }

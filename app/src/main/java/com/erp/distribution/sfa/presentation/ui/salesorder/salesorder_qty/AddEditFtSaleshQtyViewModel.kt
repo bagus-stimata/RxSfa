@@ -131,7 +131,7 @@ class AddEditFtSaleshQtyViewModel @ViewModelInject constructor(
 //                ftSalesdItems.qty = ftSalesdItems.qty1+ftSalesdItems.qty2+ftSalesdItems.qty3+ftSalesdItems.qty4
                 ftSalesdItems.qty = qtySmallestFromUom1234
 
-                if (ftSalesdItems.fmaterialBean.isTaxable) {
+                if (ftSalesdItems.fmaterialBean.taxable) {
                     ftSalesdItems.isTax = true
                     ftSalesdItems.taxPercent = 10.0
                 }
