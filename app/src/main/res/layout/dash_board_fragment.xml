@@ -63,26 +63,25 @@
 
                 <TextView
                     android:id="@+id/greeting_text1"
-                    android:text="@{userViewState.component3().fullName }"
+                    android:text="@string/app_name"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="70dp"
+                    android:layout_marginTop="50dp"
                     android:gravity="center"
                     android:textColor="@color/blue"
+                    android:textStyle="bold"
                     android:textSize="18sp" />
-                <!--            android:textColor="?android:attr/colorPrimary"-->
-<!--                android:text="@{userActive.fullName + ` (` + salesmanActive.spcode + `)`}"-->
 
                 <TextView
                     android:id="@+id/greeting_text2"
-                    android:text="@{userViewState.component4().kode1 + ` | ` +  userViewState.component5().spcode + ` | ` + userViewState.component6().kode1}"
+                    android:text="@string/app_description"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_below="@id/greeting_text1"
-                    android:fontFamily="monospace"
+                    android:fontFamily="@font/atlantic"
                     android:gravity="center"
                     android:textColor="@color/design_default_color_primary_variant"
-                    android:textSize="14sp" />
+                    android:textSize="12sp" />
 <!--                android:text="@{divisionActive.kode1 + ` | ` +  warehouseActive.kode1}"-->
 
 
@@ -114,15 +113,27 @@
                         android:gravity="center">
 
                         <TextView
-                            android:id="@+id/topInfo_Omset"
+                            android:id="@+id/dashboard_username"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginLeft="15dp"
-                            android:layout_marginTop="5dp"
-                            android:text="Omset Bulan Ini"
+                            android:layout_marginTop="2dp"
                             android:textColor="#000"
-                            android:textSize="16sp"
-                            android:textStyle="bold" />
+                            android:text="@{userViewState.component3().fullName }"
+                            android:textStyle="bold"
+                            android:textSize="16sp"/>
+                        <TextView
+                            android:id="@+id/dashboard_user_desc"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="15dp"
+                            android:layout_marginTop="-5dp"
+                            android:layout_below="@id/dashboard_username"
+                            android:textColor="@color/darkerGray"
+                            android:text="@{userViewState.component4().kode1 + `.` +  userViewState.component5().spcode + `.` + userViewState.component6().kode1}"
+                            android:fontFamily="sans-serif-thin"
+                            android:textSize="10sp"/>
+<!--                        android:text="Omset Bulan Ini"-->
 
                         <TextView
                             android:layout_width="wrap_content"
@@ -195,7 +206,7 @@
                                     android:layout_height="wrap_content"
                                     android:layout_below="@id/imgSyncronize"
                                     android:gravity="center"
-                                    android:text="Syncronize"
+                                    android:text="Sinkronkan"
                                     android:textColor="#000"
                                     android:textSize="12dp" />
 
@@ -247,7 +258,7 @@
                                     android:layout_height="40dp"
                                     android:layout_centerHorizontal="true"
                                     android:src="@drawable/ic_reward_prize"
-                                    app:tint="@color/lightGray" />
+                                    app:tint="#b042cf" />
                                 <!--                            app:tint="#E91E63" />-->
 <!--                                android:visibility="@{userActive.username.isEmpty? View.GONE : View.VISIBLE}"-->
 
@@ -256,7 +267,7 @@
                                     android:layout_height="wrap_content"
                                     android:layout_below="@id/img_promotion"
                                     android:gravity="center"
-                                    android:text="Promotions"
+                                    android:text="Promosi"
                                     android:textColor="#000"
                                     android:textSize="12dp" />
 
@@ -313,7 +324,7 @@
                         android:layout_marginLeft="10dp"
                         android:layout_marginRight="10dp"
                         android:gravity="center"
-                        android:text="Have your day fun"
+                        android:text="Pasti bisa"
                         android:textColor="#000"
                         android:textSize="10dp" />
 
@@ -428,6 +439,7 @@
                         android:layout_weight="0.33"
                         android:clickable="true"
                         app:cardCornerRadius="10dp"
+                        android:onClick="@{ ()-> actionActivity.menuSummary() }"
                         app:cardElevation="5dp">
 <!--                        android:visibility="@{userActive.username.isEmpty? View.GONE : View.VISIBLE}"-->
 
@@ -445,7 +457,7 @@
                                 android:padding="10dp"
                                 android:scaleType="fitCenter"
                                 android:src="@drawable/ic_baseline_trending_up_24"
-                                app:tint="@color/lightGray" />
+                                app:tint="@color/blue" />
                             <!--                        app:tint="@android:color/holo_blue_light" />-->
 
                             <TextView

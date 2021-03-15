@@ -125,6 +125,16 @@ class DashBoardFragment : Fragment(R.layout.dash_board_fragment) {
         findNavController().navigate(action)
     }
 
+    fun menuSummary() {
+
+        val action = DashBoardFragmentDirections.actionDashBoardFragmentToSummaryFragment(
+            mainViewModel.userViewState
+        )
+        findNavController().navigate(action)
+
+    }
+
+
     fun menuProduct() {
         dashboardViewModel.subscribeUpdateStock()
 

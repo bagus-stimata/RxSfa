@@ -268,6 +268,11 @@
                                 <LayoutPositions />
                               </value>
                             </entry>
+                            <entry key="action_addEditFtSaleshFragment_to_addEditFtSaleshQtyFragment">
+                              <value>
+                                <LayoutPositions />
+                              </value>
+                            </entry>
                           </map>
                         </option>
                       </LayoutPositions>
@@ -363,6 +368,18 @@
                           <Point>
                             <option name="x" value="-345" />
                             <option name="y" value="-419" />
+                          </Point>
+                        </option>
+                      </LayoutPositions>
+                    </value>
+                  </entry>
+                  <entry key="summaryFragment">
+                    <value>
+                      <LayoutPositions>
+                        <option name="myPosition">
+                          <Point>
+                            <option name="x" value="-708" />
+                            <option name="y" value="216" />
                           </Point>
                         </option>
                       </LayoutPositions>
