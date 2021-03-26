@@ -33,7 +33,7 @@ class AddEditCustomerViewModel @ViewModelInject constructor(
             state.set("customerName", value)
         }
 
-    var fCustomerImportance = state.get<Boolean>("statusActive") ?: fCustomer?.isStatusActive ?: false
+    var fCustomerImportance = state.get<Boolean>("statusActive") ?: fCustomer?.statusActive ?: false
         set(value) {
             field = value
             state.set("statusActive", value)
@@ -49,10 +49,10 @@ class AddEditCustomerViewModel @ViewModelInject constructor(
         }
 
         if (fCustomer != null) {
-            val updatedFCustomer = fCustomer.copy(custname = fCustomerName, isStatusActive = fCustomerImportance )
+            val updatedFCustomer = fCustomer.copy(custname = fCustomerName, statusActive = fCustomerImportance )
             updateFCustomer(updatedFCustomer)
         } else {
-            val newFCustomer = FCustomer(custname = fCustomerName, isStatusActive = fCustomerImportance )
+            val newFCustomer = FCustomer(custname = fCustomerName, statusActive = fCustomerImportance )
             createFCustomer(newFCustomer)
         }
     }

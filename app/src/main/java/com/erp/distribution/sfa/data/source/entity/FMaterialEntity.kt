@@ -48,7 +48,7 @@ data class FMaterialEntity  (
 
 //    @Ignore
 //    var shortname : String? ="",
-        var isStatusActive : Boolean? =false,
+        var statusActive : Boolean? =false,
 
     /*
     * KLASIFIKASI: BASIC
@@ -157,7 +157,7 @@ data class FMaterialEntity  (
     * 4.uom 4
     * 
     */
-    var priceUom: EnumUom? = EnumUom.UOM1,
+        var priceUom: EnumUom? = EnumUom.UOM1,
 
 
     //PPRICE:: Disimpan dalam satuan Terbesar dan Terkecil. Setelah dan sebelum PPN
@@ -177,7 +177,7 @@ data class FMaterialEntity  (
     * cara yang paling realistis untuk mengukur stok over adalah
     * Melihat History Penjualan Vs Jumalh Stok hasilnya adalah? = Jumlah hari stok akan habis
     */
-    var minQtyStok : Int? =0,
+        var minQtyStok : Int? =0,
         
 
     //Dalam Grams
@@ -223,7 +223,7 @@ internal fun FMaterialEntity.toDomain(): FMaterial {
         spriceAfterPpn = spriceAfterPpn,
         sprice2AfterPpn = sprice2AfterPpn,
 
-        isStatusActive = isStatusActive!!,
+        statusActive = statusActive!!,
         stared = stared,
         selected = selected,
         unread = unread,

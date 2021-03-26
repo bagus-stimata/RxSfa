@@ -1,7 +1,5 @@
 package com.erp.distribution.sfa.presentation.ui.syncronize_fromserver
 
-import android.util.Log
-import android.widget.Toast
 import androidx.hilt.Assisted
 import androidx.hilt.lifecycle.ViewModelInject
 import com.erp.distribution.sfa.domain.usecase.*
@@ -10,24 +8,19 @@ import androidx.lifecycle.*
 import com.erp.distribution.sfa.data.source.entity.*
 import com.erp.distribution.sfa.data.source.entity.modelenum.EnumUom
 import com.erp.distribution.sfa.domain.exception.ExceptionHandler
-import com.erp.distribution.sfa.domain.model.FCustomer
 import com.erp.distribution.sfa.domain.model.FMaterial
-import com.erp.distribution.sfa.domain.model.FUser
 import com.erp.distribution.sfa.presentation.base.BaseViewModel
 import com.erp.distribution.sfa.presentation.base.Resource
 import com.erp.distribution.sfa.presentation.model.UserViewState
-import com.erp.distribution.sfa.presentation.ui.MainViewModel
 import com.erp.distribution.sfa.utils.DisposableManager
 import com.erp.distribution.sfa.utils.SecurityUtil
 import io.reactivex.rxjava3.core.Observable
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
-import io.reactivex.rxjava3.core.Single
 import io.reactivex.rxjava3.schedulers.Schedulers
 import kotlinx.coroutines.CoroutineExceptionHandler
 import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.flow.receiveAsFlow
 import kotlinx.coroutines.launch
-import org.jetbrains.anko.Android
 import java.util.*
 
 
@@ -152,7 +145,7 @@ class SyncViewModel @ViewModelInject constructor(
                             progresMessageSuccessLive.postValue(progresMessageSuccess)
                         },
                         {
-                            progresMessageError += "\n FArea Success"
+                            progresMessageError += "\n FArea Error"
                             progresMessageErrorLive.postValue(progresMessageError)
                         },{}
                 )
@@ -299,7 +292,7 @@ class SyncViewModel @ViewModelInject constructor(
                         /**
                          * Entah kenapa Kolom isStatusSctive tidak bisa ditarik dari Server
                          */
-                        it.isStatusActive =true
+                        it.statusActive =true
                         it
                     })
                 }
@@ -333,7 +326,7 @@ class SyncViewModel @ViewModelInject constructor(
                          * Entah kenapa Kolom isStatusSctive tidak bisa ditarik dari Server
                          */
 
-                        it.isStatusActive =true
+                        it.statusActive =true
                         it
                     })
 

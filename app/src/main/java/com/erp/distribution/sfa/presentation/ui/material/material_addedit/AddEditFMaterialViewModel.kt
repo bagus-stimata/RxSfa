@@ -7,7 +7,6 @@ import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.erp.distribution.sfa.domain.model.FMaterial
-import com.erp.distribution.sfa.domain.model.toEntity
 import com.erp.distribution.sfa.domain.usecase.GetFMaterialUseCase
 import com.erp.distribution.sfa.presentation.ui.material.ADD_TASK_RESULT_OK
 import com.erp.distribution.sfa.presentation.ui.material.EDIT_TASK_RESULT_OK
@@ -33,7 +32,7 @@ class AddEditFMaterialViewModel @ViewModelInject constructor(
             state.set("fMaterialName", value)
         }
 
-    var fMaterialImportance = state.get<Boolean>("statusActive") ?: fMaterial?.isStatusActive ?: false
+    var fMaterialImportance = state.get<Boolean>("statusActive") ?: fMaterial?.statusActive ?: false
         set(value) {
             field = value
             state.set("statusActive", value)
@@ -49,10 +48,10 @@ class AddEditFMaterialViewModel @ViewModelInject constructor(
         }
 
         if (fMaterial != null) {
-            val updatedFMaterial = fMaterial.copy(pname = fMaterialName, isStatusActive = fMaterialImportance )
+            val updatedFMaterial = fMaterial.copy(pname = fMaterialName, statusActive = fMaterialImportance )
             updateFMaterial(updatedFMaterial)
         } else {
-            val newFMaterial = FMaterial(pname = fMaterialName, isStatusActive = fMaterialImportance )
+            val newFMaterial = FMaterial(pname = fMaterialName, statusActive = fMaterialImportance )
             createFMaterial(newFMaterial)
         }
     }

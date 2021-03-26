@@ -29,7 +29,7 @@ data class FMaterial  (
         var barcode : String ="",
         var pname : String ="",
 
-        var isStatusActive : Boolean =false,
+        var statusActive : Boolean =false,
 
     /*
     * KLASIFIKASI: BASIC
@@ -216,7 +216,7 @@ internal fun FMaterial.toEntity(): FMaterialEntity {
             spriceAfterPpn = spriceAfterPpn,
             sprice2AfterPpn = sprice2AfterPpn,
 
-            isStatusActive = isStatusActive,
+            statusActive = statusActive,
             stared = stared,
             selected = selected,
             unread = unread,

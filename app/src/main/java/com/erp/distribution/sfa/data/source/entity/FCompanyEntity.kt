@@ -7,15 +7,15 @@ import java.util.*
 //@Entity(tableName = "fcompany")
 @Entity(tableName = "fCompany")
 data class FCompanyEntity (
-    @PrimaryKey
-    var id: Int,
-    var kode1 : String,
-    var kode2 : String,
-    var description : String,
-    var isShareDataToBeClone: Boolean,
-    var shareDataToBeCloneSecurityCode : String,
-    var isStatusActive: Boolean,
-    var isWebServiceActive: Boolean,
+        @PrimaryKey
+        var id: Int,
+        var kode1 : String,
+        var kode2 : String,
+        var description : String,
+        var shareDataToBeClone: Boolean,
+        var shareDataToBeCloneSecurityCode : String,
+        var statusActive: Boolean,
+        var webServiceActive: Boolean,
 
     /*
     * SETTING YANG BERLAKU UNTUK SEMUA DIVISI
@@ -45,8 +45,8 @@ data class FCompanyEntity (
  */
     //	@Column(name="INVOICE_COMPANY_NPWP_1", length=45)
     //	private String invoiceCompanyNpwpPhone1 : String,;
-    var created : Date = Date(),
-    var modified : Date = Date(),
-    var modifiedBy : String //User ID
+        var created : Date = Date(),
+        var modified : Date = Date(),
+        var modifiedBy : String //User ID
 
 )

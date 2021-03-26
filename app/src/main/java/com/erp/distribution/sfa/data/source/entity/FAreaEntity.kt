@@ -13,7 +13,7 @@ import java.util.*
 @Entity(tableName = "fArea")
 @Parcelize
 data class FAreaEntity (
-    @PrimaryKey(autoGenerate = true)
+        @PrimaryKey(autoGenerate = true)
     var id: Int = 0,
 
     /*
@@ -23,21 +23,21 @@ data class FAreaEntity (
     * 2. 
     */
     var sourceId: Int = 0,
-    var kode1: String = "",
-    var kode2: String = "",
-    var description: String = "",
+        var kode1: String = "",
+        var kode2: String = "",
+        var description: String = "",
 
     //	private FDivision fdivisionBean;
-    var fdivisionBean: Int = 0,
+        var fdivisionBean: Int = 0,
 
     //	private FRegion fregionBean;
-    var fregionBean: Int = 0,
+        var fregionBean: Int = 0,
 
-    var isStatusActive: Boolean = true,
+        var statusActive: Boolean = true,
 
-    var created: Date = Date(),
-    var modified: Date = Date(),
-    var modifiedBy: String = "" //User ID
+        var created: Date = Date(),
+        var modified: Date = Date(),
+        var modifiedBy: String = "" //User ID
 ): Parcelable
 
 
@@ -49,7 +49,7 @@ internal fun FAreaEntity.toDomain(): FArea {
             sourceId = sourceId,
 
             fdivisionBean = FDivision(fdivisionBean),
-            isStatusActive = isStatusActive,
+            isStatusActive = statusActive,
 
             created = created!!,
             modified = modified!!,

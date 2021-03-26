@@ -1,15 +1,11 @@
 package com.erp.distribution.sfa.domain.model
 
 import android.os.Parcelable
-import androidx.room.Entity
-import androidx.room.PrimaryKey
-import com.erp.distribution.sfa.data.base.ModelEntity
 import com.erp.distribution.sfa.data.source.entity.FCustomerEntity
 import com.erp.distribution.sfa.data.source.entity.modelenum.EnumCurrency
 import com.erp.distribution.sfa.data.source.entity.modelenum.EnumTipePajakCustomer
 import com.erp.distribution.sfa.data.source.entity.modelenum.EnumTunaiKredit
 import com.erp.distribution.sfa.domain.base.Model
-import com.erp.distribution.sfa.presentation.model.FCustomerGroupItem
 import kotlinx.parcelize.Parcelize
 import java.io.Serializable
 import java.text.DateFormat
@@ -18,7 +14,7 @@ import java.util.*
 
 @Parcelize
 data class FCustomer(
-    var id: Int =0,
+        var id: Int =0,
 
     /*
     * JIKA COPY DARI TEMPAT LAIN: MAKA SEBAGAI LOG TRACK MENINGGALKAN SOURCE_ID = ID sumber asal dia dicopy
@@ -27,15 +23,15 @@ data class FCustomer(
     * 2. 
     */
     var sourceId: Int =0,
-    var custno: String ="",
-    var isOutletActive: Boolean =false,
-    var isFlagNewItem: Boolean =false,
+        var custno: String ="",
+        var outletActive: Boolean =false,
+        var flagNewItem: Boolean =false,
 
     //	@ManyToOne
     //	@JoinColumn(name="fdivisionBean", referencedColumnName="ID")
     //	private FDivision fdivisionBean;
 //    var fdivisionBean: Int =0,
-    var fdivisionBean: FDivision? =FDivision(),
+        var fdivisionBean: FDivision? =FDivision(),
 
 
     /*
@@ -55,44 +51,44 @@ data class FCustomer(
 //    var mappingOutCode2: String ="",
 //    var custGroupPromo1: Int =0, //GROUP PROMO
 //    var custGroupPromo2: Int =0, //GROUP PROMO
-    var custname: String ="",
-    var currency: EnumCurrency = EnumCurrency.IDR,
+        var custname: String ="",
+        var currency: EnumCurrency = EnumCurrency.IDR,
 
     /*
     * PERPAJAKAN / TAX
     */
-    var isPkp: Boolean =false,
-    var namaPrshFakturPajak: String ="",
-    var alamatPrshFakturPajak: String ="",
-    var namaPengusahaKenaPajak: String ="",
-    var nikPajak: String ="",
-    var npwp: String ="",
-    var tanggalPengukuhanPkp : Date? = Date(),
-    var tipePajakCustomer: EnumTipePajakCustomer = EnumTipePajakCustomer.REG_01,
-    var tunaikredit: EnumTunaiKredit = EnumTunaiKredit.T,
-    var lamaCredit: Int =0,
-    var creditlimit: Int =0,
-    var maxInvoice: Int =0,
-    var namaPemilik: String ="",
-    var address1: String ="",
-    var address2: String ="",
-    var address3: String ="",
-    var city1: String ="",
-    var city2: String ="",
-    var state1: String ="",
-    var phone1: String ="",
-    var phone2: String ="",
-    var postcode: String ="",
-    var email: String ="",
-    var whatsApp: String ="",
-    var isStatusActive: Boolean =false,
+    var pkp: Boolean =false,
+        var namaPrshFakturPajak: String ="",
+        var alamatPrshFakturPajak: String ="",
+        var namaPengusahaKenaPajak: String ="",
+        var nikPajak: String ="",
+        var npwp: String ="",
+        var tanggalPengukuhanPkp : Date? = Date(),
+        var tipePajakCustomer: EnumTipePajakCustomer = EnumTipePajakCustomer.REG_01,
+        var tunaikredit: EnumTunaiKredit = EnumTunaiKredit.T,
+        var lamaCredit: Int =0,
+        var creditlimit: Int =0,
+        var maxInvoice: Int =0,
+        var namaPemilik: String ="",
+        var address1: String ="",
+        var address2: String ="",
+        var address3: String ="",
+        var city1: String ="",
+        var city2: String ="",
+        var state1: String ="",
+        var phone1: String ="",
+        var phone2: String ="",
+        var postcode: String ="",
+        var email: String ="",
+        var whatsApp: String ="",
+        var statusActive: Boolean =false,
 
     //Tidak akan dipkai: 
-    var harikunjungan: Int =0,
-    var pekankunjungan: Int =0,
-    var isNoeffcall: Boolean =false,
-    var latitude: Int =0,
-    var longitude: Int =0,
+        var harikunjungan: Int =0,
+        var pekankunjungan: Int =0,
+        var noeffcall: Boolean =false,
+        var latitude: Int =0,
+        var longitude: Int =0,
 
     /*
     * sementara belum dipakai sampai tahu principal atau SAP
@@ -102,10 +98,10 @@ data class FCustomer(
     //	private String shipToBillTo ="";
     //	@Column(name="BILLTO", length=20)
     //	private String billTo ="";
-    var basicDisc1Barang: Int =0,
-    var basicDisc1PlusBarang: Int =0,
-    var isDisc1RegManual: Boolean =false,
-    var isDiscPlusRegManual: Boolean =false,
+        var basicDisc1Barang: Int =0,
+        var basicDisc1PlusBarang: Int =0,
+        var disc1RegManual: Boolean =false,
+        var discPlusRegManual: Boolean =false,
 
     /*
     * 0 = Menggunakan Harga Reguler Distributor (tidak mengenal harga bertingkat)
@@ -119,12 +115,12 @@ data class FCustomer(
     //	@JoinColumn(name="fcustomerGroupBean", referencedColumnName="ID")
     //	private FCustomerGroup fcustomerGroupBean;
 //        var fcustomerGroupBean: Int =0,
-    var fcustomerGroupBean: FCustomerGroup? = FCustomerGroup(),
+        var fcustomerGroupBean: FCustomerGroup? = FCustomerGroup(),
 
     //	@ManyToOne
     //	@JoinColumn(name="fsubAreaBean", referencedColumnName="ID")
     //	private FSubArea fsubAreaBean;
-    var fsubAreaBean: FSubArea? = FSubArea(),
+        var fsubAreaBean: FSubArea? = FSubArea(),
 
     /*
     * CLASSIFIKASI MATERIAL & SALES
@@ -134,36 +130,36 @@ data class FCustomer(
     //	@ManyToOne
     //	@JoinColumn(name="fdistributionChannelBean", referencedColumnName="ID")
     //	private FDistributionChannel fdistributionChannelBean;
-    var fdistributionChannelBean: Int? =0,
+        var fdistributionChannelBean: Int? =0,
 
-    var ftSaleshSet : List<FtSalesh> = listOf<FtSalesh>(),
+        var ftSaleshSet : List<FtSalesh> = listOf<FtSalesh>(),
 
 
         //	@ManyToOne
     //	@JoinColumn(name="ftPriceAlthBean", referencedColumnName="ID", nullable=true)
     //	private FtPriceAlth ftPriceAlthBean;
-    var ftPriceAlthBean: Int? =0,
+        var ftPriceAlthBean: Int? =0,
 
     /*
     * reject promotion rules setting
     */
-    var isNoPromotionRules: Boolean =false,
+    var noPromotionRules: Boolean =false,
 
     /*
     * Sales Covered
     * dan Jadwal Kunjungan
     */
-    var isExclusiveSalesman: Boolean? =false,
+    var exclusiveSalesman: Boolean? =false,
 
-    var stared: Boolean? = false,
-    var unread: Boolean? = true,
-    var selected: Boolean? = false,
+        var stared: Boolean? = false,
+        var unread: Boolean? = true,
+        var selected: Boolean? = false,
 
 //    @Ignore
 //    var notes: String ="",
-    var created : Date = Date(),
-    var modified : Date = Date(),
-    var modifiedBy: String ="", //User ID
+        var created : Date = Date(),
+        var modified : Date = Date(),
+        var modifiedBy: String ="", //User ID
 
 //    @Ignore
 //    var isStared: Boolean =false,
@@ -186,12 +182,12 @@ internal fun FCustomer.toEntity(): FCustomerEntity {
     return FCustomerEntity(
         id = id,
         custno = custno,
-        isOutletActive = isOutletActive,
-        isFlagNewItem = isFlagNewItem,
+        outletActive = outletActive,
+        flagNewItem = flagNewItem,
 
         fdivisionBean = fdivisionBean!!.id,
         custname = custname,
-        isPkp = isPkp,
+        pkp = pkp,
         namaPrshFakturPajak = namaPrshFakturPajak,
         alamatPrshFakturPajak = alamatPrshFakturPajak,
         npwp = npwp,
@@ -209,22 +205,22 @@ internal fun FCustomer.toEntity(): FCustomerEntity {
         postcode = postcode,
         email = email,
         whatsApp = whatsApp,
-        isStatusActive = isStatusActive,
-        isNoeffcall = isNoeffcall,
+        statusActive = statusActive,
+        noeffcall = noeffcall,
         latitude = latitude,
         longitude = longitude,
         basicDisc1Barang = basicDisc1Barang,
         basicDisc1PlusBarang = basicDisc1PlusBarang,
-        isDisc1RegManual = isDisc1RegManual,
-        isDiscPlusRegManual = isDiscPlusRegManual,
+        disc1RegManual = disc1RegManual,
+        discPlusRegManual = discPlusRegManual,
         fcustomerGroupBean = fcustomerGroupBean!!.id,
         fsubAreaBean = fsubAreaBean!!.id,
 
         fdistributionChannelBean = fdistributionChannelBean,
         ftPriceAlthBean = ftPriceAlthBean,
 
-        isNoPromotionRules = isNoPromotionRules,
-        isExclusiveSalesman = isExclusiveSalesman,
+        noPromotionRules = noPromotionRules,
+        exclusiveSalesman = exclusiveSalesman,
 
 
         stared = stared,

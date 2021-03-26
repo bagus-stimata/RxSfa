@@ -6,8 +6,6 @@ import androidx.room.Entity
 import androidx.room.PrimaryKey
 import androidx.room.Relation
 import com.erp.distribution.sfa.data.base.ModelEntity
-import com.erp.distribution.sfa.data.source.entity.modelenum.EnumCurrency
-import com.erp.distribution.sfa.data.source.entity.modelenum.EnumTipePajakCustomer
 import com.erp.distribution.sfa.data.source.entity.modelenum.EnumTunaiKredit
 import com.erp.distribution.sfa.domain.model.*
 import kotlinx.parcelize.Parcelize
@@ -19,7 +17,7 @@ import java.util.*
 @Entity(tableName= "fCustomer")
 @Parcelize
 data class FCustomerEntity(
-    @PrimaryKey
+        @PrimaryKey
     var id: Int =0,
 
     /*
@@ -28,14 +26,14 @@ data class FCustomerEntity(
     * 1. Clone Database. karena tidak mungkin menggunakan Kode External yang bisa jadi kemungkinan kembar, tapi harus pakai kode internal
     * 2. 
     */
-    var custno: String ="",
-    var isOutletActive: Boolean =false,
-    var isFlagNewItem: Boolean? =false,
+        var custno: String ="",
+        var outletActive: Boolean =false,
+        var flagNewItem: Boolean? =false,
 
     //	@ManyToOne
     //	@JoinColumn(name="fdivisionBean", referencedColumnName="ID")
     //	private FDivision fdivisionBean;
-    var fdivisionBean: Int =0,
+        var fdivisionBean: Int =0,
 
     /*
     * Fungsinya: Jika menarik data dari sistem lain dimana mempunyai kode customer yang berbeda
@@ -52,29 +50,29 @@ data class FCustomerEntity(
     /*
     * PERPAJAKAN / TAX
     */
-    var isPkp: Boolean? =false,
-    var namaPrshFakturPajak: String? ="",
-    var alamatPrshFakturPajak: String? ="",
-    var npwp: String? ="",
-    var tanggalPengukuhanPkp : Date? = Date(),
-    var tunaikredit: EnumTunaiKredit? = EnumTunaiKredit.T,
-    var lamaCredit: Int =0,
-    var creditlimit: Int =0,
-    var maxInvoice: Int =0,
-    var namaPemilik: String? ="",
-    var address1: String ="",
-    var address2: String ="",
-    var city1: String ="",
-    var state1: String ="",
-    var phone1: String? ="",
-    var postcode: String? ="",
-    var email: String? ="",
-    var whatsApp: String? ="",
-    var isStatusActive: Boolean? =false,
+    var pkp: Boolean? =false,
+        var namaPrshFakturPajak: String? ="",
+        var alamatPrshFakturPajak: String? ="",
+        var npwp: String? ="",
+        var tanggalPengukuhanPkp : Date? = Date(),
+        var tunaikredit: EnumTunaiKredit? = EnumTunaiKredit.T,
+        var lamaCredit: Int =0,
+        var creditlimit: Int =0,
+        var maxInvoice: Int =0,
+        var namaPemilik: String? ="",
+        var address1: String ="",
+        var address2: String ="",
+        var city1: String ="",
+        var state1: String ="",
+        var phone1: String? ="",
+        var postcode: String? ="",
+        var email: String? ="",
+        var whatsApp: String? ="",
+        var statusActive: Boolean? =false,
 
-    var isNoeffcall: Boolean? =false,
-    var latitude: Int? =0,
-    var longitude: Int? =0,
+        var noeffcall: Boolean? =false,
+        var latitude: Int? =0,
+        var longitude: Int? =0,
 
     /*
     * sementara belum dipakai sampai tahu principal atau SAP
@@ -84,10 +82,10 @@ data class FCustomerEntity(
     //	private String shipToBillTo? ="";
     //	@Column(name="BILLTO", length=20)
     //	private String billTo? ="";
-    var basicDisc1Barang: Int? =0,
-    var basicDisc1PlusBarang: Int? =0,
-    var isDisc1RegManual: Boolean? =false,
-    var isDiscPlusRegManual: Boolean? =false,
+        var basicDisc1Barang: Int? =0,
+        var basicDisc1PlusBarang: Int? =0,
+        var disc1RegManual: Boolean? =false,
+        var discPlusRegManual: Boolean? =false,
 
     /*
     * 0? = Menggunakan Harga Reguler Distributor (tidak mengenal harga bertingkat)
@@ -100,12 +98,12 @@ data class FCustomerEntity(
     //	@ManyToOne
     //	@JoinColumn(name="fcustomerGroupBean", referencedColumnName="ID")
     //	private FCustomerGroup fcustomerGroupBean;
-    var fcustomerGroupBean: Int? =0,
+        var fcustomerGroupBean: Int? =0,
 
     //	@ManyToOne
     //	@JoinColumn(name="fsubAreaBean", referencedColumnName="ID")
     //	private FSubArea fsubAreaBean;
-    var fsubAreaBean: Int? =0,
+        var fsubAreaBean: Int? =0,
 
     /*
     * CLASSIFIKASI MATERIAL & SALES
@@ -115,33 +113,33 @@ data class FCustomerEntity(
     //	@ManyToOne
     //	@JoinColumn(name="fdistributionChannelBean", referencedColumnName="ID")
     //	private FDistributionChannel fdistributionChannelBean;
-    var fdistributionChannelBean: Int? =0,
+        var fdistributionChannelBean: Int? =0,
 
     //	@ManyToOne
     //	@JoinColumn(name="ftPriceAlthBean", referencedColumnName="ID", nullable=true)
     //	private FtPriceAlth ftPriceAlthBean;
-    var ftPriceAlthBean: Int? =0,
+        var ftPriceAlthBean: Int? =0,
 
     /*
     * reject promotion rules setting
     */
-    var isNoPromotionRules: Boolean? =false,
+    var noPromotionRules: Boolean? =false,
 
     /*
     * Sales Covered
     * dan Jadwal Kunjungan
     */
-    var isExclusiveSalesman: Boolean? =false,
+    var exclusiveSalesman: Boolean? =false,
 
-    var stared: Boolean? = false,
-    var unread: Boolean? = true,
-    var selected: Boolean? = false,
+        var stared: Boolean? = false,
+        var unread: Boolean? = true,
+        var selected: Boolean? = false,
 
 //    @Ignore
 //    var notes: String? ="",
-    var created : Date? = Date(),
-    var modified : Date? = Date(),
-    var modifiedBy: String? ="", //User ID
+        var created : Date? = Date(),
+        var modified : Date? = Date(),
+        var modifiedBy: String? ="", //User ID
 
 //    @Ignore
 //    var isStared: Boolean? =false,
@@ -162,12 +160,12 @@ internal fun FCustomerEntity.toDomain(): FCustomer {
     return FCustomer(
         id = id,
         custno = custno,
-        isOutletActive = isOutletActive,
-        isFlagNewItem = isFlagNewItem!!,
+        outletActive = outletActive,
+        flagNewItem = flagNewItem!!,
 
         fdivisionBean = fdivisionBean?.let { FDivision(fdivisionBean) },
         custname = custname,
-        isPkp = isPkp!!,
+        pkp = pkp!!,
         namaPrshFakturPajak = namaPrshFakturPajak!!,
         alamatPrshFakturPajak = alamatPrshFakturPajak!!,
         npwp = npwp!!,
@@ -185,22 +183,22 @@ internal fun FCustomerEntity.toDomain(): FCustomer {
         postcode = postcode!!,
         email = email!!,
         whatsApp = whatsApp!!,
-        isStatusActive = isStatusActive!!,
-        isNoeffcall = isNoeffcall!!,
+        statusActive = statusActive!!,
+        noeffcall = noeffcall!!,
         latitude = latitude!!,
         longitude = longitude!!,
         basicDisc1Barang = basicDisc1Barang!!,
         basicDisc1PlusBarang = basicDisc1PlusBarang!!,
-        isDisc1RegManual = isDisc1RegManual!!,
-        isDiscPlusRegManual = isDiscPlusRegManual!!,
+        disc1RegManual = disc1RegManual!!,
+        discPlusRegManual = discPlusRegManual!!,
         fcustomerGroupBean = fcustomerGroupBean?.let { FCustomerGroup(fcustomerGroupBean!!) },
         fsubAreaBean = fsubAreaBean?.let { FSubArea(fsubAreaBean!!) },
 
         fdistributionChannelBean = fdistributionChannelBean,
         ftPriceAlthBean = ftPriceAlthBean,
 
-        isNoPromotionRules = isNoPromotionRules!!,
-        isExclusiveSalesman = isExclusiveSalesman!!,
+        noPromotionRules = noPromotionRules!!,
+        exclusiveSalesman = exclusiveSalesman!!,
 
 
         stared = stared,
