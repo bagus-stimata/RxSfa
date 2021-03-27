@@ -25,7 +25,7 @@ class FtArPaymenthEntity : Serializable {
     var printCounter = 0
 
     //PENGGUNAAN UTAMA PADA END_OF_DAY
-    var isEndOfDay = false
+    var endOfDay = false
 
     //	@ManyToOne
     //	@JoinColumn(name="fdivisionBean", referencedColumnName="ID")

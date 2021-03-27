@@ -1,9 +1,6 @@
 package com.erp.distribution.sfa.domain.model
 
 import android.os.Parcelable
-import androidx.room.Entity
-import androidx.room.PrimaryKey
-import com.erp.distribution.sfa.data.source.entity.FAreaEntity
 import com.erp.distribution.sfa.data.source.entity.FtPriceAlthEntity
 import kotlinx.parcelize.Parcelize
 import java.util.*
@@ -41,7 +38,7 @@ internal fun FtPriceAlth.toEntity(): FtPriceAlthEntity {
 
             fdivisionBean = fdivisionBean.id,
             trDate = trDate,
-            isStatusActive = isStatusActive,
+            statusActive = isStatusActive,
 
             created = created!!,
             modified = modified!!,

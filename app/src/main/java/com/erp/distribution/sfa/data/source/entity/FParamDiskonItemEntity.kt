@@ -65,21 +65,21 @@ class FParamDiskonItemEntity : Serializable {
     //	@JoinColumn(name="fvendorBean", referencedColumnName="ID")
     //	private FVendor fvendorBean;
     var fvendorBean = 0
-    var isAllsubgrup = false
+    var allsubgrup = false
 
     //	@ManyToOne
     //	@JoinColumn(name="fcustomerGroupBean", referencedColumnName="ID")
     //	private FCustomerGroup fcustomerGroupBean;
     var fcustomerGroupBean = 0
-    var isAllproductgrup = false
+    var allproductgrup = false
 
     //	@ManyToOne
     //	@JoinColumn(name="fmaterialGroup3Bean", referencedColumnName="ID")
     //	private FMaterialGroup3	fmaterialGroup3Bean;
     var fmaterialGroup3Bean = 0
-    var isAlltunaikredit = false
+    var alltunaikredit = false
     var tunaikredit = ""
-    var isStatusActive = false
+    var statusActive = false
     var created = Date()
     var modified = Date()
     var modifiedBy = "" //User ID

@@ -4,7 +4,6 @@ import androidx.room.Entity
 import androidx.room.PrimaryKey
 import com.erp.distribution.sfa.data.source.entity.modelenum.EnumTipeWarehouse
 import com.erp.distribution.sfa.domain.model.FDivision
-import com.erp.distribution.sfa.domain.model.FSalesman
 import com.erp.distribution.sfa.domain.model.FWarehouse
 import java.io.Serializable
 import java.util.*
@@ -12,7 +11,7 @@ import java.util.*
 //@Entity(tableName = "fwarehouse")
 @Entity(tableName = "fWarehouse")
 class FWarehouseEntity (
-    @PrimaryKey(autoGenerate =false)
+        @PrimaryKey(autoGenerate =false)
     var id: Int = -1,
 
     /*
@@ -22,35 +21,35 @@ class FWarehouseEntity (
     * 2. 
     */
     var sourceId : Int =0,
-    var kode1 : String ="",
-    var kode2 : String ="",
+        var kode1 : String ="",
+        var kode2 : String ="",
 
     //	@ManyToOne
     //	@JoinColumn(name="fdivisionBean", referencedColumnName="ID")
     //	private FDivision fdivisionBean;
-    var fdivisionBean : Int =0,
-    var isProductHppSaved : Boolean? =false,
-    var numberPriority: Int? = 0,
-    var description : String ="",
-    var isGudangUtama : Boolean? =false,
-    var address1 : String ="",
-    var city1: String? ="",
-    var state1 : String ="",
-    var phone : String ="",
-    var isStatusActive : Boolean =false,
-    var isGudangPo : Boolean? =false,
-    var isGudangSo : Boolean? =false,
-    var isGudangTransfer : Boolean? =false,
-    var isGudangRetail : Boolean? =false,
-    var isGudangPusatCompany : Boolean? =false,
-    var isGudangTransitDiv : Boolean? =false,
-    var tipeWarehouse: EnumTipeWarehouse? = EnumTipeWarehouse.GS,
+        var fdivisionBean : Int =0,
+        var productHppSaved : Boolean? =false,
+        var numberPriority: Int? = 0,
+        var description : String ="",
+        var gudangUtama : Boolean? =false,
+        var address1 : String ="",
+        var city1: String? ="",
+        var state1 : String ="",
+        var phone : String ="",
+        var statusActive : Boolean =false,
+        var gudangPo : Boolean? =false,
+        var gudangSo : Boolean? =false,
+        var gudangTransfer : Boolean? =false,
+        var gudangRetail : Boolean? =false,
+        var gudangPusatCompany : Boolean? =false,
+        var gudangTransitDiv : Boolean? =false,
+        var tipeWarehouse: EnumTipeWarehouse? = EnumTipeWarehouse.GS,
 
     //PORT WS:: UNTUK TRANSAKSI PEMBALIAN DAN PENJUALAN
-    var wsport : String? ="",
-    var created : Date? = Date(),
-    var modified : Date? = Date(),
-    var modifiedBy : String? ="", //User ID
+        var wsport : String? ="",
+        var created : Date? = Date(),
+        var modified : Date? = Date(),
+        var modifiedBy : String? ="", //User ID
 ): Serializable
 
 internal fun FWarehouseEntity.toDomain(): FWarehouse {
@@ -67,7 +66,7 @@ internal fun FWarehouseEntity.toDomain(): FWarehouse {
             city1 = city1,
             state1 = state1,
             phone = phone,
-            isStatusActive = isStatusActive,
+            statusActive = statusActive,
             tipeWarehouse = tipeWarehouse,
 
             created = created,

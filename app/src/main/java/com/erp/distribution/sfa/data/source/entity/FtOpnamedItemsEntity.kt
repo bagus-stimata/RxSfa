@@ -59,7 +59,7 @@ class FtOpnamedItemsEntity {
 
     //	private Integer qtyAdjust=0.0; //Qty setelah dihitung dan dilakukan penyesuaian
     var qtyAdjust = 0.0 //Qty setelah dihitung dan dilakukan penyesuaian
-    var isVisible = true
+    var visible = true
 
     //Subtotal sebelum disc
     @Ignore

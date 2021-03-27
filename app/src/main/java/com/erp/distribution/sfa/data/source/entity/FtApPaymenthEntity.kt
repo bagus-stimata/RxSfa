@@ -24,8 +24,8 @@ class FtApPaymenthEntity {
     var printCounter = 0
 
     //PENGGUNAAN UTAMA PADA END_OF_DAY
-    var isEndOfDay = false
-    var isClosing = false
+    var endOfDay = false
+    var closing = false
 
     //	@ManyToOne
     //	@JoinColumn(name="fdivisionBean", referencedColumnName="ID")

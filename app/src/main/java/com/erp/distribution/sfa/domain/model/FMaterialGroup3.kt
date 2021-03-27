@@ -1,13 +1,8 @@
 package com.erp.distribution.sfa.domain.model
 
 import android.os.Parcelable
-import androidx.room.Entity
-import androidx.room.PrimaryKey
-import com.erp.distribution.sfa.data.base.ModelEntity
 import com.erp.distribution.sfa.data.source.entity.FMaterialGroup3Entity
-import com.erp.distribution.sfa.domain.base.Model
 import kotlinx.parcelize.Parcelize
-import java.io.Serializable
 import java.util.*
 
 @Parcelize
@@ -47,7 +42,7 @@ internal fun FMaterialGroup3.toEntity(): FMaterialGroup3Entity {
             description= description,
 
             fmaterialGroup2Bean = fmaterialGroup2Bean.id,
-            isStatusActive = isStatusActive,
+            statusActive = isStatusActive,
 
             created = created!!,
             modified = modified!!,

@@ -44,7 +44,7 @@ class FGiroEntity : Serializable {
 	 */
     var statusGiro: EnumStatusGiro? = null
     var cairOrTolakDate = Date()
-    var isSharedToCompany = false //setting Shared to company khusus ditaruh disini, bukan di divisi
+    var sharedToCompany = false //setting Shared to company khusus ditaruh disini, bukan di divisi
 
     /*
 	 * Account Mapping: Bank Account
@@ -64,13 +64,13 @@ class FGiroEntity : Serializable {
 	 * true	= Giro
 	 * false =  Transfer
 	 */
-    var isGiroOrTransfer = true
+    var giroOrTransfer = true
 
     //	@ManyToOne
     //	@JoinColumn(name="fdivisionBean", referencedColumnName="ID")
     //	private FDivision fdivisionBean;
     var fdivisionBean = 0
-    var isStatusActive = true
+    var statusActive = true
 
     @Ignore
     var tempString = ""

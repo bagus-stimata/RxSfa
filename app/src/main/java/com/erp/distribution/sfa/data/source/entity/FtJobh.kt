@@ -36,8 +36,8 @@ class FtJobh : Serializable {
     var paramInt4 = 0
     var paramInt5 = 0
     var paramDate1 = Date()
-    var isEndOfDay = false
-    var isProses = false
+    var endOfDay = false
+    var proses = false
     var notes = ""
 
     //	@ManyToOne

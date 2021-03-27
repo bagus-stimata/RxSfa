@@ -25,7 +25,7 @@ class FParamDiskonItemVendorEntity : Serializable {
     var description = ""
 
     //QTY DIMANFAATKAN UNTUK RUPIAH
-    var isQtyOrRupiah = false //true = Qty
+    var qtyOrRupiah = false //true = Qty
     var nominal1 = 0.0 //Nominal or Qty
     var diskon1 = 0.0
     var diskon1plus = 0.0
@@ -41,19 +41,19 @@ class FParamDiskonItemVendorEntity : Serializable {
     var nominal5 = 0.0
     var diskon5 = 0.0
     var diskon5plus = 0.0
-    var isAllvendor = true
+    var allvendor = true
 
     //	@ManyToOne
     //	@JoinColumn(name="fvendorBean", referencedColumnName="ID")
     //	private FVendor fvendorBean;
     var fvendorBean = 0
-    var isAllProductGroup = true
+    var allProductGroup = true
 
     //	@ManyToOne
     //	@JoinColumn(name="fmaterialGroup3Bean", referencedColumnName="ID")
     //	private FMaterialGroup3 fmaterialGroup3Bean;
     var fmaterialGroup3Bean = 0
-    var isStatusActive = true
+    var statusActive = true
 
     companion object {
         const val serialVersionUID = 1L

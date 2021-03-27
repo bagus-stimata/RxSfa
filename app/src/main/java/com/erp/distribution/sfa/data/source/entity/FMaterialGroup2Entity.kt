@@ -3,7 +3,6 @@ package com.erp.distribution.sfa.data.source.entity
 import android.os.Parcelable
 import androidx.room.Entity
 import androidx.room.PrimaryKey
-import com.erp.distribution.sfa.domain.model.FDivision
 import com.erp.distribution.sfa.domain.model.FMaterialGroup1
 import com.erp.distribution.sfa.domain.model.FMaterialGroup2
 import kotlinx.parcelize.Parcelize
@@ -12,7 +11,7 @@ import java.util.*
 @Parcelize
 @Entity(tableName = "FMaterialGroup2")
 data class FMaterialGroup2Entity (
-    @PrimaryKey(autoGenerate = true)
+        @PrimaryKey(autoGenerate = true)
     var id: Int = 0,
 
     /*
@@ -22,16 +21,16 @@ data class FMaterialGroup2Entity (
     * 2. 
     */
     var sourceId: Int = 0,
-    var kode1: String = "",
-    var kode2: String = "",
-    var description: String = "",
+        var kode1: String = "",
+        var kode2: String = "",
+        var description: String = "",
 
     //	private FMaterialGroup1 fmaterialGroup1Bean;
-    var fmaterialGroup1Bean: Int = 0,
-    var isStatusActive: Boolean = true,
-    var created: Date = Date(),
-    var modified: Date = Date(),
-    var modifiedBy: String = "" //User ID
+        var fmaterialGroup1Bean: Int = 0,
+        var statusActive: Boolean = true,
+        var created: Date = Date(),
+        var modified: Date = Date(),
+        var modifiedBy: String = "" //User ID
 ): Parcelable
 
 internal fun FMaterialGroup2Entity.toDomain(): FMaterialGroup2{
@@ -42,7 +41,7 @@ internal fun FMaterialGroup2Entity.toDomain(): FMaterialGroup2{
 
             description = description,
             fmaterialGroup1Bean = FMaterialGroup1(fmaterialGroup1Bean),
-            isStatusActive = isStatusActive,
+            isStatusActive = statusActive,
 
             created = created,
             modified = modified,

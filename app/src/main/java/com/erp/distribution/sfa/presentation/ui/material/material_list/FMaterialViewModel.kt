@@ -88,7 +88,7 @@ class FMaterialViewModel @ViewModelInject constructor(
                 ftSalesdItems.taxPercent =0.0
                 fMaterial.taxable?.let {
                     if (fMaterial.taxable) {
-                        ftSalesdItems.isTax = true
+                        ftSalesdItems.tax = true
                         fMaterial.ftaxBean?.let {
                             ftSalesdItems.ftaxBean = fMaterial.ftaxBean!!
                             ftSalesdItems.taxPercent = 10.0

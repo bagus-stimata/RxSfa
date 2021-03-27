@@ -32,7 +32,7 @@ class FtStockTransferh {
     */
     //	@Column(name="RECEIVED")
     //	private boolean received =true; //Default adalah tidak memakai jurnal sehingga true
-    var isReceiptByDest = false
+    var receiptByDest = false
     var goodReceiptDate = Date()
     var tipeStockTransfer: EnumTipeStockTransfer? = null
     var notes = ""
@@ -41,7 +41,7 @@ class FtStockTransferh {
     * Jumlah keseluruhan
     */
     var amountRp = 0.0
-    var isEndOfDay = false
+    var endOfDay = false
     var printCounter = 0
 
     @Ignore

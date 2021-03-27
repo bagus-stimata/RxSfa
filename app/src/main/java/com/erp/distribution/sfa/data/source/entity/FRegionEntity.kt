@@ -27,7 +27,7 @@ class FRegionEntity : Serializable {
     //	@JoinColumn(name="fdivisionBean", referencedColumnName="ID")
     //	private FDivision fdivisionBean;
     var fdivisionBean = 0
-    var isStatusActive = true
+    var statusActive = true
     var created = Date()
     var modified = Date()
     var modifiedBy = "" //User ID

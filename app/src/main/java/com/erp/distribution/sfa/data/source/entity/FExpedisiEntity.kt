@@ -35,7 +35,7 @@ class FExpedisiEntity : Serializable {
     var email = ""
     var joindate = Date()
     var lasttrans = Date()
-    var isStatusActive = false
+    var statusActive = false
     var created = Date()
     var modified = Date()
     var modifiedBy = "" //User ID

@@ -29,8 +29,8 @@ class FPromotionRuleshEntity {
     var fdivisionBean = 0
     var validPeriodDateFrom = Date()
     var validPeriodDateTo = Date()
-    var isSharedToCompany = false //setting Shared to company khusus ditaruh disini, bukan di divisi
-    var isStatusActive = true
+    var sharedToCompany = false //setting Shared to company khusus ditaruh disini, bukan di divisi
+    var statusActive = true
 
     /*
     * AKAN DITAMBAHKAN
@@ -51,7 +51,7 @@ class FPromotionRuleshEntity {
     //	@JoinColumn(name="accAccount_CreditBean", referencedColumnName="ID")
     //	private AccAccount accAccount_CreditBean; //CREDIT
     var accAccount_CreditBean = 0
-    var isClaimPabrik = false
+    var claimPabrik = false
 
     //	@Column(name="GANTI_BARANG")
     //	private boolean gantiBarang=false;
@@ -83,8 +83,8 @@ class FPromotionRuleshEntity {
     * INI BERARTI TIDAK PERLU: 
     * PERLU DIEVALUASI LAGI
     */
-    var isDiscKelipatan = true
-    var isDiscCashOnly = false
+    var discKelipatan = true
+    var discCashOnly = false
     var forDiscQtyOrValueLev1 = 0.0
     var disc1GetLev1 = 0.0
     var disc1GetLev1_Value = 0.0
@@ -131,13 +131,13 @@ class FPromotionRuleshEntity {
         * Minimum Pengambilan
         */
     var fg1MinQtyOrValue = 0
-    var isFg1Kelipatan = true
+    var fg1Kelipatan = true
 
     //		@ManyToOne
     //		@JoinColumn(name="freeGood1MaterialBean", referencedColumnName="ID")
     //	    private FMaterial freeGood1MaterialBean;
     var freeGood1MaterialBean = 0
-    var isFg1HargaJualNol = true
+    var fg1HargaJualNol = true
 
     /*
         * Dipakai untuk perhitungan berapa nominal rupiah
@@ -165,13 +165,13 @@ class FPromotionRuleshEntity {
         * Minimum Pengambilan
         */
     var fg2MinQtyOrValue = 0
-    var isFg2Kelipatan = true
+    var fg2Kelipatan = true
 
     //		@ManyToOne
     //		@JoinColumn(name="freeGood2MaterialBean", referencedColumnName="ID")
     //	    private FMaterial freeGood2MaterialBean;
     var freeGood2MaterialBean = 0
-    var isFg2HargaJualNol = true
+    var fg2HargaJualNol = true
 
     /*
         * Dipakai untuk perhitungan berapa nominal rupiah

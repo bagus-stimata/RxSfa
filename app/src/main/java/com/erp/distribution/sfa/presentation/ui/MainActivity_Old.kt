@@ -136,7 +136,7 @@ class MainActivity_Old : AppCompatActivity() {
         DisposableManager.add(mainViewModelOld.getRemoteFSalesman(fUserEntity)
             .toObservable()
             .map {
-                it.isStatusActive = true
+                it.statusActive = true
                 it
             }
             .observeOn(AndroidSchedulers.mainThread())
@@ -163,7 +163,7 @@ class MainActivity_Old : AppCompatActivity() {
         DisposableManager.add(mainViewModelOld.getRemoteFWarehouse(fUserEntity)
             .toObservable()
             .map {
-                it.isStatusActive = true
+                it.statusActive = true
                 it
             }
             .observeOn(AndroidSchedulers.mainThread())

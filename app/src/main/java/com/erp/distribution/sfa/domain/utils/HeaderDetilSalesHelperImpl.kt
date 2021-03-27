@@ -36,7 +36,7 @@ class HeaderDetilSalesHelperImpl : HeaderDetilSalesHelper {
 
         /*
 		 * Tax Percent
-		 */if (ftSalesd.isTax) {
+		 */if (ftSalesd.tax) {
             taxPercent = ftSalesd.taxPercent
         } else {
             ftPurchased.taxPercent = 0.0
@@ -62,7 +62,7 @@ class HeaderDetilSalesHelperImpl : HeaderDetilSalesHelper {
 
         /*
 		 * Tax Percent
-		 */if (ftSalesd.isTax) {
+		 */if (ftSalesd.tax) {
             taxPercent = ftSalesd.taxPercent
         } else {
             ftPurchased.taxPercent = 0.0

@@ -13,12 +13,12 @@ import java.io.Serializable
 @Entity(tableName = "ftSalesdItems")
 @Parcelize
 class FtSalesdItemsEntity (
-    @PrimaryKey(autoGenerate =true)
+        @PrimaryKey(autoGenerate =true)
     var id: Long =0,
-    var isFreeGood : Boolean =false,
-    var noUrut : Int =0,
-    var notes : String ="",
-    var sprice : Double =0.0,
+        var isFreeGood : Boolean =false,
+        var noUrut : Int =0,
+        var notes : String ="",
+        var sprice : Double =0.0,
 
 //    @Ignore
 //    var spricePpnRp : Double =0.0,
@@ -26,13 +26,13 @@ class FtSalesdItemsEntity (
     /*
     * Dasar harga total
     */
-    var isTax : Boolean =true,
+    var tax : Boolean =true,
 
     //	@ManyToOne
     //	@JoinColumn(name="ftaxBean", referencedColumnName="ID")
     //	private FTax ftaxBean;
-    var ftaxBean : Int? =0,
-    var taxPercent : Double =0.0,
+        var ftaxBean : Int? =0,
+        var taxPercent : Double =0.0,
 
     /*
     * End: Dasar harga total
@@ -121,8 +121,8 @@ class FtSalesdItemsEntity (
     //	private Integer qtyKembali : Int =0,;	
     //	@Ignore
     //	private Integer qtyNET=0.0;
-    var qty : Double =0.0,
-    var qtyKembali : Double =0.0,
+        var qty : Double =0.0,
+        var qtyKembali : Double =0.0,
 
 //    @Ignore
 //    var qtyNET : Double =0.0,
@@ -132,7 +132,7 @@ class FtSalesdItemsEntity (
     */
     //	@Column(name="QTYRETURN", length=9)
     //	private Integer qtyReturn =0.0;
-    var qtyReturn : Double =0.0,
+        var qtyReturn : Double =0.0,
 
     /*
     * PRICE yang muncul pada faktur dengan menggunakan UOM
@@ -153,7 +153,7 @@ class FtSalesdItemsEntity (
 
 //    @Ignore
 //    var subtotalRpAfterPpn : Double =0.0,
-    var disc1 : Double =0.0,
+        var disc1 : Double =0.0,
 
 //    @Ignore
 //    var disc1Rp : Double =0.0,
@@ -175,7 +175,7 @@ class FtSalesdItemsEntity (
 
 //    @Ignore
 //    var disc1RpAfterPpnUom4 : Double =0.0,
-    var disc2: Double = 0.0,
+        var disc2: Double = 0.0,
 //
 //    @Ignore
 //    var disc2Rp : Double =0.0,
@@ -197,7 +197,7 @@ class FtSalesdItemsEntity (
 //
 //    @Ignore
 //    var disc2RpAfterPpnUom4 : Double =0.0,
-    var disc3 : Double =0.0,
+        var disc3 : Double =0.0,
 
 //    @Ignore
 //    var disc3Rp : Double =0.0,
@@ -228,7 +228,7 @@ class FtSalesdItemsEntity (
 //
 //    @Ignore
 //    var subtotalAfterDisc123RpAfterPpn : Double =0.0,
-    var disc1Plus : Double =0.0,
+        var disc1Plus : Double =0.0,
 
 //    @Ignore
 //    var disc1PlusRp : Double =0.0,
@@ -259,7 +259,7 @@ class FtSalesdItemsEntity (
 //
 //    @Ignore
 //    var subtotalAfterDisc1PlusRpAfterPpn : Double =0.0,
-    var disc2Plus : Double =0.0,
+        var disc2Plus : Double =0.0,
 
 //    @Ignore
 //    var disc2PlusRp : Double =0.0,
@@ -378,8 +378,8 @@ class FtSalesdItemsEntity (
     //	@ManyToOne
     //	@JoinColumn(name="fmaterialBean", referencedColumnName="ID")
     //	private FMaterial fmaterialBean;
-    var ftSaleshBean : Long =0,
-    var fmaterialBean : Int =0
+        var ftSaleshBean : Long =0,
+        var fmaterialBean : Int =0
 
 ): Serializable, ModelEntity(), Parcelable
 
@@ -391,7 +391,7 @@ internal fun FtSalesdItemsEntity.toDomain(): FtSalesdItems {
         notes = notes,
         sprice = sprice,
 
-        isTax = isTax,
+        tax = tax,
         ftaxBean = ftaxBean,
         taxPercent = taxPercent,
 

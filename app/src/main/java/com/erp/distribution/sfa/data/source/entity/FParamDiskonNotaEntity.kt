@@ -33,7 +33,7 @@ class FParamDiskonNotaEntity : Serializable {
     //	private FCustomerGroup forFcustomerGroupBean;
     var forFcustomerGroupBean = 0
     var forTunaiKredit: EnumTunaiKredit? = null
-    var isStatusActive = true
+    var statusActive = true
 
     /*
     * dimulai daribyNominal TERKECIL sampai terbesar: Programnya menaik donk

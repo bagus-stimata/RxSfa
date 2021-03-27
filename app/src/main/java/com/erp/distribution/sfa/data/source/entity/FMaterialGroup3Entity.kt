@@ -3,21 +3,15 @@ package com.erp.distribution.sfa.data.source.entity
 import android.os.Parcelable
 import androidx.room.Entity
 import androidx.room.PrimaryKey
-import com.erp.distribution.sfa.data.base.EntityMapper
-import com.erp.distribution.sfa.data.base.ModelEntity
-import com.erp.distribution.sfa.domain.model.FArea
 import com.erp.distribution.sfa.domain.model.FMaterialGroup2
 import com.erp.distribution.sfa.domain.model.FMaterialGroup3
-import com.erp.distribution.sfa.domain.model.FSubArea
 import kotlinx.parcelize.Parcelize
-import java.io.Serializable
 import java.util.*
-import javax.inject.Inject
 
 @Parcelize
 @Entity(tableName = "FMaterialGroup3")
 class FMaterialGroup3Entity (
-    @PrimaryKey(autoGenerate=false)
+        @PrimaryKey(autoGenerate=false)
     var id :Int =0,
 
     /*
@@ -27,21 +21,21 @@ class FMaterialGroup3Entity (
     * 2. 
     */
     var sourceId :Int =0,
-    var kode1 :String ="",
-    var kode2 :String ="",
-    var description :String ="",
-    var tempInt1 :Int =0,
-    var tempInt2 :Int =0,
-    var tempInt3 :Int =0,
+        var kode1 :String ="",
+        var kode2 :String ="",
+        var description :String ="",
+        var tempInt1 :Int =0,
+        var tempInt2 :Int =0,
+        var tempInt3 :Int =0,
 
     //	@ManyToOne
     //	@JoinColumn(name="fmaterialGroup2Bean", referencedColumnName="ID")
     //	private FMaterialGroup2 fmaterialGroup2Bean;
-    var fmaterialGroup2Bean :Int =0,
-    var isStatusActive :Boolean =false,
-    var created : Date = Date(),
-    var modified : Date = Date(),
-    var modifiedBy :String ="" //User ID
+        var fmaterialGroup2Bean :Int =0,
+        var statusActive :Boolean =false,
+        var created : Date = Date(),
+        var modified : Date = Date(),
+        var modifiedBy :String ="" //User ID
 
 ): Parcelable
 
@@ -52,7 +46,7 @@ internal fun FMaterialGroup3Entity.toDomain(): FMaterialGroup3 {
             description= description,
 
             fmaterialGroup2Bean = FMaterialGroup2(fmaterialGroup2Bean),
-            isStatusActive = isStatusActive,
+            isStatusActive = statusActive,
 
             created = created!!,
             modified = modified!!,

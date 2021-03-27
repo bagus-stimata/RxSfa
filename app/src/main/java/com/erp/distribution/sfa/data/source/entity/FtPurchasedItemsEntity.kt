@@ -16,7 +16,7 @@ class FtPurchasedItemsEntity : Serializable {
     /*
     * IN PURCHASE REQUESITION TAX USED : APPROVE
     */
-    var isFreeGood = false
+    var freeGood = false
 
     /*
     * EXCLUDE COGS or No Cogs
@@ -42,7 +42,7 @@ class FtPurchasedItemsEntity : Serializable {
     /*
     * IN PURCHASE REQUESITION TAX USED TO : REJECT
     */
-    var isTax = true
+    var tax = true
 
     //	@ManyToOne
     //	@JoinColumn(name="ftaxBean", referencedColumnName="ID")

@@ -23,25 +23,25 @@ class FPromotionRulesdValidProductsEntity : Serializable {
     //	@JoinColumn(name="validVendorBean", referencedColumnName="ID")
     //    private FVendor validVendorBean;
     var validVendorBean = 0
-    var isValidVendorAccumulation = false
+    var validVendorAccumulation = false
 
     //	@ManyToOne
     //	@JoinColumn(name="validMaterialSalesBrandBean", referencedColumnName="ID")
     //    private FMaterialSalesBrand validMaterialSalesBrandBean;
     var validMaterialSalesBrandBean = 0
-    var isValidSalesBrandAccumulation = false
+    var validSalesBrandAccumulation = false
 
     //	@ManyToOne
     //	@JoinColumn(name="validMaterialGroup2Bean", referencedColumnName="ID")
     //    private FMaterialGroup2 validMaterialGroup2Bean;
     var validMaterialGroup2Bean = 0
-    var isValidMaterialGroup2Accumulation = false
+    var validMaterialGroup2Accumulation = false
 
     //	@ManyToOne
     //	@JoinColumn(name="validMaterialGroup3Bean", referencedColumnName="ID")
     //    private FMaterialGroup3 validMaterialGroup3Bean;
     var validMaterialGroup3Bean = 0
-    var isValidMaterialGroup3Accumulation = false
+    var validMaterialGroup3Accumulation = false
 
     //	@ManyToOne
     //	@JoinColumn(name="validMaterialBean", referencedColumnName="ID")

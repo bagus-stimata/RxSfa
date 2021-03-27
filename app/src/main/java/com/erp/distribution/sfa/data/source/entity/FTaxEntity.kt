@@ -3,17 +3,15 @@ package com.erp.distribution.sfa.data.source.entity
 import android.os.Parcelable
 import androidx.room.Entity
 import androidx.room.PrimaryKey
-import com.erp.distribution.sfa.domain.model.FArea
 import com.erp.distribution.sfa.domain.model.FDivision
 import com.erp.distribution.sfa.domain.model.FTax
 import kotlinx.parcelize.Parcelize
-import java.io.Serializable
 import java.util.*
 
 @Parcelize
 @Entity(tableName = "fTax")
 data class FTaxEntity (
-    @PrimaryKey(autoGenerate = true,)
+        @PrimaryKey(autoGenerate = true,)
     var id :Int = 0,
 
     /*
@@ -23,24 +21,24 @@ data class FTaxEntity (
     * 2. 
     */
     var sourceID :Int = 0,
-    var kode1 :String = "",
-    var kode2 :String = "",
-    var description :String = "",
-    var taxPercent :Double =0.0,
+        var kode1 :String = "",
+        var kode2 :String = "",
+        var description :String = "",
+        var taxPercent :Double =0.0,
 
     //	private AccAccount accAccountTaxPurchaseBean;
-    var accAccountTaxPurchaseBean :Int = 0,
+        var accAccountTaxPurchaseBean :Int = 0,
 
     //	private AccAccount accAccountTaxSalesBean;
-    var accAccountTaxSalesBean :Int = 0,
+        var accAccountTaxSalesBean :Int = 0,
 
     //	private FDivision fdivisionBean;
-    var fdivisionBean :Int = 0,
-    
-    var isStatusActive :Boolean = true,
-    var created : Date = Date(),
-    var modified : Date = Date(),
-    var modifiedBy :String = ""//User ID
+        var fdivisionBean :Int = 0,
+
+        var statusActive :Boolean = true,
+        var created : Date = Date(),
+        var modified : Date = Date(),
+        var modifiedBy :String = ""//User ID
 ):Parcelable
 
 internal fun FTaxEntity.toDomain(): FTax {
@@ -56,7 +54,7 @@ internal fun FTaxEntity.toDomain(): FTax {
 
 
             fdivisionBean = FDivision(fdivisionBean),
-            isStatusActive = isStatusActive,
+            isStatusActive = statusActive,
 
             created = created!!,
             modified = modified!!,

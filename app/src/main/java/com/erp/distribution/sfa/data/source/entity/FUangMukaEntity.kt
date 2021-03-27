@@ -85,7 +85,7 @@ class FUangMukaEntity : Serializable {
     //	AccAccount accAccountCreditBean;
     var accAccountCreditBean = 0
     var notes = ""
-    var isStatusActive = true
+    var statusActive = true
 
     @Ignore
     var tempString = ""

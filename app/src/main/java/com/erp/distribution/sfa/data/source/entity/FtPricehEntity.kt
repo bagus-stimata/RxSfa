@@ -21,8 +21,8 @@ class FtPricehEntity {
     var description = ""
     var notes = ""
     var trDate = Date()
-    var isPosting = false
-    var isEndOfDay = false
+    var posting = false
+    var endOfDay = false
     var printCounter = 0
 
     //	@ManyToOne

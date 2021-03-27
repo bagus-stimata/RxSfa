@@ -30,8 +30,8 @@ class FtOpnamehEntity {
     //    private AccAccount accAccountBean;
     var accAccountBean = 0
     var notes = ""
-    var isPosting = false
-    var isEndOfDay = false
+    var posting = false
+    var endOfDay = false
     var printCounter = 0
 
     //	@ManyToOne

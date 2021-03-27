@@ -26,8 +26,8 @@ class FtJobdItems : Serializable {
     var contentInt2 = 0
     var contentDouble1 = 0.0
     var contentDouble2 = 0.0
-    var isContentBol1 = false
-    var isContentBol2 = false
+    var contentBol1 = false
+    var contentBol2 = false
     var contentTime1 = Date()
     var contentTime2 = Date()
     var notes = ""

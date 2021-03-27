@@ -25,7 +25,7 @@ class FMaterialSalesBrandEntity {
     //	@JoinColumn(name="fdivisionBean", referencedColumnName="ID")
     //	private FDivision fdivisionBean;
     var fdivisionBean = 0
-    var isStatusActive = true
+    var statusActive = true
 
     /*
     * Diskon Margin Barang: disc2 & Disc2Plus

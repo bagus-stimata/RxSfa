@@ -242,15 +242,15 @@ class FtPurchasehEntity : Serializable {
 
     //AMOUNT PAY
     var amountPayRp = 0.0
-    var isEndOfDay = false
+    var endOfDay = false
     var isUsedGrInv = false
-    var isUsedSO = false
+    var usedSO = false
     var printCounter = 0
-    var isLunas = false
+    var lunas = false
 
     //ATURAN: update stok dan sumber apakah manual atau tidak
     var source = ""
-    var isProses = false
+    var proses = false
     var notes = ""
     var shipTo = ""
     var billTo = ""

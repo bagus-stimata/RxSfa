@@ -1,10 +1,7 @@
 package com.erp.distribution.sfa.domain.model
 
 import android.os.Parcelable
-import androidx.room.Entity
 import androidx.room.Ignore
-import androidx.room.PrimaryKey
-import com.erp.distribution.sfa.data.source.entity.FMaterialEntity
 import com.erp.distribution.sfa.data.source.entity.FtSaleshEntity
 import com.erp.distribution.sfa.data.source.entity.modelenum.*
 import com.erp.distribution.sfa.domain.base.Model
@@ -12,7 +9,6 @@ import kotlinx.parcelize.Parcelize
 import java.io.Serializable
 import java.text.DateFormat
 import java.util.*
-import kotlin.collections.HashMap
 
 @Parcelize
 data class FtSalesh  (
@@ -335,9 +331,9 @@ internal fun FtSalesh.toEntity(): FtSaleshEntity {
         refno = refno,
         sourceId = sourceId,
         orderno = orderno,
-        isValidOrder = isValidOrder,
+        validOrder = isValidOrder,
         invoiceno = invoiceno,
-        isNoPromotionRules = isNoPromotionRules,
+        noPromotionRules = isNoPromotionRules,
         taxNumber = taxNumber,
         taxDate = taxDate,
 
@@ -361,14 +357,14 @@ internal fun FtSalesh.toEntity(): FtSaleshEntity {
         disc1 = disc1,
         disc2 = disc2,
         discPlus_FG = discPlus_FG,
-        isCalcCashBackFg = isCalcCashBackFg,
+        calcCashBackFg = isCalcCashBackFg,
         amountAfterDiscPlusRp_FG = amountAfterDiscPlusRp_FG,
         ppnRp = ppnRp,
         amountAfterDiscPlusRpAfterPpn_FG = amountAfterDiscPlusRpAfterPpn_FG,
 
         amountPayRp = amountPayRp,
-        isEndOfDay = isEndOfDay,
-        isOpenLockInputPriceAndDiscount = isOpenLockInputPriceAndDiscount,
+        endOfDay = isEndOfDay,
+        openLockInputPriceAndDiscount = isOpenLockInputPriceAndDiscount,
 
         statusRequestDiscount = statusRequestDiscount,
         statusRequestPlafon = statusRequestPlafon,
@@ -379,8 +375,8 @@ internal fun FtSalesh.toEntity(): FtSaleshEntity {
         salesType = salesType,
         printCounter = printCounter,
 
-        isProses = isProses,
-        isUsedSO = isUsedSO,
+        proses = isProses,
+        usedSO = isUsedSO,
 
         tipeBayarPos = tipeBayarPos,
         amountKasirBayar = amountKasirBayar,

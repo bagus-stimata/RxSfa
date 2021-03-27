@@ -11,7 +11,7 @@ import java.util.*
 @Parcelize
 @Entity(tableName = "FMaterialGroup1")
 data class FMaterialGroup1Entity (
-    @PrimaryKey(autoGenerate = true)
+        @PrimaryKey(autoGenerate = true)
     var id: Int = 0,
 
     /*
@@ -21,16 +21,16 @@ data class FMaterialGroup1Entity (
     * 2. 
     */
     var sourceId: Int = 0,
-    var kode1: String = "",
-    var kode2: String = "",
-    var description: String = "",
+        var kode1: String = "",
+        var kode2: String = "",
+        var description: String = "",
 
     //	private FDivision fdivisionBean;
-    var fdivisionBean: Int = 0,
-    var isStatusActive: Boolean = true,
-    var created: Date = Date(),
-    var modified: Date = Date(),
-    var modifiedBy: String = "" //User ID
+        var fdivisionBean: Int = 0,
+        var statusActive: Boolean = true,
+        var created: Date = Date(),
+        var modified: Date = Date(),
+        var modifiedBy: String = "" //User ID
 
 ): Parcelable
 
@@ -42,7 +42,7 @@ internal fun FMaterialGroup1Entity.toDomain(): FMaterialGroup1{
 
             description = description,
             fdivisionBean = FDivision(fdivisionBean),
-            isStatusActive = isStatusActive,
+            isStatusActive = statusActive,
 
             created = created,
             modified = modified,

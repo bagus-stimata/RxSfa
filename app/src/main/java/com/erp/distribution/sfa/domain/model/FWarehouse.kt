@@ -11,7 +11,7 @@ import java.util.*
 
 @Parcelize
 class FWarehouse (
-    var id: Int = -1,
+        var id: Int = -1,
 
     /*
     * JIKA COPY DARI TEMPAT LAIN: MAKA SEBAGAI LOG TRACK MENINGGALKAN SOURCE_ID = ID sumber asal dia dicopy
@@ -20,29 +20,29 @@ class FWarehouse (
     * 2. 
     */
     var sourceId : Int =0,
-    var kode1 : String ="",
-    var kode2 : String ="",
+        var kode1 : String ="",
+        var kode2 : String ="",
 
     //	@ManyToOne
     //	@JoinColumn(name="fdivisionBean", referencedColumnName="ID")
     //	private FDivision fdivisionBean;
-    var fdivisionBean : FDivision =FDivision(),
-    var description : String ="",
-    var isGudangUtama : Boolean? =false,
-    var address1 : String ="",
-    var city1: String? ="",
-    var state1 : String ="",
-    var phone : String ="",
-    var isStatusActive : Boolean =false,
-    var tipeWarehouse: EnumTipeWarehouse? = EnumTipeWarehouse.GS,
+        var fdivisionBean : FDivision =FDivision(),
+        var description : String ="",
+        var isGudangUtama : Boolean? =false,
+        var address1 : String ="",
+        var city1: String? ="",
+        var state1 : String ="",
+        var phone : String ="",
+        var statusActive : Boolean =false,
+        var tipeWarehouse: EnumTipeWarehouse? = EnumTipeWarehouse.GS,
 
-    var ftSaleshSet : List<FtSalesh> = listOf<FtSalesh>(),
+        var ftSaleshSet : List<FtSalesh> = listOf<FtSalesh>(),
 
         //PORT WS:: UNTUK TRANSAKSI PEMBALIAN DAN PENJUALAN
-    var wsport : String? ="",
-    var created : Date? = Date(),
-    var modified : Date? = Date(),
-    var modifiedBy : String? ="", //User ID
+        var wsport : String? ="",
+        var created : Date? = Date(),
+        var modified : Date? = Date(),
+        var modifiedBy : String? ="", //User ID
 
 ): Parcelable {
     constructor(theId: Int): this(id = theId)
