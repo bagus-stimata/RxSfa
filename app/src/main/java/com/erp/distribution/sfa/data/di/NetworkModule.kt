@@ -156,6 +156,11 @@ class NetworkModule {
     )
     @Singleton
     @Provides
+    fun provideServiceFDistributionChannel(retrofit: Retrofit): RetrofitServiceFDistributionChannel = retrofit.create(
+            RetrofitServiceFDistributionChannel::class.java
+    )
+    @Singleton
+    @Provides
     fun provideServiceFCustomerPic(retrofit: Retrofit): RetrofitServiceFCustomerPic = retrofit.create(
         RetrofitServiceFCustomerPic::class.java
     )

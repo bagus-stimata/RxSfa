@@ -29,6 +29,7 @@ class SyncViewModel @ViewModelInject constructor(
     private val getFAreaUseCase: GetFAreaUseCase,
     private val getFSubAreaUseCase: GetFSubAreaUseCase,
     private val getFCustomerUseCase: GetFCustomerUseCase,
+    private val getFDistributionChannelUseCase: GetFDistributionChannelUseCase,
     private val getFMaterialUseCase: GetFMaterialUseCase,
     private val getFCustomerGroupUseCase: GetFCustomerGroupUseCase,
     private val getFDivisionUseCase: GetFDivisionUseCase,
@@ -184,7 +185,7 @@ class SyncViewModel @ViewModelInject constructor(
                 .subscribeOn(Schedulers.io())
                 .subscribe(
                         {
-                            progresPersen += 5
+                            progresPersen += 3
                             progresPersenLive.postValue(progresPersen)
                             progresMessageSuccess += "\n FCustomerGroup Success"
                             progresMessageSuccessLive.postValue(progresMessageSuccess)
@@ -195,6 +196,26 @@ class SyncViewModel @ViewModelInject constructor(
                 )
     }
 
+    fun getFDistributionChannelFromRepoAndSaveToCache(fUserEntity: FUserEntity, fDivisionEntity: FDivisionEntity)  {
+        getFDistributionChannelUseCase.getRemoteAllFDistributionChannelByDivisionAndShareToCompany(SecurityUtil.getAuthHeader(fUserEntity.username, fUserEntity.passwordConfirm), fDivisionEntity.id, fDivisionEntity.fcompanyBean)
+                .toObservable()
+                .observeOn(AndroidSchedulers.mainThread())
+                .doOnNext{
+                    insertCacheFDistributionChannel(it)
+                }
+                .subscribeOn(Schedulers.io())
+                .subscribe(
+                        {
+                            progresPersen += 2
+                            progresPersenLive.postValue(progresPersen)
+                            progresMessageSuccess += "\n FDistributionChannel Success"
+                            progresMessageSuccessLive.postValue(progresMessageSuccess)
+                        },{
+                    progresMessageError += "\n FDistributionChannel Error"
+                    progresMessageErrorLive.postValue(progresMessageError)
+                },{}
+                )
+    }
 
 
     fun getFMaterialGroup123FromRepoAndSaveToCache(fUserEntity: FUserEntity, fDivisionEntity: FDivisionEntity) {
@@ -403,6 +424,26 @@ class SyncViewModel @ViewModelInject constructor(
         DisposableManager.add(Observable.fromCallable {
             getFCustomerGroupUseCase.deleteAllCacheFCustomerGroup().also {
                 getFCustomerGroupUseCase.addCacheListFCustomerGroup(list)
+            }
+        }
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe (
+                        {
+                        },
+                        {
+//                            Log.d(TAG, "#result FMaterialGroup3 error  ${it.message}")
+                        },
+                        {
+                        }
+                )
+        )
+    }
+    fun insertCacheFDistributionChannel(list: List<FDistributionChannelEntity>){
+
+        DisposableManager.add(Observable.fromCallable {
+            getFDistributionChannelUseCase.deleteAllCacheFDistributionChannel().also {
+                getFDistributionChannelUseCase.addCacheListFDistributionChannel(list)
             }
         }
                 .subscribeOn(Schedulers.io())

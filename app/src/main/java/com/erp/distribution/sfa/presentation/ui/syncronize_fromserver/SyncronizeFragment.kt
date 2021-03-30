@@ -84,6 +84,7 @@ class SyncronizeFragment : Fragment(R.layout.fragment_syncronize) {
                         syncViewModel.getFAreaFromRepoAndSaveToCache(fUserEntity, fDivisionEntity)
                         syncViewModel.getFCustomerGroupFromRepoAndSaveToCache(fUserEntity, fDivisionEntity)
                         syncViewModel.getFCustomerFromRepoAndSaveToCache(fUserEntity, fDivisionEntity)
+                        syncViewModel.getFDistributionChannelFromRepoAndSaveToCache(fUserEntity, fDivisionEntity)
 
                         syncViewModel.getFMaterialFromRepoAndSaveToCache(fUserEntity, fDivisionEntity)
 

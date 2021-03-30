@@ -230,6 +230,7 @@ class FSaleshViewModel @ViewModelInject constructor(
                                                  */
                                                 ftSaleshBean.stared = true
                                                 if (! ftSaleshRepo.orderno.trim().toLowerCase().contains("new") && ! ftSaleshRepo.orderno.trim().equals(""))  {
+
                                                     val ftSalesh = ftSaleshBean.copy(stared=true, unread = false, orderno = ftSaleshRepo.orderno,
                                                             orderDate = ftSaleshRepo.orderDate, invoiceDate = ftSaleshRepo.invoiceDate, dueDate = ftSaleshRepo.dueDate,
                                                             sjPengirimanDate = ftSaleshRepo.sjPengirimanDate, sjPenagihanDate = ftSaleshRepo.sjPenagihanDate,
@@ -239,7 +240,6 @@ class FSaleshViewModel @ViewModelInject constructor(
                                                             invoiceno = ftSaleshRepo.invoiceno, amountAfterDiscPlusRpAfterPpn_FG = ftSaleshRepo.amountAfterDiscPlusRpAfterPpn_FG)
                                                     //LANJUTKAN DIATAS NANTI YA
                                                     updateCacheFtSalesh(ftSalesh)
-
                                                     getFtSalesdItemsUseCase.getRemoteAllFtSalesdItemsByFtSalesh(authHeader, ftSaleshRepo.refno)
                                                             .toObservable()
                                                             .observeOn(AndroidSchedulers.mainThread())
@@ -249,7 +249,7 @@ class FSaleshViewModel @ViewModelInject constructor(
                                                                     updateCacheFtSalesd_FromRepo(ftSalesh, listFtSalesdItems)
                                                                 },
                                                                     {
-//                                                                        Log.e(TAG, "#result Error Update FtSalesd")
+                                                                        Log.e(TAG, "#result Error Update FtSalesd")
                                                                     }, {}
                                                             )
 
@@ -265,11 +265,12 @@ class FSaleshViewModel @ViewModelInject constructor(
                                                                 .observeOn(AndroidSchedulers.mainThread())
                                                                 .subscribeOn(Schedulers.io())
                                                                 .subscribe({
-//                                                                Log.d(TAG, "#result Items Success ${it}")
+                                                                Log.d(TAG, "#result Items Success ${it}")
                                                                 }, {
-//                                                                Log.e(TAG, "#result  Items Error ${it}")
+                                                                Log.e(TAG, "#result  Items Error ${it}")
                                                                 }, {})
                                                     }
+
                                                 }
 
 

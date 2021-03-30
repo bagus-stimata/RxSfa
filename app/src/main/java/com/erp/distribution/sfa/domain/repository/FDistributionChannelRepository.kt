@@ -1,6 +1,7 @@
 package com.erp.distribution.sfa.domain.repository
 
 import androidx.lifecycle.LiveData
+import com.erp.distribution.sfa.data.source.entity.FCustomerGroupEntity
 import com.erp.distribution.sfa.data.source.entity.FDistributionChannelEntity
 import io.reactivex.rxjava3.core.Single
 
@@ -19,10 +20,11 @@ interface FDistributionChannelRepository {
     fun getCacheAllFDistributionChannel(): LiveData<List<FDistributionChannelEntity>>
     fun getCacheFDistributionChannelById(id: Int): LiveData<FDistributionChannelEntity>
     fun getCacheAllFDistributionChannelByDivision(divisionId: Int): LiveData<List<FDistributionChannelEntity>>
+    fun addCacheListFDistributionChannel(list: List<FDistributionChannelEntity>)
     fun addCacheFDistributionChannel(fDistributionChannelEntity: FDistributionChannelEntity)
     fun putCacheFDistributionChannel(fDistributionChannelEntity: FDistributionChannelEntity)
     fun deleteCacheFDistributionChannel(fDistributionChannelEntity: FDistributionChannelEntity)
-    fun deleteAllCacheData()
+    fun deleteAllCacheFDistributionChannel()
 
 
 }

@@ -58,6 +58,9 @@ class FDistributionChannelRepositoryImpl(
         return appDatabase.distributionChannelDao.getAllByDivisionLive(divisionId)
     }
 
+    override fun addCacheListFDistributionChannel(list: List<FDistributionChannelEntity>) {
+        return appDatabase.distributionChannelDao.insertAll(list)
+    }
     override fun addCacheFDistributionChannel(fDistributionChannelEntity: FDistributionChannelEntity) {
         return appDatabase.distributionChannelDao.insert(fDistributionChannelEntity)
     }
@@ -70,7 +73,7 @@ class FDistributionChannelRepositoryImpl(
         return appDatabase.distributionChannelDao.delete(fDistributionChannelEntity)
     }
 
-    override fun deleteAllCacheData() {
+    override fun deleteAllCacheFDistributionChannel() {
         return appDatabase.distributionChannelDao.deleteAllFDistributionChannel()
     }
 

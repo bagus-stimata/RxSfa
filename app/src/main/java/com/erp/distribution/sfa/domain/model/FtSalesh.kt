@@ -176,7 +176,7 @@ data class FtSalesh  (
         var discPlusRp_FG : Double =0.0,
 
 //    @Ignore
-    var discPlusPpnRp_FG : Double =0.0,
+        var discPlusPpnRp_FG : Double =0.0,
 
 //    @Ignore
         var discPlusRpAfterPpn_FG : Double =0.0,
@@ -196,8 +196,8 @@ data class FtSalesh  (
 
     //AMOUNT PAY
         var amountPayRp : Int =0,
-        var isEndOfDay : Boolean =false,
-        var isOpenLockInputPriceAndDiscount : Boolean =false,
+        var endOfDay : Boolean =false,
+        var openLockInputPriceAndDiscount : Boolean =false,
 
     /*
     * REQUEST PLAFON
@@ -222,8 +222,8 @@ data class FtSalesh  (
     //ATURAN: update stok dan sumber apakah manual atau tidak
     //	@Column(name="SOURCE", length=3)
     //	private String source ="";	
-        var isProses : Boolean =false,
-        var isUsedSO : Boolean =false,
+        var proses : Boolean =false,
+        var usedSO : Boolean =false,
 
     //1.Cash 2.Debit 3.Kartu Kredit 4.Cek 5.E-Wallet 6.Lain-lain
         var tipeBayarPos : Int =0,
@@ -315,7 +315,7 @@ data class FtSalesh  (
     * 1. Kas Besar
     * 2. Piutang 
     */
-    var created : Date =Date(),
+        var created : Date =Date(),
         var modified : Date =Date(),
         var modifiedBy : String ="" //User ID
 
@@ -363,8 +363,8 @@ internal fun FtSalesh.toEntity(): FtSaleshEntity {
         amountAfterDiscPlusRpAfterPpn_FG = amountAfterDiscPlusRpAfterPpn_FG,
 
         amountPayRp = amountPayRp,
-        endOfDay = isEndOfDay,
-        openLockInputPriceAndDiscount = isOpenLockInputPriceAndDiscount,
+        endOfDay = endOfDay,
+        openLockInputPriceAndDiscount = openLockInputPriceAndDiscount,
 
         statusRequestDiscount = statusRequestDiscount,
         statusRequestPlafon = statusRequestPlafon,
@@ -375,8 +375,8 @@ internal fun FtSalesh.toEntity(): FtSaleshEntity {
         salesType = salesType,
         printCounter = printCounter,
 
-        proses = isProses,
-        usedSO = isUsedSO,
+        proses = proses,
+        usedSO = usedSO,
 
         tipeBayarPos = tipeBayarPos,
         amountKasirBayar = amountKasirBayar,

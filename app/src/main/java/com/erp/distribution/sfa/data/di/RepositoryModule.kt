@@ -92,6 +92,14 @@ class RepositoryModule {
     ): FCustomerGroupRepository {
         return FCustomerGroupRepositoryImpl(appDatabase, retrofitService)
     }
+    @Singleton
+    @Provides
+    fun provideFDistributionChannelRepository(
+            appDatabase: AppDatabase,
+            retrofitService: RetrofitServiceFDistributionChannel
+    ): FDistributionChannelRepository {
+        return FDistributionChannelRepositoryImpl(appDatabase, retrofitService)
+    }
 
 
     @Singleton

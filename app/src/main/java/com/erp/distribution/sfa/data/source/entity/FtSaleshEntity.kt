@@ -8,7 +8,6 @@ import kotlinx.parcelize.Parcelize
 import java.text.DateFormat
 import java.util.*
 
-//@Entity(tableName = "ftsalesh")
 @Entity(tableName = "ftSalesh")
 @Parcelize
 data class FtSaleshEntity  (
@@ -306,7 +305,7 @@ data class FtSaleshEntity  (
     * 1. Kas Besar
     * 2. Piutang 
     */
-    val created : Date =Date(),
+        val created : Date =Date(),
         val modified : Date =Date(),
         val modifiedBy : String ="", //User ID
 ): Parcelable{
@@ -353,8 +352,8 @@ internal fun FtSaleshEntity.toDomain(): FtSalesh {
         amountAfterDiscPlusRpAfterPpn_FG = amountAfterDiscPlusRpAfterPpn_FG,
 
         amountPayRp = amountPayRp,
-        isEndOfDay = endOfDay,
-        isOpenLockInputPriceAndDiscount = openLockInputPriceAndDiscount,
+        endOfDay = endOfDay,
+        openLockInputPriceAndDiscount = openLockInputPriceAndDiscount,
 
         statusRequestDiscount = statusRequestDiscount,
         statusRequestPlafon = statusRequestPlafon,
@@ -365,8 +364,8 @@ internal fun FtSaleshEntity.toDomain(): FtSalesh {
         salesType = salesType,
         printCounter = printCounter,
 
-        isProses = proses,
-        isUsedSO = usedSO,
+        proses = proses,
+        usedSO = usedSO,
 
         tipeBayarPos = tipeBayarPos,
         amountKasirBayar = amountKasirBayar,

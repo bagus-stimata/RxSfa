@@ -64,8 +64,8 @@ class DatabaseModule {
 //    internal fun provideFCustomerPicDao(appDatabase: AppDatabase): FCustomerPicDao = appDatabase.customerPicDao
 //    @Provides
 //    internal fun provideFCustomerSalesmanDao(appDatabase: AppDatabase): FCustomerSalesmanDao = appDatabase.customerSalesmanDao
-//    @Provides
-//    internal fun provideFDistributionChannelDao(appDatabase: AppDatabase): FDistributionChannelDao = appDatabase.distributionChannelDao
+    @Provides
+    internal fun provideFDistributionChannelDao(appDatabase: AppDatabase): FDistributionChannelDao = appDatabase.distributionChannelDao
     @Provides
     internal fun provideFDivisionDao(appDatabase: AppDatabase): FDivisionDao = appDatabase.divisionDao
 //    @Provides
