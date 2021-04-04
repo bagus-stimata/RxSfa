@@ -28,6 +28,9 @@
         <action
             android:id="@+id/action_dashBoardFragment_to_summaryFragment"
             app:destination="@id/summaryFragment" />
+        <action
+            android:id="@+id/action_dashBoardFragment_to_callPlanFragment"
+            app:destination="@id/callPlanFragment" />
     </fragment>
     <fragment
         android:id="@+id/FMaterialFragment"
@@ -172,6 +175,16 @@
             android:defaultValue="@null" />
 
     </fragment>
-
+    <fragment
+        android:id="@+id/callPlanFragment"
+        android:name="com.erp.distribution.sfa.presentation.ui.callplan.callplan_list.CallPlanFragment"
+        android:label="fragment_callplan"
+        tools:layout="@layout/fragment_callplan">
+        <argument
+            android:name="userViewStateActive"
+            app:argType="com.erp.distribution.sfa.presentation.model.UserViewState"
+            app:nullable="true"
+            android:defaultValue="@null" />
+    </fragment>
 
 </navigation>

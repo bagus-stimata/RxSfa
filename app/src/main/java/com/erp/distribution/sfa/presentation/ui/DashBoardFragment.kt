@@ -116,8 +116,11 @@ class DashBoardFragment : Fragment(R.layout.dash_board_fragment) {
     }
 
     fun menuJourneyPlan() {
-        Log.d("#result", "#result Oke masuk sini 1")
         dashboardViewModel.subscribeSalesCallPlanh()
+        val action = DashBoardFragmentDirections.actionDashBoardFragmentToCallPlanFragment(
+                mainViewModel.userViewState
+        )
+        findNavController().navigate(action)
     }
 
     fun menuSalesOrder() {

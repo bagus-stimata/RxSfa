@@ -299,6 +299,18 @@
                       </LayoutPositions>
                     </value>
                   </entry>
+                  <entry key="callPlanFragment">
+                    <value>
+                      <LayoutPositions>
+                        <option name="myPosition">
+                          <Point>
+                            <option name="x" value="-1103" />
+                            <option name="y" value="-107" />
+                          </Point>
+                        </option>
+                      </LayoutPositions>
+                    </value>
+                  </entry>
                   <entry key="dashBoardFragment">
                     <value>
                       <LayoutPositions>
@@ -320,12 +332,22 @@
                                 <LayoutPositions />
                               </value>
                             </entry>
+                            <entry key="action_dashBoardFragment_to_callPlanFragment">
+                              <value>
+                                <LayoutPositions />
+                              </value>
+                            </entry>
                             <entry key="action_dashBoardFragment_to_ftSaleshFragment">
                               <value>
                                 <LayoutPositions />
                               </value>
                             </entry>
                             <entry key="action_dashBoardFragment_to_loginFragment">
+                              <value>
+                                <LayoutPositions />
+                              </value>
+                            </entry>
+                            <entry key="action_dashBoardFragment_to_summaryFragment">
                               <value>
                                 <LayoutPositions />
                               </value>
