@@ -206,7 +206,6 @@ class FSaleshViewModel @ViewModelInject constructor(
                 .subscribeOn(Schedulers.io())
                 .doOnNext {
                             for (ftSaleshBean in it.filter { it.listFtSalesdItems.size >0  }){
-//                                if (ftSaleshBean.listFtSalesdItems.size > 0 ) {
 
                                 if (ftSaleshBean.orderno.equals(""))
                                     ftSaleshBean.orderno = "NewMobile"
@@ -258,21 +257,33 @@ class FSaleshViewModel @ViewModelInject constructor(
 
 //                                                Log.d(TAG, "#result OnNext:\n ${it.refno} ")
 
-                                                    for (ftSalesdItems in ftSaleshBean.listFtSalesdItems) {
-                                                        ftSalesdItems.ftSaleshBean = ftSaleshRepo!!
-                                                        getFtSalesdItemsUseCase.createRemoteFtSalesdItems(SecurityUtil.getAuthHeader(userViewState.fUser!!.username, userViewState.fUser!!.passwordConfirm), ftSalesdItems)
+//                                                    for (ftSalesdItems in ftSaleshBean.listFtSalesdItems) {
+//                                                        ftSalesdItems.ftSaleshBean = ftSaleshRepo!!
+//                                                        getFtSalesdItemsUseCase.createRemoteFtSalesdItems(SecurityUtil.getAuthHeader(userViewState.fUser!!.username, userViewState.fUser!!.passwordConfirm), ftSalesdItems)
+//                                                                .toObservable()
+//                                                                .observeOn(AndroidSchedulers.mainThread())
+//                                                                .subscribeOn(Schedulers.io())
+//                                                                .subscribe({
+//                                                                    Log.d(TAG, "#result Items Success ${it}")
+//                                                                }, {
+//                                                                    Log.e(TAG, "#result  Items Error ${it}")
+//                                                                }, {})
+//                                                    }
+
+                                                        getFtSalesdItemsUseCase.createRemoteListFtSalesdItems(SecurityUtil.getAuthHeader(userViewState.fUser!!.username, userViewState.fUser!!.passwordConfirm), ftSaleshBean.listFtSalesdItems.map {
+                                                                it.ftSaleshBean = ftSaleshRepo!!
+                                                                it
+                                                            })
                                                                 .toObservable()
                                                                 .observeOn(AndroidSchedulers.mainThread())
                                                                 .subscribeOn(Schedulers.io())
                                                                 .subscribe({
-                                                                Log.d(TAG, "#result Items Success ${it}")
+                                                                    Log.d(TAG, "#result Items Success ${it}")
                                                                 }, {
-                                                                Log.e(TAG, "#result  Items Error ${it}")
+                                                                    Log.e(TAG, "#result  Items Error ${it}")
                                                                 }, {})
-                                                    }
 
                                                 }
-
 
                                             }
                                             .subscribe({

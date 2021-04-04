@@ -8,7 +8,7 @@ import com.erp.distribution.sfa.data.source.local.dao.PhotoDao
 import com.erp.distribution.sfa.domain.model.Photo
 
 import com.erp.distribution.sfa.data.source.entity.*
-import com.erp.distribution.sfa.data.source.entity.utils.RoomDateConverters
+import com.erp.distribution.sfa.data.source.entity.utils.RoomEnumAndDateConverters
 import com.erp.distribution.sfa.data.source.entity_security.FUserEntity
 import com.erp.distribution.sfa.data.source.entity_security.FUserRolesEntity
 import com.erp.distribution.sfa.data.source.local.dao_security.FUserDao
@@ -74,13 +74,18 @@ import com.erp.distribution.sfa.data.source.local.dao_security.FUserRolesDao
     FWarehouseEntity::class,
     SysvarEntity::class,
 
+    FSalesTargetToCustEntity::class,
+    FSalesCallPlanhEntity::class,
+    FSalesCallPlandItemsEntity::class,
+
+
     Photo::class,
     Task::class
 
 
 
-                     ], version = 69, exportSchema = false)
-@TypeConverters(RoomDateConverters::class) //Karena ada Native Date
+                     ], version = 72, exportSchema = false)
+@TypeConverters(RoomEnumAndDateConverters::class) //Karena ada Native Date
 abstract class AppDatabase : RoomDatabase() {
 
     abstract val photoDao: PhotoDao
@@ -137,6 +142,9 @@ abstract class AppDatabase : RoomDatabase() {
     abstract val vendorDao: FVendorDao
     abstract val warehouseDao: FWarehouseDao
     abstract val sysvarDao: SysvarDao
+
+    abstract val fSalesCallPlanhDao: FSalesCallPlanhDao
+    abstract val fSalesCallPlandItemsDao: FSalesCallPlandItemsDao
 
     companion object {
         const val DB_NAME = "des_sfa.db"

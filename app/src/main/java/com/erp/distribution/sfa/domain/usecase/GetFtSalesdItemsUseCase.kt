@@ -49,6 +49,16 @@ class GetFtSalesdItemsUseCase @Inject constructor(private val repository: FtSale
             it.toDomain()
         }
     }
+    fun createRemoteListFtSalesdItems(authHeader: String, listFtSalesdItems: List<FtSalesdItems>): Single<List<FtSalesdItems>>{
+        return repository.createRemoteListFtSalesdItems(authHeader, listFtSalesdItems.map {
+            it.toEntity()
+        }).map {
+            it.map {
+                it.toDomain()
+            }
+        }
+    }
+
     fun putRemoteFtSalesdItems(authHeader: String, id: Long, ftSalesdItems: FtSalesdItems): Single<FtSalesdItems>{
         return repository.putRemoteFtSalesdItems(authHeader, id, ftSalesdItems.toEntity()).map {
             it.toDomain()

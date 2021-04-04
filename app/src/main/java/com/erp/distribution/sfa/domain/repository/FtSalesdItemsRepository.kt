@@ -16,6 +16,7 @@ interface FtSalesdItemsRepository {
     fun getRemoteAllFtSalesdItemsByFtSalesh(authHeader: String, parentId: Long): Single<List<FtSalesdItemsEntity>>
 
     fun createRemoteFtSalesdItems(authHeader: String, ftSalesdItemsEntity: FtSalesdItemsEntity): Single<FtSalesdItemsEntity>
+    fun createRemoteListFtSalesdItems(authHeader: String, lisFtSalesdItemsEntity: List<FtSalesdItemsEntity>): Single<List<FtSalesdItemsEntity>>
     fun putRemoteFtSalesdItems(authHeader: String, id: Long, ftSalesdItemsEntity: FtSalesdItemsEntity): Single<FtSalesdItemsEntity>
     fun deleteRemoteFtSalesdItems(authHeader: String, id: Long): Single<FtSalesdItemsEntity>
 

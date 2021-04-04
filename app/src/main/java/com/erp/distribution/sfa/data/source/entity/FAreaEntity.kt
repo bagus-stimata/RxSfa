@@ -14,15 +14,14 @@ import java.util.*
 @Parcelize
 data class FAreaEntity (
         @PrimaryKey(autoGenerate = true)
-    var id: Int = 0,
+        var id: Int = 0,
 
     /*
     * JIKA COPY DARI TEMPAT LAIN: MAKA SEBAGAI LOG TRACK MENINGGALKAN SOURCE_ID = ID sumber asal dia dicopy
     * keperluan diantaranya:
     * 1. Clone Database. karena tidak mungkin menggunakan Kode External yang bisa jadi kemungkinan kembar, tapi harus pakai kode internal
     * 2. 
-    */
-    var sourceId: Int = 0,
+    */var sourceId: Int = 0,
         var kode1: String = "",
         var kode2: String = "",
         var description: String = "",

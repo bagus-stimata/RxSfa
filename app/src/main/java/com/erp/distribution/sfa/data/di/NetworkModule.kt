@@ -249,6 +249,18 @@ class NetworkModule {
         RetrofitServiceSysvar::class.java
     )
 
+    @Singleton
+    @Provides
+    fun provideServiceFSalesCallPlanh(retrofit: Retrofit): RetrofitServiceFSalesCallPlanh = retrofit.create(
+            RetrofitServiceFSalesCallPlanh::class.java
+    )
+    @Singleton
+    @Provides
+    fun provideServiceFSalesCallPlandItems(retrofit: Retrofit): RetrofitServiceFSalesCallPlandItems = retrofit.create(
+            RetrofitServiceFSalesCallPlandItems::class.java
+    )
+
+
 }
 
 

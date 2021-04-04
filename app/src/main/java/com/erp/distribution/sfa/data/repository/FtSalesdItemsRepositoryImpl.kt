@@ -33,6 +33,9 @@ class FtSalesdItemsRepositoryImpl(
     override fun createRemoteFtSalesdItems(authHeader: String, ftSalesdItemsEntity: FtSalesdItemsEntity): Single<FtSalesdItemsEntity> {
         return retrofitService.createRemoteFtSalesdItems(authHeader, ftSalesdItemsEntity)
     }
+    override fun createRemoteListFtSalesdItems(authHeader: String, listFtSalesdItemsEntity: List<FtSalesdItemsEntity>): Single<List<FtSalesdItemsEntity>> {
+        return retrofitService.createRemoteListFtSalesdItems(authHeader, listFtSalesdItemsEntity)
+    }
     override fun putRemoteFtSalesdItems(authHeader: String, id: Long, ftSalesdItemsEntity: FtSalesdItemsEntity): Single<FtSalesdItemsEntity> {
         return retrofitService.putRemoteFtSalesdItems(authHeader, id, ftSalesdItemsEntity)
     }

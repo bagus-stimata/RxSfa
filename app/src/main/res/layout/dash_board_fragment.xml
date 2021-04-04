@@ -346,6 +346,7 @@
                         android:layout_weight="0.33"
                         android:clickable="true"
                         app:cardCornerRadius="10dp"
+                        android:onClick="@{ ()-> actionActivity.menuJourneyPlan() }"
                         app:cardElevation="5dp">
 <!--                        android:visibility="@{userActive.username.isEmpty? View.GONE : View.VISIBLE}"-->
 
@@ -363,7 +364,7 @@
                                 android:padding="10dp"
                                 android:scaleType="fitCenter"
                                 android:src="@drawable/ic_calender_check"
-                                app:tint="@color/lightGray" />
+                                app:tint="@color/colorPrimary" />
                             <!--                        app:tint="@color/design_default_color_primary" />-->
 
                             <TextView

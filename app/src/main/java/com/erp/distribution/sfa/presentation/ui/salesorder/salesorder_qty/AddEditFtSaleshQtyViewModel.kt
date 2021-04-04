@@ -138,7 +138,7 @@ class AddEditFtSaleshQtyViewModel @ViewModelInject constructor(
 
                 addOrUpdateFtSalesdItems(ftSalesdItems)
 
-                addEditFtSaleshEventChannel.send(AddEditFtSaleshQtyEvent.NavigateToFtSaleshCustomerOrder(userViewState!!, ftSalesh, ftSalesdItems))
+                addEditFtSaleshEventChannel.send(AddEditFtSaleshQtyEvent.NavigateToFtSaleshCustomerOrder(userViewState, ftSalesh, ftSalesdItems))
             }
         }
 //        addEditFtSaleshEventChannel.send(AddEditFtSaleshQtyEvent.NavigateToFtSaleshCustomerOrder(userViewState!!, ftSalesh, ftSalesdItems))

@@ -34,7 +34,6 @@ interface FAreaDao {
     @Query("SELECT * FROM fArea WHERE id = :id ")
     fun getAllByIdLive(id: Int): LiveData<FAreaEntity>
 
-
     @get:Query("SELECT * FROM fArea ")
     val getAllFAreaEntity: List<FAreaEntity>
     @get:Query("SELECT * FROM fArea ")
@@ -46,12 +45,10 @@ interface FAreaDao {
     @Query("SELECT * FROM fArea WHERE kode1 LIKE :kode1 ")
     fun getAllFAreaByKodeLive(kode1: String): LiveData<List<FAreaEntity>>
 
-
     @Query("SELECT * FROM fArea WHERE fdivisionBean = :id ")
     fun getAllByDivision(id: Int): List<FAreaEntity>
 
     @Query("SELECT * FROM fArea WHERE fdivisionBean = :id ")
     fun getAllByDivisionLive(id: Int): LiveData<List<FAreaEntity>>
-
 
 }

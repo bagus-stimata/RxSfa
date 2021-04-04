@@ -18,6 +18,8 @@ interface RetrofitServiceFtSalesdItems {
 
     @POST("createFtSalesdItems")
     fun createRemoteFtSalesdItems(@Header("Authorization") authHeader: String?, @Body ftSalesdItemsEntityBean: FtSalesdItemsEntity): Single<FtSalesdItemsEntity>
+    @POST("createListFtSalesdItems")
+    fun createRemoteListFtSalesdItems(@Header("Authorization") authHeader: String?, @Body listFtSalesdItemsEntityBean: List<FtSalesdItemsEntity>): Single<List<FtSalesdItemsEntity>>
 
     @PUT("updateFtSalesdItems/{id}")
     fun putRemoteFtSalesdItems(@Header("Authorization") authHeader: String?, @Path("id") id: Long, @Body ftSalesdItemsEntityBean: FtSalesdItemsEntity): Single<FtSalesdItemsEntity>

@@ -12,7 +12,7 @@ import java.util.*
 @Parcelize
 data class FtSaleshEntity  (
         @PrimaryKey(autoGenerate = true)
-    val refno: Long =0,
+        val refno: Long =0,
 
     /*
     * JIKA COPY DARI TEMPAT LAIN: MAKA SEBAGAI LOG TRACK MENINGGALKAN SOURCE_ID = ID sumber asal dia dicopy
@@ -20,7 +20,7 @@ data class FtSaleshEntity  (
     * 1. Clone Database. karena tidak mungkin menggunakan Kode External yang bisa jadi kemungkinan kembar, tapi harus pakai kode internal
     * 2. 
     */
-    val sourceId: Long =0,
+        val sourceId: Long =0,
 
     //ORDERNO=SO
         val orderno : String ="",
@@ -33,7 +33,7 @@ data class FtSaleshEntity  (
     /*
     * ignore/reject promotion rules setting
     */
-    val noPromotionRules : Boolean =false,
+        val noPromotionRules : Boolean =false,
         val taxNumber : String ="",
         val taxDate : Date =Date(),
 
@@ -62,7 +62,7 @@ data class FtSaleshEntity  (
     * Status Nota: (1)O-Open Sedang dikirim, (2)T-Terkirim, 
     * 		(3)P-Pending Pengiriman, (4)B-Batal Nota Batal Seluruhnya
     */
-    val statusPengiriman: EnumStatusPengiriman = EnumStatusPengiriman.NOTA_OPEN,
+        val statusPengiriman: EnumStatusPengiriman = EnumStatusPengiriman.NOTA_OPEN,
 
     //SURAT JALAN PENGIRIMAIN = DO
         val sjPengirimanNo : String ="",
@@ -104,7 +104,7 @@ data class FtSaleshEntity  (
     /*
 	 * AMOUNT: Amount Setelah Disc1, Disc2, Disc3, +Disc1, +Disc2 pada DETIL (Amount Detil Setelah dipotong Diskon) 
 	 */
-    val amountRp : Double =0.0,
+        val amountRp : Double =0.0,
         val amountPpnRp : Double =0.0,
 
 //    @Ignore
@@ -202,7 +202,7 @@ data class FtSaleshEntity  (
     /*
     * REQUEST PLAFON
     */
-    val statusRequestDiscount: EnumRequestStatus = EnumRequestStatus.OPEN,
+        val statusRequestDiscount: EnumRequestStatus = EnumRequestStatus.OPEN,
         val statusRequestPlafon: EnumRequestStatus = EnumRequestStatus.OPEN,
         val notes : String ="",
         val tunaiKredit: EnumTunaiKredit = EnumTunaiKredit.T,
@@ -211,12 +211,12 @@ data class FtSaleshEntity  (
     * F=FAKTUR PENJUALAN STANDART, R= RETURN PENJULAN, FI=PENJUALAN INTERN, 
     * FDN= DEBIT NOTE MANUAL, RCN=RETUR CREDIT NOTE MANUAL
     * */
-    val tipeFaktur: EnumTipeFakturJual = EnumTipeFakturJual.F,
+        val tipeFaktur: EnumTipeFakturJual = EnumTipeFakturJual.F,
 
     /* TIPE JUAL
     * SHOP=SHOPSALE, TO=TAKING ORDER, C=CANVAS, TF=TASK FORCE, D=DENTED, BS=BAD STOCK
     * */
-    val salesType: EnumSalesType = EnumSalesType.TO,
+        val salesType: EnumSalesType = EnumSalesType.TO,
         val printCounter : Int =0,
 
     //ATURAN: update stok dan sumber apakah manual atau tidak
@@ -307,7 +307,8 @@ data class FtSaleshEntity  (
     */
         val created : Date =Date(),
         val modified : Date =Date(),
-        val modifiedBy : String ="", //User ID
+        val modifiedBy : String ="" //User ID
+
 ): Parcelable{
     val createdDateFormatted: String
         get() = DateFormat.getDateTimeInstance().format(created)

@@ -150,6 +150,11 @@ class DatabaseModule {
     @Provides
     internal fun provideSysvarDao(appDatabase: AppDatabase): SysvarDao = appDatabase.sysvarDao
 
+    @Provides
+    internal fun provideFSalesCallPlanhDao(appDatabase: AppDatabase): FSalesCallPlanhDao = appDatabase.fSalesCallPlanhDao
+    @Provides
+    internal fun provideFSalesCallPlandItemsDao(appDatabase: AppDatabase): FSalesCallPlandItemsDao = appDatabase.fSalesCallPlandItemsDao
+
 }
 
 @Retention(AnnotationRetention.RUNTIME)

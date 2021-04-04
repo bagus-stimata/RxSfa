@@ -205,4 +205,22 @@ class RepositoryModule {
         return FtSalesdItemsRepositoryImpl(appDatabase, retrofitService)
     }
 
+
+    @Singleton
+    @Provides
+    fun provideFSalesCallPlanhRepository(
+            appDatabase: AppDatabase,
+            retrofitService: RetrofitServiceFSalesCallPlanh
+    ): FSalesCallPlanhRepository {
+        return FSalesCallPlanhRepositoryImpl(appDatabase, retrofitService)
+    }
+    @Singleton
+    @Provides
+    fun provideFSalesCallPlandItemsRepository(
+            appDatabase: AppDatabase,
+            retrofitService: RetrofitServiceFSalesCallPlandItems
+    ): FSalesCallPlandItemsRepository {
+        return FSalesCallPlandItemsRepositoryImpl(appDatabase, retrofitService)
+    }
+
 }

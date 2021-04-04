@@ -2,25 +2,18 @@ package com.erp.distribution.sfa.presentation.ui
 
 import android.util.Log
 import androidx.hilt.lifecycle.ViewModelInject
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.erp.distribution.sfa.data.source.entity.FAreaEntity
+import com.erp.distribution.sfa.data.source.entity.FSalesCallPlandItemsEntity
+import com.erp.distribution.sfa.data.source.entity.FSalesCallPlanhEntity
 import com.erp.distribution.sfa.data.source.entity.FtPriceAltdItemsEntity
 import com.erp.distribution.sfa.data.source.entity.FtPriceAlthEntity
 import com.erp.distribution.sfa.domain.exception.ExceptionHandler
+import com.erp.distribution.sfa.domain.model.FSalesCallPlandItems
+import com.erp.distribution.sfa.domain.model.FSalesCallPlanh
 import com.erp.distribution.sfa.domain.model.FStock
-import com.erp.distribution.sfa.domain.model.FtPriceAlth
-import com.erp.distribution.sfa.domain.model.FtSalesdItems
-import com.erp.distribution.sfa.domain.model.FtSalesh
-import com.erp.distribution.sfa.domain.usecase.GetFStockUseCase
-import com.erp.distribution.sfa.domain.usecase.GetFtPriceAltdItemsUseCase
-import com.erp.distribution.sfa.domain.usecase.GetFtPriceAlthUseCase
+import com.erp.distribution.sfa.domain.usecase.*
 import com.erp.distribution.sfa.presentation.base.BaseViewModel
-import com.erp.distribution.sfa.presentation.base.Resource
 import com.erp.distribution.sfa.presentation.model.UserViewState
-import com.erp.distribution.sfa.presentation.ui.salesorder.salesorder_list.FSaleshViewModel
 import com.erp.distribution.sfa.utils.DisposableManager
 import com.erp.distribution.sfa.utils.SecurityUtil
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
@@ -34,6 +27,8 @@ class DashBoardViewModel @ViewModelInject constructor(
     private val getFStockUseCase: GetFStockUseCase,
     private val getFtPriceAlthUseCase: GetFtPriceAlthUseCase,
     private val getFtPriceAltdItemsUseCase: GetFtPriceAltdItemsUseCase,
+    private val getFSalesCallPlanhUseCase: GetFSalesCallPlanhUseCase,
+    private val getFSalesCallPlandItemsUseCase: GetFSalesCallPlandItemsUseCase
 ) : BaseViewModel() {
     override val coroutineExceptionHandler = CoroutineExceptionHandler { _, exception ->
         val message = ExceptionHandler.parse(exception)
@@ -96,8 +91,8 @@ class DashBoardViewModel @ViewModelInject constructor(
                 }
                 .doAfterNext{
                     it.iterator().forEach {  ftPriceAlthEntity ->
-                        subscribeListFtPriceAlthItemsByParent_FromRepo(ftPriceAlthEntity)
-//                            Log.d(TAG, "#result success get FtPriceAlth: >>  ${ftPriceAlthEntity.id}")
+                        subscribeListFtPriceAltdItemsByParent_FromRepo(ftPriceAlthEntity)
+                            Log.d(TAG, "#result success get FtPriceAlth: >>  ${ftPriceAlthEntity.id}")
                     }
                 }
                 .subscribe(
@@ -112,7 +107,7 @@ class DashBoardViewModel @ViewModelInject constructor(
     }
 
 
-    fun subscribeListFtPriceAlthItemsByParent_FromRepo(ftPriceAlthEntity: FtPriceAlthEntity){
+    fun subscribeListFtPriceAltdItemsByParent_FromRepo(ftPriceAlthEntity: FtPriceAlthEntity){
         val authHeader = SecurityUtil.getAuthHeader(userViewState.fUser!!.username, userViewState.fUser!!.passwordConfirm)
         val disposable = getFtPriceAltdItemsUseCase.getRemoteAllFtPriceAltdItemsByFtPriceAlth(authHeader, ftPriceAlthEntity.id)
                 .toObservable()
@@ -141,6 +136,7 @@ class DashBoardViewModel @ViewModelInject constructor(
              * Pada Root Harus Hapus Semua dulu semua cabangnya baru Insert
              */
             getFtPriceAltdItemsUseCase.deleteAllCacheFtPriceAltdItems()
+
               getFtPriceAlthUseCase.deleteAllCacheFtPriceAlth().also {
                   getFtPriceAlthUseCase.addCacheListFtPriceAlth(list)
               }
@@ -179,6 +175,108 @@ class DashBoardViewModel @ViewModelInject constructor(
                         },{}
                 )
         )
+    }
+
+
+
+
+
+
+    fun subscribeSalesCallPlanh() = viewModelScope.launch {
+        val authHeader = SecurityUtil.getAuthHeader(userViewState.fUser!!.username, userViewState.fUser!!.passwordConfirm)
+        getFSalesCallPlanhUseCase.getRemoteAllFSalesCallPlanhBySalesman(authHeader, userViewState.fSalesman!!.id)
+                .toObservable()
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribeOn(Schedulers.io())
+                .doOnNext {
+                    insertCache_FSalesCallPlanh(it)
+                }
+                .doAfterNext{
+                    it.iterator().forEach {  parentEntity ->
+                        subscribeListFSalesCallPlandItemsByParent_FromRepo(parentEntity)
+//                        Log.d(TAG, "#result success get FSalesCallPlan: >>  ${parentEntity.id}")
+                    }
+                }
+                .subscribe(
+                        {
+                            Log.d(TAG, "#result success get FSalesCallPlan: >>  ${it} \n")
+                        },
+                        {
+                            Log.e(TAG, "#result ERROR get FtPriceAlth: >>  ${Date()} >> \n")
+                        },
+                        {}
+                )
+    }
+
+
+    fun insertCache_FSalesCallPlanh(list: List<FSalesCallPlanhEntity>){
+
+        DisposableManager.add(Observable.fromCallable {
+            /**
+             * Pada Root Harus Hapus Semua dulu semua cabangnya baru Insert
+             */
+            getFSalesCallPlandItemsUseCase.deleteAllCacheFSalesCallPlandItems()
+
+            getFSalesCallPlanhUseCase.deleteAllCacheFSalesCallPlanh().also {
+                getFSalesCallPlanhUseCase.addCacheListFSalesCallPlanh(list)
+            }
+        }
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe (
+                        {},
+                        {
+//                            Log.d(TAG, "#result FMaterialGroup3 error  ${it.message}")
+                        },{}
+                )
+        )
+    }
+
+    fun insertCache_FSalesCallPlandItems(list: List<FSalesCallPlandItemsEntity>){
+
+        DisposableManager.add(Observable.fromCallable {
+            /**
+             * Pada Root Harus Hapus Semua dulu semua cabangnya baru Insert
+             */
+            getFSalesCallPlandItemsUseCase.addCacheListFSalesCallPlandItems(list)
+            /**
+             * HAPUSNYA DI FtPurchaseh yabos: haahah
+             */
+//            getFtPriceAltdItemsUseCase.deleteAllCacheFtPriceAltdItems().also {
+//                getFtPriceAltdItemsUseCase.addCacheListFtPriceAltdItems(list)
+//            }
+        }
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe (
+                        {},
+                        {
+//                            Log.d(TAG, "#result FMaterialGroup3 error  ${it.message}")
+                        },{}
+                )
+        )
+    }
+
+
+    fun subscribeListFSalesCallPlandItemsByParent_FromRepo(parentBean: FSalesCallPlanhEntity){
+        val authHeader = SecurityUtil.getAuthHeader(userViewState.fUser!!.username, userViewState.fUser!!.passwordConfirm)
+        val disposable = getFSalesCallPlandItemsUseCase.getRemoteAllFSalesCallPlandItemsByParent(authHeader, parentBean.id)
+                .toObservable()
+                .observeOn(AndroidSchedulers.mainThread())
+                .doOnNext {
+                    insertCache_FSalesCallPlandItems(it)
+                }
+                .subscribeOn(Schedulers.io())
+                .subscribe(
+                        {
+                            Log.d(TAG, "#result success FSalesCallPlandItems ${it}")
+                        },
+                        {
+                            Log.e(TAG, "#result error FSalesCallPlandItems ${it.printStackTrace()}")
+                        } ,{}
+
+                )
+        compositeDisposable.add(disposable)
     }
 
 

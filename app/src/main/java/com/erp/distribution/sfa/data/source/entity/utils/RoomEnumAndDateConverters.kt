@@ -4,7 +4,7 @@ import androidx.room.TypeConverter
 import com.erp.distribution.sfa.data.source.entity.modelenum.*
 import java.util.*
 
-open class RoomDateConverters {
+open class RoomEnumAndDateConverters {
     @TypeConverter
     fun fromTimestamp(value: Long?): Date? {
         return if (value == null) null else Date(value)
@@ -374,4 +374,15 @@ open class RoomDateConverters {
     fun fromEnumUserOtorizeType(value: EnumUserOtorizeType?): String? {
         return value?.strCode
     }
+
+    @TypeConverter
+    fun toEnumTipeCallPlan(value: String?): EnumTipeCallPlan? {
+        return if (value == null) null else EnumTipeCallPlan.valueOf(value)
+    }
+
+    @TypeConverter
+    fun fromEnumTipeCallPlan(value: EnumTipeCallPlan?): String? {
+        return value?.stringId
+    }
+
 }
