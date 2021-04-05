@@ -2,16 +2,12 @@ package com.erp.distribution.sfa.presentation.ui
 
 import android.util.Log
 import androidx.hilt.lifecycle.ViewModelInject
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import com.erp.distribution.sfa.data.source.entity.FSalesCallPlandItemsEntity
 import com.erp.distribution.sfa.data.source.entity.FSalesCallPlanhEntity
 import com.erp.distribution.sfa.data.source.entity.FtPriceAltdItemsEntity
 import com.erp.distribution.sfa.data.source.entity.FtPriceAlthEntity
 import com.erp.distribution.sfa.domain.exception.ExceptionHandler
-import com.erp.distribution.sfa.domain.model.FSalesCallPlandItems
-import com.erp.distribution.sfa.domain.model.FSalesCallPlanh
 import com.erp.distribution.sfa.domain.model.FStock
 import com.erp.distribution.sfa.domain.usecase.*
 import com.erp.distribution.sfa.presentation.base.BaseViewModel
@@ -20,11 +16,9 @@ import com.erp.distribution.sfa.utils.DisposableManager
 import com.erp.distribution.sfa.utils.SecurityUtil
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
 import io.reactivex.rxjava3.core.Observable
-import io.reactivex.rxjava3.disposables.Disposable
 import io.reactivex.rxjava3.schedulers.Schedulers
 import kotlinx.coroutines.CoroutineExceptionHandler
 import kotlinx.coroutines.launch
-import java.time.LocalDate
 import java.util.*
 
 class DashBoardViewModel @ViewModelInject constructor(
@@ -53,7 +47,7 @@ class DashBoardViewModel @ViewModelInject constructor(
                 .subscribe(
                         {
 //                            Log.d(TAG, "#result success get stock: >>  Oke Update")
-                            updateCacheFStock_FromRepo(it)
+                            updateCacheFStockFromRepo(it)
                         },
                         {
 //                            Log.e(TAG, "#result ERROR get stock: >>  ${Date()} >> \n ${it}")
@@ -65,7 +59,7 @@ class DashBoardViewModel @ViewModelInject constructor(
     }
 
 
-    fun updateCacheFStock_FromRepo(list: List<FStock>) = viewModelScope.launch {
+    private fun updateCacheFStockFromRepo(list: List<FStock>) = viewModelScope.launch {
         DisposableManager.add(Observable.fromCallable {
             getFStockUseCase.deleteAllCacheFStock().also {
                 getFStockUseCase.addCacheListFStock(list)
@@ -94,8 +88,8 @@ class DashBoardViewModel @ViewModelInject constructor(
                 }
                 .doAfterNext{
                     it.iterator().forEach {  ftPriceAlthEntity ->
-                        subscribeListFtPriceAltdItemsByParent_FromRepo(ftPriceAlthEntity)
-                            Log.d(TAG, "#result success get FtPriceAlth: >>  ${ftPriceAlthEntity.id}")
+                        subscribeListFtPriceAltdItemsByParentFromRepo(ftPriceAlthEntity)
+//                            Log.d(TAG, "#result success get FtPriceAlth: >>  ${ftPriceAlthEntity.id}")
                     }
                 }
                 .subscribe(
@@ -110,7 +104,7 @@ class DashBoardViewModel @ViewModelInject constructor(
     }
 
 
-    fun subscribeListFtPriceAltdItemsByParent_FromRepo(ftPriceAlthEntity: FtPriceAlthEntity){
+    private fun subscribeListFtPriceAltdItemsByParentFromRepo(ftPriceAlthEntity: FtPriceAlthEntity){
         val authHeader = SecurityUtil.getAuthHeader(userViewState.fUser!!.username, userViewState.fUser!!.passwordConfirm)
         val disposable = getFtPriceAltdItemsUseCase.getRemoteAllFtPriceAltdItemsByFtPriceAlth(authHeader, ftPriceAlthEntity.id)
                 .toObservable()
@@ -132,7 +126,7 @@ class DashBoardViewModel @ViewModelInject constructor(
     }
 
 
-    fun insertCacheFtPriceAlth(list: List<FtPriceAlthEntity>){
+    private fun insertCacheFtPriceAlth(list: List<FtPriceAlthEntity>){
 
         DisposableManager.add(Observable.fromCallable {
             /**
@@ -155,7 +149,7 @@ class DashBoardViewModel @ViewModelInject constructor(
         )
     }
 
-    fun insertCacheFtPriceAltdItems(list: List<FtPriceAltdItemsEntity>){
+    private fun insertCacheFtPriceAltdItems(list: List<FtPriceAltdItemsEntity>){
 
         DisposableManager.add(Observable.fromCallable {
             /**
@@ -193,32 +187,33 @@ class DashBoardViewModel @ViewModelInject constructor(
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribeOn(Schedulers.io())
                 .doOnNext {
-                    insertCache_FSalesCallPlanh(it)
+                    insertCacheFSalesCallPlanh(it)
                 }
                 .doAfterNext{
-                    it.iterator().forEach {  parentEntity ->
-                        subscribeListFSalesCallPlandItemsByParent_FromRepo(parentEntity)
-//                        Log.d(TAG, "#result success get FSalesCallPlan: >>  ${parentEntity.id}")
-                    }
                 }
                 .subscribe(
                         {
-                            Log.d(TAG, "#result success get FSalesCallPlan: >>  ${it} \n")
+                            it.iterator().forEach {  parentEntity ->
+                                subscribeListFSalesCallPlandItemsByParentFromRepo(parentEntity)
+    //                        Log.d(TAG, "#result success get FSalesCallPlan: >>  ${parentEntity.id}")
+                            }
+
+//                            Log.d(TAG, "#result success get FSalesCallPlan: >>  ${it} \n")
                         },
                         {
-                            Log.e(TAG, "#result ERROR get FtPriceAlth: >>  ${Date()} >> \n")
+//                            Log.e(TAG, "#result ERROR get FtPriceAlth: >>  ${Date()} >> \n")
                         },
                         {
-                            Log.d(TAG, "#result Dijalankan Subsribe 1")
+//                            Log.d(TAG, "#result Dijalankan Subsribe 1")
                             val currDate = Date()
                             subscribeCallPlanListThisDay(currDate)
-                            Log.d(TAG, "#result Dijalankan Subsribe 2")
+//                            Log.d(TAG, "#result Dijalankan Subsribe 2")
                         }
                 )
     }
 
 
-    fun insertCache_FSalesCallPlanh(list: List<FSalesCallPlanhEntity>){
+    private fun insertCacheFSalesCallPlanh(list: List<FSalesCallPlanhEntity>){
 
         DisposableManager.add(Observable.fromCallable {
             /**
@@ -241,7 +236,7 @@ class DashBoardViewModel @ViewModelInject constructor(
         )
     }
 
-    fun insertCache_FSalesCallPlandItems(list: List<FSalesCallPlandItemsEntity>){
+    private fun insertCacheFSalesCallPlandItems(list: List<FSalesCallPlandItemsEntity>){
 
         DisposableManager.add(Observable.fromCallable {
             /**
@@ -267,18 +262,18 @@ class DashBoardViewModel @ViewModelInject constructor(
     }
 
 
-    fun subscribeListFSalesCallPlandItemsByParent_FromRepo(parentBean: FSalesCallPlanhEntity){
+    private fun subscribeListFSalesCallPlandItemsByParentFromRepo(parentBean: FSalesCallPlanhEntity){
         val authHeader = SecurityUtil.getAuthHeader(userViewState.fUser!!.username, userViewState.fUser!!.passwordConfirm)
         val disposable = getFSalesCallPlandItemsUseCase.getRemoteAllFSalesCallPlandItemsByParent(authHeader, parentBean.id)
                 .toObservable()
                 .observeOn(AndroidSchedulers.mainThread())
                 .doOnNext {
-                    insertCache_FSalesCallPlandItems(it)
+                    insertCacheFSalesCallPlandItems(it)
                 }
                 .subscribeOn(Schedulers.io())
                 .subscribe(
                         {
-                            Log.d(TAG, "#result success FSalesCallPlandItems ${it}")
+//                            Log.d(TAG, "#result success FSalesCallPlandItems ${it}")
                         },
                         {
                             Log.e(TAG, "#result error FSalesCallPlandItems ${it.printStackTrace()}")
@@ -289,13 +284,27 @@ class DashBoardViewModel @ViewModelInject constructor(
     }
 
 
-    var fsalesCallPlandItemsLive = MutableLiveData<List<FSalesCallPlandItems>>()
 
-    fun subscribeCallPlanListThisDay(date: Date){
-        DisposableManager.add(Disposable.fromRunnable(
+    private fun subscribeCallPlanListThisDay(date: Date){
 
-        ))
-        getFSalesCallPlandItemsUseCase.getCacheAllFSalesCallPlandItems(date)
+        getFSalesCallPlandItemsUseCase.getCacheAllFSalesCallPlandItemsSingle()
+                .toObservable()
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribeOn(Schedulers.io())
+                .doOnNext {
+                    Log.d(TAG, "#result success FSalesCallPlandItems ${it}")
+                    for (test in it) {
+                        Log.d(TAG, "#result >> Oke bos ${test}\n")
+                    }
+                }
+                .subscribe{
+                }
+
+//        DisposableManager.add(Disposable.fromRunnable(
+//
+//        ))
+//        getFSalesCallPlandItemsUseCase.getCacheAllFSalesCallPlandItems(date)
+
     }
 
 //    fun subscribeCallPlanListThisDay(date: Date) {

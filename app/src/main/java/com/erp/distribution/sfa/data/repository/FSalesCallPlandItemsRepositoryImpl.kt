@@ -23,12 +23,12 @@ class FSalesCallPlandItemsRepositoryImpl(
     }
 
 
-    override fun getCacheAllFSalesCallPlandItems(): LiveData<List<FSalesCallPlandItemsWithHeader>> {
-        return appDatabase.fSalesCallPlandItemsDao.getAllFSalesCallPlandItemsLive()
+    override fun getCacheAllFSalesCallPlandItems(): List<FSalesCallPlandItemsWithHeader> {
+        return appDatabase.fSalesCallPlandItemsDao.getAllFSalesCallPlandItems()
     }
 
-    override fun getCacheAllFSalesCallPlandItemsByParent(parentBean: Long): LiveData<List<FSalesCallPlandItemsWithHeader>> {
-        return appDatabase.fSalesCallPlandItemsDao.getAllByParentLive(parentBean)
+    override fun getCacheAllFSalesCallPlandItemsByParent(parentBean: Long): List<FSalesCallPlandItemsWithHeader> {
+        return appDatabase.fSalesCallPlandItemsDao.getAllByParent(parentBean)
     }
     override fun getCacheAllFSalesCallPlandItemsByParentAndCustomer(parentBean: Long, fcustomerBean: Int): LiveData<List<FSalesCallPlandItemsEntity>> {
         return appDatabase.fSalesCallPlandItemsDao.getCacheAllFSalesCallPlandItemsByFtPriceAlthAndFMaterial(parentBean, fcustomerBean)

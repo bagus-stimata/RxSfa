@@ -54,10 +54,7 @@ class UserRepositoryImpl(
     override fun deleteRemoteFUser(authHeader: String, id: Int): Single<FUserEntity> {
         return retrofitService.deleteRemoteFUser(authHeader, id)
     }
-    
-//    override fun getRemoteDataByParentId(parenId: Int): Single<List<FUser>> {
-//        TODO("Not yet implemented")
-//    }
+
 
     override fun getCacheAllFUser(): LiveData<List<FUserEntity>> {
        return appDatabase.userDao.getAllFUserLive()

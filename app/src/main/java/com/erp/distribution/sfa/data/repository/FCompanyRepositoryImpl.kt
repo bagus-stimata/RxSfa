@@ -25,10 +25,6 @@ class FCompanyRepositoryImpl(
         return retrofitService.getRemoteFCompanyById(authHeader, id)
     }
 
-//    override fun getRemoteAllFCompanyByDivision(divisionId: Int): Single<List<FCompany>> {
-//        return retrofitService.getRemoteAllFCompanyByDivision(authHeader, divisionId)
-//    }
-
     override fun createRemoteFCompany(authHeader: String, fCompanyEntity: FCompanyEntity): Single<FCompanyEntity> {
         return retrofitService.createRemoteFCompany(authHeader, fCompanyEntity)
     }
@@ -51,9 +47,6 @@ class FCompanyRepositoryImpl(
         return appDatabase.companyDao.getAllByIdLive(id)
     }
 
-//    override fun getCacheAllFCompanyByDivision(divisionId: Int): LiveData<List<FCompany>> {
-//        return appDatabase.companyDao.getAllByDivisionLive(divisionId)
-//    }
 
     override fun addCacheFCompany(fCompanyEntity: FCompanyEntity) {
         return appDatabase.companyDao.insert(fCompanyEntity)

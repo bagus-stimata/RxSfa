@@ -38,10 +38,17 @@ interface FSalesCallPlandItemsDao {
     @Transaction
     @Query("SELECT * FROM fSalesCallPlandItems ")
     fun getAllFSalesCallPlandItemsLive(): LiveData<List<FSalesCallPlandItemsWithHeader>>
+    @Transaction
+    @Query("SELECT * FROM fSalesCallPlandItems ")
+    fun getAllFSalesCallPlandItems(): List<FSalesCallPlandItemsWithHeader>
 
     @Transaction
     @Query("SELECT * FROM fSalesCallPlandItems WHERE fsalesCallPlanhBean = :fsalesCallPlanhBean ")
     fun getAllByParentLive(fsalesCallPlanhBean: Long): LiveData<List<FSalesCallPlandItemsWithHeader>>
+    @Transaction
+    @Query("SELECT * FROM fSalesCallPlandItems WHERE fsalesCallPlanhBean = :fsalesCallPlanhBean ")
+    fun getAllByParent(fsalesCallPlanhBean: Long): List<FSalesCallPlandItemsWithHeader>
+
 
     @Query("SELECT * FROM fSalesCallPlandItems WHERE fsalesCallPlanhBean = :fsalesCallPlanhBean AND fcustomerBean = :fcustomerBean ")
     fun getCacheAllFSalesCallPlandItemsByFtPriceAlthAndFMaterial(fsalesCallPlanhBean: Long, fcustomerBean: Int): LiveData<List<FSalesCallPlandItemsEntity>>

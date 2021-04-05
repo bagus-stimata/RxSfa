@@ -11,8 +11,9 @@ import io.reactivex.rxjava3.core.Single
 interface FSalesCallPlandItemsRepository {
     fun getRemoteAllFSalesCallPlandItemsByParent(authHeader: String, ftPricehAlthBean: Long): Single<List<FSalesCallPlandItemsEntity>>
 
-    fun getCacheAllFSalesCallPlandItems(): LiveData<List<FSalesCallPlandItemsWithHeader>>
-    fun getCacheAllFSalesCallPlandItemsByParent(fsalesCallPlanhBean: Long): LiveData<List<FSalesCallPlandItemsWithHeader>>
+    fun getCacheAllFSalesCallPlandItems(): List<FSalesCallPlandItemsWithHeader>
+    fun getCacheAllFSalesCallPlandItemsByParent(fsalesCallPlanhBean: Long): List<FSalesCallPlandItemsWithHeader>
+
     fun getCacheAllFSalesCallPlandItemsByParentAndCustomer(fsalesCallPlanhBean: Long, fcustomerBean: Int): LiveData<List<FSalesCallPlandItemsEntity>>
     fun addCacheFSalesCallPlandItems(fSalesCallPlandItemsEntity: FSalesCallPlandItemsEntity)
     fun addCacheListFSalesCallPlandItems(list: List<FSalesCallPlandItemsEntity>)

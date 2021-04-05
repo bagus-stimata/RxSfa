@@ -50,3 +50,4 @@ data class FCompanyEntity (
         var modifiedBy : String //User ID
 
 )
+

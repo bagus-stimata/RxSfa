@@ -136,8 +136,8 @@ data class FMaterialEntity  (
 
 //    @Ignore
 //    var productionCode : String? ="",
-        var productionDate : Date? = Date(),
-        var expiredDate : Date? = Date(),
+//        var productionDate : Date? = Date(),
+//        var expiredDate : Date? = Date(),
 
 //    @Ignore
 //    var prodclass : Int? =0,

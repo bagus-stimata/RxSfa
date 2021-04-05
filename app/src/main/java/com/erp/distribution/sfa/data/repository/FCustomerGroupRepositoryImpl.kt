@@ -80,9 +80,4 @@ class FCustomerGroupRepositoryImpl(
     }
 
 
-//    override fun getRemoteAllData(): Single<List<FCustomerGroup>> {
-//        return retrofitService.getRemoteAllFCustomerGroup(authHeader)
-//    }
-
-
 }

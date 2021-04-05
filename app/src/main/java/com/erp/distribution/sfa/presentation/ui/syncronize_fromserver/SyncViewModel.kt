@@ -96,7 +96,7 @@ class SyncViewModel @ViewModelInject constructor(
                         it.created = Date()
                         it.modifiedBy = fUserEntity.username
 
-                        if (it.productionDate==null) it.productionDate = Date()
+//                        if (it.productionDate==null) it.productionDate = Date()
                         if (it.priceUom==null) it.priceUom = EnumUom.UOM1
 
                         it

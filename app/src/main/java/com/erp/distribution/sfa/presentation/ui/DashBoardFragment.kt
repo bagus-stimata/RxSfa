@@ -15,6 +15,7 @@ import androidx.navigation.fragment.findNavController
 import com.erp.distribution.sfa.R
 import com.erp.distribution.sfa.data.source.entity_security.FUserEntity
 import com.erp.distribution.sfa.databinding.DashBoardFragmentBinding
+import com.erp.distribution.sfa.domain.model.FMaterial
 import com.erp.distribution.sfa.domain.model.FUser
 import com.erp.distribution.sfa.presentation.base.Resource
 import com.erp.distribution.sfa.presentation.model.UserViewState
@@ -47,7 +48,6 @@ class DashBoardFragment : Fragment(R.layout.dash_board_fragment) {
 //      viewBinding.mainViewModel = this.mainViewModel
         viewBinding.actionActivity = this
         viewBinding.userViewState = UserViewState()
-
 
 
         /**

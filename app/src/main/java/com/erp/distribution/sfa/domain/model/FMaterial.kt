@@ -115,9 +115,8 @@ data class FMaterial  (
 //    var batchCode : String ="",
 
 //    @Ignore
-//    var productionCode : String ="",
-        var productionDate : Date? = Date(),
-        var expiredDate : Date = Date(),
+//        var productionDate : Date? = Date(),
+//        var expiredDate : Date = Date(),
 
 //    @Ignore
 //    var prodclass : Int =0,
@@ -229,12 +228,10 @@ internal fun FMaterial.toEntity(): FMaterialEntity {
             fmaterialSalesBrandBean = fmaterialSalesBrandBean!!,
             fmaterialGroup3Bean = fmaterialGroup3Bean.id,
 
-            productionDate = productionDate,
-            expiredDate = expiredDate,
-
             created = created!!,
             modified = modified!!,
             modifiedBy = modifiedBy!!
 
     )
 }
+
