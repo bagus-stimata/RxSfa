@@ -1,9 +1,12 @@
 package com.erp.distribution.sfa.data.source.entity
 
 import android.os.Parcelable
+import androidx.room.Embedded
 import androidx.room.Entity
 import androidx.room.PrimaryKey
+import androidx.room.Relation
 import com.erp.distribution.sfa.domain.model.FSalesCallPlandItems
+import com.erp.distribution.sfa.domain.model.FSalesCallPlanh
 import kotlinx.parcelize.Parcelize
 import java.io.Serializable
 
@@ -63,7 +66,7 @@ internal fun FSalesCallPlandItemsEntity.toDomain(): FSalesCallPlandItems {
 
             noUrut = noUrut,
 
-            fsalesCallPlanhBean = fsalesCallPlanhBean,
+            fsalesCallPlanhBean = FSalesCallPlanh(fsalesCallPlanhBean),
             fcustomerBean = fcustomerBean,
 
             value1 = value1,
@@ -79,3 +82,15 @@ internal fun FSalesCallPlandItemsEntity.toDomain(): FSalesCallPlandItems {
 
     )
 }
+
+
+data class FSalesCallPlandItemsWithHeader(
+        @Embedded val fSalesCallPlandItemsEntity: FSalesCallPlandItemsEntity,
+
+        @Relation(
+                parentColumn = "fsalesCallPlanhBean",
+                entityColumn = "id"
+        )
+        val fSalesCallPlanhEntity: FSalesCallPlanhEntity?
+
+)

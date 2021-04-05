@@ -295,6 +295,8 @@ data class FtSaleshEntity  (
         val unread: Boolean? = true,
         val selected: Boolean? = false,
 
+        val callPlan: Boolean = false,
+
     /*
     * MAPPING ACCOUNT
     * Tidak Berubah Ubah

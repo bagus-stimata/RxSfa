@@ -3,6 +3,7 @@ package com.erp.distribution.sfa.data.repository
 import androidx.lifecycle.LiveData
 import com.erp.distribution.sfa.data.source.local.database.AppDatabase
 import com.erp.distribution.sfa.data.source.entity.FSalesCallPlandItemsEntity
+import com.erp.distribution.sfa.data.source.entity.FSalesCallPlandItemsWithHeader
 import com.erp.distribution.sfa.data.source.remote.service_api.RetrofitServiceFSalesCallPlandItems
 import com.erp.distribution.sfa.domain.repository.FSalesCallPlandItemsRepository
 import io.reactivex.rxjava3.core.Single
@@ -22,14 +23,14 @@ class FSalesCallPlandItemsRepositoryImpl(
     }
 
 
-    override fun getCacheAllFSalesCallPlandItems(): LiveData<List<FSalesCallPlandItemsEntity>> {
-        return appDatabase.fSalesCallPlandItemsDao.getAllFSalesCallPlandItemsLive
+    override fun getCacheAllFSalesCallPlandItems(): LiveData<List<FSalesCallPlandItemsWithHeader>> {
+        return appDatabase.fSalesCallPlandItemsDao.getAllFSalesCallPlandItemsLive()
     }
 
-    override fun getCacheAllFSalesCallPlandItemsByParent(parentBean: Long): LiveData<List<FSalesCallPlandItemsEntity>> {
+    override fun getCacheAllFSalesCallPlandItemsByParent(parentBean: Long): LiveData<List<FSalesCallPlandItemsWithHeader>> {
         return appDatabase.fSalesCallPlandItemsDao.getAllByParentLive(parentBean)
     }
-    override fun getCacheAllFSalesCallPlandItemsByFtPriceAlthAndFMaterial(parentBean: Long, fcustomerBean: Int): LiveData<List<FSalesCallPlandItemsEntity>> {
+    override fun getCacheAllFSalesCallPlandItemsByParentAndCustomer(parentBean: Long, fcustomerBean: Int): LiveData<List<FSalesCallPlandItemsEntity>> {
         return appDatabase.fSalesCallPlandItemsDao.getCacheAllFSalesCallPlandItemsByFtPriceAlthAndFMaterial(parentBean, fcustomerBean)
     }
 

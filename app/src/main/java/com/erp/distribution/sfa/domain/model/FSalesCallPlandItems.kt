@@ -16,8 +16,8 @@ data class FSalesCallPlandItems (
 
 //    @ManyToOne
 //    @JoinColumn(name = "fsalesCallPlanhBean", referencedColumnName = "ID")
-//    var fsalesCallPlanhBean: FSalesCallPlanh = FSalesCallPlanh(),
-    var fsalesCallPlanhBean: Long = 0L,
+    var fsalesCallPlanhBean: FSalesCallPlanh = FSalesCallPlanh(),
+//    var fsalesCallPlanhBean: Long = 0L,
 
 //    @ManyToOne
 //    @JoinColumn(name = "fcustomerBean", referencedColumnName = "ID")
@@ -61,7 +61,7 @@ internal fun FSalesCallPlandItems.toEntity(): FSalesCallPlandItemsEntity {
 
         noUrut = noUrut,
 
-        fsalesCallPlanhBean = fsalesCallPlanhBean,
+        fsalesCallPlanhBean = fsalesCallPlanhBean.id,
         fcustomerBean = fcustomerBean,
 
         value1 = value1,

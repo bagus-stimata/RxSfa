@@ -2,6 +2,8 @@ package com.erp.distribution.sfa.presentation.ui
 
 import android.util.Log
 import androidx.hilt.lifecycle.ViewModelInject
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import com.erp.distribution.sfa.data.source.entity.FSalesCallPlandItemsEntity
 import com.erp.distribution.sfa.data.source.entity.FSalesCallPlanhEntity
@@ -18,9 +20,11 @@ import com.erp.distribution.sfa.utils.DisposableManager
 import com.erp.distribution.sfa.utils.SecurityUtil
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
 import io.reactivex.rxjava3.core.Observable
+import io.reactivex.rxjava3.disposables.Disposable
 import io.reactivex.rxjava3.schedulers.Schedulers
 import kotlinx.coroutines.CoroutineExceptionHandler
 import kotlinx.coroutines.launch
+import java.time.LocalDate
 import java.util.*
 
 class DashBoardViewModel @ViewModelInject constructor(
@@ -39,7 +43,6 @@ class DashBoardViewModel @ViewModelInject constructor(
 //    var userViewState: UserViewState = UserViewState()
 //    val userViewStateLive: LiveData<Resource<UserViewState>> = MutableLiveData()
     var userViewState = UserViewState()
-
 
     fun subscribeUpdateStock() = viewModelScope.launch {
         val authHeader = SecurityUtil.getAuthHeader(userViewState.fUser!!.username, userViewState.fUser!!.passwordConfirm)
@@ -183,6 +186,7 @@ class DashBoardViewModel @ViewModelInject constructor(
 
 
     fun subscribeSalesCallPlanh() = viewModelScope.launch {
+
         val authHeader = SecurityUtil.getAuthHeader(userViewState.fUser!!.username, userViewState.fUser!!.passwordConfirm)
         getFSalesCallPlanhUseCase.getRemoteAllFSalesCallPlanhBySalesman(authHeader, userViewState.fSalesman!!.id)
                 .toObservable()
@@ -204,7 +208,12 @@ class DashBoardViewModel @ViewModelInject constructor(
                         {
                             Log.e(TAG, "#result ERROR get FtPriceAlth: >>  ${Date()} >> \n")
                         },
-                        {}
+                        {
+                            Log.d(TAG, "#result Dijalankan Subsribe 1")
+                            val currDate = Date()
+                            subscribeCallPlanListThisDay(currDate)
+                            Log.d(TAG, "#result Dijalankan Subsribe 2")
+                        }
                 )
     }
 
@@ -279,5 +288,32 @@ class DashBoardViewModel @ViewModelInject constructor(
         compositeDisposable.add(disposable)
     }
 
+
+    var fsalesCallPlandItemsLive = MutableLiveData<List<FSalesCallPlandItems>>()
+
+    fun subscribeCallPlanListThisDay(date: Date){
+        DisposableManager.add(Disposable.fromRunnable(
+
+        ))
+        getFSalesCallPlandItemsUseCase.getCacheAllFSalesCallPlandItems(date)
+    }
+
+//    fun subscribeCallPlanListThisDay(date: Date) {
+//        DisposableManager.add(Observable.fromCallable{
+//            getFSalesCallPlandItemsUseCase.getCacheAllFSalesCallPlandItems(date).also {
+//
+//            }
+//
+//        }
+//                .subscribeOn(Schedulers.io())
+//                .observeOn(AndroidSchedulers.mainThread())
+//                .subscribe (
+//                        {},
+//                        {
+////                            Log.d(TAG, "#result FMaterialGroup3 error  ${it.message}")
+//                        },{}
+//                )
+//        )
+//    }
 
 }

@@ -67,6 +67,7 @@ class DashBoardFragment : Fragment(R.layout.dash_board_fragment) {
 
         greeting()
 
+        observerCallPlan()
     }
 
 
@@ -95,7 +96,9 @@ class DashBoardFragment : Fragment(R.layout.dash_board_fragment) {
             }
         })
     }
+    fun observerCallPlan(){
 
+    }
 
     fun showLoginView() {
         /**
@@ -117,6 +120,7 @@ class DashBoardFragment : Fragment(R.layout.dash_board_fragment) {
 
     fun menuJourneyPlan() {
         dashboardViewModel.subscribeSalesCallPlanh()
+
         val action = DashBoardFragmentDirections.actionDashBoardFragmentToCallPlanFragment(
                 mainViewModel.userViewState
         )
@@ -124,6 +128,8 @@ class DashBoardFragment : Fragment(R.layout.dash_board_fragment) {
     }
 
     fun menuSalesOrder() {
+        dashboardViewModel.subscribeSalesCallPlanh()
+
         dashboardViewModel.subscribeUpdateStock()
         dashboardViewModel.subscribeUpdatePriceAlth()
 

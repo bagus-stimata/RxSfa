@@ -293,7 +293,6 @@ data class FMaterialWithFDivisionAndVendorAndGroupAndStock(
         )
         val fStockEntity: FStockEntity?
 
-
 )
 
 

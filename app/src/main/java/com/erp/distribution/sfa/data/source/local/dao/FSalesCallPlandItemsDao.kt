@@ -4,6 +4,8 @@ import androidx.lifecycle.LiveData
 import androidx.room.*
 import com.erp.distribution.sfa.data.source.entity.FSubAreaEntity
 import com.erp.distribution.sfa.data.source.entity.FSalesCallPlandItemsEntity
+import com.erp.distribution.sfa.data.source.entity.FSalesCallPlandItemsWithHeader
+import com.erp.distribution.sfa.domain.model.FSalesCallPlandItems
 
 /**
  * Dao ini belum di koneksikan dengan database manapun
@@ -30,13 +32,19 @@ interface FSalesCallPlandItemsDao {
     @Query("DELETE FROM fSalesCallPlandItems")
     fun deleteAllFSalesCallPlandItems()
 
-    @get:Query("SELECT * FROM fSalesCallPlandItems ")
-    val getAllFSalesCallPlandItemsLive: LiveData<List<FSalesCallPlandItemsEntity>>
+//    @get:Query("SELECT * FROM fSalesCallPlandItems ")
+//    val getAllFSalesCallPlandItemsLive: LiveData<List<FSalesCallPlandItemsEntity>>
 
+    @Transaction
+    @Query("SELECT * FROM fSalesCallPlandItems ")
+    fun getAllFSalesCallPlandItemsLive(): LiveData<List<FSalesCallPlandItemsWithHeader>>
+
+    @Transaction
     @Query("SELECT * FROM fSalesCallPlandItems WHERE fsalesCallPlanhBean = :fsalesCallPlanhBean ")
-    fun getAllByParentLive(fsalesCallPlanhBean: Long): LiveData<List<FSalesCallPlandItemsEntity>>
+    fun getAllByParentLive(fsalesCallPlanhBean: Long): LiveData<List<FSalesCallPlandItemsWithHeader>>
 
     @Query("SELECT * FROM fSalesCallPlandItems WHERE fsalesCallPlanhBean = :fsalesCallPlanhBean AND fcustomerBean = :fcustomerBean ")
     fun getCacheAllFSalesCallPlandItemsByFtPriceAlthAndFMaterial(fsalesCallPlanhBean: Long, fcustomerBean: Int): LiveData<List<FSalesCallPlandItemsEntity>>
+
 
 }

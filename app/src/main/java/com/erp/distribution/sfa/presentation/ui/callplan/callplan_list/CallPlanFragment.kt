@@ -46,7 +46,7 @@ class CallPlanFragment : Fragment(R.layout.fragment_callplan), CallPlanAdapter.O
             viewModel.userViewState =  it
         }
 
-//                Toast.makeText(context, "isinya arguments ${viewModel.userViewState.fUser!!.username}", Toast.LENGTH_SHORT).show()
+//      Toast.makeText(context, "isinya arguments ${viewModel.userViewState.fUser!!.username}", Toast.LENGTH_SHORT).show()
 
         val callPlanAdapter = CallPlanAdapter(this)
 

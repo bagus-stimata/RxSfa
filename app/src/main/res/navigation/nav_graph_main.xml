@@ -185,6 +185,9 @@
             app:argType="com.erp.distribution.sfa.presentation.model.UserViewState"
             app:nullable="true"
             android:defaultValue="@null" />
+        <action
+            android:id="@+id/action_callPlanFragment_to_addEditFtSaleshFragment"
+            app:destination="@id/addEditFtSaleshFragment" />
     </fragment>
 
 </navigation>
