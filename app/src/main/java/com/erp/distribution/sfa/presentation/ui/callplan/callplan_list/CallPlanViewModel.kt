@@ -7,7 +7,6 @@ import androidx.lifecycle.*
 import androidx.lifecycle.Observer
 import com.erp.distribution.sfa.data.di.PreferencesManager
 import com.erp.distribution.sfa.data.di.SortOrder
-import com.erp.distribution.sfa.data.source.entity.toDomain
 import com.erp.distribution.sfa.domain.exception.ExceptionHandler
 import com.erp.distribution.sfa.domain.model.FtSalesdItems
 import com.erp.distribution.sfa.domain.model.FtSalesh
@@ -29,7 +28,6 @@ import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.flatMapLatest
 import kotlinx.coroutines.flow.receiveAsFlow
 import kotlinx.coroutines.launch
-import java.util.*
 
 
 class CallPlanViewModel @ViewModelInject constructor(
@@ -157,7 +155,7 @@ class CallPlanViewModel @ViewModelInject constructor(
 
     fun onUndoDeleteClick(ftSalesh: FtSalesh) = viewModelScope.launch {
         DisposableManager.add(Observable.fromCallable {
-            getFtSaleshUseCase.addCacheFtSalesh(ftSalesh).also {
+            getFtSaleshUseCase.insertCacheFtSalesh(ftSalesh).also {
                 getFtSalesdItemsUseCase.addCacheListFtSalesdItems(ftSalesh.listFtSalesdItems)
             }
         }

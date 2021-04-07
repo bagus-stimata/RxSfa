@@ -266,6 +266,11 @@ class AddEditFtSaleshFragment : Fragment(R.layout.fragment_add_edit_salesorder),
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         return when (item.itemId){
             android.R.id.home ->{
+//                if (viewModel.ftSalesh.stared==true && viewModel.ftSalesh.orderno.toLowerCase().contains("new")){
+                if (viewModel.ftSalesh.stared==true  && viewModel.ftSalesh.orderno.toLowerCase().contains("new") ){
+                    viewModel.autoSyncToServer()
+                }
+
                 viewModel.onPopUpBackStackWithTheResult()
                 true
             }

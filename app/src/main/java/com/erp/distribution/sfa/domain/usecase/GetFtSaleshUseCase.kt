@@ -6,7 +6,6 @@ import com.erp.distribution.sfa.data.di.SortOrder
 import com.erp.distribution.sfa.domain.repository.FtSaleshRepository
 import com.erp.distribution.sfa.domain.usecase.base.SingleUseCase
 import com.erp.distribution.sfa.data.source.entity.FtSaleshEntity
-import com.erp.distribution.sfa.data.source.entity.FtSaleshWithFCustomerAndItems
 import com.erp.distribution.sfa.data.source.entity.toDomain
 import com.erp.distribution.sfa.domain.model.FtSalesdItems
 import com.erp.distribution.sfa.domain.model.FtSalesh
@@ -206,13 +205,16 @@ class GetFtSaleshUseCase @Inject constructor(
     fun getCacheAllFtSaleshByDivision(divisionId: Int): LiveData<List<FtSaleshEntity>>{
         return repository.getCacheAllFtSaleshByDivision(divisionId)
     }
-    fun addCacheFtSalesh(ftSalesh: FtSalesh){
-        repository.addCacheFtSalesh(ftSalesh.toEntity())
+    fun insertCacheFtSalesh(ftSalesh: FtSalesh){
+        repository.insertCacheFtSalesh(ftSalesh.toEntity())
+    }
+    fun insertCacheFtSaleshNoReplace(ftSalesh: FtSalesh){
+        repository.insertCacheFtSaleshNoReplace(ftSalesh.toEntity())
     }
     fun insertSingleCacheFtSalesh(ftSaleshEntity: FtSaleshEntity): Single<Long>{
         return repository.insertSingleCacheFtSalesh(ftSaleshEntity)
     }
-    fun addCacheListFtSalesh(list: List<FtSalesh>){
+    fun insertCacheListFtSalesh(list: List<FtSalesh>){
         repository.addCacheListFtSalesh(list.map {
             it.toEntity()
         })

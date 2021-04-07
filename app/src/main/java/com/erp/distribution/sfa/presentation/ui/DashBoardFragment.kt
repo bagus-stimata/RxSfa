@@ -4,6 +4,9 @@ import android.annotation.SuppressLint
 import android.graphics.Color
 import android.os.Bundle
 import android.util.Log
+import android.view.Menu
+import android.view.MenuInflater
+import android.view.MenuItem
 import androidx.fragment.app.Fragment
 import android.view.View
 import android.widget.Toast
@@ -13,6 +16,7 @@ import androidx.lifecycle.Observer
 import androidx.navigation.findNavController
 import androidx.navigation.fragment.findNavController
 import com.erp.distribution.sfa.R
+import com.erp.distribution.sfa.data.di.SortOrder
 import com.erp.distribution.sfa.data.source.entity_security.FUserEntity
 import com.erp.distribution.sfa.databinding.DashBoardFragmentBinding
 import com.erp.distribution.sfa.domain.model.FMaterial
@@ -68,6 +72,9 @@ class DashBoardFragment : Fragment(R.layout.dash_board_fragment) {
         greeting()
 
         observerCallPlan()
+
+        setHasOptionsMenu(true)
+
     }
 
 
@@ -243,6 +250,28 @@ class DashBoardFragment : Fragment(R.layout.dash_board_fragment) {
         }
 //        mainBinding.greetingText2.setText(namaUser)
     }
+
+
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+        inflater.inflate(R.menu.dashboard_menu, menu)
+    }
+    /**
+     * Bisa dijalankan walaupun pada MainActivity
+     */
+//    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+//        return when (item.itemId) {
+//            R.id.dashboard_refresh -> {
+////                refresh()
+//                true
+//            }
+//            R.id.dashboard_keluar -> {
+////                logOut()
+//                true
+//            }
+//            else -> super.onOptionsItemSelected(item)
+//        }
+//    }
+
 
 
 }

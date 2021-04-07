@@ -305,16 +305,18 @@ data class FtSalesh  (
         var unread: Boolean? = true, //inget ini un read
         var selected: Boolean? = false,
 
-    /*
-    * MAPPING ACCOUNT
-    * Tidak Berubah Ubah
-    * 1. Tax Account: ikut Mappint Sistem Divisi
-    * 2. Persediaan: Tidak berubah ubah karena defaultnya per-divisi perbarang
-    * 3. COGS/HPP: tidak berubah-ubah karena defaultnya per-divisi perbarang
-    * Bisa di ubah-ubah
-    * 1. Kas Besar
-    * 2. Piutang 
-    */
+        var callPlan: Boolean = false,
+
+        /*
+        * MAPPING ACCOUNT
+        * Tidak Berubah Ubah
+        * 1. Tax Account: ikut Mappint Sistem Divisi
+        * 2. Persediaan: Tidak berubah ubah karena defaultnya per-divisi perbarang
+        * 3. COGS/HPP: tidak berubah-ubah karena defaultnya per-divisi perbarang
+        * Bisa di ubah-ubah
+        * 1. Kas Besar
+        * 2. Piutang
+        */
         var created : Date =Date(),
         var modified : Date =Date(),
         var modifiedBy : String ="" //User ID
@@ -392,7 +394,7 @@ internal fun FtSalesh.toEntity(): FtSaleshEntity {
         unread = unread,
         selected = selected,
 
-
+        callPlan = callPlan,
 
         created = created!!,
         modified = modified!!,

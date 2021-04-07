@@ -3,12 +3,10 @@ package com.erp.distribution.sfa.presentation.ui
 import android.util.Log
 import androidx.hilt.lifecycle.ViewModelInject
 import androidx.lifecycle.viewModelScope
-import com.erp.distribution.sfa.data.source.entity.FSalesCallPlandItemsEntity
-import com.erp.distribution.sfa.data.source.entity.FSalesCallPlanhEntity
-import com.erp.distribution.sfa.data.source.entity.FtPriceAltdItemsEntity
-import com.erp.distribution.sfa.data.source.entity.FtPriceAlthEntity
+import com.erp.distribution.sfa.data.source.entity.*
+import com.erp.distribution.sfa.data.source.entity.modelenum.EnumTipeCallPlan
 import com.erp.distribution.sfa.domain.exception.ExceptionHandler
-import com.erp.distribution.sfa.domain.model.FStock
+import com.erp.distribution.sfa.domain.model.*
 import com.erp.distribution.sfa.domain.usecase.*
 import com.erp.distribution.sfa.presentation.base.BaseViewModel
 import com.erp.distribution.sfa.presentation.model.UserViewState
@@ -22,11 +20,12 @@ import kotlinx.coroutines.launch
 import java.util.*
 
 class DashBoardViewModel @ViewModelInject constructor(
-    private val getFStockUseCase: GetFStockUseCase,
-    private val getFtPriceAlthUseCase: GetFtPriceAlthUseCase,
-    private val getFtPriceAltdItemsUseCase: GetFtPriceAltdItemsUseCase,
-    private val getFSalesCallPlanhUseCase: GetFSalesCallPlanhUseCase,
-    private val getFSalesCallPlandItemsUseCase: GetFSalesCallPlandItemsUseCase
+        private val getFStockUseCase: GetFStockUseCase,
+        private val getFtPriceAlthUseCase: GetFtPriceAlthUseCase,
+        private val getFtSaleshUseCase: GetFtSaleshUseCase,
+        private val getFtPriceAltdItemsUseCase: GetFtPriceAltdItemsUseCase,
+        private val getFSalesCallPlanhUseCase: GetFSalesCallPlanhUseCase,
+        private val getFSalesCallPlandItemsUseCase: GetFSalesCallPlandItemsUseCase
 ) : BaseViewModel() {
     override val coroutineExceptionHandler = CoroutineExceptionHandler { _, exception ->
         val message = ExceptionHandler.parse(exception)
@@ -87,7 +86,7 @@ class DashBoardViewModel @ViewModelInject constructor(
                     insertCacheFtPriceAlth(it)
                 }
                 .doAfterNext{
-                    it.iterator().forEach {  ftPriceAlthEntity ->
+                    it.iterator().forEach { ftPriceAlthEntity ->
                         subscribeListFtPriceAltdItemsByParentFromRepo(ftPriceAlthEntity)
 //                            Log.d(TAG, "#result success get FtPriceAlth: >>  ${ftPriceAlthEntity.id}")
                     }
@@ -119,7 +118,7 @@ class DashBoardViewModel @ViewModelInject constructor(
                         },
                         {
 //                            Log.e(TAG, "#result error FtPriceAlthdItems ${it.printStackTrace()}")
-                        } ,{}
+                        }, {}
 
                 )
         compositeDisposable.add(disposable)
@@ -134,17 +133,17 @@ class DashBoardViewModel @ViewModelInject constructor(
              */
             getFtPriceAltdItemsUseCase.deleteAllCacheFtPriceAltdItems()
 
-              getFtPriceAlthUseCase.deleteAllCacheFtPriceAlth().also {
-                  getFtPriceAlthUseCase.addCacheListFtPriceAlth(list)
-              }
+            getFtPriceAlthUseCase.deleteAllCacheFtPriceAlth().also {
+                getFtPriceAlthUseCase.addCacheListFtPriceAlth(list)
+            }
         }
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe (
+                .subscribe(
                         {},
                         {
 //                            Log.d(TAG, "#result FMaterialGroup3 error  ${it.message}")
-                        },{}
+                        }, {}
                 )
         )
     }
@@ -165,11 +164,11 @@ class DashBoardViewModel @ViewModelInject constructor(
         }
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe (
+                .subscribe(
                         {},
                         {
 //                            Log.d(TAG, "#result FMaterialGroup3 error  ${it.message}")
-                        },{}
+                        }, {}
                 )
         )
     }
@@ -187,15 +186,17 @@ class DashBoardViewModel @ViewModelInject constructor(
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribeOn(Schedulers.io())
                 .doOnNext {
-                    insertCacheFSalesCallPlanh(it)
+//                    insertCacheFSalesCallPlanh(it)
                 }
                 .doAfterNext{
                 }
                 .subscribe(
                         {
-                            it.iterator().forEach {  parentEntity ->
+//                            Log.d(TAG, "#result success get FSalesCallPlan: >>  ${it}")
+                            it.iterator().forEach { parentEntity ->
+
                                 subscribeListFSalesCallPlandItemsByParentFromRepo(parentEntity)
-    //                        Log.d(TAG, "#result success get FSalesCallPlan: >>  ${parentEntity.id}")
+
                             }
 
 //                            Log.d(TAG, "#result success get FSalesCallPlan: >>  ${it} \n")
@@ -205,8 +206,8 @@ class DashBoardViewModel @ViewModelInject constructor(
                         },
                         {
 //                            Log.d(TAG, "#result Dijalankan Subsribe 1")
-                            val currDate = Date()
-                            subscribeCallPlanListThisDay(currDate)
+//                            val currDate = Date()
+//                            subscribeCallPlanListThisDay(currDate)
 //                            Log.d(TAG, "#result Dijalankan Subsribe 2")
                         }
                 )
@@ -227,11 +228,11 @@ class DashBoardViewModel @ViewModelInject constructor(
         }
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe (
+                .subscribe(
                         {},
                         {
 //                            Log.d(TAG, "#result FMaterialGroup3 error  ${it.message}")
-                        },{}
+                        }, {}
                 )
         )
     }
@@ -243,20 +244,14 @@ class DashBoardViewModel @ViewModelInject constructor(
              * Pada Root Harus Hapus Semua dulu semua cabangnya baru Insert
              */
             getFSalesCallPlandItemsUseCase.addCacheListFSalesCallPlandItems(list)
-            /**
-             * HAPUSNYA DI FtPurchaseh yabos: haahah
-             */
-//            getFtPriceAltdItemsUseCase.deleteAllCacheFtPriceAltdItems().also {
-//                getFtPriceAltdItemsUseCase.addCacheListFtPriceAltdItems(list)
-//            }
         }
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe (
+                .subscribe(
                         {},
                         {
 //                            Log.d(TAG, "#result FMaterialGroup3 error  ${it.message}")
-                        },{}
+                        }, {}
                 )
         )
     }
@@ -268,16 +263,131 @@ class DashBoardViewModel @ViewModelInject constructor(
                 .toObservable()
                 .observeOn(AndroidSchedulers.mainThread())
                 .doOnNext {
-                    insertCacheFSalesCallPlandItems(it)
+//                    insertCacheFSalesCallPlandItems(it)
                 }
                 .subscribeOn(Schedulers.io())
                 .subscribe(
                         {
-//                            Log.d(TAG, "#result success FSalesCallPlandItems ${it}")
+//                            Log.d(TAG, "#result success FSalesCallPlandItems: ${it.size} >> ${parentBean.tipeCallPlan} ")
+
+                            val calendar = Calendar.getInstance()
+                            calendar.time = Date()
+                            val calNoTime = Calendar.getInstance()
+                            calNoTime.set(Calendar.YEAR, calendar.get(Calendar.YEAR))
+                            calNoTime.set(Calendar.MONTH, calendar.get(Calendar.MONTH))
+                            calNoTime.set(Calendar.DATE, calendar.get(Calendar.DATE))
+
+                            /**
+                             * 1. Cek is minggu ganjil atau genap
+                             */
+                            val weekOfYear = calNoTime.get(Calendar.WEEK_OF_YEAR)
+                            val mingguGanjilGenap = weekOfYear %2 //akan menghasilakn 0 atau 1
+                            val dayOfWeek = calNoTime.get(Calendar.DAY_OF_WEEK)
+                            val dayOfYear = calNoTime.get(Calendar.DAY_OF_YEAR)
+
+                            if (parentBean.tipeCallPlan.equals(EnumTipeCallPlan.BIWEEKLY)){
+                                /**
+                                 * param1 bernilai
+                                 * 0. Berarti Genap
+                                 * 1. Berarti Ganjil
+                                 */
+                                if (mingguGanjilGenap==parentBean.param1) {
+                                    for (item in it) {
+                                        var refnoManual = dayOfYear + item.fcustomerBean
+
+                                        var newFSaleshBean  :FtSalesh = FtSalesh()
+                                        newFSaleshBean.refno = refnoManual.toLong()
+
+                                        newFSaleshBean.callPlan = true
+                                        newFSaleshBean.fcustomerBean = FCustomer(item.fcustomerBean)
+                                        newFSaleshBean.fdivisionBean = userViewState.fDivision!!
+                                        newFSaleshBean.fwarehouseBean = userViewState.fWarehouse!!
+
+                                        newFSaleshBean.fcustomerPromoToBean = newFSaleshBean.fcustomerBean
+                                        newFSaleshBean.fcustomerShipToBean = newFSaleshBean.fcustomerBean
+
+//                                        Log.d(TAG, "#result >> BiWeekly >> ${dayOfWeek} >> " +
+//                                                "${item.value1} : ${item.value2} : ${item.value3} : ${item.value4} : ${item.value5} : ${item.value6} : ${item.value7}")
+
+                                        if (dayOfWeek==2 && item.value1==true){
+                                            insertCacheFtSalesh(newFSaleshBean)
+                                        }
+                                        if (dayOfWeek==3 && item.value2==true){
+//                                            Log.d(TAG, "#result >> BiWeekly >> ${dayOfWeek} >> ${item.fcustomerBean} >>" +
+//                                                    "${item.value1} : ${item.value2} : ${item.value3} : ${item.value4} : ${item.value5} : ${item.value6} : ${item.value7}")
+
+                                            insertCacheFtSalesh(newFSaleshBean)
+//                                            getFtSaleshUseCase.insertSingleCacheFtSalesh(newFSaleshBean.toEntity())
+                                        }
+                                        if (dayOfWeek==4 && item.value3==true){
+                                            insertCacheFtSalesh(newFSaleshBean)
+                                        }
+                                        if (dayOfWeek==5 && item.value4==true){
+                                            insertCacheFtSalesh(newFSaleshBean)
+                                        }
+                                        if (dayOfWeek==6 && item.value5==true){
+                                            insertCacheFtSalesh(newFSaleshBean)
+                                        }
+                                        if (dayOfWeek==7 && item.value6==true){
+                                            insertCacheFtSalesh(newFSaleshBean)
+                                        }
+                                        if (dayOfWeek==1 && item.value7==true){
+                                            insertCacheFtSalesh(newFSaleshBean)
+                                        }
+
+//                                        Log.d(TAG, "#result success FSalesCallPlandItems ${item} \n")
+
+
+                                    }
+                                }
+
+                            }else{
+                                for (item in it) {
+                                    var refnoManual = dayOfYear + item.fcustomerBean
+
+                                    var newFSaleshBean  :FtSalesh = FtSalesh()
+                                    newFSaleshBean.refno = refnoManual.toLong()
+
+                                    newFSaleshBean.callPlan = true
+                                    newFSaleshBean.fcustomerBean = FCustomer(item.fcustomerBean)
+                                    newFSaleshBean.fdivisionBean = userViewState.fDivision!!
+                                    newFSaleshBean.fwarehouseBean = userViewState.fWarehouse!!
+
+                                    newFSaleshBean.fcustomerPromoToBean = newFSaleshBean.fcustomerBean
+                                    newFSaleshBean.fcustomerShipToBean = newFSaleshBean.fcustomerBean
+
+                                    if (dayOfWeek==2 && item.value1==true){
+                                        insertCacheFtSalesh(newFSaleshBean)
+                                    }
+                                    if (dayOfWeek==3 && item.value2==true){
+                                        insertCacheFtSalesh(newFSaleshBean)
+                                    }
+                                    if (dayOfWeek==4 && item.value3==true){
+                                        insertCacheFtSalesh(newFSaleshBean)
+                                    }
+                                    if (dayOfWeek==5 && item.value4==true){
+                                        insertCacheFtSalesh(newFSaleshBean)
+                                    }
+                                    if (dayOfWeek==6 && item.value5==true){
+                                        insertCacheFtSalesh(newFSaleshBean)
+                                    }
+                                    if (dayOfWeek==7 && item.value6==true){
+                                        insertCacheFtSalesh(newFSaleshBean)
+                                    }
+                                    if (dayOfWeek==1 && item.value7==true){
+                                        insertCacheFtSalesh(newFSaleshBean)
+                                    }
+
+                                }
+
+
+                            }
+
+
                         },
                         {
                             Log.e(TAG, "#result error FSalesCallPlandItems ${it.printStackTrace()}")
-                        } ,{}
+                        }, {}
 
                 )
         compositeDisposable.add(disposable)
@@ -285,16 +395,16 @@ class DashBoardViewModel @ViewModelInject constructor(
 
 
 
-    private fun subscribeCallPlanListThisDay(date: Date){
+    private fun subscribeCallPlanListThisDay_X(date: Date){
 
         getFSalesCallPlandItemsUseCase.getCacheAllFSalesCallPlandItemsSingle()
                 .toObservable()
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribeOn(Schedulers.io())
                 .doOnNext {
-                    Log.d(TAG, "#result success FSalesCallPlandItems ${it}")
+//                    Log.d(TAG, "#result success FSalesCallPlandItems ${it}")
                     for (test in it) {
-                        Log.d(TAG, "#result >> Oke bos ${test}\n")
+//                        Log.d(TAG, "#result >> Oke bos ${test}\n")
                     }
                 }
                 .subscribe{
@@ -324,5 +434,26 @@ class DashBoardViewModel @ViewModelInject constructor(
 //                )
 //        )
 //    }
+
+
+    private fun insertCacheFtSalesh(ftSaleshBean: FtSalesh){
+
+        DisposableManager.add(Observable.fromCallable {
+            getFtSaleshUseCase.insertCacheFtSaleshNoReplace(ftSaleshBean)
+        }
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(
+                        {
+                            Log.d(TAG, "#result success FtSalesh")
+
+                        },
+                        {
+//                            Log.d(TAG, "#result FMaterialGroup3 error  ${it.message}")
+                        }, {}
+                )
+        )
+    }
+
 
 }

@@ -7,7 +7,6 @@ import androidx.lifecycle.*
 import androidx.lifecycle.Observer
 import com.erp.distribution.sfa.data.di.PreferencesManager
 import com.erp.distribution.sfa.data.di.SortOrder
-import com.erp.distribution.sfa.data.source.entity.toDomain
 import com.erp.distribution.sfa.domain.exception.ExceptionHandler
 import com.erp.distribution.sfa.domain.model.FtSalesdItems
 import com.erp.distribution.sfa.domain.model.FtSalesh
@@ -29,7 +28,6 @@ import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.flatMapLatest
 import kotlinx.coroutines.flow.receiveAsFlow
 import kotlinx.coroutines.launch
-import java.util.*
 
 
 class FSaleshViewModel @ViewModelInject constructor(
@@ -96,40 +94,6 @@ class FSaleshViewModel @ViewModelInject constructor(
         updateCacheFtSalesh(ftSalesh.copy(selected = isChecked))
     }
 
-    fun updateCacheFtSalesh(ftSalesh: FtSalesh) = viewModelScope.launch {
-        DisposableManager.add(Observable.fromCallable {
-            getFtSaleshUseCase.putCacheFtSalesh(ftSalesh)
-        }
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(
-                        {},
-                        {
-//                            Log.e(TAG, "#result Error Update ${it}")
-                        }, {}
-                )
-        )
-    }
-
-    fun updateCacheFtSalesd_FromRepo(ftSalesh: FtSalesh, list: List<FtSalesdItems>) = viewModelScope.launch {
-        DisposableManager.add(Observable.fromCallable {
-            getFtSalesdItemsUseCase.deleteAllCacheFtSalesdItemsByFtSalesh(ftSalesh).also {
-                for (data in list){
-                    data.ftSaleshBean = ftSalesh
-                    getFtSalesdItemsUseCase.addCacheFtSalesdItems(data)
-                }
-            }
-        }
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(
-                        {},
-                        {
-//                            Log.e(TAG, "#result Error Update ${it}")
-                        }, {}
-                )
-        )
-    }
 
 
     fun onItemSelected(ftSalesh: FtSalesh) = viewModelScope.launch {
@@ -157,7 +121,7 @@ class FSaleshViewModel @ViewModelInject constructor(
 
     fun onUndoDeleteClick(ftSalesh: FtSalesh) = viewModelScope.launch {
         DisposableManager.add(Observable.fromCallable {
-            getFtSaleshUseCase.addCacheFtSalesh(ftSalesh).also {
+            getFtSaleshUseCase.insertCacheFtSalesh(ftSalesh).also {
                 getFtSalesdItemsUseCase.addCacheListFtSalesdItems(ftSalesh.listFtSalesdItems)
             }
         }
@@ -213,7 +177,6 @@ class FSaleshViewModel @ViewModelInject constructor(
                                 if (ftSaleshBean.sourceId == 0.toLong())
                                     ftSaleshBean.sourceId = System.currentTimeMillis()
 
-
                                 /**
                                  * Ingat createRemoteFtSaleshFromAndroid Android lho ya
                                  */
@@ -223,23 +186,23 @@ class FSaleshViewModel @ViewModelInject constructor(
                                             .toObservable()
                                             .observeOn(AndroidSchedulers.mainThread())
                                             .subscribeOn(Schedulers.io())
-                                            .doOnNext { ftSaleshRepo ->
+                                            .doOnNext { ftSaleshFromRemote ->
                                                 /**
                                                  * refno sudah berubah dengan refno dari server
                                                  */
                                                 ftSaleshBean.stared = true
-                                                if (! ftSaleshRepo.orderno.trim().toLowerCase().contains("new") && ! ftSaleshRepo.orderno.trim().equals(""))  {
+                                                if (! ftSaleshFromRemote.orderno.trim().toLowerCase().contains("new") && ! ftSaleshFromRemote.orderno.trim().equals(""))  {
 
-                                                    val ftSalesh = ftSaleshBean.copy(stared=true, unread = false, orderno = ftSaleshRepo.orderno,
-                                                            orderDate = ftSaleshRepo.orderDate, invoiceDate = ftSaleshRepo.invoiceDate, dueDate = ftSaleshRepo.dueDate,
-                                                            sjPengirimanDate = ftSaleshRepo.sjPengirimanDate, sjPenagihanDate = ftSaleshRepo.sjPenagihanDate,
-                                                            disc1 = ftSaleshRepo.disc1, disc2 = ftSaleshRepo.disc2, discPlus_FG = ftSaleshRepo.discPlus_FG,
+                                                    val ftSalesh = ftSaleshBean.copy(stared=true, unread = false, orderno = ftSaleshFromRemote.orderno,
+                                                            orderDate = ftSaleshFromRemote.orderDate, invoiceDate = ftSaleshFromRemote.invoiceDate, dueDate = ftSaleshFromRemote.dueDate,
+                                                            sjPengirimanDate = ftSaleshFromRemote.sjPengirimanDate, sjPenagihanDate = ftSaleshFromRemote.sjPenagihanDate,
+                                                            disc1 = ftSaleshFromRemote.disc1, disc2 = ftSaleshFromRemote.disc2, discPlus_FG = ftSaleshFromRemote.discPlus_FG,
 
 
-                                                            invoiceno = ftSaleshRepo.invoiceno, amountAfterDiscPlusRpAfterPpn_FG = ftSaleshRepo.amountAfterDiscPlusRpAfterPpn_FG)
+                                                            invoiceno = ftSaleshFromRemote.invoiceno, amountAfterDiscPlusRpAfterPpn_FG = ftSaleshFromRemote.amountAfterDiscPlusRpAfterPpn_FG)
                                                     //LANJUTKAN DIATAS NANTI YA
                                                     updateCacheFtSalesh(ftSalesh)
-                                                    getFtSalesdItemsUseCase.getRemoteAllFtSalesdItemsByFtSalesh(authHeader, ftSaleshRepo.refno)
+                                                    getFtSalesdItemsUseCase.getRemoteAllFtSalesdItemsByFtSalesh(authHeader, ftSaleshFromRemote.refno)
                                                             .toObservable()
                                                             .observeOn(AndroidSchedulers.mainThread())
                                                             .subscribeOn(Schedulers.io())
@@ -251,37 +214,30 @@ class FSaleshViewModel @ViewModelInject constructor(
                                                                         Log.e(TAG, "#result Error Update FtSalesd")
                                                                     }, {}
                                                             )
+                                                    Log.d(TAG, "#result Atas")
 
                                                 }else {
+
+                                                    /**
+                                                     * Masih fresh
+                                                     */
                                                     updateCacheFtSalesh(ftSaleshBean.copy(stared=true))
 
-//                                                Log.d(TAG, "#result OnNext:\n ${it.refno} ")
+                                                    Log.d(TAG, "#result Bawah")
 
-//                                                    for (ftSalesdItems in ftSaleshBean.listFtSalesdItems) {
-//                                                        ftSalesdItems.ftSaleshBean = ftSaleshRepo!!
-//                                                        getFtSalesdItemsUseCase.createRemoteFtSalesdItems(SecurityUtil.getAuthHeader(userViewState.fUser!!.username, userViewState.fUser!!.passwordConfirm), ftSalesdItems)
-//                                                                .toObservable()
-//                                                                .observeOn(AndroidSchedulers.mainThread())
-//                                                                .subscribeOn(Schedulers.io())
-//                                                                .subscribe({
-//                                                                    Log.d(TAG, "#result Items Success ${it}")
-//                                                                }, {
-//                                                                    Log.e(TAG, "#result  Items Error ${it}")
-//                                                                }, {})
-//                                                    }
-
-                                                        getFtSalesdItemsUseCase.createRemoteListFtSalesdItems(SecurityUtil.getAuthHeader(userViewState.fUser!!.username, userViewState.fUser!!.passwordConfirm), ftSaleshBean.listFtSalesdItems.map {
-                                                                it.ftSaleshBean = ftSaleshRepo!!
-                                                                it
-                                                            })
-                                                                .toObservable()
-                                                                .observeOn(AndroidSchedulers.mainThread())
-                                                                .subscribeOn(Schedulers.io())
-                                                                .subscribe({
-                                                                    Log.d(TAG, "#result Items Success ${it}")
-                                                                }, {
-                                                                    Log.e(TAG, "#result  Items Error ${it}")
-                                                                }, {})
+                                                    getFtSalesdItemsUseCase.createRemoteListFtSalesdItems(SecurityUtil.getAuthHeader(userViewState.fUser!!.username, userViewState.fUser!!.passwordConfirm),
+                                                            ftSaleshBean.listFtSalesdItems.map {
+                                                            it.ftSaleshBean = ftSaleshFromRemote!!
+                                                            it
+                                                        })
+                                                            .toObservable()
+                                                            .observeOn(AndroidSchedulers.mainThread())
+                                                            .subscribeOn(Schedulers.io())
+                                                            .subscribe({
+//                                                                Log.d(TAG, "#result Items Success ${it}")
+                                                            }, {
+//                                                                Log.e(TAG, "#result  Items Error ${it}")
+                                                            }, {})
 
                                                 }
 
@@ -290,9 +246,6 @@ class FSaleshViewModel @ViewModelInject constructor(
                                                 /**
                                                  * Change Status of FtSalesh
                                                  */
-
-                                                
-//                                                Log.d(TAG, "#result OnSubscribe:\n ${it.refno} ")
 
                                             }, {
 //                                                Log.e(TAG, "#result Error OnSubscribe:\n ${it} ")
@@ -307,6 +260,41 @@ class FSaleshViewModel @ViewModelInject constructor(
 
         ftSaleshEventChannel.send(FtSaleshEvent.ShowInfoMessage(text))
 
+    }
+
+    fun updateCacheFtSalesh(ftSalesh: FtSalesh) {
+        DisposableManager.add(Observable.fromCallable {
+            getFtSaleshUseCase.putCacheFtSalesh(ftSalesh)
+        }
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(
+                        {},
+                        {
+//                            Log.e(TAG, "#result Error Update ${it}")
+                        }, {}
+                )
+        )
+    }
+
+    fun updateCacheFtSalesd_FromRepo(ftSalesh: FtSalesh, list: List<FtSalesdItems>){
+        DisposableManager.add(Observable.fromCallable {
+            getFtSalesdItemsUseCase.deleteAllCacheFtSalesdItemsByFtSalesh(ftSalesh).also {
+                for (data in list){
+                    data.ftSaleshBean = ftSalesh
+                    getFtSalesdItemsUseCase.addCacheFtSalesdItems(data)
+                }
+            }
+        }
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(
+                        {},
+                        {
+//                            Log.e(TAG, "#result Error Update ${it}")
+                        }, {}
+                )
+        )
     }
 
     private fun showFtSaleshSavedConfirmationMessage(text: String) = viewModelScope.launch {

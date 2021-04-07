@@ -346,8 +346,8 @@
                         android:layout_weight="0.33"
                         android:clickable="true"
                         app:cardCornerRadius="10dp"
-                        android:onClick="@{ ()-> actionActivity.menuJourneyPlan() }"
                         app:cardElevation="5dp">
+<!--                        android:onClick="@{ ()-> actionActivity.menuJourneyPlan() }"-->
 <!--                        android:visibility="@{userActive.username.isEmpty? View.GONE : View.VISIBLE}"-->
 
                         <RelativeLayout
@@ -363,8 +363,8 @@
                                 android:layout_marginBottom="5dp"
                                 android:padding="10dp"
                                 android:scaleType="fitCenter"
-                                android:src="@drawable/ic_calender_check"
-                                app:tint="@color/colorPrimary" />
+                                app:tint="@color/lightGray"/>
+<!--                            android:src="@drawable/ic_calender_check"-->
                             <!--                        app:tint="@color/design_default_color_primary" />-->
 
                             <TextView
@@ -375,10 +375,10 @@
                                 android:layout_centerHorizontal="true"
                                 android:layout_marginBottom="5dp"
                                 android:maxLines="1"
-                                android:text="Journey Plan"
                                 android:textColor="#000"
                                 android:textSize="12sp"
                                 android:textStyle="bold" />
+<!--                            android:text="Journey Plan"-->
 
                         </RelativeLayout>
 
@@ -411,8 +411,9 @@
                                 android:layout_marginBottom="5dp"
                                 android:padding="10dp"
                                 android:scaleType="fitCenter"
-                                android:src="@drawable/ic_motor_cycle"
+                                android:src="@drawable/ic_calender_check"
                                 app:tint="@android:color/holo_blue_bright" />
+<!--                            android:src="@drawable/ic_motor_cycle"-->
 
                             <TextView
                                 android:id="@+id/textView2"
@@ -422,7 +423,7 @@
                                 android:layout_centerHorizontal="true"
                                 android:layout_marginBottom="5dp"
                                 android:maxLines="1"
-                                android:text="Sales Order"
+                                android:text="Sales and CP"
                                 android:textColor="#000"
                                 android:textSize="12sp"
                                 android:textStyle="bold" />

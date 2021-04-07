@@ -108,13 +108,25 @@ class FtSaleshRepositoryImpl(
         return appDatabase.saleshDao.getAllByDivisionLive(divisionId)
     }
 
-    override fun addCacheFtSalesh(ftSaleshEntity: FtSaleshEntity) {
+
+
+    override fun insertCacheFtSalesh(ftSaleshEntity: FtSaleshEntity) {
         return appDatabase.saleshDao.insert(ftSaleshEntity)
+    }
+    override fun insertCacheFtSaleshNoReplace(ftSaleshEntity: FtSaleshEntity) {
+        return appDatabase.saleshDao.insertNoReplace(ftSaleshEntity)
     }
     override fun insertSingleCacheFtSalesh(ftSaleshEntity: FtSaleshEntity): Single<Long> {
         return Single.fromCallable(
                 Callable<Long> {
                     appDatabase.saleshDao.insertSingle(ftSaleshEntity)
+                }
+        )
+    }
+    override fun insertSingleCacheFtSaleshNoReplace(ftSaleshEntity: FtSaleshEntity): Single<Long> {
+        return Single.fromCallable(
+                Callable<Long> {
+                    appDatabase.saleshDao.insertSingleNoReplace(ftSaleshEntity)
                 }
         )
     }

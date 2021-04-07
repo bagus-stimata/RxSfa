@@ -248,7 +248,8 @@ class MainActivity : BaseActivity() {
 
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
-        getMenuInflater().inflate(R.menu.dashboard_menu, menu)
+//        getMenuInflater().inflate(R.menu.dashboard_menu, menu)
+
         return super.onCreateOptionsMenu(menu)
     }
     override fun onOptionsItemSelected(item: MenuItem): Boolean {

@@ -1,6 +1,8 @@
 package com.erp.distribution.sfa.presentation.ui.salesorder.salesorder_list
 
 import android.graphics.Color
+import android.graphics.drawable.Drawable
+import android.graphics.drawable.GradientDrawable
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -12,6 +14,8 @@ import com.erp.distribution.sfa.databinding.AdapterRvItemTemplate2Binding
 import com.erp.distribution.sfa.domain.model.FtSalesh
 import com.erp.distribution.sfa.domain.usecase.GetFCustomerUseCase
 import com.erp.distribution.sfa.presentation.ui.master.material_lama.adapter.NoteAdapter
+import org.jetbrains.anko.Android
+import org.jetbrains.anko.backgroundColor
 import org.jetbrains.anko.textColor
 import java.text.NumberFormat
 import java.text.SimpleDateFormat
@@ -132,6 +136,20 @@ class FtSaleshAdapter(private val listener: OnItemClickListener) :
                     imgStar.setColorFilter(Color.GREEN)
                 }else {
                     imgStar.setColorFilter(Color.GRAY)
+                }
+
+                if (item.callPlan) {
+                    val gradientDrawable = GradientDrawable(
+                            GradientDrawable.Orientation.TOP_BOTTOM,
+                            intArrayOf(Color.parseColor("#e0ffe0"),
+                                    Color.parseColor("#fafcf7"))
+                    );
+                    gradientDrawable.cornerRadius = 0f;
+
+//                Set Gradient
+                    relativeLayout.setBackground(gradientDrawable);
+                }else {
+                    relativeLayout.background = null;
                 }
 
             }

@@ -384,6 +384,7 @@ internal fun FtSaleshEntity.toDomain(): FtSalesh {
         unread = unread,
         selected = selected,
 
+        callPlan = callPlan,
 
         created = created!!,
         modified = modified!!,

@@ -33,8 +33,10 @@ interface FtSaleshRepository {
     fun getCacheFtSaleshById(id: Long): LiveData<FtSaleshEntity>
     fun getCacheAllFtSaleshByDivision(divisionId: Int): LiveData<List<FtSaleshEntity>>
 
-    fun addCacheFtSalesh(ftSaleshEntity: FtSaleshEntity)
+    fun insertCacheFtSalesh(ftSaleshEntity: FtSaleshEntity)
+    fun insertCacheFtSaleshNoReplace(ftSaleshEntity: FtSaleshEntity)
     fun insertSingleCacheFtSalesh(ftSaleshEntity: FtSaleshEntity): Single<Long>
+    fun insertSingleCacheFtSaleshNoReplace(ftSaleshEntity: FtSaleshEntity): Single<Long>
     fun addCacheListFtSalesh(list: List<FtSaleshEntity>)
     fun putCacheFtSalesh(ftSaleshEntity: FtSaleshEntity)
     fun deleteCacheFtSalesh(ftSaleshEntity: FtSaleshEntity)
