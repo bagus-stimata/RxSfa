@@ -5,6 +5,7 @@ import androidx.room.*
 import com.erp.distribution.sfa.data.di.SortOrder
 import com.erp.distribution.sfa.data.source.entity.*
 import kotlinx.coroutines.flow.Flow
+import java.util.*
 
 /**
  * Dao ini belum di koneksikan dengan database manapun
@@ -39,6 +40,10 @@ interface FtSaleshDao {
 
     @Query("DELETE FROM ftSalesh")
     fun deleteAllFtSalesh()
+
+    @Query("DELETE FROM ftSalesh WHERE invoiceDate < :trDate")
+    fun deleteAllBeforeDate(trDate: Date)
+
 
     @Query("SELECT * FROM ftSalesh WHERE refno = :id ")
     fun getAllById(id: Long): FtSaleshEntity

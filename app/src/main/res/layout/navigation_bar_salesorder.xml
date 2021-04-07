@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="fill_parent"
+    android:layout_height="55.0dip"
+    android:orientation="horizontal">
+
+<!--    <LinearLayout-->
+<!--        android:id="@+id/nav_home"-->
+<!--        android:layout_width="0.0dip"-->
+<!--        android:layout_height="fill_parent"-->
+<!--        android:layout_gravity="center"-->
+<!--        android:layout_weight="1.0"-->
+<!--        android:layout_marginTop="2dp"-->
+<!--        android:gravity="center"-->
+<!--        android:orientation="vertical">-->
+
+<!--        <ImageView-->
+<!--            android:layout_width="36.0dip"-->
+<!--            android:layout_height="36.0dip"-->
+<!--            android:scaleType="fitCenter"-->
+<!--            android:src="@drawable/ic_baseline_home_24" />-->
+<!--&lt;!&ndash;        android:tint="@color/white"&ndash;&gt;-->
+
+<!--        <TextView-->
+<!--            android:text="Beranda"-->
+<!--            android:layout_gravity="center"-->
+<!--            android:textSize="10sp"-->
+<!--            android:textColor="@color/white"-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"/>-->
+
+<!--    </LinearLayout>-->
+
+    <LinearLayout
+        android:id="@+id/nav_yesterday"
+        android:layout_width="0.0dip"
+        android:layout_height="fill_parent"
+        android:layout_gravity="center"
+        android:layout_marginTop="2.0dip"
+        android:layout_weight="1.0"
+        android:gravity="center"
+        android:orientation="vertical">
+
+        <ImageView
+            android:layout_marginTop="5dip"
+            android:layout_width="24.0dip"
+            android:layout_height="24.0dip"
+            android:scaleType="fitCenter"
+            android:src="@drawable/ic_baseline_calendar_today_24"
+            app:tint="@color/lightGray" />
+<!--        android:tint="@color/colorWhite"-->
+
+        <TextView
+            android:text="Yesterday"
+            android:layout_gravity="center"
+            android:textSize="10sp"
+            android:textColor="@color/lightGray"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="0.0dip"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_weight="1.0"
+        android:gravity="center"
+        android:orientation="vertical"
+        android:visibility="invisible" />
+
+    <LinearLayout
+        android:id="@+id/nav_today"
+        android:layout_width="0.0dip"
+        android:layout_height="fill_parent"
+        android:layout_gravity="center"
+        android:layout_marginTop="3.0dip"
+        android:layout_weight="1.0"
+        android:gravity="center"
+        android:orientation="vertical">
+
+        <ImageView
+            android:layout_marginTop="5dip"
+            android:layout_width="30.0dip"
+            android:layout_height="30.0dip"
+            android:scaleType="fitCenter"
+            android:src="@drawable/ic_calender_check"
+            app:tint="@color/blue" />
+<!--        android:tint="@color/colorWhite"-->
+
+        <TextView
+            android:text="Today"
+            android:layout_gravity="center"
+            android:textSize="10sp"
+            android:textColor="@color/blue"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+
+    </LinearLayout>
+
+<!--    <LinearLayout-->
+<!--        android:id="@+id/nav_account"-->
+<!--        android:layout_width="0.0dip"-->
+<!--        android:layout_height="fill_parent"-->
+<!--        android:layout_gravity="center"-->
+<!--        android:layout_marginTop="3.0dip"-->
+<!--        android:layout_weight="1.0"-->
+<!--        android:gravity="center"-->
+<!--        android:orientation="vertical">-->
+
+<!--        <ImageView-->
+<!--            android:layout_width="34.0dip"-->
+<!--            android:layout_height="34.0dip"-->
+<!--            android:scaleType="fitCenter"-->
+<!--            android:src="@drawable/ic_hotel" />-->
+<!--&lt;!&ndash;        android:tint="@color/colorWhite"&ndash;&gt;-->
+
+<!--        <TextView-->
+<!--            android:text="Akun"-->
+<!--            android:layout_gravity="center"-->
+<!--            android:textSize="10sp"-->
+<!--            android:textColor="@color/white"-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"/>-->
+
+<!--    </LinearLayout>-->
+
+</LinearLayout>

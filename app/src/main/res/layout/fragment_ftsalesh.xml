@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -10,12 +11,117 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
 
+<!--    <com.google.android.material.floatingactionbutton.FloatingActionButton-->
+<!--        android:id="@+id/fab_add_ftsalesh"-->
+<!--        android:layout_width="wrap_content"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:layout_gravity="bottom|end"-->
+<!--        android:layout_margin="16dp"-->
+<!--        app:fabSize="normal"-->
+<!--        app:layout_anchor="@+id/navigation"-->
+<!--        android:src="@drawable/ic_add" />-->
+
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/fab_add_ftsalesh"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="bottom|end"
-        android:layout_margin="16dp"
-        android:src="@drawable/ic_add" />
+        android:layout_marginBottom="5dp"
+        android:elevation="4dp"
+        android:tint="@android:color/white"
+        android:theme="@style/Theme.MaterialComponents.Light"
+        app:fabSize="normal"
+        app:layout_anchor="@+id/navigation"
+        app:srcCompat="@drawable/ic_add" />
+
+    <com.google.android.material.bottomappbar.BottomAppBar
+        android:id="@+id/navigation"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_gravity="bottom"
+        android:backgroundTint="@color/colorPrimary"
+        android:theme="@style/Theme.MaterialComponents.Light"
+        app:fabAlignmentMode="center"
+        app:fabCradleRoundedCornerRadius="50dp"
+        app:hideOnScroll="true">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="55.0dip"
+            android:layout_gravity="bottom"
+            android:orientation="horizontal">
+
+<!--            <include layout="@layout/navigation_bar_salesorder" />-->
+
+                <LinearLayout
+                    android:id="@+id/nav_yesterday"
+                    android:layout_width="0.0dip"
+                    android:layout_height="fill_parent"
+                    android:layout_gravity="center"
+                    android:layout_marginTop="2.0dip"
+                    android:layout_weight="1.0"
+                    android:gravity="center"
+                    android:orientation="vertical">
+
+                    <ImageView
+                        android:layout_marginTop="5dip"
+                        android:layout_width="24.0dip"
+                        android:layout_height="24.0dip"
+                        android:scaleType="fitCenter"
+                        android:src="@drawable/ic_baseline_calendar_today_24"
+                        app:tint="@color/lightGray" />
+                    <!--        android:tint="@color/colorWhite"-->
+
+                    <TextView
+                        android:text="Yesterday"
+                        android:layout_gravity="center"
+                        android:textSize="10sp"
+                        android:textColor="@color/lightGray"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"/>
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="0.0dip"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_weight="1.0"
+                    android:gravity="center"
+                    android:orientation="vertical"
+                    android:visibility="invisible" />
+
+                <LinearLayout
+                    android:id="@+id/nav_today"
+                    android:layout_width="0.0dip"
+                    android:layout_height="fill_parent"
+                    android:layout_gravity="center"
+                    android:layout_marginTop="3.0dip"
+                    android:layout_weight="1.0"
+                    android:gravity="center"
+                    android:orientation="vertical">
+
+                    <ImageView
+                        android:layout_marginTop="5dip"
+                        android:layout_width="30.0dip"
+                        android:layout_height="30.0dip"
+                        android:scaleType="fitCenter"
+                        android:src="@drawable/ic_calender_check"
+                        app:tint="@color/blue" />
+                    <!--        android:tint="@color/colorWhite"-->
+
+                    <TextView
+                        android:text="Today"
+                        android:layout_gravity="center"
+                        android:textSize="10sp"
+                        android:textColor="@color/blue"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"/>
+
+                </LinearLayout>
+
+        </LinearLayout>
+
+    </com.google.android.material.bottomappbar.BottomAppBar>
+
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

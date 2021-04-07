@@ -101,7 +101,15 @@ class FtSaleshFragment : Fragment(R.layout.fragment_ftsalesh), FtSaleshAdapter.O
              * Add New
              */
             fabAddFtsalesh.setOnClickListener {
+                viewModel.onHideCompletedClick(true)
                 viewModel.onAddNewFtSaleshClick()
+            }
+
+            navToday.setOnClickListener {
+                viewModel.onHideCompletedClick(true)
+            }
+            navYesterday.setOnClickListener {
+                viewModel.onHideCompletedClick(false)
             }
 
             /**
@@ -117,7 +125,7 @@ class FtSaleshFragment : Fragment(R.layout.fragment_ftsalesh), FtSaleshAdapter.O
         /**
          * LOADING LIVE DATA TO VIEW
          */
-        viewModel.ftSaleshWithItemsLive
+        viewModel.ftSaleshLive
             .observe(viewLifecycleOwner) {
                 ftSaleshAdapter.submitList(it)
 

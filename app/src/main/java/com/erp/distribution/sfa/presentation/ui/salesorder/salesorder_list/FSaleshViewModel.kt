@@ -24,10 +24,9 @@ import io.reactivex.rxjava3.core.Observable
 import io.reactivex.rxjava3.schedulers.Schedulers
 import kotlinx.coroutines.CoroutineExceptionHandler
 import kotlinx.coroutines.channels.Channel
-import kotlinx.coroutines.flow.combine
-import kotlinx.coroutines.flow.flatMapLatest
-import kotlinx.coroutines.flow.receiveAsFlow
+import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
+import java.util.*
 
 
 class FSaleshViewModel @ViewModelInject constructor(
@@ -47,6 +46,7 @@ class FSaleshViewModel @ViewModelInject constructor(
     }
 //    val userViewState = state.get<UserViewState>("userViewStateActive")
     var userViewState = UserViewState()
+
 //    var ftSalesh = FtSalesh() //Menggunakan langsung dari adapter
 
     val searchQuery = state.getLiveData("searchQuery", "")
@@ -78,7 +78,7 @@ class FSaleshViewModel @ViewModelInject constructor(
 //        return resultLiveData
 //    }
 
-    val ftSaleshWithItemsLive = getFtSaleshUseCase.getCacheAllFtSaleshWithItemsLive()
+//    val ftSaleshWithItemsLive = getFtSaleshUseCase.getCacheAllFtSaleshWithItemsLive()
 
 
 

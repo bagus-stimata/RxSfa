@@ -176,7 +176,9 @@ class DashBoardViewModel @ViewModelInject constructor(
 
 
 
-
+    fun deleteOldTransaction() = viewModelScope.launch {
+        getFtSaleshUseCase.deleteAllSingleCacheBeforeDate()
+    }
 
     fun subscribeSalesCallPlanh() = viewModelScope.launch {
 

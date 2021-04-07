@@ -6,6 +6,7 @@ import com.erp.distribution.sfa.data.source.entity.*
 import com.erp.distribution.sfa.domain.model.FtSalesh
 import io.reactivex.rxjava3.core.Single
 import kotlinx.coroutines.flow.Flow
+import java.util.*
 
 /**
  * To make an interaction between [AlbumRepositoryImp] & [GetAlbumsUseCase]
@@ -41,6 +42,7 @@ interface FtSaleshRepository {
     fun putCacheFtSalesh(ftSaleshEntity: FtSaleshEntity)
     fun deleteCacheFtSalesh(ftSaleshEntity: FtSaleshEntity)
     fun deleteAllCacheFtSalesh()
+    fun deleteAllSingleCacheBeforeDate(trDate: Date)
 
 
 }

@@ -1,5 +1,6 @@
 package com.erp.distribution.sfa.domain.usecase
 
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.map
 import com.erp.distribution.sfa.data.di.SortOrder
@@ -13,7 +14,9 @@ import com.erp.distribution.sfa.domain.model.toEntity
 import com.erp.distribution.sfa.domain.repository.FCustomerRepository
 import io.reactivex.rxjava3.core.Single
 import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.filter
 import kotlinx.coroutines.flow.map
+import java.util.*
 import java.util.concurrent.Callable
 import javax.inject.Inject
 
@@ -146,8 +149,16 @@ class GetFtSaleshUseCase @Inject constructor(
                 it.fCustomerEntity?.let {
                     ftSaleshBean.fcustomerBean = it.toDomain()
                 }
+
                 ftSaleshBean
+            }.filter {
+                if (hideSelected==true){
+                    it.invoiceDate.before(Date())
+                }else {
+                    it.invoiceDate.equals(Date())
+                }
             }
+
         }
     }
 
@@ -231,4 +242,11 @@ class GetFtSaleshUseCase @Inject constructor(
     fun deleteAllCacheFtSalesh(){
         repository.deleteAllCacheFtSalesh()
     }
+    fun deleteAllSingleCacheBeforeDate(){
+        val cal = Calendar.getInstance()
+        cal.time = Date()
+        cal.add(Calendar.DATE, -2)
+        repository.deleteAllSingleCacheBeforeDate(cal.time)
+    }
+
 }

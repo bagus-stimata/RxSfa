@@ -91,7 +91,7 @@
     <fragment
         android:id="@+id/ftSaleshFragment"
         android:name="com.erp.distribution.sfa.presentation.ui.salesorder.salesorder_list.FtSaleshFragment"
-        android:label="Sales Order"
+        android:label="Sales and CP"
         tools:layout="@layout/fragment_ftsalesh">
         <argument
             android:name="userViewStateActive"

@@ -135,6 +135,8 @@ class DashBoardFragment : Fragment(R.layout.dash_board_fragment) {
     }
 
     fun menuSalesOrder() {
+        dashboardViewModel.deleteOldTransaction()
+
         dashboardViewModel.subscribeSalesCallPlanh()
 
         dashboardViewModel.subscribeUpdateStock()

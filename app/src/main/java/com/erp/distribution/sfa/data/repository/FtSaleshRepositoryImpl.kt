@@ -6,8 +6,10 @@ import com.erp.distribution.sfa.data.source.entity.*
 import com.erp.distribution.sfa.data.source.remote.service_api.RetrofitServiceFtSalesh
 import com.erp.distribution.sfa.data.source.local.database.AppDatabase
 import com.erp.distribution.sfa.domain.repository.FtSaleshRepository
+import io.reactivex.rxjava3.annotations.NonNull
 import io.reactivex.rxjava3.core.Single
 import kotlinx.coroutines.flow.Flow
+import java.util.*
 import java.util.concurrent.Callable
 
 
@@ -145,6 +147,15 @@ class FtSaleshRepositoryImpl(
 
     override fun deleteAllCacheFtSalesh() {
         return appDatabase.saleshDao.deleteAllFtSalesh()
+    }
+
+
+    override fun deleteAllSingleCacheBeforeDate(trDate: Date) {
+        Single.fromCallable(
+                Callable{
+                    appDatabase.saleshDao.deleteAllBeforeDate(trDate)
+                }
+        )
     }
 
 
