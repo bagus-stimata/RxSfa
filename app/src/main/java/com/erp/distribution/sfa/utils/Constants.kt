@@ -11,9 +11,9 @@ object Constants {
 //     const val BASE_URL = "http://192.168.43.214:8989/rest/"
 
 //     const val BASE_URL = "http://jaya-santoso.ddns.net:8989/rest/"
-//     const val BASE_URL = "http://karang4-pmk.ddns.net:8989/rest/"
+     const val BASE_URL = "http://karang4-pmk.ddns.net:8989/rest/"
 //     const val BASE_URL = "http://karang4-bkl.ddns.net:8989/rest/"
-     const val BASE_URL = "http://ssperkasa-jatim.ddns.net:8989/rest/"
+//     const val BASE_URL = "http://ssperkasa-jatim.ddns.net:8989/rest/"
 
 
      //oke tes bos

@@ -15,6 +15,9 @@ interface RetrofitServiceFtSalesh {
     @GET("getAllFtSaleshByDivision/{fdivisionBean}")
     fun getRemoteAllFtSaleshByDivision(@Header("Authorization") authHeader: String?, @Path("fdivisionBean") fdivisionBean: Int): Single<List<FtSaleshEntity>>
 
+    @GET("getAllTotalSalesByFSalesmanThisMonth/{fsalesmanBean}")
+    fun getRemoteAllTotalSalesByFSalesmanThisMonth(@Header("Authorization") authHeader: String?, @Path("fsalesmanBean") fsalesmanBean: Int): Single<Map<String, Double>>
+
 
     @POST("createFtSalesh")
     fun createRemoteFtSalesh(@Header("Authorization") authHeader: String?, @Body ftSaleshEntityBean: FtSaleshEntity): Single<FtSaleshEntity>

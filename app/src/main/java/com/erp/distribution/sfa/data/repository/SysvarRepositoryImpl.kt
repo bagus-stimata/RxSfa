@@ -70,15 +70,13 @@ class SysvarRepositoryImpl(
     override fun deleteCacheSysvar(sysvarEntity: SysvarEntity) {
         return appDatabase.sysvarDao.delete(sysvarEntity)
     }
+    override fun deleteCacheSysvarBySysvarId(sysvarId: String) {
+        return appDatabase.sysvarDao.deleteBySysvarId(sysvarId)
+    }
 
     override fun deleteAllCacheSysvar() {
         return appDatabase.sysvarDao.deleteAllSysvar()
     }
-
-
-//    override fun getRemoteAllData(): Single<List<Sysvar>> {
-//        return retrofitService.getRemoteAllSysvar(authHeader)
-//    }
 
 
 }

@@ -25,7 +25,8 @@ class DashBoardViewModel @ViewModelInject constructor(
         private val getFtSaleshUseCase: GetFtSaleshUseCase,
         private val getFtPriceAltdItemsUseCase: GetFtPriceAltdItemsUseCase,
         private val getFSalesCallPlanhUseCase: GetFSalesCallPlanhUseCase,
-        private val getFSalesCallPlandItemsUseCase: GetFSalesCallPlandItemsUseCase
+        private val getFSalesCallPlandItemsUseCase: GetFSalesCallPlandItemsUseCase,
+        private val getSysvarUseCase: GetSysvarUseCase
 ) : BaseViewModel() {
     override val coroutineExceptionHandler = CoroutineExceptionHandler { _, exception ->
         val message = ExceptionHandler.parse(exception)
@@ -388,7 +389,7 @@ class DashBoardViewModel @ViewModelInject constructor(
 
                         },
                         {
-                            Log.e(TAG, "#result error FSalesCallPlandItems ${it.printStackTrace()}")
+//                            Log.e(TAG, "#result error FSalesCallPlandItems ${it.printStackTrace()}")
                         }, {}
 
                 )
@@ -396,47 +397,55 @@ class DashBoardViewModel @ViewModelInject constructor(
     }
 
 
-
-    private fun subscribeCallPlanListThisDay_X(date: Date){
-
-        getFSalesCallPlandItemsUseCase.getCacheAllFSalesCallPlandItemsSingle()
+    fun subscribeSalesReport() = viewModelScope.launch {
+        val authHeader = SecurityUtil.getAuthHeader(userViewState.fUser!!.username, userViewState.fUser!!.passwordConfirm)
+        getFtSaleshUseCase.getRemoteAllTotalSalesByFSalesmanThisMonth(authHeader, userViewState.fSalesman!!.id)
                 .toObservable()
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribeOn(Schedulers.io())
                 .doOnNext {
-//                    Log.d(TAG, "#result success FSalesCallPlandItems ${it}")
-                    for (test in it) {
-//                        Log.d(TAG, "#result >> Oke bos ${test}\n")
+                    for ((key, value ) in it){
+                        val sysvar  =SysvarEntity()
+                        sysvar.id = 0
+                        sysvar.groupSysvar = "SUMMARY_REPORT"
+                        sysvar.sysvarId = key
+                        sysvar.nilaiDouble1 = value
+                        sysvar.deskripsi = "${key} untuk Summary Report"
+                        insertSysvarForReport(sysvar)
+//                        Log.d(TAG, "#result to insert ${sysvar.sysvarId} >> ${sysvar.groupSysvar}")
                     }
                 }
-                .subscribe{
+                .doAfterNext{
                 }
-
-//        DisposableManager.add(Disposable.fromRunnable(
-//
-//        ))
-//        getFSalesCallPlandItemsUseCase.getCacheAllFSalesCallPlandItems(date)
+                .subscribe(
+                        {
+//                            Log.d(TAG, "#result success get SalesReport: >>  Oke Update ")
+                        },
+                        {
+//                            Log.e(TAG, "#result ERROR get SalesReport: >>  ${Date()} >> \n ${it}")
+                        },
+                        {}
+                )
 
     }
 
-//    fun subscribeCallPlanListThisDay(date: Date) {
-//        DisposableManager.add(Observable.fromCallable{
-//            getFSalesCallPlandItemsUseCase.getCacheAllFSalesCallPlandItems(date).also {
-//
-//            }
-//
-//        }
-//                .subscribeOn(Schedulers.io())
-//                .observeOn(AndroidSchedulers.mainThread())
-//                .subscribe (
-//                        {},
-//                        {
-////                            Log.d(TAG, "#result FMaterialGroup3 error  ${it.message}")
-//                        },{}
-//                )
-//        )
-//    }
+    private fun insertSysvarForReport( sysvar: SysvarEntity){
 
+        DisposableManager.add(Observable.fromCallable {
+            getSysvarUseCase.deleteCacheSyvarBySysvarId(sysvar.sysvarId).also {
+                getSysvarUseCase.addCacheSysvar(sysvar)
+            }
+        }
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(
+                        {},
+                        {
+//                            Log.d(TAG, "#result Sysvar error  ${it.message}")
+                        }, {}
+                )
+        )
+    }
 
     private fun insertCacheFtSalesh(ftSaleshBean: FtSalesh){
 

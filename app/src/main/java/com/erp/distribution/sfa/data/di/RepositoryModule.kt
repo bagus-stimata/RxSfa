@@ -223,4 +223,14 @@ class RepositoryModule {
         return FSalesCallPlandItemsRepositoryImpl(appDatabase, retrofitService)
     }
 
+
+    @Provides
+    fun provideSysvarRepository(
+            appDatabase: AppDatabase,
+            retrofitService: RetrofitServiceSysvar
+    ): SysvarRepository {
+        return SysvarRepositoryImpl(appDatabase, retrofitService)
+    }
+
+
 }

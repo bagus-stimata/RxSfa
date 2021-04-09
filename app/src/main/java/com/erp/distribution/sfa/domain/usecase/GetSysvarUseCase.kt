@@ -61,6 +61,10 @@ class GetSysvarUseCase @Inject constructor(private val repository: SysvarReposit
     fun deleteCacheSysvar(sysvarEntity: SysvarEntity){
         repository.deleteCacheSysvar(sysvarEntity)
     }
+    fun deleteCacheSyvarBySysvarId(sysvarId: String){
+        repository.deleteCacheSysvarBySysvarId(sysvarId)
+    }
+
     fun deleteAllCacheSysvar(){
         repository.deleteAllCacheSysvar()
     }

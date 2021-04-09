@@ -1,24 +1,37 @@
 package com.erp.distribution.sfa.presentation.ui.summary
 
 import android.graphics.Color
+import android.graphics.Typeface
 import android.os.Bundle
-import androidx.fragment.app.Fragment
+import android.view.Menu
+import android.view.MenuInflater
+import android.view.MenuItem
 import android.view.View
+import androidx.activity.OnBackPressedCallback
+import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
+import androidx.navigation.fragment.navArgs
 import com.erp.distribution.sfa.R
 import com.erp.distribution.sfa.databinding.FragmentSummaryBinding
+import com.github.mikephil.charting.components.Description
 import com.github.mikephil.charting.components.IMarker
 import com.github.mikephil.charting.components.Legend
 import com.github.mikephil.charting.components.XAxis
-import com.github.mikephil.charting.data.Entry
-import com.github.mikephil.charting.data.LineData
-import com.github.mikephil.charting.data.LineDataSet
+import com.github.mikephil.charting.data.*
+import com.github.mikephil.charting.highlight.Highlight
+import com.github.mikephil.charting.listener.OnChartValueSelectedListener
+import dagger.hilt.android.AndroidEntryPoint
 import io.reactivex.rxjava3.disposables.CompositeDisposable
 
+@AndroidEntryPoint
 class SummaryFragment : Fragment(R.layout.fragment_summary) {
     val compositeDisposable: CompositeDisposable = CompositeDisposable()
+
     private val TAG = SummaryFragment::class.java.simpleName
+
     val viewModel: SummaryViewModel by viewModels<SummaryViewModel>()
+    private val args: SummaryFragmentArgs by navArgs()
 
     lateinit var viewBinding: FragmentSummaryBinding
 
@@ -27,10 +40,124 @@ class SummaryFragment : Fragment(R.layout.fragment_summary) {
 
         viewBinding = FragmentSummaryBinding.bind(view)
 
-        showChart()
+//        showPieChart()
+//        showLineChart()
+//        showPieChart2()
+//        showPieChart3()
+
+        /**
+         * Agar navigasi BackStage dan tombol android.R.id.hame melewati satu
+         * pintu(method) maka
+         */
+        requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner, object : OnBackPressedCallback(true) {
+            override fun handleOnBackPressed() {
+                myPopBackStack()
+            }
+        })
+
+        this.setHasOptionsMenu(true);
+        /**
+         * LOADING LIVE DATA TO VIEW
+         */
+        viewModel.summaryReportLive
+                .observe(viewLifecycleOwner) {
+
+                    var totalSales = 0f
+                    var targetAmount = 0f
+                    var totalDelivery = 0f
+                    for (sysvar in it){
+                        if (sysvar.sysvarId.equals("salesThisMonth")) totalSales = sysvar.nilaiDouble1.toFloat()
+                        if (sysvar.sysvarId.equals("salesThisMonthTerkirimSaja")) totalDelivery = sysvar.nilaiDouble1.toFloat()
+                        if (sysvar.sysvarId.equals("targetSalesAmount")) {
+                            targetAmount = sysvar.nilaiDouble1.toFloat()
+                        }
+                    }
+                    /**
+                     * Menghindari error pembagian karena null
+                     */
+                    if (totalSales==0f) totalSales = 2f
+                    if (targetAmount <=1) targetAmount = totalSales
+
+                    yDataSales = floatArrayOf(totalSales, targetAmount-totalSales)
+                    xDataSales = arrayOf("Sales Total", "")
+
+                    var persentaseSales = (totalSales/targetAmount) * 100
+                    strPersentaseSales = "${persentaseSales.toInt().toString()}%"
+                    showPieChart2()
+
+
+                    yDataDelivery = floatArrayOf(totalDelivery, totalSales-totalDelivery)
+                    xDataDelivery = arrayOf("Sales Total", "")
+
+                    if (totalDelivery==0f) totalDelivery = 2f
+                    var persentaseDelivery = (totalDelivery/totalSales) * 100
+                    strPersentaseDelivery = "${persentaseDelivery.toInt().toString()}%"
+
+                    showPieChart3()
+
+
+                }
+
     }
 
-    fun showChart() {
+    fun showPieChart(){
+        val pieEntries: ArrayList<PieEntry> = ArrayList()
+        val label = "type"
+
+        //initializing data
+
+        //initializing data
+        val typeAmountMap: MutableMap<String, Int> = HashMap()
+        typeAmountMap["Invoice Amount"] = 100
+        typeAmountMap["TargetAmount"] = 0
+//        typeAmountMap["Clothes"] = 100
+//        typeAmountMap["Stationary"] = 500
+//        typeAmountMap["Phone"] = 50
+
+        //initializing colors for the entries
+
+        //initializing colors for the entries
+        val colors: ArrayList<Int> = ArrayList()
+//        colors.add(Color.parseColor("#304567"))
+//        colors.add(Color.parseColor("#309967"))
+//        colors.add(Color.parseColor("#476567"))
+//        colors.add(Color.parseColor("#890567"))
+//        colors.add(Color.parseColor("#a35567"))
+//        colors.add(Color.parseColor("#ff5f67"))
+//        colors.add(Color.parseColor("#3ca567"))
+
+        colors.add(Color.parseColor("#3ca567"))
+        colors.add(Color.parseColor("#304567"))
+
+        //input data and fit data into pie chart entry
+
+        //input data and fit data into pie chart entry
+        for (type in typeAmountMap.keys) {
+            pieEntries.add(PieEntry(typeAmountMap[type]!!.toFloat(), type))
+        }
+
+        //collecting the entries with label name
+
+        //collecting the entries with label name
+        val pieDataSet = PieDataSet(pieEntries, label)
+        //setting text size of the value
+        //setting text size of the value
+        pieDataSet.valueTextSize = 12f
+        //providing color list for coloring different entries
+        //providing color list for coloring different entries
+        pieDataSet.colors = colors
+        //grouping the data set from entry to chart
+        //grouping the data set from entry to chart
+        val pieData = PieData(pieDataSet)
+        //showing the value of the entries, default true if not set
+        //showing the value of the entries, default true if not set
+        pieData.setDrawValues(true)
+
+        viewBinding.pieChart.setData(pieData)
+        viewBinding.pieChart.invalidate()
+    }
+
+    fun showLineChart() {
         //Konfigurasi Line Chart
         viewBinding.apply {
 
@@ -138,7 +265,219 @@ class SummaryFragment : Fragment(R.layout.fragment_summary) {
             lineChart.data = LineData(salesInvoiceRpLineDataSet, salesDeliveredRpLineDataSet, efectiveCallLineDataSet)
             lineChart.animateXY(100, 500)
         }
+    }
 
+
+    private var yDataSales = floatArrayOf(50.3f, 50f)
+    private var xDataSales = arrayOf("Sales Total", "")
+    private var strPersentaseSales :String = "0"
+
+    private fun showPieChart2(){
+//        pieChart = findViewById(R.id.idPieChart) as PieChart
+        val description :Description = Description()
+        description.text = ""
+        description.textSize = 10f
+//        description.setPosition(200f, 200f)
+        viewBinding.pieChart.description = description
+
+
+        viewBinding.pieChart.isRotationEnabled = true
+//        viewBinding.pieChart.setUsePercentValues(true);
+        //viewBinding.pieChart.setHoleColor(Color.BLUE);
+        //viewBinding.pieChart.setCenterTextColor(Color.BLACK);
+        //viewBinding.pieChart.setUsePercentValues(true);
+        //viewBinding.pieChart.setHoleColor(Color.BLUE);
+        //pieChart.setCenterTextColor(Color.BLACK);
+        viewBinding.pieChart.holeRadius = 45f
+        viewBinding.pieChart.setTransparentCircleAlpha(0)
+        viewBinding.pieChart.centerText = "${strPersentaseSales}"
+        viewBinding.pieChart.setCenterTextSize(25f)
+        viewBinding.pieChart.setCenterTextTypeface(Typeface.DEFAULT_BOLD)
+//        viewBinding.pieChart.setDrawEntryLabels(true);
+//        viewBinding.pieChart.setEntryLabelTextSize(40f)
+        //More options just check out the documentation!
+
+        viewBinding.pieChart.setDrawEntryLabels(true);
+        viewBinding.pieChart.setEntryLabelTextSize(20f);
+        //More options just check out the documentation!
+        addDataSet2()
+
+        viewBinding.pieChart.setOnChartValueSelectedListener(object : OnChartValueSelectedListener {
+            override fun onValueSelected(e: Entry, h: Highlight) {
+                var pos1 = e.toString().indexOf("(sum): ")
+                val sales = e.toString().substring(pos1 + 7)
+                for (i in yDataSales.indices) {
+                    try {
+                        if (yDataSales[i] == sales.toFloat()) {
+                            pos1 = i
+                            break
+                        }
+                    }catch (e: Exception){}
+                }
+                val employee = xDataSales[pos1 + 1]
+            }
+
+            override fun onNothingSelected() {}
+        })
+    }
+
+
+    private fun addDataSet2() {
+
+        val yEntrys = java.util.ArrayList<PieEntry>()
+        val xEntrys = java.util.ArrayList<String>()
+        for (i in yDataSales.indices) {
+            yEntrys.add(PieEntry(yDataSales.get(i), i))
+        }
+        for (i in 1 until xDataSales.size) {
+            xEntrys.add(xDataSales.get(i))
+        }
+
+        //create the data set
+        val pieDataSet = PieDataSet(yEntrys, "Sales")
+        pieDataSet.sliceSpace = 2f
+        pieDataSet.valueTextSize = 12f
+
+
+        //add colors to dataset
+        val colors = java.util.ArrayList<Int>()
+        colors.add(Color.MAGENTA)
+        colors.add(Color.DKGRAY)
+//        colors.add(Color.BLUE)
+//        colors.add(Color.RED)
+//        colors.add(Color.GREEN)
+//        colors.add(Color.CYAN)
+//        colors.add(Color.YELLOW)
+//        colors.add(Color.MAGENTA)
+        pieDataSet.colors = colors
+
+        //add legend to chart
+        val legend: Legend = viewBinding.pieChart.getLegend()
+//        legend.form = Legend.LegendForm.CIRCLE
+//        legend.setPosition(Legend.LegendPosition.LEFT_OF_CHART)
+        legend.orientation = Legend.LegendOrientation.HORIZONTAL
+        legend.form = Legend.LegendForm.DEFAULT
+        legend.direction = Legend.LegendDirection.LEFT_TO_RIGHT
+
+        //create pie data object
+        val pieData = PieData(pieDataSet)
+        viewBinding.pieChart.setData(pieData)
+        viewBinding.pieChart.invalidate()
+    }
+
+    private var yDataDelivery = floatArrayOf(50.3f, 50f)
+    private var xDataDelivery = arrayOf("Delivery", "")
+    private var strPersentaseDelivery :String = "0"
+
+    private fun showPieChart3(){
+//        pieChart = findViewById(R.id.idPieChart) as PieChart
+        val description :Description = Description()
+        description.text = ""
+        description.textSize = 10f
+//        description.setPosition(200f, 200f)
+        viewBinding.pieChart2.description = description
+
+
+        viewBinding.pieChart2.isRotationEnabled = true
+//        viewBinding.pieChart2.setUsePercentValues(true);
+        //viewBinding.pieChart2.setHoleColor(Color.BLUE);
+        //viewBinding.pieChart2.setCenterTextColor(Color.BLACK);
+        //viewBinding.pieChart2.setUsePercentValues(true);
+        //viewBinding.pieChart2.setHoleColor(Color.BLUE);
+        //pieChart2.setCenterTextColor(Color.BLACK);
+        viewBinding.pieChart2.holeRadius = 45f
+        viewBinding.pieChart2.setTransparentCircleAlpha(0)
+        viewBinding.pieChart2.centerText = "${strPersentaseDelivery}"
+        viewBinding.pieChart2.setCenterTextSize(25f)
+        viewBinding.pieChart2.setCenterTextTypeface(Typeface.DEFAULT_BOLD)
+//        viewBinding.pieChart.setDrawEntryLabels(true);
+//        viewBinding.pieChart.setEntryLabelTextSize(40f)
+        //More options just check out the documentation!
+
+        viewBinding.pieChart2.setDrawEntryLabels(true);
+        viewBinding.pieChart2.setEntryLabelTextSize(20f);
+        //More options just check out the documentation!
+        addDataSet3()
+
+        viewBinding.pieChart2.setOnChartValueSelectedListener(object : OnChartValueSelectedListener {
+            override fun onValueSelected(e: Entry, h: Highlight) {
+                var pos1 = e.toString().indexOf("(sum): ")
+                val sales = e.toString().substring(pos1 + 7)
+                for (i in yDataDelivery.indices) {
+                    try {
+                        if (yDataSales[i] == sales.toFloat()) {
+                            pos1 = i
+                            break
+                        }
+                    }catch (e: Exception){}
+                }
+                val employee = xDataDelivery[pos1 + 1]
+            }
+
+            override fun onNothingSelected() {}
+        })
+    }
+
+
+    private fun addDataSet3() {
+
+        val yEntrys = java.util.ArrayList<PieEntry>()
+        val xEntrys = java.util.ArrayList<String>()
+        for (i in yDataDelivery.indices) {
+            yEntrys.add(PieEntry(yDataDelivery.get(i), i))
+        }
+        for (i in 1 until xDataDelivery.size) {
+            xEntrys.add(xDataDelivery.get(i))
+        }
+
+        //create the data set
+        val pieDataSet = PieDataSet(yEntrys, "Delivery")
+        pieDataSet.sliceSpace = 2f
+        pieDataSet.valueTextSize = 12f
+
+
+        //add colors to dataset
+        val colors = java.util.ArrayList<Int>()
+        colors.add(Color.CYAN)
+        colors.add(Color.GRAY)
+//        colors.add(Color.BLUE)
+//        colors.add(Color.RED)
+//        colors.add(Color.GREEN)
+//        colors.add(Color.CYAN)
+//        colors.add(Color.YELLOW)
+//        colors.add(Color.MAGENTA)
+        pieDataSet.colors = colors
+
+        //add legend to chart
+        val legend: Legend = viewBinding.pieChart2.getLegend()
+//        legend.form = Legend.LegendForm.CIRCLE
+//        legend.setPosition(Legend.LegendPosition.LEFT_OF_CHART)
+        legend.orientation = Legend.LegendOrientation.HORIZONTAL
+        legend.form = Legend.LegendForm.DEFAULT
+        legend.direction = Legend.LegendDirection.LEFT_TO_RIGHT
+
+        //create pie data object
+        val pieData = PieData(pieDataSet)
+        viewBinding.pieChart2.setData(pieData)
+        viewBinding.pieChart2.invalidate()
+    }
+
+
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+//        inflater.inflate(R.menu.menu_fragment_fmaterial, menu)
+    }
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        return when (item.itemId) {
+            android.R.id.home -> {
+                myPopBackStack()
+                true
+            }
+            else -> super.onOptionsItemSelected(item)
+        }
+    }
+
+    fun myPopBackStack() {
+        findNavController().popBackStack()
     }
 
 

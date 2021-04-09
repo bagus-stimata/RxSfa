@@ -258,7 +258,8 @@
                                     android:layout_height="40dp"
                                     android:layout_centerHorizontal="true"
                                     android:src="@drawable/ic_reward_prize"
-                                    app:tint="#b042cf" />
+                                    app:tint="@color/lightGray" />
+<!--                                app:tint="#b042cf" />-->
                                 <!--                            app:tint="#E91E63" />-->
 <!--                                android:visibility="@{userActive.username.isEmpty? View.GONE : View.VISIBLE}"-->
 

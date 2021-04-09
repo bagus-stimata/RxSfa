@@ -14,7 +14,9 @@ import java.util.*
 interface FtSaleshRepository {
     fun getRemoteAllFtSalesh(authHeader: String ): Single<List<FtSaleshEntity>>
     fun getRemoteFtSaleshById(authHeader: String, id: Long): Single<FtSaleshEntity>
-    fun getRemoteAllFtSaleshByDivision(authHeader: String, divisionId: Int): Single<List<FtSaleshEntity>>
+    fun getRemoteAllFtSaleshByDivision(authHeader: String, fdivisionBean: Int): Single<List<FtSaleshEntity>>
+    fun getRemoteAllTotalSalesByFSalesmanThisMonth(authHeader: String, fsalesmanBean: Int): Single<Map<String, Double>>
+
     fun createRemoteFtSalesh(fauthHeader: String, tSaleshEntity: FtSaleshEntity): Single<FtSaleshEntity>
     fun createRemoteFtSaleshFromAndroid(fauthHeader: String, tSaleshEntity: FtSaleshEntity): Single<FtSaleshEntity>
     fun putRemoteFtSalesh(authHeader: String, id: Long, ftSaleshEntity: FtSaleshEntity): Single<FtSaleshEntity>

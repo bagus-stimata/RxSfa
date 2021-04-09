@@ -22,6 +22,7 @@ interface SysvarRepository {
     fun addCacheSysvar(sysvarEntity: SysvarEntity)
     fun putCacheSysvar(sysvarEntity: SysvarEntity)
     fun deleteCacheSysvar(sysvarEntity: SysvarEntity)
+    fun deleteCacheSysvarBySysvarId(sysvarId: String)
     fun deleteAllCacheSysvar()
 
 

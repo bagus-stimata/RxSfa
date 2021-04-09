@@ -106,14 +106,14 @@
                         android:layout_height="30.0dip"
                         android:scaleType="fitCenter"
                         android:src="@drawable/ic_calender_check"
-                        app:tint="@color/blue" />
+                        app:tint="@color/lightGray" />
                     <!--        android:tint="@color/colorWhite"-->
 
                     <TextView
                         android:text="Today"
                         android:layout_gravity="center"
                         android:textSize="10sp"
-                        android:textColor="@color/blue"
+                        android:textColor="@color/lightGray"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"/>
 

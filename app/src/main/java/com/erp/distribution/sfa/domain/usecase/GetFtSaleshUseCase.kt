@@ -12,10 +12,14 @@ import com.erp.distribution.sfa.domain.model.FtSalesdItems
 import com.erp.distribution.sfa.domain.model.FtSalesh
 import com.erp.distribution.sfa.domain.model.toEntity
 import com.erp.distribution.sfa.domain.repository.FCustomerRepository
+import com.erp.distribution.sfa.utils.DateTimeUtils
 import io.reactivex.rxjava3.core.Single
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.filter
 import kotlinx.coroutines.flow.map
+import java.time.Instant
+import java.time.chrono.ChronoLocalDate
+import java.time.temporal.ChronoUnit
 import java.util.*
 import java.util.concurrent.Callable
 import javax.inject.Inject
@@ -44,6 +48,10 @@ class GetFtSaleshUseCase @Inject constructor(
     fun getRemoteAllFtSaleshByDivision(authHeader: String, divisionId: Int): Single<List<FtSaleshEntity>>{
         return repository.getRemoteAllFtSaleshByDivision(authHeader, divisionId)
     }
+    fun getRemoteAllTotalSalesByFSalesmanThisMonth(authHeader: String, fsalesmanBean: Int): Single<Map<String, Double>>{
+        return repository.getRemoteAllTotalSalesByFSalesmanThisMonth(authHeader, fsalesmanBean)
+    }
+
     fun createRemoteFtSalesh(authHeader: String, ftSalesh: FtSalesh): Single<FtSalesh>{
         return repository.createRemoteFtSalesh(authHeader, ftSalesh.toEntity()).map {
             it?.let {  it.toDomain()}
@@ -152,10 +160,11 @@ class GetFtSaleshUseCase @Inject constructor(
 
                 ftSaleshBean
             }.filter {
+//                Log.d("#result", "#result ${hideSelected} >> ${DateTimeUtils.getZeroTimeDate(it.invoiceDate) }  >> ${DateTimeUtils.getZeroTimeDate(Date())} ")
                 if (hideSelected==true){
-                    it.invoiceDate.before(Date())
+                    DateTimeUtils.getZeroTimeDate(it.invoiceDate).equals(DateTimeUtils.getZeroTimeDate(Date()))
                 }else {
-                    it.invoiceDate.equals(Date())
+                    DateTimeUtils.getZeroTimeDate(it.invoiceDate).before(DateTimeUtils.getZeroTimeDate(Date()))
                 }
             }
 

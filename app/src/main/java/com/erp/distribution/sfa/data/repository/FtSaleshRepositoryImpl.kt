@@ -6,7 +6,6 @@ import com.erp.distribution.sfa.data.source.entity.*
 import com.erp.distribution.sfa.data.source.remote.service_api.RetrofitServiceFtSalesh
 import com.erp.distribution.sfa.data.source.local.database.AppDatabase
 import com.erp.distribution.sfa.domain.repository.FtSaleshRepository
-import io.reactivex.rxjava3.annotations.NonNull
 import io.reactivex.rxjava3.core.Single
 import kotlinx.coroutines.flow.Flow
 import java.util.*
@@ -30,8 +29,11 @@ class FtSaleshRepositoryImpl(
         return retrofitService.getRemoteFtSaleshById(authHeader, id)
     }
 
-    override fun getRemoteAllFtSaleshByDivision(authHeader: String, divisionId: Int): Single<List<FtSaleshEntity>> {
-        return retrofitService.getRemoteAllFtSaleshByDivision(authHeader, divisionId)
+    override fun getRemoteAllFtSaleshByDivision(authHeader: String, fdivisionBean: Int): Single<List<FtSaleshEntity>> {
+        return retrofitService.getRemoteAllFtSaleshByDivision(authHeader, fdivisionBean)
+    }
+    override fun getRemoteAllTotalSalesByFSalesmanThisMonth(authHeader: String, fsalesmanBean: Int): Single<Map<String, Double>> {
+        return retrofitService.getRemoteAllTotalSalesByFSalesmanThisMonth(authHeader, fsalesmanBean)
     }
 
     override fun createRemoteFtSalesh(authHeader: String, ftSaleshEntity: FtSaleshEntity): Single<FtSaleshEntity> {

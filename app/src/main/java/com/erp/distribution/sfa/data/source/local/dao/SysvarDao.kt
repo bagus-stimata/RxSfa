@@ -3,6 +3,7 @@ package com.erp.distribution.sfa.data.source.local.dao
 import androidx.lifecycle.LiveData
 import androidx.room.*
 import com.erp.distribution.sfa.data.source.entity.SysvarEntity
+import java.sql.RowId
 
 /**
  * Dao ini belum di koneksikan dengan database manapun
@@ -53,5 +54,7 @@ interface SysvarDao {
     @Query("SELECT * FROM sysvar WHERE fdivisionBean = :id ")
     fun getAllByDivisionLive(id: Int): LiveData<List<SysvarEntity>>
 
+    @Query("DELETE FROM sysvar WHERE sysvarId = :sysvarId ")
+    fun deleteBySysvarId(sysvarId: String)
 
 }

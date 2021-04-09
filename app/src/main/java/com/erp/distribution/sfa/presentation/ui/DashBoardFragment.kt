@@ -149,6 +149,7 @@ class DashBoardFragment : Fragment(R.layout.dash_board_fragment) {
     }
 
     fun menuSummary() {
+        dashboardViewModel.subscribeSalesReport()
 
         val action = DashBoardFragmentDirections.actionDashBoardFragmentToSummaryFragment(
             mainViewModel.userViewState
