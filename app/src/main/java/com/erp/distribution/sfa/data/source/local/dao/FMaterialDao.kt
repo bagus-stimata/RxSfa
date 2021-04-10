@@ -32,6 +32,12 @@ interface FMaterialDao {
     @Query("DELETE FROM fMaterial")
     fun deleteAllFMaterial()
 
+    @Query("SELECT * FROM fMaterial WHERE (selected = :hideSelected OR selected = 0 OR selected = NULL) AND (pname LIKE '%' || :searchQuery || '%') ORDER BY pname   LIMIT :limit OFFSET :currentOffset ")
+    fun getAllFMaterialSortedByName(searchQuery: String,  limit: Int, currentOffset: Int, hideSelected: Boolean): Flow<List<FMaterialEntity>>
+
+    @Query("SELECT * FROM fMaterial WHERE (selected = :hideSelected OR selected = 0 OR selected = NULL) AND (pname LIKE '%' || :searchQuery || '%')  ORDER BY created   LIMIT :limit OFFSET :currentOffset ")
+    fun getAllFMaterialSortedByDateCreated(searchQuery: String, limit: Int, currentOffset: Int,  hideSelected: Boolean): Flow<List<FMaterialEntity>>
+
 
     fun getAllFMaterialFlow(query: String, sortOrder: SortOrder, limit: Int, currentOffset: Int, hideSelected: Boolean?): Flow<List<FMaterialWithFDivisionAndVendorAndGroupAndStock>> =
             when (sortOrder) {
@@ -44,12 +50,6 @@ interface FMaterialDao {
                 else -> getAllFMaterialFLow( limit, currentOffset)
             }
 
-    @Query("SELECT * FROM fMaterial WHERE (selected = :hideSelected OR selected = 0 OR selected = NULL) AND (pname LIKE '%' || :searchQuery || '%') ORDER BY pname   LIMIT :limit OFFSET :currentOffset ")
-    fun getAllFMaterialSortedByName(searchQuery: String,  limit: Int, currentOffset: Int, hideSelected: Boolean): Flow<List<FMaterialEntity>>
-
-    @Query("SELECT * FROM fMaterial WHERE (selected = :hideSelected OR selected = 0 OR selected = NULL) AND (pname LIKE '%' || :searchQuery || '%')  ORDER BY created   LIMIT :limit OFFSET :currentOffset ")
-    fun getAllFMaterialSortedByDateCreated(searchQuery: String, limit: Int, currentOffset: Int,  hideSelected: Boolean): Flow<List<FMaterialEntity>>
-
     @Transaction
     @Query("SELECT * FROM fMaterial WHERE pname LIKE '%' || :searchQuery || '%'  OR pcode LIKE '%' || :searchQuery || '%' ORDER BY pname   LIMIT :limit OFFSET :currentOffset ")
     fun getAllFMaterialSortedByNameFLow(searchQuery: String,  limit: Int, currentOffset: Int ): Flow<List<FMaterialWithFDivisionAndVendorAndGroupAndStock>>
@@ -59,6 +59,7 @@ interface FMaterialDao {
     @Transaction
     @Query("SELECT * FROM fMaterial   LIMIT :limit OFFSET :currentOffset ")
     fun getAllFMaterialFLow( limit: Int, currentOffset: Int): Flow<List<FMaterialWithFDivisionAndVendorAndGroupAndStock>>
+
 
 
     @Query("SELECT * FROM fMaterial WHERE id = :id ")

@@ -12,6 +12,7 @@ import java.util.*
 
 @Parcelize
 data class FtSalesh  (
+
         var refno: Long =0,
 
     /*
@@ -20,7 +21,7 @@ data class FtSalesh  (
     * 1. Clone Database. karena tidak mungkin menggunakan Kode External yang bisa jadi kemungkinan kembar, tapi harus pakai kode internal
     * 2. 
     */
-    var sourceId: Long =0,
+        var sourceId: Long =0,
 
     //ORDERNO=SO
         var orderno : String ="",
@@ -28,12 +29,12 @@ data class FtSalesh  (
 
     //INVOICENO
         var invoiceno : String ="",
-//    var priority : Int =0,
+//      var priority : Int =0,
 
     /*
     * ignore/reject promotion rules setting
     */
-    var isNoPromotionRules : Boolean =false,
+        var isNoPromotionRules : Boolean =false,
         var taxNumber : String ="",
         var taxDate : Date =Date(),
 
@@ -62,7 +63,7 @@ data class FtSalesh  (
     * Status Nota: (1)O-Open Sedang dikirim, (2)T-Terkirim, 
     * 		(3)P-Pending Pengiriman, (4)B-Batal Nota Batal Seluruhnya
     */
-    var statusPengiriman: EnumStatusPengiriman = EnumStatusPengiriman.NOTA_OPEN,
+        var statusPengiriman: EnumStatusPengiriman = EnumStatusPengiriman.NOTA_OPEN,
 
     //SURAT JALAN PENGIRIMAIN = DO
         var sjPengirimanNo : String ="",
@@ -202,7 +203,7 @@ data class FtSalesh  (
     /*
     * REQUEST PLAFON
     */
-    var statusRequestDiscount: EnumRequestStatus = EnumRequestStatus.OPEN,
+        var statusRequestDiscount: EnumRequestStatus = EnumRequestStatus.OPEN,
         var statusRequestPlafon: EnumRequestStatus = EnumRequestStatus.OPEN,
         var notes : String ="",
         var tunaiKredit: EnumTunaiKredit = EnumTunaiKredit.T,

@@ -21,6 +21,7 @@ import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.flatMapLatest
 import kotlinx.coroutines.flow.receiveAsFlow
+import kotlinx.coroutines.flow.reduce
 import kotlinx.coroutines.launch
 
 class FMaterialViewModel @ViewModelInject constructor(
@@ -50,7 +51,12 @@ class FMaterialViewModel @ViewModelInject constructor(
     ) { query, filterPreferences ->
         Pair(query, filterPreferences)
     }.flatMapLatest { (query, filterPreferences) ->
-        getFMaterialUseCase.getCacheAllFMaterialFlow(query, filterPreferences.sortOrder, 50, -1, filterPreferences.hideCompleted)
+        if (filterPreferences.hideCompleted ==true){
+            getFMaterialUseCase.getCacheAllFMaterialFlow(query, filterPreferences.sortOrder, 50, -1, filterPreferences.hideCompleted)
+        }else {
+            getFMaterialUseCase
+                    .getCacheAllFMaterialFlow(query, filterPreferences.sortOrder, 3000, -1, filterPreferences.hideCompleted)
+        }
 //        getFMaterialUseCase.getCacheAllFMaterialDomainFlow(query, filterPreferences.sortOrder, filterPreferences.hideCompleted)
     }
 
@@ -187,7 +193,7 @@ class FMaterialViewModel @ViewModelInject constructor(
                 {
                 },
                 {
-                    Log.d(TAG, "#result MATERIAL error  ${it.message}")
+//                    Log.d(TAG, "#result MATERIAL error  ${it.message}")
                 },{}
             )
         )

@@ -8,12 +8,13 @@
         android:icon="@drawable/ic_search"
         android:title="Search"
         app:actionViewClass="androidx.appcompat.widget.SearchView"
-        android:visible="false"
+        android:visible="true"
         app:showAsAction="always|collapseActionView" />
 
     <item
         android:icon="@drawable/ic_sort"
         android:title="Sort"
+        android:visible="false"
         app:showAsAction="always">
 
         <menu>

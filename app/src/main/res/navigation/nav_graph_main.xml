@@ -166,7 +166,7 @@
     <fragment
         android:id="@+id/summaryFragment"
         android:name="com.erp.distribution.sfa.presentation.ui.summary.SummaryFragment"
-        android:label="fragment_summary"
+        android:label="Risalah Penjualan"
         tools:layout="@layout/fragment_summary" >
         <argument
             android:name="userViewStateActive"

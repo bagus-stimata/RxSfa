@@ -1,12 +1,11 @@
 package com.erp.distribution.sfa.presentation.ui.material.material_list
 
+import android.graphics.drawable.AnimationDrawable
 import android.os.Bundle
-import com.erp.distribution.sfa.R
 import android.view.Menu
 import android.view.MenuInflater
 import android.view.MenuItem
 import android.view.View
-import android.widget.Toast
 import androidx.activity.OnBackPressedCallback
 import androidx.appcompat.widget.SearchView
 import androidx.fragment.app.Fragment
@@ -17,11 +16,10 @@ import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.erp.distribution.sfa.R
 import com.erp.distribution.sfa.data.di.SortOrder
 import com.erp.distribution.sfa.databinding.FragmentFmaterialBinding
 import com.erp.distribution.sfa.domain.model.FMaterial
-import com.erp.distribution.sfa.presentation.ui.salesorder.salesorder_addedit.AddEditFtSaleshFragmentArgs
-import com.erp.distribution.sfa.presentation.ui.salesorder.salesorder_qty.AddEditFtSaleshQtyFragment
 import com.erp.distribution.sfa.presentation.ui.utils.AlertDialogWarning
 import com.erp.distribution.sfa.presentation.ui.utils.onQueryTextChanged
 import com.erp.distribution.sfa.utils.exhaustive
@@ -30,6 +28,7 @@ import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.launch
+
 
 @AndroidEntryPoint
 class FMaterialFragment : Fragment(R.layout.fragment_fmaterial), FMaterialAdapter.OnItemClickListener {
@@ -57,7 +56,7 @@ class FMaterialFragment : Fragment(R.layout.fragment_fmaterial), FMaterialAdapte
          * Agar navigasi BackStage dan tombol android.R.id.hame melewati satu
          * pintu(method) maka
          */
-        requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner, object: OnBackPressedCallback(true){
+        requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner, object : OnBackPressedCallback(true) {
             override fun handleOnBackPressed() {
                 myPopBackStack()
             }
@@ -101,7 +100,7 @@ class FMaterialFragment : Fragment(R.layout.fragment_fmaterial), FMaterialAdapte
             /**
              * adapter line
              */
-            val dividerItemDecoration = DividerItemDecoration( context, DividerItemDecoration.VERTICAL)
+            val dividerItemDecoration = DividerItemDecoration(context, DividerItemDecoration.VERTICAL)
             dividerItemDecoration.setDrawable(getResources().getDrawable(R.drawable.rv_divider))
             binding.recyclerViewFMaterial.addItemDecoration(dividerItemDecoration)
 
@@ -139,9 +138,9 @@ class FMaterialFragment : Fragment(R.layout.fragment_fmaterial), FMaterialAdapte
                 when (event) {
                     is FMaterialViewModel.FMaterialEvent.ShowUndoDeleteFMaterialMessage -> {
                         Snackbar.make(requireView(), "Material deleted", Snackbar.LENGTH_LONG)
-                            .setAction("UNDO") {
-                                viewModelFMaterial.onUndoDeleteClick(event.fMaterial)
-                            }.show()
+                                .setAction("UNDO") {
+                                    viewModelFMaterial.onUndoDeleteClick(event.fMaterial)
+                                }.show()
                     }
                     is FMaterialViewModel.FMaterialEvent.NavigateToSalesOrderEditQtyScreen -> {
                         val action = FMaterialFragmentDirections.actionFMaterialFragmentToAddEditFtSaleshQtyFragment(
@@ -178,10 +177,10 @@ class FMaterialFragment : Fragment(R.layout.fragment_fmaterial), FMaterialAdapte
 //                        findNavController().navigate(action)
 
                         val alert =
-                            AlertDialogWarning(
-                                context,
-                                "Hapus Seluruh Data?"
-                            )
+                                AlertDialogWarning(
+                                        context,
+                                        "Hapus Seluruh Data?"
+                                )
                         alert.getButtonOke().setOnClickListener(View.OnClickListener { view: View? ->
                             alert.dismiss()
 
@@ -189,9 +188,9 @@ class FMaterialFragment : Fragment(R.layout.fragment_fmaterial), FMaterialAdapte
 
                         })
                         alert.getButtonCancel()
-                            .setOnClickListener(View.OnClickListener {view: View? ->
-                                alert.dismiss()
-                            })
+                                .setOnClickListener(View.OnClickListener { view: View? ->
+                                    alert.dismiss()
+                                })
                         alert.showDialog()
                     }
 
@@ -218,6 +217,8 @@ class FMaterialFragment : Fragment(R.layout.fragment_fmaterial), FMaterialAdapte
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
         inflater.inflate(R.menu.menu_fragment_fmaterial, menu)
 
+
+
         val searchItem = menu.findItem(R.id.action_search)
         searchView = searchItem.actionView as SearchView
 
@@ -233,7 +234,8 @@ class FMaterialFragment : Fragment(R.layout.fragment_fmaterial), FMaterialAdapte
 
         viewLifecycleOwner.lifecycleScope.launch {
             menu.findItem(R.id.action_hide_inactive).isChecked =
-                viewModelFMaterial.preferencesFlow.first().hideCompleted
+                    viewModelFMaterial.preferencesFlow.first().hideCompleted
+//            menu.findItem(R.id.action_hide_inactive).isChecked = false
         }
 
     }
@@ -257,7 +259,7 @@ class FMaterialFragment : Fragment(R.layout.fragment_fmaterial), FMaterialAdapte
                 viewModelFMaterial.onDeleteAllCompletedClick()
                 true
             }
-            android.R.id.home ->{
+            android.R.id.home -> {
                 myPopBackStack()
                 true
             }

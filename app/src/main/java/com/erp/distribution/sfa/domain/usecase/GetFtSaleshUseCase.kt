@@ -161,10 +161,14 @@ class GetFtSaleshUseCase @Inject constructor(
                 ftSaleshBean
             }.filter {
 //                Log.d("#result", "#result ${hideSelected} >> ${DateTimeUtils.getZeroTimeDate(it.invoiceDate) }  >> ${DateTimeUtils.getZeroTimeDate(Date())} ")
+                var isInCriteria = true
+                if (! query.equals("")) {
+                    if (! it.fcustomerBean.custname.toLowerCase().contains(query.toLowerCase())) isInCriteria =false
+                }
                 if (hideSelected==true){
-                    DateTimeUtils.getZeroTimeDate(it.invoiceDate).equals(DateTimeUtils.getZeroTimeDate(Date()))
+                    DateTimeUtils.getZeroTimeDate(it.invoiceDate).equals(DateTimeUtils.getZeroTimeDate(Date())) && isInCriteria
                 }else {
-                    DateTimeUtils.getZeroTimeDate(it.invoiceDate).before(DateTimeUtils.getZeroTimeDate(Date()))
+                    DateTimeUtils.getZeroTimeDate(it.invoiceDate).before(DateTimeUtils.getZeroTimeDate(Date()))  && isInCriteria
                 }
             }
 
@@ -254,7 +258,7 @@ class GetFtSaleshUseCase @Inject constructor(
     fun deleteAllSingleCacheBeforeDate(){
         val cal = Calendar.getInstance()
         cal.time = Date()
-        cal.add(Calendar.DATE, -2)
+        cal.add(Calendar.DATE, -3)
         repository.deleteAllSingleCacheBeforeDate(cal.time)
     }
 

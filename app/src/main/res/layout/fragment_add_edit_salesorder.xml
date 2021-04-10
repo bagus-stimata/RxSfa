@@ -43,8 +43,10 @@
                 <!--                android:fitsSystemWindows="true"-->
 
                 <RelativeLayout
+                    android:id="@+id/relativeLayout1"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/background_animation_list1">
 
                     <ImageView
                         android:id="@+id/detail_toolbar_image_view"
@@ -63,7 +65,7 @@
                         android:layout_marginLeft="10dp"
                         android:layout_marginRight="10dp"
                         android:gravity="center"
-                        android:textColor="@color/blue"
+                        android:textColor="@color/colorOnPrimary"
                         android:text="@{ftSalesh.fcustomerBean.custname}"
                         android:textSize="20sp" />
 
@@ -313,7 +315,7 @@
                                     android:layout_centerHorizontal="true"
                                     android:src="@drawable/ic_reward_prize"
                                     app:tint="#f03cd2" />
-                                app:tint="@color/lightGray" />
+                                    app:tint="@color/lightGray" />
                                 <!--                                android:visibility="@{userActive.username.isEmpty? View.GONE : View.VISIBLE}"-->
 
                                 <TextView
@@ -368,7 +370,7 @@
             app:srcCompat="@drawable/ic_baseline_person_add_24"
             app:layout_anchor="@id/detail_app_bar_layout"
             android:onClick="@{ () -> actionFragment.chooseAndEditCustomer() }"
-            android:visibility="@{ ftSalesh.amountAfterDiscPlusRpAfterPpn_FG >0   ? View.GONE: View.VISIBLE }"
+            android:visibility="@{ ftSalesh.amountAfterDiscPlusRpAfterPpn_FG >0 | ftSalesh.callPlan==true   ? View.GONE: View.VISIBLE }"
             app:layout_anchorGravity="bottom|end"/>
 
         <com.google.android.material.floatingactionbutton.FloatingActionButton

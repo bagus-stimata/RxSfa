@@ -15,6 +15,7 @@ import com.erp.distribution.sfa.domain.model.toEntity
 import com.erp.distribution.sfa.domain.repository.FStockRepository
 import io.reactivex.rxjava3.core.Single
 import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.filter
 import kotlinx.coroutines.flow.map
 import java.util.*
 import javax.inject.Inject
@@ -101,7 +102,13 @@ class GetFMaterialUseCase @Inject constructor(
                     fmaterialBean.saldoStock = it.saldoAkhir
                 }
                 fmaterialBean
-            }
+            }.filter {
+                if (hideSelected==false){
+                    it.saldoStock >0.0
+                }else {
+                    true
+                }
+            }.take(50)
         }
     }
 

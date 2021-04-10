@@ -2,6 +2,7 @@ package com.erp.distribution.sfa.presentation.ui
 
 import android.app.Activity
 import android.content.Intent
+import android.graphics.drawable.AnimationDrawable
 import android.os.Bundle
 import android.util.Log
 import android.view.Menu
@@ -248,6 +249,7 @@ class MainActivity : BaseActivity() {
 
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
+        //akan ada di semua fragment
 //        getMenuInflater().inflate(R.menu.dashboard_menu, menu)
 
         return super.onCreateOptionsMenu(menu)

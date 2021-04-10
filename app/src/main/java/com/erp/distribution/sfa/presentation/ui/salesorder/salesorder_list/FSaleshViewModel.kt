@@ -51,6 +51,7 @@ class FSaleshViewModel @ViewModelInject constructor(
 
     val searchQuery = state.getLiveData("searchQuery", "")
     val preferencesFlow = preferencesManager.preferencesFlow
+    var showTodayOnly :Boolean =true
 
     private val ftSaleshFlow = combine(
             searchQuery.asFlow(),
@@ -60,7 +61,7 @@ class FSaleshViewModel @ViewModelInject constructor(
     }.flatMapLatest { (query, filterPreferences) ->
         getFtSaleshUseCase.getCacheAllFtSaleshFlow(
                 query,
-                filterPreferences.sortOrder, 75, -1,
+                filterPreferences.sortOrder, 170, -1,
                 filterPreferences.hideCompleted
         )
     }

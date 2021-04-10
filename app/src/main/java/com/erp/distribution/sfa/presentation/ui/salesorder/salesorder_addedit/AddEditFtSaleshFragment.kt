@@ -1,5 +1,6 @@
 package com.erp.distribution.sfa.presentation.ui.salesorder.salesorder_addedit
 
+import android.graphics.drawable.AnimationDrawable
 import android.os.Bundle
 import android.view.MenuItem
 import android.view.View
@@ -42,6 +43,9 @@ class AddEditFtSaleshFragment : Fragment(R.layout.fragment_add_edit_salesorder),
 
     lateinit var binding: FragmentAddEditSalesorderBinding
 
+    lateinit var animationDrawable: AnimationDrawable
+
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
@@ -68,11 +72,19 @@ class AddEditFtSaleshFragment : Fragment(R.layout.fragment_add_edit_salesorder),
         binding = FragmentAddEditSalesorderBinding.bind(view)
         binding.actionFragment = this
 
+
+        animationDrawable = binding.relativeLayout1.getBackground() as AnimationDrawable
+
+        animationDrawable.setEnterFadeDuration(6000)
+        animationDrawable.setExitFadeDuration(2000)
+        animationDrawable.start()
+
         val ftSalesdItemsAdapter = FtSalesdItemsAdapter(this)
 
         requireActivity().onBackPressedDispatcher
-                .addCallback(viewLifecycleOwner, object : OnBackPressedCallback(true){
+                .addCallback(viewLifecycleOwner, object : OnBackPressedCallback(true) {
                     override fun handleOnBackPressed() {
+                        animationDrawable.stop()
                         viewModel.onPopUpBackStackWithTheResult()
                     }
                 })
@@ -108,7 +120,7 @@ class AddEditFtSaleshFragment : Fragment(R.layout.fragment_add_edit_salesorder),
                     /**
                      * Jika Belum dibaca bisa dihapus
                      */
-                    if (viewModel.ftSalesh.unread==true) {
+                    if (viewModel.ftSalesh.unread == true) {
                         val ftSalesdItems = ftSalesdItemsAdapter.currentList[viewHolder.adapterPosition]
                         viewModel.onItemSwiped(ftSalesdItems)
                     }
@@ -121,7 +133,7 @@ class AddEditFtSaleshFragment : Fragment(R.layout.fragment_add_edit_salesorder),
             /**
              * adapter line
              */
-            val dividerItemDecoration = DividerItemDecoration( context, DividerItemDecoration.VERTICAL)
+            val dividerItemDecoration = DividerItemDecoration(context, DividerItemDecoration.VERTICAL)
             dividerItemDecoration.setDrawable(getResources().getDrawable(R.drawable.rv_divider))
             recyclerViewFtsaleshFtsalesditems.addItemDecoration(dividerItemDecoration)
         }
@@ -137,14 +149,14 @@ class AddEditFtSaleshFragment : Fragment(R.layout.fragment_add_edit_salesorder),
 
             viewModel.getCacheFtSaleshByIdLive(it).observe(viewLifecycleOwner, Observer {
                 it?.let {
-    //                    val tempTotal = viewModel.ftSalesh.amountAfterDiscPlusRpAfterPpn_FG
+                    //                    val tempTotal = viewModel.ftSalesh.amountAfterDiscPlusRpAfterPpn_FG
                     viewModel.ftSalesh = it
-    //                    viewModel.ftSalesh.amountAfterDiscPlusRpAfterPpn_FG = tempTotal
+                    //                    viewModel.ftSalesh.amountAfterDiscPlusRpAfterPpn_FG = tempTotal
 
                     var totalNota = 0.0
 
-                    for ((key, data) in viewModel.mutableMapFtSalesdItems){
-                        if(data.fmaterialBean.convfact1>0) {
+                    for ((key, data) in viewModel.mutableMapFtSalesdItems) {
+                        if (data.fmaterialBean.convfact1 > 0) {
                             var totalPrice = (data.qty * data.sprice) / data.fmaterialBean.convfact1 * 1.1
                             totalNota += totalPrice
                             viewModel.ftSalesh = viewModel.ftSalesh.copy(amountAfterDiscPlusRpAfterPpn_FG = totalNota)
@@ -164,9 +176,9 @@ class AddEditFtSaleshFragment : Fragment(R.layout.fragment_add_edit_salesorder),
                                     ftSalesdItemsAdapter.submitList(it)
 
                                     var totalNota = 0.0
-                                    for (data in it){
+                                    for (data in it) {
                                         viewModel.mutableMapFtSalesdItems.put(data.id, data)
-                                        if (data.fmaterialBean.convfact1>0) {
+                                        if (data.fmaterialBean.convfact1 > 0) {
                                             var totalPrice = (data.qty * data.sprice) / data.fmaterialBean.convfact1 * 1.1
                                             totalNota += totalPrice
                                             viewModel.ftSalesh = viewModel.ftSalesh.copy(amountAfterDiscPlusRpAfterPpn_FG = totalNota)
@@ -216,16 +228,16 @@ class AddEditFtSaleshFragment : Fragment(R.layout.fragment_add_edit_salesorder),
                     }
                     is AddEditFtSaleshViewModel.AddEditCustomerOrderEvent.NavigateToSelectMaterialScreen -> {
                         val action = AddEditFtSaleshFragmentDirections.actionAddEditFtSaleshFragmentToFMaterialFragment(
-                            event.userViewState,
-                            event.ftSalesh
+                                event.userViewState,
+                                event.ftSalesh
                         )
                         findNavController().navigate(action)
                     }
                     is AddEditFtSaleshViewModel.AddEditCustomerOrderEvent.NavigateToSelectFtSalesdItemQtyScreen -> {
                         val action = AddEditFtSaleshFragmentDirections.actionAddEditFtSaleshFragmentToAddEditFtSaleshQtyFragment(
-                            event.userViewState,
-                            event.ftSalesh,
-                            event.ftSalesdItems
+                                event.userViewState,
+                                event.ftSalesh,
+                                event.ftSalesdItems
                         )
                         findNavController().navigate(action)
                     }
@@ -265,12 +277,13 @@ class AddEditFtSaleshFragment : Fragment(R.layout.fragment_add_edit_salesorder),
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         return when (item.itemId){
-            android.R.id.home ->{
+            android.R.id.home -> {
 //                if (viewModel.ftSalesh.stared==true && viewModel.ftSalesh.orderno.toLowerCase().contains("new")){
-                if (viewModel.ftSalesh.stared==true  && viewModel.ftSalesh.orderno.toLowerCase().contains("new") ){
+                if (viewModel.ftSalesh.stared == true && viewModel.ftSalesh.orderno.toLowerCase().contains("new")) {
                     viewModel.autoSyncToServer()
                 }
 
+                animationDrawable.stop()
                 viewModel.onPopUpBackStackWithTheResult()
                 true
             }
@@ -289,6 +302,28 @@ class AddEditFtSaleshFragment : Fragment(R.layout.fragment_add_edit_salesorder),
     fun chooseAndEditMaterial() {
         viewModel.onSelectOrEditMaterial()
     }
-    
+
+
+
+
+
+
+
+
+
+//    protected override fun onPause() {
+//        super.onPause()
+//        if (animationDrawable != null && animationDrawable.isRunning) {
+//            animationDrawable.stop()
+//        }
+//    }
+//
+//    protected override fun onResume() {
+//        super.onResume()
+//        if (animationDrawable != null && !animationDrawable.isRunning) {
+//            animationDrawable.start()
+//        }
+//    }
+
 
 }

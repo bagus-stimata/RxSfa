@@ -100,15 +100,26 @@ class FtSaleshFragment : Fragment(R.layout.fragment_ftsalesh), FtSaleshAdapter.O
             /**
              * Add New
              */
+            binding.showTodayOnly = showTodayOnly
+
             fabAddFtsalesh.setOnClickListener {
+                viewModel.showTodayOnly = true
+                binding.showTodayOnly = showTodayOnly
+
                 viewModel.onHideCompletedClick(true)
                 viewModel.onAddNewFtSaleshClick()
             }
 
             navToday.setOnClickListener {
+                viewModel.showTodayOnly = true
+                binding.showTodayOnly = showTodayOnly
+
                 viewModel.onHideCompletedClick(true)
             }
             navYesterday.setOnClickListener {
+                viewModel.showTodayOnly = false
+                binding.showTodayOnly = showTodayOnly
+
                 viewModel.onHideCompletedClick(false)
             }
 

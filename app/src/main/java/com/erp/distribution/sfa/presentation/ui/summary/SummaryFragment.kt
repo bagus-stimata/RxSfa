@@ -439,7 +439,7 @@ class SummaryFragment : Fragment(R.layout.fragment_summary) {
         //add colors to dataset
         val colors = java.util.ArrayList<Int>()
         colors.add(Color.CYAN)
-        colors.add(Color.GRAY)
+        colors.add(Color.DKGRAY)
 //        colors.add(Color.BLUE)
 //        colors.add(Color.RED)
 //        colors.add(Color.GREEN)
