@@ -87,8 +87,6 @@ class GetFMaterialUseCase @Inject constructor(
             it.map {
                 val fmaterialBean = it.fMaterialEntity.toDomain()
 
-//                val division = it.fDivisionEntity.toDomain()
-//                fmaterialBean.fdivisionBean = division
                 it.fDivisionEntity?.let {
                     fmaterialBean.fdivisionBean = it.toDomain()
                 }
@@ -101,14 +99,17 @@ class GetFMaterialUseCase @Inject constructor(
                 it.fStockEntity?.let {
                     fmaterialBean.saldoStock = it.saldoAkhir
                 }
+
                 fmaterialBean
-            }.filter {
-                if (hideSelected==false){
-                    it.saldoStock >0.0
-                }else {
-                    true
-                }
-            }.take(50)
+            }
+//            .filter {
+//                if (hideSelected==false){
+//                    it.saldoStock >0.0
+//                }else {
+//                    true
+//                }
+//            }.take(50)
+
         }
     }
 

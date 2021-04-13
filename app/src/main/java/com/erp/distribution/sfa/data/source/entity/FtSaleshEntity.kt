@@ -289,6 +289,14 @@ data class FtSaleshEntity  (
     //	private FExpedisi fexpedisiBean;
         val fexpedisiBean : Int =0,
 
+        /**
+         * Temporer yang ada di des saja
+         */
+        var tempString1: String ="",
+        var tempInt1: Int = 0,
+        var tempDouble1: Double =0.0,
+
+
 //    @Ignore
 //    val isSelected : Boolean =false,
         val stared: Boolean? = false,
@@ -379,6 +387,10 @@ internal fun FtSaleshEntity.toDomain(): FtSalesh {
         fcustomerShipToBean = FCustomer(fcustomerShipToBean),
         fcustomerPromoToBean = FCustomer(fcustomerPromoToBean),
         fwarehouseBean = FWarehouse(fwarehouseBean),
+
+            tempString1 = tempString1,
+            tempInt1 = tempInt1,
+            tempDouble1 = tempDouble1,
 
         stared = stared,
         unread = unread,

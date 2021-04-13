@@ -89,7 +89,6 @@ class FtSaleshAdapter(private val listener: OnItemClickListener) :
 
 
                 txtCustname.text = item.fcustomerBean.custname
-//                txtCustname.text = "Piye jum"
 
                 txtCustno.text = item.fcustomerBean.custno
                 txtTipeCust.text = item.fcustomerBean.fcustomerGroupBean!!.kode1
@@ -106,17 +105,17 @@ class FtSaleshAdapter(private val listener: OnItemClickListener) :
                 txtInvoiceno.text = item.invoiceno
                 txtInvoicedate.text = sdf.format(item.invoiceDate)
 
-                txtItemSum.text = "${item.listFtSalesdItems.size} items"
-                var total = 0.0
-                for (data in item.listFtSalesdItems){
-                    //inget fmaterial pada relasi ini belum ada
-//                    var totalPrice = (data.qty * data.sprice) /data.fmaterialBean.convfact1 *1.1
-                    var totalPrice = (data.qty * data.sprice)*1.1
-                    total += totalPrice
-                }
+//                var counter = 0
+//                var total = 0.0
+//                for (data in item.listFtSalesdItems){
+//                    var totalPrice = (data.qty * data.sprice)*1.1
+//                    total += totalPrice
+//                    ++counter
+//                }
+                if (item.tempInt1>0) txtItemSum.text = "${item.tempInt1} items"
 
-//                txtTotal.text = "${nf.format(total)}"
                 txtTotal.text = "${nf.format(item.amountAfterDiscPlusRpAfterPpn_FG)}"
+
                 if (item.amountAfterDiscPlusRpAfterPpn_FG==0.0){
                     txtItemSum.textColor = Color.LTGRAY
                     txtTotal.textColor = Color.LTGRAY

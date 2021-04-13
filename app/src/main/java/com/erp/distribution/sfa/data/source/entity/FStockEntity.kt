@@ -11,7 +11,7 @@ import java.util.*
 
 @Parcelize
 @Entity(tableName = "fStock")
-class FStockEntity (
+data class FStockEntity (
     @PrimaryKey
     var refno: Long =0,
 

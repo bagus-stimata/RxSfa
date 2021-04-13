@@ -48,6 +48,11 @@ class DashBoardViewModel @ViewModelInject constructor(
                         {
 //                            Log.d(TAG, "#result success get stock: >>  Oke Update")
                             updateCacheFStockFromRepo(it)
+//                            for (stok in it){
+//                                if (stok.fmaterialBean==14491033){
+//                                    Log.d(TAG, "#result success get stock: >> ${userViewState.fWarehouse!!.id} >>  ${stok.saldoAkhir}")
+//                                }
+//                            }
                         },
                         {
 //                            Log.e(TAG, "#result ERROR get stock: >>  ${Date()} >> \n ${it}")

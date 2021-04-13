@@ -10,7 +10,7 @@ import kotlinx.parcelize.Parcelize
 import java.util.*
 
 @Parcelize
-class FStock (
+data class FStock (
     @PrimaryKey
     var refno: Long =0,
 

@@ -2,6 +2,7 @@ package com.erp.distribution.sfa.presentation.ui.salesorder.salesorder_addedit
 
 import android.graphics.drawable.AnimationDrawable
 import android.os.Bundle
+import android.util.Log
 import android.view.MenuItem
 import android.view.View
 import android.widget.Toast
@@ -154,7 +155,6 @@ class AddEditFtSaleshFragment : Fragment(R.layout.fragment_add_edit_salesorder),
                     //                    viewModel.ftSalesh.amountAfterDiscPlusRpAfterPpn_FG = tempTotal
 
                     var totalNota = 0.0
-
                     for ((key, data) in viewModel.mutableMapFtSalesdItems) {
                         if (data.fmaterialBean.convfact1 > 0) {
                             var totalPrice = (data.qty * data.sprice) / data.fmaterialBean.convfact1 * 1.1
@@ -163,6 +163,7 @@ class AddEditFtSaleshFragment : Fragment(R.layout.fragment_add_edit_salesorder),
                         }
                     }
                     binding.ftSalesh = viewModel.ftSalesh
+
                 }
             })
 

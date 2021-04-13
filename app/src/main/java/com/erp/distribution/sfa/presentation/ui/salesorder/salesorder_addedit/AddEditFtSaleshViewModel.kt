@@ -10,6 +10,7 @@ import com.erp.distribution.sfa.domain.model.toEntity
 import com.erp.distribution.sfa.domain.usecase.GetFtSalesdItemsUseCase
 import com.erp.distribution.sfa.domain.usecase.GetFtSaleshUseCase
 import com.erp.distribution.sfa.presentation.model.UserViewState
+import com.erp.distribution.sfa.presentation.ui.salesorder.salesorder_list.FSaleshViewModel
 import com.erp.distribution.sfa.utils.DisposableManager
 import com.erp.distribution.sfa.utils.SecurityUtil
 import io.reactivex.rxjava3.core.Observable
@@ -202,6 +203,12 @@ class AddEditFtSaleshViewModel @ViewModelInject constructor(
                         if (ftSaleshBean.sourceId == 0.toLong())
                             ftSaleshBean.sourceId = System.currentTimeMillis()
 
+                        // dirubah ini saja
+//                        ftSaleshBean.tempInt1 = ftSalesh.tempInt1 //ini tidak bisa sertamerta terupdate -> jadi harus dipasang pada save juga
+                        ftSaleshBean.amountAfterDiscPlusRpAfterPpn_FG = ftSalesh.amountAfterDiscPlusRpAfterPpn_FG
+
+//                        Log.d(TAG, "#result 1 >> ${ftSalesh.tempInt1}")
+
                         /**
                          * Ingat createRemoteFtSaleshFromAndroid Android lho ya
                          */
@@ -215,6 +222,7 @@ class AddEditFtSaleshViewModel @ViewModelInject constructor(
                                     /**
                                      * refno sudah berubah dengan refno dari server
                                      */
+
                                     ftSaleshBean.stared = true
                                     if (! ftSaleshFromRemote.orderno.trim().toLowerCase().contains("new") && ! ftSaleshFromRemote.orderno.trim().equals(""))  {
 
@@ -250,7 +258,7 @@ class AddEditFtSaleshViewModel @ViewModelInject constructor(
                                         /**
                                          * Masih fresh
                                          */
-                                        updateCacheFtSalesh(ftSaleshBean.copy(stared=true))
+                                        updateCacheFtSalesh(ftSaleshBean.copy(stared=true, tempInt1 = ftSaleshBean.listFtSalesdItems.size))
 
 //                                        Log.d(TAG, "#result Bawah")
 
@@ -263,7 +271,7 @@ class AddEditFtSaleshViewModel @ViewModelInject constructor(
                                                 .observeOn(AndroidSchedulers.mainThread())
                                                 .subscribeOn(Schedulers.io())
                                                 .subscribe({
-                                                    Log.d(TAG, "#result Items Success ${it}")
+//                                                    Log.d(TAG, "#result Items Success ${it}")
                                                 }, {
                                                     Log.e(TAG, "#result  Items Error ${it}")
                                                 }, {})
@@ -275,6 +283,7 @@ class AddEditFtSaleshViewModel @ViewModelInject constructor(
                                     /**
                                      * Change Status of FtSalesh
                                      */
+
 
                                 }, {
 //                                                Log.e(TAG, "#result Error OnSubscribe:\n ${it} ")
@@ -288,11 +297,10 @@ class AddEditFtSaleshViewModel @ViewModelInject constructor(
 
     }
 
-    fun updateCacheFtSalesh(ftSalesh: FtSalesh) {
-//        Log.d(TAG, "#result hello bos header")
+    fun updateCacheFtSalesh(ftSaleshBean: FtSalesh) {
 
         DisposableManager.add(Observable.fromCallable {
-            getFtSaleshUseCase.putCacheFtSalesh(ftSalesh)
+            getFtSaleshUseCase.putCacheFtSalesh(ftSaleshBean)
         }
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
@@ -327,7 +335,6 @@ class AddEditFtSaleshViewModel @ViewModelInject constructor(
                 )
         )
     }
-
 
 
 

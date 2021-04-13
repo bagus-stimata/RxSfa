@@ -51,13 +51,14 @@ class FMaterialViewModel @ViewModelInject constructor(
     ) { query, filterPreferences ->
         Pair(query, filterPreferences)
     }.flatMapLatest { (query, filterPreferences) ->
-        if (filterPreferences.hideCompleted ==true){
-            getFMaterialUseCase.getCacheAllFMaterialFlow(query, filterPreferences.sortOrder, 50, -1, filterPreferences.hideCompleted)
-        }else {
-            getFMaterialUseCase
-                    .getCacheAllFMaterialFlow(query, filterPreferences.sortOrder, 3000, -1, filterPreferences.hideCompleted)
-        }
-//        getFMaterialUseCase.getCacheAllFMaterialDomainFlow(query, filterPreferences.sortOrder, filterPreferences.hideCompleted)
+
+//        if (filterPreferences.hideCompleted ==true){
+//            getFMaterialUseCase.getCacheAllFMaterialFlow(query, filterPreferences.sortOrder, 50, -1, filterPreferences.hideCompleted)
+//        }else {
+//            getFMaterialUseCase
+//                    .getCacheAllFMaterialFlow(query, filterPreferences.sortOrder, 3500, -1, filterPreferences.hideCompleted)
+//        }
+        getFMaterialUseCase.getCacheAllFMaterialFlow(query, filterPreferences.sortOrder, 50, -1, filterPreferences.hideCompleted)
     }
 
     val fMaterialLive = fMaterialFlow.asLiveData()

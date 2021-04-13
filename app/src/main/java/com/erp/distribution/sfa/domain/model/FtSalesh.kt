@@ -3,6 +3,7 @@ package com.erp.distribution.sfa.domain.model
 import android.os.Parcelable
 import androidx.room.Ignore
 import com.erp.distribution.sfa.data.source.entity.FtSaleshEntity
+import com.erp.distribution.sfa.data.source.entity.TemplateString
 import com.erp.distribution.sfa.data.source.entity.modelenum.*
 import com.erp.distribution.sfa.domain.base.Model
 import kotlinx.parcelize.Parcelize
@@ -301,6 +302,12 @@ data class FtSalesh  (
 
 //    @Ignore
 //    var isSelected : Boolean =false,
+        /**
+         * Temporer yang ada di des saja
+         */
+        var tempString1: String ="",
+        var tempInt1: Int = 0,
+        var tempDouble1: Double =0.0,
 
         var stared: Boolean? = false,
         var unread: Boolean? = true, //inget ini un read
@@ -390,6 +397,10 @@ internal fun FtSalesh.toEntity(): FtSaleshEntity {
         fcustomerShipToBean = fcustomerShipToBean.id,
         fcustomerPromoToBean = fcustomerPromoToBean.id,
         fwarehouseBean = fwarehouseBean.id,
+
+        tempString1 = tempString1,
+        tempInt1 = tempInt1,
+        tempDouble1 = tempDouble1,
 
         stared = stared,
         unread = unread,

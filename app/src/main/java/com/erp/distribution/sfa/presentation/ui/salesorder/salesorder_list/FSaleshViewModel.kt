@@ -28,7 +28,6 @@ import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
 import java.util.*
 
-
 class FSaleshViewModel @ViewModelInject constructor(
         private val getFtSaleshUseCase: GetFtSaleshUseCase,
         private val getFtSalesdItemsUseCase: GetFtSalesdItemsUseCase,
@@ -68,6 +67,7 @@ class FSaleshViewModel @ViewModelInject constructor(
 
 
     val ftSaleshLive = ftSaleshFlow.asLiveData()
+
 //    val ftSaleshLive = getFtSaleshUseCase.getCacheAllFtSaleshLive()
 
 //    fun getFtSaleshWithTransform(): LiveData<List<FtSalesh>> {
@@ -95,8 +95,6 @@ class FSaleshViewModel @ViewModelInject constructor(
         updateCacheFtSalesh(ftSalesh.copy(selected = isChecked))
     }
 
-
-
     fun onItemSelected(ftSalesh: FtSalesh) = viewModelScope.launch {
         userViewState?.let {
             ftSaleshEventChannel.send(FtSaleshEvent.NavigateToEditCustomerOrderScreen(userViewState!!, ftSalesh))
@@ -116,7 +114,6 @@ class FSaleshViewModel @ViewModelInject constructor(
                         }, {}
                 )
         )
-
         ftSaleshEventChannel.send(FtSaleshEvent.ShowUndoDeleteFtSaleshMessage(ftSalesh))
     }
 
@@ -198,9 +195,8 @@ class FSaleshViewModel @ViewModelInject constructor(
                                                             orderDate = ftSaleshFromRemote.orderDate, invoiceDate = ftSaleshFromRemote.invoiceDate, dueDate = ftSaleshFromRemote.dueDate,
                                                             sjPengirimanDate = ftSaleshFromRemote.sjPengirimanDate, sjPenagihanDate = ftSaleshFromRemote.sjPenagihanDate,
                                                             disc1 = ftSaleshFromRemote.disc1, disc2 = ftSaleshFromRemote.disc2, discPlus_FG = ftSaleshFromRemote.discPlus_FG,
-
-
                                                             invoiceno = ftSaleshFromRemote.invoiceno, amountAfterDiscPlusRpAfterPpn_FG = ftSaleshFromRemote.amountAfterDiscPlusRpAfterPpn_FG)
+
                                                     //LANJUTKAN DIATAS NANTI YA
                                                     updateCacheFtSalesh(ftSalesh)
                                                     getFtSalesdItemsUseCase.getRemoteAllFtSalesdItemsByFtSalesh(authHeader, ftSaleshFromRemote.refno)
@@ -215,16 +211,16 @@ class FSaleshViewModel @ViewModelInject constructor(
                                                                         Log.e(TAG, "#result Error Update FtSalesd")
                                                                     }, {}
                                                             )
-                                                    Log.d(TAG, "#result Atas")
+//                                                    Log.d(TAG, "#result Atas")
 
                                                 }else {
 
                                                     /**
                                                      * Masih fresh
                                                      */
-                                                    updateCacheFtSalesh(ftSaleshBean.copy(stared=true))
+                                                    updateCacheFtSalesh(ftSaleshBean.copy(stared=true, tempInt1 = ftSaleshBean.listFtSalesdItems.size))
 
-                                                    Log.d(TAG, "#result Bawah")
+//                                                    Log.d(TAG, "#result Bawah")
 
                                                     getFtSalesdItemsUseCase.createRemoteListFtSalesdItems(SecurityUtil.getAuthHeader(userViewState.fUser!!.username, userViewState.fUser!!.passwordConfirm),
                                                             ftSaleshBean.listFtSalesdItems.map {
@@ -263,14 +259,16 @@ class FSaleshViewModel @ViewModelInject constructor(
 
     }
 
-    fun updateCacheFtSalesh(ftSalesh: FtSalesh) {
+    fun updateCacheFtSalesh(ftSaleshBean: FtSalesh) {
         DisposableManager.add(Observable.fromCallable {
-            getFtSaleshUseCase.putCacheFtSalesh(ftSalesh)
+            getFtSaleshUseCase.putCacheFtSalesh(ftSaleshBean)
         }
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(
-                        {},
+                        {
+//                            Log.d(TAG, "#result success ${ftSaleshBean.amountAfterDiscPlusRpAfterPpn_FG}")
+                        },
                         {
 //                            Log.e(TAG, "#result Error Update ${it}")
                         }, {}
@@ -297,6 +295,7 @@ class FSaleshViewModel @ViewModelInject constructor(
                 )
         )
     }
+
 
     private fun showFtSaleshSavedConfirmationMessage(text: String) = viewModelScope.launch {
         ftSaleshEventChannel.send(FtSaleshEvent.ShowFtSaleshSavedConfirmationMessage(text))
